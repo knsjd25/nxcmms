@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DecorAI - Global AI Interior Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+        body { font-family: 'Outfit', sans-serif; transition: all 0.3s ease; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .gradient-btn { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
+    </style>
+</head>
+<body class="bg-[#f8fafc] min-h-screen text-slate-800">
+
+    <div class="fixed top-4 right-4 z-50">
+        <select id="langSwitcher" onchange="changeLanguage(this.value)" class="glass px-3 py-2 rounded-full text-sm font-semibold border-none shadow-md focus:ring-2 ring-indigo-500 cursor-pointer">
+            <option value="en">English</option>
+            <option value="zh">简体中文</option>
+            <option value="es">Español</option>
+            <option value="jp">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="pt">Português</option>
+            <option value="de">Deutsch</option>
+            <option value="fr">Français</option>
+            <option value="ru">Русский</option>
+        </select>
+    </div>
+
+    <div class="max-w-2xl mx-auto py-16 px-6">
+        <header class="text-center mb-12 animate__animated animate__fadeIn">
+            <span id="badge" class="px-3 py-1 text-xs font-semibold text-indigo-600 bg-indigo-50 rounded-full mb-4 inline-block uppercase tracking-wider">AI Powered</span>
+            <h1 id="title" class="text-4xl font-bold tracking-tight mb-3 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">DecorAI</h1>
+            <p id="subtitle" class="text-slate-500 text-lg">AI-powered room transformation in seconds</p>
+        </header>
+
+        <div class="glass p-8 rounded-3xl shadow-xl">
+            <div class="mb-8">
+                <label for="imageInput" class="block w-full border-2 border-dashed border-slate-300 rounded-2xl p-10 text-center cursor-pointer hover:border-indigo-400 hover:bg-indigo-50/30 transition-all">
+                    <div id="uploadText" class="text-sm font-medium text-slate-600">Click to upload room photo</div>
+                    <input type="file" id="imageInput" class="hidden" accept="image/*" />
+                </label>
+            </div>
+
+            <div class="mb-8">
+                <label id="styleLabel" class="block text-sm font-semibold text-slate-700 mb-4 px-1">Select Style</label>
+                <div class="grid grid-cols-2 gap-3">
+                    <button class="border-2 border-slate-100 bg-white p-3 rounded-xl text-sm hover:border-indigo-500 transition-all">✨ <span data-key="style1">Modern</span></button>
+                    <button class="border-2 border-slate-100 bg-white p-3 rounded-xl text-sm hover:border-indigo-500 transition-all">🌿 <span data-key="style2">Nordic</span></button>
+                    <button class="border-2 border-slate-100 bg-white p-3 rounded-xl text-sm hover:border-indigo-500 transition-all">🧁 <span data-key="style3">Creamy</span></button>
+                    <button class="border-2 border-slate-100 bg-white p-3 rounded-xl text-sm hover:border-indigo-500 transition-all">🏭 <span data-key="style4">Industrial</span></button>
+                </div>
+            </div>
+
+            <button onclick="startGenerate()" id="genBtn" class="gradient-btn w-full text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:opacity-90 transition-all">Generate Magic</button>
+        </div>
+
+        <div id="loadingState" class="mt-10 hidden text-center italic text-slate-400 animate__animated animate__pulse animate__infinite">
+            <p id="loadingText">AI is painting your room...</p>
+        </div>
+    </div>
+
+    <script>
+        const i18n = {
+            zh: {
+                badge: "AI 驱动装修", title: "DecorAI 装修大师", subtitle: "上传照片，AI 瞬间重构梦想家园", uploadText: "点击或拖拽上传房间照片",
+                styleLabel: "选择装修风格", style1: "现代简约", style2: "北欧木质", style3: "温柔奶油", style4: "工业复古",
+                genBtn: "立即生成新风格", loadingText: "AI 正在粉刷墙壁，请稍候..."
+            },
+            en: {
+                badge: "AI Powered", title: "DecorAI Master", subtitle: "AI-powered room transformation in seconds", uploadText: "Click or drag to upload room photo",
+                styleLabel: "Select Interior Style", style1: "Modern", style2: "Nordic", style3: "Creamy", style4: "Industrial",
+                genBtn: "Generate My Design", loadingText: "AI is painting your room, please wait..."
+            },
+            es: {
+                badge: "Impulsado por IA", title: "DecorAI Maestro", subtitle: "Transformación de habitaciones en segundos", uploadText: "Haga clic para subir foto",
+                styleLabel: "Seleccionar Estilo", style1: "Moderno", style2: "Nórdico", style3: "Crema", style4: "Industrial",
+                genBtn: "Generar Diseño", loadingText: "La IA está pintando tu habitación..."
+            },
+            jp: {
+                badge: "AI 搭載", title: "DecorAI 匠", subtitle: "AIがあなたの部屋を瞬時にリフォーム", uploadText: "写真をクリックしてアップロード",
+                styleLabel: "スタイルを選択", style1: "モダン", style2: "北欧風", style3: "クリーム", style4: "インダストリアル",
+                genBtn: "デザインを生成する", loadingText: "AIが部屋を模様替えしています..."
+            },
+            ko: {
+                badge: "AI 기반", title: "DecorAI 마스터", subtitle: "AI로 몇 초 만에 완성하는 인테리어 변신", uploadText: "사진을 클릭하거나 드래그하여 업로드",
+                styleLabel: "스타일 선택", style1: "모던", style2: "노르딕", style3: "크리미", style4: "인더스트리얼",
+                genBtn: "디자인 생성하기", loadingText: "AI가 방을 꾸미고 있습니다..."
+            },
+            pt: {
+                badge: "Alimentado por IA", title: "DecorAI Mestre", subtitle: "Transformação de ambientes por IA em segundos", uploadText: "Clique ou arraste para enviar foto",
+                styleLabel: "Selecionar Estilo", style1: "Moderno", style2: "Nórdico", style3: "Suave", style4: "Industrial",
+                genBtn: "Gerar Meu Design", loadingText: "A IA está pintando seu quarto..."
+            },
+            de: {
+                badge: "KI-betrieben", title: "DecorAI Meister", subtitle: "KI-gestützte Raumgestaltung in Sekunden", uploadText: "Klicken oder Foto hierher ziehen",
+                styleLabel: "Stil auswählen", style1: "Modern", style2: "Nordisch", style3: "Pastell", style4: "Industriell",
+                genBtn: "Design generieren", loadingText: "KI gestaltet den Raum neu..."
+            },
+            fr: {
+                badge: "Propulsé par l'IA", title: "Maître DecorAI", subtitle: "Transformation de pièce par IA en quelques secondes", uploadText: "Cliquez ou glissez pour télécharger",
+                styleLabel: "Sélectionner le style", style1: "Moderne", style2: "Nordique", style3: "Crémeux", style4: "Industriel",
+                genBtn: "Générer mon design", loadingText: "L'IA repeint votre pièce..."
+            },
+            ru: {
+                badge: "На базе ИИ", title: "Мастер DecorAI", subtitle: "Преображение комнаты с помощью ИИ за секунды", uploadText: "Нажмите или перетащите фото для загрузки",
+                styleLabel: "Выберите стиль", style1: "Модерн", style2: "Скандинавский", style3: "Кремовый", style4: "Индустриальный",
+                genBtn: "Создать дизайн", loadingText: "ИИ переделывает вашу комнату..."
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.getElementById('badge').innerText = i18n[lang].badge;
+            document.getElementById('title').innerText = i18n[lang].title;
+            document.getElementById('subtitle').innerText = i18n[lang].subtitle;
+            document.getElementById('uploadText').innerText = i18n[lang].uploadText;
+            document.getElementById('styleLabel').innerText = i18n[lang].styleLabel;
+            document.getElementById('genBtn').innerText = i18n[lang].genBtn;
+            document.getElementById('loadingText').innerText = i18n[lang].loadingText;
+            
+            const styleKeys = ['style1', 'style2', 'style3', 'style4'];
+            document.querySelectorAll('[data-key]').forEach((el, index) => {
+                el.innerText = i18n[lang][styleKeys[index]];
+            });
+        }
+
+        function startGenerate() {
+            document.getElementById('genBtn').disabled = true;
+            document.getElementById('loadingState').classList.remove('hidden');
+            setTimeout(() => {
+                alert("API Integration Ready!");
+                document.getElementById('genBtn').disabled = false;
+                document.getElementById('loadingState').classList.add('hidden');
+            }, 3000);
+        }
+
+        window.onload = () => {
+            // 自动检测用户浏览器语言
+            const userLang = navigator.language.substring(0, 2);
+            if (i18n[userLang]) {
+                document.getElementById('langSwitcher').value = userLang;
+                changeLanguage(userLang);
+            } else {
+                changeLanguage('en');
+            }
+        };
+    </script>
+</body>
+</html>
