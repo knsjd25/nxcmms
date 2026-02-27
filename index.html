@@ -10,9 +10,17 @@
   <meta name="description" content="DecorAI：使用 AI 在几秒内为你的房间生成装修方案（现代 / 北欧 / 奶油 / 工业）。上传照片，选择风格，立即预览并下载灵感图。" />
   <meta name="robots" content="index,follow" />
 
-  <!-- Canonical & hreflang (如果你没有多语言独立 URL，保留 x-default 与 en) -->
+  <!-- Canonical & hreflang -->
   <link rel="canonical" href="https://mini-tools.uk/" />
   <link rel="alternate" hreflang="en" href="https://mini-tools.uk/" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/zh/" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/es/" />
+  <link rel="alternate" hreflang="jp" href="https://mini-tools.uk/jp/" />
+  <link rel="alternate" hreflang="ko" href="https://mini-tools.uk/ko/" />
+  <link rel="alternate" hreflang="pt" href="https://mini-tools.uk/pt/" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/de/" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/fr/" />
+  <link rel="alternate" hreflang="ru" href="https://mini-tools.uk/ru/" />
   <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/" />
 
   <!-- Open Graph / Twitter -->
@@ -72,7 +80,7 @@
   }
   </script>
 
-  <!-- 保留你现有的脚本（Analytics / Ads） -->
+  <!-- Analytics / Ads (保留) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -91,14 +99,32 @@
     body { font-family: 'Outfit', sans-serif; transition: all 0.3s ease; }
     .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
     .gradient-btn { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
+    /* 小样式调整 */
+    #langSwitcher { min-width: 120px; }
   </style>
 </head>
 <body class="bg-[#f8fafc] min-h-screen text-slate-800">
+
+  <!-- 语言切换器（恢复并保留所有语言选项） -->
+  <div class="fixed top-4 right-4 z-50">
+    <select id="langSwitcher" onchange="changeLanguage(this.value)" class="glass px-3 py-2 rounded-full text-sm font-semibold border-none shadow-md focus:ring-2 ring-indigo-500 cursor-pointer" aria-label="Select language">
+      <option value="en">English</option>
+      <option value="zh">简体中文</option>
+      <option value="es">Español</option>
+      <option value="jp">日本語</option>
+      <option value="ko">한국어</option>
+      <option value="pt">Português</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Français</option>
+      <option value="ru">Русский</option>
+    </select>
+  </div>
+
   <!-- 可见且对搜索引擎友好的 HTML 内容（默认英文） -->
   <header class="max-w-3xl mx-auto py-12 text-center">
-    <span class="px-3 py-1 text-xs font-semibold text-indigo-600 bg-indigo-50 rounded-full uppercase tracking-wider">AI Powered</span>
-    <h1 class="text-4xl font-bold tracking-tight mt-4 mb-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">DecorAI — Transform your room with AI in seconds</h1>
-    <p class="text-slate-600 text-lg">Upload a photo of your room, choose a style (Modern, Nordic, Creamy, Industrial), and get AI-generated design previews ready to download or share.</p>
+    <span id="badge" class="px-3 py-1 text-xs font-semibold text-indigo-600 bg-indigo-50 rounded-full uppercase tracking-wider">AI Powered</span>
+    <h1 id="title" class="text-4xl font-bold tracking-tight mt-4 mb-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">DecorAI — Transform your room with AI in seconds</h1>
+    <p id="subtitle" class="text-slate-600 text-lg">Upload a photo of your room, choose a style (Modern, Nordic, Creamy, Industrial), and get AI-generated design previews ready to download or share.</p>
   </header>
 
   <main class="max-w-2xl mx-auto px-6 pb-16">
@@ -114,10 +140,10 @@
       <div class="mb-6">
         <label id="styleLabel" class="block text-sm font-semibold text-slate-700 mb-3 px-1">Select Interior Style</label>
         <div class="grid grid-cols-2 gap-3">
-          <button class="style-btn border-2 border-slate-100 bg-white p-3 rounded-xl text-sm hover:border-indigo-500 transition-all" data-key="style1">✨ <span data-key="style1-text">Modern</span></button>
-          <button class="style-btn border-2 border-slate-100 bg-white p-3 rounded-xl text-sm hover:border-indigo-500 transition-all" data-key="style2">🌿 <span data-key="style2-text">Nordic</span></button>
-          <button class="style-btn border-2 border-slate-100 bg-white p-3 rounded-xl text-sm hover:border-indigo-500 transition-all" data-key="style3">🧁 <span data-key="style3-text">Creamy</span></button>
-          <button class="style-btn border-2 border-slate-100 bg-white p-3 rounded-xl text-sm hover:border-indigo-500 transition-all" data-key="style4">🏭 <span data-key="style4-text">Industrial</span></button>
+          <button class="style-btn border-2 border-slate-100 bg-white p-3 rounded-xl text-sm hover:border-indigo-500 transition-all" data-style="style1">✨ <span data-key="style1">Modern</span></button>
+          <button class="style-btn border-2 border-slate-100 bg-white p-3 rounded-xl text-sm hover:border-indigo-500 transition-all" data-style="style2">🌿 <span data-key="style2">Nordic</span></button>
+          <button class="style-btn border-2 border-slate-100 bg-white p-3 rounded-xl text-sm hover:border-indigo-500 transition-all" data-style="style3">🧁 <span data-key="style3">Creamy</span></button>
+          <button class="style-btn border-2 border-slate-100 bg-white p-3 rounded-xl text-sm hover:border-indigo-500 transition-all" data-style="style4">🏭 <span data-key="style4">Industrial</span></button>
         </div>
       </div>
 
@@ -153,7 +179,7 @@
     <p>© <span id="year"></span> mini-tools.uk — <a href="/privacy" class="underline">Privacy</a> • <a href="/terms" class="underline">Terms</a></p>
   </footer>
 
-  <!-- noscript 回退，帮助无 JS 的爬虫/用户看到基本信息 -->
+  <!-- noscript 回退 -->
   <noscript>
     <div style="max-width:800px;margin:0 auto;padding:20px;background:#fff;border-radius:12px;">
       <h2>DecorAI — AI 室内设计</h2>
@@ -161,12 +187,12 @@
     </div>
   </noscript>
 
-  <!-- 你的多语言与交互脚本（改进：默认 HTML 可见内容已存在，脚本仅切换文案与行为） -->
+  <!-- 多语言与交互脚本：保留并恢复完整语言内容及选择器的行为 -->
   <script>
-    // 小工具：默认年份
+    // 默认年份
     document.getElementById('year').innerText = new Date().getFullYear();
 
-    // 保留并扩展你原来的 i18n 对象（只保留 english/zh 两组示例）
+    // 完整 i18n（保留所有语言文本）
     const i18n = {
       zh: {
         badge: "AI 驱动装修", title: "DecorAI 装修大师", subtitle: "上传照片，AI 瞬间重构梦想家园", uploadText: "点击或拖拽上传房间照片",
@@ -177,34 +203,71 @@
         badge: "AI Powered", title: "DecorAI Master", subtitle: "AI-powered room transformation in seconds", uploadText: "Click or drag to upload room photo",
         styleLabel: "Select Interior Style", style1: "Modern", style2: "Nordic", style3: "Creamy", style4: "Industrial",
         genBtn: "Generate My Design", loadingText: "AI is painting your room, please wait..."
+      },
+      es: {
+        badge: "Impulsado por IA", title: "DecorAI Maestro", subtitle: "Transformación de habitaciones en segundos", uploadText: "Haga clic para subir foto",
+        styleLabel: "Seleccionar Estilo", style1: "Moderno", style2: "Nórdico", style3: "Crema", style4: "Industrial",
+        genBtn: "Generar Diseño", loadingText: "La IA está pintando tu habitación..."
+      },
+      jp: {
+        badge: "AI 搭載", title: "DecorAI 匠", subtitle: "AIがあなたの部屋を瞬時にリフォーム", uploadText: "写真をクリックしてアップロード",
+        styleLabel: "スタイルを選択", style1: "モダン", style2: "北欧風", style3: "クリーム", style4: "インダストリアル",
+        genBtn: "デザインを生成する", loadingText: "AIが部屋を模様替えしています..."
+      },
+      ko: {
+        badge: "AI 기반", title: "DecorAI 마스터", subtitle: "AI로 몇 초 만에 완성하는 인테리어 변신", uploadText: "사진을 클릭하거나 드래그하여 업로드",
+        styleLabel: "스타일 선택", style1: "모던", style2: "노르딕", style3: "크리미", style4: "인더스트리얼",
+        genBtn: "디자인 생성하기", loadingText: "AI가 방을 꾸미고 있습니다..."
+      },
+      pt: {
+        badge: "Alimentado por IA", title: "DecorAI Mestre", subtitle: "Transformação de ambientes por IA em segundos", uploadText: "Clique ou arraste para enviar foto",
+        styleLabel: "Selecionar Estilo", style1: "Moderno", style2: "Nórdico", style3: "Suave", style4: "Industrial",
+        genBtn: "Gerar Meu Design", loadingText: "A IA está pintando seu quarto..."
+      },
+      de: {
+        badge: "KI-betrieben", title: "DecorAI Meister", subtitle: "KI-gestützte Raumgestaltung in Sekunden", uploadText: "Klicken oder Foto hierher ziehen",
+        styleLabel: "Stil auswählen", style1: "Modern", style2: "Nordisch", style3: "Pastell", style4: "Industriell",
+        genBtn: "Design generieren", loadingText: "KI gestaltet den Raum neu..."
+      },
+      fr: {
+        badge: "Propulsé par l'IA", title: "Maître DecorAI", subtitle: "Transformation de pièce par IA en quelques secondes", uploadText: "Cliquez ou glissez pour télécharger",
+        styleLabel: "Sélectionner le style", style1: "Moderne", style2: "Nordique", style3: "Crémeux", style4: "Industriel",
+        genBtn: "Générer mon design", loadingText: "L'IA repeint votre pièce..."
+      },
+      ru: {
+        badge: "На базе ИИ", title: "Мастер DecorAI", subtitle: "Преображение комнаты с помощью ИИ за секунды", uploadText: "Нажмите или перетащите фото для загрузки",
+        styleLabel: "Выберите стиль", style1: "Модерн", style2: "Скандинавский", style3: "Кремовый", style4: "Индустриальный",
+        genBtn: "Создать дизайн", loadingText: "ИИ переделывает вашу комнату..."
       }
     };
 
-    function changeLanguage(lang){
-      // 只切换页面中需要动态替换的文本
-      const map = {
-        'badge': i18n[lang]?.badge,
-        'title': i18n[lang]?.title,
-        'subtitle': i18n[lang]?.subtitle,
-        'uploadText': i18n[lang]?.uploadText,
-        'styleLabel': i18n[lang]?.styleLabel,
-        'genBtn': i18n[lang]?.genBtn,
-        'loadingText': i18n[lang]?.loadingText
-      };
-      if(map.badge) {
-        // header 文本（如果需要可扩展）
-      }
-      // 把上传提示与 style 文案改掉
-      document.getElementById('uploadText').innerText = map.uploadText || i18n.en.uploadText;
-      document.getElementById('styleLabel').innerText = map.styleLabel || i18n.en.styleLabel;
-      document.getElementById('genBtn').innerText = map.genBtn || i18n.en.genBtn;
-      document.getElementById('loadingText').innerText = map.loadingText || i18n.en.loadingText;
+    // 切换语言的函数（会更新页面中所有可切换的文本）
+    function changeLanguage(lang) {
+      const data = i18n[lang] || i18n.en;
+      // 顶部 header 文本
+      document.getElementById('badge').innerText = data.badge;
+      document.getElementById('title').innerText = data.title;
+      document.getElementById('subtitle').innerText = data.subtitle;
 
-      const styleKeys = ['style1','style2','style3','style4'];
-      document.querySelectorAll('[data-key]').forEach((el, index) => {
-        const key = styleKeys[index];
-        if(i18n[lang] && i18n[lang][key]) el.innerText = i18n[lang][key];
+      // 上传提示、风格标签、按钮、加载提示
+      document.getElementById('uploadText').innerText = data.uploadText;
+      document.getElementById('styleLabel').innerText = data.styleLabel;
+      document.getElementById('genBtn').innerText = data.genBtn;
+      document.getElementById('loadingText').innerText = data.loadingText || i18n.en.loadingText;
+
+      // 四个风格按钮的文字（使用 data-key 对应）
+      const styleKeys = ['style1', 'style2', 'style3', 'style4'];
+      styleKeys.forEach(k => {
+        document.querySelectorAll('[data-key]').forEach(el => {
+          if (el.getAttribute('data-key') === k) {
+            el.innerText = data[k];
+          }
+        });
       });
+
+      // 同步 language select（如果脚本内部调用）
+      const sel = document.getElementById('langSwitcher');
+      if (sel && sel.value !== lang) sel.value = lang;
     }
 
     // 文件预览与 basic validation
@@ -225,21 +288,33 @@
 
     function startGenerate(){
       const preview = document.getElementById('uploadPreview').querySelector('img');
-      if(!preview) { alert('Please upload a photo first'); return; }
+      if(!preview) {
+        // 如果当前语言为中文，用中文提示；否则使用英文。
+        const lang = document.getElementById('langSwitcher').value;
+        const msg = (lang === 'zh') ? '请先上传照片' : 'Please upload a photo first';
+        alert(msg);
+        return;
+      }
       document.getElementById('genBtn').disabled = true;
       document.getElementById('loadingState').classList.remove('hidden');
-      // 这里是占位：你应在此处调用后端 API 上传图片并接收 AI 结果
+      // TODO: 这里集成你的后端 API 上传与请求 AI 生成逻辑（替换占位延时）
       setTimeout(() => {
-        alert("API Integration Ready! (replace this placeholder with real API call)");
+        const lang = document.getElementById('langSwitcher').value;
+        const readyMsg = (lang === 'zh') ? 'API 已就绪！（请把占位符替换为实际 API）' : 'API Integration Ready! (replace this placeholder with real API call)';
+        alert(readyMsg);
         document.getElementById('genBtn').disabled = false;
         document.getElementById('loadingState').classList.add('hidden');
       }, 2500);
     }
 
-    // 自动按浏览器语言切换（若需要）
+    // 页面加载时根据浏览器语言自动切换（并保证 select 与页面同步）
     window.addEventListener('load', () => {
-      const lang = navigator.language ? navigator.language.substring(0,2) : 'en';
-      if(i18n[lang]) changeLanguage(lang);
+      const userLang = navigator.language ? navigator.language.substring(0,2) : 'en';
+      const initialLang = (i18n[userLang]) ? userLang : 'en';
+      // 设置 select 的值并切换页面语言
+      const sel = document.getElementById('langSwitcher');
+      if(sel) sel.value = initialLang;
+      changeLanguage(initialLang);
     });
   </script>
 </body>
