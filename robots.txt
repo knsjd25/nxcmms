@@ -1,4 +1,5 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://example.com/sitemap.xml
+
+Sitemap: https://mini-tools.uk/sitemap.xml
