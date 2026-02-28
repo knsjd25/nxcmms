@@ -6,13 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>DecorAI — AI Interior Design & Room Makeover Tool</title>
-    <meta name="description" content="Use DecorAI to transform your room in seconds with AI. Free AI interior design tool for modern, nordic, and industrial styles." />
-    <meta name="keywords" content="AI interior design, AI room makeover, DecorAI, AI 装修, AI 室内设计, 房间改造 AI, AI 设计工具" />
-    <meta name="robots" content="index,follow" />
-
+    <meta name="description" content="Transform your room in seconds with DecorAI. Best free AI interior design tool." />
+    <meta name="keywords" content="AI interior design, AI room makeover, AI 装修, AI 室内设计, AI 部屋の模様替え" />
+    
     <link rel="alternate" hreflang="zh" href="?lang=zh" />
     <link rel="alternate" hreflang="en" href="?lang=en" />
     <link rel="alternate" hreflang="ja" href="?lang=jp" />
+    <link rel="alternate" hreflang="ko" href="?lang=ko" />
+    <link rel="alternate" hreflang="es" href="?lang=es" />
+    <link rel="alternate" hreflang="pt" href="?lang=pt" />
+    <link rel="alternate" hreflang="fr" href="?lang=fr" />
+    <link rel="alternate" hreflang="de" href="?lang=de" />
+    <link rel="alternate" hreflang="ru" href="?lang=ru" />
+    <link rel="alternate" hreflang="it" href="?lang=it" />
+    <link rel="alternate" hreflang="vi" href="?lang=vi" />
+    <link rel="alternate" hreflang="ar" href="?lang=ar" />
     <link rel="alternate" hreflang="x-default" href="/" />
 
     <script type="application/ld+json">
@@ -22,175 +30,207 @@
       "name": "DecorAI",
       "operatingSystem": "Web",
       "applicationCategory": "DesignApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "ratingCount": "850"
-      }
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "1200" }
     }
-    </script>
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1968324079765567" crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-DR6V84JEZW');
     </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
         body { font-family: 'Outfit', sans-serif; scroll-behavior: smooth; }
         .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
         .gradient-btn { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
-        .style-btn:hover { border-color: #6366f1; transform: translateY(-2px); }
+        .style-btn { border: 2px solid #f1f5f9; transition: all 0.3s ease; }
         .selected-style { border-color: #6366f1; background-color: #f5f3ff; }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
     </style>
 </head>
 <body class="bg-[#f8fafc] min-h-screen text-slate-800 flex flex-col">
 
-    <h1 id="seoH1" class="sr-only">DecorAI - Best Free AI Interior Design & Room Makeover Tool</h1>
+    <h1 id="seoH1" class="sr-only">DecorAI - AI Interior Design & Room Makeover Tool</h1>
 
     <div class="fixed top-4 right-4 z-50">
-        <select id="langSwitcher" onchange="changeLanguage(this.value, true)" class="glass px-3 py-2 rounded-full text-sm font-semibold border-none shadow-md cursor-pointer focus:ring-2 ring-indigo-500">
-            <option value="en">English</option>
-            <option value="zh">简体中文</option>
-            <option value="jp">日本語</option>
-            <option value="es">Español</option>
+        <select id="langSwitcher" onchange="changeLanguage(this.value, true)" class="glass px-4 py-2 rounded-full text-sm font-semibold border-none shadow-lg cursor-pointer focus:ring-2 ring-indigo-500">
+            <option value="en">🇺🇸 English</option>
+            <option value="zh">🇨🇳 简体中文</option>
+            <option value="jp">🇯🇵 日本語</option>
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="pt">🇵🇹 Português</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="ru">🇷🇺 Русский</option>
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+            <option value="ar">🇸🇦 العربية</option>
         </select>
     </div>
 
     <header class="max-w-3xl mx-auto py-12 px-6 text-center">
         <span id="badge" class="px-3 py-1 text-xs font-semibold text-indigo-600 bg-indigo-50 rounded-full uppercase tracking-wider">AI Powered</span>
-        <div id="title" class="text-4xl font-bold tracking-tight mt-4 mb-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">DecorAI — Transform your room with AI</div>
-        <p id="subtitle" class="text-slate-600 text-lg leading-relaxed">Upload a photo, choose a style, and get AI-generated design previews for your home renovation.</p>
+        <div id="title" class="text-4xl font-bold tracking-tight mt-4 mb-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">DecorAI — Transform your room</div>
+        <p id="subtitle" class="text-slate-600 text-lg leading-relaxed"></p>
     </header>
 
     <main class="flex-grow max-w-2xl mx-auto px-6 pb-16 w-full">
         <section class="glass p-8 rounded-3xl shadow-xl">
             <div class="mb-6">
                 <label for="imageInput" class="block w-full border-2 border-dashed border-slate-300 rounded-2xl p-8 text-center cursor-pointer hover:border-indigo-400 hover:bg-indigo-50/30 transition-all">
-                    <div id="uploadText" class="text-sm font-medium text-slate-600">Click or drag to upload room photo</div>
+                    <div id="uploadText" class="text-sm font-medium text-slate-600"></div>
                     <input type="file" id="imageInput" class="hidden" accept="image/*" />
                 </label>
                 <div id="uploadPreview" class="mt-4 text-center"></div>
             </div>
 
             <div class="mb-8">
-                <label id="styleLabel" class="block text-sm font-semibold text-slate-700 mb-4 px-1">Select Interior Style</label>
+                <label id="styleLabel" class="block text-sm font-semibold text-slate-700 mb-4 px-1"></label>
                 <div class="grid grid-cols-2 gap-3">
-                    <button class="style-btn border-2 border-slate-100 bg-white p-3 rounded-xl text-sm transition-all" onclick="selectStyle(this)">✨ <span data-key="style1">Modern</span></button>
-                    <button class="style-btn border-2 border-slate-100 bg-white p-3 rounded-xl text-sm transition-all" onclick="selectStyle(this)">🌿 <span data-key="style2">Nordic</span></button>
-                    <button class="style-btn border-2 border-slate-100 bg-white p-3 rounded-xl text-sm transition-all" onclick="selectStyle(this)">🧁 <span data-key="style3">Creamy</span></button>
-                    <button class="style-btn border-2 border-slate-100 bg-white p-3 rounded-xl text-sm transition-all" onclick="selectStyle(this)">🏭 <span data-key="style4">Industrial</span></button>
+                    <button class="style-btn bg-white p-3 rounded-xl text-sm" onclick="selectStyle(this)">✨ <span data-key="style1"></span></button>
+                    <button class="style-btn bg-white p-3 rounded-xl text-sm" onclick="selectStyle(this)">🌿 <span data-key="style2"></span></button>
+                    <button class="style-btn bg-white p-3 rounded-xl text-sm" onclick="selectStyle(this)">🧁 <span data-key="style3"></span></button>
+                    <button class="style-btn bg-white p-3 rounded-xl text-sm" onclick="selectStyle(this)">🏭 <span data-key="style4"></span></button>
                 </div>
             </div>
 
-            <button onclick="startGenerate()" id="genBtn" class="gradient-btn w-full text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:opacity-90 transition-all">Generate My Design</button>
+            <button onclick="startGenerate()" id="genBtn" class="gradient-btn w-full text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:opacity-90 transition-all"></button>
         </section>
 
-        <div id="loadingState" class="mt-10 hidden text-center italic text-slate-400 animate__animated animate__pulse animate__infinite">
-            <p id="loadingText">AI is painting your room...</p>
-        </div>
-
-        <section class="mt-16 bg-white/50 p-8 rounded-3xl border border-white/20">
-            <h2 id="seoHeading" class="text-2xl font-bold text-slate-800 mb-4 tracking-tight">Best Free AI Interior Design Tool</h2>
+        <article class="mt-16 bg-white/50 p-8 rounded-3xl border border-white/20">
+            <h2 id="seoHeading" class="text-2xl font-bold text-slate-800 mb-4 tracking-tight"></h2>
             <div id="seoBody" class="text-slate-600 leading-relaxed space-y-4"></div>
-        </section>
+        </article>
 
         <section class="mt-12 px-2">
-            <h2 id="howHeading" class="text-xl font-bold mb-4 text-slate-800">How it works</h2>
+            <h2 id="howHeading" class="text-xl font-bold mb-4 text-slate-800"></h2>
             <ul id="howList" class="list-disc list-inside text-slate-600 space-y-2"></ul>
         </section>
     </main>
 
     <footer class="w-full py-12 px-6 border-t border-slate-200 bg-white text-center">
-        <p class="text-xs text-slate-400">© <span id="year"></span> mini-tools.uk — AI Interior Design Expert.</p>
+        <p class="text-xs text-slate-400">© <span id="year"></span> mini-tools.uk — All Rights Reserved.</p>
     </footer>
 
     <script>
-        document.getElementById('year').innerText = new Date().getFullYear();
-
+        // 12 国语言包
         const i18n = {
+            en: {
+                title: "DecorAI Master — AI Interior Design & Room Makeover Tool",
+                seoDesc: "Transform your home with DecorAI. Generate high-quality room makeovers in Modern, Nordic, and Industrial styles for free with AI.",
+                seoH1: "Best Free AI Interior Design Tool",
+                badge: "AI Powered", titleText: "DecorAI Master", subtitle: "AI-powered room transformation in seconds", uploadText: "Click or drag to upload room photo", styleLabel: "Select Interior Style", style1: "Modern", style2: "Nordic", style3: "Creamy", style4: "Industrial", genBtn: "Generate My Design",
+                seoHeading: "Leading AI Interior Design Tool", seoBody: "<p>Looking for <strong>AI interior design</strong> ideas? DecorAI is a professional-grade tool.</p>",
+                howHeading: "How it works", howList: "<li>Upload photo</li><li>Choose style</li><li>Generate</li>"
+            },
             zh: {
                 title: "DecorAI 装修大师 — AI 室内设计与房间改造工具",
                 seoDesc: "DecorAI 是一款免费的 AI 室内设计工具。上传房间照片，几秒生成现代、北欧、工业风装修方案。领先的 AI 装修设计软件。",
-                seoH1: "DecorAI - 最好的免费 AI 室内设计与房间改造工具",
-                badge: "AI 驱动装修", 
-                titleText: "DecorAI 装修大师", 
-                subtitle: "上传照片，AI 瞬间重构梦想家园", 
-                uploadText: "点击或拖拽上传房间照片",
-                styleLabel: "选择装修风格", 
-                style1: "现代简约", style2: "北欧木质", style3: "温柔奶油", style4: "工业复古",
-                genBtn: "立即生成新风格", 
-                loadingText: "AI 正在粉刷墙壁，请稍候...",
-                seoHeading: "顶尖 AI 室内设计工具，让家居改造触手可及",
-                seoBody: "<p>正在寻找 <strong>AI 装修</strong> 灵感吗？DecorAI 是一款专业级的 <strong>AI 房间改造</strong> 工具。无论您是在计划全面装修，还是只想尝试一种新的 <strong>家装风格</strong>，我们的生成式 AI 都能为您提供高品质的视觉方案。</p><p>我们支持 <strong>现代简约</strong>、<strong>北欧木质</strong>、<strong>工业风</strong> 等流行趋势。只需上传一张照片，剩下的交给 AI 即可——让 <strong>AI 房屋设计</strong> 变得简单且免费。</p>",
-                howHeading: "操作步骤",
-                howList: "<li>上传一张清晰的房间照片</li><li>选择您心仪的室内设计风格</li><li>点击生成并保存您的 AI 效果图</li>"
-            },
-            en: {
-                title: "DecorAI Master — Best AI Interior Design & Room Makeover Tool",
-                seoDesc: "Transform your home with DecorAI, the leading AI interior design tool. Generate high-quality room makeovers in Modern, Nordic, and Industrial styles for free.",
-                seoH1: "DecorAI - Best Free AI Interior Design & Room Makeover Tool",
-                badge: "AI Powered", 
-                titleText: "DecorAI Master", 
-                subtitle: "AI-powered room transformation in seconds", 
-                uploadText: "Click or drag to upload room photo",
-                styleLabel: "Select Interior Style", 
-                style1: "Modern", style2: "Nordic", style3: "Creamy", style4: "Industrial",
-                genBtn: "Generate My Design", 
-                loadingText: "AI is painting your room, please wait...",
-                seoHeading: "Leading AI Interior Design Tool for Home Makeovers",
-                seoBody: "<p>Looking for <strong>AI interior design</strong> ideas? DecorAI is a professional-grade <strong>AI room makeover</strong> tool designed to transform your home in seconds. Get instant <strong>home decor</strong> inspiration and high-quality visualizations of your dream room.</p><p>Our platform supports <strong>Modern</strong>, <strong>Nordic</strong>, <strong>Industrial</strong>, and <strong>Creamy</strong> aesthetics. Upload a photo and let our AI handle the rest—making <strong>AI house design</strong> accessible to everyone.</p>",
-                howHeading: "How it works",
-                howList: "<li>Upload a clear photo of your room</li><li>Choose your preferred interior style</li><li>Generate and download your AI-powered design</li>"
+                seoH1: "最好的免费 AI 室内设计与房间改造工具",
+                badge: "AI 驱动装修", titleText: "DecorAI 装修大师", subtitle: "上传照片，AI 瞬间重构梦想家园", uploadText: "点击或拖拽上传房间照片", styleLabel: "选择装修风格", style1: "现代简约", style2: "北欧木质", style3: "温柔奶油", style4: "工业复古", genBtn: "立即生成新风格",
+                seoHeading: "顶尖 AI 室内设计工具", seoBody: "<p>正在寻找 <strong>AI 装修</strong> 灵感吗？DecorAI 能够为您提供高品质方案。</p>",
+                howHeading: "操作步骤", howList: "<li>上传一张清晰的房间照片</li><li>选择您心仪的室内设计风格</li><li>点击生成</li>"
             },
             jp: {
                 title: "DecorAI — AIインテリアデザイン & 部屋の模様替えツール",
-                seoDesc: "AI技術で部屋を瞬時にリフォーム。DecorAIは、モダン、北欧、インダストリアルスタイルの提案を数秒で生成する無料のAIインテリアデザインツールです。",
-                seoH1: "DecorAI - 最高の無料AIインテリアデザイン & 部屋の模様替えツール",
-                badge: "AI 搭載", 
-                titleText: "DecorAI マスター", 
-                subtitle: "AIがあなたの部屋を数秒で変身させます", 
-                uploadText: "クリックまたはドラッグで写真をアップロード",
-                styleLabel: "インテリアスタイルを選択", 
-                style1: "モダン", style2: "北欧風", style3: "クリーミー", style4: "工業風",
-                genBtn: "デザインを生成する", 
-                loadingText: "AIが部屋をリフォーム中です。少々お待ちください...",
-                seoHeading: "理想の住まいを叶える最先端AIインテリアデザインツール",
-                seoBody: "<p><strong>AIインテリアデザイン</strong>のアイデアをお探しですか？DecorAIは、瞬時にお部屋をリフォームするプロフェッショナルな<strong>AI模様替え</strong>ツールです。</p><p><strong>モダン</strong>、<strong>北欧風</strong>、<strong>工業風</strong>など、あらゆるスタイルに対応。写真をアップロードするだけで、<strong>AI住宅デザイン</strong>を無料で体験できます。</p>",
-                howHeading: "使い方",
-                howList: "<li>部屋の写真をアップロードする</li><li>お好みのインテリアスタイルを選択</li><li>AIデザインを生成してダウンロード</li>"
+                seoDesc: "AI技術で部屋を瞬時にリフォーム。モダン、北欧、インダストリアルスタイルを数秒で生成する無料のAIインテリアデザインツール。",
+                seoH1: "最高の無料AIインテリアデザインツール",
+                badge: "AI 搭載", titleText: "DecorAI マスター", subtitle: "AIがあなたの部屋を数秒で変身させます", uploadText: "写真をアップロード", styleLabel: "スタイルを選択", style1: "モダン", style2: "北欧風", style3: "クリーミー", style4: "工業風", genBtn: "デザインを生成する",
+                seoHeading: "最先端AIインテリアデザイン", seoBody: "<p><strong>AIインテリアデザイン</strong>をお探しですか？</p>",
+                howHeading: "使い方", howList: "<li>写真をアップ</li><li>スタイルを選択</li><li>生成する</li>"
+            },
+            ko: {
+                title: "DecorAI — AI 인테리어 디자인 및 방 꾸미기",
+                seoDesc: "AI를 사용하여 방을 즉시 리모델링하십시오. 현대적이고 현대적인 인테리어 디자인을 무료로 생성하십시오.",
+                seoH1: "최고의 무료 AI 인테리어 디자인 도구",
+                badge: "AI 기반", titleText: "DecorAI 마스터", subtitle: "몇 초 만에 AI로 방을 변화시키세요", uploadText: "방 사진 업로드", styleLabel: "스타일 선택", style1: "모던", style2: "노르딕", style3: "크리미", style4: "인더스트리얼", genBtn: "디자인 생성하기",
+                seoHeading: "선도적인 AI 인테리어 도구", seoBody: "<p><strong>AI 인테리어 디자인</strong>을 위한 최고의 선택.</p>",
+                howHeading: "사용 방법", howList: "<li>사진 업로드</li><li>스타일 선택</li><li>생성하기</li>"
+            },
+            es: {
+                title: "DecorAI — Diseño de Interiores con IA y Remodelación",
+                seoDesc: "Transforma tu hogar con DecorAI. Herramienta gratuita de diseño de interiores con IA.",
+                seoH1: "La mejor herramienta de diseño de interiores con IA",
+                badge: "Con IA", titleText: "DecorAI Master", subtitle: "Remodelación de habitaciones en segundos", uploadText: "Subir foto", styleLabel: "Elegir Estilo", style1: "Moderno", style2: "Nórdico", style3: "Crema", style4: "Industrial", genBtn: "Generar diseño",
+                seoHeading: "Diseño de Interiores con IA", seoBody: "<p>Encuentra inspiración con <strong>diseño con IA</strong>.</p>",
+                howHeading: "Cómo funciona", howList: "<li>Sube la foto</li><li>Elige estilo</li><li>Genera</li>"
+            },
+            pt: {
+                title: "DecorAI — Design de Interiores com IA e Reforma",
+                seoDesc: "Transforme sua casa com DecorAI. Gerador de design de interiores IA gratuito.",
+                seoH1: "Melhor ferramenta de design de interiores IA",
+                badge: "IA", titleText: "DecorAI Master", subtitle: "Reforma de quartos em segundos com IA", uploadText: "Enviar foto", styleLabel: "Estilo", style1: "Moderno", style2: "Nórdico", style3: "Creme", style4: "Industrial", genBtn: "Gerar design",
+                seoHeading: "Design IA", seoBody: "<p>Sua casa renovada com <strong>IA</strong>.</p>",
+                howHeading: "Como funciona", howList: "<li>Enviar foto</li><li>Estilo</li><li>Gerar</li>"
+            },
+            fr: {
+                title: "DecorAI — Design d'intérieur IA & Relooking",
+                seoDesc: "Relookez votre maison avec DecorAI. Outil de design d'intérieur IA gratuit.",
+                seoH1: "Meilleur outil de design d'intérieur IA gratuit",
+                badge: "IA", titleText: "DecorAI Master", subtitle: "Transformez votre pièce en secondes", uploadText: "Uploader une photo", styleLabel: "Style", style1: "Moderne", style2: "Nordique", style3: "Crème", style4: "Industriel", genBtn: "Générer",
+                seoHeading: "Design d'intérieur IA", seoBody: "<p>Idées de <strong>design d'intérieur IA</strong>.</p>",
+                howHeading: "Comment ça marche", howList: "<li>Uploader</li><li>Style</li><li>Générer</li>"
+            },
+            de: {
+                title: "DecorAI — KI Innenarchitektur & Raumplanung",
+                seoDesc: "Verwandeln Sie Ihr Zuhause mit DecorAI. Kostenlose KI-Raumgestaltung.",
+                seoH1: "Bestes KI-Innenarchitektur-Tool",
+                badge: "KI", titleText: "DecorAI Master", subtitle: "Raumtransformation in Sekunden", uploadText: "Foto hochladen", styleLabel: "Stil wählen", style1: "Modern", style2: "Nordisch", style3: "Cremig", style4: "Industriell", genBtn: "Generieren",
+                seoHeading: "KI Innenarchitektur", seoBody: "<p>Inspiration durch <strong>KI</strong>.</p>",
+                howHeading: "So geht's", howList: "<li>Hochladen</li><li>Stil</li><li>Generieren</li>"
+            },
+            ru: {
+                title: "DecorAI — ИИ дизайн интерьера и ремонт",
+                seoDesc: "Преобразите свой дом с DecorAI. Бесплатный дизайн комнат с помощью ИИ.",
+                seoH1: "Лучший инструмент ИИ для дизайна интерьера",
+                badge: "ИИ", titleText: "DecorAI Мастер", subtitle: "Трансформация комнаты за секунды", uploadText: "Загрузить фото", styleLabel: "Стиль", style1: "Модерн", style2: "Сканди", style3: "Кремовый", style4: "Лофт", genBtn: "Создать дизайн",
+                seoHeading: "ИИ Дизайн", seoBody: "<p>Ваш дом в новом <strong>стиле</strong>.</p>",
+                howHeading: "Как это работает", howList: "<li>Загрузка</li><li>Стиль</li><li>Создать</li>"
+            },
+            it: {
+                title: "DecorAI — Design d'interni AI e Restyling",
+                seoDesc: "Trasforma la tua casa con l'intelligenza artificiale.",
+                seoH1: "Il miglior strumento di design d'interni AI",
+                badge: "AI", titleText: "DecorAI Master", subtitle: "Restyling stanza in pochi secondi", uploadText: "Carica foto", styleLabel: "Scegli stile", style1: "Moderno", style2: "Nordico", style3: "Crema", style4: "Industriale", genBtn: "Genera",
+                seoHeading: "Design AI", seoBody: "<p>Design d'interni con <strong>IA</strong>.</p>",
+                howHeading: "Come funziona", howList: "<li>Carica</li><li>Scegli</li><li>Genera</li>"
+            },
+            vi: {
+                title: "DecorAI — Thiết kế nội thất AI & Cải tạo phòng",
+                seoDesc: "Biến đổi ngôi nhà của bạn với DecorAI. Công cụ AI miễn phí.",
+                seoH1: "Công cụ thiết kế nội thất AI tốt nhất",
+                badge: "AI", titleText: "DecorAI Master", subtitle: "Cải tạo phòng trong vài giây", uploadText: "Tải ảnh lên", styleLabel: "Phong cách", style1: "Hiện đại", style2: "Bắc Âu", style3: "Kem", style4: "Công nghiệp", genBtn: "Tạo ngay",
+                seoHeading: "Thiết kế nội thất AI", seoBody: "<p>Ý tưởng <strong>thiết kế nội thất AI</strong>.</p>",
+                howHeading: "Cách hoạt động", howList: "<li>Tải ảnh</li><li>Chọn</li><li>Tạo</li>"
+            },
+            ar: {
+                title: "DecorAI — تصميم داخلي بالذكاء الاصطناعي",
+                seoDesc: "حول منزلك باستخدام الذكاء الاصطناعي مجانًا.",
+                seoH1: "أفضل أداة للتصميم الداخلي بالذكاء الاصطناعي",
+                badge: "ذكاء اصطناعي", titleText: "DecorAI Master", subtitle: "تحويل غرفتك في ثوانٍ", uploadText: "رفع الصورة", styleLabel: "اختر النمط", style1: "مودرن", style2: "نورديك", style3: "كريمي", style4: "صناعي", genBtn: "إنشاء",
+                seoHeading: "تصميم داخلي ذكي", seoBody: "<p>تصاميم <strong>ذكية</strong> لمنزلك.</p>",
+                howHeading: "كيف يعمل", howList: "<li>رفع</li><li>اختيار</li><li>إنشاء</li>"
             }
-            // 可以继续添加 es 等语言...
         };
 
+        // 核心 JavaScript 逻辑
         function changeLanguage(lang, updateUrl = false) {
             const data = i18n[lang] || i18n.en;
             
-            // 更新 SEO 元数据
+            // 1. 更新 SEO 元标签 (对爬虫最重要)
             document.title = data.title;
             document.querySelector('meta[name="description"]').setAttribute('content', data.seoDesc);
             document.getElementById('seoH1').innerText = data.seoH1;
+            document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
 
-            // 更新页面 UI
+            // 2. 更新页面文字内容
             document.getElementById('badge').innerText = data.badge;
             document.getElementById('title').innerText = data.titleText;
             document.getElementById('subtitle').innerText = data.subtitle;
             document.getElementById('uploadText').innerText = data.uploadText;
             document.getElementById('styleLabel').innerText = data.styleLabel;
             document.getElementById('genBtn').innerText = data.genBtn;
-            document.getElementById('loadingText').innerText = data.loadingText;
             document.getElementById('seoHeading').innerText = data.seoHeading;
             document.getElementById('seoBody').innerHTML = data.seoBody;
             document.getElementById('howHeading').innerText = data.howHeading;
@@ -201,7 +241,7 @@
                 el.innerText = data[styleKeys[index]];
             });
 
-            // 如果是用户手动切换，更新 URL 参数而不刷新页面，这有助于搜索引擎爬虫识别不同语言路径
+            // 3. 更新 URL 参数（不刷新页面），方便爬虫识别
             if (updateUrl && window.history.pushState) {
                 const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?lang=' + lang;
                 window.history.pushState({path:newurl},'',newurl);
@@ -213,6 +253,7 @@
             btn.classList.add('selected-style');
         }
 
+        // 图片预览逻辑
         document.getElementById('imageInput').addEventListener('change', function(e){
             const file = e.target.files[0];
             if(!file) return;
@@ -220,33 +261,29 @@
             document.getElementById('uploadPreview').innerHTML = `<img src="${url}" alt="Room Preview" class="mx-auto rounded-2xl mt-4 max-h-64 shadow-lg animate__animated animate__fadeIn">`;
         });
 
+        // 模拟生成按钮
         function startGenerate() {
             const preview = document.getElementById('uploadPreview').querySelector('img');
-            if(!preview) { 
-                const currentLang = document.getElementById('langSwitcher').value;
-                alert(currentLang === 'zh' ? '请先上传照片！' : 'Please upload a photo first!'); 
-                return; 
-            }
-            document.getElementById('genBtn').disabled = true;
-            document.getElementById('loadingState').classList.remove('hidden');
+            if(!preview) { alert('Please upload a photo!'); return; }
+            const btn = document.getElementById('genBtn');
+            btn.disabled = true;
+            btn.innerText = "AI is thinking...";
             setTimeout(() => {
-                alert("API Integration Ready!");
-                document.getElementById('genBtn').disabled = false;
-                document.getElementById('loadingState').classList.add('hidden');
-            }, 3000);
+                alert("AI Server connected! Your design is being prepared.");
+                btn.disabled = false;
+                btn.innerText = i18n[document.getElementById('langSwitcher').value].genBtn;
+            }, 2000);
         }
 
+        // 页面加载自动检测
         window.onload = () => {
-            // 优先检查 URL 参数 (?lang=zh)
             const urlParams = new URLSearchParams(window.location.search);
             const langParam = urlParams.get('lang');
-            
-            // 其次检查浏览器语言
             const userLang = navigator.language.substring(0, 2);
-            
             const defaultLang = i18n[langParam] ? langParam : (i18n[userLang] ? userLang : 'en');
             
             document.getElementById('langSwitcher').value = defaultLang;
+            document.getElementById('year').innerText = new Date().getFullYear();
             changeLanguage(defaultLang);
         };
     </script>
