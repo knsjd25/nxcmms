@@ -1,291 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>DecorAI — AI Interior Design & Room Makeover Tool</title>
-    <meta name="description" content="Transform your room in seconds with DecorAI. Best free AI interior design tool." />
-    <meta name="keywords" content="AI interior design, AI room makeover, AI 装修, AI 室内设计, AI 部屋の模様替え" />
-    
-    <link rel="alternate" hreflang="zh" href="?lang=zh" />
-    <link rel="alternate" hreflang="en" href="?lang=en" />
-    <link rel="alternate" hreflang="ja" href="?lang=jp" />
-    <link rel="alternate" hreflang="ko" href="?lang=ko" />
-    <link rel="alternate" hreflang="es" href="?lang=es" />
-    <link rel="alternate" hreflang="pt" href="?lang=pt" />
-    <link rel="alternate" hreflang="fr" href="?lang=fr" />
-    <link rel="alternate" hreflang="de" href="?lang=de" />
-    <link rel="alternate" hreflang="ru" href="?lang=ru" />
-    <link rel="alternate" hreflang="it" href="?lang=it" />
-    <link rel="alternate" hreflang="vi" href="?lang=vi" />
-    <link rel="alternate" hreflang="ar" href="?lang=ar" />
-    <link rel="alternate" hreflang="x-default" href="/" />
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "DecorAI",
-      "operatingSystem": "Web",
-      "applicationCategory": "DesignApplication",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "1200" }
-    }
-    </script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
-        body { font-family: 'Outfit', sans-serif; scroll-behavior: smooth; }
-        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
-        .gradient-btn { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
-        .style-btn { border: 2px solid #f1f5f9; transition: all 0.3s ease; }
-        .selected-style { border-color: #6366f1; background-color: #f5f3ff; }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-Tools — Home</title>
+  <meta name="description" content="Free mini tools hub" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{--brand:#0ea5e9}
+    body { font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background-color: #f8fafc; }
+    .uk-glow { border-top: 5px solid #005ea5; box-shadow: 0 4px 15px rgba(0, 94, 165, 0.08); }
+    .tool-card { transition: transform .25s cubic-bezier(.4,0,.2,1), box-shadow .25s; }
+    .tool-card:hover { transform: translateY(-6px); box-shadow: 0 8px 28px rgba(15,23,42,0.06); }
+    .hot-tag { background: linear-gradient(90deg,#ff4d4d,#f97316); color:#fff; padding:4px 8px; border-radius:999px; font-weight:800; font-size:11px; position:absolute; top:12px; right:12px; }
+    .free-badge { color:#16a34a; font-weight:700; font-size:0.75rem; text-transform:uppercase; letter-spacing:.06em; }
+    a.tool-link { text-decoration:none; color:inherit; display:block; }
+  </style>
 </head>
-<body class="bg-[#f8fafc] min-h-screen text-slate-800 flex flex-col">
-
-    <h1 id="seoH1" class="sr-only">DecorAI - AI Interior Design & Room Makeover Tool</h1>
-
-    <div class="fixed top-4 right-4 z-50">
-        <select id="langSwitcher" onchange="changeLanguage(this.value, true)" class="glass px-4 py-2 rounded-full text-sm font-semibold border-none shadow-lg cursor-pointer focus:ring-2 ring-indigo-500">
-            <option value="en">🇺🇸 English</option>
-            <option value="zh">🇨🇳 简体中文</option>
-            <option value="jp">🇯🇵 日本語</option>
-            <option value="ko">🇰🇷 한국어</option>
-            <option value="es">🇪🇸 Español</option>
-            <option value="pt">🇵🇹 Português</option>
-            <option value="fr">🇫🇷 Français</option>
-            <option value="de">🇩🇪 Deutsch</option>
-            <option value="ru">🇷🇺 Русский</option>
-            <option value="it">🇮🇹 Italiano</option>
-            <option value="vi">🇻🇳 Tiếng Việt</option>
-            <option value="ar">🇸🇦 العربية</option>
+<body>
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow">M</a>
+        <div class="flex flex-col -mt-1">
+          <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
+          <span class="free-badge">100% Free Forever</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 简体中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
         </select>
+        <div id="region-badge" class="hidden md:block px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-[10px] font-black italic">DETECTING...</div>
+      </div>
+    </div>
+  </nav>
+
+  <header class="max-w-7xl mx-auto pt-20 pb-12 px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between gap-12">
+    <div class="lg:w-3/5">
+      <div class="inline-block px-4 py-1.5 bg-green-100 text-green-700 rounded-full text-xs font-bold mb-6 italic tracking-wider">#1 Free Online Tools Hub in the UK</div>
+      <h2 id="hero-title" class="text-4xl lg:text-6xl font-extrabold text-slate-900 mb-4 leading-tight">
+        Smart & <span class="text-blue-600">Free Tools</span> for everyone.
+      </h2>
+      <p id="hero-sub" class="text-lg text-slate-500 mb-6 max-w-2xl leading-relaxed">
+        Unlock 20+ lightweight utilities. No registration, privacy-first.
+      </p>
+      <div class="flex flex-wrap gap-2 text-xs text-slate-400 font-medium opacity-80">
+        <span>Trending:</span>
+        <span class="underline">PAYE Calculator</span> • <span>VAT Checker</span> • <span>AI Prompting</span> • <span>QR Generator</span> • <span>Unit Converter</span>
+      </div>
     </div>
 
-    <header class="max-w-3xl mx-auto py-12 px-6 text-center">
-        <span id="badge" class="px-3 py-1 text-xs font-semibold text-indigo-600 bg-indigo-50 rounded-full uppercase tracking-wider">AI Powered</span>
-        <div id="title" class="text-4xl font-bold tracking-tight mt-4 mb-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">DecorAI — Transform your room</div>
-        <p id="subtitle" class="text-slate-600 text-lg leading-relaxed"></p>
-    </header>
+    <div class="lg:w-2/5 hidden lg:block">
+      <div class="relative">
+        <div class="absolute -inset-6 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
+        <img src="https://cdn-icons-png.flaticon.com/512/9167/9167014.png" class="relative w-64 h-64 mx-auto drop-shadow-lg" alt="Illustration">
+      </div>
+    </div>
+  </header>
 
-    <main class="flex-grow max-w-2xl mx-auto px-6 pb-16 w-full">
-        <section class="glass p-8 rounded-3xl shadow-xl">
-            <div class="mb-6">
-                <label for="imageInput" class="block w-full border-2 border-dashed border-slate-300 rounded-2xl p-8 text-center cursor-pointer hover:border-indigo-400 hover:bg-indigo-50/30 transition-all">
-                    <div id="uploadText" class="text-sm font-medium text-slate-600"></div>
-                    <input type="file" id="imageInput" class="hidden" accept="image/*" />
-                </label>
-                <div id="uploadPreview" class="mt-4 text-center"></div>
+  <main class="max-w-7xl mx-auto px-6 pb-32">
+    <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+  </main>
+
+  <script>
+    // ---------- i18n 数据（en/zh/es/fr/de） ----------
+    const i18n = {
+      en: {
+        hero_uk: "Essential UK<br><span class='text-blue-600'>Digital Toolbox.</span>",
+        hero_intl: "100% Free Online<br><span class='text-blue-600'>Utility Toolkit.</span>",
+        region_uk: "📍 UK OPTIMIZED",
+        region_intl: "🌐 GLOBAL VERSION",
+        open: "Launch Tool",
+        hot: "HOT",
+        tools: {
+          tax: { t: "Income Tax (PAYE)", d: "UK Salary & Tax take-home calc.", img: "https://cdn-icons-png.flaticon.com/512/3135/3135706.png", uk: true, hot: true },
+          prompt: { t: "AI Prompt Helper", d: "Improve LLM prompts quickly.", img: "https://cdn-icons-png.flaticon.com/512/10696/10696515.png", uk: false, hot: true },
+          vat: { t: "VAT Calculator", d: "HMRC-style VAT tool.", img: "https://cdn-icons-png.flaticon.com/512/10433/10433048.png", uk: true, hot: false },
+          mortgage: { t: "Mortgage Calc", d: "Estimate monthly payments.", img: "https://cdn-icons-png.flaticon.com/512/3475/3475306.png", uk: true, hot: false },
+          calc: { t: "Smart Calculator", d: "General & scientific math.", img: "https://cdn-icons-png.flaticon.com/512/2311/2311893.png", uk: false, hot: false },
+          unit: { t: "Unit Converter", d: "Imperial ↔ Metric conversions.", img: "https://cdn-icons-png.flaticon.com/512/6127/6127623.png", uk: false, hot: false },
+          word: { t: "Word Counter", d: "Real-time character count.", img: "https://cdn-icons-png.flaticon.com/512/2541/2541991.png", uk: false, hot: false },
+          password: { t: "Password Gen", d: "Generate secure passwords.", img: "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", uk: false, hot: false }
+        }
+      },
+      zh: {
+        hero_uk: "适配英国生活的<br><span class='text-blue-600'>核心实用工具。</span>",
+        hero_intl: "100% 免费<br><span class='text-blue-600'>在线实用工具箱。</span>",
+        region_uk: "📍 英国优化版",
+        region_intl: "🌐 全球访问版",
+        open: "开启工具",
+        hot: "热门",
+        tools: {
+          tax: { t: "个税计算 (PAYE)", d: "计算英国实际薪资与个税。", img: "https://cdn-icons-png.flaticon.com/512/3135/3135706.png", uk: true, hot: true },
+          prompt: { t: "AI 提示词助手", d: "快速生成高质量提示词。", img: "https://cdn-icons-png.flaticon.com/512/10696/10696515.png", uk: false, hot: true },
+          vat: { t: "增值税 (VAT)", d: "计算含税/不含税/税额。", img: "https://cdn-icons-png.flaticon.com/512/10433/10433048.png", uk: true, hot: false },
+          mortgage: { t: "房贷计算", d: "估算按揭月供。", img: "https://cdn-icons-png.flaticon.com/512/3475/3475306.png", uk: true, hot: false },
+          calc: { t: "全能计算器", d: "多用途数学工具。", img: "https://cdn-icons-png.flaticon.com/512/2311/2311893.png", uk: false, hot: false },
+          unit: { t: "单位换算", d: "公制与英制互换。", img: "https://cdn-icons-png.flaticon.com/512/6127/6127623.png", uk: false, hot: false },
+          word: { t: "字数统计", d: "实时统计字符与词数。", img: "https://cdn-icons-png.flaticon.com/512/2541/2541991.png", uk: false, hot: false },
+          password: { t: "密码生成器", d: "生成高强度随机密码。", img: "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", uk: false, hot: false }
+        }
+      },
+      es: {
+        hero_intl: "Herramientas <span class='text-blue-600'>Online Gratis.</span>",
+        open: "Abrir",
+        hot: "NUEVO",
+        region_intl: "🌐 Versión global",
+        region_uk: "📍 Optimizado para UK",
+        tools: {
+          tax: { t: "Calculadora Impuestos", d: "Sueldo neto en Reino Unido.", img: "https://cdn-icons-png.flaticon.com/512/3135/3135706.png", uk: true, hot: true },
+          prompt: { t: "AI Ayudante", d: "Optimizar prompts de IA.", img: "https://cdn-icons-png.flaticon.com/512/10696/10696515.png", uk: false, hot: true }
+        }
+      },
+      fr: {
+        hero_uk: "Boîte à outils numérique essentielle<br><span class='text-blue-600'>pour le Royaume-Uni.</span>",
+        hero_intl: "100% Gratuit en ligne<br><span class='text-blue-600'>Boîte à outils pratique.</span>",
+        region_uk: "📍 Optimisé pour le Royaume-Uni",
+        region_intl: "🌐 Version internationale",
+        open: "Ouvrir",
+        hot: "POPULAIRE",
+        tools: {
+          tax: { t: "Impôt sur le revenu (PAYE)", d: "Calcul du salaire net et des impôts au Royaume-Uni.", img: "https://cdn-icons-png.flaticon.com/512/3135/3135706.png", uk: true, hot: true },
+          prompt: { t: "Assistant de prompt IA", d: "Optimisez rapidement les prompts pour les LLM.", img: "https://cdn-icons-png.flaticon.com/512/10696/10696515.png", uk: false, hot: true },
+          vat: { t: "Calculateur de TVA", d: "Outil TVA conforme aux normes HMRC.", img: "https://cdn-icons-png.flaticon.com/512/10433/10433048.png", uk: true, hot: false },
+          mortgage: { t: "Calculateur de prêt immobilier", d: "Estimez les mensualités de prêt au Royaume-Uni.", img: "https://cdn-icons-png.flaticon.com/512/3475/3475306.png", uk: true, hot: false },
+          calc: { t: "Calculatrice intelligente", d: "Mathématiques générales et scientifiques.", img: "https://cdn-icons-png.flaticon.com/512/2311/2311893.png", uk: false, hot: false },
+          unit: { t: "Convertisseur d'unités", d: "Conversions Impérial ↔ Métrique.", img: "https://cdn-icons-png.flaticon.com/512/6127/6127623.png", uk: false, hot: false },
+          word: { t: "Compteur de mots", d: "Comptage en temps réel des caractères et des mots.", img: "https://cdn-icons-png.flaticon.com/512/2541/2541991.png", uk: false, hot: false },
+          password: { t: "Générateur de mot de passe", d: "Génère des mots de passe sécurisés.", img: "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", uk: false, hot: false }
+        }
+      },
+      de: {
+        hero_uk: "Essentielles digitales Toolkit<br><span class='text-blue-600'>für das Vereinigte Königreich.</span>",
+        hero_intl: "100% kostenlos online<br><span class='text-blue-600'>Nützliche Werkzeug-Box.</span>",
+        region_uk: "📍 Für UK optimiert",
+        region_intl: "🌐 Globale Version",
+        open: "Öffnen",
+        hot: "BELIEBT",
+        tools: {
+          tax: { t: "Einkommensteuer (PAYE)", d: "UK Gehalts- und Nettolohnrechner.", img: "https://cdn-icons-png.flaticon.com/512/3135/3135706.png", uk: true, hot: true },
+          prompt: { t: "KI Prompt-Helfer", d: "LLM-Prompts schnell optimieren.", img: "https://cdn-icons-png.flaticon.com/512/10696/10696515.png", uk: false, hot: true },
+          vat: { t: "Mehrwertsteuer (VAT)", d: "HMRC-konformer VAT-Rechner.", img: "https://cdn-icons-png.flaticon.com/512/10433/10433048.png", uk: true, hot: false },
+          mortgage: { t: "Hypothekenrechner", d: "Monatliche Raten schätzen.", img: "https://cdn-icons-png.flaticon.com/512/3475/3475306.png", uk: true, hot: false },
+          calc: { t: "Smart Rechner", d: "Allgemeine & wissenschaftliche Mathematik.", img: "https://cdn-icons-png.flaticon.com/512/2311/2311893.png", uk: false, hot: false },
+          unit: { t: "Einheitenumrechner", d: "Imperial ↔ Metrisch Umrechnungen.", img: "https://cdn-icons-png.flaticon.com/512/6127/6127623.png", uk: false, hot: false },
+          word: { t: "Wortzähler", d: "Echtzeit Zeichen- und Wortzählung.", img: "https://cdn-icons-png.flaticon.com/512/2541/2541991.png", uk: false, hot: false },
+          password: { t: "Passwort-Generator", d: "Sichere Zufallspasswörter erzeugen.", img: "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", uk: false, hot: false }
+        }
+      }
+    };
+
+    // 小保护：若没有定义 fr/de（历史原因），兜底为 en
+    if(!i18n.fr) i18n.fr = JSON.parse(JSON.stringify(i18n.en));
+    if(!i18n.de) i18n.de = JSON.parse(JSON.stringify(i18n.en));
+
+    let currentLang = 'en';
+    let isUK = false;
+    const supportedLangs = ['en','zh','es','fr','de'];
+
+    function detectLang(){
+      try{
+        const navLang = (navigator.languages && navigator.languages[0]) || navigator.language || 'en';
+        const l = String(navLang).toLowerCase();
+        if(l.startsWith('zh')) currentLang = 'zh';
+        else if(l.startsWith('es')) currentLang = 'es';
+        else if(l.startsWith('fr')) currentLang = 'fr';
+        else if(l.startsWith('de')) currentLang = 'de';
+        else currentLang = 'en';
+      }catch(e){ currentLang = 'en'; }
+      if(!supportedLangs.includes(currentLang)) currentLang = 'en';
+      const sel = document.getElementById('lang-select');
+      if(sel) sel.value = currentLang;
+    }
+
+    function detectRegion() {
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        if (tz.toLowerCase().includes("london") || tz.toLowerCase().includes("europe/london")) isUK = true;
+      } catch (e) { isUK = false; }
+      const badge = document.getElementById('region-badge');
+      if (badge) badge.classList.remove('hidden');
+      updateUI();
+    }
+
+    function renderTools() {
+      const grid = document.getElementById('tools-grid');
+      const langData = i18n[currentLang] || i18n['en'];
+      const data = (langData && langData.tools) ? langData.tools : i18n['en'].tools;
+      const openText = (langData && langData.open) ? langData.open : (i18n['en'].open || 'Open');
+      const hotText = (langData && langData.hot) ? langData.hot : (i18n['en'].hot || 'HOT');
+
+      const toolList = Object.keys(data).map(key => ({ id: key, ...data[key] }));
+      toolList.sort((a,b) => isUK ? (b.uk - a.uk) : ((b.hot?1:0) - (a.hot?1:0)));
+
+      grid.innerHTML = toolList.map(tool => {
+        const enTool = i18n.en.tools[tool.id] || {};
+        const title = tool.t || enTool.t || tool.id;
+        const desc = tool.d || enTool.d || '';
+        const img = tool.img || enTool.img || '';
+        const isUkTool = (typeof tool.uk === 'boolean') ? tool.uk : (enTool.uk || false);
+        const isHot = (typeof tool.hot === 'boolean') ? tool.hot : (enTool.hot || false);
+
+        return `
+        <a class="tool-link" href="${tool.id}.html">
+          <div class="tool-card relative bg-white p-8 rounded-2xl border border-slate-100 flex flex-col items-start h-full ${ (isUkTool && isUK) ? 'uk-glow' : '' }">
+            ${ isHot ? `<span class="hot-tag">${hotText}</span>` : '' }
+            <div class="w-16 h-16 mb-6 bg-slate-50 rounded-2xl flex items-center justify-center">
+              <img src="${img}" class="w-10 h-10" alt="">
             </div>
-
-            <div class="mb-8">
-                <label id="styleLabel" class="block text-sm font-semibold text-slate-700 mb-4 px-1"></label>
-                <div class="grid grid-cols-2 gap-3">
-                    <button class="style-btn bg-white p-3 rounded-xl text-sm" onclick="selectStyle(this)">✨ <span data-key="style1"></span></button>
-                    <button class="style-btn bg-white p-3 rounded-xl text-sm" onclick="selectStyle(this)">🌿 <span data-key="style2"></span></button>
-                    <button class="style-btn bg-white p-3 rounded-xl text-sm" onclick="selectStyle(this)">🧁 <span data-key="style3"></span></button>
-                    <button class="style-btn bg-white p-3 rounded-xl text-sm" onclick="selectStyle(this)">🏭 <span data-key="style4"></span></button>
-                </div>
+            <h3 class="font-extrabold text-xl text-slate-900 mb-2">${title}</h3>
+            <p class="text-sm text-slate-500 leading-relaxed mb-6">${desc}</p>
+            <div class="mt-auto text-blue-600 font-bold text-xs uppercase tracking-tighter flex items-center gap-2">
+              ${openText}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
             </div>
+          </div>
+        </a>`;
+      }).join('');
+    }
 
-            <button onclick="startGenerate()" id="genBtn" class="gradient-btn w-full text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:opacity-90 transition-all"></button>
-        </section>
+    function updateUI() {
+      const langData = i18n[currentLang] || i18n['en'];
+      const hero = document.getElementById('hero-title');
+      if (hero) hero.innerHTML = isUK ? (langData.hero_uk || langData.hero_intl || i18n.en.hero_intl) : (langData.hero_intl || i18n.en.hero_intl);
+      const badge = document.getElementById('region-badge');
+      if (badge) badge.innerText = isUK ? (langData.region_uk || i18n.en.region_uk) : (langData.region_intl || i18n.en.region_intl);
+      renderTools();
+    }
 
-        <article class="mt-16 bg-white/50 p-8 rounded-3xl border border-white/20">
-            <h2 id="seoHeading" class="text-2xl font-bold text-slate-800 mb-4 tracking-tight"></h2>
-            <div id="seoBody" class="text-slate-600 leading-relaxed space-y-4"></div>
-        </article>
+    function changeLang() {
+      const sel = document.getElementById('lang-select');
+      if (!sel) return;
+      let v = sel.value || 'en';
+      if (!supportedLangs.includes(v)) v = 'en';
+      currentLang = v;
+      updateUI();
+    }
 
-        <section class="mt-12 px-2">
-            <h2 id="howHeading" class="text-xl font-bold mb-4 text-slate-800"></h2>
-            <ul id="howList" class="list-disc list-inside text-slate-600 space-y-2"></ul>
-        </section>
-    </main>
-
-    <footer class="w-full py-12 px-6 border-t border-slate-200 bg-white text-center">
-        <p class="text-xs text-slate-400">© <span id="year"></span> mini-tools.uk — All Rights Reserved.</p>
-    </footer>
-
-    <script>
-        // 12 国语言包
-        const i18n = {
-            en: {
-                title: "DecorAI Master — AI Interior Design & Room Makeover Tool",
-                seoDesc: "Transform your home with DecorAI. Generate high-quality room makeovers in Modern, Nordic, and Industrial styles for free with AI.",
-                seoH1: "Best Free AI Interior Design Tool",
-                badge: "AI Powered", titleText: "DecorAI Master", subtitle: "AI-powered room transformation in seconds", uploadText: "Click or drag to upload room photo", styleLabel: "Select Interior Style", style1: "Modern", style2: "Nordic", style3: "Creamy", style4: "Industrial", genBtn: "Generate My Design",
-                seoHeading: "Leading AI Interior Design Tool", seoBody: "<p>Looking for <strong>AI interior design</strong> ideas? DecorAI is a professional-grade tool.</p>",
-                howHeading: "How it works", howList: "<li>Upload photo</li><li>Choose style</li><li>Generate</li>"
-            },
-            zh: {
-                title: "DecorAI 装修大师 — AI 室内设计与房间改造工具",
-                seoDesc: "DecorAI 是一款免费的 AI 室内设计工具。上传房间照片，几秒生成现代、北欧、工业风装修方案。领先的 AI 装修设计软件。",
-                seoH1: "最好的免费 AI 室内设计与房间改造工具",
-                badge: "AI 驱动装修", titleText: "DecorAI 装修大师", subtitle: "上传照片，AI 瞬间重构梦想家园", uploadText: "点击或拖拽上传房间照片", styleLabel: "选择装修风格", style1: "现代简约", style2: "北欧木质", style3: "温柔奶油", style4: "工业复古", genBtn: "立即生成新风格",
-                seoHeading: "顶尖 AI 室内设计工具", seoBody: "<p>正在寻找 <strong>AI 装修</strong> 灵感吗？DecorAI 能够为您提供高品质方案。</p>",
-                howHeading: "操作步骤", howList: "<li>上传一张清晰的房间照片</li><li>选择您心仪的室内设计风格</li><li>点击生成</li>"
-            },
-            jp: {
-                title: "DecorAI — AIインテリアデザイン & 部屋の模様替えツール",
-                seoDesc: "AI技術で部屋を瞬時にリフォーム。モダン、北欧、インダストリアルスタイルを数秒で生成する無料のAIインテリアデザインツール。",
-                seoH1: "最高の無料AIインテリアデザインツール",
-                badge: "AI 搭載", titleText: "DecorAI マスター", subtitle: "AIがあなたの部屋を数秒で変身させます", uploadText: "写真をアップロード", styleLabel: "スタイルを選択", style1: "モダン", style2: "北欧風", style3: "クリーミー", style4: "工業風", genBtn: "デザインを生成する",
-                seoHeading: "最先端AIインテリアデザイン", seoBody: "<p><strong>AIインテリアデザイン</strong>をお探しですか？</p>",
-                howHeading: "使い方", howList: "<li>写真をアップ</li><li>スタイルを選択</li><li>生成する</li>"
-            },
-            ko: {
-                title: "DecorAI — AI 인테리어 디자인 및 방 꾸미기",
-                seoDesc: "AI를 사용하여 방을 즉시 리모델링하십시오. 현대적이고 현대적인 인테리어 디자인을 무료로 생성하십시오.",
-                seoH1: "최고의 무료 AI 인테리어 디자인 도구",
-                badge: "AI 기반", titleText: "DecorAI 마스터", subtitle: "몇 초 만에 AI로 방을 변화시키세요", uploadText: "방 사진 업로드", styleLabel: "스타일 선택", style1: "모던", style2: "노르딕", style3: "크리미", style4: "인더스트리얼", genBtn: "디자인 생성하기",
-                seoHeading: "선도적인 AI 인테리어 도구", seoBody: "<p><strong>AI 인테리어 디자인</strong>을 위한 최고의 선택.</p>",
-                howHeading: "사용 방법", howList: "<li>사진 업로드</li><li>스타일 선택</li><li>생성하기</li>"
-            },
-            es: {
-                title: "DecorAI — Diseño de Interiores con IA y Remodelación",
-                seoDesc: "Transforma tu hogar con DecorAI. Herramienta gratuita de diseño de interiores con IA.",
-                seoH1: "La mejor herramienta de diseño de interiores con IA",
-                badge: "Con IA", titleText: "DecorAI Master", subtitle: "Remodelación de habitaciones en segundos", uploadText: "Subir foto", styleLabel: "Elegir Estilo", style1: "Moderno", style2: "Nórdico", style3: "Crema", style4: "Industrial", genBtn: "Generar diseño",
-                seoHeading: "Diseño de Interiores con IA", seoBody: "<p>Encuentra inspiración con <strong>diseño con IA</strong>.</p>",
-                howHeading: "Cómo funciona", howList: "<li>Sube la foto</li><li>Elige estilo</li><li>Genera</li>"
-            },
-            pt: {
-                title: "DecorAI — Design de Interiores com IA e Reforma",
-                seoDesc: "Transforme sua casa com DecorAI. Gerador de design de interiores IA gratuito.",
-                seoH1: "Melhor ferramenta de design de interiores IA",
-                badge: "IA", titleText: "DecorAI Master", subtitle: "Reforma de quartos em segundos com IA", uploadText: "Enviar foto", styleLabel: "Estilo", style1: "Moderno", style2: "Nórdico", style3: "Creme", style4: "Industrial", genBtn: "Gerar design",
-                seoHeading: "Design IA", seoBody: "<p>Sua casa renovada com <strong>IA</strong>.</p>",
-                howHeading: "Como funciona", howList: "<li>Enviar foto</li><li>Estilo</li><li>Gerar</li>"
-            },
-            fr: {
-                title: "DecorAI — Design d'intérieur IA & Relooking",
-                seoDesc: "Relookez votre maison avec DecorAI. Outil de design d'intérieur IA gratuit.",
-                seoH1: "Meilleur outil de design d'intérieur IA gratuit",
-                badge: "IA", titleText: "DecorAI Master", subtitle: "Transformez votre pièce en secondes", uploadText: "Uploader une photo", styleLabel: "Style", style1: "Moderne", style2: "Nordique", style3: "Crème", style4: "Industriel", genBtn: "Générer",
-                seoHeading: "Design d'intérieur IA", seoBody: "<p>Idées de <strong>design d'intérieur IA</strong>.</p>",
-                howHeading: "Comment ça marche", howList: "<li>Uploader</li><li>Style</li><li>Générer</li>"
-            },
-            de: {
-                title: "DecorAI — KI Innenarchitektur & Raumplanung",
-                seoDesc: "Verwandeln Sie Ihr Zuhause mit DecorAI. Kostenlose KI-Raumgestaltung.",
-                seoH1: "Bestes KI-Innenarchitektur-Tool",
-                badge: "KI", titleText: "DecorAI Master", subtitle: "Raumtransformation in Sekunden", uploadText: "Foto hochladen", styleLabel: "Stil wählen", style1: "Modern", style2: "Nordisch", style3: "Cremig", style4: "Industriell", genBtn: "Generieren",
-                seoHeading: "KI Innenarchitektur", seoBody: "<p>Inspiration durch <strong>KI</strong>.</p>",
-                howHeading: "So geht's", howList: "<li>Hochladen</li><li>Stil</li><li>Generieren</li>"
-            },
-            ru: {
-                title: "DecorAI — ИИ дизайн интерьера и ремонт",
-                seoDesc: "Преобразите свой дом с DecorAI. Бесплатный дизайн комнат с помощью ИИ.",
-                seoH1: "Лучший инструмент ИИ для дизайна интерьера",
-                badge: "ИИ", titleText: "DecorAI Мастер", subtitle: "Трансформация комнаты за секунды", uploadText: "Загрузить фото", styleLabel: "Стиль", style1: "Модерн", style2: "Сканди", style3: "Кремовый", style4: "Лофт", genBtn: "Создать дизайн",
-                seoHeading: "ИИ Дизайн", seoBody: "<p>Ваш дом в новом <strong>стиле</strong>.</p>",
-                howHeading: "Как это работает", howList: "<li>Загрузка</li><li>Стиль</li><li>Создать</li>"
-            },
-            it: {
-                title: "DecorAI — Design d'interni AI e Restyling",
-                seoDesc: "Trasforma la tua casa con l'intelligenza artificiale.",
-                seoH1: "Il miglior strumento di design d'interni AI",
-                badge: "AI", titleText: "DecorAI Master", subtitle: "Restyling stanza in pochi secondi", uploadText: "Carica foto", styleLabel: "Scegli stile", style1: "Moderno", style2: "Nordico", style3: "Crema", style4: "Industriale", genBtn: "Genera",
-                seoHeading: "Design AI", seoBody: "<p>Design d'interni con <strong>IA</strong>.</p>",
-                howHeading: "Come funziona", howList: "<li>Carica</li><li>Scegli</li><li>Genera</li>"
-            },
-            vi: {
-                title: "DecorAI — Thiết kế nội thất AI & Cải tạo phòng",
-                seoDesc: "Biến đổi ngôi nhà của bạn với DecorAI. Công cụ AI miễn phí.",
-                seoH1: "Công cụ thiết kế nội thất AI tốt nhất",
-                badge: "AI", titleText: "DecorAI Master", subtitle: "Cải tạo phòng trong vài giây", uploadText: "Tải ảnh lên", styleLabel: "Phong cách", style1: "Hiện đại", style2: "Bắc Âu", style3: "Kem", style4: "Công nghiệp", genBtn: "Tạo ngay",
-                seoHeading: "Thiết kế nội thất AI", seoBody: "<p>Ý tưởng <strong>thiết kế nội thất AI</strong>.</p>",
-                howHeading: "Cách hoạt động", howList: "<li>Tải ảnh</li><li>Chọn</li><li>Tạo</li>"
-            },
-            ar: {
-                title: "DecorAI — تصميم داخلي بالذكاء الاصطناعي",
-                seoDesc: "حول منزلك باستخدام الذكاء الاصطناعي مجانًا.",
-                seoH1: "أفضل أداة للتصميم الداخلي بالذكاء الاصطناعي",
-                badge: "ذكاء اصطناعي", titleText: "DecorAI Master", subtitle: "تحويل غرفتك في ثوانٍ", uploadText: "رفع الصورة", styleLabel: "اختر النمط", style1: "مودرن", style2: "نورديك", style3: "كريمي", style4: "صناعي", genBtn: "إنشاء",
-                seoHeading: "تصميم داخلي ذكي", seoBody: "<p>تصاميم <strong>ذكية</strong> لمنزلك.</p>",
-                howHeading: "كيف يعمل", howList: "<li>رفع</li><li>اختيار</li><li>إنشاء</li>"
-            }
-        };
-
-        // 核心 JavaScript 逻辑
-        function changeLanguage(lang, updateUrl = false) {
-            const data = i18n[lang] || i18n.en;
-            
-            // 1. 更新 SEO 元标签 (对爬虫最重要)
-            document.title = data.title;
-            document.querySelector('meta[name="description"]').setAttribute('content', data.seoDesc);
-            document.getElementById('seoH1').innerText = data.seoH1;
-            document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-
-            // 2. 更新页面文字内容
-            document.getElementById('badge').innerText = data.badge;
-            document.getElementById('title').innerText = data.titleText;
-            document.getElementById('subtitle').innerText = data.subtitle;
-            document.getElementById('uploadText').innerText = data.uploadText;
-            document.getElementById('styleLabel').innerText = data.styleLabel;
-            document.getElementById('genBtn').innerText = data.genBtn;
-            document.getElementById('seoHeading').innerText = data.seoHeading;
-            document.getElementById('seoBody').innerHTML = data.seoBody;
-            document.getElementById('howHeading').innerText = data.howHeading;
-            document.getElementById('howList').innerHTML = data.howList;
-            
-            const styleKeys = ['style1', 'style2', 'style3', 'style4'];
-            document.querySelectorAll('[data-key]').forEach((el, index) => {
-                el.innerText = data[styleKeys[index]];
-            });
-
-            // 3. 更新 URL 参数（不刷新页面），方便爬虫识别
-            if (updateUrl && window.history.pushState) {
-                const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?lang=' + lang;
-                window.history.pushState({path:newurl},'',newurl);
-            }
-        }
-
-        function selectStyle(btn) {
-            document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('selected-style'));
-            btn.classList.add('selected-style');
-        }
-
-        // 图片预览逻辑
-        document.getElementById('imageInput').addEventListener('change', function(e){
-            const file = e.target.files[0];
-            if(!file) return;
-            const url = URL.createObjectURL(file);
-            document.getElementById('uploadPreview').innerHTML = `<img src="${url}" alt="Room Preview" class="mx-auto rounded-2xl mt-4 max-h-64 shadow-lg animate__animated animate__fadeIn">`;
-        });
-
-        // 模拟生成按钮
-        function startGenerate() {
-            const preview = document.getElementById('uploadPreview').querySelector('img');
-            if(!preview) { alert('Please upload a photo!'); return; }
-            const btn = document.getElementById('genBtn');
-            btn.disabled = true;
-            btn.innerText = "AI is thinking...";
-            setTimeout(() => {
-                alert("AI Server connected! Your design is being prepared.");
-                btn.disabled = false;
-                btn.innerText = i18n[document.getElementById('langSwitcher').value].genBtn;
-            }, 2000);
-        }
-
-        // 页面加载自动检测
-        window.onload = () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const langParam = urlParams.get('lang');
-            const userLang = navigator.language.substring(0, 2);
-            const defaultLang = i18n[langParam] ? langParam : (i18n[userLang] ? userLang : 'en');
-            
-            document.getElementById('langSwitcher').value = defaultLang;
-            document.getElementById('year').innerText = new Date().getFullYear();
-            changeLanguage(defaultLang);
-        };
-    </script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sel = document.getElementById('lang-select');
+      if (sel) sel.addEventListener('change', changeLang);
+      detectLang();
+      detectRegion();
+    });
+  </script>
 </body>
 </html>
+这是我做的一个小工具网站，给我写下里边得所有小功能网站，并且按照这个页面选择的语言，小工具里边就是什么语言。写好后打包给我
