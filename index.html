@@ -1,14 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700"
-     crossorigin="anonymous"></script>
+  <!-- Basic meta -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mini-Tools — Home</title>
-  <meta name="description" content="Free mini tools hub" />
+  <title>Mini-Tools — Free Online Utilities (PAYE, VAT, QR, Unit Converter)</title>
+  <meta name="description" content="Mini-Tools — 20+ lightweight free online utilities: PAYE & VAT calculators (UK), AI prompt helper, QR generator, unit converter and more. No sign-up, privacy-first." />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Canonical (adjust if language-specific pages are separate) -->
+  <link rel="canonical" href="https://mini-tools.uk/" />
+
+  <!-- Hreflang (recommended: deploy separate language URLs /, /zh/, /es/, /fr/, /de/) -->
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/" />
+  <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/zh/" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/es/" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/fr/" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/de/" />
+
+  <!-- Open Graph & Twitter Card -->
+  <meta property="og:site_name" content="Mini-Tools" />
+  <meta property="og:title" content="Mini-Tools — Free Online Utilities (PAYE, VAT, QR, Unit Converter)" />
+  <meta property="og:description" content="20+ lightweight free online utilities: PAYE & VAT calculators (UK), AI prompt helper, QR generator, unit converter. No signup, privacy-first." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mini-tools.uk/" />
+  <meta property="og:image" content="https://mini-tools.uk/og-image.png" /> <!-- 替换为你的 OG 图 -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mini-Tools — Free Online Utilities" />
+  <meta name="twitter:description" content="20+ free utilities: PAYE & VAT calculators (UK), AI prompt helper, QR generator, unit converter." />
+  <meta name="theme-color" content="#0ea5e9" />
+
+  <!-- Preconnect / preload for fonts & CDNs -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="https://mini-tools.uk/sitemap.xml" />
+
+  <!-- Styles: keep Tailwind CDN but consider generating a smaller production CSS -->
+  <script async src="https://cdn.tailwindcss.com"></script>
+
   <style>
     :root{--brand:#0ea5e9}
     body { font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background-color: #f8fafc; }
@@ -19,19 +49,66 @@
     .free-badge { color:#16a34a; font-weight:700; font-size:0.75rem; text-transform:uppercase; letter-spacing:.06em; }
     a.tool-link { text-decoration:none; color:inherit; display:block; }
   </style>
+
+  <!-- JSON-LD: Organization + WebSite + ItemList for tools -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://mini-tools.uk/#org",
+        "name": "Mini-Tools",
+        "url": "https://mini-tools.uk/",
+        "logo": "https://mini-tools.uk/logo.png",
+        "sameAs": []
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://mini-tools.uk/#website",
+        "url": "https://mini-tools.uk/",
+        "name": "Mini-Tools",
+        "publisher": { "@id": "https://mini-tools.uk/#org" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://mini-tools.uk/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://mini-tools.uk/#tool-list",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"url":"https://mini-tools.uk/tax.html","name":"Income Tax (PAYE)"},
+          {"@type":"ListItem","position":2,"url":"https://mini-tools.uk/vat.html","name":"VAT Calculator"},
+          {"@type":"ListItem","position":3,"url":"https://mini-tools.uk/prompt.html","name":"AI Prompt Helper"},
+          {"@type":"ListItem","position":4,"url":"https://mini-tools.uk/mortgage.html","name":"Mortgage Calc"},
+          {"@type":"ListItem","position":5,"url":"https://mini-tools.uk/calc.html","name":"Smart Calculator"},
+          {"@type":"ListItem","position":6,"url":"https://mini-tools.uk/unit.html","name":"Unit Converter"},
+          {"@type":"ListItem","position":7,"url":"https://mini-tools.uk/word.html","name":"Word Counter"},
+          {"@type":"ListItem","position":8,"url":"https://mini-tools.uk/password.html","name":"Password Gen"}
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Adsense: 推荐将广告脚本延迟到交互后再加载以提升首页性能 -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700"
+     crossorigin="anonymous"></script>
 </head>
 <body>
-  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200" role="navigation" aria-label="Top navigation">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
-        <a href="index.html" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow">M</a>
+        <a href="/" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow" aria-label="Mini-Tools home">M</a>
         <div class="flex flex-col -mt-1">
           <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
           <span class="free-badge">100% Free Forever</span>
         </div>
       </div>
       <div class="flex items-center gap-4">
-        <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none">
+        <select id="lang-select" aria-label="Select language" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none">
           <option value="en">🇬🇧 English</option>
           <option value="zh">🇨🇳 简体中文</option>
           <option value="es">🇪🇸 Español</option>
@@ -54,22 +131,23 @@
       </p>
       <div class="flex flex-wrap gap-2 text-xs text-slate-400 font-medium opacity-80">
         <span>Trending:</span>
-        <span class="underline">PAYE Calculator</span> • <span>VAT Checker</span> • <span>AI Prompting</span> • <span>QR Generator</span> • <span>Unit Converter</span>
+        <a class="underline" href="/tax.html">PAYE Calculator</a> • <a href="/vat.html">VAT Checker</a> • <a href="/prompt.html">AI Prompting</a> • <a href="/qr.html">QR Generator</a> • <a href="/unit.html">Unit Converter</a>
       </div>
     </div>
 
     <div class="lg:w-2/5 hidden lg:block">
-      <div class="relative">
+      <div class="relative" aria-hidden="true">
         <div class="absolute -inset-6 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
-        <img src="https://cdn-icons-png.flaticon.com/512/9167/9167014.png" class="relative w-64 h-64 mx-auto drop-shadow-lg" alt="Illustration">
+        <img src="https://cdn-icons-png.flaticon.com/512/9167/9167014.png" class="relative w-64 h-64 mx-auto drop-shadow-lg" alt="Illustration of tools and utilities" width="256" height="256" loading="lazy">
       </div>
     </div>
   </header>
 
   <main class="max-w-7xl mx-auto px-6 pb-32">
-    <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" role="main"></div>
   </main>
 
+  <!-- Inline script: i18n + small improvements -->
   <script>
     // ---------- i18n 数据（en/zh/es/fr/de） ----------
     const i18n = {
@@ -117,7 +195,13 @@
         region_uk: "📍 Optimizado para UK",
         tools: {
           tax: { t: "Calculadora Impuestos", d: "Sueldo neto en Reino Unido.", img: "https://cdn-icons-png.flaticon.com/512/3135/3135706.png", uk: true, hot: true },
-          prompt: { t: "AI Ayudante", d: "Optimizar prompts de IA.", img: "https://cdn-icons-png.flaticon.com/512/10696/10696515.png", uk: false, hot: true }
+          prompt: { t: "AI Ayudante", d: "Optimizar prompts de IA.", img: "https://cdn-icons-png.flaticon.com/512/10696/10696515.png", uk: false, hot: true },
+          vat: { t: "Calculadora VAT", d: "Herramienta para IVA según HMRC.", img: "https://cdn-icons-png.flaticon.com/512/10433/10433048.png", uk: true, hot: false },
+          mortgage: { t: "Calculadora Hipoteca", d: "Estima pagos mensuales.", img: "https://cdn-icons-png.flaticon.com/512/3475/3475306.png", uk: true, hot: false },
+          calc: { t: "Calculadora Inteligente", d: "Matemáticas generales y científicas.", img: "https://cdn-icons-png.flaticon.com/512/2311/2311893.png", uk: false, hot: false },
+          unit: { t: "Convertidor de Unidades", d: "Conversiones Imperial ↔ Métrico.", img: "https://cdn-icons-png.flaticon.com/512/6127/6127623.png", uk: false, hot: false },
+          word: { t: "Contador de Palabras", d: "Conteo en tiempo real de caracteres y palabras.", img: "https://cdn-icons-png.flaticon.com/512/2541/2541991.png", uk: false, hot: false },
+          password: { t: "Generador de Contraseñas", d: "Genera contraseñas seguras.", img: "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", uk: false, hot: false }
         }
       },
       fr: {
@@ -168,6 +252,11 @@
 
     function detectLang(){
       try{
+        const path = location.pathname || '/';
+        if (path.startsWith('/zh/')) { currentLang = 'zh'; return; }
+        if (path.startsWith('/es/')) { currentLang = 'es'; return; }
+        if (path.startsWith('/fr/')) { currentLang = 'fr'; return; }
+        if (path.startsWith('/de/')) { currentLang = 'de'; return; }
         const navLang = (navigator.languages && navigator.languages[0]) || navigator.language || 'en';
         const l = String(navLang).toLowerCase();
         if(l.startsWith('zh')) currentLang = 'zh';
@@ -210,11 +299,11 @@
         const isHot = (typeof tool.hot === 'boolean') ? tool.hot : (enTool.hot || false);
 
         return `
-        <a class="tool-link" href="${tool.id}.html">
+        <a class="tool-link" href="/${tool.id}.html" aria-label="${title}">
           <div class="tool-card relative bg-white p-8 rounded-2xl border border-slate-100 flex flex-col items-start h-full ${ (isUkTool && isUK) ? 'uk-glow' : '' }">
             ${ isHot ? `<span class="hot-tag">${hotText}</span>` : '' }
             <div class="w-16 h-16 mb-6 bg-slate-50 rounded-2xl flex items-center justify-center">
-              <img src="${img}" class="w-10 h-10" alt="">
+              <img src="${img}" class="w-10 h-10" alt="${title} icon" width="40" height="40" loading="lazy">
             </div>
             <h3 class="font-extrabold text-xl text-slate-900 mb-2">${title}</h3>
             <p class="text-sm text-slate-500 leading-relaxed mb-6">${desc}</p>
@@ -242,6 +331,7 @@
       let v = sel.value || 'en';
       if (!supportedLangs.includes(v)) v = 'en';
       currentLang = v;
+      // 如果你部署了语言特定 URL，建议在这里跳转到相应路径，例如 location.href = '/zh/';
       updateUI();
     }
 
@@ -254,5 +344,3 @@
   </script>
 </body>
 </html>
-
-
