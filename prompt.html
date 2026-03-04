@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Prompt Helper — Mini-Tools.uk</title>
+  <script async src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+    .prompt-card { background: white; border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+    .prompt-card:focus-within { border-color: #3b82f6; ring: 2px; ring-color: #3b82f6; }
+    .gradient-btn { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+  </style>
+</head>
+<body>
+
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" id="home-link" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow">M</a>
+        <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
+      </div>
+      <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer">
+        <option value="en">🇬🇧 English</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="de">🇩🇪 Deutsch</option>
+      </select>
+    </div>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-6 py-12">
+    <div class="mb-10 text-center">
+      <h1 id="page-title" class="text-3xl font-extrabold text-slate-900 mb-2 italic">AI Prompt Helper</h1>
+      <p id="page-desc" class="text-slate-500">Transform simple ideas into professional AI instructions.</p>
+    </div>
+
+    <div class="space-y-6">
+      <div class="prompt-card p-6 rounded-3xl shadow-sm">
+        <label id="label-role" class="block text-xs font-black uppercase tracking-widest text-blue-600 mb-3">1. Expert Role</label>
+        <input type="text" id="input-role" placeholder="e.g. Professional Copywriter, Senior Coder..." class="w-full bg-transparent text-lg font-semibold outline-none">
+      </div>
+
+      <div class="prompt-card p-6 rounded-3xl shadow-sm">
+        <label id="label-task" class="block text-xs font-black uppercase tracking-widest text-blue-600 mb-3">2. The Task</label>
+        <textarea id="input-task" rows="3" placeholder="What do you want to achieve?" class="w-full bg-transparent text-lg font-semibold outline-none resize-none"></textarea>
+      </div>
+
+      <button id="btn-generate" onclick="generatePrompt()" class="w-full py-5 gradient-btn text-white font-black rounded-2xl shadow-xl shadow-blue-100 transition-all active:scale-95 text-xl">
+        Optimize My Prompt
+      </button>
+
+      <div id="result-area" class="hidden animate-in fade-in duration-500">
+        <div class="bg-slate-900 p-8 rounded-3xl shadow-2xl relative">
+          <label id="label-optimized" class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-4">Optimized Result</label>
+          <pre id="output-text" class="text-slate-100 whitespace-pre-wrap font-medium leading-relaxed"></pre>
+          <button id="btn-copy" onclick="copyPrompt()" class="absolute top-6 right-6 px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-lg transition-colors">
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const i18n = {
+      en: {
+        title: "AI Prompt Helper", desc: "Optimize your commands for better AI results.",
+        labelRole: "1. Expert Role", labelTask: "2. The Task",
+        placeholderRole: "e.g. Professional Copywriter", placeholderTask: "Write a blog post about...",
+        btnGen: "Optimize My Prompt", labelOpt: "Optimized Result", btnCopy: "Copy",
+        template: "Act as an [ROLE]. Your task is to [TASK]. Please provide a high-quality, structured response that is creative and accurate."
+      },
+      zh: {
+        title: "AI 提示词助手", desc: "优化你的指令，获得更精准的 AI 回复。",
+        labelRole: "1. 专家角色", labelTask: "2. 具体任务",
+        placeholderRole: "例如：资深文案策划、高级程序员", placeholderTask: "我想写一篇关于...的文章",
+        btnGen: "生成优化提示词", labelOpt: "优化后的结果", btnCopy: "复制",
+        template: "请作为 [ROLE] 执行任务。你的目标是 [TASK]。请提供高质量、结构化、富有创意且准确的内容。"
+      },
+      es: {
+        title: "Asistente de Prompts", desc: "Optimiza tus comandos para mejores resultados.",
+        labelRole: "1. Rol de Experto", labelTask: "2. La Tarea",
+        placeholderRole: "ej. Redactor Profesional", placeholderTask: "Escribe un artículo sobre...",
+        btnGen: "Optimizar Prompt", labelOpt: "Resultado Optimizado", btnCopy: "Copiar",
+        template: "Actúa como [ROLE]. Tu tarea es [TASK]. Por favor, proporciona una respuesta estructurada y de alta calidad."
+      },
+      fr: {
+        title: "Assistant de Prompt", desc: "Optimisez vos commandes pour l'IA.",
+        labelRole: "1. Rôle d'Expert", labelTask: "2. La Tâche",
+        placeholderRole: "ex. Rédacteur Professionnel", placeholderTask: "Écrire un article sur...",
+        btnGen: "Optimiser le Prompt", labelOpt: "Résultat Optimisé", btnCopy: "Copier",
+        template: "Agissez en tant que [ROLE]. Votre tâche est de [TASK]. Veuillez fournir une réponse structurée et de haute qualité."
+      },
+      de: {
+        title: "KI-Prompt-Helfer", desc: "Optimieren Sie Ihre Befehle für die KI.",
+        labelRole: "1. Expertenrolle", labelTask: "2. Aufgabe",
+        placeholderRole: "z.B. Erfahrener Texter", placeholderTask: "Schreibe einen Blog-Beitrag über...",
+        btnGen: "Prompt optimieren", labelOpt: "Optimiertes Ergebnis", btnCopy: "Kopieren",
+        template: "Agieren Sie als [ROLE]. Ihre Aufgabe ist [TASK]. Bitte liefern Sie eine hochwertige, strukturierte Antwort."
+      }
+    };
+
+    function getLang() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('lang') || 'en';
+    }
+
+    function updateUI() {
+      const lang = getLang();
+      const data = i18n[lang] || i18n['en'];
+
+      document.getElementById('page-title').innerText = data.title;
+      document.getElementById('page-desc').innerText = data.desc;
+      document.getElementById('label-role').innerText = data.labelRole;
+      document.getElementById('label-task').innerText = data.labelTask;
+      document.getElementById('input-role').placeholder = data.placeholderRole;
+      document.getElementById('input-task').placeholder = data.placeholderTask;
+      document.getElementById('btn-generate').innerText = data.btnGen;
+      document.getElementById('label-optimized').innerText = data.labelOpt;
+      document.getElementById('btn-copy').innerText = data.btnCopy;
+      
+      document.getElementById('lang-select').value = lang;
+      document.getElementById('home-link').href = "/?lang=" + lang;
+    }
+
+    function generatePrompt() {
+      const role = document.getElementById('input-role').value || "AI Assistant";
+      const task = document.getElementById('input-task').value;
+      if (!task) return;
+
+      const lang = getLang();
+      const template = i18n[lang].template;
+      const result = template.replace("[ROLE]", role).replace("[TASK]", task);
+
+      document.getElementById('result-area').classList.remove('hidden');
+      document.getElementById('output-text').innerText = result;
+      document.getElementById('result-area').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyPrompt() {
+      const text = document.getElementById('output-text').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btn-copy');
+        const oldText = btn.innerText;
+        btn.innerText = "✓ Done";
+        setTimeout(() => btn.innerText = oldText, 2000);
+      });
+    }
+
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      window.location.href = url.href;
+    });
+
+    window.onload = updateUI;
+  </script>
+</body>
+</html>
