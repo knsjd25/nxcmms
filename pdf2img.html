@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PDF to Image — Mini-Tools.uk</title>
+  <script async src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+  
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+    .drop-zone { border: 3px dashed #e2e8f0; transition: all 0.3s ease; }
+    .drop-zone.active { border-color: #2563eb; background-color: #eff6ff; }
+    .page-preview { box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+    canvas { max-width: 100%; height: auto; border-radius: 12px; }
+  </style>
+</head>
+<body>
+
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" id="home-link" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow">M</a>
+        <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
+      </div>
+      <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer">
+        <option value="en">🇬🇧 English</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="de">🇩🇪 Deutsch</option>
+      </select>
+    </div>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-6 py-12">
+    <div class="mb-10 text-center">
+      <h1 id="page-title" class="text-3xl font-extrabold text-slate-900 mb-2">PDF to Image</h1>
+      <p id="page-desc" class="text-slate-500">Convert PDF pages into high-quality PNG images locally.</p>
+    </div>
+
+    <div id="drop-area" class="drop-zone bg-white rounded-3xl p-12 text-center cursor-pointer mb-8">
+      <input type="file" id="file-input" accept="application/pdf" class="hidden">
+      <div class="flex flex-col items-center">
+        <div class="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mb-4 text-blue-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+        </div>
+        <h3 id="label-upload" class="text-xl font-black text-slate-900 mb-1">Click or Drag PDF here</h3>
+        <p id="label-privacy" class="text-sm text-slate-400 font-bold uppercase tracking-widest">100% Secure • Client-side processing</p>
+      </div>
+    </div>
+
+    <div id="status" class="hidden text-center mb-8">
+      <div class="inline-flex items-center gap-3 px-6 py-3 bg-blue-600 text-white rounded-full font-bold shadow-lg">
+        <svg class="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        <span id="status-text">Processing...</span>
+      </div>
+    </div>
+
+    <div id="output-list" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+  </main>
+
+  <script>
+    const i18n = {
+      en: {
+        title: "PDF to Image", desc: "Convert PDF pages to PNG instantly.",
+        upload: "Click or Drag PDF here", privacy: "100% Secure • Local Processing",
+        status: "Rendering pages...", download: "Download Page"
+      },
+      zh: {
+        title: "PDF 转图片", desc: "将 PDF 页面即时转换为高质量 PNG 图片。",
+        upload: "点击或拖拽 PDF 文件至此", privacy: "100% 安全 • 本地处理，不上传文件",
+        status: "正在渲染页面...", download: "下载此页"
+      },
+      es: {
+        title: "PDF a Imagen", desc: "Convierte páginas PDF a PNG al instante.",
+        upload: "Clic o arrastra el PDF aquí", privacy: "100% Seguro • Procesamiento Local",
+        status: "Procesando páginas...", download: "Descargar Página"
+      },
+      fr: {
+        title: "PDF en Image", desc: "Convertissez des pages PDF en PNG instantanément.",
+        upload: "Cliquez ou glissez le PDF ici", privacy: "100% Sécurisé • Traitement Local",
+        status: "Rendu des pages...", download: "Télécharger"
+      },
+      de: {
+        title: "PDF zu Bild", desc: "PDF-Seiten sofort in PNG umwandeln.",
+        upload: "PDF hierher ziehen oder klicken", privacy: "100% Sicher • Lokale Verarbeitung",
+        status: "Seiten werden gerendert...", download: "Seite herunterladen"
+      }
+    };
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+    const dropArea = document.getElementById('drop-area');
+    const fileInput = document.getElementById('file-input');
+    const outputList = document.getElementById('output-list');
+    const status = document.getElementById('status');
+
+    function getLang() {
+      return new URLSearchParams(window.location.search).get('lang') || 'en';
+    }
+
+    function updateLanguage() {
+      const lang = getLang();
+      const data = i18n[lang] || i18n['en'];
+      document.getElementById('page-title').innerText = data.title;
+      document.getElementById('page-desc').innerText = data.desc;
+      document.getElementById('label-upload').innerText = data.upload;
+      document.getElementById('label-privacy').innerText = data.privacy;
+      document.getElementById('status-text').innerText = data.status;
+      document.getElementById('lang-select').value = lang;
+      document.getElementById('home-link').href = "/?lang=" + lang;
+    }
+
+    // 交互事件
+    dropArea.onclick = () => fileInput.click();
+    dropArea.ondragover = (e) => { e.preventDefault(); dropArea.classList.add('active'); };
+    dropArea.ondragleave = () => dropArea.classList.remove('active');
+    dropArea.ondrop = (e) => {
+      e.preventDefault();
+      dropArea.classList.remove('active');
+      const file = e.dataTransfer.files[0];
+      if (file && file.type === "application/pdf") handlePDF(file);
+    };
+    fileInput.onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) handlePDF(file);
+    };
+
+    async function handlePDF(file) {
+      status.classList.remove('hidden');
+      outputList.innerHTML = "";
+      const lang = getLang();
+      const btnText = i18n[lang].download;
+
+      const reader = new FileReader();
+      reader.onload = async function() {
+        const typedarray = new Uint8Array(this.result);
+        const pdf = await pdfjsLib.getDocument(typedarray).promise;
+
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const viewport = page.getViewport({ scale: 2 }); // 2倍缩放保证清晰
+          
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+
+          await page.render({ canvasContext: context, viewport: viewport }).promise;
+
+          // 创建卡片
+          const card = document.createElement('div');
+          card.className = "bg-white p-4 rounded-3xl border border-slate-100 shadow-sm flex flex-col gap-4";
+          
+          const imgData = canvas.toDataURL('image/png');
+          
+          card.innerHTML = `
+            <div class="page-preview overflow-hidden rounded-xl">
+              <img src="${imgData}" class="w-full h-auto">
+            </div>
+            <div class="flex justify-between items-center px-2">
+              <span class="text-xs font-black text-slate-400 uppercase tracking-widest">Page ${i}</span>
+              <a href="${imgData}" download="page-${i}.png" class="px-4 py-2 bg-slate-900 text-white text-xs font-black rounded-lg hover:bg-black transition-all">
+                ${btnText}
+              </a>
+            </div>
+          `;
+          outputList.appendChild(card);
+        }
+        status.classList.add('hidden');
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      window.location.href = `?lang=${e.target.value}`;
+    });
+
+    window.onload = updateLanguage;
+  </script>
+</body>
+</html>
