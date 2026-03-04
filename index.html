@@ -45,10 +45,8 @@
   <header class="max-w-7xl mx-auto pt-20 pb-12 px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between gap-12">
     <div class="lg:w-3/5">
       <div class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-xs font-bold mb-6 italic tracking-wider">#1 UK Utility Toolbox</div>
-      <h1 id="hero-title" class="text-4xl lg:text-6xl font-extrabold text-slate-900 mb-4 leading-tight">
-        </h1>
-      <p id="hero-sub" class="text-lg text-slate-500 mb-6 max-w-2xl leading-relaxed">
-        </p>
+      <h1 id="hero-title" class="text-4xl lg:text-6xl font-extrabold text-slate-900 mb-4 leading-tight"></h1>
+      <p id="hero-sub" class="text-lg text-slate-500 mb-6 max-w-2xl leading-relaxed"></p>
     </div>
     <div class="lg:w-2/5 hidden lg:block">
       <img src="https://cdn-icons-png.flaticon.com/512/9167/9167014.png" class="w-64 h-64 mx-auto drop-shadow-xl" alt="Tools Illustration">
@@ -56,8 +54,7 @@
   </header>
 
   <main class="max-w-7xl mx-auto px-6 pb-32">
-    <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      </div>
+    <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
   </main>
 
   <script>
@@ -79,7 +76,6 @@
           json: { t: "JSON Formatter", d: "Clean up and validate JSON code.", img: "https://cdn-icons-png.flaticon.com/512/136/136525.png", hot: false },
           diff: { t: "Text Diff Checker", d: "Compare two texts for changes.", img: "https://cdn-icons-png.flaticon.com/512/2911/2911230.png", hot: false },
           image: { t: "Image Resizer", d: "Compress & resize images fast.", img: "https://cdn-icons-png.flaticon.com/512/2916/2916124.png", hot: false }
-          // ... 可以继续按此格式添加至20个
         }
       },
       zh: {
@@ -100,12 +96,68 @@
           diff: { t: "文本比对", d: "比对两段文本的差异之处。", img: "https://cdn-icons-png.flaticon.com/512/2911/2911230.png", hot: false },
           image: { t: "图片调优", d: "快速压缩或调整图片尺寸。", img: "https://cdn-icons-png.flaticon.com/512/2916/2916124.png", hot: false }
         }
+      },
+      es: {
+        hero: "Herramientas <span class='text-blue-600'>Gratuitas</span> e Inteligentes.",
+        sub: "Más de 20 utilidades ligeras. Sin registro, privacidad primero y optimizadas.",
+        hot: "HOT", open: "Abrir",
+        tools: {
+          tax: { t: "Impuestos (PAYE)", d: "Calcula tu salario neto en el Reino Unido.", img: "https://cdn-icons-png.flaticon.com/512/3135/3135706.png", hot: true },
+          vat: { t: "Calculadora de IVA", d: "Añadir o quitar IVA (estándar HMRC).", img: "https://cdn-icons-png.flaticon.com/512/10433/10433048.png", hot: false },
+          prompt: { t: "Asistente de AI", d: "Mejora tus prompts de IA al instante.", img: "https://cdn-icons-png.flaticon.com/512/10696/10696515.png", hot: true },
+          mortgage: { t: "Hipoteca", d: "Estima tus pagos mensuales de casa.", img: "https://cdn-icons-png.flaticon.com/512/3475/3475306.png", hot: false },
+          qr: { t: "Generador QR", d: "Crea códigos QR personalizados.", img: "https://cdn-icons-png.flaticon.com/512/241/241528.png", hot: false },
+          unit: { t: "Convertidor", d: "Conversión métrica e imperial.", img: "https://cdn-icons-png.flaticon.com/512/6127/6127623.png", hot: false },
+          word: { t: "Contador", d: "Conteo de palabras en tiempo real.", img: "https://cdn-icons-png.flaticon.com/512/2541/2541991.png", hot: false },
+          pass: { t: "Contraseñas", d: "Generador de contraseñas seguras.", img: "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", hot: false },
+          pdf: { t: "PDF a Imagen", d: "Extrae páginas como JPG/PNG.", img: "https://cdn-icons-png.flaticon.com/512/337/337946.png", hot: true },
+          json: { t: "FormatJSON", d: "Limpia y valida código JSON.", img: "https://cdn-icons-png.flaticon.com/512/136/136525.png", hot: false },
+          diff: { t: "Comparador", d: "Compara diferencias en textos.", img: "https://cdn-icons-png.flaticon.com/512/2911/2911230.png", hot: false },
+          image: { t: "Redimensionar", d: "Comprime imágenes rápidamente.", img: "https://cdn-icons-png.flaticon.com/512/2916/2916124.png", hot: false }
+        }
+      },
+      fr: {
+        hero: "Outils <span class='text-blue-600'>Gratuits</span> & Intelligents.",
+        sub: "Plus de 20 utilitaires légers. Sans inscription, respect de la vie privée.",
+        hot: "TOP", open: "Lancer",
+        tools: {
+          tax: { t: "Impôt (PAYE)", d: "Calculez votre salaire net au Royaume-Uni.", img: "https://cdn-icons-png.flaticon.com/512/3135/3135706.png", hot: true },
+          vat: { t: "Calcul de TVA", d: "Ajouter ou retirer la TVA (normes HMRC).", img: "https://cdn-icons-png.flaticon.com/512/10433/10433048.png", hot: false },
+          prompt: { t: "Assistant IA", d: "Optimisez vos prompts IA instantanément.", img: "https://cdn-icons-png.flaticon.com/512/10696/10696515.png", hot: true },
+          mortgage: { t: "Prêt Immobilier", d: "Estimez vos mensualités de crédit.", img: "https://cdn-icons-png.flaticon.com/512/3475/3475306.png", hot: false },
+          qr: { t: "Générateur QR", d: "Créez des codes QR personnalisés.", img: "https://cdn-icons-png.flaticon.com/512/241/241528.png", hot: false },
+          unit: { t: "Convertisseur", d: "Conversion métrique et impériale.", img: "https://cdn-icons-png.flaticon.com/512/6127/6127623.png", hot: false },
+          word: { t: "Compteur", d: "Comptage de mots en temps réel.", img: "https://cdn-icons-png.flaticon.com/512/2541/2541991.png", hot: false },
+          pass: { t: "Mot de Passe", d: "Générateur de mots de passe sécurisés.", img: "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", hot: false },
+          pdf: { t: "PDF en Image", d: "Extrayez des pages en JPG/PNG.", img: "https://cdn-icons-png.flaticon.com/512/337/337946.png", hot: true },
+          json: { t: "Format JSON", d: "Nettoyez et validez le code JSON.", img: "https://cdn-icons-png.flaticon.com/512/136/136525.png", hot: false },
+          diff: { t: "Comparateur", d: "Comparez les différences de texte.", img: "https://cdn-icons-png.flaticon.com/512/2911/2911230.png", hot: false },
+          image: { t: "Redimensionner", d: "Compressez vos images rapidement.", img: "https://cdn-icons-png.flaticon.com/512/2916/2916124.png", hot: false }
+        }
+      },
+      de: {
+        hero: "Smarte & <span class='text-blue-600'>Gratis-Tools</span>.",
+        sub: "Über 20 leichte Dienstprogramme. Ohne Anmeldung, Datenschutz zuerst.",
+        hot: "NEU", open: "Starten",
+        tools: {
+          tax: { t: "Einkommensteuer", d: "Berechnen Sie Ihr Nettogehalt (UK).", img: "https://cdn-icons-png.flaticon.com/512/3135/3135706.png", hot: true },
+          vat: { t: "MwSt-Rechner", d: "MwSt hinzufügen oder abziehen (HMRC).", img: "https://cdn-icons-png.flaticon.com/512/10433/10433048.png", hot: false },
+          prompt: { t: "KI-Prompts", d: "KI-Prompts sofort optimieren.", img: "https://cdn-icons-png.flaticon.com/512/10696/10696515.png", hot: true },
+          mortgage: { t: "Hypothek", d: "Schätzen Sie Ihre monatlichen Raten.", img: "https://cdn-icons-png.flaticon.com/512/3475/3475306.png", hot: false },
+          qr: { t: "QR-Generator", d: "Erstellen Sie eigene QR-Codes.", img: "https://cdn-icons-png.flaticon.com/512/241/241528.png", hot: false },
+          unit: { t: "Konverter", d: "Metrische & imperiale Umrechnung.", img: "https://cdn-icons-png.flaticon.com/512/6127/6127623.png", hot: false },
+          word: { t: "Wortzähler", d: "Wortzählung in Echtzeit.", img: "https://cdn-icons-png.flaticon.com/512/2541/2541991.png", hot: false },
+          pass: { t: "Passwort-Gen", d: "Sichere Zufallspasswörter erstellen.", img: "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", hot: false },
+          pdf: { t: "PDF zu Bild", d: "Seiten als JPG/PNG extrahieren.", img: "https://cdn-icons-png.flaticon.com/512/337/337946.png", hot: true },
+          json: { t: "JSON-Format", d: "JSON-Code bereinigen und prüfen.", img: "https://cdn-icons-png.flaticon.com/512/136/136525.png", hot: false },
+          diff: { t: "Text-Diff", d: "Zwei Texte auf Unterschiede prüfen.", img: "https://cdn-icons-png.flaticon.com/512/2911/2911230.png", hot: false },
+          image: { t: "Größe ändern", d: "Bilder schnell komprimieren.", img: "https://cdn-icons-png.flaticon.com/512/2916/2916124.png", hot: false }
+        }
       }
     };
 
     function getLang() {
       const params = new URLSearchParams(window.location.search);
-      // 如果 URL 没参数，尝试获取浏览器语言
       let lang = params.get('lang');
       if (!lang) {
         const navLang = navigator.language.split('-')[0];
@@ -114,7 +166,6 @@
       return lang;
     }
 
-    // 关键函数：让页面上所有内部链接都自动带上 ?lang= 参数
     function syncLinks(lang) {
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
@@ -157,11 +208,9 @@
           </a>`;
       }).join('');
 
-      // 执行链接同步
       syncLinks(lang);
     }
 
-    // 切换语言时，直接刷新页面并带上新参数
     document.getElementById('lang-select').addEventListener('change', (e) => {
       const newLang = e.target.value;
       const url = new URL(window.location.href);
