@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JSON Formatter & Validator — Mini-Tools.uk</title>
+  <script async src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+    .editor-area { font-family: 'Monaco', 'Consolas', monospace; }
+    .error-msg { background-color: #fef2f2; border: 1px solid #fee2e2; color: #b91c1c; }
+    .success-msg { background-color: #f0fdf4; border: 1px solid #dcfce7; color: #15803d; }
+  </style>
+</head>
+<body>
+
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" id="home-link" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow">M</a>
+        <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
+      </div>
+      <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer">
+        <option value="en">🇬🇧 English</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="de">🇩🇪 Deutsch</option>
+      </select>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-6 py-12">
+    <div class="mb-10 text-center">
+      <h1 id="page-title" class="text-3xl font-extrabold text-slate-900 mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">JSON Formatter</h1>
+      <p id="page-desc" class="text-slate-500">Clean, format, and validate your JSON data instantly.</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6">
+      <div class="flex flex-wrap gap-3 justify-center mb-4">
+        <button id="btn-beautify" onclick="processJSON('beautify')" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl shadow-lg transition-all active:scale-95">Beautify</button>
+        <button id="btn-minify" onclick="processJSON('minify')" class="px-6 py-3 bg-slate-800 hover:bg-black text-white font-black rounded-xl shadow-lg transition-all active:scale-95">Minify</button>
+        <button id="btn-copy" onclick="copyJSON()" class="px-6 py-3 bg-white border border-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-50 transition-all">Copy</button>
+        <button id="btn-clear" onclick="clearAll()" class="px-6 py-3 bg-white border border-slate-200 text-red-500 font-bold rounded-xl hover:bg-red-50 transition-all">Clear</button>
+      </div>
+
+      <div class="relative">
+        <textarea id="json-input" class="editor-area w-full h-96 p-6 bg-white border border-slate-200 rounded-3xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500 text-sm leading-relaxed" placeholder='Paste your JSON here...'></textarea>
+        
+        <div id="feedback" class="hidden mt-4 p-4 rounded-2xl text-sm font-bold animate-in fade-in slide-in-from-top-2"></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const i18n = {
+      en: {
+        title: "JSON Formatter", desc: "Format, beautify, and validate JSON data.",
+        btnBeautify: "Beautify", btnMinify: "Minify", btnCopy: "Copy", btnClear: "Clear",
+        placeholder: "Paste your JSON here...",
+        invalid: "Invalid JSON: ", valid: "Valid JSON! Optimized successfully."
+      },
+      zh: {
+        title: "JSON 格式化", desc: "在线美化、压缩并校验 JSON 代码。",
+        btnBeautify: "美化代码", btnMinify: "压缩代码", btnCopy: "复制结果", btnClear: "清空",
+        placeholder: "在此粘贴 JSON 代码...",
+        invalid: "无效的 JSON: ", valid: "JSON 格式正确！已成功处理。"
+      },
+      es: {
+        title: "Formateador JSON", desc: "Formatea, embellece y valida datos JSON.",
+        btnBeautify: "Embellecer", btnMinify: "Minimizar", btnCopy: "Copiar", btnClear: "Limpiar",
+        placeholder: "Pegue su JSON aquí...",
+        invalid: "JSON inválido: ", valid: "¡JSON válido! Optimizado con éxito."
+      },
+      fr: {
+        title: "Formateur JSON", desc: "Formater, embellir et valider les données JSON.",
+        btnBeautify: "Embellir", btnMinify: "Minifier", btnCopy: "Copier", btnClear: "Effacer",
+        placeholder: "Collez votre JSON ici...",
+        invalid: "JSON invalide: ", valid: "JSON valide ! Optimisé avec succès."
+      },
+      de: {
+        title: "JSON Formatter", desc: "JSON-Daten formatieren, verschönern und validieren.",
+        btnBeautify: "Formatieren", btnMinify: "Minimieren", btnCopy: "Kopieren", btnClear: "Löschen",
+        placeholder: "JSON hier einfügen...",
+        invalid: "Ungültiges JSON: ", valid: "Gültiges JSON! Erfolgreich optimiert."
+      }
+    };
+
+    function getLang() {
+      return new URLSearchParams(window.location.search).get('lang') || 'en';
+    }
+
+    function updateLanguage() {
+      const lang = getLang();
+      const data = i18n[lang] || i18n['en'];
+
+      document.getElementById('page-title').innerText = data.title;
+      document.getElementById('page-desc').innerText = data.desc;
+      document.getElementById('btn-beautify').innerText = data.btnBeautify;
+      document.getElementById('btn-minify').innerText = data.btnMinify;
+      document.getElementById('btn-copy').innerText = data.btnCopy;
+      document.getElementById('btn-clear').innerText = data.btnClear;
+      document.getElementById('json-input').placeholder = data.placeholder;
+      
+      document.getElementById('lang-select').value = lang;
+      document.getElementById('home-link').href = "/?lang=" + lang;
+    }
+
+    function processJSON(mode) {
+      const input = document.getElementById('json-input');
+      const feedback = document.getElementById('feedback');
+      const lang = getLang();
+      const data = i18n[lang] || i18n['en'];
+
+      try {
+        const rawValue = input.value.trim();
+        if (!rawValue) return;
+
+        const obj = JSON.parse(rawValue);
+        const result = mode === 'beautify' 
+          ? JSON.stringify(obj, null, 4) 
+          : JSON.stringify(obj);
+
+        input.value = result;
+        
+        // 成功反馈
+        feedback.className = "mt-4 p-4 rounded-2xl text-sm font-bold success-msg block";
+        feedback.innerText = data.valid;
+        setTimeout(() => feedback.classList.add('hidden'), 3000);
+
+      } catch (e) {
+        // 错误反馈
+        feedback.className = "mt-4 p-4 rounded-2xl text-sm font-bold error-msg block";
+        feedback.innerText = data.invalid + e.message;
+      }
+    }
+
+    function copyJSON() {
+      const input = document.getElementById('json-input');
+      input.select();
+      document.execCommand('copy');
+      const btn = document.getElementById('btn-copy');
+      const old = btn.innerText;
+      btn.innerText = "✓";
+      setTimeout(() => btn.innerText = old, 2000);
+    }
+
+    function clearAll() {
+      document.getElementById('json-input').value = "";
+      document.getElementById('feedback').classList.add('hidden');
+    }
+
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      window.location.href = url.href;
+    });
+
+    window.onload = updateLanguage;
+  </script>
+</body>
+</html>
