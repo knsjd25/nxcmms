@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Word Counter — Mini-Tools.uk</title>
+  <script async src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+    .stat-card { background: white; border: 1px solid #e2e8f0; transition: all 0.2s ease; }
+    .stat-value { color: #2563eb; }
+    textarea::placeholder { color: #cbd5e1; }
+  </style>
+</head>
+<body>
+
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" id="home-link" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow">M</a>
+        <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
+      </div>
+      <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer">
+        <option value="en">🇬🇧 English</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="de">🇩🇪 Deutsch</option>
+      </select>
+    </div>
+  </nav>
+
+  <main class="max-w-5xl mx-auto px-6 py-12">
+    <div class="mb-10 text-center">
+      <h1 id="page-title" class="text-3xl font-extrabold text-slate-900 mb-2">Word Counter</h1>
+      <p id="page-desc" class="text-slate-500">Real-time character, word, and sentence counting.</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="stat-card p-6 rounded-2xl shadow-sm text-center">
+        <div id="label-words" class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Words</div>
+        <div id="val-words" class="text-3xl font-black stat-value">0</div>
+      </div>
+      <div class="stat-card p-6 rounded-2xl shadow-sm text-center">
+        <div id="label-chars" class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Characters</div>
+        <div id="val-chars" class="text-3xl font-black stat-value">0</div>
+      </div>
+      <div class="stat-card p-6 rounded-2xl shadow-sm text-center">
+        <div id="label-sentences" class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Sentences</div>
+        <div id="val-sentences" class="text-3xl font-black stat-value">0</div>
+      </div>
+      <div class="stat-card p-6 rounded-2xl shadow-sm text-center">
+        <div id="label-paragraphs" class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Paragraphs</div>
+        <div id="val-paragraphs" class="text-3xl font-black stat-value">0</div>
+      </div>
+    </div>
+
+    <div class="relative bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+      <textarea id="text-input" rows="12" class="w-full p-8 text-lg font-medium text-slate-700 outline-none resize-none bg-transparent" placeholder="Type or paste your content here..."></textarea>
+      
+      <div class="flex items-center justify-between p-4 bg-slate-50 border-t border-slate-100">
+        <div class="flex gap-2">
+          <button id="btn-copy" onclick="copyText()" class="px-4 py-2 bg-white border border-slate-200 text-slate-600 text-sm font-bold rounded-xl hover:bg-slate-100 transition-colors">Copy</button>
+          <button id="btn-clear" onclick="clearText()" class="px-4 py-2 bg-white border border-slate-200 text-red-500 text-sm font-bold rounded-xl hover:bg-red-50 transition-colors">Clear</button>
+        </div>
+        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter" id="status-msg">Real-time analysis active</div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const i18n = {
+      en: {
+        title: "Word Counter", desc: "Real-time character & word counting.",
+        words: "Words", chars: "Characters", sentences: "Sentences", paragraphs: "Paragraphs",
+        placeholder: "Type or paste your content here...",
+        btnCopy: "Copy Text", btnClear: "Clear", msg: "Analysis active"
+      },
+      zh: {
+        title: "字数统计", desc: "实时统计文本字符数、单词数及段落。",
+        words: "字数/单词", chars: "字符数", sentences: "句子数", paragraphs: "段落数",
+        placeholder: "在此输入或粘贴您的内容...",
+        btnCopy: "复制文本", btnClear: "清空", msg: "实时分析中"
+      },
+      es: {
+        title: "Contador de Palabras", desc: "Conteo de caracteres y palabras en tiempo real.",
+        words: "Palabras", chars: "Caracteres", sentences: "Frases", paragraphs: "Párrafos",
+        placeholder: "Escriba o pegue su contenido aquí...",
+        btnCopy: "Copiar", btnClear: "Limpiar", msg: "Análisis activo"
+      },
+      fr: {
+        title: "Compteur de Mots", desc: "Comptage de mots et caractères en temps réel.",
+        words: "Mots", chars: "Caractères", sentences: "Phrases", paragraphs: "Paragraphes",
+        placeholder: "Tapez ou collez votre contenu ici...",
+        btnCopy: "Copier", btnClear: "Effacer", msg: "Analyse active"
+      },
+      de: {
+        title: "Wortzähler", desc: "Echtzeit-Zählung von Wörtern und Zeichen.",
+        words: "Wörter", chars: "Zeichen", sentences: "Sätze", paragraphs: "Absätze",
+        placeholder: "Geben Sie Ihren Inhalt hier ein...",
+        btnCopy: "Kopieren", btnClear: "Löschen", msg: "Analyse aktiv"
+      }
+    };
+
+    const textInput = document.getElementById('text-input');
+
+    function getLang() {
+      return new URLSearchParams(window.location.search).get('lang') || 'en';
+    }
+
+    function updateLanguage() {
+      const lang = getLang();
+      const data = i18n[lang] || i18n['en'];
+
+      document.getElementById('page-title').innerText = data.title;
+      document.getElementById('page-desc').innerText = data.desc;
+      document.getElementById('label-words').innerText = data.words;
+      document.getElementById('label-chars').innerText = data.chars;
+      document.getElementById('label-sentences').innerText = data.sentences;
+      document.getElementById('label-paragraphs').innerText = data.paragraphs;
+      document.getElementById('text-input').placeholder = data.placeholder;
+      document.getElementById('btn-copy').innerText = data.btnCopy;
+      document.getElementById('btn-clear').innerText = data.btnClear;
+      document.getElementById('status-msg').innerText = data.msg;
+      
+      document.getElementById('lang-select').value = lang;
+      document.getElementById('home-link').href = "/?lang=" + lang;
+    }
+
+    function analyzeText() {
+      const text = textInput.value.trim();
+      
+      // 1. 单词统计 (处理英文单词和中文字符)
+      // 英文单词按空格分，中文按字符算
+      const words = text ? (text.match(/[\u4e00-\u9fa5]|\b\w+\b/g) || []).length : 0;
+      
+      // 2. 字符统计 (包含空格)
+      const chars = text.length;
+      
+      // 3. 句子统计 (根据标点符号)
+      const sentences = text ? (text.match(/[.!?。！？](\s|$)/g) || []).length + (/[^.!?。！？]$/.test(text) ? 1 : 0) : 0;
+      
+      // 4. 段落统计
+      const paragraphs = text ? text.split(/\n+/).filter(p => p.trim().length > 0).length : 0;
+
+      document.getElementById('val-words').innerText = words;
+      document.getElementById('val-chars').innerText = chars;
+      document.getElementById('val-sentences').innerText = sentences;
+      document.getElementById('val-paragraphs').innerText = paragraphs;
+    }
+
+    function clearText() {
+      textInput.value = "";
+      analyzeText();
+    }
+
+    function copyText() {
+      textInput.select();
+      document.execCommand('copy');
+      const btn = document.getElementById('btn-copy');
+      const original = btn.innerText;
+      btn.innerText = "✓";
+      setTimeout(() => btn.innerText = original, 2000);
+    }
+
+    textInput.addEventListener('input', analyzeText);
+
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      window.location.href = url.href;
+    });
+
+    window.onload = updateLanguage;
+  </script>
+</body>
+</html>
