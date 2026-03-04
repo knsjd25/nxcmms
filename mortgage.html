@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UK Mortgage Calculator — Mini-Tools.uk</title>
+  <script async src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+    .result-card { background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: white; }
+    input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  </style>
+</head>
+<body>
+
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" id="home-link" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow">M</a>
+        <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
+      </div>
+      <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer">
+        <option value="en">🇬🇧 English</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="de">🇩🇪 Deutsch</option>
+      </select>
+    </div>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-6 py-12">
+    <div class="mb-10 text-center lg:text-left">
+      <h1 id="page-title" class="text-3xl font-extrabold text-slate-900 mb-2">Mortgage Calculator</h1>
+      <p id="page-desc" class="text-slate-500">Estimate your monthly mortgage payments and total interest costs.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6">
+        <div>
+          <label id="label-amount" class="block text-sm font-bold text-slate-700 mb-2">Loan Amount (£)</label>
+          <input type="number" id="input-amount" placeholder="e.g. 250000" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold outline-none focus:ring-2 focus:ring-emerald-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label id="label-term" class="block text-sm font-bold text-slate-700 mb-2">Term (Years)</label>
+            <input type="number" id="input-term" placeholder="25" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold outline-none">
+          </div>
+          <div>
+            <label id="label-rate" class="block text-sm font-bold text-slate-700 mb-2">Interest Rate (%)</label>
+            <input type="number" id="input-rate" step="0.01" placeholder="4.5" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label id="label-type" class="block text-sm font-bold text-slate-700 mb-2">Mortgage Type</label>
+          <select id="input-type" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold outline-none">
+            <option value="repayment" id="opt-repayment">Repayment</option>
+            <option value="interestOnly" id="opt-interest">Interest Only</option>
+          </select>
+        </div>
+
+        <button id="btn-calc" onclick="calculateMortgage()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl shadow-lg transition-all active:scale-95 text-lg">
+          Calculate Payments
+        </button>
+      </div>
+
+      <div id="result-area" class="result-card p-8 rounded-3xl shadow-2xl flex flex-col justify-between hidden">
+        <div>
+          <p id="res-label-monthly" class="text-emerald-100 font-bold text-sm uppercase tracking-widest mb-1">Monthly Payment</p>
+          <h2 id="val-monthly" class="text-5xl font-black text-white mb-6">£0.00</h2>
+          
+          <div class="space-y-4 border-t border-white/20 pt-6 text-sm">
+            <div class="flex justify-between">
+              <span id="res-label-total-repay" class="text-emerald-100">Total Repayment</span>
+              <span id="val-total-repay" class="font-bold">£0.00</span>
+            </div>
+            <div class="flex justify-between">
+              <span id="res-label-total-interest" class="text-emerald-100">Total Interest</span>
+              <span id="val-total-interest" class="font-bold">£0.00</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 p-4 bg-black/10 rounded-2xl text-xs text-emerald-50 leading-relaxed italic">
+          * This is an estimate for illustrative purposes only. Actual rates depend on your lender.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const i18n = {
+      en: {
+        title: "Mortgage Calculator", desc: "Estimate your monthly mortgage payments.",
+        labelAmount: "Loan Amount (£)", labelTerm: "Term (Years)", labelRate: "Interest Rate (%)", labelType: "Mortgage Type",
+        optRepayment: "Repayment", optInterest: "Interest Only", btnCalc: "Calculate Payments",
+        resMonthly: "Monthly Payment", resTotalRepay: "Total Repayment", resTotalInterest: "Total Interest"
+      },
+      zh: {
+        title: "房贷计算器", desc: "估算您的每月房贷还款额及利息成本。",
+        labelAmount: "贷款总额 (£)", labelTerm: "贷款期限 (年)", labelRate: "年利率 (%)", labelType: "还款方式",
+        optRepayment: "本息合计 (Repayment)", optInterest: "仅还利息 (Interest Only)", btnCalc: "立即计算",
+        resMonthly: "每月还款额", resTotalRepay: "总还款额", resTotalInterest: "总利息支出"
+      },
+      es: {
+        title: "Calculadora Hipotecaria", desc: "Estima tus pagos mensuales de hipoteca.",
+        labelAmount: "Monto del Préstamo (£)", labelTerm: "Plazo (Años)", labelRate: "Tasa de Interés (%)", labelType: "Tipo de Hipoteca",
+        optRepayment: "Amortización", optInterest: "Solo Intereses", btnCalc: "Calcular Pagos",
+        resMonthly: "Pago Mensual", resTotalRepay: "Reembolso Total", resTotalInterest: "Interés Total"
+      },
+      fr: {
+        title: "Calculateur de Prêt", desc: "Estimez vos mensualités de prêt immobilier.",
+        labelAmount: "Montant du Prêt (£)", labelTerm: "Durée (Années)", labelRate: "Taux d'Intérêt (%)", labelType: "Type de Prêt",
+        optRepayment: "Remboursement", optInterest: "Intérêts Uniquement", btnCalc: "Calculer",
+        resMonthly: "Mensualité", resTotalRepay: "Remboursement Total", resTotalInterest: "Intérêt Total"
+      },
+      de: {
+        title: "Hypothekenrechner", desc: "Schätzen Sie Ihre monatlichen Tilgungsraten.",
+        labelAmount: "Darlehensbetrag (£)", labelTerm: "Laufzeit (Jahre)", labelRate: "Zinssatz (%)", labelType: "Hypothekenart",
+        optRepayment: "Tilgung", optInterest: "Nur Zinsen", btnCalc: "Berechnen",
+        resMonthly: "Monatliche Rate", resTotalRepay: "Gesamtbetrag", resTotalInterest: "Gesamtzinsen"
+      }
+    };
+
+    function getLang() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('lang') || 'en';
+    }
+
+    function updateLanguage() {
+      const lang = getLang();
+      const data = i18n[lang] || i18n['en'];
+
+      document.getElementById('page-title').innerText = data.title;
+      document.getElementById('page-desc').innerText = data.desc;
+      document.getElementById('label-amount').innerText = data.labelAmount;
+      document.getElementById('label-term').innerText = data.labelTerm;
+      document.getElementById('label-rate').innerText = data.labelRate;
+      document.getElementById('label-type').innerText = data.labelType;
+      document.getElementById('opt-repayment').innerText = data.optRepayment;
+      document.getElementById('opt-interest').innerText = data.optInterest;
+      document.getElementById('btn-calc').innerText = data.btnCalc;
+      document.getElementById('res-label-monthly').innerText = data.resMonthly;
+      document.getElementById('res-label-total-repay').innerText = data.resTotalRepay;
+      document.getElementById('res-label-total-interest').innerText = data.resTotalInterest;
+      
+      document.getElementById('lang-select').value = lang;
+      document.getElementById('home-link').href = "/?lang=" + lang;
+    }
+
+    function calculateMortgage() {
+      const amount = parseFloat(document.getElementById('input-amount').value);
+      const term = parseFloat(document.getElementById('input-term').value);
+      const annualRate = parseFloat(document.getElementById('input-rate').value);
+      const type = document.getElementById('input-type').value;
+
+      if (!amount || !term || !annualRate) return;
+
+      const monthlyRate = (annualRate / 100) / 12;
+      const numberOfPayments = term * 12;
+      let monthlyPayment = 0;
+
+      if (type === 'repayment') {
+        // 等额本息计算公式: P * (r(1+r)^n) / ((1+r)^n - 1)
+        const x = Math.pow(1 + monthlyRate, numberOfPayments);
+        monthlyPayment = (amount * x * monthlyRate) / (x - 1);
+      } else {
+        // 仅利息计算公式: P * r
+        monthlyPayment = amount * monthlyRate;
+      }
+
+      const totalRepayment = monthlyPayment * numberOfPayments;
+      const totalInterest = totalRepayment - amount;
+
+      document.getElementById('result-area').classList.remove('hidden');
+      document.getElementById('val-monthly').innerText = "£" + monthlyPayment.toLocaleString(undefined, {minimumFractionDigits: 2});
+      document.getElementById('val-total-repay').innerText = "£" + totalRepayment.toLocaleString(undefined, {minimumFractionDigits: 2});
+      document.getElementById('val-total-interest').innerText = "£" + totalInterest.toLocaleString(undefined, {minimumFractionDigits: 2});
+    }
+
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      window.location.href = url.href;
+    });
+
+    window.onload = updateLanguage;
+  </script>
+</body>
+</html>
