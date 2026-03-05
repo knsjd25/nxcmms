@@ -5,8 +5,39 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Mini-Tools — 20+ Free Online Utilities (PAYE, VAT, AI Prompt, QR)</title>
   <meta name="description" content="Mini-Tools — 20+ lightweight free online utilities. No sign-up, privacy-first." />
-  
   <link rel="canonical" href="https://mini-tools.uk/" />
+
+  <!-- === SEO & Social Enhancements (added) === -->
+  <meta name="robots" content="index, follow" />
+  <link rel="alternate" href="https://mini-tools.uk/?lang=en" hreflang="en" />
+  <link rel="alternate" href="https://mini-tools.uk/?lang=zh" hreflang="zh-Hans" />
+  <link rel="alternate" href="https://mini-tools.uk/?lang=es" hreflang="es" />
+  <link rel="alternate" href="https://mini-tools.uk/?lang=fr" hreflang="fr" />
+  <link rel="alternate" href="https://mini-tools.uk/?lang=de" hreflang="de" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Mini-Tools" />
+  <meta property="og:title" content="Mini-Tools — 20+ Free Online Utilities (PAYE, VAT, AI Prompt, QR)" />
+  <meta property="og:description" content="Mini-Tools — 20+ lightweight free online utilities. No sign-up, privacy-first." />
+  <meta property="og:image" content="https://mini-tools.uk/og-image.png" />
+  <meta property="og:url" content="https://mini-tools.uk/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Mini-Tools",
+    "url": "https://mini-tools.uk/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://mini-tools.uk/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <!-- === end SEO additions === -->
+
   <script async src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
   
@@ -41,6 +72,25 @@
       </div>
     </div>
   </nav>
+
+  <!-- SEO-friendly noscript fallback (keeps important text & links visible to crawlers) -->
+  <noscript>
+    <header class="max-w-7xl mx-auto pt-12 pb-6 px-6 text-center">
+      <h1>Mini-Tools — 20+ Free Online Utilities (PAYE, VAT, AI Prompt, QR)</h1>
+      <p>Unlock 20+ lightweight utilities. No registration required, privacy-first.</p>
+    </header>
+    <nav aria-label="tools" class="max-w-7xl mx-auto px-6 pb-6">
+      <ul>
+        <li><a href="/tax.html?lang=en">Income Tax (PAYE) — UK take-home pay calculator</a></li>
+        <li><a href="/vat.html?lang=en">VAT Calculator — add/remove VAT</a></li>
+        <li><a href="/prompt.html?lang=en">AI Prompt Helper</a></li>
+        <li><a href="/pdf.html?lang=en">PDF to Image</a></li>
+        <li><a href="/qr.html?lang=en">QR Generator</a></li>
+        <li><a href="/unit.html?lang=en">Unit Converter</a></li>
+        <li><a href="/json.html?lang=en">JSON Formatter</a></li>
+      </ul>
+    </nav>
+  </noscript>
 
   <header class="max-w-7xl mx-auto pt-20 pb-12 px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between gap-12">
     <div class="lg:w-3/5">
@@ -220,5 +270,7 @@
 
     window.onload = updateUI;
   </script>
-</body>
-</html>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"00db38b0c1fc46079f19c67b12a7b54e","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+
+
+</body></html>
