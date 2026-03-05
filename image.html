@@ -3,303 +3,174 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Image Optimizer & Tuner — Mini-Tools.uk</title>
+  <title>JSON Formatter — Mini-Tools.uk</title>
   <script async src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
   
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
-    .drop-zone { border: 3px dashed #e2e8f0; transition: all 0.3s ease; }
-    .drop-zone.active { border-color: #2563eb; background-color: #eff6ff; }
-    .preview-canvas { box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 4px solid white; max-width: 100%; height: auto; }
-    input[type=range] { -webkit-appearance: none; background: #e2e8f0; height: 6px; border-radius: 5px; }
-    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: #2563eb; border-radius: 50%; cursor: pointer; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; overflow: hidden; }
+    
+    /* 桌面端高度锁定，移动端自适应 */
+    .editor-container { height: calc(100vh - 120px); }
+    .editor-area { 
+      font-family: 'Monaco', 'Consolas', 'Liberation Mono', monospace; 
+      resize: none;
+      line-height: 1.5;
+    }
+    
+    /* 统一反馈样式 */
+    .success-msg { background-color: #10b981; color: white; }
+    .error-msg { background-color: #ef4444; color: white; }
+    
+    /* 滚动条美化 */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+    @media (max-width: 1024px) {
+      body { overflow: auto; }
+      .editor-container { height: auto; min-height: 800px; }
+      .editor-area { height: 350px; }
+    }
   </style>
 </head>
-<body>
+<body class="h-screen flex flex-col">
 
-  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+  <nav class="bg-white border-b border-slate-200 shrink-0">
+    <div class="max-w-[1800px] mx-auto px-4 py-3 flex justify-between items-center">
       <div class="flex items-center gap-3">
-        <a href="/" id="home-link" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow">M</a>
-        <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        <a href="/" id="home-link" class="w-8 h-8 bg-blue-700 rounded-lg flex items-center justify-center text-white font-black shadow text-sm transition-transform active:scale-90">M</a>
+        <div class="flex items-center gap-2">
+            <span class="text-sm font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
+            <span id="page-title" class="text-[11px] font-bold text-slate-400 uppercase tracking-tighter border-l border-slate-200 pl-2 hidden sm:block">JSON Formatter</span>
+        </div>
       </div>
-      <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer">
-        <option value="en">🇬🇧 English</option>
-        <option value="zh">🇨🇳 简体中文</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="de">🇩🇪 Deutsch</option>
-      </select>
+      
+      <div class="flex items-center">
+          <select id="lang-select" class="bg-slate-50 border border-slate-200 px-2 py-1 rounded text-[11px] font-bold outline-none cursor-pointer hover:bg-slate-100 transition-colors">
+            <option value="en">🇬🇧 English</option>
+            <option value="zh">🇨🇳 简体中文</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="de">🇩🇪 Deutsch</option>
+          </select>
+      </div>
     </div>
   </nav>
 
-  <main class="max-w-6xl mx-auto px-6 py-12">
-    <div class="mb-10 text-center lg:text-left">
-      <h1 id="page-title" class="text-3xl font-extrabold text-slate-900 mb-2">Image Optimizer</h1>
-      <p id="page-desc" class="text-slate-500">Tune, compress, and resize images locally. 100% secure.</p>
-    </div>
+  <div class="bg-white border-b border-slate-100 px-4 py-2 flex flex-wrap gap-2 items-center shrink-0">
+    <button id="btn-beautify" onclick="processJSON('beautify')" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-md shadow-sm transition-all active:scale-95">Beautify</button>
+    <button id="btn-minify" onclick="processJSON('minify')" class="px-4 py-1.5 bg-slate-800 hover:bg-black text-white text-xs font-bold rounded-md shadow-sm transition-all active:scale-95">Minify</button>
+    <div class="h-4 w-px bg-slate-200 mx-1"></div>
+    <button id="btn-copy" onclick="copyJSON()" class="px-4 py-1.5 text-slate-600 hover:bg-slate-50 text-xs font-bold rounded-md transition-all">Copy Result</button>
+    <button id="btn-clear" onclick="clearAll()" class="px-4 py-1.5 text-red-500 hover:bg-red-50 text-xs font-bold rounded-md transition-all ml-auto">Clear</button>
+  </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-      
-      <div class="lg:col-span-1 space-y-6">
-        <div id="drop-area" class="drop-zone bg-white rounded-3xl p-10 text-center cursor-pointer">
-          <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" class="hidden">
-          <div class="flex flex-col items-center">
-            <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-4 text-blue-600">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h3 id="label-upload" class="font-bold text-slate-700 mb-1">Click or Drag Image</h3>
-            <p class="text-xs text-slate-400 uppercase tracking-widest font-bold">Local Only</p>
-          </div>
-        </div>
-
-        <div id="config-area" class="hidden bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
-          <label id="label-config" class="block text-xs font-black uppercase tracking-widest text-slate-400 border-b border-slate-100 pb-3">Tuning Options</label>
-          
-          <div>
-            <label id="label-format" class="block text-sm font-bold text-slate-700 mb-2">Output Format</label>
-            <select id="output-format" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold outline-none cursor-pointer">
-              <option value="image/jpeg">JPEG (Lossy)</option>
-              <option value="image/png">PNG (Lossless)</option>
-              <option value="image/webp">WEBP (Modern)</option>
-            </select>
-          </div>
-
-          <div>
-            <div class="flex justify-between mb-2">
-              <label id="label-quality" class="text-sm font-bold text-slate-700">Quality (JPEG/WEBP)</label>
-              <span id="quality-val" class="text-sm text-blue-600 font-bold">85</span>
-            </div>
-            <input type="range" id="output-quality" min="10" max="100" value="85" class="w-full">
-          </div>
-
-          <div>
-            <label id="label-resize" class="block text-sm font-bold text-slate-700 mb-2">Resize (Pixels)</label>
-            <div class="flex gap-2 items-center text-sm font-bold text-slate-400 editor-font">
-              <input type="number" id="resize-width" placeholder="W" class="w-24 px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg outline-none text-slate-900 text-center">
-              ×
-              <input type="number" id="resize-height" placeholder="H" class="w-24 px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg outline-none text-slate-900 text-center">
-            </div>
-          </div>
-
-          <button id="btn-process" onclick="optimizeImage()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl shadow-lg transition-all active:scale-95 text-sm">
-            Optimize Now
-          </button>
-        </div>
+  <main class="flex-1 p-2 bg-slate-50 overflow-hidden relative">
+    <div id="feedback" class="hidden absolute top-4 left-1/2 -translate-x-1/2 z-50 px-6 py-2.5 rounded-full text-xs font-black shadow-2xl animate-in fade-in slide-in-from-top-4 duration-300"></div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 h-full editor-container">
+      <div class="flex flex-col relative group">
+        <div class="absolute top-3 right-5 text-[10px] font-black text-slate-300 uppercase pointer-events-none group-hover:text-blue-400 transition-colors">Input</div>
+        <textarea id="json-input" class="editor-area flex-1 w-full p-5 bg-white border border-slate-200 rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-[13px]" placeholder='Paste JSON here...' oninput="autoFormat()"></textarea>
       </div>
 
-      <div class="lg:col-span-2 bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
-        <div id="label-comparison" class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-6 border-b border-slate-100 pb-4">Comparison</div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
-          <div class="space-y-4">
-            <span id="res-label-original" class="inline-block px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold">Original</span>
-            <p id="val-original-meta" class="text-sm font-medium text-slate-500">---</p>
-            <div class="flex items-center justify-center p-2 bg-slate-50 rounded-2xl min-h-[200px]">
-              <img id="original-preview" class="hidden preview-canvas rounded-lg">
-              <div id="original-placeholder" class="text-slate-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="1"/></svg>
-              </div>
-            </div>
-          </div>
-          
-          <div class="space-y-4">
-            <span id="res-label-optimized" class="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Optimized</span>
-            <p id="val-optimized-meta" class="text-sm font-bold text-green-600">---</p>
-            <div class="flex items-center justify-center p-2 bg-green-50 rounded-2xl min-h-[200px] relative">
-              <canvas id="optimized-preview" class="hidden preview-canvas rounded-lg"></canvas>
-              <div id="optimized-placeholder" class="text-green-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="1"/></svg>
-              </div>
-            </div>
-            <a id="btn-download" class="hidden w-full max-w-xs mx-auto py-3 bg-slate-900 hover:bg-black text-white font-black rounded-xl shadow-xl flex items-center justify-center gap-2 transition-all active:scale-95 text-sm">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-              Download Tuned Image
-            </a>
-          </div>
-        </div>
+      <div class="flex flex-col relative group">
+        <div class="absolute top-3 right-5 text-[10px] font-black text-slate-300 uppercase pointer-events-none group-hover:text-green-500 transition-colors">Output</div>
+        <textarea id="json-output" readonly class="editor-area flex-1 w-full p-5 bg-white border border-slate-200 rounded-xl shadow-sm outline-none text-[13px] text-slate-700 cursor-default" placeholder="Formatted result..."></textarea>
       </div>
     </div>
   </main>
 
   <script>
+    // 统一 i18n 配置
     const i18n = {
-      en: {
-        title: "Image Optimizer", desc: "Tune, compress, and resize images locally.",
-        upload: "Click or Drag Image", config: "Tuning Options", format: "Output Format",
-        quality: "Quality", resize: "Resize (Pixels)", btnProc: "Optimize Now",
-        comparison: "Comparison", resOriginal: "Original", resOptimized: "Optimized",
-        btnDownload: "Download Tuned Image"
-      },
-      zh: {
-        title: "图片调优与优化", desc: "在本地浏览器调整图片、压缩体积及修改尺寸。100% 安全。",
-        upload: "点击或拖拽图片文件至此", config: "调优配置", format: "输出格式",
-        quality: "压缩质量 (0-100)", resize: "修改尺寸 (像素)", btnProc: "开始调优",
-        comparison: "效果对比", resOriginal: "原始图片", resOptimized: "调优后",
-        btnDownload: "下载优化后的图片"
-      },
-      es: {
-        title: "Optimizador de Imagen", desc: "Ajusta, comprime y redimensiona imágenes localmente.",
-        upload: "Clic o arrastra imagen aquí", config: "Opciones de Ajuste", format: "Formato de Salida",
-        quality: "Calidad", resize: "Redimensionar", btnProc: "Optimizar Ahora",
-        comparison: "Comparación", resOriginal: "Original", resOptimized: "Optimizado",
-        btnDownload: "Descargar Imagen Optimizada"
-      },
-      fr: {
-        title: "Optimiseur d'Image", desc: "Ajustez, compressez et redimensionnez des images.",
-        upload: "Cliquez ou glissez l'image", config: "Options de Réglage", format: "Format de Sortie",
-        quality: "Qualité", resize: "Redimensionner", btnProc: "Optimiser",
-        comparison: "Comparaison", resOriginal: "Original", resOptimized: "Optimisé",
-        btnDownload: "Télécharger"
-      },
-      de: {
-        title: "Bildoptimierer", desc: "Bilder lokal anpassen, komprimieren und skalieren.",
-        upload: "Bild hierher ziehen oder klicken", config: "Anpassungsoptionen", format: "Ausgabeformat",
-        quality: "Qualität", resize: "Größe ändern", btnProc: "Optimieren",
-        comparison: "Vergleich", resOriginal: "Original", resOptimized: "Optimiert",
-        btnDownload: "Herunterladen"
-      }
+      en: { title: "JSON Formatter", btnBeautify: "Beautify", btnMinify: "Minify", btnCopy: "Copy Result", btnClear: "Clear", valid: "Valid JSON!", invalid: "Error: ", copied: "Copied!" },
+      zh: { title: "JSON 格式化", btnBeautify: "美化代码", btnMinify: "压缩代码", btnCopy: "复制结果", btnClear: "清空", valid: "格式正确!", invalid: "错误: ", copied: "已复制!" },
+      es: { title: "Formateador JSON", btnBeautify: "Embellecer", btnMinify: "Minimizar", btnCopy: "Copiar", btnClear: "Limpiar", valid: "¡Válido!", invalid: "Error: ", copied: "¡Copiado!" },
+      fr: { title: "Formateur JSON", btnBeautify: "Embellir", btnMinify: "Minifier", btnCopy: "Copier", btnClear: "Effacer", valid: "Valide!", invalid: "Erreur: ", copied: "Copié!" },
+      de: { title: "JSON Formatter", btnBeautify: "Format", btnMinify: "Minimieren", btnCopy: "Kopieren", btnClear: "Löschen", valid: "Gültig!", invalid: "Fehler: ", copied: "Kopiert!" }
     };
 
-    const dropArea = document.getElementById('drop-area');
-    const fileInput = document.getElementById('file-input');
-    const configArea = document.getElementById('config-area');
-    const originalPreview = document.getElementById('original-preview');
-    const originalPlaceholder = document.getElementById('original-placeholder');
-    const optimizedCanvas = document.getElementById('optimized-preview');
-    const optimizedPlaceholder = document.getElementById('optimized-placeholder');
-    const downloadBtn = document.getElementById('btn-download');
-    
-    let originalFile = null;
-    let currentImage = null; // 用于存储加载的 Image 对象
-
-    function getLang() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('lang') || 'en';
+    function getLang() { 
+      return new URLSearchParams(window.location.search).get('lang') || 'en'; 
     }
 
-    function updateUI() {
+    function updateLanguage() {
       const lang = getLang();
       const data = i18n[lang] || i18n['en'];
+      
+      // 更新文字
       document.getElementById('page-title').innerText = data.title;
-      document.getElementById('page-desc').innerText = data.desc;
-      document.getElementById('label-upload').innerText = data.upload;
-      document.getElementById('label-config').innerText = data.config;
-      document.getElementById('label-format').innerText = data.format;
-      document.getElementById('label-quality').innerText = data.quality;
-      document.getElementById('label-resize').innerText = data.resize;
-      document.getElementById('btn-process').innerText = data.btnProc;
-      document.getElementById('label-comparison').innerText = data.comparison;
-      document.getElementById('res-label-original').innerText = data.resOriginal;
-      document.getElementById('res-label-optimized').innerText = data.resOptimized;
-      document.getElementById('btn-download').childNodes[2].nodeValue = " " + data.btnDownload; // 保持 SVG 图标
+      document.getElementById('btn-beautify').innerText = data.btnBeautify;
+      document.getElementById('btn-minify').innerText = data.btnMinify;
+      document.getElementById('btn-copy').innerText = data.btnCopy;
+      document.getElementById('btn-clear').innerText = data.btnClear;
+      
+      // 同步下拉框和首页链接
       document.getElementById('lang-select').value = lang;
       document.getElementById('home-link').href = "/?lang=" + lang;
+      document.documentElement.lang = lang;
     }
 
-    // 交互事件
-    dropArea.onclick = () => fileInput.click();
-    dropArea.ondragover = (e) => { e.preventDefault(); dropArea.classList.add('active'); };
-    dropArea.ondragleave = () => dropArea.classList.remove('active');
-    dropArea.ondrop = (e) => { e.preventDefault(); dropArea.classList.remove('active'); const file = e.dataTransfer.files[0]; if (file) loadFile(file); };
-    fileInput.onchange = (e) => { const file = e.target.files[0]; if (file) loadFile(file); };
-    
-    // 更新质量数值显示
-    document.getElementById('output-quality').oninput = (e) => document.getElementById('quality-val').innerText = e.target.value;
+    // 处理 JSON 逻辑
+    function processJSON(mode) {
+      const input = document.getElementById('json-input').value.trim();
+      const output = document.getElementById('json-output');
+      const data = i18n[getLang()] || i18n['en'];
 
-    function loadFile(file) {
-      if (!file.type.startsWith('image/')) return;
-      originalFile = file;
-      
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        currentImage = new Image();
-        currentImage.onload = () => {
-          // 显示原始图片信息
-          originalPlaceholder.classList.add('hidden');
-          originalPreview.src = e.target.result;
-          originalPreview.classList.remove('hidden');
-          document.getElementById('val-original-meta').innerText = `${file.name} | ${formatBytes(file.size)} | ${currentImage.width}x${currentImage.height}px`;
-          
-          // 初始化配置参数
-          document.getElementById('resize-width').value = currentImage.width;
-          document.getElementById('resize-height').value = currentImage.height;
-          configArea.classList.remove('hidden');
-          
-          // 预设如果原图已经是 PNG 且尺寸不大，建议转换 WebP 或 JPEG 以节省空间
-          if(file.type === 'image/png' && file.size > 200000) {
-            document.getElementById('output-format').value = 'image/webp';
-          }
-        };
-        currentImage.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    async function optimizeImage() {
-      if (!currentImage) return;
-
-      const format = document.getElementById('output-format').value;
-      const quality = parseInt(document.getElementById('output-quality').value) / 100;
-      let targetWidth = parseInt(document.getElementById('resize-width').value) || currentImage.width;
-      let targetHeight = parseInt(document.getElementById('resize-height').value) || currentImage.height;
-
-      // 创建 Canvas 进行调优
-      const canvas = optimizedCanvas;
-      const ctx = canvas.getContext('2d');
-      canvas.width = targetWidth;
-      canvas.height = targetHeight;
-      
-      // 平滑设置 (很重要)
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-
-      // 如果目标是 JPEG，Canvas 背景需要填充白底，PNG不支持透明度转换JPEG
-      if (format === 'image/jpeg') {
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, targetWidth, targetHeight);
-      }
-
-      ctx.drawImage(currentImage, 0, 0, targetWidth, targetHeight);
-
-      // 将 Canvas 转换为 Blob
-      const resultBlob = await new Promise(resolve => canvas.toBlob(resolve, format, quality));
-      
-      if (resultBlob) {
-        optimizedPlaceholder.classList.add('hidden');
-        canvas.classList.remove('hidden');
-        
-        // 更新调优后元数据
-        const savings = ((originalFile.size - resultBlob.size) / originalFile.size * 100).toFixed(1);
-        document.getElementById('val-optimized-meta').innerText = `${formatBytes(resultBlob.size)} | Saved: ${savings}%`;
-        
-        // 配置下载按钮
-        const url = URL.createObjectURL(resultBlob);
-        downloadBtn.href = url;
-        const newFileName = originalFile.name.split('.').slice(0, -1).join('.') + '-min.' + format.split('/')[1];
-        downloadBtn.download = newFileName;
-        downloadBtn.classList.remove('hidden');
+      if (!input) return;
+      try {
+        const obj = JSON.parse(input);
+        output.value = (mode === 'beautify') ? JSON.stringify(obj, null, 4) : JSON.stringify(obj);
+        showFeedback(data.valid, "success");
+      } catch (e) {
+        showFeedback(data.invalid + e.message.split('at')[0], "error");
       }
     }
 
-    function formatBytes(bytes) {
-      if (bytes === 0) return '0 Bytes';
-      const k = 1024;
-      const sizes = ['Bytes', 'KB', 'MB'];
-      const i = Math.floor(Math.log(bytes) / Math.log(k));
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    // 实时预览（仅美化）
+    function autoFormat() {
+      const input = document.getElementById('json-input').value.trim();
+      if (input.startsWith('{') || input.startsWith('[')) {
+        try {
+          const obj = JSON.parse(input);
+          document.getElementById('json-output').value = JSON.stringify(obj, null, 4);
+        } catch (e) {}
+      }
     }
 
+    // 统一反馈显示
+    function showFeedback(msg, type) {
+      const fb = document.getElementById('feedback');
+      fb.innerText = msg;
+      fb.className = `absolute top-4 left-1/2 -translate-x-1/2 z-50 px-6 py-2.5 rounded-full text-xs font-black shadow-2xl block ${type === 'success' ? 'success-msg' : 'error-msg'}`;
+      setTimeout(() => fb.classList.add('hidden'), 2500);
+    }
+
+    function copyJSON() {
+      const output = document.getElementById('json-output');
+      const data = i18n[getLang()] || i18n['en'];
+      if (!output.value) return;
+      output.select();
+      document.execCommand('copy');
+      showFeedback(data.copied, "success");
+    }
+
+    function clearAll() {
+      document.getElementById('json-input').value = "";
+      document.getElementById('json-output').value = "";
+      document.getElementById('feedback').classList.add('hidden');
+    }
+
+    // 切换语言监听
     document.getElementById('lang-select').addEventListener('change', (e) => {
       const url = new URL(window.location.href);
       url.searchParams.set('lang', e.target.value);
       window.location.href = url.href;
     });
 
-    window.onload = updateUI;
+    window.onload = updateLanguage;
   </script>
 </body>
 </html>
