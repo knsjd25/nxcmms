@@ -3,28 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>JSON Formatter — Mini-Tools.uk</title>
+  <title>JSON Debugger — Mini-Tools.uk</title>
   <script async src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
   
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; overflow: hidden; }
-    
-    /* 桌面端高度锁定，移动端自适应 */
     .editor-container { height: calc(100vh - 120px); }
     .editor-area { 
       font-family: 'Monaco', 'Consolas', 'Liberation Mono', monospace; 
-      resize: none;
-      line-height: 1.5;
+      resize: none; line-height: 1.5;
     }
+    .panel-valid { background-color: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+    .panel-error { background-color: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
     
-    /* 统一反馈样式 */
-    .success-msg { background-color: #10b981; color: white; }
-    .error-msg { background-color: #ef4444; color: white; }
-    
-    /* 滚动条美化 */
     ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
     @media (max-width: 1024px) {
@@ -39,135 +32,151 @@
   <nav class="bg-white border-b border-slate-200 shrink-0">
     <div class="max-w-[1800px] mx-auto px-4 py-3 flex justify-between items-center">
       <div class="flex items-center gap-3">
-        <a href="/" id="home-link" class="w-8 h-8 bg-blue-700 rounded-lg flex items-center justify-center text-white font-black shadow text-sm transition-transform active:scale-90">M</a>
+        <a href="/" id="home-link" class="w-8 h-8 bg-blue-700 rounded-lg flex items-center justify-center text-white font-black shadow text-sm">M</a>
         <div class="flex items-center gap-2">
             <span class="text-sm font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
-            <span id="page-title" class="text-[11px] font-bold text-slate-400 uppercase tracking-tighter border-l border-slate-200 pl-2 hidden sm:block">JSON Formatter</span>
+            <span id="page-title" class="text-[11px] font-bold text-slate-400 uppercase tracking-tighter border-l border-slate-200 pl-2 hidden sm:block">JSON Debugger</span>
         </div>
       </div>
-      
-      <div class="flex items-center">
-          <select id="lang-select" class="bg-slate-50 border border-slate-200 px-2 py-1 rounded text-[11px] font-bold outline-none cursor-pointer hover:bg-slate-100 transition-colors">
-            <option value="en">🇬🇧 English</option>
-            <option value="zh">🇨🇳 简体中文</option>
-            <option value="es">🇪🇸 Español</option>
-            <option value="fr">🇫🇷 Français</option>
-            <option value="de">🇩🇪 Deutsch</option>
-          </select>
-      </div>
+      <select id="lang-select" class="bg-slate-50 border border-slate-200 px-2 py-1 rounded text-[11px] font-bold outline-none cursor-pointer">
+        <option value="en">🇬🇧 English</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="de">🇩🇪 Deutsch</option>
+      </select>
     </div>
   </nav>
 
   <div class="bg-white border-b border-slate-100 px-4 py-2 flex flex-wrap gap-2 items-center shrink-0">
-    <button id="btn-beautify" onclick="processJSON('beautify')" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-md shadow-sm transition-all active:scale-95">Beautify</button>
-    <button id="btn-minify" onclick="processJSON('minify')" class="px-4 py-1.5 bg-slate-800 hover:bg-black text-white text-xs font-bold rounded-md shadow-sm transition-all active:scale-95">Minify</button>
+    <button onclick="processJSON('beautify')" class="px-5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-md shadow-sm transition-all">Beautify / Fix</button>
+    <button onclick="processJSON('minify')" class="px-5 py-1.5 bg-slate-800 hover:bg-black text-white text-xs font-bold rounded-md shadow-sm">Minify</button>
     <div class="h-4 w-px bg-slate-200 mx-1"></div>
-    <button id="btn-copy" onclick="copyJSON()" class="px-4 py-1.5 text-slate-600 hover:bg-slate-50 text-xs font-bold rounded-md transition-all">Copy Result</button>
-    <button id="btn-clear" onclick="clearAll()" class="px-4 py-1.5 text-red-500 hover:bg-red-50 text-xs font-bold rounded-md transition-all ml-auto">Clear</button>
+    <button onclick="copyJSON()" id="btn-copy" class="px-5 py-1.5 text-slate-600 hover:bg-slate-50 text-xs font-bold rounded-md">Copy Result</button>
+    <button onclick="clearAll()" class="px-5 py-1.5 text-red-500 hover:bg-red-50 text-xs font-bold rounded-md ml-auto">Clear</button>
   </div>
 
-  <main class="flex-1 p-2 bg-slate-50 overflow-hidden relative">
-    <div id="feedback" class="hidden absolute top-4 left-1/2 -translate-x-1/2 z-50 px-6 py-2.5 rounded-full text-xs font-black shadow-2xl animate-in fade-in slide-in-from-top-4 duration-300"></div>
-    
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 h-full editor-container">
+  <main class="flex-1 p-3 bg-slate-50 overflow-hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full editor-container">
+      
       <div class="flex flex-col relative group">
-        <div class="absolute top-3 right-5 text-[10px] font-black text-slate-300 uppercase pointer-events-none group-hover:text-blue-400 transition-colors">Input</div>
-        <textarea id="json-input" class="editor-area flex-1 w-full p-5 bg-white border border-slate-200 rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-[13px]" placeholder='Paste JSON here...' oninput="autoFormat()"></textarea>
+        <div class="absolute top-3 right-5 text-[10px] font-black text-slate-300 uppercase pointer-events-none group-hover:text-blue-400">Input</div>
+        <textarea id="json-input" class="editor-area flex-1 w-full p-5 bg-white border border-slate-200 rounded-xl shadow-sm outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-[13px]" placeholder='Paste JSON here...'></textarea>
       </div>
 
-      <div class="flex flex-col relative group">
-        <div class="absolute top-3 right-5 text-[10px] font-black text-slate-300 uppercase pointer-events-none group-hover:text-green-500 transition-colors">Output</div>
-        <textarea id="json-output" readonly class="editor-area flex-1 w-full p-5 bg-white border border-slate-200 rounded-xl shadow-sm outline-none text-[13px] text-slate-700 cursor-default" placeholder="Formatted result..."></textarea>
+      <div class="flex flex-col gap-3">
+        <div id="status-panel" class="hidden p-4 rounded-xl text-[12px] font-bold border transition-all">
+            <div id="status-type" class="uppercase text-[9px] mb-1 tracking-widest opacity-60">Diagnostic Report</div>
+            <div id="status-msg" class="whitespace-pre-wrap leading-relaxed font-mono"></div>
+        </div>
+
+        <div class="flex-1 flex flex-col min-h-0 relative group">
+          <div class="absolute top-3 right-5 text-[10px] font-black text-slate-300 uppercase pointer-events-none group-hover:text-green-500">Output</div>
+          <textarea id="json-output" readonly class="editor-area flex-1 w-full p-5 bg-white border border-slate-200 rounded-xl shadow-sm outline-none text-[13px] text-slate-700 cursor-default" placeholder="Output..."></textarea>
+        </div>
       </div>
+
     </div>
   </main>
 
   <script>
-    // 统一 i18n 配置
     const i18n = {
-      en: { title: "JSON Formatter", btnBeautify: "Beautify", btnMinify: "Minify", btnCopy: "Copy Result", btnClear: "Clear", valid: "Valid JSON!", invalid: "Error: ", copied: "Copied!" },
-      zh: { title: "JSON 格式化", btnBeautify: "美化代码", btnMinify: "压缩代码", btnCopy: "复制结果", btnClear: "清空", valid: "格式正确!", invalid: "错误: ", copied: "已复制!" },
-      es: { title: "Formateador JSON", btnBeautify: "Embellecer", btnMinify: "Minimizar", btnCopy: "Copiar", btnClear: "Limpiar", valid: "¡Válido!", invalid: "Error: ", copied: "¡Copiado!" },
-      fr: { title: "Formateur JSON", btnBeautify: "Embellir", btnMinify: "Minifier", btnCopy: "Copier", btnClear: "Effacer", valid: "Valide!", invalid: "Erreur: ", copied: "Copié!" },
-      de: { title: "JSON Formatter", btnBeautify: "Format", btnMinify: "Minimieren", btnCopy: "Kopieren", btnClear: "Löschen", valid: "Gültig!", invalid: "Fehler: ", copied: "Kopiert!" }
+      en: { 
+        title: "JSON Debugger", 
+        valid: "✅ Success: JSON is perfectly cleaned.", 
+        errMissingComma: "❌ Error: Missing comma between properties.",
+        errComment: "⚠️ Note: Removed illegal comments.",
+        errTrailing: "⚠️ Note: Removed extra trailing comma.",
+        errGeneral: "❌ Syntax Error: ",
+        line: "Line", col: "Col"
+      },
+      zh: { 
+        title: "JSON 调试器", 
+        valid: "✅ 成功：JSON 已自动修复并清洗。", 
+        errMissingComma: "❌ 错误：属性之间缺少逗号 (,)。",
+        errComment: "⚠️ 提示：已自动删除非法注释 (//)。",
+        errTrailing: "⚠️ 提示：已自动删除末尾多余逗号 (,)。",
+        errGeneral: "❌ 语法错误: ",
+        line: "行", col: "列"
+      }
     };
 
-    function getLang() { 
-      return new URLSearchParams(window.location.search).get('lang') || 'en'; 
-    }
-
     function updateLanguage() {
-      const lang = getLang();
-      const data = i18n[lang] || i18n['en'];
-      
-      // 更新文字
-      document.getElementById('page-title').innerText = data.title;
-      document.getElementById('btn-beautify').innerText = data.btnBeautify;
-      document.getElementById('btn-minify').innerText = data.btnMinify;
-      document.getElementById('btn-copy').innerText = data.btnCopy;
-      document.getElementById('btn-clear').innerText = data.btnClear;
-      
-      // 同步下拉框和首页链接
+      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+      document.getElementById('page-title').innerText = i18n[lang].title;
       document.getElementById('lang-select').value = lang;
       document.getElementById('home-link').href = "/?lang=" + lang;
-      document.documentElement.lang = lang;
     }
 
-    // 处理 JSON 逻辑
     function processJSON(mode) {
-      const input = document.getElementById('json-input').value.trim();
-      const output = document.getElementById('json-output');
-      const data = i18n[getLang()] || i18n['en'];
+      let raw = document.getElementById('json-input').value.trim();
+      if (!raw) return;
+      
+      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+      const text = i18n[lang];
+      let diagnostics = [];
 
-      if (!input) return;
+      // 1. 预检：找出明显的错误（用于报告）
+      if (/\/\/|\/\*/.test(raw)) diagnostics.push(text.errComment);
+      if (/,\s*[\]}]/.test(raw)) diagnostics.push(text.errTrailing);
+      
+      // 2. 执行自动清洗
+      let cleaned = raw
+        .replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, '$1') // 去注释
+        .replace(/,\s*([\]}])/g, '$1')                        // 去末尾逗号
+        .replace(/([{,]\s*)([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')  // 补Key引号
+        .trim();
+
       try {
-        const obj = JSON.parse(input);
-        output.value = (mode === 'beautify') ? JSON.stringify(obj, null, 4) : JSON.stringify(obj);
-        showFeedback(data.valid, "success");
+        // 尝试解析
+        const obj = JSON.parse(cleaned);
+        document.getElementById('json-output').value = (mode === 'beautify') ? JSON.stringify(obj, null, 4) : JSON.stringify(obj);
+        
+        let report = diagnostics.length > 0 ? diagnostics.join("\n") : text.valid;
+        showReport(report, "valid");
       } catch (e) {
-        showFeedback(data.invalid + e.message.split('at')[0], "error");
+        // 深度诊断：处理 JSON.parse 无法修复的错误（如中间漏了逗号）
+        let errorMsg = e.message;
+        if (errorMsg.includes("expected ','")) errorMsg = text.errMissingComma;
+        
+        showReport(`${text.errGeneral}\n${parseError(e, raw, lang)}\n\n${errorMsg}`, "error");
+        document.getElementById('json-output').value = "";
       }
     }
 
-    // 实时预览（仅美化）
-    function autoFormat() {
-      const input = document.getElementById('json-input').value.trim();
-      if (input.startsWith('{') || input.startsWith('[')) {
-        try {
-          const obj = JSON.parse(input);
-          document.getElementById('json-output').value = JSON.stringify(obj, null, 4);
-        } catch (e) {}
-      }
+    function parseError(e, input, lang) {
+      const posMatch = e.message.match(/position (\d+)/);
+      if (!posMatch) return e.message;
+      const pos = parseInt(posMatch[1]);
+      const lines = input.substring(0, pos).split("\n");
+      const t = i18n[lang];
+      return `[${t.line} ${lines.length}, ${t.col} ${lines[lines.length-1].length + 1}]`;
     }
 
-    // 统一反馈显示
-    function showFeedback(msg, type) {
-      const fb = document.getElementById('feedback');
-      fb.innerText = msg;
-      fb.className = `absolute top-4 left-1/2 -translate-x-1/2 z-50 px-6 py-2.5 rounded-full text-xs font-black shadow-2xl block ${type === 'success' ? 'success-msg' : 'error-msg'}`;
-      setTimeout(() => fb.classList.add('hidden'), 2500);
+    function showReport(msg, type) {
+      const panel = document.getElementById('status-panel');
+      panel.className = `p-4 rounded-xl text-[12px] font-bold border block ${type === 'valid' ? 'panel-valid' : 'panel-error'}`;
+      document.getElementById('status-msg').innerText = msg;
     }
 
     function copyJSON() {
-      const output = document.getElementById('json-output');
-      const data = i18n[getLang()] || i18n['en'];
-      if (!output.value) return;
-      output.select();
+      const out = document.getElementById('json-output');
+      if (!out.value) return;
+      out.select();
       document.execCommand('copy');
-      showFeedback(data.copied, "success");
+      const btn = document.getElementById('btn-copy');
+      btn.innerText = "✓ Copied";
+      setTimeout(() => btn.innerText = "Copy Result", 1500);
     }
 
     function clearAll() {
       document.getElementById('json-input').value = "";
       document.getElementById('json-output').value = "";
-      document.getElementById('feedback').classList.add('hidden');
+      document.getElementById('status-panel').classList.add('hidden');
     }
 
-    // 切换语言监听
     document.getElementById('lang-select').addEventListener('change', (e) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', e.target.value);
-      window.location.href = url.href;
+      window.location.href = `?lang=${e.target.value}`;
     });
 
     window.onload = updateLanguage;
