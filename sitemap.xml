@@ -8,7 +8,7 @@
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/?lang=zh"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/?lang=es"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/?lang=fr"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/?lang=de"/>
@@ -17,35 +17,156 @@
   <url>
     <loc>https://mini-tools.uk/about.html</loc>
     <lastmod>2026-03-06</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/about.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/about.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/about.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/about.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/about.html?lang=de"/>
   </url>
 
   <url>
     <loc>https://mini-tools.uk/contact.html</loc>
     <lastmod>2026-03-06</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/contact.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/contact.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/contact.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/contact.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/contact.html?lang=de"/>
+  </url>
+
+  <url>
+    <loc>https://mini-tools.uk/privacy.html</loc>
+    <lastmod>2026-03-06</lastmod>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/privacy.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/privacy.html?lang=zh"/>
   </url>
 
   <url>
     <loc>https://mini-tools.uk/tax.html</loc>
-    <lastmod>2026-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/tax.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/tax.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/tax.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/tax.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/tax.html?lang=de"/>
   </url>
 
-  <url><loc>https://mini-tools.uk/vat.html</loc><priority>0.8</priority></url>
-  <url><loc>https://mini-tools.uk/prompt.html</loc><priority>0.8</priority></url>
-  <url><loc>https://mini-tools.uk/mortgage.html</loc><priority>0.8</priority></url>
-  <url><loc>https://mini-tools.uk/qr.html</loc><priority>0.8</priority></url>
-  <url><loc>https://mini-tools.uk/unit.html</loc><priority>0.8</priority></url>
-  <url><loc>https://mini-tools.uk/word.html</loc><priority>0.8</priority></url>
-  <url><loc>https://mini-tools.uk/pass.html</loc><priority>0.8</priority></url>
-  <url><loc>https://mini-tools.uk/pdf.html</loc><priority>0.8</priority></url>
-  <url><loc>https://mini-tools.uk/json.html</loc><priority>0.8</priority></url>
-  <url><loc>https://mini-tools.uk/diff.html</loc><priority>0.8</priority></url>
-  <url><loc>https://mini-tools.uk/image.html</loc><priority>0.8</priority></url>
-  <url><loc>https://mini-tools.uk/zx.html</loc><priority>0.8</priority></url>
+  <url>
+    <loc>https://mini-tools.uk/vat.html</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/vat.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/vat.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/vat.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/vat.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/vat.html?lang=de"/>
+  </url>
 
+  <url>
+    <loc>https://mini-tools.uk/prompt.html</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/prompt.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/prompt.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/prompt.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/prompt.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/prompt.html?lang=de"/>
+  </url>
+
+  <url>
+    <loc>https://mini-tools.uk/mortgage.html</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/mortgage.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/mortgage.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/mortgage.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/mortgage.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/mortgage.html?lang=de"/>
+  </url>
+
+  <url>
+    <loc>https://mini-tools.uk/qr.html</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/qr.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/qr.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/qr.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/qr.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/qr.html?lang=de"/>
+  </url>
+
+  <url>
+    <loc>https://mini-tools.uk/json.html</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/json.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/json.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/json.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/json.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/json.html?lang=de"/>
+  </url>
+
+  <url>
+    <loc>https://mini-tools.uk/word.html</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/word.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/word.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/word.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/word.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/word.html?lang=de"/>
+  </url>
+
+  <url>
+    <loc>https://mini-tools.uk/pass.html</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/pass.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/pass.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/pass.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/pass.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/pass.html?lang=de"/>
+  </url>
+
+  <url>
+    <loc>https://mini-tools.uk/pdf.html</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/pdf.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/pdf.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/pdf.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/pdf.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/pdf.html?lang=de"/>
+  </url>
+
+  <url>
+    <loc>https://mini-tools.uk/image.html</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/image.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/image.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/image.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/image.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/image.html?lang=de"/>
+  </url>
+
+  <url>
+    <loc>https://mini-tools.uk/diff.html</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/diff.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/diff.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/diff.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/diff.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/diff.html?lang=de"/>
+  </url>
+
+  <url>
+    <loc>https://mini-tools.uk/unit.html</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/unit.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/unit.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/unit.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/unit.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/unit.html?lang=de"/>
+  </url>
+  <url><loc>https://mini-tools.uk/zx.html</loc><priority>0.8</priority></url>
 </urlset>
+
+
+
+
