@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About - Mini-Tools.uk</title>
+  <script async src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <nav class="bg-white border-b border-slate-200 sticky top-0 z-10">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="/" id="home-link" class="flex items-center gap-2">
+        <span class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black shadow-sm">M</span>
+        <span class="font-bold text-lg tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+      </a>
+      
+      <div class="flex items-center gap-4">
+        <select id="lang-select" class="bg-slate-50 border border-slate-200 px-2 py-1 rounded text-[11px] font-bold outline-none cursor-pointer">
+            <option value="en">🇬🇧 English</option>
+            <option value="zh">🇨🇳 简体中文</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="de">🇩🇪 Deutsch</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <main class="flex-1">
+    <section class="max-w-5xl mx-auto px-6 pt-20 pb-12 text-center">
+      <h1 id="hero-title" class="text-4xl md:text-5xl font-black mb-6 tracking-tight"></h1>
+      <p id="hero-desc" class="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed"></p>
+    </section>
+
+    <section class="max-w-5xl mx-auto px-6 py-12">
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="text-2xl mb-4">⚡</div>
+          <h3 id="val1-title" class="font-bold text-lg mb-2"></h3>
+          <p id="val1-desc" class="text-sm text-slate-500 leading-relaxed"></p>
+        </div>
+        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="text-2xl mb-4">🔒</div>
+          <h3 id="val2-title" class="font-bold text-lg mb-2"></h3>
+          <p id="val2-desc" class="text-sm text-slate-500 leading-relaxed"></p>
+        </div>
+        <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="text-2xl mb-4">🌍</div>
+          <h3 id="val3-title" class="font-bold text-lg mb-2"></h3>
+          <p id="val3-desc" class="text-sm text-slate-500 leading-relaxed"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-12 border-t border-slate-200 text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+    &copy; 2026 Mini-Tools.uk
+  </footer>
+
+  <script>
+    const i18n = {
+      en: {
+        heroTitle: "Simple tools for Complex tasks.",
+        heroDesc: "We build minimalist, high-performance web utilities designed to solve daily digital problems without the clutter.",
+        val1Title: "Fast & Lightweight",
+        val1Desc: "Zero bloat. Our tools load instantly and process data locally in your browser for maximum speed.",
+        val2Title: "Privacy First",
+        val2Desc: "Your data never leaves your machine. We don't store your inputs, ensuring total confidentiality.",
+        val3Title: "Global Access",
+        val3Desc: "Fully localized in multiple languages, making powerful tools accessible to everyone, everywhere."
+      },
+      zh: {
+        heroTitle: "化繁为简的生产力工具",
+        heroDesc: "我们打造极简、高效的 Web 实用程序，旨在解决日常数字问题，拒绝臃肿。",
+        val1Title: "轻量且极速",
+        val1Desc: "零冗余。工具秒速加载，数据在浏览器本地处理，确保极致性能。",
+        val2Title: "隐私至上",
+        val2Desc: "您的数据永远不会离开您的设备。我们不存储任何输入内容，确保绝对私密。",
+        val3Title: "全球化支持",
+        val3Desc: "全站支持多语言切换，让强大的工具服务于全球每一位用户。"
+      }
+    };
+
+    function updatePage() {
+      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+      const data = i18n[lang] || i18n.en;
+
+      document.getElementById('hero-title').innerHTML = data.heroTitle.replace("Complex", `<span class="text-blue-600">Complex</span>`);
+      document.getElementById('hero-desc').innerText = data.heroDesc;
+      document.getElementById('val1-title').innerText = data.val1Title;
+      document.getElementById('val1-desc').innerText = data.val1Desc;
+      document.getElementById('val2-title').innerText = data.val2Title;
+      document.getElementById('val2-desc').innerText = data.val2Desc;
+      document.getElementById('val3-title').innerText = data.val3Title;
+      document.getElementById('val3-desc').innerText = data.val3Desc;
+      
+      document.getElementById('lang-select').value = lang;
+      document.getElementById('home-link').href = `/?lang=${lang}`;
+    }
+
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      window.location.href = `?lang=${e.target.value}`;
+    });
+
+    window.onload = updatePage;
+  </script>
+</body>
+</html>
