@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
   <url>
     <loc>https://mini-tools.uk/</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/?lang=de"/>
     <lastmod>2026-03-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -9,6 +17,11 @@
 
   <url>
     <loc>https://mini-tools.uk/tax.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/tax.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/tax.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/tax.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/tax.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/tax.html?lang=de"/>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -16,6 +29,11 @@
 
   <url>
     <loc>https://mini-tools.uk/vat.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/vat.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/vat.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/vat.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/vat.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/vat.html?lang=de"/>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -23,6 +41,11 @@
 
   <url>
     <loc>https://mini-tools.uk/prompt.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/prompt.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/prompt.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/prompt.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/prompt.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/prompt.html?lang=de"/>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -30,6 +53,11 @@
 
   <url>
     <loc>https://mini-tools.uk/mortgage.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/mortgage.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/mortgage.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/mortgage.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/mortgage.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/mortgage.html?lang=de"/>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -37,6 +65,11 @@
 
   <url>
     <loc>https://mini-tools.uk/qr.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/qr.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/qr.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/qr.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/qr.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/qr.html?lang=de"/>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -44,6 +77,11 @@
 
   <url>
     <loc>https://mini-tools.uk/unit.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/unit.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/unit.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/unit.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/unit.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/unit.html?lang=de"/>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -51,6 +89,11 @@
 
   <url>
     <loc>https://mini-tools.uk/word.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/word.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/word.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/word.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/word.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/word.html?lang=de"/>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -58,6 +101,11 @@
 
   <url>
     <loc>https://mini-tools.uk/password.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/password.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/password.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/password.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/password.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/password.html?lang=de"/>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -65,6 +113,11 @@
 
   <url>
     <loc>https://mini-tools.uk/pdf2img.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/pdf2img.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/pdf2img.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/pdf2img.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/pdf2img.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/pdf2img.html?lang=de"/>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -72,6 +125,11 @@
 
   <url>
     <loc>https://mini-tools.uk/json.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/json.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/json.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/json.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/json.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/json.html?lang=de"/>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -79,6 +137,11 @@
 
   <url>
     <loc>https://mini-tools.uk/diff.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/diff.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/diff.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/diff.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/diff.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/diff.html?lang=de"/>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -86,8 +149,14 @@
 
   <url>
     <loc>https://mini-tools.uk/image.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/image.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mini-tools.uk/image.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/image.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/image.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/image.html?lang=de"/>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
 </urlset>
