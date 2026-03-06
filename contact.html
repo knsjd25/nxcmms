@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact - Mini-Tools.uk</title>
+  <script async src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <nav class="bg-white border-b border-slate-200 p-4 sticky top-0 z-10">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+        <a href="/" id="home-link" class="font-bold text-lg tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></a>
+        <select id="lang-select" class="bg-slate-50 border border-slate-200 px-2 py-1 rounded text-[11px] font-bold outline-none cursor-pointer">
+            <option value="en">🇬🇧 English</option>
+            <option value="zh">🇨🇳 简体中文</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="de">🇩🇪 Deutsch</option>
+        </select>
+    </div>
+  </nav>
+
+  <main class="flex-1 flex items-center justify-center p-6">
+    <div class="max-w-xl w-full">
+      <div class="text-center mb-10">
+        <h1 id="title" class="text-3xl font-black mb-3 italic"></h1>
+        <p id="desc" class="text-slate-500 font-medium"></p>
+      </div>
+
+      <a href="mailto:admin@mini-tools.uk" class="group block bg-white border-2 border-slate-200 p-8 rounded-3xl transition-all hover:border-blue-600 hover:shadow-xl active:scale-95">
+        <div class="flex items-center justify-between">
+            <div>
+                <span id="label" class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 block"></span>
+                <span class="text-xl md:text-2xl font-bold text-slate-900 group-hover:text-blue-600">admin@mini-tools.uk</span>
+            </div>
+            <div class="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white text-xl group-hover:bg-blue-600 transition-colors">✉️</div>
+        </div>
+      </a>
+
+      <div class="mt-12 grid grid-cols-2 gap-8 px-4">
+        <div>
+            <h4 id="info1-h" class="text-[10px] font-black uppercase text-slate-400 mb-2"></h4>
+            <p id="info1-p" class="text-xs font-bold text-slate-600 leading-relaxed"></p>
+        </div>
+        <div>
+            <h4 id="info2-h" class="text-[10px] font-black uppercase text-slate-400 mb-2"></h4>
+            <p id="info2-p" class="text-xs font-bold text-slate-600 leading-relaxed"></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const i18n = {
+      en: {
+        title: "Get in touch.",
+        desc: "Have a bug to report or a business inquiry? Reach out directly.",
+        label: "Direct Support",
+        info1h: "Response Time",
+        info1p: "We typically respond within 24-48 business hours.",
+        info2h: "Location",
+        info2p: "Proudly hosted and serving users globally from the UK."
+      },
+      zh: {
+        title: "联系我们",
+        desc: "无论是报告 Bug 还是商务合作咨询，欢迎随时联系。",
+        label: "官方支持邮箱",
+        info1h: "响应时间",
+        info1p: "我们通常会在 24-48 小时内回复您的邮件。",
+        info2h: "所在地",
+        info2p: "总部位于英国，为全球用户提供高效工具支持。"
+      }
+    };
+
+    function updatePage() {
+      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+      const data = i18n[lang] || i18n.en;
+
+      document.getElementById('title').innerText = data.title;
+      document.getElementById('desc').innerText = data.desc;
+      document.getElementById('label').innerText = data.label;
+      document.getElementById('info1-h').innerText = data.info1h;
+      document.getElementById('info1-p').innerText = data.info1p;
+      document.getElementById('info2-h').innerText = data.info2h;
+      document.getElementById('info2-p').innerText = data.info2p;
+      
+      document.getElementById('lang-select').value = lang;
+      document.getElementById('home-link').href = `/?lang=${lang}`;
+    }
+
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      window.location.href = `?lang=${e.target.value}`;
+    });
+
+    window.onload = updatePage;
+  </script>
+</body>
+</html>
