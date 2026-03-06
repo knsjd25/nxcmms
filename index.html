@@ -70,13 +70,6 @@
     </div>
   </nav>
 
-  <noscript>
-    <header class="max-w-7xl mx-auto pt-12 pb-6 px-6 text-center">
-      <h1>Mini-Tools — 20+ Free Online Utilities</h1>
-      <p>Unlock 20+ lightweight utilities. No registration required, privacy-first.</p>
-    </header>
-  </noscript>
-
   <header class="max-w-7xl mx-auto pt-20 pb-12 px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between gap-12">
     <div class="lg:w-3/5">
       <div class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-xs font-bold mb-6 italic tracking-wider">#1 UK Utility Toolbox</div>
@@ -93,8 +86,9 @@
   </main>
 
   <footer class="max-w-7xl mx-auto px-6 pb-12 text-center border-t border-slate-100 pt-8">
-    <div class="flex justify-center gap-8 text-[11px] font-extrabold uppercase tracking-[0.2em] text-slate-400">
+    <div class="flex justify-center flex-wrap gap-x-8 gap-y-4 text-[11px] font-extrabold uppercase tracking-[0.2em] text-slate-400">
       <a href="/about.html" id="footer-about" class="hover:text-blue-600 transition-colors"></a>
+      <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors"></a>
       <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors"></a>
     </div>
     <p class="text-[10px] text-slate-300 mt-4 font-bold">© 2026 MINI-TOOLS.UK — LIGHTWEIGHT & PRIVACY FIRST</p>
@@ -106,7 +100,7 @@
         hero: "Smart & <span class='text-blue-600'>Free Tools</span> for Daily Tasks.",
         sub: "Unlock 20+ lightweight utilities. No registration required, privacy-first, and optimized for UK users.",
         hot: "HOT", open: "Launch Tool",
-        about: "About Us", contact: "Contact Us",
+        about: "About Us", privacy: "Privacy Policy", contact: "Contact Us",
         tools: {
           tax: { t: "Income Tax (PAYE)", d: "UK Salary & Tax take-home calc.", img: "https://cdn-icons-png.flaticon.com/512/3135/3135706.png", hot: true },
           vat: { t: "VAT Calculator", d: "Add or remove VAT (HMRC standards).", img: "https://cdn-icons-png.flaticon.com/512/10433/10433048.png", hot: false },
@@ -126,7 +120,7 @@
         hero: "智能且<span class='text-blue-600'>免费</span>的实用工具箱",
         sub: "解锁超过20个轻量级在线工具。无需注册，隐私第一，专为高效办公设计。",
         hot: "热门", open: "开启工具",
-        about: "关于我们", contact: "联系我们",
+        about: "关于我们", privacy: "隐私政策", contact: "联系我们",
         tools: {
           tax: { t: "个税计算 (PAYE)", d: "计算英国实际薪资与个税详情。", img: "https://cdn-icons-png.flaticon.com/512/3135/3135706.png", hot: true },
           vat: { t: "增值税计算 (VAT)", d: "符合英国标准的含税/不含税计算。", img: "https://cdn-icons-png.flaticon.com/512/10433/10433048.png", hot: false },
@@ -144,24 +138,24 @@
       },
       es: {
         hero: "Herramientas <span class='text-blue-600'>Gratuitas</span>",
-        sub: "Más de 20 utilidades ligeras. Sin registro, privacidad primero.",
+        sub: "Más de 20 utilidades ligeras. Sin registro.",
         hot: "HOT", open: "Abrir",
-        about: "Sobre nosotros", contact: "Contacto",
-        tools: { /* 保持你原有的es工具列表 */ }
+        about: "Sobre nosotros", privacy: "Privacidad", contact: "Contacto",
+        tools: { /* 原有工具列表 */ }
       },
       fr: {
         hero: "Outils <span class='text-blue-600'>Gratuits</span>",
         sub: "Plus de 20 utilitaires légers. Sans inscription.",
         hot: "TOP", open: "Lancer",
-        about: "À propos", contact: "Contact",
-        tools: { /* 保持你原有的fr工具列表 */ }
+        about: "À propos", privacy: "Confidentialité", contact: "Contact",
+        tools: { /* 原有工具列表 */ }
       },
       de: {
         hero: "Smarte <span class='text-blue-600'>Gratis-Tools</span>",
-        sub: "Über 20 leichte Dienstprogramme. Datenschutz zuerst.",
+        sub: "Über 20 leichte Dienstprogramme.",
         hot: "NEU", open: "Starten",
-        about: "Über uns", contact: "Kontakt",
-        tools: { /* 保持你原有的de工具列表 */ }
+        about: "Über uns", privacy: "Datenschutz", contact: "Kontakt",
+        tools: { /* 原有工具列表 */ }
       }
     };
 
@@ -198,6 +192,7 @@
 
       // 更新页脚文字
       document.getElementById('footer-about').innerText = data.about;
+      document.getElementById('footer-privacy').innerText = data.privacy;
       document.getElementById('footer-contact').innerText = data.contact;
 
       const grid = document.getElementById('tools-grid');
