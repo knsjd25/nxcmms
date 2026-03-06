@@ -27,17 +27,6 @@
     }
   }
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Income Tax PAYE Calculator", "url": "https://mini-tools.uk/tax.html" },
-      { "@type": "ListItem", "position": 2, "name": "VAT Calculator", "url": "https://mini-tools.uk/vat.html" },
-      { "@type": "ListItem", "position": 3, "name": "AI Prompt Optimizer", "url": "https://mini-tools.uk/prompt.html" }
-    ]
-  }
-  </script>
 
   <script async src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
@@ -45,8 +34,8 @@
   <style>
     :root{--brand:#0ea5e9}
     body { font-family: 'Plus Jakarta Sans', ui-sans-serif, sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
-    .tool-card { transition: all .25s ease; }
-    .tool-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
+    .tool-card { transition: all .25s ease; border: 1px solid #f1f5f9; }
+    .tool-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.06); border-color: #e0f2fe; }
     .hot-tag { background: linear-gradient(90deg,#ff4d4d,#f97316); color:#fff; padding:3px 8px; border-radius:999px; font-weight:800; font-size:10px; position:absolute; top:12px; right:12px; }
     .seo-text { line-height: 1.8; color: #64748b; }
   </style>
@@ -56,7 +45,7 @@
   <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
-        <a href="/" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow">M</a>
+        <a href="/" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow transition-transform active:scale-90">M</a>
         <div class="flex flex-col -mt-1">
           <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
           <span class="text-[10px] text-green-600 font-bold uppercase tracking-widest mt-1">100% Free & Secure</span>
@@ -84,11 +73,11 @@
         Unlock 20+ lightweight utilities. No registration required, privacy-first, and optimized for UK salary, tax, and digital productivity.
       </p>
       <div class="flex gap-4 justify-center lg:justify-start">
-        <a href="#tools-grid" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all">Browse All Tools</a>
+        <a href="#tools-grid" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100">Browse All Tools</a>
       </div>
     </div>
     <div class="lg:w-2/5 hidden lg:block">
-      <img src="https://cdn-icons-png.flaticon.com/512/9167/9167014.png" class="w-64 h-64 mx-auto drop-shadow-xl" alt="Productivity Tools Illustration">
+      <img src="https://cdn-icons-png.flaticon.com/512/9167/9167014.png" class="w-64 h-64 mx-auto drop-shadow-2xl" alt="Productivity Tools Illustration">
     </div>
   </header>
 
@@ -99,28 +88,17 @@
     </h2>
     
     <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <a class="tool-link" href="/tax.html">
-        <div class="tool-card relative bg-white p-8 rounded-2xl border border-slate-100 flex flex-col items-start h-full">
-          <span class="hot-tag">HOT</span>
-          <div class="w-14 h-14 mb-6 bg-slate-50 rounded-xl flex items-center justify-center">
-            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135706.png" class="w-9 h-9" alt="UK Income Tax PAYE Calculator">
-          </div>
-          <h3 class="font-extrabold text-xl text-slate-900 mb-2">Income Tax (PAYE)</h3>
-          <p class="text-sm text-slate-500 leading-relaxed mb-6">Calculate your UK salary take-home pay with 2026 tax codes.</p>
-          <div class="mt-auto text-blue-600 font-bold text-xs uppercase">Launch Tool →</div>
-        </div>
-      </a>
       </div>
 
     <section class="mt-24 pt-12 border-t border-slate-200">
       <h2 class="text-2xl font-extrabold text-slate-900 mb-6">All-in-One Online Utility Toolbox</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 seo-text text-sm">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 seo-text text-sm leading-relaxed">
         <div>
-          <p class="mb-4">Welcome to <strong>Mini-Tools.uk</strong>, your premier destination for high-performance <strong>online utility tools</strong>. We provide a comprehensive suite of digital tools designed for UK professionals, developers, and students. Whether you need an <strong>Income Tax PAYE calculator</strong> to estimate your salary or a <strong>VAT calculator</strong> for business accounting, our tools are updated for the 2026 financial year.</p>
+          <p class="mb-4">Welcome to <strong>Mini-Tools.uk</strong>, your premier destination for high-performance <strong>online utility tools</strong>. We provide a comprehensive suite of digital tools designed for UK professionals, developers, and students. Our tools are updated for the 2026 financial year to ensure accuracy in tax and salary calculations.</p>
           <p>Our <strong>privacy-first</strong> approach means all processing happens in your browser. We don't store your data, making us the safest choice for <strong>password generation</strong>, <strong>JSON formatting</strong>, and <strong>PDF to image conversion</strong>.</p>
         </div>
         <div>
-          <p class="mb-4">Boost your digital workflow with our <strong>AI Prompt Helper</strong>, designed to optimize interactions with LLMs. Need quick visual assets? Use our <strong>QR Code Generator</strong> or <strong>Image Resizer</strong>. All our utilities are 100% free with no sign-up or registration required.</p>
+          <p class="mb-4">Boost your digital workflow with our <strong>AI Prompt Helper</strong>, optimized for LLM interactions. From <strong>QR Code generation</strong> to <strong>text comparison</strong>, all our utilities are 100% free with no sign-up or registration required.</p>
           <ul class="grid grid-cols-2 gap-2 font-bold text-blue-600">
             <li>• Free Online Tools</li>
             <li>• Salary Calc 2026</li>
@@ -138,7 +116,7 @@
       <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
       <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
     </div>
-    <p class="text-[10px] text-slate-300 mt-4 font-bold">© 2026 MINI-TOOLS.UK — LIGHTWEIGHT & PRIVACY FIRST</p>
+    <p class="text-[10px] text-slate-300 mt-4 font-bold tracking-widest">© 2026 MINI-TOOLS.UK — LIGHTWEIGHT & PRIVACY FIRST</p>
   </footer>
 
   <script>
@@ -156,8 +134,8 @@
           qr: { t: "QR Generator", d: "Create clean, custom QR codes.", img: "https://cdn-icons-png.flaticon.com/512/241/241528.png", hot: false },
           unit: { t: "Unit Converter", d: "Metric & Imperial quick swap.", img: "https://cdn-icons-png.flaticon.com/512/6127/6127623.png", hot: false },
           word: { t: "Word Counter", d: "Real-time char & word counting.", img: "https://cdn-icons-png.flaticon.com/512/2541/2541991.png", hot: false },
-          pass: { t: "Password Gen", d: "Secure, random password tool.", img: "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", hot: false },
-          pdf: { t: "PDF to Image", d: "Extract pages as JPG/PNG.", img: "https://cdn-icons-png.flaticon.com/512/337/337946.png", hot: true },
+          password: { t: "Password Gen", d: "Secure, random password tool.", img: "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", hot: false }, // 修正键名: password
+          pdf2img: { t: "PDF to Image", d: "Extract pages as JPG/PNG.", img: "https://cdn-icons-png.flaticon.com/512/337/337946.png", hot: true }, // 修正键名: pdf2img
           json: { t: "JSON Formatter", d: "Clean up and validate JSON code.", img: "https://cdn-icons-png.flaticon.com/512/136/136525.png", hot: false },
           diff: { t: "Text Diff Checker", d: "Compare two texts for changes.", img: "https://cdn-icons-png.flaticon.com/512/2911/2911230.png", hot: false },
           image: { t: "Image Resizer", d: "Compress & resize images fast.", img: "https://cdn-icons-png.flaticon.com/512/2916/2916124.png", hot: false }
@@ -176,14 +154,13 @@
           qr: { t: "二维码生成", d: "创建简洁、自定义的二维码。", img: "https://cdn-icons-png.flaticon.com/512/241/241528.png", hot: false },
           unit: { t: "单位换算", d: "公制与英制单位快速转换。", img: "https://cdn-icons-png.flaticon.com/512/6127/6127623.png", hot: false },
           word: { t: "字数统计", d: "实时统计文本字符与单词数。", img: "https://cdn-icons-png.flaticon.com/512/2541/2541991.png", hot: false },
-          pass: { t: "密码生成器", d: "生成高强度随机安全密码。", img: "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", hot: false },
-          pdf: { t: "PDF 转图片", d: "快速将 PDF 页面提取为图片。", img: "https://cdn-icons-png.flaticon.com/512/337/337946.png", hot: true },
+          password: { t: "密码生成器", d: "生成高强度随机安全密码。", img: "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", hot: false }, // 修正键名: password
+          pdf2img: { t: "PDF 转图片", d: "快速将 PDF 页面提取为图片。", img: "https://cdn-icons-png.flaticon.com/512/337/337946.png", hot: true }, // 修正键名: pdf2img
           json: { t: "JSON 格式化", d: "整理并验证 JSON 代码格式。", img: "https://cdn-icons-png.flaticon.com/512/136/136525.png", hot: false },
           diff: { t: "文本比对", d: "比对两段文本的差异之处。", img: "https://cdn-icons-png.flaticon.com/512/2911/2911230.png", hot: false },
           image: { t: "图片调优", d: "快速压缩或调整图片尺寸。", img: "https://cdn-icons-png.flaticon.com/512/2916/2916124.png", hot: false }
         }
       }
-      // 其他语言可在后续补充...
     };
 
     function getLang() {
@@ -199,7 +176,8 @@
     function syncLinks(lang) {
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
-        if (href && (href.startsWith('/') || !href.includes(':')) && !href.startsWith('#')) {
+        // 仅同步内部链接
+        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
           try {
             const url = new URL(href, window.location.origin);
             url.searchParams.set('lang', lang);
@@ -213,6 +191,7 @@
       const lang = getLang();
       const data = i18n[lang] || i18n['en'];
       
+      document.documentElement.lang = lang;
       document.getElementById('hero-title').innerHTML = data.hero;
       document.getElementById('hero-sub').innerText = data.sub;
       document.getElementById('lang-select').value = lang;
@@ -225,16 +204,17 @@
       
       grid.innerHTML = toolKeys.map(key => {
         const tool = data.tools[key];
+        // 关键修正: 生成的链接现在基于修正后的键名 (password.html 和 pdf2img.html)
         return `
           <a class="tool-link" href="/${key}.html">
-            <article class="tool-card relative bg-white p-8 rounded-2xl border border-slate-100 flex flex-col items-start h-full">
+            <article class="tool-card relative bg-white p-8 rounded-3xl border border-slate-100 flex flex-col items-start h-full group">
               ${tool.hot ? `<span class="hot-tag">${data.hot}</span>` : ''}
-              <div class="w-14 h-14 mb-6 bg-slate-50 rounded-xl flex items-center justify-center">
+              <div class="w-14 h-14 mb-6 bg-slate-50 rounded-2xl flex items-center justify-center group-hover:bg-blue-50 transition-colors">
                 <img src="${tool.img}" class="w-9 h-9" alt="${tool.t}" loading="lazy">
               </div>
-              <h3 class="font-extrabold text-xl text-slate-900 mb-2">${tool.t}</h3>
+              <h3 class="font-extrabold text-xl text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">${tool.t}</h3>
               <p class="text-sm text-slate-500 leading-relaxed mb-6">${tool.d}</p>
-              <div class="mt-auto text-blue-600 font-bold text-xs uppercase flex items-center gap-1">
+              <div class="mt-auto text-blue-600 font-bold text-xs uppercase flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                 ${data.open} →
               </div>
             </article>
