@@ -1,6 +1,99 @@
 /** ==========================================
- * 模块 1：小游戏引擎与机制 
+ * 模块 1：小游戏引擎与机制
  * ========================================== */
+// === 彻底修复“永远差0.05%”死循环 Bug 的 LemonGame ===
+
+// === 恢复“疯狂连点”灵魂的 LemonGame ===
+class LemonGame {
+    constructor(ctx, onComplete) {
+        this.ctx = ctx; this.onComplete = onComplete;
+        this.progress = 0; 
+        this.isDone = false;
+        this.stickY = 0; 
+        
+        const sv = document.getElementById('score-val'); if(sv) sv.innerText = "0%";
+        const gm = document.getElementById('game-msg'); if(gm) gm.innerText = "快！疯狂点击屏幕出汁！";
+        document.querySelector('.game-hud')?.classList.add('lemon-hud-active');
+    }
+    draw() {
+        if (this.stickY > 0) this.stickY -= 5;
+        
+        // 恢复适度的衰减，增加连点紧迫感，手速慢会掉进度
+        if (!this.isDone && this.progress > 0) {
+            this.progress -= 0.15; 
+            if (this.progress < 0) this.progress = 0;
+            const currentInt = Math.floor(this.progress);
+            if (this.lastInt !== currentInt) {
+                const sv = document.getElementById('score-val'); if(sv) sv.innerText = currentInt + "%";
+                this.lastInt = currentInt;
+            }
+        }
+
+        // =================图层 1：杯子后壁=================
+        this.ctx.fillStyle = "rgba(225, 245, 254, 0.4)"; 
+        this.ctx.beginPath(); this.ctx.moveTo(120, 150); this.ctx.lineTo(140, 410); this.ctx.lineTo(260, 410); this.ctx.lineTo(280, 150); this.ctx.fill();
+
+        this.ctx.save();
+        this.ctx.beginPath(); this.ctx.moveTo(120, 150); this.ctx.lineTo(140, 410); this.ctx.lineTo(260, 410); this.ctx.lineTo(280, 150); this.ctx.clip();
+
+        // =================图层 2：柠檬=================
+        this.ctx.fillStyle = "#fff176"; 
+        this.ctx.beginPath(); this.ctx.ellipse(200, 385, 45, 20, 0, 0, Math.PI*2); this.ctx.fill();
+        this.ctx.strokeStyle = "#fbc02d"; this.ctx.lineWidth = 2; this.ctx.stroke();
+
+        // =================图层 3：茶底汁水=================
+        const waterHeight = (this.progress / 100) * 200;
+        this.ctx.fillStyle = "rgba(174, 213, 129, 0.85)"; 
+        this.ctx.fillRect(100, 410 - waterHeight, 200, waterHeight); 
+
+        if (this.stickY > 15 && !this.isDone) {
+            this.ctx.fillStyle = "rgba(255,255,255,0.8)"; 
+            for(let i=0; i<6; i++){ this.ctx.beginPath(); this.ctx.arc(150 + Math.random()*100, 400 - Math.random()*waterHeight, 2+Math.random()*5, 0, Math.PI*2); this.ctx.fill(); }
+        }
+        this.ctx.restore();
+
+        // =================图层 4：雪克棒=================
+        this.ctx.fillStyle = "#424242"; this.ctx.beginPath(); this.ctx.roundRect(175, 20 + this.stickY, 50, 60, 8); this.ctx.fill();
+        this.ctx.fillStyle = "#e0e0e0"; this.ctx.fillRect(190, 80 + this.stickY, 20, 260);
+        this.ctx.fillStyle = "white"; this.ctx.fillRect(193, 80 + this.stickY, 4, 260); 
+        this.ctx.fillStyle = "#212121"; this.ctx.beginPath(); this.ctx.roundRect(170, 340 + this.stickY, 60, 40, 10); this.ctx.fill();
+
+        // =================图层 5：杯子前壁与玻璃反光=================
+        this.ctx.fillStyle = "rgba(255, 255, 255, 0.15)"; 
+        this.ctx.beginPath(); this.ctx.moveTo(120, 150); this.ctx.lineTo(140, 410); this.ctx.lineTo(260, 410); this.ctx.lineTo(280, 150); this.ctx.fill();
+        this.ctx.strokeStyle = "rgba(255, 255, 255, 0.7)"; this.ctx.lineWidth = 3; this.ctx.stroke(); 
+        
+        this.ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+        this.ctx.beginPath(); this.ctx.moveTo(130, 150); this.ctx.lineTo(145, 400); this.ctx.lineTo(155, 400); this.ctx.lineTo(145, 150); this.ctx.fill();
+
+        // 保持绝不卡关的判定逻辑
+        if (this.progress >= 99 && !this.isDone) {
+            this.progress = 100; 
+            this.isDone = true;
+            
+            const sv = document.getElementById('score-val'); if(sv) sv.innerText = "100%";
+            
+            this.ctx.font = "bold 50px Arial"; this.ctx.fillStyle = "#ff9800"; this.ctx.fillText("完美出汁！", 80, 120);
+            setTimeout(() => { this.endGame(); }, 800); 
+        }
+    }
+    onClick() {
+        if (this.isDone) return;
+        // 🔴 核心改动：大概需要疯狂点击18-20次
+        this.progress += 6.5; 
+        this.stickY = 30; 
+        const sv = document.getElementById('score-val'); if(sv) sv.innerText = Math.floor(this.progress) + "%";
+    }
+    endGame() {
+        document.getElementById('app')?.classList.add('global-no-click');
+        setTimeout(() => {
+            document.querySelector('.game-hud')?.classList.remove('lemon-hud-active');
+            this.onComplete(true, 300); 
+            document.getElementById('app')?.classList.remove('global-no-click');
+        }, 100);
+    }
+}
+
 class CakeGame {
     constructor(ctx, onComplete) {
         this.ctx = ctx; this.onComplete = onComplete;
@@ -124,7 +217,6 @@ class IceCreamGame {
     onClick() { if (this.state === 'aiming') { this.state = 'falling'; this.leverAngle = 30; this.iceY = 250; } }
 }
 
-/** 引擎安全重构：防止 Canvas 未加载导致崩溃 */
 const GameEngine = {
     canvas: null, ctx: null, activeGame: null, animationFrameId: null,
     init() { 
@@ -134,7 +226,12 @@ const GameEngine = {
             this.canvas.width = 400; this.canvas.height = 530; 
         }
     },
-    handleCanvasClick(e) { e.stopPropagation(); if (this.activeGame) this.activeGame.onClick(); },
+    // 拦截浏览器行为，保证防连点有效
+    handleCanvasClick(e) { 
+        e.preventDefault(); 
+        e.stopPropagation(); 
+        if (this.activeGame) this.activeGame.onClick(); 
+    },
     start(GameClass, onCompleteCallback) {
         document.getElementById('story-ui')?.classList.add('hidden'); 
         document.getElementById('game-ui')?.classList.remove('hidden');
@@ -159,7 +256,7 @@ const GameEngine = {
 const ShopManager = {
     gold: 5000, 
     shopLevel: 1, 
-    unlocked: { FRY: false, CAKE: false, ICE: false },
+    unlocked: { FRY: false, CAKE: false, ICE: false, LEMON: false }, 
     upgrades: { luckyCat: false }, 
     incomeHistory: [], 
     totalCustAllTime: 0, 
@@ -175,16 +272,14 @@ const ShopManager = {
         'COFFEE': { icon: '☕', price: 40, type: 'READY' },
         'FRIES':  { icon: '🍟', price: 80, type: 'FRY', gameClass: FryGame },
         'CAKE':   { icon: '🎂', price: 400, type: 'CAKE', gameClass: CakeGame },
-        'ICE':    { icon: '🍦', price: 250, type: 'ICE', gameClass: IceCreamGame }
+        'ICE':    { icon: '🍦', price: 250, type: 'ICE', gameClass: IceCreamGame },
+        'LEMON':  { icon: '🧃', price: 300, type: 'LEMON', gameClass: LemonGame } 
     },
 
     get currentWeekday() { const days = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']; return days[(this.dayCount - 1) % 7]; },
     get isWeekend() { const day = (this.dayCount - 1) % 7; return day === 5 || day === 6; },
 
-    init() {
-        GameEngine.init();
-        this.showHub(); 
-    },
+    init() { GameEngine.init(); this.showHub(); },
 
     showHub() {
         document.getElementById('hub-screen')?.classList.remove('hidden');
@@ -339,6 +434,7 @@ const ShopManager = {
         if (this.unlocked.FRY) { const ic=document.getElementById('fry-ico'); if(ic) ic.innerText = "🍟"; document.getElementById('equip-fry')?.classList.remove('locked'); }
         if (this.unlocked.CAKE) { const ic=document.getElementById('oven-ico'); if(ic) ic.innerText = "🎂"; document.getElementById('equip-oven')?.classList.remove('locked'); }
         if (this.unlocked.ICE) { const ic=document.getElementById('ice-ico'); if(ic) ic.innerText = "🍦"; document.getElementById('equip-ice')?.classList.remove('locked'); }
+        if (this.unlocked.LEMON) { const ic=document.getElementById('lemon-ico'); if(ic) ic.innerText = "🧃"; document.getElementById('equip-lemon')?.classList.remove('locked'); }
         
         const comboEl = document.getElementById('combo-display');
         const counterArea = document.getElementById('interact-area');
@@ -368,6 +464,7 @@ const ShopManager = {
         if (this.FOODS[key].type === 'FRY' && !this.unlocked.FRY) key = 'POTATO';
         if (this.FOODS[key].type === 'CAKE' && !this.unlocked.CAKE) key = 'TART';
         if (this.FOODS[key].type === 'ICE' && !this.unlocked.ICE) key = 'DONUT';
+        if (this.FOODS[key].type === 'LEMON' && !this.unlocked.LEMON) key = 'COFFEE'; 
 
         const id = "c-" + Date.now(); const isVIP = Math.random() < 0.15; 
         this.customers.push({ id, type: key, patience: 100, posIdx: myPos, isAngry: false, isVIP: isVIP });
@@ -418,16 +515,28 @@ const ShopManager = {
         this.updateUI();
     },
 
-    processPayment(basePrice, isVIP) {
+    showFloatingGold(amount, custId) {
+        const lane = document.getElementById('customer-lane'); const custEl = document.getElementById(custId);
+        if (!lane || !custEl) return;
+        const floatEl = document.createElement('div'); floatEl.className = 'floating-gold';
+        if (this.isFever) { floatEl.innerHTML = `⚡ +${amount} 🪙`; floatEl.style.color = "#ff5252"; } 
+        else { floatEl.innerHTML = `+${amount} 🪙`; }
+        floatEl.style.left = custEl.style.left; floatEl.style.top = "40%"; 
+        lane.appendChild(floatEl);
+        setTimeout(() => { if (floatEl.parentNode) floatEl.parentNode.removeChild(floatEl); }, 1000);
+    },
+
+    processPayment(basePrice, isVIP, custId) {
         let finalPrice = basePrice; if (isVIP) finalPrice *= 3; if (this.isFever) finalPrice *= 2; 
         this.gold += finalPrice; this.todayIncome += finalPrice; 
+        this.showFloatingGold(finalPrice, custId);
     },
 
     serveReady(foodKey, e) {
         e.stopPropagation(); if (this.justClosedGame) return;
         if (!this.activeCustID) { this.showError(e.currentTarget, "请先点击顾客！"); return; }
         const cust = this.customers.find(c => c.id === this.activeCustID);
-        if (cust.type === foodKey) { this.processPayment(this.FOODS[foodKey].price, cust.isVIP); this.leaveStore(this.activeCustID, true); } 
+        if (cust.type === foodKey) { this.processPayment(this.FOODS[foodKey].price, cust.isVIP, this.activeCustID); this.leaveStore(this.activeCustID, true); } 
         else { this.leaveStore(this.activeCustID, false); }
     },
 
@@ -435,7 +544,7 @@ const ShopManager = {
         e.stopPropagation(); if (this.justClosedGame) return;
         let el = e.currentTarget;
         if (!this.unlocked[mode]) {
-            let cost = mode === 'FRY' ? 500 : (mode === 'CAKE' ? 1000 : 1500); 
+            let cost = mode === 'FRY' ? 500 : (mode === 'CAKE' ? 1000 : (mode === 'ICE' ? 1500 : 800)); 
             if (this.gold >= cost) { this.gold -= cost; this.unlocked[mode] = true; this.updateUI(); } 
             else this.showError(el, "金币不足！"); return;
         }
@@ -449,8 +558,8 @@ const ShopManager = {
                 const appNode = document.getElementById('app'); if(appNode) appNode.classList.add('global-no-click');
                 setTimeout(() => { this.justClosedGame = false; if(appNode) appNode.classList.remove('global-no-click'); }, 800);
 
-                if (win) { this.processPayment(reward, cust.isVIP); this.leaveStore(this.activeCustID, true); } 
-                else { this.leaveStore(this.activeCustID, false); }
+                if (win) { this.processPayment(reward, cust.isVIP, cust.id); this.leaveStore(cust.id, true); } 
+                else { this.leaveStore(cust.id, false); }
             });
         } else { this.showError(el, "设备不匹配！"); }
     }
