@@ -1,4 +1,4 @@
-body { margin: 0; background: #1a1a1c; display: flex; justify-content: center; align-items: center; height: 100dvh; font-family: sans-serif; overflow: hidden; }
+body { margin: 0; background: #1a1a1c; display: flex; justify-content: center; align-items: center; height: 100dvh; font-family: sans-serif; overflow: hidden; touch-action: none; }
 #app { width: 400px; max-width: 100vw; height: 650px; max-height: 100dvh; background: #fff9fb; border-radius: 35px; overflow: hidden; position: relative; box-shadow: 0 20px 80px rgba(0,0,0,0.5); }
 .global-no-click { pointer-events: none !important; }
 .hidden { display: none !important; }
@@ -35,7 +35,7 @@ body { margin: 0; background: #1a1a1c; display: flex; justify-content: center; a
 .plate { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 0 rgba(0,0,0,0.2); margin: 0 auto; background: var(--plate-bg); transition: 0.5s; }
 .m-body { height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px; transition: 0.5s; background: var(--machine-bg); border: 3px solid var(--machine-border); color: var(--text-color); }
 .f-name { color: var(--text-color); font-size: 10px; margin-top: 4px; font-weight: bold; white-space: nowrap; transition: 0.5s; }
-.m-label { color: var(--text-color); font-size: 10px; margin-top: 4px; font-weight: bold;}
+.m-label { color: var(--text-color); font-size: 10px; margin-top: 4px; font-weight: bold; white-space: nowrap;}
 
 .theme-3 .shop-scene::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 35px; background: repeating-linear-gradient(90deg, #ffb74d 0, #ffb74d 30px, #fff 30px, #fff 60px); border-bottom: 4px solid #f57c00; border-radius: 0 0 15px 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 3; }
 @keyframes neonPulse { 0% { box-shadow: inset 0 5px 15px rgba(0,229,255,0.2), 0 -5px 20px rgba(0,229,255,0.4); } 100% { box-shadow: inset 0 2px 5px rgba(0,229,255,0.1), 0 -2px 10px rgba(0,229,255,0.2); } }
@@ -102,20 +102,24 @@ body { margin: 0; background: #1a1a1c; display: flex; justify-content: center; a
 @keyframes walkIn { 0% { transform: translate(-50%, -300px) scale(0.3); opacity: 0; } 100% { transform: translate(-50%, 0) scale(1); opacity: 1; } }
 @keyframes walkOut { to { transform: translate(350px, 0) scale(0.8); opacity: 0; } }
 
-/* 胶囊小人 */
-.cust-body { width: 64px; height: 95px; background: transparent; border: none; position: relative; cursor: pointer; transition: 0.3s; }
-.cust-body::before { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 44px; height: 44px; background: #ffccbc; border: 3px solid #d84315; border-radius: 50%; z-index: 2; transition: 0.3s; box-sizing: border-box; }
-.cust-body::after { content: ""; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 56px; height: 50px; background: #81d4fa; border: 3px solid #0277bd; border-radius: 20px 20px 10px 10px; z-index: 1; transition: 0.3s; box-sizing: border-box; }
+/* === 精缩后的胶囊小人 === */
+.cust-body { width: 50px; height: 75px; background: transparent; border: none; position: relative; cursor: pointer; transition: 0.3s; margin: 0 auto;}
+.cust-body::before { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 34px; height: 34px; background: #ffccbc; border: 2px solid #d84315; border-radius: 50%; z-index: 2; transition: 0.3s; box-sizing: border-box; }
+.cust-body::after { content: ""; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 44px; height: 40px; background: #81d4fa; border: 2px solid #0277bd; border-radius: 15px 15px 8px 8px; z-index: 1; transition: 0.3s; box-sizing: border-box; }
 .cust-slot.active .cust-body::before, .cust-slot.active .cust-body::after { border-color: #ff4081; box-shadow: 0 0 10px rgba(255,64,129,0.5); }
 .cust-slot.angry .cust-body::before { background: #ff8a80; border-color: #b71c1c; }
 .cust-slot.angry .cust-body::after { background: #ff5252; border-color: #b71c1c; }
 .cust-slot.vip .cust-body::before { border-color: #ffd700; }
 .cust-slot.vip .cust-body::after { background: #fff59d; border-color: #ffd700; box-shadow: 0 0 15px rgba(255,215,0,0.6); }
-.cust-slot.vip::before { content: "👑"; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 24px; z-index: 10; animation: floatCrown 1s infinite alternate; }
+.cust-slot.vip::before { content: "👑"; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); font-size: 20px; z-index: 10; animation: floatCrown 1s infinite alternate; }
 
-.bubble { position: absolute; top: -65px; left: 50%; transform: translateX(-50%); width: 48px; height: 48px; background: white; border: 3px solid #ff4081; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 5; }
-.p-bar { width: 50px; height: 8px; background: #eee; border-radius: 4px; margin: 10px auto; border: 1px solid #ccc; overflow: hidden; }
+.bubble { position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 38px; height: 38px; background: white; border: 2px solid #ff4081; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; z-index: 5; }
+.p-bar { width: 40px; height: 6px; background: #eee; border-radius: 3px; margin: 8px auto; border: 1px solid #ccc; overflow: hidden; }
 .p-fill { width: 100%; height: 100%; background: #4caf50; transition: width 0.3s; }
+
+/* 漂浮金币特效 */
+.floating-gold { position: absolute; color: #ffeb3b; font-weight: bold; font-size: 24px; text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 10px #ff9800; pointer-events: none; z-index: 999; animation: floatUpGold 1s ease-out forwards; }
+@keyframes floatUpGold { 0% { transform: translate(-50%, 0) scale(0.5); opacity: 0; } 20% { transform: translate(-50%, -20px) scale(1.2); opacity: 1; } 100% { transform: translate(-50%, -80px) scale(1); opacity: 0; } }
 
 #lucky-cat-deco { position: absolute; top: -38px; right: 20px; font-size: 35px; animation: floatCrown 1.5s infinite alternate; z-index: 5; text-shadow: 0 5px 10px rgba(0,0,0,0.2); }
 .fever-active { animation: feverGlow 1s infinite alternate; }
@@ -130,15 +134,20 @@ body { margin: 0; background: #1a1a1c; display: flex; justify-content: center; a
 .tray-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 12px; }
 .tray-item { text-align: center; cursor: pointer; width: 18%; }
 .f-ico { font-size: 24px; }
-.machine-section { display: flex; justify-content: space-around; gap: 5px; }
-.machine { width: 31%; cursor: pointer; text-align: center; }
+.machine-section { display: flex; justify-content: space-around; gap: 4px; }
+/* 容纳4台设备 */
+.machine { width: 24%; cursor: pointer; text-align: center; }
 .machine.locked { opacity: 0.5; filter: grayscale(1); }
 
-#game-ui { position: absolute; inset: 0; background: #fff5f8; z-index: 1000; display: flex; flex-direction: column; }
+/* 柠檬茶小游戏的 Hud 样式 */
+.lemon-hud-active #score-val { color: #8bc34a !important; text-shadow: 0 0 10px rgba(139,195,74,0.5); }
+.lemon-hud-active #game-msg { color: #8bc34a !important; font-weight: bold; }
+
+#game-ui { position: absolute; inset: 0; background: #fff5f8; z-index: 1000; display: flex; flex-direction: column; touch-action: none;}
 .game-hud { text-align: center; padding-top: 40px; pointer-events: none; height: 100px; }
-#score-val { font-size: 60px; color: #ff80ab; font-weight: bold; }
-#game-msg { font-size: 16px; color: #ff80ab; font-weight: bold; margin-top: 5px; }
-canvas { display: block; width: 100%; flex: 1; }
+#score-val { font-size: 60px; color: #ff80ab; font-weight: bold; transition: color 0.3s; }
+#game-msg { font-size: 16px; color: #ff80ab; font-weight: bold; margin-top: 5px; transition: color 0.3s; }
+canvas { display: block; width: 100%; flex: 1; touch-action: none; }
 
 #shop-modal { position: absolute; inset: 0; background: rgba(0,0,0,0.6); z-index: 2000; display: flex; justify-content: center; align-items: center; }
 .shop-content { background: white; padding: 25px; border-radius: 20px; width: 75%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
