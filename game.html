@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>梦幻店 - 完美运行版</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>梦幻店 - 完美经营版</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app">
@@ -80,12 +80,13 @@
                         <div class="machine locked" id="equip-fry" onclick="ShopManager.clickEquip('FRY', event)"><div class="m-body"><span id="fry-ico">🔒</span></div><div class="m-label">炸锅(500)</div></div>
                         <div class="machine locked" id="equip-oven" onclick="ShopManager.clickEquip('CAKE', event)"><div class="m-body"><span id="oven-ico">🔒</span></div><div class="m-label">烤箱(1000)</div></div>
                         <div class="machine locked" id="equip-ice" onclick="ShopManager.clickEquip('ICE', event)"><div class="m-body"><span id="ice-ico">🔒</span></div><div class="m-label">冰淇淋(1500)</div></div>
+                        <div class="machine locked" id="equip-lemon" onclick="ShopManager.clickEquip('LEMON', event)"><div class="m-body"><span id="lemon-ico">🔒</span></div><div class="m-label">水吧(800)</div></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="game-ui" class="hidden" onclick="GameEngine.handleCanvasClick(event)">
+        <div id="game-ui" class="hidden" onpointerdown="GameEngine.handleCanvasClick(event)">
             <div class="game-hud">
                 <div id="score-val">0</div>
                 <div id="game-msg">点击屏幕操作</div>
@@ -113,7 +114,6 @@
             </div>
         </div>
     </div>
-    <script src="./game.js"></script>
+    <script src="game.js"></script>
 </body>
 </html>
-
