@@ -2,60 +2,115 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>小女孩的梦幻店 - 视觉修复版</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>梦幻店 - 完美运行版</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app">
-        <div id="story-ui">
-            <div class="shop-scene">
-                <div class="door"></div>
-                <div id="customer-lane"></div>
+        
+        <div id="hub-screen">
+            <div class="hub-header">
+                <h2>🌍 商业版图</h2>
+                <div class="hub-gold-display">🪙 <span id="hub-gold">5000</span></div>
+            </div>
+            
+            <div class="map-container">
+                <div class="map-node unlocked active" id="shop-1" onclick="ShopManager.unlockShop(1, 0)">
+                    <div class="node-ico">🏪</div>
+                    <div class="node-text">街角小店<br><small>温馨原木风 (当前位置)</small></div>
+                </div>
+                <div class="map-node locked" id="shop-2" onclick="ShopManager.unlockShop(2, 15000)">
+                    <div class="node-ico">🏙️</div>
+                    <div class="node-text">繁华商圈<br><small>赛博霓虹风 (15000 🪙 解锁)</small></div>
+                </div>
+                <div class="map-node locked" id="shop-3" onclick="ShopManager.unlockShop(3, 50000)">
+                    <div class="node-ico">🏖️</div>
+                    <div class="node-text">海滨餐厅<br><small>夏日度假风 (50000 🪙 解锁)</small></div>
+                </div>
             </div>
 
+            <button class="sub-btn" onclick="ShopManager.openLedger()">📊 查看财务报表</button>
+            <button class="main-btn pulse-btn" id="start-day-btn" onclick="ShopManager.startDay()">开启 第 1 天</button>
+        </div>
+
+        <div id="ledger-screen" class="hidden">
+            <div class="ledger-header">
+                <h2>📈 营业账本</h2>
+                <button class="close-btn-small" onclick="ShopManager.closeLedger()">✖</button>
+            </div>
+            <div class="ledger-stats">
+                <div class="stat-box"><span>累计最高单日</span><strong id="ledger-max">0 🪙</strong></div>
+                <div class="stat-box"><span>总接待人次</span><strong id="ledger-cust">0 人</strong></div>
+            </div>
+            <div class="history-list" id="ledger-list"></div>
+        </div>
+
+        <div id="story-ui" class="hidden theme-1">
+            <div id="time-bar"><div id="time-fill"></div></div>
+            <div id="clock-display">第1天 周一 08:00</div>
+            <button id="early-close-btn" onclick="ShopManager.earlyClose()">提前打烊 🚪</button>
+            
+            <div class="shop-scene" id="main-scene">
+                <div id="ambient-light"></div>
+                <div class="door"><div id="door-light"></div></div>
+                <div id="customer-lane"></div>
+            </div>
+            
             <div class="counter-zone" id="interact-area">
+                <div id="lucky-cat-deco" class="hidden">🐱</div>
                 <div class="ui-panel">
                     <div class="gold-chip">🪙 <span id="gold-count">0</span></div>
-                    <div id="task-info" class="task-hint">← 请先点击小猫选择顾客</div>
+                    <div class="combo-badge" id="combo-display">Combo x0</div>
+                    <div id="task-info" class="task-hint">← 点击顾客接单</div>
+                    <button id="shop-btn" onclick="ShopManager.toggleShop()">🛒 商店</button>
                 </div>
-
+                
                 <div class="interactive-area">
                     <div class="shelf-section">
                         <div class="tray-grid">
-                            <div class="tray-item" onclick="serveReady('POTATO', event)">
-                                <div class="plate"><span class="f-ico">🍠</span></div>
-                                <div class="f-name">红薯</div>
-                            </div>
-                            <div class="tray-item" onclick="serveReady('TART', event)">
-                                <div class="plate"><span class="f-ico">🥧</span></div>
-                                <div class="f-name">蛋挞</div>
-                            </div>
-                            <div class="tray-item" onclick="serveReady('MILK', event)">
-                                <div class="plate"><span class="f-ico">🥛</span></div>
-                                <div class="f-name">牛奶</div>
-                            </div>
+                            <div class="tray-item" onclick="ShopManager.serveReady('POTATO', event)"><div class="plate"><span class="f-ico">🍠</span></div><div class="f-name">红薯</div></div>
+                            <div class="tray-item" onclick="ShopManager.serveReady('TART', event)"><div class="plate"><span class="f-ico">🥧</span></div><div class="f-name">蛋挞</div></div>
+                            <div class="tray-item" onclick="ShopManager.serveReady('MILK', event)"><div class="plate"><span class="f-ico">🥛</span></div><div class="f-name">牛奶</div></div>
+                            <div class="tray-item" onclick="ShopManager.serveReady('DONUT', event)"><div class="plate"><span class="f-ico">🍩</span></div><div class="f-name">甜甜圈</div></div>
+                            <div class="tray-item" onclick="ShopManager.serveReady('COFFEE', event)"><div class="plate"><span class="f-ico">☕</span></div><div class="f-name">咖啡</div></div>
                         </div>
                     </div>
-
                     <div class="machine-section">
-                        <div class="machine locked" id="equip-fry" onclick="clickEquip('FRY', event)">
-                            <div class="m-body"><span id="fry-ico">🔒</span></div>
-                            <div class="m-label">炸锅(500)</div>
-                        </div>
-                        <div class="machine locked" id="equip-oven" onclick="clickEquip('CAKE', event)">
-                            <div class="m-body"><span id="oven-ico">🔒</span></div>
-                            <div class="m-label">烤箱(1000)</div>
-                        </div>
+                        <div class="machine locked" id="equip-fry" onclick="ShopManager.clickEquip('FRY', event)"><div class="m-body"><span id="fry-ico">🔒</span></div><div class="m-label">炸锅(500)</div></div>
+                        <div class="machine locked" id="equip-oven" onclick="ShopManager.clickEquip('CAKE', event)"><div class="m-body"><span id="oven-ico">🔒</span></div><div class="m-label">烤箱(1000)</div></div>
+                        <div class="machine locked" id="equip-ice" onclick="ShopManager.clickEquip('ICE', event)"><div class="m-body"><span id="ice-ico">🔒</span></div><div class="m-label">冰淇淋(1500)</div></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="game-ui" class="hidden">
-            <div class="game-hud"><div id="score-val">0</div></div>
-            <div id="fry-bar" class="hidden"><div id="fry-target"></div><div id="fry-line"></div></div>
+        <div id="game-ui" class="hidden" onclick="GameEngine.handleCanvasClick(event)">
+            <div class="game-hud">
+                <div id="score-val">0</div>
+                <div id="game-msg">点击屏幕操作</div>
+            </div>
             <canvas id="gameCanvas"></canvas>
+        </div>
+
+        <div id="end-screen" class="hidden">
+            <h2>🌙 今日打烊</h2>
+            <div class="summary-box">
+                <p>今日接待: <span id="summary-cust">0</span> 位</p>
+                <p>今日收入: <span id="summary-gold" style="color:#f9a825;font-weight:bold;font-size:24px;">0</span> 🪙</p>
+            </div>
+            <button class="main-btn" onclick="ShopManager.returnToHub()">返回大厅</button>
+        </div>
+
+        <div id="shop-modal" class="hidden">
+            <div class="shop-content">
+                <h3>✨ 内部装潢</h3>
+                <div class="shop-item" id="item-cat">
+                    <span>🐱 招财猫 <br><small>顾客耐心流失 -10%</small></span>
+                    <button onclick="ShopManager.buyItem('luckyCat', 2000)">2000 🪙</button>
+                </div>
+                <button class="close-btn" onclick="ShopManager.toggleShop()">继续营业</button>
+            </div>
         </div>
     </div>
     <script src="game.js"></script>
