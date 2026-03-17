@@ -71,7 +71,7 @@
       { "id": "mortgage", "t": "Calc. Hipoteca", "d": "Estimar pagos mensuales de casa.", "img": "https://cdn-icons-png.flaticon.com/512/3475/3475306.png", "hot": false },
       { "id": "qr", "t": "Generador QR", "d": "Crea códigos QR personalizados.", "img": "https://cdn-icons-png.flaticon.com/512/241/241528.png", "hot": false },
       { "id": "unit", "t": "Conversor Unidades", "d": "Métrico a Imperial rápido.", "img": "https://cdn-icons-png.flaticon.com/512/6127/6127623.png", "hot": false },
-      { "id": "word", "t": "Contador Palabras", "d: "Contar caracteres y palabras.", "img": "https://cdn-icons-png.flaticon.com/512/2541/2541991.png", "hot": false },
+      { "id": "word", "t": "Contador Palabras", "d": "Contar caracteres y palabras.", "img": "https://cdn-icons-png.flaticon.com/512/2541/2541991.png", "hot": false },
       { "id": "password", "t": "Generador Claves", "d": "Crear contraseñas seguras.", "img": "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", "hot": false },
       { "id": "pdf2img", "t": "PDF a Imagen", "d": "Extraer páginas como JPG/PNG.", "img": "https://cdn-icons-png.flaticon.com/512/337/337946.png", "hot": true },
       { "id": "json", "t": "Formateador JSON", "d": "Limpiar y validar código JSON.", "img": "https://cdn-icons-png.flaticon.com/512/136/136525.png", "hot": false }
@@ -99,7 +99,7 @@
       { "id": "unit", "t": "Convertisseur Unités", "d": "Métrique à impérial rapide.", "img": "https://cdn-icons-png.flaticon.com/512/6127/6127623.png", "hot": false },
       { "id": "word", "t": "Compteur Mots", "d": "Compter caractères et mots.", "img": "https://cdn-icons-png.flaticon.com/512/2541/2541991.png", "hot": false },
       { "id": "password", "t": "Générateur Mots de Passe", "d": "Créer des mots de passe sûrs.", "img": "https://cdn-icons-png.flaticon.com/512/2889/2889676.png", "hot": false },
-      { "id": "pdf2img", "t": "PDF à Image", "d": "Extraer des pages en JPG/PNG.", "img": "https://cdn-icons-png.flaticon.com/512/337/337946.png", "hot": true },
+      { "id": "pdf2img", "t": "PDF à Image", "d": "Extraire des pages en JPG/PNG.", "img": "https://cdn-icons-png.flaticon.com/512/337/337946.png", "hot": true },
       { "id": "json", "t": "Formateur JSON", "d": "Nettoyer et valider JSON.", "img": "https://cdn-icons-png.flaticon.com/512/136/136525.png", "hot": false }
     ]
   },
