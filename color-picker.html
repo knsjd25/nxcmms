@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
+  <title id="meta-title">Image Color Picker & Cropper | 100% Offline — Mini-Tools</title>
+  <meta name="description" id="meta-desc" content="Free offline image color picker and screenshot cropping tool. Extract HEX/RGB codes and crop images locally. Zero server uploads." />
+  <meta name="keywords" content="Image color picker, Screenshot tool, Crop image online, HEX color finder, RGB picker, Offline image tool" />
+  <link rel="canonical" href="https://mini-tools.uk/color-picker.html" />
+  
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/color-picker.html?lang=en" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/color-picker.html?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/color-picker.html?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/color-picker.html?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/color-picker.html?lang=de" />
+
+  <script async src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
+    .updated-badge { background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; display: inline-flex; align-items: center; gap: 4px; }
+    .prose h2 { font-weight: 800; color: #0f172a; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
+    .prose h3 { font-weight: 700; color: #1e293b; font-size: 1.25rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+    .prose p { margin-bottom: 1rem; color: #475569; line-height: 1.6; }
+    .prose ul { margin-bottom: 1rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
+    .prose li { margin-bottom: 0.5rem; }
+    
+    /* Top Toolbar Styles */
+    .toolbar-panel { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; }
+    .file-upload-input { display: none; }
+    .tool-btn { transition: all 0.2s; border: 2px solid transparent; }
+    .tool-btn.active { background-color: #3b82f6; border-color: #93c5fd; box-shadow: 0 0 0 2px rgba(59,130,246,0.5); }
+    .color-code-box { background: rgba(255, 255, 255, 0.1); padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-family: monospace; font-size: 1rem; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.1); }
+    .color-code-box:hover { background: rgba(255, 255, 255, 0.2); border-color: rgba(255,255,255,0.3); }
+
+    /* Canvas Area Styles */
+    .canvas-container { 
+      position: relative; 
+      width: 100%; 
+      background-color: #e2e8f0; 
+      border-radius: 1rem; 
+      overflow: auto; 
+      min-height: 500px;
+      max-height: 800px;
+      border: 2px dashed #cbd5e1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; 
+      padding: 20px; 
+      transition: border-color 0.2s;
+    }
+
+    .canvas-container.empty-state {
+      cursor: pointer;
+      align-items: center; 
+    }
+    .canvas-container.empty-state:hover {
+      background-color: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    
+    .canvas-bg-pattern {
+      background-image: linear-gradient(45deg, #cbd5e1 25%, transparent 25%), linear-gradient(-45deg, #cbd5e1 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #cbd5e1 75%), linear-gradient(-45deg, transparent 75%, #cbd5e1 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    }
+    
+    .interaction-wrapper {
+      position: relative;
+      display: none; 
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+      cursor: default; 
+      /* 关键：设置 transform 原点，保证缩放从左上角开始 */
+      transform-origin: top left;
+      transition: width 0.1s, height 0.1s;
+    }
+
+    #image-canvas { 
+      display: block; 
+      width: 100%;  /* 宽高强制跟随父元素 interaction-wrapper 的缩放 */
+      height: 100%;
+      max-width: none; 
+    }
+    
+    #overlay-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+      z-index: 10;
+    }
+
+    /* 截图选择框 UI */
+    #crop-selection-box {
+      position: absolute;
+      border: 2px solid #3b82f6;
+      background-color: transparent;
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5); 
+      display: none;
+      pointer-events: none; 
+      z-index: 20;
+    }
+    
+    #crop-selection-box::before, #crop-selection-box::after {
+      content: ''; position: absolute; width: 6px; height: 6px; background: white; border: 1px solid #3b82f6;
+    }
+    #crop-selection-box::before { top: -4px; left: -4px; }
+    #crop-selection-box::after { bottom: -4px; right: -4px; }
+    .crop-corner-tr { position: absolute; top: -4px; right: -4px; width: 6px; height: 6px; background: white; border: 1px solid #3b82f6; }
+    .crop-corner-bl { position: absolute; bottom: -4px; left: -4px; width: 6px; height: 6px; background: white; border: 1px solid #3b82f6; }
+
+    /* 完成与取消按钮 */
+    #crop-action-btns {
+      position: absolute;
+      right: -2px; 
+      bottom: -46px; 
+      display: none; 
+      gap: 10px;
+      pointer-events: auto; 
+    }
+    
+    .crop-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .crop-btn:active { transform: scale(0.95); }
+    .crop-btn-cancel { background-color: #fef2f2; color: #ef4444; }
+    .crop-btn-cancel:hover { background-color: #fee2e2; transform: scale(1.1); }
+    .crop-btn-save { background-color: #f0fdf4; color: #22c55e; }
+    .crop-btn-save:hover { background-color: #dcfce7; transform: scale(1.1); }
+
+    /* 新增：悬浮缩放控制台 */
+    #zoom-controls {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(4px);
+      padding: 4px;
+      border-radius: 12px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      display: none; /* 图片加载后显示 */
+      align-items: center;
+      gap: 4px;
+      z-index: 50;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .zoom-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .zoom-btn:hover { background-color: #f1f5f9; color: #0f172a; }
+    .zoom-text {
+      width: 50px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #334155;
+      cursor: pointer;
+    }
+    .zoom-text:hover { color: #3b82f6; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" id="home-link" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow transition-transform hover:scale-105">M</a>
+        <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+      </div>
+      <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
+        <option value="en">🇬🇧 English</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="de">🇩🇪 Deutsch</option>
+      </select>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-6 py-8 flex-1 w-full">
+    <header class="mb-6">
+      <h1 id="page-title" class="text-3xl font-extrabold text-slate-900 tracking-tight">Image Color Picker & Cropper</h1>
+    </header>
+
+    <div class="toolbar-panel p-4 md:p-6 rounded-2xl shadow-xl mb-6 flex flex-col md:flex-row justify-between items-center gap-6">
+      
+      <div class="flex flex-wrap items-center gap-3">
+        <input type="file" id="image-input" class="file-upload-input" accept="image/png, image/jpeg, image/webp, image/svg+xml">
+        <label for="image-input" id="btn-upload" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-5 rounded-xl shadow transition-all cursor-pointer text-sm flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+          <span id="label-upload">Open Image</span>
+        </label>
+
+        <div class="h-8 w-px bg-slate-600 mx-2 hidden md:block"></div>
+
+        <div class="flex bg-slate-800 rounded-xl p-1">
+          <button id="mode-pick" class="tool-btn active px-4 py-1.5 rounded-lg text-sm font-bold text-white flex items-center gap-2" onclick="setMode('pick')">
+            🎨 <span id="label-pick">Color Picker</span>
+          </button>
+          <button id="mode-crop" class="tool-btn px-4 py-1.5 rounded-lg text-sm font-bold text-slate-300 hover:text-white flex items-center gap-2" onclick="setMode('crop')">
+            ✂️ <span id="label-crop">Screenshot</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4 bg-slate-800/50 p-2.5 rounded-xl border border-slate-700">
+        <div id="color-preview" class="w-12 h-12 rounded-lg border-2 border-slate-600 shadow-inner bg-transparent transition-colors duration-200"></div>
+        <div class="flex flex-col gap-1.5">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-slate-400 w-8">HEX</span>
+            <div id="hex-code" class="color-code-box" title="Click to copy">#------</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-slate-400 w-8">RGB</span>
+            <div id="rgb-code" class="color-code-box" title="Click to copy">rgb(-, -, -)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="canvas-container canvas-bg-pattern empty-state" id="canvas-container">
+      
+      <div id="placeholder-text" class="text-slate-500 text-center px-4 pointer-events-none">
+        <svg class="w-16 h-16 mx-auto mb-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        <p id="drop-text" class="text-lg font-bold">Click here to upload an image</p>
+        <p id="status-text" class="text-sm mt-2 font-medium text-slate-400">100% Client-side. No server uploads.</p>
+      </div>
+      
+      <div id="interaction-wrapper" class="interaction-wrapper">
+        <canvas id="image-canvas"></canvas>
+        <div id="overlay-layer"></div>
+        
+        <div id="crop-selection-box">
+            <div class="crop-corner-tr"></div>
+            <div class="crop-corner-bl"></div>
+            
+            <div id="crop-action-btns">
+              <button id="btn-crop-cancel" class="crop-btn crop-btn-cancel" title="Cancel">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+              </button>
+              <button id="btn-crop-save" class="crop-btn crop-btn-save" title="Save & Download">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+              </button>
+            </div>
+        </div>
+      </div>
+
+      <div id="zoom-controls">
+        <button id="btn-zoom-out" class="zoom-btn" title="Zoom Out">−</button>
+        <span id="zoom-level" class="zoom-text" title="Fit to Screen / 100%">100%</span>
+        <button id="btn-zoom-in" class="zoom-btn" title="Zoom In">+</button>
+      </div>
+    </div>
+
+    <article class="prose max-w-none border-t border-slate-200 pt-16 mt-16">
+      <div id="seo-content-en">
+        <h2>Advanced Client-Side Image Color Picker & Cropper</h2>
+        <p>Welcome to the ultimate privacy-focused image utility suite. Whether you are a frontend developer extracting exact UI colors, or a content creator needing to quickly crop a screenshot, our dual-purpose tool processes everything locally. <strong>No server uploads, no data retention.</strong></p>
+        <h3>How to use the Workspace</h3>
+        <ul>
+            <li><strong>Auto-Fit Canvas:</strong> When you upload a large screenshot, our tool automatically zooms the image to fit your screen. You can use the floating zoom controls in the bottom right corner to magnify specific areas.</li>
+            <li><strong>Color Picker Mode:</strong> Hover your cursor over the canvas and click on any pixel. The specific HEX and RGB codes will populate in the top-right console.</li>
+            <li><strong>Screenshot Mode:</strong> Drag your mouse over any area. Confirm your selection to instantly download the cropped area as a high-quality PNG file.</li>
+        </ul>
+      </div>
+
+      <div id="seo-content-zh" style="display: none;">
+        <h2>纯本地运行的图片颜色提取与截图裁剪工具</h2>
+        <p>这是为设计师和开发者量身定制的隐私保护型图像工具。无论你是需要精准提取 UI 元素的 HEX 代码，还是需要快速框选并裁剪局部图片，我们的双效合一工具都能在本地瞬间完成。<strong>绝无服务器上传，100% 保护隐私。</strong></p>
+        <h3>核心功能特性</h3>
+        <ul>
+            <li><strong>智能缩放自适应：</strong> 即使上传超长的网页截图，系统也会自动缩放图片以适应你的屏幕。你可以通过右下角的控制台自由放大（Zoom In）去精准提取像素。</li>
+            <li><strong>取色模式：</strong> 在下方画布中点击任意像素。顶部的控制台会实时显示并记录精确的 HEX 与 RGB 代码。</li>
+            <li><strong>局部截图模式：</strong> 拖拽画出高亮选区。点击确认后，选中的区域将立刻作为高画质 PNG 格式自动下载。</li>
+        </ul>
+      </div>
+    </article>
+  </main>
+
+  <footer class="bg-white border-t border-slate-100 py-12 mt-12 w-full">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
+        <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
+        <a href="/about.html" class="hover:text-blue-600 transition-colors">About</a>
+        <a href="/privacy.html" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/terms.html" class="hover:text-blue-600 transition-colors">Terms of Service</a>
+      </div>
+      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
+        © 2026 MINI-TOOLS.UK — Precision & Private Web Utilities
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const i18n = {
+      en: {
+        metaTitle: "Image Color Picker & Cropper | 100% Offline — Mini-Tools",
+        title: "Image Color Picker & Cropper",
+        labelUpload: "Open Image",
+        labelPick: "Color Picker",
+        labelCrop: "Screenshot",
+        dropText: "Click here to upload an image",
+        statusText: "100% Client-side. No server uploads."
+      },
+      zh: {
+        metaTitle: "图片颜色拾取与局部截图 | 纯本地运行 — Mini-Tools",
+        title: "图片颜色拾取与截图工具",
+        labelUpload: "打开图片",
+        labelPick: "提取颜色",
+        labelCrop: "局部截图",
+        dropText: "点击此处上传一张图片以开始",
+        statusText: "100% 纯前端处理，绝不上传服务器"
+      }
+    };
+
+    // DOM 元素
+    const imageInput = document.getElementById('image-input');
+    const canvasContainer = document.getElementById('canvas-container');
+    const interactionWrapper = document.getElementById('interaction-wrapper');
+    const overlayLayer = document.getElementById('overlay-layer');
+    const canvas = document.getElementById('image-canvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const placeholderText = document.getElementById('placeholder-text');
+    
+    const cropBox = document.getElementById('crop-selection-box');
+    const cropActionBtns = document.getElementById('crop-action-btns');
+    const btnCropSave = document.getElementById('btn-crop-save');
+    const btnCropCancel = document.getElementById('btn-crop-cancel');
+    
+    const colorPreview = document.getElementById('color-preview');
+    const hexCode = document.getElementById('hex-code');
+    const rgbCode = document.getElementById('rgb-code');
+    
+    const modePickBtn = document.getElementById('mode-pick');
+    const modeCropBtn = document.getElementById('mode-crop');
+
+    // 缩放控制台 DOM
+    const zoomControls = document.getElementById('zoom-controls');
+    const btnZoomOut = document.getElementById('btn-zoom-out');
+    const btnZoomIn = document.getElementById('btn-zoom-in');
+    const zoomLevelText = document.getElementById('zoom-level');
+
+    // 状态变量
+    let currentLang = 'en';
+    let isImageLoaded = false;
+    let currentMode = 'pick';
+    
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let pendingCrop = null;
+
+    // 缩放核心变量
+    let imgNaturalWidth = 0;
+    let imgNaturalHeight = 0;
+    let currentScale = 1.0;
+    let fitScale = 1.0;
+
+    // --- 语言切换 ---
+    function updateLanguage() {
+      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+      currentLang = lang;
+      const data = i18n[lang] || i18n['en'];
+
+      document.title = data.metaTitle;
+      document.getElementById('page-title').innerText = data.title;
+      document.getElementById('label-upload').innerText = data.labelUpload;
+      document.getElementById('label-pick').innerText = data.labelPick;
+      document.getElementById('label-crop').innerText = data.labelCrop;
+      document.getElementById('drop-text').innerText = data.dropText;
+      document.getElementById('status-text').innerText = data.statusText;
+      
+      document.getElementById('seo-content-zh').style.display = (lang === 'zh') ? 'block' : 'none';
+      document.getElementById('seo-content-en').style.display = (lang === 'zh') ? 'none' : 'block';
+      
+      document.getElementById('lang-select').value = lang;
+      document.getElementById('home-link').href = "/?lang=" + lang;
+    }
+
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      window.location.href = url.href;
+    });
+
+    window.onload = updateLanguage;
+
+    // --- 缩放核心功能 ---
+    function setZoom(scale) {
+      // 限制缩放比例在 10% 到 500% 之间
+      currentScale = Math.max(0.1, Math.min(scale, 5));
+      
+      // 更新文字百分比
+      zoomLevelText.innerText = Math.round(currentScale * 100) + '%';
+      
+      // 更改包裹层的 CSS 物理尺寸以实现视觉缩放，同时浏览器会自动出现正确的滚动条
+      interactionWrapper.style.width = (imgNaturalWidth * currentScale) + 'px';
+      interactionWrapper.style.height = (imgNaturalHeight * currentScale) + 'px';
+      
+      // 每次缩放后，由于坐标系统视觉变化，安全起见清理掉未确定的截图选框
+      hideCropBox();
+    }
+
+    btnZoomIn.addEventListener('click', () => setZoom(currentScale + 0.25));
+    btnZoomOut.addEventListener('click', () => setZoom(currentScale - 0.25));
+    
+    // 点击百分比文字，在“自适应大小”和“100%原图”之间切换
+    zoomLevelText.addEventListener('click', () => {
+      if (currentScale !== fitScale) {
+        setZoom(fitScale);
+      } else {
+        setZoom(1.0);
+      }
+    });
+
+    // --- 大框点击触发上传 ---
+    canvasContainer.addEventListener('click', function(e) {
+      if (!isImageLoaded) {
+        imageInput.click();
+      }
+    });
+
+    // --- 模式切换 ---
+    window.setMode = function(mode) {
+      currentMode = mode;
+      if(mode === 'pick') {
+        modePickBtn.classList.add('active', 'text-white');
+        modePickBtn.classList.remove('text-slate-300');
+        modeCropBtn.classList.remove('active', 'text-white');
+        modeCropBtn.classList.add('text-slate-300');
+        hideCropBox();
+      } else {
+        modeCropBtn.classList.add('active', 'text-white');
+        modeCropBtn.classList.remove('text-slate-300');
+        modePickBtn.classList.remove('active', 'text-white');
+        modePickBtn.classList.add('text-slate-300');
+      }
+    };
+
+    function hideCropBox() {
+      cropBox.style.display = 'none';
+      cropActionBtns.style.display = 'none';
+      pendingCrop = null;
+      isDragging = false;
+    }
+
+    // --- 图片加载与自适应逻辑 ---
+    imageInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file || !file.type.startsWith('image/')) return;
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          // 1. 记录图片的绝对真实分辨率
+          imgNaturalWidth = img.width;
+          imgNaturalHeight = img.height;
+
+          // 2. Canvas 保持物理分辨率 1:1，绝不失真
+          canvas.width = imgNaturalWidth;
+          canvas.height = imgNaturalHeight;
+          ctx.drawImage(img, 0, 0);
+          
+          // 3. 计算“自适应缩放比例 (fitScale)”
+          const containerW = canvasContainer.clientWidth - 40; // 减去 padding
+          const containerH = canvasContainer.clientHeight - 40;
+          
+          const scaleX = containerW / imgNaturalWidth;
+          const scaleY = containerH / imgNaturalHeight;
+          
+          // 如果图片比容器大，缩小它；如果图片小，保持 100%
+          fitScale = Math.min(1.0, scaleX, scaleY);
+          
+          // 4. UI 切换显示
+          placeholderText.style.display = 'none';
+          interactionWrapper.style.display = 'inline-block';
+          canvasContainer.style.border = 'none';
+          canvasContainer.classList.remove('empty-state');
+          zoomControls.style.display = 'flex'; // 显示缩放控制台
+          
+          isImageLoaded = true;
+          
+          // 5. 应用初始自适应缩放
+          setZoom(fitScale);
+          setMode('pick'); 
+        }
+        img.src = event.target.result;
+      }
+      reader.readAsDataURL(file);
+      this.value = ''; // 允许重复传图
+    });
+
+    // --- 画布鼠标交互 ---
+    overlayLayer.addEventListener('mousedown', function(e) {
+      if(!isImageLoaded) return;
+      e.stopPropagation(); 
+      
+      // 注意：offsetX/Y 现在获取的是“经过 CSS 缩放后”的像素坐标
+      const x = e.offsetX;
+      const y = e.offsetY;
+
+      if (currentMode === 'pick') {
+        extractColor(x, y);
+      } else if (currentMode === 'crop') {
+        isDragging = true;
+        startX = x;
+        startY = y;
+        
+        cropBox.style.display = 'block';
+        cropBox.style.left = startX + 'px';
+        cropBox.style.top = startY + 'px';
+        cropBox.style.width = '0px';
+        cropBox.style.height = '0px';
+        
+        cropActionBtns.style.display = 'none';
+        pendingCrop = null;
+      }
+    });
+
+    overlayLayer.addEventListener('mousemove', function(e) {
+      if(!isImageLoaded || !isDragging || currentMode !== 'crop') return;
+      
+      const currentX = e.offsetX;
+      const currentY = e.offsetY;
+      
+      const width = Math.abs(currentX - startX);
+      const height = Math.abs(currentY - startY);
+      const left = Math.min(startX, currentX);
+      const top = Math.min(startY, currentY);
+
+      // DOM UI 的更新依然使用缩放后的 CSS 像素坐标
+      cropBox.style.left = left + 'px';
+      cropBox.style.top = top + 'px';
+      cropBox.style.width = width + 'px';
+      cropBox.style.height = height + 'px';
+    });
+
+    window.addEventListener('mouseup', function(e) {
+      if(!isImageLoaded || !isDragging || currentMode !== 'crop') return;
+      isDragging = false;
+      
+      const width = parseFloat(cropBox.style.width);
+      const height = parseFloat(cropBox.style.height);
+      const left = parseFloat(cropBox.style.left);
+      const top = parseFloat(cropBox.style.top);
+
+      if(width < 10 || height < 10) {
+        hideCropBox();
+        return;
+      }
+
+      // 记录的框选数据是“CSS缩放坐标”
+      pendingCrop = { cssX: left, cssY: top, cssW: width, cssH: height };
+      cropActionBtns.style.display = 'flex';
+    });
+
+    // --- 操作按钮点击事件 ---
+    btnCropCancel.addEventListener('click', function(e) {
+      e.stopPropagation(); 
+      hideCropBox();
+    });
+
+    btnCropSave.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if(pendingCrop) {
+        performCropAndDownload();
+        hideCropBox(); 
+      }
+    });
+
+    // --- 取色核心逻辑 (带坐标换算) ---
+    function extractColor(cssX, cssY) {
+      // 关键！将 CSS 缩放坐标换算回真实的图片物理像素坐标
+      const origX = Math.min(Math.floor(cssX / currentScale), imgNaturalWidth - 1);
+      const origY = Math.min(Math.floor(cssY / currentScale), imgNaturalHeight - 1);
+      
+      const pixelData = ctx.getImageData(origX, origY, 1, 1).data;
+      const r = pixelData[0], g = pixelData[1], b = pixelData[2], a = pixelData[3];
+      if (a === 0) return; 
+
+      const hex = rgbToHex(r, g, b);
+      const rgb = `rgb(${r}, ${g}, ${b})`;
+
+      colorPreview.style.backgroundColor = rgb;
+      hexCode.textContent = hex;
+      rgbCode.textContent = rgb;
+      
+      colorPreview.style.transform = 'scale(0.8)';
+      setTimeout(() => colorPreview.style.transform = 'scale(1)', 150);
+    }
+
+    function rgbToHex(r, g, b) {
+      return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+    }
+
+    // --- 截图生成与下载逻辑 (带坐标换算) ---
+    function performCropAndDownload() {
+      // 关键！将用户在缩小后的 UI 上画的框，等比例还原回大图真实的裁剪范围
+      let origX = Math.max(0, Math.round(pendingCrop.cssX / currentScale));
+      let origY = Math.max(0, Math.round(pendingCrop.cssY / currentScale));
+      let origW = Math.round(pendingCrop.cssW / currentScale);
+      let origH = Math.round(pendingCrop.cssH / currentScale);
+
+      // 防止越界
+      origW = Math.min(imgNaturalWidth - origX, origW);
+      origH = Math.min(imgNaturalHeight - origY, origH);
+
+      // 按照原图真实像素去裁剪数据，保证高清！
+      const cropData = ctx.getImageData(origX, origY, origW, origH);
+      
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = origW;
+      tempCanvas.height = origH;
+      const tempCtx = tempCanvas.getContext('2d');
+      tempCtx.putImageData(cropData, 0, 0);
+
+      const dataURL = tempCanvas.toDataURL('image/png');
+
+      const link = document.createElement('a');
+      link.download = `minitools-crop-${new Date().getTime()}.png`;
+      link.href = dataURL;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // --- 点击代码复制逻辑 ---
+    [hexCode, rgbCode].forEach(element => {
+      element.addEventListener('click', function() {
+        if(this.textContent.includes('-')) return; 
+        
+        navigator.clipboard.writeText(this.textContent).then(() => {
+          const originalText = this.textContent;
+          this.textContent = currentLang === 'zh' ? '已复制！' : 'Copied!';
+          this.style.color = '#86efac';
+          this.style.borderColor = '#86efac';
+          
+          setTimeout(() => {
+            this.textContent = originalText;
+            this.style.color = 'inherit';
+            this.style.borderColor = 'rgba(255,255,255,0.1)';
+          }, 1000);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
