@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
+  <title id="meta-title">Real-time Currency Converter | Offline Forex Rates — Mini-Tools</title>
+  <meta name="description" id="meta-desc" content="Free real-time currency converter supporting 160+ world currencies. Accurate live exchange rates with offline caching capability. Zero ads." />
+  <meta name="keywords" content="Currency converter, Exchange rates, Forex calculator, USD to GBP, EUR to USD, Offline exchange rate, Free currency tool" />
+  <link rel="canonical" href="https://mini-tools.uk/currency.html" />
+  
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/currency.html?lang=en" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/currency.html?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/currency.html?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/currency.html?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/currency.html?lang=de" />
+
+  <script async src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
+    .updated-badge { background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; display: inline-flex; align-items: center; gap: 4px; }
+    .result-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; }
+    
+    .prose h2 { font-weight: 800; color: #0f172a; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
+    .prose h3 { font-weight: 700; color: #1e293b; font-size: 1.25rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+    .prose p { margin-bottom: 1rem; color: #475569; line-height: 1.6; }
+    .prose ul { margin-bottom: 1rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
+    .prose li { margin-bottom: 0.5rem; }
+    
+    /* 自定义下拉框样式 */
+    .currency-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 1rem center;
+      background-repeat: no-repeat;
+      background-size: 1.5em 1.5em;
+    }
+    
+    .swap-btn {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .swap-btn:hover {
+      transform: rotate(180deg) scale(1.1);
+      background-color: #eff6ff;
+    }
+    .swap-btn:active {
+      transform: rotate(180deg) scale(0.95);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" id="home-link" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow transition-transform hover:scale-105">M</a>
+        <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+      </div>
+      <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
+        <option value="en">🇬🇧 English</option>
+        <option value="zh">🇨🇳 简体中文</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="de">🇩🇪 Deutsch</option>
+      </select>
+    </div>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-6 py-12 flex-1 w-full">
+    <header class="mb-10 text-center lg:text-left">
+      <div class="mb-4">
+        <span id="update-status" class="updated-badge">
+          <span id="pulse-dot" class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+          <span id="status-text">Fetching live rates...</span>
+        </span>
+      </div>
+      <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight leading-tight">
+        Global Currency Converter
+      </h1>
+      <p id="page-desc" class="text-lg text-slate-500 max-w-2xl">
+        Real-time exchange rates for 160+ global currencies. Features local caching for offline use and zero tracking.
+      </p>
+    </header>
+
+    <div class="bg-white p-6 md:p-10 rounded-3xl border border-slate-100 shadow-xl mb-16 relative overflow-hidden">
+      <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-blue-50 opacity-50 pointer-events-none"></div>
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-6 items-end relative z-10">
+        
+        <div class="md:col-span-2">
+          <label id="label-amount" class="block text-sm font-bold text-slate-700 mb-2">Amount</label>
+          <input type="number" id="input-amount" value="1.00" min="0" step="any" placeholder="0.00" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-2xl font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+        </div>
+
+        <div class="md:col-span-1">
+          <label id="label-from" class="block text-sm font-bold text-slate-700 mb-2">From</label>
+          <select id="currency-from" class="currency-select w-full px-4 py-4.5 bg-slate-50 border border-slate-200 rounded-2xl text-lg font-bold text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer h-[66px]">
+            </select>
+        </div>
+
+        <div class="flex justify-center md:col-span-1 pb-3">
+          <button id="btn-swap" class="swap-btn w-12 h-12 bg-white border border-slate-200 rounded-full flex items-center justify-center text-blue-600 shadow-sm" title="Swap Currencies">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+          </button>
+        </div>
+
+        <div class="md:col-span-1">
+          <label id="label-to" class="block text-sm font-bold text-slate-700 mb-2">To</label>
+          <select id="currency-to" class="currency-select w-full px-4 py-4.5 bg-slate-50 border border-slate-200 rounded-2xl text-lg font-bold text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer h-[66px]">
+            </select>
+        </div>
+      </div>
+
+      <div class="mt-10 p-8 rounded-2xl result-card flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <p id="label-result" class="text-slate-400 font-bold text-sm uppercase tracking-widest mb-2">Converted Amount</p>
+          <div class="flex items-baseline gap-3">
+            <h2 id="result-value" class="text-4xl md:text-5xl font-black text-white">0.00</h2>
+            <span id="result-currency" class="text-2xl font-bold text-blue-400">---</span>
+          </div>
+          <p id="rate-details" class="text-sm text-slate-300 mt-3 font-medium">1 --- = 0.0000 ---</p>
+        </div>
+        
+        <div class="text-right">
+          <button id="btn-copy" class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-all border border-white/10 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <span id="btn-copy-text">Copy Value</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="mt-4 text-center">
+        <p id="api-credit" class="text-[11px] text-slate-400 font-medium">Rates updated every 24 hours. Cached locally for offline access.</p>
+      </div>
+    </div>
+
+
+    <article class="prose max-w-none border-t border-slate-200 pt-16">
+      
+      <div id="seo-content-en">
+        <h2>Accurate Real-Time Currency Converter</h2>
+        <p>Welcome to the most straightforward and reliable currency exchange tool on the web. Whether you are a traveler planning your next trip, a freelancer invoicing international clients, or an investor monitoring the Forex market, our tool provides lightning-fast conversions for over 160 global currencies, including USD, EUR, GBP, JPY, and cryptocurrencies.</p>
+
+        <h3>Why use our Exchange Rate Calculator?</h3>
+        <ul>
+            <li><strong>Live & Accurate Rates:</strong> We fetch data directly from reliable open exchange APIs, updating rates daily to ensure your calculations are based on current market values.</li>
+            <li><strong>Offline Capability:</strong> Unlike other tools that break when you lose internet connection, our converter securely caches the latest rates in your browser. You can convert currencies seamlessly even while on a plane or subway.</li>
+            <li><strong>Privacy First:</strong> Your financial queries and amounts are processed entirely on the client-side. We do not track, store, or transmit your calculation history to any server.</li>
+        </ul>
+
+        <h3>How to Convert Currency</h3>
+        <p>Using the tool is incredibly intuitive. Simply type your amount in the input field, select your starting currency from the dropdown (e.g., British Pound - GBP), and choose the target currency (e.g., US Dollar - USD). The result is calculated instantly without needing to click a "Submit" button. Use the swap icon in the middle to quickly reverse the conversion.</p>
+      </div>
+
+      <div id="seo-content-zh" style="display: none;">
+        <h2>精准且支持离线的实时汇率转换器</h2>
+        <p>无论您是正在规划出国旅行的游客、处理跨国业务的自由职业者，还是关注外汇市场的投资者，我们的汇率转换器都能为您提供极速、精准的服务。支持美元 (USD)、欧元 (EUR)、英镑 (GBP)、人民币 (CNY) 等 160 多种全球法定货币的实时换算。</p>
+        
+        <h3>我们的核心优势</h3>
+        <ul>
+            <li><strong>实时精准：</strong> 自动拉取权威开源外汇接口的最新数据，确保您的每一次计算都贴合当前市场真实汇率。</li>
+            <li><strong>断网离线可用：</strong> 独家黑科技！只要您联网加载过一次页面，最新的汇率表就会自动缓存到您的浏览器本地。哪怕在没有信号的高铁或飞机上，依然可以流畅计算。</li>
+            <li><strong>纯净无追踪：</strong> 您的所有输入金额和查询记录仅在本地进行纯前端计算，我们绝不会上传或记录您的任何财务隐私数据。</li>
+        </ul>
+
+        <h3>使用指南</h3>
+        <p>操作极其简单：在输入框内填入金额，分别选择基础货币与目标货币，下方深色卡片中将瞬间为您展示换算结果与当前确切的汇率基数。您还可以点击“复制”按钮，将结果直接粘贴到聊天记录或财务报表中。</p>
+      </div>
+
+      <div id="seo-content-es" style="display: none;">
+        <h2>Conversor de Divisas Preciso y en Tiempo Real</h2>
+        <p>Bienvenido a la herramienta de cambio de divisas más confiable de la web. Ya sea que esté planeando un viaje, facturando a clientes internacionales o monitoreando el mercado Forex, nuestra herramienta proporciona conversiones ultrarrápidas para más de 160 monedas globales (USD, EUR, GBP, MXN, etc.).</p>
+        <h3>¿Por qué utilizar nuestra Calculadora de Tasas de Cambio?</h3>
+        <ul>
+            <li><strong>Tasas en Vivo:</strong> Obtenemos datos de API de cambio abiertas y confiables, actualizando las tasas diariamente.</li>
+            <li><strong>Capacidad sin Conexión (Offline):</strong> Nuestra herramienta guarda en caché las tasas en su navegador. Puede convertir monedas incluso si pierde la conexión a internet.</li>
+            <li><strong>Privacidad Primero:</strong> Sus montos se procesan completamente en su dispositivo. No rastreamos ni almacenamos su historial de cálculos.</li>
+        </ul>
+      </div>
+
+      <div id="seo-content-fr" style="display: none;">
+        <h2>Convertisseur de Devises Précis en Temps Réel</h2>
+        <p>Bienvenue sur l'outil de change le plus fiable du web. Que vous planifiez un voyage, facturiez des clients internationaux ou surveilliez le marché du Forex, notre outil offre des conversions ultra-rapides pour plus de 160 devises mondiales (USD, EUR, GBP, CAD, etc.).</p>
+        <h3>Pourquoi utiliser notre Calculatrice de Taux de Change ?</h3>
+        <ul>
+            <li><strong>Taux en Direct :</strong> Nous récupérons les données d'API de change fiables, mettant à jour les taux quotidiennement.</li>
+            <li><strong>Fonctionnement Hors Ligne :</strong> Notre outil met en cache les derniers taux dans votre navigateur. Vous pouvez convertir des devises même sans connexion internet.</li>
+            <li><strong>Confidentialité :</strong> Vos requêtes financières sont traitées entièrement côté client. Nous ne suivons pas votre historique.</li>
+        </ul>
+      </div>
+
+      <div id="seo-content-de" style="display: none;">
+        <h2>Genauer Echtzeit-Währungsrechner</h2>
+        <p>Willkommen beim zuverlässigsten Währungsumrechner im Web. Egal, ob Sie eine Reise planen, internationale Kunden fakturieren oder den Forex-Markt beobachten, unser Tool bietet blitzschnelle Umrechnungen für über 160 globale Währungen (USD, EUR, GBP, CHF usw.).</p>
+        <h3>Warum unseren Wechselkursrechner nutzen?</h3>
+        <ul>
+            <li><strong>Live-Kurse:</strong> Wir rufen Daten direkt von zuverlässigen offenen Wechselkurs-APIs ab und aktualisieren die Kurse täglich.</li>
+            <li><strong>Offline-Fähigkeit:</strong> Unser Rechner speichert die neuesten Kurse sicher in Ihrem Browser zwischen. Sie können Währungen auch ohne Internetverbindung nahtlos umrechnen.</li>
+            <li><strong>Datenschutz Zuerst:</strong> Ihre finanziellen Eingaben werden vollständig auf der Client-Seite verarbeitet. Wir speichern Ihren Berechnungsverlauf nicht.</li>
+        </ul>
+      </div>
+    </article>
+  </main>
+
+  <footer class="bg-white border-t border-slate-100 py-12 mt-12 w-full">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
+        <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
+        <a href="/about.html" class="hover:text-blue-600 transition-colors">About</a>
+        <a href="/privacy.html" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/terms.html" class="hover:text-blue-600 transition-colors">Terms of Service</a>
+      </div>
+      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
+        © 2026 MINI-TOOLS.UK — Precision & Private Web Utilities
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // --- 1. I18N 国际化字典 ---
+    const i18n = {
+      en: {
+        metaTitle: "Real-time Currency Converter | Offline Forex Rates — Mini-Tools",
+        title: "Global Currency Converter",
+        desc: "Real-time exchange rates for 160+ global currencies. Features local caching for offline use and zero tracking.",
+        statusLive: "Live rates active",
+        statusOffline: "Using offline cached rates",
+        statusFetching: "Fetching live rates...",
+        statusError: "Network error, please check connection",
+        labelAmount: "Amount",
+        labelFrom: "From",
+        labelTo: "To",
+        labelResult: "Converted Amount",
+        btnCopy: "Copy Value",
+        btnCopied: "Copied!",
+        apiCredit: "Rates updated daily via open exchange API. Cached locally for offline access."
+      },
+      zh: {
+        metaTitle: "实时汇率转换器 | 支持离线使用 — Mini-Tools",
+        title: "全球实时汇率转换器",
+        desc: "极速换算全球 160+ 种货币。独创本地缓存技术，支持彻底断网离线使用，保护您的财务隐私。",
+        statusLive: "实时汇率已同步",
+        statusOffline: "正在使用本地离线缓存汇率",
+        statusFetching: "正在获取最新汇率...",
+        statusError: "网络异常，请检查连接",
+        labelAmount: "转换金额",
+        labelFrom: "原货币",
+        labelTo: "目标货币",
+        labelResult: "折合金额",
+        btnCopy: "复制结果",
+        btnCopied: "已复制！",
+        apiCredit: "汇率数据源自开源接口每日更新。已自动缓存至本地浏览器，支持无网访问。"
+      }
+    };
+
+    // 精选主要货币列表及其旗帜 emoji，使其界面看起来更专业
+    const currencyMap = {
+      "USD": "🇺🇸 USD - US Dollar",
+      "EUR": "🇪🇺 EUR - Euro",
+      "GBP": "🇬🇧 GBP - British Pound",
+      "CNY": "🇨🇳 CNY - Chinese Yuan",
+      "JPY": "🇯🇵 JPY - Japanese Yen",
+      "AUD": "🇦🇺 AUD - Australian Dollar",
+      "CAD": "🇨🇦 CAD - Canadian Dollar",
+      "CHF": "🇨🇭 CHF - Swiss Franc",
+      "HKD": "🇭🇰 HKD - Hong Kong Dollar",
+      "SGD": "🇸🇬 SGD - Singapore Dollar",
+      "NZD": "🇳🇿 NZD - New Zealand Dollar",
+      "INR": "🇮🇳 INR - Indian Rupee",
+      "KRW": "🇰🇷 KRW - South Korean Won",
+      "TWD": "🇹🇼 TWD - New Taiwan Dollar",
+      "ZAR": "🇿🇦 ZAR - South African Rand",
+      "BRL": "🇧🇷 BRL - Brazilian Real",
+      "MXN": "🇲🇽 MXN - Mexican Peso"
+    };
+
+    // --- 2. 核心 DOM 变量 ---
+    const inputAmount = document.getElementById('input-amount');
+    const selectFrom = document.getElementById('currency-from');
+    const selectTo = document.getElementById('currency-to');
+    const btnSwap = document.getElementById('btn-swap');
+    
+    const resultValue = document.getElementById('result-value');
+    const resultCurrency = document.getElementById('result-currency');
+    const rateDetails = document.getElementById('rate-details');
+    
+    const statusText = document.getElementById('status-text');
+    const pulseDot = document.getElementById('pulse-dot');
+    const btnCopy = document.getElementById('btn-copy');
+    const btnCopyText = document.getElementById('btn-copy-text');
+
+    let currentLang = 'en';
+    let exchangeRates = {}; // 存放从 API 获取的汇率对象
+    let baseCurrency = "USD"; // API 返回的基准货币
+
+    // --- 3. 语言切换机制 ---
+    function updateLanguage() {
+      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+      currentLang = i18n[lang] ? lang : 'en';
+      const data = i18n[currentLang];
+
+      document.title = data.metaTitle;
+      document.getElementById('page-title').innerText = data.title;
+      document.getElementById('page-desc').innerText = data.desc;
+      document.getElementById('label-amount').innerText = data.labelAmount;
+      document.getElementById('label-from').innerText = data.labelFrom;
+      document.getElementById('label-to').innerText = data.labelTo;
+      document.getElementById('label-result').innerText = data.labelResult;
+      document.getElementById('btn-copy-text').innerText = data.btnCopy;
+      document.getElementById('api-credit').innerText = data.apiCredit;
+      
+      // 切换底部 SEO 区域
+      document.querySelectorAll('[id^="seo-content-"]').forEach(el => el.style.display = 'none');
+      const activeSeo = document.getElementById('seo-content-' + currentLang);
+      if(activeSeo) activeSeo.style.display = 'block';
+      else document.getElementById('seo-content-en').style.display = 'block'; // Fallback
+      
+      document.getElementById('lang-select').value = lang;
+      document.getElementById('home-link').href = "/?lang=" + lang;
+    }
+
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      window.location.href = url.href;
+    });
+
+    // --- 4. 初始化下拉框 ---
+    function initDropdowns() {
+      let optionsHtml = '';
+      
+      // 首先填充我们预设带 Emoji 的主要货币
+      for (const [code, desc] of Object.entries(currencyMap)) {
+        optionsHtml += `<option value="${code}">${desc}</option>`;
+      }
+      
+      // 分隔线
+      optionsHtml += `<option disabled>──────────</option>`;
+      
+      // 其他所有货币会在拉取 API 后填充在后面
+      selectFrom.innerHTML = optionsHtml;
+      selectTo.innerHTML = optionsHtml;
+
+      // 默认设置：英镑对美元 (考虑到这是 UK 工具)
+      selectFrom.value = "GBP";
+      selectTo.value = "USD";
+    }
+
+    // 将 API 返回的未在精选列表中的货币追加到下拉框
+    function appendRemainingCurrencies(ratesObj) {
+      let extraHtml = '';
+      const existingCodes = Object.keys(currencyMap);
+      
+      Object.keys(ratesObj).sort().forEach(code => {
+        if(!existingCodes.includes(code)) {
+          extraHtml += `<option value="${code}">${code}</option>`;
+        }
+      });
+      
+      if(extraHtml !== '') {
+        selectFrom.innerHTML += extraHtml;
+        selectTo.innerHTML += extraHtml;
+        
+        // 恢复用户之前的选择（因为重新赋值 innerHTML 会重置下拉框）
+        const tempFrom = selectFrom.getAttribute('data-temp');
+        const tempTo = selectTo.getAttribute('data-temp');
+        if(tempFrom) selectFrom.value = tempFrom;
+        if(tempTo) selectTo.value = tempTo;
+      }
+    }
+
+    // --- 5. 核心：获取与缓存汇率 ---
+    async function fetchRates() {
+      const API_URL = "https://open.er-api.com/v6/latest/USD"; // 免费开源且极其稳定的 API
+      
+      statusText.innerText = i18n[currentLang].statusFetching;
+      pulseDot.className = "w-2 h-2 bg-yellow-500 rounded-full animate-pulse";
+
+      try {
+        const response = await fetch(API_URL);
+        if(!response.ok) throw new Error("Network response was not ok");
+        
+        const data = await response.json();
+        exchangeRates = data.rates;
+        
+        // 纯客户端断网黑科技：存入 LocalStorage
+        localStorage.setItem('minitools_rates', JSON.stringify(data.rates));
+        localStorage.setItem('minitools_rates_time', new Date().getTime());
+
+        // 追加 API 带来的 160+ 个不常用小币种
+        selectFrom.setAttribute('data-temp', selectFrom.value);
+        selectTo.setAttribute('data-temp', selectTo.value);
+        appendRemainingCurrencies(exchangeRates);
+        
+        statusText.innerText = i18n[currentLang].statusLive;
+        pulseDot.className = "w-2 h-2 bg-green-500 rounded-full animate-pulse";
+        
+        calculateResult();
+
+      } catch (error) {
+        console.warn("Live fetch failed, trying local cache...", error);
+        
+        // 如果断网，尝试读取本地缓存
+        const cachedRates = localStorage.getItem('minitools_rates');
+        if (cachedRates) {
+          exchangeRates = JSON.parse(cachedRates);
+          
+          selectFrom.setAttribute('data-temp', selectFrom.value);
+          selectTo.setAttribute('data-temp', selectTo.value);
+          appendRemainingCurrencies(exchangeRates);
+
+          statusText.innerText = i18n[currentLang].statusOffline;
+          pulseDot.className = "w-2 h-2 bg-orange-400 rounded-full"; // 橙色表示离线但可用
+          
+          calculateResult();
+        } else {
+          // 彻底没有网且没缓存过
+          statusText.innerText = i18n[currentLang].statusError;
+          pulseDot.className = "w-2 h-2 bg-red-500 rounded-full";
+        }
+      }
+    }
+
+    // --- 6. 汇率计算逻辑 ---
+    function calculateResult() {
+      if (Object.keys(exchangeRates).length === 0) return; // 还没拿到数据
+
+      const amount = parseFloat(inputAmount.value) || 0;
+      const from = selectFrom.value;
+      const to = selectTo.value;
+
+      // 由于 API 返回的是基准 USD 的汇率，这里采用交叉汇率公式：
+      // 目标货币数量 = (本金 / 原货币的美元汇率) * 目标货币的美元汇率
+      const rateFrom = exchangeRates[from];
+      const rateTo = exchangeRates[to];
+
+      const result = (amount / rateFrom) * rateTo;
+      const exactRate = rateTo / rateFrom;
+
+      // 更新界面
+      resultValue.innerText = result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+      resultCurrency.innerText = to;
+      
+      rateDetails.innerText = `1 ${from} = ${exactRate.toLocaleString(undefined, { maximumFractionDigits: 6 })} ${to}`;
+    }
+
+    // --- 7. 事件绑定 ---
+    // 监听输入和下拉变化，实时计算
+    inputAmount.addEventListener('input', calculateResult);
+    selectFrom.addEventListener('change', calculateResult);
+    selectTo.addEventListener('change', calculateResult);
+
+    // Swap 交换货币按钮功能
+    btnSwap.addEventListener('click', () => {
+      const temp = selectFrom.value;
+      selectFrom.value = selectTo.value;
+      selectTo.value = temp;
+      calculateResult();
+    });
+
+    // 复制结果功能
+    btnCopy.addEventListener('click', () => {
+      const textToCopy = resultValue.innerText.replace(/,/g, ''); // 移除千位分隔符方便计算
+      if(textToCopy === "0.00") return;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalText = btnCopyText.innerText;
+        btnCopyText.innerText = i18n[currentLang].btnCopied;
+        
+        setTimeout(() => {
+          btnCopyText.innerText = originalText;
+        }, 1500);
+      });
+    });
+
+    // --- 8. 启动流程 ---
+    window.onload = () => {
+      updateLanguage();
+      initDropdowns();
+      fetchRates(); // 触发网络请求
+    };
+  </script>
+</body>
+</html>
