@@ -6,13 +6,11 @@
   
   <title id="meta-title">Free PDF to Image Converter | Private & High-Resolution PNG — Mini-Tools</title>
   <meta name="description" id="meta-desc" content="Convert PDF pages to high-quality PNG images instantly in your browser. 100% private: no files are uploaded to any server. Free, fast, and secure PDF to image utility." />
-  <meta name="keywords" content="PDF to Image, PDF to PNG, PDF to JPG, free PDF converter, private PDF tool, browser-based PDF rendering, high-res PDF export" />
+  <meta name="keywords" content="PDF to Image, PDF to PNG, PDF to JPG, free PDF converter, private PDF tool, browser-based PDF rendering, high-res PDF export, convert PDF offline" />
   <meta name="robots" content="index,follow" />
 
-  <!-- canonical 指向当前页面（已修正） -->
   <link rel="canonical" href="https://mini-tools.uk/pdf2img.html" />
 
-  <!-- hreflang 改为指向当前页面的多语言参数版本 -->
   <link rel="alternate" hreflang="en" href="https://mini-tools.uk/pdf2img.html?lang=en" />
   <link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/pdf2img.html?lang=zh" />
   <link rel="alternate" hreflang="es" href="https://mini-tools.uk/pdf2img.html?lang=es" />
@@ -33,17 +31,42 @@
 
   <script async src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
-    .drop-zone { border: 3px dashed #e2e8f0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    .drop-zone:hover { border-color: #2563eb; background-color: #f8fafc; }
-    .drop-zone.active { border-color: #2563eb; background-color: #eff6ff; transform: scale(1.02); }
-    .page-preview { box-shadow: 0 20px 40px rgba(0,0,0,0.06); transition: transform 0.3s; }
-    .page-preview:hover { transform: scale(1.02); }
-    canvas { max-width: 100%; height: auto; border-radius: 12px; }
-    .prose h2 { font-weight: 800; color: #0f172a; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
+    .updated-badge { background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; display: inline-flex; align-items: center; gap: 4px; }
+    
+    .drop-zone { border: 3px dashed #cbd5e1; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+    .drop-zone:hover { border-color: #3b82f6; background-color: #eff6ff; }
+    .drop-zone.active { border-color: #2563eb; background-color: #dbeafe; transform: scale(1.02); }
+    
+    /* Interactive Background for Dropzone */
+    .drop-zone::before { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .drop-zone:hover::before { opacity: 1; }
+
+    .page-preview { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; border: 1px solid #e2e8f0; }
+    .page-preview:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); border-color: #bfdbfe; }
+    canvas { max-width: 100%; height: auto; border-radius: 8px; }
+    
+    /* Progress Bar */
+    .progress-bg { width: 100%; height: 8px; background-color: #334155; border-radius: 4px; overflow: hidden; margin-top: 12px; }
+    .progress-fill { height: 100%; background-color: #3b82f6; width: 0%; transition: width 0.3s ease; }
+
+    /* SEO Article Styles */
+    .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
+    .seo-article.active { display: block; animation: fadeIn 0.5s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
+    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
+    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
+    .prose-content strong { color: #0f172a; font-weight: 700; }
+    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
+    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
+    .faq-box h4 { font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; font-size: 1.1rem; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -51,97 +74,194 @@
   <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
-    <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
-  <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
-</a>
-        <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
+        </a>
+        <div class="flex flex-col -mt-1 hidden sm:flex">
+          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        </div>
       </div>
-      <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
-        <option value="en">🇬🇧 English</option>
-        <option value="zh">🇨🇳 简体中文</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="de">🇩🇪 Deutsch</option>
-      </select>
+      <div class="flex items-center gap-4">
+        <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 简体中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+        </select>
+      </div>
     </div>
   </nav>
 
-  <main class="max-w-4xl mx-auto px-6 py-12 flex-1">
+  <main class="max-w-5xl mx-auto px-6 py-12 flex-1 w-full">
     <header class="mb-10 text-center">
       <div class="mb-4">
-        <span class="bg-green-50 text-green-600 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter">
-          🛡️ Privacy First: No Server Uploads
+        <span class="updated-badge">
+          <svg class="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+          <span id="badge-privacy">100% Client-Side Processing</span>
         </span>
       </div>
       <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
         PDF to Image Converter
       </h1>
       <p id="page-desc" class="text-lg text-slate-500 max-w-2xl mx-auto">
-        Transform PDF pages into clear PNG images instantly. Safe for sensitive documents like contracts and IDs.
+        Transform PDF pages into clear PNG images instantly. We never upload your files to any server, keeping your sensitive documents totally secure.
       </p>
     </header>
 
-    <div id="drop-area" class="drop-zone bg-white rounded-3xl p-12 text-center cursor-pointer mb-12 shadow-sm">
+    <div id="drop-area" class="drop-zone bg-white rounded-[2rem] p-12 text-center cursor-pointer mb-8 shadow-sm">
       <input type="file" id="file-input" accept="application/pdf" class="hidden">
-      <div class="flex flex-col items-center">
-        <div class="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 text-blue-600 shadow-inner">
+      <div class="flex flex-col items-center relative z-10">
+        <div class="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 text-blue-600 shadow-inner group-hover:scale-110 transition-transform">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
         </div>
-        <h3 id="label-upload" class="text-2xl font-black text-slate-900 mb-2">Select PDF File</h3>
-        <p id="label-privacy" class="text-xs text-slate-400 font-bold uppercase tracking-widest">Client-Side Encryption • 100% Private</p>
+        <h3 id="label-upload" class="text-2xl font-black text-slate-900 mb-2">Click or Drag PDF Here</h3>
+        <p id="label-privacy" class="text-sm text-slate-500 font-medium">Max Resolution • Batch Export • Local Engine</p>
       </div>
     </div>
 
-    <div id="status" class="hidden text-center mb-12">
-      <div class="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold shadow-xl">
-        <svg class="animate-spin h-5 w-5 text-blue-400" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-        <span id="status-text" class="tracking-wide">Rendering Pages...</span>
+    <div id="status" class="hidden w-full max-w-md mx-auto mb-12 bg-slate-900 p-6 rounded-2xl shadow-xl border border-slate-800">
+      <div class="flex justify-between items-center mb-2">
+        <span id="status-text" class="text-white font-bold text-sm tracking-wide">Rendering Pages...</span>
+        <span id="status-count" class="text-blue-400 font-black text-sm">0%</span>
+      </div>
+      <div class="progress-bg">
+        <div id="progress-bar" class="progress-fill"></div>
       </div>
     </div>
 
-    <div id="output-list" class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-20"></div>
+    <div id="action-bar" class="hidden flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100 mb-8">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center text-green-600">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <div>
+          <h4 id="label-success" class="text-sm font-extrabold text-slate-900 leading-tight">Conversion Complete</h4>
+          <p id="label-pages-rendered" class="text-xs text-slate-500 font-medium">Pages ready for download</p>
+        </div>
+      </div>
+      <button id="btn-download-all" onclick="downloadAllAsZip()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-black rounded-xl transition-all shadow-lg shadow-blue-200 active:scale-95 flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+        <span id="btn-zip-text">Download All as ZIP</span>
+      </button>
+    </div>
 
-    <article class="prose max-w-none border-t border-slate-200 pt-16">
-      <div id="seo-en">
+    <div id="output-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20"></div>
+
+    <div class="prose-content">
+      
+      <article id="seo-en" class="seo-article" data-lang="en">
         <h2>Why convert PDF to Image locally?</h2>
-        <p>When you use an <strong>online PDF to PNG converter</strong>, many services upload your files to their servers. This poses a significant security risk for sensitive documents like bank statements, passports, or legal contracts. At <strong>Mini-Tools.uk</strong>, our tool uses <strong>PDF.js</strong> technology to process your files directly in your browser.</p>
+        <p>In today's digital landscape, converting PDF documents into standard image formats (like PNG or JPG) is a common requirement for social media sharing, web embedding, or digital archiving. However, when you use a typical <strong>online PDF to PNG converter</strong>, you are often required to upload your files to a remote cloud server. This poses a massive security vulnerability if you are processing sensitive documents such as bank statements, passports, medical records, or confidential legal contracts.</p>
         
-        <h3>High-Quality Image Rendering</h3>
-        <p>Our converter ensures that every page is rendered at a high <strong>2x scale</strong>, resulting in crisp PNG images suitable for professional presentations or archival purposes. No loss of detail, just pixel-perfect conversion.</p>
+        <h3>The Zero-Trust Architecture</h3>
+        <p>At <strong>Mini-Tools.uk</strong>, we implemented a Zero-Trust architecture. Our tool utilizes the powerful, open-source <strong>PDF.js</strong> engine originally developed by Mozilla. When you drag and drop a PDF into the box above, the JavaScript engine parses and renders the document entirely within the memory (RAM) of your own web browser. Your files never leave your device, ensuring 100% absolute privacy.</p>
 
-        <h3>Common Use Cases</h3>
-        <ul>
-          <li><strong>Social Media:</strong> Share specific pages of a report on LinkedIn or Twitter.</li>
-          <li><strong>Web Content:</strong> Embed PDF pages as images to improve website loading speed.</li>
-          <li><strong>Digital Art:</strong> Extract high-quality assets from PDF design files.</li>
-        </ul>
-      </div>
+        <h3>High-Resolution Image Rendering</h3>
+        <p>Quality matters. Many free tools output blurry or pixelated images. Our converter is programmed to render every single page at a <strong>high 2x scale multiplier</strong>. This guarantees that text remains razor-sharp and images retain their fidelity, resulting in high-definition PNG images perfectly suited for professional presentations or large-format printing.</p>
 
-      <div id="seo-zh" style="display: none;">
-        <h2>PDF 转图片的安全性说明</h2>
-        <p>大多数在线转换工具会将您的文件上传到远程服务器。对于包含个人隐私或商业机密的 PDF 来说，这存在极大的安全风险。<strong>Mini-Tools</strong> 采用纯前端渲染技术，您的文件<strong>永远不会离开您的电脑</strong>。</p>
-        <h3>功能特点：</h3>
-        <ul>
-          <li><strong>超清输出</strong>：默认采用 2 倍高清采样，确保文字和图片细节完美保留。</li>
-          <li><strong>隐私保障</strong>：100% 本地处理，断网状态下亦可使用。</li>
-          <li><strong>无需安装</strong>：基于现代浏览器技术，即开即用。</li>
-        </ul>
-        <p>特别适合处理包含身份证、合同、发票等敏感信息的 PDF 文件。</p>
-      </div>
-    </article>
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <div class="faq-box">
+          <h4>Is there a file size limit or page limit?</h4>
+          <p class="mb-0">Since the processing happens on your local device, the only limit is the RAM available on your computer or smartphone. For extremely large books (e.g., 500+ pages), the rendering might take longer, but our tool will not block you with an arbitrary paywall limit.</p>
+        </div>
+        <div class="faq-box">
+          <h4>How does the "Download All as ZIP" feature work?</h4>
+          <p class="mb-0">To save you the hassle of clicking "Download" on every individual page, our tool automatically compresses all the rendered high-res PNG images into a single ZIP file using a client-side zipping algorithm. This makes bulk exporting fast and completely private.</p>
+        </div>
+      </article>
+
+      <article id="seo-zh" class="seo-article" data-lang="zh">
+        <h2>为什么选择纯本地处理的 PDF 转图片工具？</h2>
+        <p>在日常办公中，将 PDF 转换为高清图片（如 PNG）是排版、发朋友圈或嵌入网页的刚需。然而，市面上绝大多数“免费在线转换器”都要求您将文件上传到他们的云端服务器。如果您处理的是包含身份证件、财务报表或商业机密合同的 PDF 文件，这种上传行为存在极大的数据泄露风险。</p>
+        
+        <h3>100% 隐私安全的零信任架构</h3>
+        <p><strong>Mini-Tools.uk</strong> 坚守隐私底线。我们采用了由 Mozilla 开发的强大的 <strong>PDF.js</strong> 前端引擎。当您将文件拖入网页时，所有的解析和绘图工作都在您自己电脑的浏览器内存中瞬间完成。<strong>文件绝不会被发送到任何互联网服务器。</strong> 断网状态下，本工具依然可以完美运行。</p>
+
+        <h3>2 倍超清渲染质量</h3>
+        <p>为了防止转换后的图片出现文字发虚、马赛克等问题，我们的算法默认对每一页进行 <strong>2 倍高清 (2x Scale) 采样渲染</strong>。这确保了输出的 PNG 图片不仅文字锐利，更完美适配高分辨率的视网膜屏幕及专业印刷需求。</p>
+
+        <h2>常见问题解答 (FAQ)</h2>
+        <div class="faq-box">
+          <h4>有文件大小或页数限制吗？</h4>
+          <p class="mb-0">没有人为的付费墙限制。因为是纯本地运算，转换速度和极限页数完全取决于您设备的性能和内存。即使是处理几百页的电子书，本工具也能依靠本地算力稳步完成转换。</p>
+        </div>
+        <div class="faq-box">
+          <h4>如何一次性下载所有页面的图片？</h4>
+          <p class="mb-0">为了提升效率，我们内置了纯前端的 ZIP 打包引擎。当 PDF 渲染完成后，您只需点击顶部的“打包下载 ZIP (Download All as ZIP)”按钮，系统会瞬间将所有高清图片打包成一个压缩包供您保存，省去了逐张点击的繁琐。</p>
+        </div>
+      </article>
+
+      <article id="seo-es" class="seo-article" data-lang="es">
+        <h2>Conversor de PDF a Imagen 100% Privado</h2>
+        <p>Muchos conversores en línea requieren que suba sus archivos PDF a sus servidores, lo cual es un riesgo si contiene información sensible (contratos, extractos bancarios). En Mini-Tools.uk, utilizamos tecnología <strong>Client-Side Processing (PDF.js)</strong>. Sus archivos se renderizan directamente en la memoria de su navegador y <strong>nunca se suben a internet</strong>.</p>
+        
+        <h3>Calidad de Imagen de Alta Resolución</h3>
+        <p>Nuestra herramienta renderiza cada página con un multiplicador de escala 2x, asegurando que el texto sea nítido y las imágenes mantengan su calidad original. Exportamos en formato PNG de alta fidelidad.</p>
+
+        <h2>Preguntas Frecuentes (FAQ)</h2>
+        <div class="faq-box">
+          <h4>¿Hay límite de tamaño o páginas?</h4>
+          <p class="mb-0">No hay límites artificiales ni muros de pago. Dado que se ejecuta localmente, el límite depende de la memoria (RAM) de su propio dispositivo.</p>
+        </div>
+        <div class="faq-box">
+          <h4>¿Cómo descargo todas las imágenes a la vez?</h4>
+          <p class="mb-0">Hemos integrado un algoritmo local para comprimir archivos. Simplemente haga clic en "Download All as ZIP" y obtendrá todas las imágenes empaquetadas al instante.</p>
+        </div>
+      </article>
+
+      <article id="seo-fr" class="seo-article" data-lang="fr">
+        <h2>Convertisseur PDF en Image Sécurisé (Client-Side)</h2>
+        <p>La plupart des outils en ligne nécessitent le téléchargement de vos fichiers sur leurs serveurs. Si vous traitez des contrats ou des documents d'identité, c'est un risque majeur. Notre outil utilise <strong>PDF.js</strong> pour traiter votre fichier entièrement dans votre navigateur. <strong>Vos documents ne quittent jamais votre ordinateur.</strong></p>
+        
+        <h3>Rendu Haute Résolution</h3>
+        <p>Notre algorithme génère des images avec une échelle 2x. Le texte reste net et les images conservent leur qualité, idéal pour le partage professionnel ou l'impression.</p>
+
+        <h2>Foire Aux Questions (FAQ)</h2>
+        <div class="faq-box">
+          <h4>Y a-t-il une limite de pages ?</h4>
+          <p class="mb-0">Non. Puisque le calcul se fait sur votre machine, il n'y a pas de limite artificielle. La seule limite est la RAM de votre appareil.</p>
+        </div>
+        <div class="faq-box">
+          <h4>Puis-je télécharger toutes les pages d'un coup ?</h4>
+          <p class="mb-0">Oui ! Utilisez le bouton "Download All as ZIP" pour regrouper instantanément toutes les images PNG haute résolution dans une seule archive.</p>
+        </div>
+      </article>
+
+      <article id="seo-de" class="seo-article" data-lang="de">
+        <h2>Sicherer PDF-zu-Bild-Konverter (Lokal)</h2>
+        <p>Die meisten Online-Tools verlangen, dass Sie Ihre Dateien auf deren Server hochladen. Das ist ein Risiko bei vertraulichen Dokumenten. Unser Tool verwendet <strong>PDF.js</strong>, um Ihre Datei vollständig in Ihrem Browser zu verarbeiten. <strong>Ihre Dokumente verlassen niemals Ihren Computer.</strong></p>
+        
+        <h3>Hochauflösendes Rendering</h3>
+        <p>Unser Algorithmus generiert Bilder in doppelter Größe (2x Scale). Der Text bleibt gestochen scharf und Bilder behalten ihre Qualität.</p>
+
+        <h2>Häufig Gestellte Fragen (FAQ)</h2>
+        <div class="faq-box">
+          <h4>Gibt es ein Seitenlimit?</h4>
+          <p class="mb-0">Nein. Da die Berechnung auf Ihrem Gerät erfolgt, gibt es kein künstliches Limit. Die einzige Grenze ist der Arbeitsspeicher (RAM) Ihres Geräts.</p>
+        </div>
+        <div class="faq-box">
+          <h4>Kann ich alle Seiten auf einmal herunterladen?</h4>
+          <p class="mb-0">Ja! Verwenden Sie die Schaltfläche "Download All as ZIP", um sofort alle hochauflösenden PNG-Bilder in einem einzigen ZIP-Archiv zusammenzufassen.</p>
+        </div>
+      </article>
+
+    </div>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-20">
+  <footer class="bg-white border-t border-slate-100 py-12 mt-10 w-full">
     <div class="max-w-4xl mx-auto px-6 text-center">
-      <div class="flex justify-center gap-6 mb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">
-       <a href="/" class="hover:text-blue-600">Home</a>
+      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
+        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
+        </a>
         <a href="/about.html" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-      <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-      <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+        <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
-      <p class="text-[10px] text-slate-300 font-bold uppercase tracking-widest">
+      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
         © 2026 MINI-TOOLS.UK — SECURE LOCAL PDF PROCESSING
       </p>
     </div>
@@ -151,26 +271,73 @@
     const i18n = {
       en: {
         metaTitle: "Free PDF to Image Converter | Private & High-Resolution PNG",
-        metaDesc: "Convert PDF to PNG images instantly. 100% private, client-side processing. No server uploads. Safe for sensitive documents.",
-        title: "PDF to Image Converter", desc: "Transform PDF pages into clear PNG images instantly.",
-        upload: "Select PDF File", privacy: "Client-Side Encryption • 100% Private",
-        status: "Rendering Pages...", download: "Download PNG", page: "Page"
+        metaDesc: "Convert PDF to PNG images instantly. 100% private, client-side processing. No server uploads. Safe for sensitive documents. Batch download as ZIP.",
+        badge: "Client-Side Processing",
+        title: "PDF to Image Converter", desc: "Transform PDF pages into clear PNG images instantly. Safe for sensitive documents, no server uploads.",
+        upload: "Click or Drag PDF Here", privacy: "Max Resolution • Batch Export • Local Engine",
+        status: "Rendering Pages...", page: "Page", btnDown: "Download",
+        success: "Conversion Complete", pagesRendered: "Pages ready for download", btnZip: "Download All as ZIP",
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us"
       },
       zh: {
-        metaTitle: "免费 PDF 转图片 | 高清 PNG & 隐私保护",
-        metaDesc: "即时将 PDF 转换为高清图片。100% 本地处理，不上传服务器，保护您的隐私安全。",
-        title: "PDF 转图片工具", desc: "将 PDF 页面即时转换为高质量 PNG 图片，安全便捷。",
-        upload: "选择 PDF 文件", privacy: "浏览器本地处理 • 100% 隐私安全",
-        status: "正在渲染高清页面...", download: "下载图片", page: "第"
+        metaTitle: "免费 PDF 转图片 | 高清 PNG 导出 & 纯本地保护隐私",
+        metaDesc: "即时将 PDF 转换为高清图片。100% 本地处理，不上传服务器，保护您的隐私安全。支持一键打包下载 ZIP。",
+        badge: "100% 纯本地处理",
+        title: "PDF 转图片工具", desc: "将 PDF 页面即时转换为高质量 PNG 图片。绝不上传服务器，确保敏感文件绝对安全。",
+        upload: "点击或拖拽 PDF 至此处", privacy: "高清渲染 • 一键打包 • 纯前端计算",
+        status: "正在渲染高清页面...", page: "第", btnDown: "下载",
+        success: "转换完成", pagesRendered: "张页面已准备就绪", btnZip: "打包下载全部 (ZIP)",
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们"
+      },
+      es: {
+        metaTitle: "Convertidor de PDF a Imagen Gratis | PNG Alta Resolución",
+        metaDesc: "Convierta PDF a imágenes PNG al instante. Procesamiento 100% privado sin subidas al servidor. Descarga en lote como ZIP.",
+        badge: "Procesamiento Local",
+        title: "Convertidor PDF a Imagen", desc: "Transforme páginas PDF en imágenes PNG claras al instante. Seguro para documentos sensibles.",
+        upload: "Haga clic o arrastre el PDF aquí", privacy: "Alta Resolución • Exportación en Lote • Motor Local",
+        status: "Renderizando páginas...", page: "Página", btnDown: "Descargar",
+        success: "Conversión Completa", pagesRendered: "Páginas listas para descargar", btnZip: "Descargar Todo (ZIP)",
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto"
+      },
+      fr: {
+        metaTitle: "Convertisseur PDF en Image Gratuit | PNG Haute Résolution",
+        metaDesc: "Convertissez vos PDF en images PNG instantanément. Traitement 100% privé, sans serveur. Téléchargement en lot (ZIP).",
+        badge: "Traitement Côté Client",
+        title: "Convertisseur PDF en Image", desc: "Transformez vos pages PDF en images claires. Sécurisé pour les documents sensibles, aucun téléchargement.",
+        upload: "Cliquez ou Glissez le PDF ici", privacy: "Haute Résolution • Export par Lot • Moteur Local",
+        status: "Rendu des pages...", page: "Page", btnDown: "Télécharger",
+        success: "Conversion Terminée", pagesRendered: "Pages prêtes au téléchargement", btnZip: "Télécharger Tout (ZIP)",
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact"
+      },
+      de: {
+        metaTitle: "Kostenloser PDF zu Bild Konverter | Hochauflösende PNGs",
+        metaDesc: "Konvertieren Sie PDF sofort in PNG. 100% privat, keine Server-Uploads. Sicher für sensible Dokumente. Als ZIP herunterladen.",
+        badge: "Lokale Verarbeitung",
+        title: "PDF zu Bild Konverter", desc: "Verwandeln Sie PDF-Seiten sofort in klare PNG-Bilder. Sicher für sensible Dokumente, keine Server-Uploads.",
+        upload: "Klicken oder PDF hierher ziehen", privacy: "Max Auflösung • Batch-Export • Lokale Engine",
+        status: "Seiten werden gerendert...", page: "Seite", btnDown: "Download",
+        success: "Konvertierung Abgeschlossen", pagesRendered: "Seiten zum Download bereit", btnZip: "Alle als ZIP Herunterladen",
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt"
       }
     };
 
+    // Initialize pdf.js worker
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
     const dropArea = document.getElementById('drop-area');
     const fileInput = document.getElementById('file-input');
     const outputList = document.getElementById('output-list');
-    const status = document.getElementById('status');
+    
+    // Status UI elements
+    const statusBox = document.getElementById('status');
+    const statusText = document.getElementById('status-text');
+    const statusCount = document.getElementById('status-count');
+    const progressBar = document.getElementById('progress-bar');
+    const actionBar = document.getElementById('action-bar');
+    
+    // Array to store rendered images for ZIP creation
+    let renderedImages = [];
+    let currentPdfName = "Document";
 
     function getLang() {
       return new URLSearchParams(window.location.search).get('lang') || 'en';
@@ -180,20 +347,43 @@
       const lang = getLang();
       const data = i18n[lang] || i18n['en'];
 
+      document.documentElement.lang = lang;
       document.title = data.metaTitle;
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+
+      document.getElementById('badge-privacy').innerText = data.badge;
       document.getElementById('page-title').innerText = data.title;
       document.getElementById('page-desc').innerText = data.desc;
       document.getElementById('label-upload').innerText = data.upload;
       document.getElementById('label-privacy').innerText = data.privacy;
       document.getElementById('status-text').innerText = data.status;
       
-      document.getElementById('seo-zh').style.display = (lang === 'zh') ? 'block' : 'none';
-      document.getElementById('seo-en').style.display = (lang === 'zh') ? 'none' : 'block';
+      document.getElementById('label-success').innerText = data.success;
+      document.getElementById('btn-zip-text').innerText = data.btnZip;
+      
+      document.getElementById('footer-about').innerText = data.footerAbout;
+      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
+      document.getElementById('footer-contact').innerText = data.footerContact;
+      
+      document.querySelectorAll('.seo-article').forEach(article => {
+        if(article.getAttribute('data-lang') === lang) article.classList.add('active');
+        else article.classList.remove('active');
+      });
 
       document.getElementById('lang-select').value = lang;
-      document.getElementById('home-link').href = "/?lang=" + lang;
+      document.querySelectorAll('a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
+          try {
+            const url = new URL(href, window.location.origin);
+            url.searchParams.set('lang', lang);
+            link.href = url.pathname + url.search;
+          } catch(e) {}
+        }
+      });
     }
 
+    // Drag and Drop Events
     dropArea.onclick = () => fileInput.click();
     dropArea.ondragover = (e) => { e.preventDefault(); dropArea.classList.add('active'); };
     dropArea.ondragleave = () => dropArea.classList.remove('active');
@@ -206,60 +396,124 @@
     fileInput.onchange = (e) => {
       const file = e.target.files[0];
       if (file) handlePDF(file);
+      fileInput.value = ''; // Reset
     };
 
     async function handlePDF(file) {
-      status.classList.remove('hidden');
-      outputList.innerHTML = "";
       const lang = getLang();
       const data = i18n[lang] || i18n['en'];
+      
+      currentPdfName = file.name.replace(/\.[^/.]+$/, ""); // Remove .pdf extension
+      renderedImages = []; // Clear array for ZIP
+
+      // Reset UI
+      outputList.innerHTML = "";
+      actionBar.classList.add('hidden');
+      statusBox.classList.remove('hidden');
+      progressBar.style.width = '0%';
+      statusCount.innerText = '0%';
 
       const reader = new FileReader();
       reader.onload = async function() {
         const typedarray = new Uint8Array(this.result);
-        const pdf = await pdfjsLib.getDocument(typedarray).promise;
+        
+        try {
+            const pdf = await pdfjsLib.getDocument(typedarray).promise;
+            const totalPages = pdf.numPages;
 
-        for (let i = 1; i <= pdf.numPages; i++) {
-          const page = await pdf.getPage(i);
-          const viewport = page.getViewport({ scale: 2 }); 
-          
-          const canvas = document.createElement('canvas');
-          const context = canvas.getContext('2d');
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
+            for (let i = 1; i <= totalPages; i++) {
+              const page = await pdf.getPage(i);
+              // Multiplier 2x for High-Res crisp output
+              const viewport = page.getViewport({ scale: 2.0 }); 
+              
+              const canvas = document.createElement('canvas');
+              const context = canvas.getContext('2d');
+              canvas.height = viewport.height;
+              canvas.width = viewport.width;
 
-          await page.render({ canvasContext: context, viewport: viewport }).promise;
+              await page.render({ canvasContext: context, viewport: viewport }).promise;
 
-          const card = document.createElement('div');
-          card.className = "bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex flex-col gap-5 page-preview";
-          
-          const imgData = canvas.toDataURL('image/png');
-          
-          card.innerHTML = `
-            <div class="overflow-hidden rounded-2xl border border-slate-50">
-              <img src="${imgData}" class="w-full h-auto" alt="Converted PDF page ${i}">
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">${data.page} ${i}</span>
-              <a href="${imgData}" download="minitools-pdf-page-${i}.png" class="px-5 py-2 bg-blue-600 text-white text-xs font-black rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-100">
-                ${data.download}
-              </a>
-            </div>
-          `;
-          outputList.appendChild(card);
+              const imgData = canvas.toDataURL('image/png');
+              
+              // Store for ZIP
+              renderedImages.push({
+                  name: `${currentPdfName}-Page-${i}.png`,
+                  data: imgData.split(',')[1] // Get base64 raw data
+              });
+
+              // Create UI Card
+              const card = document.createElement('div');
+              card.className = "bg-white p-4 rounded-[1.5rem] border border-slate-100 shadow-sm flex flex-col gap-4 page-preview";
+              
+              let pageLabel = lang === 'zh' ? `${data.page} ${i}` : `${data.page} ${i}`;
+              
+              card.innerHTML = `
+                <div class="overflow-hidden rounded-xl border border-slate-100 bg-slate-50 relative group">
+                  <img src="${imgData}" class="w-full h-auto" alt="Page ${i}">
+                  <div class="absolute inset-0 bg-slate-900/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                </div>
+                <div class="flex justify-between items-center px-1">
+                  <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest">${pageLabel}</span>
+                  <a href="${imgData}" download="${currentPdfName}-Page-${i}.png" class="px-4 py-2 bg-slate-100 text-blue-600 text-xs font-black rounded-lg hover:bg-blue-600 hover:text-white transition-all">
+                    ${data.btnDown}
+                  </a>
+                </div>
+              `;
+              outputList.appendChild(card);
+              
+              // Update Progress Bar
+              const percent = Math.round((i / totalPages) * 100);
+              progressBar.style.width = percent + '%';
+              statusCount.innerText = percent + '%';
+            }
+
+            // Finished Processing
+            setTimeout(() => {
+                statusBox.classList.add('hidden');
+                document.getElementById('label-pages-rendered').innerText = lang === 'zh' ? `${totalPages} ${data.pagesRendered}` : `${totalPages} ${data.pagesRendered}`;
+                actionBar.classList.remove('hidden');
+            }, 500);
+
+        } catch(err) {
+            console.error(err);
+            statusText.innerText = "Error parsing PDF file.";
+            statusText.classList.add('text-red-400');
         }
-        status.classList.add('hidden');
       };
       reader.readAsArrayBuffer(file);
     }
 
+    // Zip Download Logic using JSZip
+    async function downloadAllAsZip() {
+        if(renderedImages.length === 0) return;
+        
+        const btn = document.getElementById('btn-download-all');
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = `<svg class="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Zipping...`;
+        
+        const zip = new JSZip();
+        renderedImages.forEach(img => {
+            zip.file(img.name, img.data, {base64: true});
+        });
+        
+        const content = await zip.generateAsync({type:"blob"});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = `${currentPdfName}-Images.zip`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        btn.innerHTML = originalHtml;
+    }
+
     document.getElementById('lang-select').addEventListener('change', (e) => {
-      window.location.href = `?lang=${e.target.value}`;
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      window.location.href = url.href;
     });
 
     window.onload = updateLanguage;
   </script>
 </body>
 </html>
-
-
