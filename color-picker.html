@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   
-  <title id="meta-title">Image Color Picker & Cropper | 100% Offline — Mini-Tools</title>
-  <meta name="description" id="meta-desc" content="Free offline image color picker and screenshot cropping tool. Extract HEX/RGB codes and crop images locally. Zero server uploads." />
-  <meta name="keywords" content="Image color picker, Screenshot tool, Crop image online, HEX color finder, RGB picker, Offline image tool" />
+  <title id="meta-title">Image Color Picker & Cropper | Extract HEX, RGB, HSL Locally</title>
+  <meta name="description" id="meta-desc" content="Free offline image color picker and screenshot cropping tool. Extract precise HEX, RGB, and HSL codes. Build color palettes locally. Zero server uploads." />
+  <meta name="keywords" content="Image color picker, Screenshot tool, Crop image online, HEX color finder, RGB picker, HSL extractor, Color palette generator, Offline image tool" />
   <link rel="canonical" href="https://mini-tools.uk/color-picker.html" />
   
   <link rel="alternate" hreflang="en" href="https://mini-tools.uk/color-picker.html?lang=en" />
@@ -21,19 +21,20 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
     .updated-badge { background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; display: inline-flex; align-items: center; gap: 4px; }
-    .prose h2 { font-weight: 800; color: #0f172a; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
-    .prose h3 { font-weight: 700; color: #1e293b; font-size: 1.25rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
-    .prose p { margin-bottom: 1rem; color: #475569; line-height: 1.6; }
-    .prose ul { margin-bottom: 1rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
-    .prose li { margin-bottom: 0.5rem; }
     
     /* Top Toolbar Styles */
     .toolbar-panel { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; }
     .file-upload-input { display: none; }
     .tool-btn { transition: all 0.2s; border: 2px solid transparent; }
     .tool-btn.active { background-color: #3b82f6; border-color: #93c5fd; box-shadow: 0 0 0 2px rgba(59,130,246,0.5); }
-    .color-code-box { background: rgba(255, 255, 255, 0.1); padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-family: monospace; font-size: 1rem; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.1); }
+    .color-code-box { background: rgba(255, 255, 255, 0.1); padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-family: monospace; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.1); width: 100%; text-align: center; }
     .color-code-box:hover { background: rgba(255, 255, 255, 0.2); border-color: rgba(255,255,255,0.3); }
+
+    /* Palette Styles (New Feature) */
+    .palette-container { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .palette-swatch { width: 32px; height: 32px; border-radius: 6px; border: 2px solid rgba(255,255,255,0.2); cursor: pointer; transition: transform 0.1s; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    .palette-swatch:hover { transform: scale(1.1); border-color: white; z-index: 10; }
+    .palette-empty { width: 32px; height: 32px; border-radius: 6px; border: 1px dashed rgba(255,255,255,0.2); background: rgba(0,0,0,0.1); }
 
     /* Canvas Area Styles */
     .canvas-container { 
@@ -71,15 +72,14 @@
       position: relative;
       display: none; 
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
-      cursor: default; 
-      /* 关键：设置 transform 原点，保证缩放从左上角开始 */
+      cursor: crosshair; 
       transform-origin: top left;
       transition: width 0.1s, height 0.1s;
     }
 
     #image-canvas { 
       display: block; 
-      width: 100%;  /* 宽高强制跟随父元素 interaction-wrapper 的缩放 */
+      width: 100%; 
       height: 100%;
       max-width: none; 
     }
@@ -90,7 +90,6 @@
       left: 0;
       width: 100%;
       height: 100%;
-      cursor: crosshair;
       z-index: 10;
     }
 
@@ -105,9 +104,7 @@
       z-index: 20;
     }
     
-    #crop-selection-box::before, #crop-selection-box::after {
-      content: ''; position: absolute; width: 6px; height: 6px; background: white; border: 1px solid #3b82f6;
-    }
+    #crop-selection-box::before, #crop-selection-box::after { content: ''; position: absolute; width: 6px; height: 6px; background: white; border: 1px solid #3b82f6; }
     #crop-selection-box::before { top: -4px; left: -4px; }
     #crop-selection-box::after { bottom: -4px; right: -4px; }
     .crop-corner-tr { position: absolute; top: -4px; right: -4px; width: 6px; height: 6px; background: white; border: 1px solid #3b82f6; }
@@ -123,26 +120,14 @@
       pointer-events: auto; 
     }
     
-    .crop-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
+    .crop-btn { width: 36px; height: 36px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
     .crop-btn:active { transform: scale(0.95); }
     .crop-btn-cancel { background-color: #fef2f2; color: #ef4444; }
     .crop-btn-cancel:hover { background-color: #fee2e2; transform: scale(1.1); }
     .crop-btn-save { background-color: #f0fdf4; color: #22c55e; }
     .crop-btn-save:hover { background-color: #dcfce7; transform: scale(1.1); }
 
-    /* 新增：悬浮缩放控制台 */
+    /* 悬浮缩放控制台 */
     #zoom-controls {
       position: absolute;
       bottom: 20px;
@@ -152,37 +137,30 @@
       padding: 4px;
       border-radius: 12px;
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      display: none; /* 图片加载后显示 */
+      display: none;
       align-items: center;
       gap: 4px;
       z-index: 50;
       border: 1px solid #e2e8f0;
     }
     
-    .zoom-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #475569;
-      font-weight: bold;
-      font-size: 18px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    
+    .zoom-btn { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #475569; font-weight: bold; font-size: 18px; cursor: pointer; transition: background 0.2s; }
     .zoom-btn:hover { background-color: #f1f5f9; color: #0f172a; }
-    .zoom-text {
-      width: 50px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 800;
-      color: #334155;
-      cursor: pointer;
-    }
+    .zoom-text { width: 50px; text-align: center; font-size: 13px; font-weight: 800; color: #334155; cursor: pointer; }
     .zoom-text:hover { color: #3b82f6; }
+
+    /* SEO Article Styles */
+    .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
+    .seo-article.active { display: block; animation: fadeIn 0.5s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
+    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
+    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
+    .prose-content strong { color: #0f172a; font-weight: 700; }
+    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
+    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
+    .faq-box h4 { font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; font-size: 1.1rem; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -190,66 +168,84 @@
   <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
-        <a href="/" id="home-link" class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black shadow transition-transform hover:scale-105">M</a>
-        <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
+        </a>
+        <div class="flex flex-col -mt-1 hidden sm:flex">
+          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        </div>
       </div>
-      <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
-        <option value="en">🇬🇧 English</option>
-        <option value="zh">🇨🇳 简体中文</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="de">🇩🇪 Deutsch</option>
-      </select>
+      <div class="flex items-center gap-4">
+        <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 简体中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+        </select>
+      </div>
     </div>
   </nav>
 
-  <main class="max-w-7xl mx-auto px-6 py-8 flex-1 w-full">
-    <header class="mb-6">
-      <h1 id="page-title" class="text-3xl font-extrabold text-slate-900 tracking-tight">Image Color Picker & Cropper</h1>
+  <main class="max-w-7xl mx-auto px-6 py-12 flex-1 w-full">
+    <header class="mb-10 text-center lg:text-left">
+      <div class="mb-4">
+        <span class="updated-badge">
+          <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+          <span id="update-text">Advanced Palette Mode Added</span>
+        </span>
+      </div>
+      <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight leading-tight">
+        Image Color Picker & Cropper
+      </h1>
+      <p id="page-desc" class="text-lg text-slate-500 max-w-2xl">
+        Extract exact HEX, RGB, and HSL colors from any image. Build a palette or crop screenshots entirely locally in your browser.
+      </p>
     </header>
 
-    <div class="toolbar-panel p-4 md:p-6 rounded-2xl shadow-xl mb-6 flex flex-col md:flex-row justify-between items-center gap-6">
+    <div class="toolbar-panel p-6 rounded-3xl shadow-xl mb-8 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
       
-      <div class="flex flex-wrap items-center gap-3">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full lg:w-auto">
         <input type="file" id="image-input" class="file-upload-input" accept="image/png, image/jpeg, image/webp, image/svg+xml">
-        <label for="image-input" id="btn-upload" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-5 rounded-xl shadow transition-all cursor-pointer text-sm flex items-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+        <label for="image-input" id="btn-upload" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-blue-500/30 transition-all cursor-pointer text-sm flex items-center justify-center gap-2 w-full sm:w-auto">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
           <span id="label-upload">Open Image</span>
         </label>
 
-        <div class="h-8 w-px bg-slate-600 mx-2 hidden md:block"></div>
+        <div class="h-10 w-px bg-slate-700 mx-2 hidden sm:block"></div>
 
-        <div class="flex bg-slate-800 rounded-xl p-1">
-          <button id="mode-pick" class="tool-btn active px-4 py-1.5 rounded-lg text-sm font-bold text-white flex items-center gap-2" onclick="setMode('pick')">
+        <div class="flex bg-slate-800 rounded-xl p-1.5 w-full sm:w-auto">
+          <button id="mode-pick" class="tool-btn active px-5 py-2.5 rounded-lg text-sm font-bold text-white flex-1 flex items-center justify-center gap-2" onclick="setMode('pick')">
             🎨 <span id="label-pick">Color Picker</span>
           </button>
-          <button id="mode-crop" class="tool-btn px-4 py-1.5 rounded-lg text-sm font-bold text-slate-300 hover:text-white flex items-center gap-2" onclick="setMode('crop')">
+          <button id="mode-crop" class="tool-btn px-5 py-2.5 rounded-lg text-sm font-bold text-slate-400 hover:text-white flex-1 flex items-center justify-center gap-2" onclick="setMode('crop')">
             ✂️ <span id="label-crop">Screenshot</span>
           </button>
         </div>
       </div>
 
-      <div class="flex items-center gap-4 bg-slate-800/50 p-2.5 rounded-xl border border-slate-700">
-        <div id="color-preview" class="w-12 h-12 rounded-lg border-2 border-slate-600 shadow-inner bg-transparent transition-colors duration-200"></div>
-        <div class="flex flex-col gap-1.5">
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold text-slate-400 w-8">HEX</span>
-            <div id="hex-code" class="color-code-box" title="Click to copy">#------</div>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold text-slate-400 w-8">RGB</span>
-            <div id="rgb-code" class="color-code-box" title="Click to copy">rgb(-, -, -)</div>
+      <div class="w-full lg:w-[400px] bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50">
+        <div class="flex items-center gap-4">
+          <div id="color-preview" class="w-16 h-16 rounded-xl border-2 border-slate-600 shadow-inner bg-transparent transition-colors duration-200 shrink-0"></div>
+          <div class="flex-1 grid grid-cols-2 gap-2">
+            <div id="hex-code" class="color-code-box" title="Copy HEX">#------</div>
+            <div id="rgb-code" class="color-code-box" title="Copy RGB">rgb(-,-,-)</div>
+            <div id="hsl-code" class="color-code-box col-span-2 text-xs" title="Copy HSL">hsl(-, -%, -%)</div>
           </div>
         </div>
+        
+        <div class="palette-container" id="palette-container">
+          <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest w-full mb-1" id="label-palette">Recent Palette</div>
+          </div>
       </div>
     </div>
 
     <div class="canvas-container canvas-bg-pattern empty-state" id="canvas-container">
       
-      <div id="placeholder-text" class="text-slate-500 text-center px-4 pointer-events-none">
-        <svg class="w-16 h-16 mx-auto mb-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-        <p id="drop-text" class="text-lg font-bold">Click here to upload an image</p>
-        <p id="status-text" class="text-sm mt-2 font-medium text-slate-400">100% Client-side. No server uploads.</p>
+      <div id="placeholder-text" class="text-slate-500 text-center px-4 pointer-events-none mt-10">
+        <svg class="w-20 h-20 mx-auto mb-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        <p id="drop-text" class="text-xl font-bold text-slate-700">Click or Drag & Drop to upload an image</p>
+        <p id="status-text" class="text-sm mt-3 font-medium text-slate-400 bg-white/50 inline-block px-4 py-1.5 rounded-full">100% Local processing. Your images never leave your device.</p>
       </div>
       
       <div id="interaction-wrapper" class="interaction-wrapper">
@@ -278,38 +274,133 @@
       </div>
     </div>
 
-    <article class="prose max-w-none border-t border-slate-200 pt-16 mt-16">
-      <div id="seo-content-en">
-        <h2>Advanced Client-Side Image Color Picker & Cropper</h2>
-        <p>Welcome to the ultimate privacy-focused image utility suite. Whether you are a frontend developer extracting exact UI colors, or a content creator needing to quickly crop a screenshot, our dual-purpose tool processes everything locally. <strong>No server uploads, no data retention.</strong></p>
-        <h3>How to use the Workspace</h3>
+    <div class="prose-content">
+      
+      <article id="seo-en" class="seo-article" data-lang="en">
+        <h2>Advanced Client-Side Image Utility: Color Picker & Cropper</h2>
+        <p>Welcome to the ultimate privacy-focused image utility suite designed for UI/UX designers, frontend developers, and digital creators. Whether you need to extract exact brand colors from a logo or quickly crop a high-resolution screenshot, our dual-purpose tool processes everything directly within your browser memory. <strong>No server uploads, no data retention, and zero waiting time.</strong></p>
+        
+        <h3>Understanding Color Formats: HEX, RGB, and HSL</h3>
+        <p>Our tool simultaneously generates color codes in three fundamental formats to suit any development or design workflow:</p>
         <ul>
-            <li><strong>Auto-Fit Canvas:</strong> When you upload a large screenshot, our tool automatically zooms the image to fit your screen. You can use the floating zoom controls in the bottom right corner to magnify specific areas.</li>
-            <li><strong>Color Picker Mode:</strong> Hover your cursor over the canvas and click on any pixel. The specific HEX and RGB codes will populate in the top-right console.</li>
-            <li><strong>Screenshot Mode:</strong> Drag your mouse over any area. Confirm your selection to instantly download the cropped area as a high-quality PNG file.</li>
+          <li><strong>HEX (Hexadecimal):</strong> The standard for web design (e.g., <code>#3B82F6</code>). It represents RGB values in base-16 format, making it compact and easy to copy-paste into CSS or graphic software like Figma and Photoshop.</li>
+          <li><strong>RGB (Red, Green, Blue):</strong> Defines colors based on the intensity of red, green, and blue light (e.g., <code>rgb(59, 130, 246)</code>). It's highly useful when you need to manipulate opacity using the <code>rgba()</code> format in modern CSS.</li>
+          <li><strong>HSL (Hue, Saturation, Lightness):</strong> Often preferred by developers for creating programmatic color themes. HSL (e.g., <code>hsl(217, 90%, 60%)</code>) makes it incredibly intuitive to generate lighter or darker shades of a base color simply by tweaking the "Lightness" percentage.</li>
         </ul>
-      </div>
 
-      <div id="seo-content-zh" style="display: none;">
-        <h2>纯本地运行的图片颜色提取与截图裁剪工具</h2>
-        <p>这是为设计师和开发者量身定制的隐私保护型图像工具。无论你是需要精准提取 UI 元素的 HEX 代码，还是需要快速框选并裁剪局部图片，我们的双效合一工具都能在本地瞬间完成。<strong>绝无服务器上传，100% 保护隐私。</strong></p>
-        <h3>核心功能特性</h3>
+        <h3>New Feature: Local Color Palette History</h3>
+        <p>We've introduced a dynamic <strong>Recent Palette</strong> feature. As you click around an image to extract colors, the tool automatically saves your last 8 selections in the console. This allows you to quickly build a cohesive UI color scheme directly from an inspiration image, without needing to paste codes back and forth into a notepad.</p>
+        
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <div class="faq-box">
+          <h4>Are my confidential images safe?</h4>
+          <p class="mb-0">Absolutely. This tool utilizes the HTML5 Canvas API. When you select an image, it is rendered locally on your device's RAM. Your files are <strong>never</strong> transmitted over the internet or saved to any cloud database, making it 100% safe for unreleased UI mockups or private photos.</p>
+        </div>
+        <div class="faq-box">
+          <h4>Does the cropper reduce image quality?</h4>
+          <p class="mb-0">No. Unlike other online tools that crop based on the compressed, scaled-down CSS preview, our intelligent cropping algorithm maps your selection back to the <strong>original, physical pixels</strong> of your uploaded image. The downloaded PNG file maintains pixel-perfect, lossless quality.</p>
+        </div>
+      </article>
+
+      <article id="seo-zh" class="seo-article" data-lang="zh">
+        <h2>纯本地运行的高级图片取色与裁剪工具</h2>
+        <p>欢迎使用专为 UI/UX 设计师、前端开发者和数字创作者打造的终极隐私保护图像工具。无论您是需要从 logo 中提取精确的品牌颜色，还是需要快速裁剪高清屏幕截图，我们的双效合一工具都能在您的浏览器内存中直接完成所有处理。<strong>绝无服务器上传，无数据留存，零等待时间。</strong></p>
+        
+        <h3>深入了解颜色格式：HEX、RGB 与 HSL</h3>
+        <p>我们的工具会同时生成三种最基础的颜色代码，以适应任何开发或设计工作流：</p>
         <ul>
-            <li><strong>智能缩放自适应：</strong> 即使上传超长的网页截图，系统也会自动缩放图片以适应你的屏幕。你可以通过右下角的控制台自由放大（Zoom In）去精准提取像素。</li>
-            <li><strong>取色模式：</strong> 在下方画布中点击任意像素。顶部的控制台会实时显示并记录精确的 HEX 与 RGB 代码。</li>
-            <li><strong>局部截图模式：</strong> 拖拽画出高亮选区。点击确认后，选中的区域将立刻作为高画质 PNG 格式自动下载。</li>
+          <li><strong>HEX (十六进制)：</strong> 网页设计的标准格式（例如 <code>#3B82F6</code>）。它使用 16 进制表示 RGB 值，非常紧凑，便于复制粘贴到 CSS 或 Figma、Photoshop 等图形软件中。</li>
+          <li><strong>RGB (红绿蓝)：</strong> 基于红、绿、蓝光的强度定义颜色。当您需要在现代 CSS 中使用 <code>rgba()</code> 格式调整透明度时，它非常实用。</li>
+          <li><strong>HSL (色相、饱和度、亮度)：</strong> 开发者通常更喜欢使用 HSL 来创建编程颜色主题。HSL 格式使得仅通过调整“亮度”百分比来生成基础色的深浅变体变得极其直观。</li>
         </ul>
-      </div>
-    </article>
+
+        <h3>全新功能：本地调色板历史记录</h3>
+        <p>我们引入了动态的<strong>最近调色板</strong>功能。当您在图片上点击提取颜色时，工具会自动在控制台中保存您最近的 8 次选择。这使您能够直接从灵感图片中快速构建一套连贯的 UI 配色方案，而无需在记事本中来回粘贴代码。</p>
+        
+        <h2>常见问题解答 (FAQ)</h2>
+        <div class="faq-box">
+          <h4>我上传的机密设计图或照片安全吗？</h4>
+          <p class="mb-0">绝对安全。本工具利用 HTML5 Canvas API 技术。当您选择图片时，它仅在您设备的本地内存中渲染。您的文件<strong>永远不会</strong>通过互联网传输或保存到任何云端数据库中，非常适合处理未发布的 UI 设计稿或私人照片。</p>
+        </div>
+        <div class="faq-box">
+          <h4>裁剪截图会降低图片画质吗？</h4>
+          <p class="mb-0">不会。与其他在线工具基于压缩后的网页预览进行裁剪不同，我们智能的裁剪算法会将您的选区坐标映射回您上传图片的<strong>原始物理像素</strong>。下载的 PNG 文件能保持像素级完美的无损画质。</p>
+        </div>
+      </article>
+
+      <article id="seo-es" class="seo-article" data-lang="es">
+        <h2>Selector de Color y Recortador de Imágenes Local</h2>
+        <p>Bienvenido a la suite definitiva de utilidades de imágenes centrada en la privacidad para diseñadores UI/UX y desarrolladores frontend. Extraiga colores exactos o recorte capturas de pantalla directamente en la memoria de su navegador. <strong>Sin subidas a servidores y cero tiempos de espera.</strong></p>
+        
+        <h3>Formatos de Color: HEX, RGB y HSL</h3>
+        <ul>
+          <li><strong>HEX:</strong> El estándar para diseño web (ej. <code>#3B82F6</code>). Compacto y fácil de usar en CSS o Figma.</li>
+          <li><strong>RGB:</strong> Define colores por la intensidad de luz roja, verde y azul. Útil para manipular opacidad con <code>rgba()</code>.</li>
+          <li><strong>HSL (Tono, Saturación, Luminosidad):</strong> Ideal para desarrolladores para crear temas de color programáticos ajustando solo la "Luminosidad".</li>
+        </ul>
+
+        <h3>Nueva Función: Historial de Paleta</h3>
+        <p>La nueva función de <strong>Paleta Reciente</strong> guarda automáticamente sus últimas 8 selecciones, permitiéndole construir un esquema de colores coherente rápidamente.</p>
+        
+        <h2>Preguntas Frecuentes</h2>
+        <div class="faq-box">
+          <h4>¿Son seguras mis imágenes confidenciales?</h4>
+          <p class="mb-0">Absolutamente. Este proceso se realiza utilizando HTML5 Canvas en la memoria de su dispositivo. Sus archivos <strong>nunca</strong> se transmiten por internet.</p>
+        </div>
+      </article>
+
+      <article id="seo-fr" class="seo-article" data-lang="fr">
+        <h2>Sélecteur de Couleur et Outil de Recadrage Local</h2>
+        <p>Bienvenue dans la suite d'utilitaires d'images axée sur la confidentialité pour les designers UI/UX et les développeurs frontend. Extrayez des couleurs ou recadrez des captures d'écran directement dans la mémoire de votre navigateur. <strong>Aucun téléchargement sur serveur.</strong></p>
+        
+        <h3>Formats de Couleur : HEX, RGB et HSL</h3>
+        <ul>
+          <li><strong>HEX :</strong> Le standard pour le web (ex. <code>#3B82F6</code>). Compact et facile à utiliser dans CSS ou Figma.</li>
+          <li><strong>RGB :</strong> Définit les couleurs par l'intensité de la lumière rouge, verte et bleue.</li>
+          <li><strong>HSL (Teinte, Saturation, Luminosité) :</strong> Idéal pour créer des thèmes de couleurs programmatiques.</li>
+        </ul>
+
+        <h3>Nouvelle Fonctionnalité : Historique de Palette</h3>
+        <p>La fonction <strong>Palette Récente</strong> sauvegarde automatiquement vos 8 dernières sélections, vous permettant de construire rapidement un schéma de couleurs.</p>
+        
+        <h2>Foire Aux Questions</h2>
+        <div class="faq-box">
+          <h4>Mes images confidentielles sont-elles en sécurité ?</h4>
+          <p class="mb-0">Absolument. Ce processus utilise HTML5 Canvas dans la mémoire de votre appareil. Vos fichiers ne sont <strong>jamais</strong> transmis sur internet.</p>
+        </div>
+      </article>
+
+      <article id="seo-de" class="seo-article" data-lang="de">
+        <h2>Lokaler Farbpipette und Bildzuschneider</h2>
+        <p>Willkommen bei der datenschutzorientierten Bild-Utility-Suite für UI/UX-Designer und Frontend-Entwickler. Extrahieren Sie Farben oder schneiden Sie Screenshots direkt im Speicher Ihres Browsers zu. <strong>Keine Server-Uploads, keine Wartezeiten.</strong></p>
+        
+        <h3>Farbformate verstehen: HEX, RGB und HSL</h3>
+        <ul>
+          <li><strong>HEX:</strong> Der Standard für Webdesign (z.B. <code>#3B82F6</code>). Kompakt und einfach in CSS oder Figma zu verwenden.</li>
+          <li><strong>RGB:</strong> Definiert Farben durch die Intensität von rotem, grünem und blauem Licht.</li>
+          <li><strong>HSL (Farbton, Sättigung, Helligkeit):</strong> Ideal für Entwickler, um programmatische Farbthemen zu erstellen.</li>
+        </ul>
+
+        <h3>Neues Feature: Palettenverlauf</h3>
+        <p>Die Funktion <strong>Zuletzt verwendete Palette</strong> speichert automatisch Ihre letzten 8 Auswahlen, sodass Sie schnell ein Farbschema erstellen können.</p>
+        
+        <h2>Häufig Gestellte Fragen</h2>
+        <div class="faq-box">
+          <h4>Sind meine vertraulichen Bilder sicher?</h4>
+          <p class="mb-0">Absolut. Dieser Prozess verwendet HTML5 Canvas im Speicher Ihres Geräts. Ihre Dateien werden <strong>niemals</strong> über das Internet übertragen.</p>
+        </div>
+      </article>
+
+    </div>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-12 w-full">
+  <footer class="bg-white border-t border-slate-100 py-12 mt-10">
     <div class="max-w-7xl mx-auto px-6">
       <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
         <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
-        <a href="/about.html" class="hover:text-blue-600 transition-colors">About</a>
-        <a href="/privacy.html" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/terms.html" class="hover:text-blue-600 transition-colors">Terms of Service</a>
+        <a href="/about.html" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
       <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
         © 2026 MINI-TOOLS.UK — Precision & Private Web Utilities
@@ -320,26 +411,67 @@
   <script>
     const i18n = {
       en: {
-        metaTitle: "Image Color Picker & Cropper | 100% Offline — Mini-Tools",
+        metaTitle: "Image Color Picker & Cropper | Extract HEX, RGB, HSL Locally",
         title: "Image Color Picker & Cropper",
+        desc: "Extract exact HEX, RGB, and HSL colors from any image. Build a palette or crop screenshots entirely locally in your browser.",
+        updateText: "Advanced Palette Mode Added",
         labelUpload: "Open Image",
         labelPick: "Color Picker",
         labelCrop: "Screenshot",
-        dropText: "Click here to upload an image",
-        statusText: "100% Client-side. No server uploads."
+        dropText: "Click or Drag & Drop to upload an image",
+        statusText: "100% Local processing. Your images never leave your device.",
+        labelPalette: "Recent Palette",
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us"
       },
       zh: {
-        metaTitle: "图片颜色拾取与局部截图 | 纯本地运行 — Mini-Tools",
-        title: "图片颜色拾取与截图工具",
+        metaTitle: "图片颜色拾取与局部截图 | 提取 HEX/RGB/HSL",
+        title: "高级图片取色与截图工具",
+        desc: "精准提取任何图片的 HEX、RGB 和 HSL 颜色代码。生成调色板历史记录，或进行局部高清截图。纯本地运行，保护隐私。",
+        updateText: "全新加入调色板历史功能",
         labelUpload: "打开图片",
         labelPick: "提取颜色",
         labelCrop: "局部截图",
-        dropText: "点击此处上传一张图片以开始",
-        statusText: "100% 纯前端处理，绝不上传服务器"
+        dropText: "点击或拖拽图片到此处上传",
+        statusText: "100% 纯本地处理。您的图片绝不会上传至服务器。",
+        labelPalette: "最近提取的颜色",
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们"
+      },
+      es: {
+        metaTitle: "Selector de Color de Imagen y Recortador | Extraer HEX, RGB, HSL",
+        title: "Selector de Color y Recortador",
+        desc: "Extraiga colores exactos HEX, RGB y HSL de cualquier imagen. Construya una paleta o recorte capturas localmente.",
+        updateText: "Modo Paleta Avanzado Añadido",
+        labelUpload: "Abrir Imagen", labelPick: "Selector de Color", labelCrop: "Recortar",
+        dropText: "Haga clic o arrastre para subir una imagen",
+        statusText: "Procesamiento 100% local. Sus imágenes nunca salen de su dispositivo.",
+        labelPalette: "Paleta Reciente",
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto"
+      },
+      fr: {
+        metaTitle: "Sélecteur de Couleur d'Image | Extraire HEX, RGB, HSL",
+        title: "Sélecteur de Couleur & Recadrage",
+        desc: "Extrayez les couleurs HEX, RGB et HSL exactes. Construisez une palette ou recadrez des captures d'écran localement.",
+        updateText: "Mode Palette Avancé Ajouté",
+        labelUpload: "Ouvrir l'image", labelPick: "Sélecteur Couleur", labelCrop: "Recadrer",
+        dropText: "Cliquez ou glissez-déposez une image",
+        statusText: "Traitement 100% local. Vos images ne quittent jamais votre appareil.",
+        labelPalette: "Palette Récente",
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact"
+      },
+      de: {
+        metaTitle: "Bild Farbpipette & Zuschneider | HEX, RGB, HSL Extrahieren",
+        title: "Farbpipette & Bildzuschneider",
+        desc: "Extrahieren Sie genaue HEX-, RGB- und HSL-Farben. Erstellen Sie eine Palette oder schneiden Sie Screenshots lokal zu.",
+        updateText: "Erweiterter Palettenmodus Hinzugefügt",
+        labelUpload: "Bild öffnen", labelPick: "Farbpipette", labelCrop: "Zuschneiden",
+        dropText: "Klicken oder ziehen, um ein Bild hochzuladen",
+        statusText: "100% lokale Verarbeitung. Ihre Bilder verlassen niemals Ihr Gerät.",
+        labelPalette: "Letzte Palette",
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt"
       }
     };
 
-    // DOM 元素
+    // DOM Elements
     const imageInput = document.getElementById('image-input');
     const canvasContainer = document.getElementById('canvas-container');
     const interactionWrapper = document.getElementById('interaction-wrapper');
@@ -350,254 +482,105 @@
     
     const cropBox = document.getElementById('crop-selection-box');
     const cropActionBtns = document.getElementById('crop-action-btns');
-    const btnCropSave = document.getElementById('btn-crop-save');
-    const btnCropCancel = document.getElementById('btn-crop-cancel');
     
     const colorPreview = document.getElementById('color-preview');
     const hexCode = document.getElementById('hex-code');
     const rgbCode = document.getElementById('rgb-code');
+    const hslCode = document.getElementById('hsl-code'); // New HSL element
     
     const modePickBtn = document.getElementById('mode-pick');
     const modeCropBtn = document.getElementById('mode-crop');
-
-    // 缩放控制台 DOM
-    const zoomControls = document.getElementById('zoom-controls');
-    const btnZoomOut = document.getElementById('btn-zoom-out');
-    const btnZoomIn = document.getElementById('btn-zoom-in');
     const zoomLevelText = document.getElementById('zoom-level');
+    const paletteContainer = document.getElementById('palette-container');
 
-    // 状态变量
+    // State Variables
     let currentLang = 'en';
     let isImageLoaded = false;
     let currentMode = 'pick';
-    
     let isDragging = false;
-    let startX = 0;
-    let startY = 0;
+    let startX = 0, startY = 0;
     let pendingCrop = null;
+    let imgNaturalWidth = 0, imgNaturalHeight = 0;
+    let currentScale = 1.0, fitScale = 1.0;
+    let colorHistory = []; // Store up to 8 colors
 
-    // 缩放核心变量
-    let imgNaturalWidth = 0;
-    let imgNaturalHeight = 0;
-    let currentScale = 1.0;
-    let fitScale = 1.0;
-
-    // --- 语言切换 ---
+    // --- Language & Setup ---
     function updateLanguage() {
       const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
       currentLang = lang;
       const data = i18n[lang] || i18n['en'];
 
+      document.documentElement.lang = lang;
       document.title = data.metaTitle;
+      document.getElementById('update-text').innerText = data.updateText;
       document.getElementById('page-title').innerText = data.title;
+      document.getElementById('page-desc').innerText = data.desc;
       document.getElementById('label-upload').innerText = data.labelUpload;
       document.getElementById('label-pick').innerText = data.labelPick;
       document.getElementById('label-crop').innerText = data.labelCrop;
       document.getElementById('drop-text').innerText = data.dropText;
       document.getElementById('status-text').innerText = data.statusText;
+      document.getElementById('label-palette').innerText = data.labelPalette;
       
-      document.getElementById('seo-content-zh').style.display = (lang === 'zh') ? 'block' : 'none';
-      document.getElementById('seo-content-en').style.display = (lang === 'zh') ? 'none' : 'block';
+      document.getElementById('footer-about').innerText = data.footerAbout;
+      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
+      document.getElementById('footer-contact').innerText = data.footerContact;
+      
+      document.querySelectorAll('.seo-article').forEach(article => {
+        if(article.getAttribute('data-lang') === lang) article.classList.add('active');
+        else article.classList.remove('active');
+      });
       
       document.getElementById('lang-select').value = lang;
-      document.getElementById('home-link').href = "/?lang=" + lang;
-    }
-
-    document.getElementById('lang-select').addEventListener('change', (e) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', e.target.value);
-      window.location.href = url.href;
-    });
-
-    window.onload = updateLanguage;
-
-    // --- 缩放核心功能 ---
-    function setZoom(scale) {
-      // 限制缩放比例在 10% 到 500% 之间
-      currentScale = Math.max(0.1, Math.min(scale, 5));
-      
-      // 更新文字百分比
-      zoomLevelText.innerText = Math.round(currentScale * 100) + '%';
-      
-      // 更改包裹层的 CSS 物理尺寸以实现视觉缩放，同时浏览器会自动出现正确的滚动条
-      interactionWrapper.style.width = (imgNaturalWidth * currentScale) + 'px';
-      interactionWrapper.style.height = (imgNaturalHeight * currentScale) + 'px';
-      
-      // 每次缩放后，由于坐标系统视觉变化，安全起见清理掉未确定的截图选框
-      hideCropBox();
-    }
-
-    btnZoomIn.addEventListener('click', () => setZoom(currentScale + 0.25));
-    btnZoomOut.addEventListener('click', () => setZoom(currentScale - 0.25));
-    
-    // 点击百分比文字，在“自适应大小”和“100%原图”之间切换
-    zoomLevelText.addEventListener('click', () => {
-      if (currentScale !== fitScale) {
-        setZoom(fitScale);
-      } else {
-        setZoom(1.0);
-      }
-    });
-
-    // --- 大框点击触发上传 ---
-    canvasContainer.addEventListener('click', function(e) {
-      if (!isImageLoaded) {
-        imageInput.click();
-      }
-    });
-
-    // --- 模式切换 ---
-    window.setMode = function(mode) {
-      currentMode = mode;
-      if(mode === 'pick') {
-        modePickBtn.classList.add('active', 'text-white');
-        modePickBtn.classList.remove('text-slate-300');
-        modeCropBtn.classList.remove('active', 'text-white');
-        modeCropBtn.classList.add('text-slate-300');
-        hideCropBox();
-      } else {
-        modeCropBtn.classList.add('active', 'text-white');
-        modeCropBtn.classList.remove('text-slate-300');
-        modePickBtn.classList.remove('active', 'text-white');
-        modePickBtn.classList.add('text-slate-300');
-      }
-    };
-
-    function hideCropBox() {
-      cropBox.style.display = 'none';
-      cropActionBtns.style.display = 'none';
-      pendingCrop = null;
-      isDragging = false;
-    }
-
-    // --- 图片加载与自适应逻辑 ---
-    imageInput.addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (!file || !file.type.startsWith('image/')) return;
-
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        const img = new Image();
-        img.onload = function() {
-          // 1. 记录图片的绝对真实分辨率
-          imgNaturalWidth = img.width;
-          imgNaturalHeight = img.height;
-
-          // 2. Canvas 保持物理分辨率 1:1，绝不失真
-          canvas.width = imgNaturalWidth;
-          canvas.height = imgNaturalHeight;
-          ctx.drawImage(img, 0, 0);
-          
-          // 3. 计算“自适应缩放比例 (fitScale)”
-          const containerW = canvasContainer.clientWidth - 40; // 减去 padding
-          const containerH = canvasContainer.clientHeight - 40;
-          
-          const scaleX = containerW / imgNaturalWidth;
-          const scaleY = containerH / imgNaturalHeight;
-          
-          // 如果图片比容器大，缩小它；如果图片小，保持 100%
-          fitScale = Math.min(1.0, scaleX, scaleY);
-          
-          // 4. UI 切换显示
-          placeholderText.style.display = 'none';
-          interactionWrapper.style.display = 'inline-block';
-          canvasContainer.style.border = 'none';
-          canvasContainer.classList.remove('empty-state');
-          zoomControls.style.display = 'flex'; // 显示缩放控制台
-          
-          isImageLoaded = true;
-          
-          // 5. 应用初始自适应缩放
-          setZoom(fitScale);
-          setMode('pick'); 
+      document.querySelectorAll('a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
+          try {
+            const url = new URL(href, window.location.origin);
+            url.searchParams.set('lang', lang);
+            link.href = url.pathname + url.search;
+          } catch(e) {}
         }
-        img.src = event.target.result;
+      });
+    }
+
+    // Initialize 8 empty palette slots
+    function initPalette() {
+      let slots = '';
+      for(let i=0; i<8; i++) {
+        slots += `<div class="palette-empty" id="pal-${i}"></div>`;
       }
-      reader.readAsDataURL(file);
-      this.value = ''; // 允许重复传图
-    });
+      // Keep the label, append slots
+      paletteContainer.innerHTML = `<div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest w-full mb-1" id="label-palette">${i18n[currentLang].labelPalette}</div>` + slots;
+    }
 
-    // --- 画布鼠标交互 ---
-    overlayLayer.addEventListener('mousedown', function(e) {
-      if(!isImageLoaded) return;
-      e.stopPropagation(); 
-      
-      // 注意：offsetX/Y 现在获取的是“经过 CSS 缩放后”的像素坐标
-      const x = e.offsetX;
-      const y = e.offsetY;
+    // --- Core Math Conversions ---
+    function rgbToHex(r, g, b) {
+      return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+    }
 
-      if (currentMode === 'pick') {
-        extractColor(x, y);
-      } else if (currentMode === 'crop') {
-        isDragging = true;
-        startX = x;
-        startY = y;
-        
-        cropBox.style.display = 'block';
-        cropBox.style.left = startX + 'px';
-        cropBox.style.top = startY + 'px';
-        cropBox.style.width = '0px';
-        cropBox.style.height = '0px';
-        
-        cropActionBtns.style.display = 'none';
-        pendingCrop = null;
+    function rgbToHsl(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+
+      if (max === min) {
+        h = s = 0; 
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
       }
-    });
+      return `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
+    }
 
-    overlayLayer.addEventListener('mousemove', function(e) {
-      if(!isImageLoaded || !isDragging || currentMode !== 'crop') return;
-      
-      const currentX = e.offsetX;
-      const currentY = e.offsetY;
-      
-      const width = Math.abs(currentX - startX);
-      const height = Math.abs(currentY - startY);
-      const left = Math.min(startX, currentX);
-      const top = Math.min(startY, currentY);
-
-      // DOM UI 的更新依然使用缩放后的 CSS 像素坐标
-      cropBox.style.left = left + 'px';
-      cropBox.style.top = top + 'px';
-      cropBox.style.width = width + 'px';
-      cropBox.style.height = height + 'px';
-    });
-
-    window.addEventListener('mouseup', function(e) {
-      if(!isImageLoaded || !isDragging || currentMode !== 'crop') return;
-      isDragging = false;
-      
-      const width = parseFloat(cropBox.style.width);
-      const height = parseFloat(cropBox.style.height);
-      const left = parseFloat(cropBox.style.left);
-      const top = parseFloat(cropBox.style.top);
-
-      if(width < 10 || height < 10) {
-        hideCropBox();
-        return;
-      }
-
-      // 记录的框选数据是“CSS缩放坐标”
-      pendingCrop = { cssX: left, cssY: top, cssW: width, cssH: height };
-      cropActionBtns.style.display = 'flex';
-    });
-
-    // --- 操作按钮点击事件 ---
-    btnCropCancel.addEventListener('click', function(e) {
-      e.stopPropagation(); 
-      hideCropBox();
-    });
-
-    btnCropSave.addEventListener('click', function(e) {
-      e.stopPropagation();
-      if(pendingCrop) {
-        performCropAndDownload();
-        hideCropBox(); 
-      }
-    });
-
-    // --- 取色核心逻辑 (带坐标换算) ---
+    // --- Color Extraction & Palette Logic ---
     function extractColor(cssX, cssY) {
-      // 关键！将 CSS 缩放坐标换算回真实的图片物理像素坐标
       const origX = Math.min(Math.floor(cssX / currentScale), imgNaturalWidth - 1);
       const origY = Math.min(Math.floor(cssY / currentScale), imgNaturalHeight - 1);
       
@@ -607,69 +590,214 @@
 
       const hex = rgbToHex(r, g, b);
       const rgb = `rgb(${r}, ${g}, ${b})`;
+      const hsl = rgbToHsl(r, g, b);
 
+      updateColorConsole(hex, rgb, hsl);
+      addToPalette(hex, rgb, hsl);
+    }
+
+    function updateColorConsole(hex, rgb, hsl) {
       colorPreview.style.backgroundColor = rgb;
       hexCode.textContent = hex;
       rgbCode.textContent = rgb;
+      hslCode.textContent = hsl;
       
       colorPreview.style.transform = 'scale(0.8)';
       setTimeout(() => colorPreview.style.transform = 'scale(1)', 150);
     }
 
-    function rgbToHex(r, g, b) {
-      return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
-    }
-
-    // --- 截图生成与下载逻辑 (带坐标换算) ---
-    function performCropAndDownload() {
-      // 关键！将用户在缩小后的 UI 上画的框，等比例还原回大图真实的裁剪范围
-      let origX = Math.max(0, Math.round(pendingCrop.cssX / currentScale));
-      let origY = Math.max(0, Math.round(pendingCrop.cssY / currentScale));
-      let origW = Math.round(pendingCrop.cssW / currentScale);
-      let origH = Math.round(pendingCrop.cssH / currentScale);
-
-      // 防止越界
-      origW = Math.min(imgNaturalWidth - origX, origW);
-      origH = Math.min(imgNaturalHeight - origY, origH);
-
-      // 按照原图真实像素去裁剪数据，保证高清！
-      const cropData = ctx.getImageData(origX, origY, origW, origH);
+    function addToPalette(hex, rgb, hsl) {
+      // Avoid duplicate consecutive colors
+      if(colorHistory.length > 0 && colorHistory[0].hex === hex) return;
       
-      const tempCanvas = document.createElement('canvas');
-      tempCanvas.width = origW;
-      tempCanvas.height = origH;
-      const tempCtx = tempCanvas.getContext('2d');
-      tempCtx.putImageData(cropData, 0, 0);
-
-      const dataURL = tempCanvas.toDataURL('image/png');
-
-      const link = document.createElement('a');
-      link.download = `minitools-crop-${new Date().getTime()}.png`;
-      link.href = dataURL;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      colorHistory.unshift({hex, rgb, hsl});
+      if(colorHistory.length > 8) colorHistory.pop();
+      
+      renderPalette();
     }
 
-    // --- 点击代码复制逻辑 ---
-    [hexCode, rgbCode].forEach(element => {
+    function renderPalette() {
+      for(let i=0; i<8; i++) {
+        const slot = document.getElementById(`pal-${i}`);
+        if(colorHistory[i]) {
+          slot.className = 'palette-swatch';
+          slot.style.backgroundColor = colorHistory[i].rgb;
+          slot.title = colorHistory[i].hex;
+          // Click swatch to restore it to main console
+          slot.onclick = () => updateColorConsole(colorHistory[i].hex, colorHistory[i].rgb, colorHistory[i].hsl);
+        }
+      }
+    }
+
+    // --- Zoom & Image Loading ---
+    function setZoom(scale) {
+      currentScale = Math.max(0.1, Math.min(scale, 5));
+      zoomLevelText.innerText = Math.round(currentScale * 100) + '%';
+      interactionWrapper.style.width = (imgNaturalWidth * currentScale) + 'px';
+      interactionWrapper.style.height = (imgNaturalHeight * currentScale) + 'px';
+      hideCropBox();
+    }
+
+    document.getElementById('btn-zoom-in').addEventListener('click', () => setZoom(currentScale + 0.25));
+    document.getElementById('btn-zoom-out').addEventListener('click', () => setZoom(currentScale - 0.25));
+    zoomLevelText.addEventListener('click', () => setZoom(currentScale !== fitScale ? fitScale : 1.0));
+
+    // Drag and Drop implementation
+    canvasContainer.addEventListener('dragover', (e) => { e.preventDefault(); canvasContainer.style.borderColor = '#3b82f6'; canvasContainer.style.backgroundColor = '#eff6ff'; });
+    canvasContainer.addEventListener('dragleave', (e) => { e.preventDefault(); canvasContainer.style.borderColor = '#cbd5e1'; canvasContainer.style.backgroundColor = '#e2e8f0'; });
+    canvasContainer.addEventListener('drop', (e) => {
+      e.preventDefault();
+      canvasContainer.style.borderColor = 'transparent';
+      canvasContainer.style.backgroundColor = '#e2e8f0';
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        handleImageUpload(e.dataTransfer.files[0]);
+      }
+    });
+
+    canvasContainer.addEventListener('click', function(e) {
+      if (!isImageLoaded && e.target === this) imageInput.click();
+    });
+
+    imageInput.addEventListener('change', function(e) {
+      if(e.target.files.length > 0) handleImageUpload(e.target.files[0]);
+      this.value = '';
+    });
+
+    function handleImageUpload(file) {
+      if (!file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          imgNaturalWidth = img.width; imgNaturalHeight = img.height;
+          canvas.width = imgNaturalWidth; canvas.height = imgNaturalHeight;
+          ctx.drawImage(img, 0, 0);
+          
+          const containerW = canvasContainer.clientWidth - 40; 
+          const containerH = canvasContainer.clientHeight - 40;
+          fitScale = Math.min(1.0, containerW / imgNaturalWidth, containerH / imgNaturalHeight);
+          
+          placeholderText.style.display = 'none';
+          interactionWrapper.style.display = 'inline-block';
+          canvasContainer.style.border = 'none';
+          canvasContainer.classList.remove('empty-state');
+          document.getElementById('zoom-controls').style.display = 'flex';
+          
+          isImageLoaded = true;
+          setZoom(fitScale);
+          setMode('pick'); 
+        }
+        img.src = event.target.result;
+      }
+      reader.readAsDataURL(file);
+    }
+
+    // --- Mode & Mouse Interactions ---
+    window.setMode = function(mode) {
+      currentMode = mode;
+      if(mode === 'pick') {
+        modePickBtn.classList.add('active', 'text-white'); modePickBtn.classList.remove('text-slate-400');
+        modeCropBtn.classList.remove('active', 'text-white'); modeCropBtn.classList.add('text-slate-400');
+        interactionWrapper.style.cursor = 'crosshair';
+        hideCropBox();
+      } else {
+        modeCropBtn.classList.add('active', 'text-white'); modeCropBtn.classList.remove('text-slate-400');
+        modePickBtn.classList.remove('active', 'text-white'); modePickBtn.classList.add('text-slate-400');
+        interactionWrapper.style.cursor = 'crosshair'; // Keep crosshair for cropping
+      }
+    };
+
+    function hideCropBox() {
+      cropBox.style.display = 'none'; cropActionBtns.style.display = 'none';
+      pendingCrop = null; isDragging = false;
+    }
+
+    overlayLayer.addEventListener('mousedown', function(e) {
+      if(!isImageLoaded) return;
+      e.stopPropagation(); 
+      const x = e.offsetX, y = e.offsetY;
+
+      if (currentMode === 'pick') {
+        extractColor(x, y);
+      } else if (currentMode === 'crop') {
+        isDragging = true; startX = x; startY = y;
+        cropBox.style.display = 'block';
+        cropBox.style.left = startX + 'px'; cropBox.style.top = startY + 'px';
+        cropBox.style.width = '0px'; cropBox.style.height = '0px';
+        cropActionBtns.style.display = 'none'; pendingCrop = null;
+      }
+    });
+
+    overlayLayer.addEventListener('mousemove', function(e) {
+      if(!isImageLoaded || !isDragging || currentMode !== 'crop') return;
+      const currentX = e.offsetX, currentY = e.offsetY;
+      const width = Math.abs(currentX - startX), height = Math.abs(currentY - startY);
+      const left = Math.min(startX, currentX), top = Math.min(startY, currentY);
+
+      cropBox.style.left = left + 'px'; cropBox.style.top = top + 'px';
+      cropBox.style.width = width + 'px'; cropBox.style.height = height + 'px';
+    });
+
+    window.addEventListener('mouseup', function(e) {
+      if(!isImageLoaded || !isDragging || currentMode !== 'crop') return;
+      isDragging = false;
+      const width = parseFloat(cropBox.style.width), height = parseFloat(cropBox.style.height);
+      const left = parseFloat(cropBox.style.left), top = parseFloat(cropBox.style.top);
+
+      if(width < 10 || height < 10) { hideCropBox(); return; }
+      pendingCrop = { cssX: left, cssY: top, cssW: width, cssH: height };
+      cropActionBtns.style.display = 'flex';
+    });
+
+    document.getElementById('btn-crop-cancel').addEventListener('click', (e) => { e.stopPropagation(); hideCropBox(); });
+    document.getElementById('btn-crop-save').addEventListener('click', (e) => {
+      e.stopPropagation();
+      if(pendingCrop) {
+        let origX = Math.max(0, Math.round(pendingCrop.cssX / currentScale));
+        let origY = Math.max(0, Math.round(pendingCrop.cssY / currentScale));
+        let origW = Math.min(imgNaturalWidth - origX, Math.round(pendingCrop.cssW / currentScale));
+        let origH = Math.min(imgNaturalHeight - origY, Math.round(pendingCrop.cssH / currentScale));
+
+        const cropData = ctx.getImageData(origX, origY, origW, origH);
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = origW; tempCanvas.height = origH;
+        tempCanvas.getContext('2d').putImageData(cropData, 0, 0);
+
+        const link = document.createElement('a');
+        link.download = `minitools-crop-${new Date().getTime()}.png`;
+        link.href = tempCanvas.toDataURL('image/png');
+        document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        hideCropBox(); 
+      }
+    });
+
+    // --- Copy Logic ---
+    [hexCode, rgbCode, hslCode].forEach(element => {
       element.addEventListener('click', function() {
         if(this.textContent.includes('-')) return; 
-        
         navigator.clipboard.writeText(this.textContent).then(() => {
           const originalText = this.textContent;
           this.textContent = currentLang === 'zh' ? '已复制！' : 'Copied!';
-          this.style.color = '#86efac';
-          this.style.borderColor = '#86efac';
-          
+          this.style.color = '#86efac'; this.style.borderColor = '#86efac';
           setTimeout(() => {
             this.textContent = originalText;
-            this.style.color = 'inherit';
-            this.style.borderColor = 'rgba(255,255,255,0.1)';
+            this.style.color = 'inherit'; this.style.borderColor = 'rgba(255,255,255,0.1)';
           }, 1000);
         });
       });
     });
+
+    // Init
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      window.location.href = url.href;
+    });
+
+    window.onload = () => {
+      updateLanguage();
+      initPalette();
+    };
   </script>
 </body>
 </html>
