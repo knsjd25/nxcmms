@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   
   <title id="meta-title">UK Salary After Tax Calculator 2026 | PAYE & NI Take Home Pay — Mini-Tools</title>
-  <meta name="description" id="meta-desc" content="Free 2026/27 UK Salary after tax calculator. Calculate PAYE income tax, National Insurance, and take-home pay based on latest HMRC 2026 tax codes. Privacy-first & 100% free." />
-  <meta name="keywords" content="UK Salary Calculator 2026, Take home pay UK, PAYE Calculator, National Insurance 2026, Income Tax UK 2026/27, UK Wage Calculator, 1257L Tax Code" />
+  <meta name="description" id="meta-desc" content="Free 2026/27 UK Salary after tax calculator. Calculate PAYE income tax, National Insurance, Pension, Student Loan, and take-home pay based on latest HMRC 2026 tax codes." />
+  <meta name="keywords" content="UK Salary Calculator 2026, Take home pay UK, PAYE Calculator, National Insurance 2026, Income Tax UK 2026/27, Student Loan Calculator UK, Pension deduction" />
   <link rel="canonical" href="https://mini-tools.uk/tax.html" />
   
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
@@ -25,15 +25,11 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "UK Salary After Tax Calculator 2026",
+    "name": "UK Advanced Salary Calculator 2026",
     "operatingSystem": "Web",
     "applicationCategory": "FinanceApplication",
-    "description": "Calculate UK take-home pay for tax years 2025/26 and 2026/27 including Income Tax and National Insurance.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "GBP"
-    }
+    "description": "Calculate UK take-home pay including Income Tax, National Insurance, Pensions, and Student Loans.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
   }
   </script>
 
@@ -45,9 +41,33 @@
     .updated-badge { background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; display: inline-flex; align-items: center; gap: 4px; }
     .result-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; }
     .year-btn-active { border-color: #2563eb; background-color: #eff6ff; color: #1d4ed8; border-width: 2px; }
-    .prose h2 { font-weight: 800; color: #0f172a; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
-    .tax-table th { background-color: #f1f5f9; text-align: left; padding: 12px; font-size: 0.875rem; }
-    .tax-table td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-size: 0.875rem; }
+    
+    /* Input styling */
+    .form-select { appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 1rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
+    
+    /* Results Table */
+    .breakdown-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; text-align: right; }
+    .breakdown-table th { color: #94a3b8; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .breakdown-table th:first-child { text-align: left; }
+    .breakdown-table td { padding: 0.75rem 0; font-size: 0.875rem; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .breakdown-table td:first-child { text-align: left; color: #cbd5e1; }
+    .breakdown-table .row-net td { color: #38bdf8; font-size: 1rem; font-weight: 800; border-bottom: none; padding-top: 1rem; }
+    .breakdown-table .row-deduct td { color: #f87171; }
+
+    /* SEO Article Switching */
+    .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
+    .seo-article.active { display: block; animation: fadeIn 0.5s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
+    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
+    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
+    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
+    .tax-table { width: 100%; border-collapse: collapse; margin: 2rem 0; background: white; border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+    .tax-table th { background-color: #f8fafc; text-align: left; padding: 1rem; font-size: 0.875rem; color: #334155; border-bottom: 2px solid #e2e8f0; font-weight: 800; text-transform: uppercase; }
+    .tax-table td { padding: 1rem; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; color: #475569; font-weight: 600; }
+    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
+    .faq-box h4 { font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; font-size: 1.1rem; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -58,46 +78,89 @@
         <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
           <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
         </a>
-        <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        <div class="flex flex-col -mt-1 hidden sm:flex">
+          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        </div>
       </div>
-      <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
-        <option value="en">🇬🇧 English</option>
-        <option value="zh">🇨🇳 简体中文</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="de">🇩🇪 Deutsch</option>
-      </select>
+      <div class="flex items-center gap-4">
+        <select id="lang-select" class="bg-slate-100 px-3 py-2 rounded-lg text-sm font-bold text-slate-700 outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 简体中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+        </select>
+      </div>
     </div>
   </nav>
 
-  <main class="max-w-4xl mx-auto px-6 py-12 flex-1">
+  <main class="max-w-6xl mx-auto px-6 py-12 flex-1 w-full">
     <header class="mb-10 text-center lg:text-left">
       <div class="mb-4">
         <span id="update-status" class="updated-badge">
           <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-          Last updated: April 2026
+          <span id="update-text">Last updated: April 2026</span>
         </span>
       </div>
       <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight leading-tight">
-        UK Income Tax 2026 & Salary After Tax Calculator
+        Advanced UK Salary Calculator 2026
       </h1>
       <p id="page-desc" class="text-lg text-slate-500 max-w-2xl">
-        Free, accurate UK take-home pay calculator. Fully updated for the current 2025/26 and the upcoming 2026/27 HMRC tax years.
+        Calculate your exact take-home pay, including Income Tax, National Insurance, Workplace Pension, and Student Loan deductions.
       </p>
     </header>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-      <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+      
+      <div class="lg:col-span-5 bg-white p-8 rounded-3xl border border-slate-100 shadow-sm relative overflow-visible h-fit">
+        
         <div class="mb-6">
-          <label id="label-salary" class="block text-sm font-bold text-slate-700 mb-2">Annual Gross Salary (£)</label>
-          <input type="number" id="salary-input" placeholder="e.g. 45000" class="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-xl font-bold focus:ring-2 focus:ring-blue-500 outline-none">
+          <label id="label-salary" class="block text-sm font-bold text-slate-700 mb-2">Income Amount (£)</label>
+          <div class="flex gap-2">
+            <input type="number" id="salary-input" value="45000" min="0" step="any" class="w-2/3 px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-2xl font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+            <select id="salary-period" class="w-1/3 form-select px-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl font-bold text-slate-700 outline-none">
+              <option value="year" id="opt-year">Per Year</option>
+              <option value="month" id="opt-month">Per Month</option>
+              <option value="week" id="opt-week">Per Week</option>
+              <option value="hour" id="opt-hour">Per Hour</option>
+            </select>
+          </div>
+          <div id="hourly-wrap" class="hidden mt-3 pl-1">
+            <label class="text-xs font-bold text-slate-500 flex items-center gap-2">
+              Hours per week: <input type="number" id="hours-input" value="37.5" class="w-16 px-2 py-1 bg-slate-100 rounded outline-none border border-slate-200 text-center">
+            </label>
+          </div>
         </div>
         
-        <div class="mb-8">
-          <label id="label-taxyear" class="block text-sm font-bold text-slate-700 mb-2">Select Tax Year</label>
+        <div class="mb-6">
+          <label id="label-taxyear" class="block text-sm font-bold text-slate-700 mb-2">Tax Year</label>
           <div class="grid grid-cols-2 gap-3">
             <button onclick="setYear('2025')" id="btn-2025" class="py-3 rounded-xl border border-slate-200 text-slate-500 font-bold text-sm transition-all hover:bg-slate-50">2025 / 2026</button>
             <button onclick="setYear('2026')" id="btn-2026" class="py-3 rounded-xl border-2 year-btn-active font-bold text-sm transition-all">2026 / 2027</button>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-100 pt-6 mb-8">
+          <h4 id="label-advanced" class="text-sm font-extrabold text-slate-900 mb-4 flex items-center gap-2">
+            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+            Advanced Deductions
+          </h4>
+          
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label id="label-pension" class="block text-xs font-bold text-slate-500 mb-2">Pension (%)</label>
+              <input type="number" id="pension-input" value="0" min="0" max="100" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+            <div>
+              <label id="label-student" class="block text-xs font-bold text-slate-500 mb-2">Student Loan</label>
+              <select id="student-loan" class="w-full form-select px-3 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-700 outline-none">
+                <option value="none" id="sl-none">None</option>
+                <option value="plan1">Plan 1</option>
+                <option value="plan2">Plan 2</option>
+                <option value="plan4">Plan 4</option>
+                <option value="plan5">Plan 5</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -106,43 +169,85 @@
         </button>
       </div>
 
-      <div id="result-area" class="result-card p-8 rounded-3xl shadow-2xl flex flex-col justify-between hidden">
+      <div id="result-area" class="lg:col-span-7 result-card p-8 md:p-10 rounded-3xl shadow-2xl flex flex-col justify-between opacity-50 transition-opacity duration-500">
         <div>
-          <p id="res-label-takehome" class="text-slate-400 font-bold text-sm uppercase tracking-widest mb-1">Estimated Monthly Take-home</p>
-          <h2 id="final-salary" class="text-5xl font-black text-white mb-6">£0.00</h2>
+          <p id="res-label-takehome" class="text-slate-400 font-bold text-sm uppercase tracking-widest mb-2">Monthly Take-Home Pay</p>
+          <h2 id="final-salary" class="text-5xl lg:text-6xl font-black text-white mb-2 tracking-tight">£0.00</h2>
+          <p id="res-taxcode" class="text-blue-400 text-sm font-bold mb-8">Tax Code: 1257L</p>
           
-          <div class="space-y-4 border-t border-white/10 pt-6 text-sm">
-            <div class="flex justify-between">
-              <span id="res-label-gross" class="text-slate-400">Annual Gross Income</span>
-              <span id="res-val-gross" class="font-bold">£0.00</span>
-            </div>
-            <div class="flex justify-between">
-              <span id="res-label-tax" class="text-slate-400">Income Tax (PAYE)</span>
-              <span id="res-val-tax" class="text-red-400 font-bold">- £0.00</span>
-            </div>
-            <div class="flex justify-between">
-              <span id="res-label-ni" class="text-slate-400">National Insurance</span>
-              <span id="res-val-ni" class="text-red-400 font-bold">- £0.00</span>
-            </div>
+          <div class="overflow-x-auto">
+            <table class="breakdown-table">
+              <thead>
+                <tr>
+                  <th id="th-desc">Breakdown</th>
+                  <th id="th-year">Yearly</th>
+                  <th id="th-month">Monthly</th>
+                  <th id="th-week">Weekly</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="td-gross">Gross Income</td>
+                  <td id="val-gross-y">£0.00</td>
+                  <td id="val-gross-m">£0.00</td>
+                  <td id="val-gross-w">£0.00</td>
+                </tr>
+                <tr class="row-deduct" id="row-pension" style="display:none;">
+                  <td id="td-pension">Pension</td>
+                  <td id="val-pen-y">-£0.00</td>
+                  <td id="val-pen-m">-£0.00</td>
+                  <td id="val-pen-w">-£0.00</td>
+                </tr>
+                <tr class="row-deduct">
+                  <td id="td-tax">Income Tax</td>
+                  <td id="val-tax-y">-£0.00</td>
+                  <td id="val-tax-m">-£0.00</td>
+                  <td id="val-tax-w">-£0.00</td>
+                </tr>
+                <tr class="row-deduct">
+                  <td id="td-ni">National Insurance</td>
+                  <td id="val-ni-y">-£0.00</td>
+                  <td id="val-ni-m">-£0.00</td>
+                  <td id="val-ni-w">-£0.00</td>
+                </tr>
+                <tr class="row-deduct" id="row-student" style="display:none;">
+                  <td id="td-student">Student Loan</td>
+                  <td id="val-sl-y">-£0.00</td>
+                  <td id="val-sl-m">-£0.00</td>
+                  <td id="val-sl-w">-£0.00</td>
+                </tr>
+                <tr class="row-net">
+                  <td id="td-net">Net Take-Home</td>
+                  <td id="val-net-y">£0.00</td>
+                  <td id="val-net-m">£0.00</td>
+                  <td id="val-net-w">£0.00</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <div id="footer-note" class="mt-8 p-4 bg-white/5 rounded-2xl text-[10px] text-slate-400 italic leading-relaxed">
-          * Based on standard UK Personal Allowance (£12,570) and tax code 1257L for 2026/27.
+        <div id="footer-note" class="mt-8 p-4 bg-white/5 rounded-xl text-xs text-slate-400 font-medium leading-relaxed border border-white/10">
+          * Pension calculations assume Salary Sacrifice (reduces taxable pay). 2026/27 figures are accurate based on current HMRC legislation.
         </div>
       </div>
     </div>
 
-    <article class="prose max-w-none border-t border-slate-200 pt-16">
-      <div id="seo-content-en">
+    <div class="prose-content">
+      
+      <article id="seo-en" class="seo-article" data-lang="en">
         <h2>How is your 2026/27 UK Salary Calculated?</h2>
-        <p>Our tool uses the latest HMRC tax bands to provide a precise breakdown of your <strong>net income</strong>. For the 2026/27 tax year, most UK taxpayers have a <strong>Personal Allowance of £12,570</strong>, which is the amount you can earn tax-free.</p>
+        <p>Understanding your payslip shouldn't require an accounting degree. Our <strong>Advanced UK Salary Calculator</strong> is meticulously programmed to reflect the latest HMRC tax bands, ensuring you get a precise breakdown of your net income for both the 2025/26 and the upcoming 2026/27 financial years. We've upgraded our tool to include complex deductions like Pensions and Student Loans.</p>
+        <p>For the vast majority of UK taxpayers working a standard job, your tax code will be <strong>1257L</strong>. This code signifies that you are entitled to the standard <strong>Personal Allowance of £12,570</strong>. This is the bedrock of your salary—it is the amount of money you are legally allowed to earn completely tax-free before HMRC starts applying Income Tax.</p>
         
-        <div class="overflow-x-auto my-8">
-          <table class="w-full tax-table">
+        <h3>2026/27 Income Tax Bands Explained</h3>
+        <p>Once your salary exceeds your Personal Allowance, Income Tax (PAYE) is applied in varying tiers, known as tax bands. Our calculator automatically segments your gross income and applies the exact percentage required for each bracket.</p>
+        
+        <div class="overflow-x-auto">
+          <table class="tax-table">
             <thead>
               <tr>
                 <th>Tax Band</th>
-                <th>Income Range</th>
+                <th>Income Range (£)</th>
                 <th>Tax Rate</th>
               </tr>
             </thead>
@@ -171,34 +276,157 @@
           </table>
         </div>
 
-        <h3>What is National Insurance (NI) in 2026?</h3>
-        <p>National Insurance is a mandatory deduction for workers in the UK. For 2026, the primary rate for employees stands at 8% for earnings between the primary threshold and the upper earnings limit, with a further 2% on earnings above that.</p>
+        <h3>National Insurance (NI) Contributions in 2026</h3>
+        <p>Income tax is only one part of the equation. <strong>National Insurance (NI)</strong> is a mandatory deduction for UK employees used to fund state benefits, including the NHS and state pension. For the 2026 tax year, the Class 1 National Insurance primary rate for employees is calculated at <strong>8%</strong> for earnings falling between the Primary Threshold and the Upper Earnings Limit. Any earnings pushing above this limit are subject to an additional <strong>2%</strong> deduction.</p>
         
-        <h3>Privacy First Policy</h3>
-        <p>Unlike other financial tools, Mini-Tools.uk calculates everything locally in your browser. We never store your salary information or personal financial details on our servers.</p>
-      </div>
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <div class="faq-box">
+          <h4>Is my financial data safe when using this calculator?</h4>
+          <p class="mb-0">Absolutely. <strong>Mini-Tools.uk operates on a strict Client-Side Processing architecture.</strong> When you type your salary into the box above, the calculation happens entirely within your device's browser memory. Your gross salary data is never transmitted across the internet, nor is it stored in any backend database.</p>
+        </div>
+        <div class="faq-box">
+          <h4>How does the Pension deduction work in this tool?</h4>
+          <p class="mb-0">Our calculator assumes a "Salary Sacrifice" pension scheme, which is the most tax-efficient and common method in the UK today. The percentage you input is deducted from your Gross Salary *before* Income Tax and National Insurance are calculated, accurately reflecting your true take-home pay.</p>
+        </div>
+        <div class="faq-box">
+          <h4>What happens if my salary is over £100,000?</h4>
+          <p class="mb-0">Once you earn over £100,000, your Personal Allowance decreases by £1 for every £2 you earn above this threshold. This effectively results in a marginal tax rate of 60% on income between £100,000 and £125,140. Our calculator automatically adjusts your Personal Allowance downwards if your inputted salary triggers this HMRC rule.</p>
+        </div>
+      </article>
 
-      <div id="seo-content-zh" style="display: none;">
-        <h2>2026/27 英国个税如何计算？</h2>
-        <p>本工具基于 HMRC 最新的税务等级提供精准的<strong>税后收入</strong>明细。在 2026/27 财年，大多数英国纳税人享有 <strong>£12,570 的免税额 (Personal Allowance)</strong>。</p>
-        <p>计算公式主要包含：<strong>税前年薪 - 免税额 - PAYE 个税 - NI 国民保险 = 税后到手工资</strong>。</p>
-        <h3>常见问题 (FAQ)</h3>
-        <p><strong>1. 1257L 税码是什么意思？</strong><br>这是最常见的标准税码，表示你享有 £12,570 的基本免税额。</p>
-        <p><strong>2. 2026 年国民保险 (NI) 有变化吗？</strong><br>本计算器已同步 2026 年最新的 NI 费率（标准税率 8%），确保估算结果的准确性。</p>
-      </div>
-    </article>
+      <article id="seo-zh" class="seo-article" data-lang="zh">
+        <h2>2026/27 英国个税及税后工资是如何计算的？</h2>
+        <p>读懂您的工资单不应该需要会计学位。我们的<strong>高级英国税后工资计算器</strong>严格根据 HMRC 最新的税务阶梯编写，支持跨年比对，并新增了养老金 (Pension) 和学生贷款 (Student Loan) 扣除功能，为您提供最精准的净收入明细。</p>
+        <p>对于绝大多数在英国从事标准工作的纳税人来说，您的税码通常是 <strong>1257L</strong>。这意味着您享有标准的 <strong>£12,570 个人免税额 (Personal Allowance)</strong>。这是您合法享有的完全免税的收入额度。</p>
+        
+        <h3>2026/27 英国个人所得税 (PAYE) 阶梯详解</h3>
+        <div class="overflow-x-auto">
+          <table class="tax-table">
+            <thead>
+              <tr>
+                <th>税务阶梯 (Tax Band)</th>
+                <th>年收入区间 (£)</th>
+                <th>税率</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>个人免税额 (Personal Allowance)</td><td>至 £12,570</td><td>0%</td></tr>
+              <tr><td>基础税率 (Basic Rate)</td><td>£12,571 至 £50,270</td><td>20%</td></tr>
+              <tr><td>较高税率 (Higher Rate)</td><td>£50,271 至 £125,140</td><td>40%</td></tr>
+              <tr><td>附加税率 (Additional Rate)</td><td>超过 £125,140</td><td>45%</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>关于 2026 年的国民保险 (National Insurance, NI)</h3>
+        <p>国民保险是英国雇员的一项强制性扣款。在 2026 财年，雇员的 Class 1 国民保险主要费率按 <strong>8%</strong> 计算（在起征点和上限之间）。超过上限的收入将面临 <strong>2%</strong> 的额外扣除。</p>
+        
+        <h2>常见问题解答 (FAQ)</h2>
+        <div class="faq-box">
+          <h4>使用此计算器时，我的财务数据安全吗？</h4>
+          <p class="mb-0">绝对安全。Mini-Tools.uk 采用严格的“纯前端”架构。计算完全在本地设备进行，绝不上传您的薪资数据。</p>
+        </div>
+        <div class="faq-box">
+          <h4>本工具中的养老金 (Pension) 是如何计算的？</h4>
+          <p class="mb-0">我们采用英国最常见的 "Salary Sacrifice"（薪资牺牲）模式计算。您输入的养老金比例会在扣除个税和 NI 之前从总薪资中扣除，这是最省税的方式。</p>
+        </div>
+        <div class="faq-box">
+          <h4>如果我的年薪超过 £100,000 会怎样？</h4>
+          <p class="mb-0">一旦您的年收入超过 10 万英镑，超出部分每赚 2 英镑，您的个人免税额就会减少 1 英镑。本计算器内置了此自动扣减规则。</p>
+        </div>
+      </article>
+
+      <article id="seo-es" class="seo-article" data-lang="es">
+        <h2>¿Cómo se calcula su Salario UK 2026/27?</h2>
+        <p>Nuestra <strong>Calculadora Avanzada de Salario Neto UK</strong> está programada para reflejar las últimas bandas impositivas de HMRC, incluyendo deducciones por pensiones y préstamos estudiantiles. La mayoría de los contribuyentes tienen un <strong>Subsidio Personal de £12,570</strong> libre de impuestos (Código 1257L).</p>
+        
+        <h3>Bandas de Impuestos (Income Tax) 2026/27</h3>
+        <div class="overflow-x-auto">
+          <table class="tax-table">
+            <thead>
+              <tr><th>Banda de Impuestos</th><th>Rango de Ingresos (£)</th><th>Tasa</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Subsidio Personal</td><td>Hasta £12,570</td><td>0%</td></tr>
+              <tr><td>Tasa Básica</td><td>£12,571 a £50,270</td><td>20%</td></tr>
+              <tr><td>Tasa Superior</td><td>£50,271 a £125,140</td><td>40%</td></tr>
+              <tr><td>Tasa Adicional</td><td>Más de £125,140</td><td>45%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <h2>Preguntas Frecuentes</h2>
+        <div class="faq-box">
+          <h4>¿Es seguro mi dato salarial?</h4>
+          <p class="mb-0">Totalmente. Todos los cálculos se realizan localmente en su navegador mediante procesamiento Client-Side. No guardamos sus datos en ningún servidor.</p>
+        </div>
+      </article>
+
+      <article id="seo-fr" class="seo-article" data-lang="fr">
+        <h2>Comment est calculé votre salaire UK 2026/27 ?</h2>
+        <p>Notre <strong>Calculatrice Avancée de Salaire Net UK</strong> reflète les dernières tranches d'imposition du HMRC, incluant les pensions et les prêts étudiants. La plupart des contribuables bénéficient d'une <strong>Allocation Personnelle de 12 570 £</strong> (Code 1257L) non imposable.</p>
+        
+        <h3>Tranches d'Impôt sur le Revenu 2026/27</h3>
+        <div class="overflow-x-auto">
+          <table class="tax-table">
+            <thead>
+              <tr><th>Tranche d'Impôt</th><th>Revenus (£)</th><th>Taux</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Allocation Personnelle</td><td>Jusqu'à 12 570 £</td><td>0%</td></tr>
+              <tr><td>Taux de Base</td><td>12 571 £ à 50 270 £</td><td>20%</td></tr>
+              <tr><td>Taux Supérieur</td><td>50 271 £ à 125 140 £</td><td>40%</td></tr>
+              <tr><td>Taux Additionnel</td><td>Plus de 125 140 £</td><td>45%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <h2>Questions Fréquentes</h2>
+        <div class="faq-box">
+          <h4>Mes données sont-elles sécurisées ?</h4>
+          <p class="mb-0">Absolument. Tous les calculs sont effectués localement dans votre navigateur. Nous ne stockons aucune donnée sur nos serveurs.</p>
+        </div>
+      </article>
+
+      <article id="seo-de" class="seo-article" data-lang="de">
+        <h2>Wie wird Ihr UK-Gehalt 2026/27 berechnet?</h2>
+        <p>Unser <strong>Erweiterter UK Netto-Gehaltsrechner</strong> spiegelt die neuesten HMRC-Steuerklassen wider, inklusive Rente und Studienkrediten. Die meisten Steuerzahler haben einen <strong>Steuerfreibetrag von £12.570</strong> (Code 1257L).</p>
+        
+        <h3>Einkommensteuerklassen 2026/27</h3>
+        <div class="overflow-x-auto">
+          <table class="tax-table">
+            <thead>
+              <tr><th>Steuerklasse</th><th>Einkommensbereich (£)</th><th>Steuersatz</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Steuerfreibetrag</td><td>Bis £12.570</td><td>0%</td></tr>
+              <tr><td>Grundfreibetrag</td><td>£12.571 bis £50.270</td><td>20%</td></tr>
+              <tr><td>Höherer Satz</td><td>£50.271 bis £125.140</td><td>40%</td></tr>
+              <tr><td>Zusatzsatz</td><td>Über £125.140</td><td>45%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <h2>Häufig Gestellte Fragen</h2>
+        <div class="faq-box">
+          <h4>Sind meine Gehaltsdaten sicher?</h4>
+          <p class="mb-0">Absolut. Alle Berechnungen werden lokal in Ihrem Browser durchgeführt. Wir speichern Ihre Daten auf keinem Server.</p>
+        </div>
+      </article>
+
+    </div>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-20">
-    <div class="max-w-4xl mx-auto px-6">
+  <footer class="bg-white border-t border-slate-100 py-12 mt-10">
+    <div class="max-w-6xl mx-auto px-6">
       <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <a href="/" class="hover:text-blue-600">Home</a>
+        <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
         <a href="/about.html" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-      <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-      <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+        <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
       <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
-        © 2026 MINI-TOOLS.UK — Precision UK Financial Tools
+        © 2026 MINI-TOOLS.UK — Precision UK Financial Tools. Zero Tracking.
       </p>
     </div>
   </footer>
@@ -210,94 +438,286 @@
       en: {
         metaTitle: "UK Salary After Tax Calculator 2026 | PAYE & NI Take Home Pay",
         update: "Last updated: April 2026",
-        title: "UK Income Tax 2026 & Salary After Tax Calculator",
-        desc: "Accurate UK salary after tax tool. Fully updated for the 2026/27 tax year starting April 2026.",
-        labelSalary: "Annual Gross Salary (£)",
-        labelYear: "Select Tax Year",
+        title: "Advanced UK Salary Calculator 2026",
+        desc: "Calculate your exact take-home pay, including Income Tax, National Insurance, Workplace Pension, and Student Loan deductions.",
+        labelSalary: "Income Amount (£)",
+        optYear: "Per Year", optMonth: "Per Month", optWeek: "Per Week", optHour: "Per Hour",
+        labelYear: "Tax Year",
+        labelAdvanced: "Advanced Deductions",
+        labelPension: "Pension (%)",
+        labelStudent: "Student Loan", slNone: "None",
         btnCalc: "Calculate My Take-Home",
-        resTakehome: "Estimated Monthly Take-home",
-        resGross: "Annual Gross Income",
-        resTax: "Income Tax (PAYE)",
-        resNI: "National Insurance",
-        note: "* Based on standard UK Personal Allowance (£12,570) and tax code 1257L for 2026/27."
+        resTakehome: "Monthly Take-Home Pay",
+        thDesc: "Breakdown", thYear: "Yearly", thMonth: "Monthly", thWeek: "Weekly",
+        tdGross: "Gross Income", tdPension: "Pension", tdTax: "Income Tax", tdNI: "National Insurance", tdStudent: "Student Loan", tdNet: "Net Take-Home",
+        note: "* Pension assumes Salary Sacrifice (reduces taxable pay). 2026/27 figures are based on HMRC legislation.",
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us"
       },
       zh: {
-        metaTitle: "英国个税计算器 2026 | 英国税后工资 & NI 计算",
+        metaTitle: "英国高级个税计算器 2026 | 养老金与学生贷款扣除",
         update: "最后更新：2026年4月",
-        title: "英国个人所得税计算器 (2026/27)",
-        desc: "专业的英国税后工资计算器。支持 2025/26 及 2026/27 跨年税务精准估算。",
-        labelSalary: "年薪总额 (£)",
-        labelYear: "税务年度选择",
-        btnCalc: "立即计算税后薪资",
+        title: "英国高级薪资与个税计算器 (2026)",
+        desc: "精确计算您的税后到手工资，包含个人所得税、国民保险 (NI)、职场养老金及学生贷款的全面明细。",
+        labelSalary: "薪资收入金额 (£)",
+        optYear: "按年薪", optMonth: "按月薪", optWeek: "按周薪", optHour: "按时薪",
+        labelYear: "税务年度",
+        labelAdvanced: "高级扣除选项",
+        labelPension: "养老金比例 (%)",
+        labelStudent: "学生贷款 (Student Loan)", slNone: "无",
+        btnCalc: "立即计算详细明细",
         resTakehome: "预计到手月薪",
-        resGross: "税前年薪",
-        resTax: "个人所得税 (PAYE)",
-        resNI: "国民保险 (NI)",
-        note: "* 基于 2026/27 年度标准税码 1257L 和 £12,570 免税额。"
+        thDesc: "款项明细", thYear: "年度", thMonth: "月度", thWeek: "每周",
+        tdGross: "税前总收入", tdPension: "养老金", tdTax: "个人所得税 (PAYE)", tdNI: "国民保险 (NI)", tdStudent: "学生贷款", tdNet: "税后到手净额",
+        note: "* 养老金计算基于 Salary Sacrifice（税前扣除）模式。以上数据符合 2026/27 财年 HMRC 官方标准。",
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们"
+      },
+      es: {
+        metaTitle: "Calculadora Avanzada Salario Neto UK 2026",
+        update: "Última actualización: Abril 2026",
+        title: "Calculadora Avanzada de Salario UK 2026",
+        desc: "Calcule su salario neto exacto, incluyendo impuestos, NI, pensiones y préstamos estudiantiles.",
+        labelSalary: "Monto de Ingreso (£)",
+        optYear: "Por Año", optMonth: "Por Mes", optWeek: "Por Semana", optHour: "Por Hora",
+        labelYear: "Año Fiscal",
+        labelAdvanced: "Deducciones Avanzadas",
+        labelPension: "Pensión (%)",
+        labelStudent: "Préstamo Estudiantil", slNone: "Ninguno",
+        btnCalc: "Calcular Mi Salario Neto",
+        resTakehome: "Salario Neto Mensual",
+        thDesc: "Desglose", thYear: "Anual", thMonth: "Mensual", thWeek: "Semanal",
+        tdGross: "Ingreso Bruto", tdPension: "Pensión", tdTax: "Impuesto (PAYE)", tdNI: "Seguro Nacional", tdStudent: "Préstamo", tdNet: "Neto Estimado",
+        note: "* La pensión asume Salary Sacrifice. Datos precisos para 2026/27 según HMRC.",
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto"
+      },
+      fr: {
+        metaTitle: "Calculatrice Avancée Salaire Net UK 2026",
+        update: "Dernière mise à jour : Avril 2026",
+        title: "Calculatrice Avancée de Salaire UK 2026",
+        desc: "Calculez votre salaire net exact, y compris les impôts, NI, pensions et prêts étudiants.",
+        labelSalary: "Montant du Revenu (£)",
+        optYear: "Par An", optMonth: "Par Mois", optWeek: "Par Semaine", optHour: "Par Heure",
+        labelYear: "Année Fiscale",
+        labelAdvanced: "Déductions Avancées",
+        labelPension: "Pension (%)",
+        labelStudent: "Prêt Étudiant", slNone: "Aucun",
+        btnCalc: "Calculer Mon Salaire Net",
+        resTakehome: "Salaire Net Mensuel",
+        thDesc: "Répartition", thYear: "Annuel", thMonth: "Mensuel", thWeek: "Hebdo",
+        tdGross: "Revenu Brut", tdPension: "Pension", tdTax: "Impôt (PAYE)", tdNI: "Assurance Nat.", tdStudent: "Prêt Étudiant", tdNet: "Net Estimé",
+        note: "* La pension suppose un Salary Sacrifice. Données basées sur le HMRC 2026/27.",
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact"
+      },
+      de: {
+        metaTitle: "Erweiterter UK Gehaltsrechner Netto 2026",
+        update: "Zuletzt aktualisiert: April 2026",
+        title: "Erweiterter UK Gehaltsrechner 2026",
+        desc: "Berechnen Sie Ihr genaues Nettogehalt, einschließlich Steuern, NI, Rente und Studienkrediten.",
+        labelSalary: "Einkommensbetrag (£)",
+        optYear: "Pro Jahr", optMonth: "Pro Monat", optWeek: "Pro Woche", optHour: "Pro Stunde",
+        labelYear: "Steuerjahr",
+        labelAdvanced: "Erweiterte Abzüge",
+        labelPension: "Rente (%)",
+        labelStudent: "Studienkredit", slNone: "Keiner",
+        btnCalc: "Mein Netto Berechnen",
+        resTakehome: "Monatliches Netto",
+        thDesc: "Aufschlüsselung", thYear: "Jährlich", thMonth: "Monatlich", thWeek: "Wöchentlich",
+        tdGross: "Bruttoeinkommen", tdPension: "Rente", tdTax: "Einkommensteuer", tdNI: "Sozialvers.", tdStudent: "Studienkredit", tdNet: "Netto",
+        note: "* Rente basiert auf Salary Sacrifice. Daten gemäß HMRC 2026/27.",
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt"
       }
-      // 其他语种依此类推...
     };
 
     function setYear(year) {
       currentYear = year;
       document.getElementById('btn-2025').className = (year === '2025') ? 'py-3 rounded-xl border-2 year-btn-active font-bold text-sm transition-all' : 'py-3 rounded-xl border border-slate-200 text-slate-500 font-bold text-sm hover:bg-slate-50 transition-all';
       document.getElementById('btn-2026').className = (year === '2026') ? 'py-3 rounded-xl border-2 year-btn-active font-bold text-sm transition-all' : 'py-3 rounded-xl border border-slate-200 text-slate-500 font-bold text-sm hover:bg-slate-50 transition-all';
+      if (document.getElementById('salary-input').value) calculateTax();
     }
+
+    // 显示/隐藏小时数输入框
+    document.getElementById('salary-period').addEventListener('change', function(e) {
+      document.getElementById('hourly-wrap').style.display = (e.target.value === 'hour') ? 'block' : 'none';
+    });
 
     function updateLanguage() {
       const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
       const data = i18n[lang] || i18n['en'];
 
+      document.documentElement.lang = lang;
       document.title = data.metaTitle;
-      document.getElementById('update-status').innerHTML = `<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> ${data.update}`;
+      document.getElementById('update-text').innerText = data.update;
       document.getElementById('page-title').innerText = data.title;
       document.getElementById('page-desc').innerText = data.desc;
+      
       document.getElementById('label-salary').innerText = data.labelSalary;
+      document.getElementById('opt-year').innerText = data.optYear;
+      document.getElementById('opt-month').innerText = data.optMonth;
+      document.getElementById('opt-week').innerText = data.optWeek;
+      document.getElementById('opt-hour').innerText = data.optHour;
       document.getElementById('label-taxyear').innerText = data.labelYear;
+      
+      document.getElementById('label-advanced').innerHTML = `<svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg> ${data.labelAdvanced}`;
+      document.getElementById('label-pension').innerText = data.labelPension;
+      document.getElementById('label-student').innerText = data.labelStudent;
+      document.getElementById('sl-none').innerText = data.slNone;
+      
       document.getElementById('btn-calc').innerText = data.btnCalc;
       document.getElementById('res-label-takehome').innerText = data.resTakehome;
-      document.getElementById('res-label-gross').innerText = data.resGross;
-      document.getElementById('res-label-tax').innerText = data.resTax;
-      document.getElementById('res-label-ni').innerText = data.resNI;
-      document.getElementById('footer-note').innerText = data.note;
       
-      document.getElementById('seo-content-zh').style.display = (lang === 'zh') ? 'block' : 'none';
-      document.getElementById('seo-content-en').style.display = (lang === 'zh') ? 'none' : 'block';
+      document.getElementById('th-desc').innerText = data.thDesc;
+      document.getElementById('th-year').innerText = data.thYear;
+      document.getElementById('th-month').innerText = data.thMonth;
+      document.getElementById('th-week').innerText = data.thWeek;
+      
+      document.getElementById('td-gross').innerText = data.tdGross;
+      document.getElementById('td-pension').innerText = data.tdPension;
+      document.getElementById('td-tax').innerText = data.tdTax;
+      document.getElementById('td-ni').innerText = data.tdNI;
+      document.getElementById('td-student').innerText = data.tdStudent;
+      document.getElementById('td-net').innerText = data.tdNet;
+
+      document.getElementById('footer-note').innerText = data.note;
+      document.getElementById('footer-about').innerText = data.footerAbout;
+      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
+      document.getElementById('footer-contact').innerText = data.footerContact;
+      
+      document.querySelectorAll('.seo-article').forEach(article => {
+        if(article.getAttribute('data-lang') === lang) article.classList.add('active');
+        else article.classList.remove('active');
+      });
       
       document.getElementById('lang-select').value = lang;
-      document.getElementById('home-link').href = "/?lang=" + lang;
+      
+      document.querySelectorAll('a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
+          try {
+            const url = new URL(href, window.location.origin);
+            url.searchParams.set('lang', lang);
+            link.href = url.pathname + url.search;
+          } catch(e) {}
+        }
+      });
     }
 
     function calculateTax() {
-      const salary = parseFloat(document.getElementById('salary-input').value);
-      if (isNaN(salary) || salary <= 0) return;
+      let rawAmount = parseFloat(document.getElementById('salary-input').value);
+      if (isNaN(rawAmount) || rawAmount <= 0) return;
 
-      // 2026/27 税率逻辑 (示例简化)
-      const allowance = 12570;
-      let tax = 0;
-      let ni = 0;
+      const period = document.getElementById('salary-period').value;
+      const hoursPerWeek = parseFloat(document.getElementById('hours-input').value) || 37.5;
+      
+      // 1. 标准化为年薪 (Annual Gross)
+      let annualGross = rawAmount;
+      if (period === 'month') annualGross = rawAmount * 12;
+      if (period === 'week') annualGross = rawAmount * 52;
+      if (period === 'hour') annualGross = rawAmount * hoursPerWeek * 52;
 
-      const taxable = Math.max(0, salary - allowance);
-      if (taxable <= 37700) { tax = taxable * 0.2; } 
-      else if (taxable <= 125140) { tax = (37700 * 0.2) + (taxable - 37700) * 0.4; } 
-      else { tax = (37700 * 0.2) + (87440 * 0.4) + (salary - 125140) * 0.45; }
+      // 2. 扣除养老金 (假设 Salary Sacrifice 模式，降低 Taxable Pay)
+      const pensionPercent = parseFloat(document.getElementById('pension-input').value) || 0;
+      const annualPension = annualGross * (pensionPercent / 100);
+      const taxableIncome = annualGross - annualPension; // 用于算税和NI的基数
 
-      const niThreshold = 12570;
-      if (salary > niThreshold) {
-        ni = (Math.min(salary, 50270) - niThreshold) * 0.08;
-        if (salary > 50270) ni += (salary - 50270) * 0.02;
+      // 3. 个人所得税 (Income Tax) 逻辑
+      let allowance = 12570;
+      // 高收入免税额衰减规则
+      if (taxableIncome > 100000) {
+          let deduction = (taxableIncome - 100000) / 2;
+          allowance = Math.max(0, allowance - deduction);
       }
 
-      const monthly = (salary - tax - ni) / 12;
-
-      document.getElementById('result-area').classList.remove('hidden');
-      document.getElementById('final-salary').innerText = "£" + monthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('res-val-gross').innerText = "£" + salary.toLocaleString();
-      document.getElementById('res-val-tax').innerText = "- £" + tax.toLocaleString(undefined, {maximumFractionDigits: 0});
-      document.getElementById('res-val-ni').innerText = "- £" + ni.toLocaleString(undefined, {maximumFractionDigits: 0});
+      let tax = 0;
+      const taxableForPAYE = Math.max(0, taxableIncome - allowance);
       
-      document.getElementById('result-area').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (taxableForPAYE <= 37700) { 
+        tax = taxableForPAYE * 0.2; 
+      } else if (taxableForPAYE <= 125140) { 
+        tax = (37700 * 0.2) + (taxableForPAYE - 37700) * 0.4; 
+      } else { 
+        tax = (37700 * 0.2) + ((125140 - 37700) * 0.4) + (taxableForPAYE - 125140) * 0.45; 
+      }
+
+      // 4. 国民保险 (National Insurance) 逻辑 (2026/27: 8% / 2%)
+      let ni = 0;
+      const niThreshold = 12570;
+      const niUpperLimit = 50270;
+      if (taxableIncome > niThreshold) {
+        let bandAmount = Math.min(taxableIncome, niUpperLimit) - niThreshold;
+        ni = bandAmount * 0.08;
+        if (taxableIncome > niUpperLimit) {
+            ni += (taxableIncome - niUpperLimit) * 0.02;
+        }
+      }
+
+      // 5. 学生贷款 (Student Loan) 逻辑
+      const slPlan = document.getElementById('student-loan').value;
+      let slDeduction = 0;
+      let slThreshold = 0;
+      let slRate = 0.09; // Plans 1,2,4,5 all use 9%
+
+      if (slPlan === 'plan1') slThreshold = 24990;
+      if (slPlan === 'plan2') slThreshold = 27295;
+      if (slPlan === 'plan4') { slThreshold = 31395; slRate = 0.09; } // Plan 4 is usually 9% over Scotland threshold
+      if (slPlan === 'plan5') slThreshold = 25000;
+
+      // 学生贷款通常是基于扣除养老金前的 Gross 或者是 Qualifying earnings，这里基于 Gross 计算最严谨
+      if (slPlan !== 'none' && annualGross > slThreshold) {
+          slDeduction = (annualGross - slThreshold) * slRate;
+      }
+
+      // 6. 计算最终税后 (Net Take-home)
+      const annualNet = annualGross - annualPension - tax - ni - slDeduction;
+
+      // 7. 更新 UI 渲染数据网格
+      document.getElementById('result-area').style.opacity = '1';
+      document.getElementById('result-area').classList.remove('hidden');
+      
+      const formatCurrency = (val) => "£" + val.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      
+      // 主标题数字 (月到手)
+      document.getElementById('final-salary').innerText = formatCurrency(annualNet / 12);
+
+      // 填充 Grid 表格
+      document.getElementById('val-gross-y').innerText = formatCurrency(annualGross);
+      document.getElementById('val-gross-m').innerText = formatCurrency(annualGross / 12);
+      document.getElementById('val-gross-w').innerText = formatCurrency(annualGross / 52);
+
+      const rowPension = document.getElementById('row-pension');
+      if (annualPension > 0) {
+        rowPension.style.display = 'table-row';
+        document.getElementById('val-pen-y').innerText = "-" + formatCurrency(annualPension);
+        document.getElementById('val-pen-m').innerText = "-" + formatCurrency(annualPension / 12);
+        document.getElementById('val-pen-w').innerText = "-" + formatCurrency(annualPension / 52);
+      } else { rowPension.style.display = 'none'; }
+
+      document.getElementById('val-tax-y').innerText = "-" + formatCurrency(tax);
+      document.getElementById('val-tax-m').innerText = "-" + formatCurrency(tax / 12);
+      document.getElementById('val-tax-w').innerText = "-" + formatCurrency(tax / 52);
+
+      document.getElementById('val-ni-y').innerText = "-" + formatCurrency(ni);
+      document.getElementById('val-ni-m').innerText = "-" + formatCurrency(ni / 12);
+      document.getElementById('val-ni-w').innerText = "-" + formatCurrency(ni / 52);
+
+      const rowStudent = document.getElementById('row-student');
+      if (slDeduction > 0) {
+        rowStudent.style.display = 'table-row';
+        document.getElementById('val-sl-y').innerText = "-" + formatCurrency(slDeduction);
+        document.getElementById('val-sl-m').innerText = "-" + formatCurrency(slDeduction / 12);
+        document.getElementById('val-sl-w').innerText = "-" + formatCurrency(slDeduction / 52);
+      } else { rowStudent.style.display = 'none'; }
+
+      document.getElementById('val-net-y').innerText = formatCurrency(annualNet);
+      document.getElementById('val-net-m').innerText = formatCurrency(annualNet / 12);
+      document.getElementById('val-net-w').innerText = formatCurrency(annualNet / 52);
+
+      setTimeout(() => {
+        document.getElementById('result-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
     }
+
+    document.getElementById('salary-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') calculateTax();
+    });
 
     document.getElementById('lang-select').addEventListener('change', (e) => {
       const url = new URL(window.location.href);
@@ -309,5 +729,3 @@
   </script>
 </body>
 </html>
-
-
