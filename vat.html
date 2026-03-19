@@ -6,7 +6,7 @@
   
   <title id="meta-title">UK VAT Calculator 2026 | Add or Remove Value Added Tax — Mini-Tools</title>
   <meta name="description" id="meta-desc" content="Free UK VAT Calculator updated for 2026. Easily add or remove VAT (20%, 5%, or custom rates). Accurate calculations based on HMRC standards. No registration required." />
-  <meta name="keywords" content="UK VAT Calculator 2026, Remove VAT calculator, Add VAT online, HMRC VAT rates, VAT inclusive to exclusive, value added tax tool UK" />
+  <meta name="keywords" content="UK VAT Calculator 2026, Remove VAT calculator, Add VAT online, HMRC VAT rates, VAT inclusive to exclusive, value added tax tool UK, invoice calculator" />
   <link rel="canonical" href="https://mini-tools.uk/vat.html" />
   
   <link rel="alternate" hreflang="en" href="https://mini-tools.uk/vat.html?lang=en" />
@@ -37,12 +37,43 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
     .updated-badge { background: #e0f2fe; color: #0369a1; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; display: inline-flex; align-items: center; gap: 4px; }
-    .result-card { background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%); color: white; }
-    .rate-btn { transition: all 0.2s; }
-    .active-rate { border-color: #2563eb; background-color: #eff6ff; color: #1e40af; border-width: 2px; }
-    .prose h2 { font-weight: 800; color: #0f172a; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
-    .vat-table th { background-color: #f1f5f9; text-align: left; padding: 12px; font-size: 0.875rem; }
-    .vat-table td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-size: 0.875rem; }
+    
+    /* Input Styling */
+    .rate-btn { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+    .active-rate { border-color: #2563eb; background-color: #eff6ff; color: #1d4ed8; border-width: 2px; }
+    
+    /* Result Card (Smart Receipt Style) */
+    .receipt-card { background: white; border: 1px solid #e2e8f0; position: relative; overflow: hidden; }
+    .receipt-header { background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%); color: white; padding: 2rem; border-radius: 1.5rem 1.5rem 0 0; }
+    .receipt-body { padding: 2rem; background: #ffffff; }
+    .receipt-row { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px dashed #cbd5e1; }
+    .receipt-row:last-child { border-bottom: none; }
+    .receipt-label { color: #64748b; font-weight: 600; font-size: 0.95rem; }
+    .receipt-value { color: #0f172a; font-weight: 800; font-size: 1.1rem; }
+    .receipt-total { border-top: 2px solid #0f172a; margin-top: 1rem; padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .receipt-total .receipt-label { color: #0f172a; font-weight: 800; font-size: 1.25rem; text-transform: uppercase; }
+    .receipt-total .receipt-value { color: #2563eb; font-weight: 900; font-size: 2rem; }
+
+    /* Multilingual SEO Article Switching */
+    .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
+    .seo-article.active { display: block; animation: fadeIn 0.5s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    /* SEO Content Typography */
+    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
+    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
+    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
+    .prose-content strong { color: #0f172a; font-weight: 700; }
+    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
+    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+    
+    .vat-table { width: 100%; border-collapse: collapse; margin: 2rem 0; background: white; border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+    .vat-table th { background-color: #f8fafc; text-align: left; padding: 1rem; font-size: 0.875rem; color: #334155; border-bottom: 2px solid #e2e8f0; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+    .vat-table td { padding: 1rem; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; color: #475569; font-weight: 600; }
+    .vat-table tr:last-child td { border-bottom: none; }
+    
+    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
+    .faq-box h4 { font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; font-size: 1.1rem; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -53,207 +84,450 @@
         <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
           <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
         </a>
-        <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        <div class="flex flex-col -mt-1 hidden sm:flex">
+          <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        </div>
       </div>
-      <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
-        <option value="en">🇬🇧 English</option>
-        <option value="zh">🇨🇳 简体中文</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="de">🇩🇪 Deutsch</option>
-      </select>
+      <div class="flex items-center gap-4">
+        <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 简体中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+        </select>
+      </div>
     </div>
   </nav>
 
-  <main class="max-w-4xl mx-auto px-6 py-12 flex-1">
+  <main class="max-w-4xl mx-auto px-6 py-12 flex-1 w-full">
     <header class="mb-10 text-center lg:text-left">
       <div class="mb-4">
         <span id="update-status" class="updated-badge">
-          <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-          HMRC Standards: 2026/27
+          <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+          <span id="update-text">HMRC Standards: 2026/27</span>
         </span>
       </div>
       <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
         UK VAT Calculator
       </h1>
       <p id="page-desc" class="text-lg text-slate-500 max-w-2xl">
-        Quickly add or remove VAT (Value Added Tax) from any amount. Optimized for UK businesses and personal use.
+        Quickly add or remove VAT (Value Added Tax) from any amount. Generates a copyable invoice receipt optimized for UK businesses.
       </p>
     </header>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-      <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
-        <div class="mb-6">
+      
+      <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden h-fit">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
+        
+        <div class="mb-6 relative z-10">
           <label id="label-amount" class="block text-sm font-bold text-slate-700 mb-2">Amount (£)</label>
-          <input type="number" id="amount-input" placeholder="0.00" class="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-xl font-bold focus:ring-2 focus:ring-blue-500 outline-none">
+          <input type="number" id="amount-input" placeholder="0.00" min="0" step="any" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-2xl font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all">
         </div>
 
-        <div class="mb-8">
+        <div class="mb-8 relative z-10">
           <label id="label-rate" class="block text-sm font-bold text-slate-700 mb-2">VAT Rate</label>
           <div class="grid grid-cols-3 gap-3">
             <button onclick="setRate(20, this)" class="rate-btn py-3 rounded-xl border-2 active-rate font-bold text-sm">20%</button>
             <button onclick="setRate(5, this)" class="rate-btn py-3 rounded-xl border border-slate-200 text-slate-600 font-bold text-sm">5%</button>
-            <input type="number" id="custom-rate" placeholder="Custom" class="py-3 px-2 rounded-xl border border-slate-200 text-center text-sm font-bold outline-none focus:border-blue-500" oninput="setRate(this.value, null)">
+            <input type="number" id="custom-rate" placeholder="Custom %" class="py-3 px-2 rounded-xl border border-slate-200 text-center text-sm font-bold outline-none focus:border-blue-500 transition-all bg-slate-50" oninput="setRate(this.value, this)">
           </div>
         </div>
 
-        <div class="flex gap-4">
-          <button id="btn-add" onclick="calculateVAT('add')" class="flex-1 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl shadow-lg shadow-blue-100 transition-all active:scale-95 text-sm uppercase">Add VAT</button>
-          <button id="btn-remove" onclick="calculateVAT('remove')" class="flex-1 py-4 bg-slate-800 hover:bg-slate-900 text-white font-black rounded-2xl shadow-lg transition-all active:scale-95 text-sm uppercase">Remove VAT</button>
+        <div class="flex flex-col sm:flex-row gap-4 relative z-10">
+          <button id="btn-add" onclick="calculateVAT('add')" class="flex-1 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl shadow-lg shadow-blue-200 transition-all transform active:scale-95 text-sm uppercase tracking-wider">
+            Add VAT
+          </button>
+          <button id="btn-remove" onclick="calculateVAT('remove')" class="flex-1 py-4 bg-slate-800 hover:bg-slate-900 text-white font-black rounded-2xl shadow-lg shadow-slate-200 transition-all transform active:scale-95 text-sm uppercase tracking-wider">
+            Remove VAT
+          </button>
         </div>
       </div>
 
-      <div id="result-area" class="result-card p-8 rounded-3xl shadow-2xl flex flex-col justify-between hidden">
-        <div>
-          <p id="res-label-total" class="text-blue-100 font-bold text-sm uppercase tracking-widest mb-1">Gross Amount (Total)</p>
-          <h2 id="final-amount" class="text-5xl font-black text-white mb-6">£0.00</h2>
-          
-          <div class="space-y-4 border-t border-white/20 pt-6 text-sm">
-            <div class="flex justify-between">
-              <span id="res-label-net" class="text-blue-100">Net Amount (Excl. VAT)</span>
-              <span id="val-net" class="font-bold">£0.00</span>
-            </div>
-            <div class="flex justify-between">
-              <span id="res-label-vat" class="text-blue-100">VAT Amount</span>
-              <span id="val-vat" class="font-bold">£0.00</span>
-            </div>
-          </div>
+      <div id="result-area" class="receipt-card rounded-3xl shadow-xl hidden opacity-0 transition-opacity duration-300">
+        <div class="receipt-header">
+          <p id="res-label-title" class="text-blue-100 font-bold text-sm uppercase tracking-widest mb-1">Invoice Breakdown</p>
+          <h2 id="final-amount" class="text-4xl md:text-5xl font-black text-white">£0.00</h2>
         </div>
-        <div class="mt-8 p-4 bg-black/10 rounded-2xl text-[10px] text-blue-50 italic">
-          * Calculated using the selected rate. Standard UK rate is 20%.
+        
+        <div class="receipt-body">
+          <div class="receipt-row">
+            <span id="res-label-net" class="receipt-label">Net Amount (Excl. VAT)</span>
+            <span id="val-net" class="receipt-value">£0.00</span>
+          </div>
+          <div class="receipt-row">
+            <span class="receipt-label"><span id="res-label-vat">VAT Amount</span> (<span id="val-rate-display">20%</span>)</span>
+            <span id="val-vat" class="receipt-value text-red-500">+ £0.00</span>
+          </div>
+          <div class="receipt-total">
+            <span id="res-label-total" class="receipt-label">Gross Total</span>
+            <span id="val-total" class="receipt-value">£0.00</span>
+          </div>
+          
+          <button id="btn-copy" class="w-full mt-8 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-all border border-slate-200 flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <span id="btn-copy-text">Copy Receipt as Text</span>
+          </button>
         </div>
       </div>
     </div>
 
-    <article class="prose max-w-none border-t border-slate-200 pt-16">
-      <div id="seo-en">
-        <h2>Understanding VAT in the UK (2026)</h2>
-        <p><strong>Value Added Tax (VAT)</strong> is a consumption tax placed on a product whenever value is added at each stage of the supply chain, from production to the point of sale. Using an <strong>online VAT calculator</strong> helps businesses and consumers quickly find the price before or after tax.</p>
+    <div class="prose-content">
+      
+      <article id="seo-en" class="seo-article" data-lang="en">
+        <h2>Understanding VAT in the UK (2026/27)</h2>
+        <p><strong>Value Added Tax (VAT)</strong> is the third-largest source of government revenue in the UK. It is a consumption tax placed on a product whenever value is added at each stage of the supply chain, from production to the point of sale. For businesses, managing invoices and ensuring the correct VAT amount is calculated is critical for compliance with HM Revenue and Customs (HMRC).</p>
+        <p>Our <strong>Advanced UK VAT Calculator</strong> is designed to completely eliminate the manual math involved in invoicing. Whether you need to reverse-engineer a Gross (VAT-inclusive) price to find the Net amount, or add standard VAT to a wholesale price, our tool provides an instant, copyable receipt.</p>
         
         <div class="overflow-x-auto my-8">
-          <table class="w-full vat-table">
+          <table class="vat-table">
             <thead>
               <tr>
-                <th>VAT Type</th>
-                <th>Rate</th>
-                <th>Typical Examples</th>
+                <th>VAT Rate Type</th>
+                <th>Current Rate</th>
+                <th>Typical Goods and Services</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Standard Rate</td>
+                <td><strong>Standard Rate</strong></td>
                 <td>20%</td>
-                <td>Most goods and services</td>
+                <td>Most everyday goods and services, including electronics, consulting services, restaurant meals, and adult clothing.</td>
               </tr>
               <tr>
-                <td>Reduced Rate</td>
+                <td><strong>Reduced Rate</strong></td>
                 <td>5%</td>
-                <td>Home energy, children's car seats</td>
+                <td>Children's car seats, domestic energy (gas/electricity), and certain mobility aids for older people.</td>
               </tr>
               <tr>
-                <td>Zero Rate</td>
+                <td><strong>Zero Rate</strong></td>
                 <td>0%</td>
-                <td>Most food, children's clothes, books</td>
+                <td>Most food (excluding hot takeaways), children's clothing and shoes, books, newspapers, and public transport.</td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <h3>How to Calculate VAT Manually?</h3>
-        <p>To <strong>add VAT</strong> to an amount, multiply the net amount by 1.20 (for 20% VAT). To <strong>remove VAT</strong> and find the original price, divide the gross amount by 1.20.</p>
-        <p>Our tool automates this process, ensuring accuracy for your invoices and accounting needs.</p>
-      </div>
+        <h3>When Do UK Businesses Need to Register for VAT?</h3>
+        <p>Not all businesses need to charge VAT. In the UK, a business must register for VAT with HMRC if its VAT-taxable turnover exceeds the <strong>VAT registration threshold</strong> (currently £90,000 for the 2026 tax year) in a rolling 12-month period. Alternatively, businesses can choose to register voluntarily, which can be beneficial if they wish to reclaim VAT on business expenses.</p>
 
-      <div id="seo-zh" style="display: none;">
-        <h2>英国增值税 (VAT) 说明</h2>
-        <p><strong>增值税 (VAT)</strong> 是英国最主要的消费税种。无论您是需要计算<strong>不含税价格</strong>还是<strong>含税总额</strong>，我们的在线工具都能为您提供即时结果。</p>
-        <h3>2026 常用增值税率</h3>
-        <ul>
-          <li><strong>标准税率 (20%)</strong>：绝大部分商品和服务。</li>
-          <li><strong>减让税率 (5%)</strong>：家庭能源、燃油等。</li>
-          <li><strong>零税率 (0%)</strong>：大部分食品、童装、书籍。</li>
-        </ul>
-        <p>使用 Mini-Tools.uk，所有计算均在本地完成，确保您的商业财务隐私。</p>
-      </div>
-    </article>
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <div class="faq-box">
+          <h4>How do I manually calculate removing 20% VAT?</h4>
+          <p class="mb-0">Removing VAT is not as simple as subtracting 20% from the total. To find the original Net amount (before VAT), you must divide the Gross total by <strong>1.20</strong>. For example, if a product costs £120 including VAT: £120 / 1.20 = £100 (Net price). Our calculator automates this logic.</p>
+        </div>
+        <div class="faq-box">
+          <h4>Is my financial calculation data private?</h4>
+          <p class="mb-0">Yes. Like all tools on Mini-Tools.uk, this VAT calculator operates entirely on your local device using <strong>Client-Side Processing</strong>. We do not store, track, or record the financial figures you input.</p>
+        </div>
+      </article>
+
+      <article id="seo-zh" class="seo-article" data-lang="zh">
+        <h2>2026年英国增值税 (VAT) 深度指南</h2>
+        <p><strong>增值税 (Value Added Tax, VAT)</strong> 是英国第三大政府收入来源，它是一种在供应链各个阶段附加的消费税。对于英国的企业主、跨境电商或自由职业者来说，在开具发票或处理报销时，准确计算并区分出商品价格中的“净额 (Net)”与“税额 (VAT)”是符合 HMRC 规定的关键要求。</p>
+        <p>我们提供的<strong>在线增值税计算器</strong>旨在彻底免去手动算税的烦恼。无论您是需要通过“倒推法”将含税总价 (Gross) 拆分为净额，还是需要在商品出厂价上加收 20% 的标准税率，我们的工具都能在瞬间生成格式工整、可一键复制的发票明细账单。</p>
+        
+        <div class="overflow-x-auto my-8">
+          <table class="vat-table">
+            <thead>
+              <tr>
+                <th>增值税类型 (VAT Type)</th>
+                <th>税率</th>
+                <th>适用商品与服务示例</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>标准税率 (Standard Rate)</strong></td>
+                <td>20%</td>
+                <td>绝大部分日常商品及服务，包含电子产品、咨询服务费、餐厅餐饮以及成人服装等。</td>
+              </tr>
+              <tr>
+                <td><strong>减让税率 (Reduced Rate)</strong></td>
+                <td>5%</td>
+                <td>家庭能源（天然气、电力）、儿童安全座椅以及特定的老年人辅助器材。</td>
+              </tr>
+              <tr>
+                <td><strong>零税率 (Zero Rate)</strong></td>
+                <td>0%</td>
+                <td>大部分未加工食品、儿童服装鞋帽、实体书籍、报纸以及公共交通票务。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>英国企业何时必须注册 VAT？</h3>
+        <p>并非所有企业开具发票都需要加收增值税。在英国，如果企业的应税营业额在连续 12 个月内超过了 <strong>VAT 注册门槛</strong>（2026 财年该门槛为 £90,000），则法律强制要求该企业向 HMRC 注册 VAT。当然，即使未达门槛，企业也可以选择自愿注册，这通常有利于抵扣企业采购成本中的进项税。</p>
+
+        <h2>常见问题解答 (FAQ)</h2>
+        <div class="faq-box">
+          <h4>我应该如何手动扣除 20% 的 VAT？</h4>
+          <p class="mb-0">扣除 VAT 的数学逻辑并不是直接减去总价的 20%。要从含税总价 (Gross) 中倒推出原始的净额 (Net)，您需要将总价除以 <strong>1.20</strong>。例如：含税总价为 £120，那么净额 = £120 / 1.20 = £100。如果您觉得手动计算容易出错，直接点击上方的“计算不含税价 (Remove VAT)”按钮即可。</p>
+        </div>
+        <div class="faq-box">
+          <h4>我的发票金额数据安全吗？</h4>
+          <p class="mb-0">绝对安全。本网站坚持“纯前端计算”原则。当您输入财务金额并点击计算时，所有的数据处理都在您的浏览器内存中完成。我们绝不会将您的商业机密数据上传到任何服务器。</p>
+        </div>
+      </article>
+
+      <article id="seo-es" class="seo-article" data-lang="es">
+        <h2>Guía del IVA (VAT) en el Reino Unido 2026</h2>
+        <p>El <strong>Impuesto al Valor Agregado (VAT)</strong> es un impuesto al consumo crucial en el Reino Unido. Para empresas y profesionales independientes (freelancers), calcular el importe exacto del IVA para facturas o recibos es vital para cumplir con las normativas de HMRC.</p>
+        <p>Nuestra <strong>Calculadora de IVA del Reino Unido</strong> elimina las matemáticas manuales de la facturación. Ya sea que necesite extraer la porción de impuestos de un precio Bruto (Gross) o añadir la tasa estándar del 20% a un precio Neto (Net), nuestra herramienta genera un recibo instantáneo y copiable.</p>
+        
+        <div class="overflow-x-auto my-8">
+          <table class="vat-table">
+            <thead>
+              <tr><th>Tipo de Tasa VAT</th><th>Tasa</th><th>Bienes y Servicios Típicos</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Tasa Estándar</strong></td><td>20%</td><td>Mayoría de bienes, electrónica, honorarios de consultoría.</td></tr>
+              <tr><td><strong>Tasa Reducida</strong></td><td>5%</td><td>Energía doméstica (gas/electricidad), asientos infantiles.</td></tr>
+              <tr><td><strong>Tasa Cero</strong></td><td>0%</td><td>Alimentos no procesados, ropa para niños, libros, transporte.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Preguntas Frecuentes (FAQ)</h2>
+        <div class="faq-box">
+          <h4>¿Cómo calculo manualmente para quitar el 20% de IVA?</h4>
+          <p class="mb-0">Para encontrar el precio Neto original, no debe restar el 20%. En su lugar, debe dividir el importe Bruto por <strong>1.20</strong>. Por ejemplo, un total de £120 dividido entre 1.20 da £100 de importe neto. Nuestra calculadora automatiza este proceso.</p>
+        </div>
+        <div class="faq-box">
+          <h4>¿Están seguros mis datos financieros?</h4>
+          <p class="mb-0">Sí. Operamos con una arquitectura 100% Client-Side. Sus cifras no se guardan ni se transmiten por internet, asegurando la privacidad total de su contabilidad.</p>
+        </div>
+      </article>
+
+      <article id="seo-fr" class="seo-article" data-lang="fr">
+        <h2>Comprendre la TVA (VAT) au Royaume-Uni en 2026</h2>
+        <p>La <strong>Taxe sur la Valeur Ajoutée (VAT)</strong> est une taxe à la consommation essentielle au Royaume-Uni. Pour les entreprises et les indépendants, calculer la part exacte de TVA sur une facture est obligatoire pour être en règle avec le HMRC.</p>
+        <p>Notre <strong>Calculatrice de TVA UK</strong> simplifie la facturation. Que vous deviez extraire la TVA d'un prix TTC (Gross) ou ajouter les 20 % standards à un prix HT (Net), notre outil génère un reçu détaillé que vous pouvez copier en un clic.</p>
+        
+        <div class="overflow-x-auto my-8">
+          <table class="vat-table">
+            <thead>
+              <tr><th>Type de Taux VAT</th><th>Taux</th><th>Exemples Typiques</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Taux Standard</strong></td><td>20%</td><td>Majorité des biens, électronique, prestations de services.</td></tr>
+              <tr><td><strong>Taux Réduit</strong></td><td>5%</td><td>Énergie domestique, sièges auto pour enfants.</td></tr>
+              <tr><td><strong>Taux Zéro</strong></td><td>0%</td><td>Aliments non transformés, vêtements pour enfants, livres.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Foire Aux Questions (FAQ)</h2>
+        <div class="faq-box">
+          <h4>Comment soustraire manuellement 20 % de TVA ?</h4>
+          <p class="mb-0">Pour retrouver le prix HT, vous ne devez pas soustraire 20 %. Vous devez diviser le montant TTC par <strong>1,20</strong>. Par exemple, 120 £ TTC / 1,20 = 100 £ HT. Cliquez simplement sur "Remove VAT" pour automatiser le calcul.</p>
+        </div>
+        <div class="faq-box">
+          <h4>Mes données comptables sont-elles privées ?</h4>
+          <p class="mb-0">Absolument. Nous n'utilisons aucun serveur pour stocker vos saisies. Tout est calculé dans la mémoire locale de votre navigateur.</p>
+        </div>
+      </article>
+
+      <article id="seo-de" class="seo-article" data-lang="de">
+        <h2>Verstehen der Mehrwertsteuer (VAT) in UK 2026</h2>
+        <p>Die <strong>Value Added Tax (VAT)</strong> ist die britische Mehrwertsteuer. Für Unternehmen und Freiberufler ist die korrekte Berechnung der VAT-Beträge auf Rechnungen entscheidend, um die HMRC-Vorschriften einzuhalten.</p>
+        <p>Unser <strong>UK VAT-Rechner</strong> macht die manuelle Mathematik überflüssig. Ob Sie die Steuer aus einem Bruttobetrag (Gross) herausrechnen oder 20% auf einen Nettobetrag aufschlagen möchten, unser Tool liefert sofort einen kopierbaren Beleg.</p>
+        
+        <div class="overflow-x-auto my-8">
+          <table class="vat-table">
+            <thead>
+              <tr><th>VAT-Satz Typ</th><th>Satz</th><th>Typische Waren & Dienstleistungen</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Standardsatz</strong></td><td>20%</td><td>Die meisten Waren, Elektronik, Dienstleistungen.</td></tr>
+              <tr><td><strong>Ermäßigter Satz</strong></td><td>5%</td><td>Haushaltsenergie, Autokindersitze.</td></tr>
+              <tr><td><strong>Nullsatz</strong></td><td>0%</td><td>Die meisten Lebensmittel, Kinderkleidung, Bücher.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Häufig Gestellte Fragen (FAQ)</h2>
+        <div class="faq-box">
+          <h4>Wie ziehe ich manuell 20% VAT ab?</h4>
+          <p class="mb-0">Um den ursprünglichen Nettopreis zu ermitteln, dürfen Sie nicht einfach 20% abziehen. Sie müssen den Bruttobetrag durch <strong>1,20</strong> teilen. Beispiel: £120 Brutto / 1,20 = £100 Netto. Unser Rechner erledigt das automatisch für Sie.</p>
+        </div>
+        <div class="faq-box">
+          <h4>Sind meine Finanzdaten sicher?</h4>
+          <p class="mb-0">Ja. Wie alle unsere Tools arbeitet dieser Rechner vollständig lokal in Ihrem Browser (Client-Side Processing). Wir speichern keine Ihrer Eingaben.</p>
+        </div>
+      </article>
+
+    </div>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-20">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <div class="flex justify-center gap-6 mb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">
-         <a href="/" class="hover:text-blue-600">Home</a>
+  <footer class="bg-white border-t border-slate-100 py-12 mt-10">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
+        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
+        </a>
         <a href="/about.html" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-      <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-      <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+        <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
-      <p class="text-[10px] text-slate-300 font-bold uppercase tracking-widest">
-        © 2026 MINI-TOOLS.UK — PRIVACY FIRST UTILITIES
+      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
+        © 2026 MINI-TOOLS.UK — Precision UK Financial Tools. Zero Tracking.
       </p>
     </div>
   </footer>
 
   <script>
+    // 1. I18N 翻译字典
     const i18n = {
       en: {
-        metaTitle: "UK VAT Calculator 2026 | Add or Remove VAT Online",
-        metaDesc: "Free UK VAT Calculator for 2026. Easily add or remove VAT (20%, 5%). Accurate HMRC standard calculations.",
-        update: "HMRC Standards: 2026/27",
+        metaTitle: "UK VAT Calculator 2026 | Add or Remove Value Added Tax",
+        metaDesc: "Free UK VAT Calculator updated for 2026. Easily add or remove VAT (20%, 5%, or custom rates). Accurate calculations based on HMRC standards.",
         title: "UK VAT Calculator", 
-        desc: "Quickly add or remove VAT (Value Added Tax) from any amount. Optimized for UK businesses.",
+        desc: "Quickly add or remove VAT (Value Added Tax) from any amount. Generates a copyable invoice receipt optimized for UK businesses.",
         labelAmount: "Amount (£)", labelRate: "VAT Rate",
         btnAdd: "Add VAT", btnRemove: "Remove VAT",
-        resTotal: "Gross Amount (Total)", resNet: "Net Amount (Excl. VAT)", resVAT: "VAT Amount"
+        resTitleAdd: "VAT Added Receipt", resTitleRem: "VAT Removed Receipt",
+        resTotal: "Gross Total", resNet: "Net Amount (Excl. VAT)", resVAT: "VAT Amount",
+        btnCopy: "Copy Receipt as Text", btnCopied: "Receipt Copied!",
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us"
       },
       zh: {
-        metaTitle: "英国增值税计算器 2026 | 快速加税/减税工具",
-        metaDesc: "免费英国 VAT 增值税计算器。支持标准税率 20% 及 5%，符合 2026 HMRC 标准。",
-        update: "税务标准：2026/27",
+        metaTitle: "英国增值税计算器 2026 | 快速加税/退税计算 (VAT)",
+        metaDesc: "免费英国 VAT 增值税计算器。支持标准税率 20% 及 5%，一键生成发票明细，符合 2026 HMRC 官方标准。",
         title: "增值税计算器 (VAT)", 
-        desc: "快速添加或扣除增值税。专为英国小企业和个人用户优化。",
-        labelAmount: "金额 (£)", labelRate: "增值税率",
-        btnAdd: "计算含税价", btnRemove: "计算不含税价",
-        resTotal: "总额 (含税)", resNet: "净额 (不含税)", resVAT: "税额"
+        desc: "快速计算含税价或不含税价。自动生成专为英国商业优化的发票明细表，可一键复制账单。",
+        labelAmount: "计算金额 (£)", labelRate: "增值税率 (VAT)",
+        btnAdd: "计算含税价 (Add)", btnRemove: "计算不含税价 (Remove)",
+        resTitleAdd: "含税计算明细单", resTitleRem: "扣税计算明细单",
+        resTotal: "总额 (Gross)", resNet: "净额 (Net)", resVAT: "增值税额 (VAT)",
+        btnCopy: "一键复制明细", btnCopied: "明细已复制！",
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们"
       },
-      // ... es, fr, de 可根据需要补充
+      es: {
+        metaTitle: "Calculadora de IVA UK 2026 | Añadir o Quitar VAT",
+        metaDesc: "Calculadora de IVA gratuita actualizada para 2026. Añade o quita el 20% de VAT fácilmente.",
+        title: "Calculadora de IVA (VAT)", 
+        desc: "Añade o quita el IVA rápidamente de cualquier cantidad. Genera un recibo copiable para facturas.",
+        labelAmount: "Cantidad (£)", labelRate: "Tasa de IVA",
+        btnAdd: "Añadir IVA", btnRemove: "Quitar IVA",
+        resTitleAdd: "Recibo (IVA Añadido)", resTitleRem: "Recibo (IVA Extraído)",
+        resTotal: "Total Bruto", resNet: "Importe Neto", resVAT: "Importe IVA",
+        btnCopy: "Copiar Recibo", btnCopied: "¡Copiado!",
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto"
+      },
+      fr: {
+        metaTitle: "Calculatrice TVA UK 2026 | Ajouter ou Enlever la VAT",
+        metaDesc: "Calculatrice de TVA gratuite pour 2026. Ajoutez ou retirez 20% de TVA facilement.",
+        title: "Calculatrice de TVA UK", 
+        desc: "Ajoutez ou retirez rapidement la TVA de n'importe quel montant. Génère un reçu copiable.",
+        labelAmount: "Montant (£)", labelRate: "Taux de TVA",
+        btnAdd: "Ajouter TVA", btnRemove: "Enlever TVA",
+        resTitleAdd: "Reçu (TVA Ajoutée)", resTitleRem: "Reçu (TVA Retirée)",
+        resTotal: "Total TTC (Gross)", resNet: "Montant HT (Net)", resVAT: "Montant TVA",
+        btnCopy: "Copier le Reçu", btnCopied: "Copié !",
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact"
+      },
+      de: {
+        metaTitle: "UK Mehrwertsteuer-Rechner 2026 | VAT Hinzufügen/Abziehen",
+        metaDesc: "Kostenloser UK VAT Rechner für 2026. 20% VAT einfach hinzufügen oder abziehen.",
+        title: "UK VAT-Rechner", 
+        desc: "Fügen Sie VAT schnell hinzu oder ziehen Sie sie ab. Generiert einen kopierbaren Beleg für Rechnungen.",
+        labelAmount: "Betrag (£)", labelRate: "VAT-Satz",
+        btnAdd: "VAT Hinzufügen", btnRemove: "VAT Abziehen",
+        resTitleAdd: "Beleg (VAT Hinzugefügt)", resTitleRem: "Beleg (VAT Abgezogen)",
+        resTotal: "Bruttosumme", resNet: "Nettobetrag", resVAT: "VAT-Betrag",
+        btnCopy: "Beleg Kopieren", btnCopied: "Kopiert!",
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt"
+      }
     };
 
     let currentRate = 20;
-
-    function getLang() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('lang') || 'en';
-    }
+    let currentMode = 'add'; // 记住当前计算模式以供复制使用
+    let lastResults = {};
 
     function updateLanguage() {
-      const lang = getLang();
+      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
       const data = i18n[lang] || i18n['en'];
       
+      document.documentElement.lang = lang;
       document.title = data.metaTitle;
-      document.getElementById('update-status').innerHTML = `<span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span> ${data.update}`;
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+      
       document.getElementById('page-title').innerText = data.title;
       document.getElementById('page-desc').innerText = data.desc;
       document.getElementById('label-amount').innerText = data.labelAmount;
       document.getElementById('label-rate').innerText = data.labelRate;
       document.getElementById('btn-add').innerText = data.btnAdd;
       document.getElementById('btn-remove').innerText = data.btnRemove;
+      
       document.getElementById('res-label-total').innerText = data.resTotal;
       document.getElementById('res-label-net').innerText = data.resNet;
       document.getElementById('res-label-vat').innerText = data.resVAT;
+      document.getElementById('btn-copy-text').innerText = data.btnCopy;
       
-      document.getElementById('seo-zh').style.display = (lang === 'zh') ? 'block' : 'none';
-      document.getElementById('seo-en').style.display = (lang === 'zh') ? 'none' : 'block';
+      document.getElementById('footer-about').innerText = data.footerAbout;
+      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
+      document.getElementById('footer-contact').innerText = data.footerContact;
+      
+      // Toggle SEO content visibility based on language
+      document.querySelectorAll('.seo-article').forEach(article => {
+        if(article.getAttribute('data-lang') === lang) {
+          article.classList.add('active');
+        } else {
+          article.classList.remove('active');
+        }
+      });
 
       document.getElementById('lang-select').value = lang;
-      document.getElementById('home-link').href = "/?lang=" + lang;
+      
+      // Update all relative links to keep the lang parameter
+      document.querySelectorAll('a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
+          try {
+            const url = new URL(href, window.location.origin);
+            url.searchParams.set('lang', lang);
+            link.href = url.pathname + url.search;
+          } catch(e) {}
+        }
+      });
+      
+      // Re-render result label if data exists
+      if(lastResults.total) {
+          document.getElementById('res-label-title').innerText = (currentMode === 'add') ? data.resTitleAdd : data.resTitleRem;
+      }
     }
 
-    function setRate(rate, btn) {
+    // Rate Selection Logic
+    function setRate(rate, btnElement) {
       currentRate = parseFloat(rate) || 0;
-      document.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('active-rate', 'border-2'));
-      if (btn) btn.classList.add('active-rate', 'border-2');
+      
+      // Remove active class from all buttons
+      document.querySelectorAll('.rate-btn').forEach(btn => {
+        btn.classList.remove('active-rate', 'border-2');
+        if(btn.tagName === 'BUTTON') {
+           btn.className = 'rate-btn py-3 rounded-xl border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50';
+        }
+      });
+      
+      // Add active class to clicked button
+      if (btnElement && btnElement.tagName === 'BUTTON') {
+        btnElement.className = 'rate-btn py-3 rounded-xl border-2 active-rate font-bold text-sm';
+        document.getElementById('custom-rate').value = ''; // clear custom input
+      } else {
+        // If typing in custom input, highlight the input box
+        document.getElementById('custom-rate').classList.add('active-rate', 'border-2');
+      }
+      
+      // Re-calculate immediately if an amount is already entered
+      const amount = parseFloat(document.getElementById('amount-input').value);
+      if (amount > 0) calculateVAT(currentMode);
     }
 
+    // Calculation Logic
     function calculateVAT(mode) {
+      currentMode = mode;
       const amount = parseFloat(document.getElementById('amount-input').value);
       if (isNaN(amount) || amount <= 0) return;
 
@@ -265,18 +539,63 @@
         vat = amount * rateFactor;
         total = net + vat;
       } else {
+        // Remove Mode
         total = amount;
         net = amount / (1 + rateFactor);
         vat = total - net;
       }
 
-      document.getElementById('result-area').classList.remove('hidden');
-      document.getElementById('final-amount').innerText = "£" + total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('val-net').innerText = "£" + net.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('val-vat').innerText = "£" + vat.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      // Store globally for copy function
+      lastResults = { net, vat, total, rate: currentRate };
+
+      // Update UI
+      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+      const dict = i18n[lang] || i18n['en'];
       
-      document.getElementById('result-area').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const resArea = document.getElementById('result-area');
+      resArea.style.display = 'block';
+      setTimeout(() => resArea.style.opacity = '1', 50); // Fade in effect
+      
+      document.getElementById('res-label-title').innerText = (mode === 'add') ? dict.resTitleAdd : dict.resTitleRem;
+      document.getElementById('val-rate-display').innerText = currentRate + '%';
+      
+      document.getElementById('final-amount').innerText = "£" + total.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('val-net').innerText = "£" + net.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('val-vat').innerText = (mode === 'add' ? "+ £" : "£") + vat.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     }
+
+    // Copy Receipt Logic (Killer Feature)
+    document.getElementById('btn-copy').addEventListener('click', () => {
+      if(!lastResults.total) return;
+      
+      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+      const dict = i18n[lang] || i18n['en'];
+      
+      // Format as a neat text receipt
+      const formatVal = (val) => "£" + val.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      
+      const receiptText = `--- VAT BREAKDOWN (${lastResults.rate}%) ---\n` +
+                          `${dict.resNet}: ${formatVal(lastResults.net)}\n` +
+                          `${dict.resVAT}: ${formatVal(lastResults.vat)}\n` +
+                          `-----------------------------\n` +
+                          `${dict.resTotal}: ${formatVal(lastResults.total)}\n` +
+                          `Generated by Mini-Tools.uk`;
+
+      navigator.clipboard.writeText(receiptText).then(() => {
+        const btnTextNode = document.getElementById('btn-copy-text');
+        const originalText = btnTextNode.innerText;
+        btnTextNode.innerText = dict.btnCopied;
+        
+        setTimeout(() => {
+          btnTextNode.innerText = originalText;
+        }, 2000);
+      });
+    });
+
+    // Listen for Enter key
+    document.getElementById('amount-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') calculateVAT(currentMode); // Use last active mode
+    });
 
     document.getElementById('lang-select').addEventListener('change', (e) => {
       const url = new URL(window.location.href);
@@ -288,4 +607,3 @@
   </script>
 </body>
 </html>
-
