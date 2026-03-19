@@ -34,37 +34,67 @@
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
     .drop-zone { border: 3px dashed #e2e8f0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     .drop-zone.active { border-color: #2563eb; background-color: #eff6ff; transform: scale(1.01); }
-    input[type=range] { -webkit-appearance: none; background: #e2e8f0; height: 6px; border-radius: 5px; }
-    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; background: #2563eb; border-radius: 50%; cursor: pointer; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    .prose h2 { font-weight: 800; color: #0f172a; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
-    canvas { display: none; }
+    
+    input[type=range] { -webkit-appearance: none; background: #e2e8f0; height: 6px; border-radius: 5px; width: 100%; outline: none;}
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; background: #2563eb; border-radius: 50%; cursor: pointer; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.1s;}
+    input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+    
     .active-fmt { background-color: #2563eb !important; color: white !important; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
+    
+    /* Image Comparison Slider Styles */
+    .compare-wrapper { position: relative; width: 100%; height: 400px; overflow: hidden; border-radius: 1.5rem; background-color: #e2e8f0; cursor: ew-resize; user-select: none; }
+    .compare-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+    .compare-overlay { position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden; border-right: 2px solid white; z-index: 10; }
+    .compare-overlay img { position: absolute; top: 0; left: 0; width: 100vw; height: 100%; object-fit: contain; } /* width adjusted via JS */
+    .compare-handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 20; pointer-events: none; }
+    .compare-badge { position: absolute; bottom: 16px; padding: 4px 12px; border-radius: 8px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; backdrop-filter: blur(4px); z-index: 30;}
+    .badge-left { left: 16px; background: rgba(255,255,255,0.8); color: #0f172a; }
+    .badge-right { right: 16px; background: rgba(37,99,235,0.8); color: white; }
+
+    canvas { display: none; }
+    
+    /* SEO Article Styles */
+    .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
+    .seo-article.active { display: block; animation: fadeIn 0.5s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
+    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
+    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
+    .prose-content strong { color: #0f172a; font-weight: 700; }
+    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
+    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
+    .faq-box h4 { font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; font-size: 1.1rem; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
   <nav class="bg-white border-b border-slate-200 shrink-0 sticky top-0 z-50 backdrop-blur-md bg-white/90">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
-    <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
-  <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
-</a>
-        <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
+        </a>
+        <div class="flex flex-col -mt-1 hidden sm:flex">
+          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        </div>
       </div>
-      <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500">
-        <option value="en">🇬🇧 English</option>
-        <option value="zh">🇨🇳 简体中文</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="de">🇩🇪 Deutsch</option>
-      </select>
+      <div class="flex items-center gap-4">
+        <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 简体中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+        </select>
+      </div>
     </div>
   </nav>
 
-  <main class="max-w-5xl mx-auto px-6 py-12 flex-1">
+  <main class="max-w-[1400px] mx-auto px-6 py-8 flex-1 w-full">
     <header class="mb-10 text-center">
       <div class="mb-4">
-        <span class="bg-blue-50 text-blue-600 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter shadow-sm border border-blue-100">
+        <span class="bg-blue-50 text-blue-600 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-sm border border-blue-100" id="badge-privacy">
           ⚡ 100% Client-Side • Privacy Protected
         </span>
       </div>
@@ -76,43 +106,60 @@
       </p>
     </header>
 
-    <div class="grid grid-cols-1 lg:grid-cols-[1fr,350px] gap-8 mb-20">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr,380px] gap-8 mb-20">
+      
       <div class="space-y-6">
-        <div id="drop-area" class="drop-zone bg-white rounded-[2.5rem] p-12 text-center cursor-pointer shadow-sm min-h-[400px] flex flex-col items-center justify-center">
-          <input type="file" id="file-input" accept="image/*" class="hidden">
+        <div id="drop-area" class="drop-zone bg-white rounded-3xl p-8 text-center cursor-pointer shadow-sm min-h-[450px] flex flex-col items-center justify-center relative overflow-hidden">
+          <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" class="hidden">
           
-          <div id="upload-placeholder" class="animate-in fade-in zoom-in duration-300">
-            <div class="w-20 h-20 bg-blue-50 rounded-3xl flex items-center justify-center mb-6 text-blue-600 mx-auto shadow-inner">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div id="upload-placeholder" class="animate-in fade-in zoom-in duration-300 pointer-events-none">
+            <div class="w-24 h-24 bg-blue-50 rounded-[2rem] flex items-center justify-center mb-6 text-blue-600 mx-auto shadow-inner">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
             <h3 id="label-upload" class="text-2xl font-black text-slate-900">Select or Drag Image</h3>
-            <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-3">High-quality JPG, PNG, or WebP</p>
+            <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-3" id="label-formats">High-quality JPG, PNG, or WebP</p>
           </div>
 
-          <div id="preview-container" class="hidden w-full animate-in fade-in slide-in-from-bottom-4">
-            <div class="relative group inline-block">
-                <img id="img-preview" class="max-h-[450px] mx-auto rounded-3xl shadow-2xl border-8 border-white">
-                <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl pointer-events-none"></div>
-            </div>
-            <div class="flex justify-center gap-8 mt-8 text-[11px] font-black uppercase tracking-widest text-slate-400">
-              <div class="flex flex-col gap-1">
-                  <span>Original Size</span>
-                  <span id="size-orig" class="text-slate-900 text-lg">0 KB</span>
+          <div id="preview-container" class="hidden w-full h-full absolute inset-0 animate-in fade-in">
+            <div class="compare-wrapper" id="compare-wrapper">
+              <img id="img-after" class="compare-img" alt="Optimized Preview">
+              <div class="compare-badge badge-right">Optimized</div>
+              
+              <div class="compare-overlay" id="compare-overlay">
+                <img id="img-before" alt="Original Image">
+                <div class="compare-badge badge-left">Original</div>
               </div>
-              <div class="w-px bg-slate-200 h-10"></div>
-              <div class="flex flex-col gap-1">
-                  <span>Optimized Size</span>
-                  <span id="size-new" class="text-blue-600 text-lg">0 KB</span>
+              
+              <div class="compare-handle" id="compare-handle">
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 9l-3 3m0 0l3 3m-3-3h14m0 0l-3-3m3 3l-3 3"></path></svg>
               </div>
             </div>
           </div>
         </div>
+        
+        <div id="stats-bar" class="hidden bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4 text-sm font-black">
+                <div class="bg-slate-100 px-4 py-2 rounded-xl text-slate-500">
+                    <span class="uppercase tracking-widest text-[10px] block mb-1">Original</span>
+                    <span id="size-orig">0 KB</span>
+                </div>
+                <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                <div class="bg-blue-50 px-4 py-2 rounded-xl text-blue-600">
+                    <span class="uppercase tracking-widest text-[10px] block mb-1">Optimized</span>
+                    <span id="size-new">0 KB</span>
+                </div>
+            </div>
+            <div class="bg-green-100 text-green-700 px-4 py-2.5 rounded-xl font-black text-sm flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                Saved <span id="size-saved">0%</span>
+            </div>
+        </div>
       </div>
 
       <div class="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/50 space-y-8 h-fit sticky top-28">
-        <div class="flex items-center gap-2 border-b border-slate-100 pb-5">
+        <div class="flex items-center gap-2 border-b border-slate-100 pb-4">
             <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
             <h4 id="label-settings" class="text-xs font-black text-slate-900 uppercase tracking-widest">Tuning Settings</h4>
         </div>
@@ -120,17 +167,17 @@
         <div class="space-y-5">
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="text-[10px] font-black text-slate-400 uppercase mb-2 block tracking-tighter">Width (px)</label>
+              <label class="text-[10px] font-black text-slate-400 uppercase mb-2 block tracking-widest" id="label-w">Width (px)</label>
               <input type="number" id="input-w" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-blue-500 transition-all">
             </div>
             <div>
-              <label class="text-[10px] font-black text-slate-400 uppercase mb-2 block tracking-tighter">Height (px)</label>
+              <label class="text-[10px] font-black text-slate-400 uppercase mb-2 block tracking-widest" id="label-h">Height (px)</label>
               <input type="number" id="input-h" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-blue-500 transition-all">
             </div>
           </div>
           <label class="flex items-center gap-3 cursor-pointer group">
             <div class="relative">
-                <input type="checkbox" id="chk-ratio" checked class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all">
+                <input type="checkbox" id="chk-ratio" checked class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
             </div>
             <span id="label-ratio" class="text-xs font-bold text-slate-600 group-hover:text-blue-600 transition-colors">Lock Aspect Ratio</span>
           </label>
@@ -139,81 +186,104 @@
         <div>
           <div class="flex justify-between mb-4">
             <label id="label-quality" class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Compression Quality</label>
-            <span id="quality-val" class="text-blue-600 font-black text-sm">80%</span>
+            <span id="quality-val" class="text-blue-600 font-black text-sm bg-blue-50 px-2 py-0.5 rounded">80%</span>
           </div>
-          <input type="range" id="input-quality" min="5" max="100" value="80" class="w-full cursor-pointer" oninput="updateSettings()">
+          <input type="range" id="input-quality" min="5" max="100" value="80" oninput="updateSettings()">
         </div>
 
         <div>
           <label id="label-format" class="text-[10px] font-black text-slate-400 uppercase mb-3 block tracking-widest">Export Format</label>
           <div class="grid grid-cols-3 gap-2">
-            <button onclick="setFormat('image/jpeg', this)" class="fmt-btn px-2 py-3 rounded-xl bg-slate-50 text-slate-600 font-black text-[11px] border border-slate-100 active-fmt transition-all">JPG</button>
+            <button onclick="setFormat('image/jpeg', this)" class="fmt-btn px-2 py-3 rounded-xl bg-slate-50 text-slate-600 font-black text-[11px] border border-slate-100 transition-all">JPG</button>
             <button onclick="setFormat('image/png', this)" class="fmt-btn px-2 py-3 rounded-xl bg-slate-50 text-slate-600 font-black text-[11px] border border-slate-100 transition-all">PNG</button>
-            <button onclick="setFormat('image/webp', this)" class="fmt-btn px-2 py-3 rounded-xl bg-slate-50 text-slate-600 font-black text-[11px] border border-slate-100 transition-all">WEBP</button>
+            <button onclick="setFormat('image/webp', this)" class="fmt-btn px-2 py-3 rounded-xl bg-slate-50 text-slate-600 font-black text-[11px] border border-slate-100 active-fmt transition-all">WEBP</button>
           </div>
         </div>
 
-        <button id="btn-download" onclick="downloadImage()" class="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl shadow-xl shadow-blue-100 transition-all active:scale-95 flex items-center justify-center gap-2 text-sm uppercase tracking-widest">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+        <button id="btn-download" onclick="downloadImage()" class="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl shadow-xl shadow-blue-500/30 transition-all active:scale-95 flex items-center justify-center gap-2 text-sm uppercase tracking-widest mt-4">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/></svg>
           <span id="label-btn-down">Download Optimized</span>
         </button>
       </div>
     </div>
 
-    <article class="prose max-w-none border-t border-slate-200 pt-16">
-      <div id="seo-en">
+    <div class="prose-content max-w-4xl mx-auto w-full">
+      
+      <article id="seo-en" class="seo-article" data-lang="en">
         <h2>Professional Image Compression for the Modern Web</h2>
-        <p>Large images are the primary cause of slow website performance. Our <strong>online image resizer</strong> utilizes advanced canvas rendering to reduce file size without sacrificing clarity. Optimized for 2026 standards, we support <strong>WebP</strong>—the format Google loves for superior SEO performance.</p>
+        <p>Large, unoptimized images are the primary cause of slow website performance. In the era of Core Web Vitals, a slow website means lower search engine rankings and frustrated users. Our <strong>online image resizer and optimizer</strong> utilizes advanced HTML5 Canvas rendering to reduce file size without sacrificing visual clarity.</p>
         
-        <figure class="my-10 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-100 group">
-          <img src="http://googleusercontent.com/image_collection/image_retrieval/1606738885023761180_0" 
-               alt="Comparison of image compression showing file size reduction while maintaining quality" 
-               class="w-full h-auto transition-transform duration-700 group-hover:scale-105">
-          <figcaption class="text-center text-[11px] font-bold text-slate-400 py-4 bg-slate-50/50 uppercase tracking-widest">
-            Visual Proof: Original (left) vs. 80% Compressed (right)
-          </figcaption>
-        </figure>
+        <h3>Why we highly recommend the WebP format</h3>
+        <p>While JPG and PNG have been the internet standards for decades, <strong>WebP</strong> (developed by Google) provides vastly superior lossless and lossy compression. On average, WebP images are 26% smaller in size compared to PNGs and 34% smaller than comparable JPEGs. Our tool allows you to convert any image into WebP with a single click, instantly boosting your website's loading speed.</p>
         
-        <h3>Why Mini-Tools is Different?</h3>
-        <p>Unlike other tools that send your data to remote servers, we process everything on the <strong>client-side</strong>. Your photos stay on your device, making this the most secure way to handle private documents or personal photos.</p>
-      </div>
+        <h3>Why Mini-Tools is Different: The Privacy Guarantee</h3>
+        <p>Have you ever noticed that most "free" image compressors require you to upload your photos, wait for a progress bar, and then download them from a temporary link? That means your private photos (or your clients' confidential documents) are sitting on a remote server. <strong>We do things differently.</strong> We process everything on the <strong>client-side</strong> using JavaScript directly inside your browser. Your photos never leave your device, making this the most secure way to handle private documents.</p>
+      </article>
 
-      <div id="seo-zh" style="display: none;">
+      <article id="seo-zh" class="seo-article" data-lang="zh">
         <h2>为什么选择 Mini-Tools 进行图片调优？</h2>
-        <p>过大的图片是影响网页加载速度的核心因素。我们的工具采用 <strong>Web Crypto API</strong> 级别的隐私标准，所有图片均在浏览器本地处理，绝不上传云端。</p>
+        <p>过大的图片是拖慢网页加载速度、消耗移动端流量的核心元凶。无论是用于跨境电商的商品图，还是用于自媒体的文章配图，压缩图片体积都是必修课。我们的工具采用业界先进的纯前端渲染技术，在不妥协肉眼画质的前提下，帮您极速“瘦身”。</p>
         
-        <figure class="my-10 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-100 group">
-          <img src="http://googleusercontent.com/image_collection/image_retrieval/1606738885023761180_0" 
-               alt="图片压缩对比展示，在保证清晰度的同时显著减小文件体积" 
-               class="w-full h-auto transition-transform duration-700 group-hover:scale-105">
-          <figcaption class="text-center text-[11px] font-bold text-slate-400 py-4 bg-slate-50/50 uppercase tracking-widest">
-            效果对比：原图 vs WebP 80% 质量压缩
-          </figcaption>
-        </figure>
+        <h3>全新互动式“双重视窗”对比</h3>
+        <p>市面上的压缩工具通常只会丢给您一个冰冷的“压缩后体积”。而在本站，当您上传图片后，您可以拖动中间的滑块，<strong>实时对比原图与压缩后的画质差异</strong>。让您在“画质”与“体积”之间找到最完美的平衡点，拒绝盲目压缩导致的马赛克模糊。</p>
 
-        <h3>核心优势</h3>
+        <h3>核心优势：全面拥抱 WebP 与极致隐私</h3>
         <ul>
-          <li><strong>格式转换</strong>：一键将 JPG/PNG 转换为高效的 WebP 格式，平均体积减少 35%。</li>
-          <li><strong>隐私安全</strong>：本地 JS 引擎渲染，适合处理身份证、发票等敏感资料。</li>
-          <li><strong>零损调整</strong>：支持等比例锁定，防止图片拉伸变形。</li>
+          <li><strong>格式降维打击</strong>：强烈建议您使用本工具一键将 JPG/PNG 转换为 Google 主推的 <strong>WebP 格式</strong>。在同等肉眼画质下，WebP 能比传统格式再缩小至少 30% 的体积，直接拉升网页 SEO 评分。</li>
+          <li><strong>零信任架构 (绝对隐私)</strong>：处理身份证扫描件、商业发票等敏感资料时，绝不能使用会上传数据的在线压缩网。我们的工具 100% 在您的本地浏览器内存中计算，绝无任何网络请求，保护您的隐私绝对安全。</li>
         </ul>
-        <p>计算公式参考：$$\text{New Size} \approx \text{Old Size} \times \text{Quality} \times \text{Format Factor}$$</p>
-      </div>
-    </article>
+      </article>
+
+      <article id="seo-es" class="seo-article" data-lang="es">
+        <h2>Compresión de Imágenes Profesional 100% Privada</h2>
+        <p>Las imágenes pesadas son la causa principal de sitios web lentos. Nuestro <strong>optimizador y redimensionador de imágenes</strong> utiliza renderizado HTML5 avanzado para reducir el tamaño del archivo sin perder claridad visual. Todo ocurre en su dispositivo.</p>
+        
+        <h3>¿Por qué recomendamos el formato WebP?</h3>
+        <p>Mientras que JPG y PNG son estándares, <strong>WebP</strong> (creado por Google) ofrece una compresión muy superior. En promedio, los archivos WebP son un 30% más pequeños que los JPG comparables. Nuestra herramienta convierte sus fotos a WebP con un clic.</p>
+
+        <h3>Vista Previa Interactiva</h3>
+        <p>A diferencia de otras herramientas, le ofrecemos un deslizador (Before / After Slider) para que pueda comparar la calidad de la imagen original con la versión comprimida en tiempo real antes de descargarla.</p>
+      </article>
+
+      <article id="seo-fr" class="seo-article" data-lang="fr">
+        <h2>Compression d'Images Professionnelle et Privée</h2>
+        <p>Les images non optimisées ralentissent considérablement les sites web. Notre <strong>redimensionneur d'images</strong> utilise le rendu HTML5 pour réduire la taille des fichiers sans sacrifier la netteté. Le tout fonctionne à 100% sur votre appareil.</p>
+        
+        <h3>Pourquoi choisir le format WebP ?</h3>
+        <p>Développé par Google, le <strong>WebP</strong> offre une compression largement supérieure au JPG ou PNG (environ 30% plus léger à qualité égale). C'est le format idéal pour améliorer le SEO et le temps de chargement de votre site.</p>
+
+        <h3>Garantie de Confidentialité</h3>
+        <p>Nous ne téléchargeons jamais vos photos sur nos serveurs. Idéal pour traiter des documents sensibles (pièces d'identité, contrats) en toute sécurité depuis votre navigateur.</p>
+      </article>
+
+      <article id="seo-de" class="seo-article" data-lang="de">
+        <h2>Professionelle & Private Bildkomprimierung</h2>
+        <p>Große, unoptimierte Bilder sind die Hauptursache für langsame Websites. Unser <strong>Bildgrößenänderer</strong> reduziert die Dateigröße ohne sichtbaren Qualitätsverlust, und das 100% lokal in Ihrem Browser.</p>
+        
+        <h3>Warum WebP das Format der Zukunft ist</h3>
+        <p>Während JPG und PNG seit Jahrzehnten Standard sind, bietet <strong>WebP</strong> (von Google) eine deutlich überlegene Komprimierung. WebP-Bilder sind durchschnittlich 30% kleiner als vergleichbare JPGs. Ideal für SEO und Ladezeiten.</p>
+
+        <h3>Live-Vergleichs-Slider</h3>
+        <p>Wir bieten einen interaktiven Vorher/Nachher-Schieberegler. Vergleichen Sie die Qualität des Originalbildes in Echtzeit mit der komprimierten Version, bevor Sie es herunterladen.</p>
+      </article>
+
+    </div>
   </main>
 
   <canvas id="main-canvas"></canvas>
 
-  <footer class="bg-white border-t border-slate-100 py-12">
-    <div class="max-w-7xl mx-auto px-6 text-center">
+  <footer class="bg-white border-t border-slate-100 py-12 mt-10 w-full">
+    <div class="max-w-[1400px] mx-auto px-6 text-center">
       <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <a href="/" class="hover:text-blue-600">Home</a>
+        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
+        </a>
         <a href="/about.html" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-      <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-      <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+        <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
-      <p class="text-[10px] text-slate-300 font-black uppercase tracking-[0.2em]">
-        © 2026 MINI-TOOLS.UK — SECURE IMAGE TUNING
+      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
+        © 2026 MINI-TOOLS.UK — SECURE CLIENT-SIDE IMAGE TUNING
       </p>
     </div>
   </footer>
@@ -223,55 +293,136 @@
       en: {
         metaTitle: "Free Online Image Resizer & Optimizer 2026 | Resize JPG, PNG, WebP",
         metaDesc: "Resize and compress images instantly in your browser. 100% private, no server uploads. Adjust quality and format for better SEO performance.",
+        badge: "⚡ 100% Client-Side • Privacy Protected",
         title: "Image Resizer & Optimizer", 
-        desc: "Adjust dimensions and reduce file size without losing clarity.",
-        upload: "Select or Drag Image", settings: "Tuning Settings",
+        desc: "Adjust dimensions and reduce file size without losing clarity. Fast, secure, and professional.",
+        upload: "Select or Drag Image", formats: "High-quality JPG, PNG, or WebP",
+        settings: "Tuning Settings",
+        labelW: "Width (px)", labelH: "Height (px)",
         ratio: "Lock Aspect Ratio", quality: "Compression Quality", format: "Export Format",
-        btnDown: "Download Optimized"
+        btnDown: "Download Optimized",
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us"
       },
       zh: {
         metaTitle: "免费在线图片尺寸修改与优化器 | 压缩 JPG, PNG, WebP — Mini-Tools",
-        metaDesc: "即时修改图片尺寸与压缩体积。100% 本地隐私保障，不上传文件。支持导出为现代 WebP 格式提升网站加载速度。",
-        title: "图片调优与尺寸修改", 
-        desc: "轻松调整图片分辨率，在保持清晰度的同时极速减小体积。",
-        upload: "选择或拖拽图片至此", settings: "调优参数设置",
-        ratio: "锁定纵横比", quality: "压缩质量调节", format: "导出格式选择",
-        btnDown: "立即下载压缩图"
+        metaDesc: "即时修改图片尺寸与无损压缩体积。100% 本地处理保障隐私，不上传文件。支持导出为现代 WebP 格式提升网站 SEO 评分。",
+        badge: "⚡ 纯浏览器端渲染 • 绝对隐私保护",
+        title: "图片调优与压缩工具", 
+        desc: "轻松调整图片分辨率，在保持极致清晰度的同时极速减小文件体积。支持实时双重视窗对比。",
+        upload: "选择或拖拽图片至此", formats: "支持高清 JPG, PNG, 或 WebP 格式",
+        settings: "参数精准调优",
+        labelW: "宽度 (像素)", labelH: "高度 (像素)",
+        ratio: "锁定等比例缩放", quality: "画质压缩率调节", format: "最终导出格式",
+        btnDown: "立即下载压缩原图",
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们"
+      },
+      es: {
+        metaTitle: "Optimizador y Redimensionador de Imágenes 2026 | JPG, PNG, WebP",
+        metaDesc: "Comprima imágenes al instante. 100% privado, procesamiento Client-Side. Ajuste calidad para mejor SEO.",
+        badge: "⚡ 100% Privado • Procesamiento Local",
+        title: "Optimizador de Imágenes", 
+        desc: "Ajuste dimensiones y reduzca el peso del archivo sin perder claridad. Rápido y seguro.",
+        upload: "Seleccione o Arrastre la Imagen", formats: "Soporta JPG, PNG o WebP",
+        settings: "Ajustes de Optimización",
+        labelW: "Ancho (px)", labelH: "Alto (px)",
+        ratio: "Bloquear Proporción", quality: "Calidad de Compresión", format: "Formato de Exportación",
+        btnDown: "Descargar Optimizada",
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto"
+      },
+      fr: {
+        metaTitle: "Optimiseur d'Image en Ligne 2026 | Compresser JPG, PNG, WebP",
+        metaDesc: "Compressez vos images instantanément. 100% privé, traitement dans le navigateur. Ajustez la qualité pour le SEO.",
+        badge: "⚡ 100% Local • Confidentialité Protégée",
+        title: "Optimiseur d'Images", 
+        desc: "Réduisez la taille de vos fichiers sans perdre en clarté. Rapide et professionnel.",
+        upload: "Sélectionnez ou Glissez l'Image", formats: "Haute qualité JPG, PNG ou WebP",
+        settings: "Paramètres d'Optimisation",
+        labelW: "Largeur (px)", labelH: "Hauteur (px)",
+        ratio: "Verrouiller les Proportions", quality: "Qualité de Compression", format: "Format d'Exportation",
+        btnDown: "Télécharger l'Image",
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact"
+      },
+      de: {
+        metaTitle: "Bildkomprimierer Online 2026 | JPG, PNG, WebP verkleinern",
+        metaDesc: "Bilder sofort komprimieren. 100% privat, Client-Side-Verarbeitung. Qualität für SEO anpassen.",
+        badge: "⚡ 100% Lokal • Datenschutz Geschützt",
+        title: "Bildgrößenänderer & Optimierer", 
+        desc: "Dateigröße reduzieren ohne Qualitätsverlust. Schnell und professionell.",
+        upload: "Bild auswählen oder ziehen", formats: "Hochwertige JPG, PNG oder WebP",
+        settings: "Optimierungs-Einstellungen",
+        labelW: "Breite (px)", labelH: "Höhe (px)",
+        ratio: "Seitenverhältnis Sperren", quality: "Komprimierungsqualität", format: "Exportformat",
+        btnDown: "Optimiert Herunterladen",
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt"
       }
     };
 
     let originalImg = null;
-    let exportFormat = 'image/jpeg';
-    let ratio = 1;
+    let exportFormat = 'image/webp'; // Default to WebP for modern web
+    let aspectRatio = 1;
+    let originalFileSize = 0;
+    let originalDataUrl = ""; // To feed the Before Image
 
     const canvas = document.getElementById('main-canvas');
     const ctx = canvas.getContext('2d');
+    let autoUpdateTimer;
 
     function getLang() { return new URLSearchParams(window.location.search).get('lang') || 'en'; }
 
     function updateLanguage() {
       const lang = getLang();
       const data = i18n[lang] || i18n['en'];
+      
+      document.documentElement.lang = lang;
       document.title = data.metaTitle;
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+
+      document.getElementById('badge-privacy').innerText = data.badge;
       document.getElementById('page-title').innerText = data.title;
       document.getElementById('page-desc').innerText = data.desc;
+      
       document.getElementById('label-upload').innerText = data.upload;
+      document.getElementById('label-formats').innerText = data.formats;
+      
       document.getElementById('label-settings').innerText = data.settings;
+      document.getElementById('label-w').innerText = data.labelW;
+      document.getElementById('label-h').innerText = data.labelH;
       document.getElementById('label-ratio').innerText = data.ratio;
       document.getElementById('label-quality').innerText = data.quality;
       document.getElementById('label-format').innerText = data.format;
       document.getElementById('label-btn-down').innerText = data.btnDown;
       
-      document.getElementById('seo-zh').style.display = (lang === 'zh') ? 'block' : 'none';
-      document.getElementById('seo-en').style.display = (lang === 'zh') ? 'none' : 'block';
+      document.getElementById('footer-about').innerText = data.footerAbout;
+      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
+      document.getElementById('footer-contact').innerText = data.footerContact;
+      
+      document.querySelectorAll('.seo-article').forEach(article => {
+        if(article.getAttribute('data-lang') === lang) article.classList.add('active');
+        else article.classList.remove('active');
+      });
       document.getElementById('lang-select').value = lang;
-      document.getElementById('home-link').href = "/?lang=" + lang;
+      
+      document.querySelectorAll('a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
+          try {
+            const url = new URL(href, window.location.origin);
+            url.searchParams.set('lang', lang);
+            link.href = url.pathname + url.search;
+          } catch(e) {}
+        }
+      });
     }
 
+    // --- Drag & Drop Initialization ---
     const dropArea = document.getElementById('drop-area');
     const fileInput = document.getElementById('file-input');
     
-    dropArea.onclick = () => fileInput.click();
+    dropArea.onclick = (e) => {
+        // Prevent click if clicking on the slider handle
+        if (e.target.closest('#compare-handle') || e.target.closest('#preview-container')) return;
+        fileInput.click();
+    };
     dropArea.ondragover = (e) => { e.preventDefault(); dropArea.classList.add('active'); };
     dropArea.ondragleave = () => dropArea.classList.remove('active');
     dropArea.ondrop = (e) => {
@@ -279,26 +430,42 @@
       dropArea.classList.remove('active');
       handleFile(e.dataTransfer.files[0]);
     };
-    fileInput.onchange = (e) => handleFile(e.target.files[0]);
+    fileInput.onchange = (e) => {
+        handleFile(e.target.files[0]);
+        fileInput.value = ''; // allow same file re-upload
+    };
 
     function handleFile(file) {
       if (!file || !file.type.startsWith('image/')) return;
+      
+      originalFileSize = file.size;
       document.getElementById('size-orig').innerText = formatSize(file.size);
       
       const reader = new FileReader();
       reader.onload = (e) => {
+        originalDataUrl = e.target.result;
+        
         originalImg = new Image();
         originalImg.onload = () => {
-          ratio = originalImg.width / originalImg.height;
+          aspectRatio = originalImg.width / originalImg.height;
           document.getElementById('input-w').value = originalImg.width;
           document.getElementById('input-h').value = originalImg.height;
           
           document.getElementById('upload-placeholder').classList.add('hidden');
           document.getElementById('preview-container').classList.remove('hidden');
-          document.getElementById('img-preview').src = e.target.result;
+          document.getElementById('stats-bar').classList.remove('hidden');
+          document.getElementById('stats-bar').classList.add('flex');
+          
+          // Setup initial images
+          document.getElementById('img-before').src = originalDataUrl;
+          document.getElementById('img-after').src = originalDataUrl;
+          
+          // Fix compare overlay size logic
+          initCompareSlider();
+
           updateSettings();
         };
-        originalImg.src = e.target.result;
+        originalImg.src = originalDataUrl;
       };
       reader.readAsDataURL(file);
     }
@@ -310,33 +477,102 @@
       updateSettings();
     }
 
+    // Interactive Slider Logic
+    function initCompareSlider() {
+      const wrapper = document.getElementById('compare-wrapper');
+      const overlay = document.getElementById('compare-overlay');
+      const handle = document.getElementById('compare-handle');
+      const imgBefore = document.getElementById('img-before');
+      
+      let isDragging = false;
+
+      // Sync the overlay image width to match the wrapper so it doesn't squish
+      const syncWidth = () => {
+          imgBefore.style.width = wrapper.clientWidth + 'px';
+      };
+      window.addEventListener('resize', syncWidth);
+      syncWidth();
+
+      const moveSlider = (e) => {
+        if (!isDragging) return;
+        const rect = wrapper.getBoundingClientRect();
+        let x = e.clientX || e.touches[0].clientX;
+        x = x - rect.left;
+        
+        // Bounds
+        if (x < 0) x = 0;
+        if (x > rect.width) x = rect.width;
+        
+        const percentage = (x / rect.width) * 100;
+        overlay.style.width = percentage + '%';
+        handle.style.left = percentage + '%';
+      };
+
+      wrapper.addEventListener('mousedown', () => isDragging = true);
+      wrapper.addEventListener('touchstart', () => isDragging = true);
+      window.addEventListener('mouseup', () => isDragging = false);
+      window.addEventListener('touchend', () => isDragging = false);
+      window.addEventListener('mousemove', moveSlider);
+      window.addEventListener('touchmove', moveSlider);
+    }
+
+    // Core Processing & Rendering
     function updateSettings() {
       if (!originalImg) return;
-      const w = parseInt(document.getElementById('input-w').value);
-      const h = parseInt(document.getElementById('input-h').value);
-      const quality = parseInt(document.getElementById('input-quality').value) / 100;
-      document.getElementById('quality-val').innerText = Math.round(quality * 100) + "%";
-
-      canvas.width = w;
-      canvas.height = h;
-      ctx.drawImage(originalImg, 0, 0, w, h);
+      clearTimeout(autoUpdateTimer);
       
-      const dataUrl = canvas.toDataURL(exportFormat, quality);
-      // 估算 DataURL 体积并修正
-      const head = `data:${exportFormat};base64,`.length;
-      const sizeStr = formatSize((dataUrl.length - head) * 0.75);
-      document.getElementById('size-new').innerText = sizeStr;
+      autoUpdateTimer = setTimeout(() => {
+          const w = parseInt(document.getElementById('input-w').value);
+          const h = parseInt(document.getElementById('input-h').value);
+          const quality = parseInt(document.getElementById('input-quality').value) / 100;
+          document.getElementById('quality-val').innerText = Math.round(quality * 100) + "%";
+
+          canvas.width = w;
+          canvas.height = h;
+          ctx.drawImage(originalImg, 0, 0, w, h);
+          
+          // Generate new image data
+          canvas.toBlob((blob) => {
+              if(!blob) return;
+              
+              // 1. Update Actual Accurate Size
+              const newSize = blob.size;
+              document.getElementById('size-new').innerText = formatSize(newSize);
+              
+              // Calculate Savings
+              let savings = 0;
+              if(originalFileSize > 0) {
+                  savings = ((originalFileSize - newSize) / originalFileSize) * 100;
+              }
+              const savingsSpan = document.getElementById('size-saved');
+              if (savings > 0) {
+                  savingsSpan.innerText = savings.toFixed(1) + "%";
+                  savingsSpan.className = "text-green-700 font-black";
+                  savingsSpan.parentElement.className = "bg-green-100 text-green-700 px-4 py-2.5 rounded-xl font-black text-sm flex items-center gap-2";
+              } else {
+                  savingsSpan.innerText = "Heavier";
+                  savingsSpan.className = "text-red-700 font-black";
+                  savingsSpan.parentElement.className = "bg-red-100 text-red-700 px-4 py-2.5 rounded-xl font-black text-sm flex items-center gap-2";
+              }
+
+              // 2. Update Live Preview (After image)
+              const newUrl = URL.createObjectURL(blob);
+              document.getElementById('img-after').src = newUrl;
+
+          }, exportFormat, quality);
+      }, 100); // 100ms debounce
     }
 
     document.getElementById('input-w').oninput = (e) => {
       if (document.getElementById('chk-ratio').checked && originalImg) {
-        document.getElementById('input-h').value = Math.round(e.target.value / ratio);
+        document.getElementById('input-h').value = Math.round(e.target.value / aspectRatio);
       }
       updateSettings();
     };
+    
     document.getElementById('input-h').oninput = (e) => {
       if (document.getElementById('chk-ratio').checked && originalImg) {
-        document.getElementById('input-w').value = Math.round(e.target.value * ratio);
+        document.getElementById('input-w').value = Math.round(e.target.value * aspectRatio);
       }
       updateSettings();
     };
@@ -344,12 +580,19 @@
     function downloadImage() {
       if (!originalImg) return;
       const quality = parseInt(document.getElementById('input-quality').value) / 100;
-      const dataUrl = canvas.toDataURL(exportFormat, quality);
-      const link = document.createElement('a');
-      const ext = exportFormat.split('/')[1];
-      link.download = `mini-tools-optimized-${Date.now()}.${ext}`;
-      link.href = dataUrl;
-      link.click();
+      
+      canvas.toBlob((blob) => {
+          if(!blob) return;
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          const ext = exportFormat.split('/')[1] === 'jpeg' ? 'jpg' : exportFormat.split('/')[1];
+          link.download = `optimized-minitools-${Date.now()}.${ext}`;
+          link.href = url;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url); // Clean up memory
+      }, exportFormat, quality);
     }
 
     function formatSize(bytes) {
@@ -360,9 +603,13 @@
       return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      window.location.href = url.href;
+    });
+
     window.onload = updateLanguage;
   </script>
 </body>
 </html>
-
-
