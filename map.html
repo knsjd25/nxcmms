@@ -502,132 +502,24 @@
     const myChart = echarts.init(document.getElementById('map-container'));
 
     const imageData = [
-        {
-            province: '北京市',
-            category: '人文',
-            title: '北京图书馆',
-            desc: '这是一张体现北京阅读文化与公共知识空间氛围的图片，适合用于展示首都人文教育、文化传播以及城市公共服务建设。',
-            url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&q=80'
-        },
-        {
-            province: '北京市',
-            category: '建筑',
-            title: '北京城市建筑',
-            desc: '该图片突出首都现代建筑风貌，可用于介绍北京的城市发展、建筑美学以及现代化空间布局。',
-            url: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&q=80'
-        },
-        {
-            province: '北京市',
-            category: '文化',
-            title: '北京文化空间',
-            desc: '图片反映首都文化空间与知识传播环境，适合用于文化场馆、学习空间和展陈应用场景。',
-            url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80'
-        },
-        {
-            province: '上海市',
-            category: '建筑',
-            title: '上海现代建筑',
-            desc: '该图片强调上海现代都市感与城市天际线特征，适用于展示国际化都市形象和创新活力。',
-            url: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&q=80'
-        },
-        {
-            province: '上海市',
-            category: '城市',
-            title: '上海城市影像',
-            desc: '该图可用于说明上海的城市节奏、商业氛围及多元都市生活场景。',
-            url: 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=800&q=80'
-        },
-        {
-            province: '广东省',
-            category: '城市',
-            title: '广东城市街景',
-            desc: '图片体现广东地区开放、活跃、务实的城市特征，适合用于区域发展和城市生活展示。',
-            url: 'https://images.unsplash.com/photo-1481277542470-605612bd2d61?w=800&q=80'
-        },
-        {
-            province: '广东省',
-            category: '风景',
-            title: '广东自然风景',
-            desc: '该图片可用于展示广东自然生态与区域旅游资源，适合旅游宣传及生态主题内容。',
-            url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80'
-        },
-        {
-            province: '广东省',
-            category: '设计',
-            title: '广东空间设计',
-            desc: '图片体现现代设计空间与视觉秩序，适合用于设计展示、城市空间研究等内容。',
-            url: 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?w=800&q=80'
-        },
-        {
-            province: '浙江省',
-            category: '自然',
-            title: '浙江自然景观',
-            desc: '该图反映浙江地区的自然风貌与舒适环境，适合用于山水、文旅和生态主题展示。',
-            url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80'
-        },
-        {
-            province: '浙江省',
-            category: '科技',
-            title: '浙江科技主题',
-            desc: '该图片可用于展示浙江在数字经济、科技创新和现代产业方面的形象表达。',
-            url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80'
-        },
-        {
-            province: '江苏省',
-            category: '人文',
-            title: '江苏人文影像',
-            desc: '图片适合表现江苏的人文气质、文化积淀与区域历史传承。',
-            url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&q=80'
-        },
-        {
-            province: '江苏省',
-            category: '文化',
-            title: '江苏文化空间',
-            desc: '该图可用于文化展示、书香空间以及区域公共文化服务场景。',
-            url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80'
-        },
-        {
-            province: '四川省',
-            category: '风景',
-            title: '四川自然风景',
-            desc: '该图可用于表达四川地区丰富自然资源和独特生态风貌。',
-            url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80'
-        },
-        {
-            province: '四川省',
-            category: '文化',
-            title: '四川文化主题',
-            desc: '图片适合用于介绍四川文化特色、地域风情与人文内涵。',
-            url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80'
-        },
-        {
-            province: '湖北省',
-            category: '城市',
-            title: '湖北城市影像',
-            desc: '该图可用于呈现湖北城市空间、区域活力及现代生活节奏。',
-            url: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&q=80'
-        },
-        {
-            province: '山东省',
-            category: '建筑',
-            title: '山东建筑主题',
-            desc: '图片适合体现山东区域建筑景观、城市面貌和地方空间特色。',
-            url: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&q=80'
-        },
-        {
-            province: '陕西省',
-            category: '文化',
-            title: '陕西文化主题',
-            desc: '该图适合用于介绍陕西厚重的历史文化资源与地域特色。',
-            url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80'
-        },
-        {
-            province: '福建省',
-            category: '海岸',
-            title: '福建海岸风景',
-            desc: '图片适合展示福建沿海风景、滨海资源及区域文旅特色。',
-            url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80'
-        }
+        { province: '北京市', category: '人文', title: '北京图书馆', desc: '这是一张体现北京阅读文化与公共知识空间氛围的图片，适合用于展示首都人文教育、文化传播以及城市公共服务建设。', url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&q=80' },
+        { province: '北京市', category: '建筑', title: '北京城市建筑', desc: '该图片突出首都现代建筑风貌，可用于介绍北京的城市发展、建筑美学以及现代化空间布局。', url: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&q=80' },
+        { province: '北京市', category: '文化', title: '北京文化空间', desc: '图片反映首都文化空间与知识传播环境，适合用于文化场馆、学习空间和展陈应用场景。', url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80' },
+        { province: '上海市', category: '建筑', title: '上海现代建筑', desc: '该图片强调上海现代都市感与城市天际线特征，适用于展示国际化都市形象和创新活力。', url: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&q=80' },
+        { province: '上海市', category: '城市', title: '上海城市影像', desc: '该图可用于说明上海的城市节奏、商业氛围及多元都市生活场景。', url: 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=800&q=80' },
+        { province: '广东省', category: '城市', title: '广东城市街景', desc: '图片体现广东地区开放、活跃、务实的城市特征，适合用于区域发展和城市生活展示。', url: 'https://images.unsplash.com/photo-1481277542470-605612bd2d61?w=800&q=80' },
+        { province: '广东省', category: '风景', title: '广东自然风景', desc: '该图片可用于展示广东自然生态与区域旅游资源，适合旅游宣传及生态主题内容。', url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80' },
+        { province: '广东省', category: '设计', title: '广东空间设计', desc: '图片体现现代设计空间与视觉秩序，适合用于设计展示、城市空间研究等内容。', url: 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?w=800&q=80' },
+        { province: '浙江省', category: '自然', title: '浙江自然景观', desc: '该图反映浙江地区的自然风貌与舒适环境，适合用于山水、文旅和生态主题展示。', url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80' },
+        { province: '浙江省', category: '科技', title: '浙江科技主题', desc: '该图片可用于展示浙江在数字经济、科技创新和现代产业方面的形象表达。', url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80' },
+        { province: '江苏省', category: '人文', title: '江苏人文影像', desc: '图片适合表现江苏的人文气质、文化积淀与区域历史传承。', url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&q=80' },
+        { province: '江苏省', category: '文化', title: '江苏文化空间', desc: '该图可用于文化展示、书香空间以及区域公共文化服务场景。', url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80' },
+        { province: '四川省', category: '风景', title: '四川自然风景', desc: '该图可用于表达四川地区丰富自然资源和独特生态风貌。', url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80' },
+        { province: '四川省', category: '文化', title: '四川文化主题', desc: '图片适合用于介绍四川文化特色、地域风情与人文内涵。', url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80' },
+        { province: '湖北省', category: '城市', title: '湖北城市影像', desc: '该图可用于呈现湖北城市空间、区域活力及现代生活节奏。', url: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&q=80' },
+        { province: '山东省', category: '建筑', title: '山东建筑主题', desc: '图片适合体现山东区域建筑景观、城市面貌和地方空间特色。', url: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&q=80' },
+        { province: '陕西省', category: '文化', title: '陕西文化主题', desc: '该图适合用于介绍陕西厚重的历史文化资源与地域特色。', url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80' },
+        { province: '福建省', category: '海岸', title: '福建海岸风景', desc: '图片适合展示福建沿海风景、滨海资源及区域文旅特色。', url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80' }
     ];
 
     const globeImages = imageData.map(item => item.url);
@@ -716,8 +608,8 @@
             el.style.backgroundImage = `url(${data.url})`;
             el.title = `${data.title} - ${data.province} / ${data.category}`;
             el.style.transform = `rotateY(${lonDeg}deg) rotateX(${-latDeg}deg) translateZ(${radius}px)`;
-
             el.__data = data;
+
             globeInner.appendChild(el);
             panelsData.push({ el, nx, ny, nz, data });
             imgIdx++;
@@ -734,15 +626,12 @@
     let isDragging = false;
     let moved = false;
     let activePointerId = null;
-
     let startX = 0;
     let startY = 0;
     let lastX = 0;
     let lastY = 0;
-
     let velocityX = 0;
     let velocityY = 0;
-
     let lastInteractionTime = Date.now();
     const autoResetDelay = 2500;
 
@@ -845,8 +734,11 @@
         infoEl.innerText = '拨动球体，点击图片查看详情';
     }
 
-    fetch('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json')
-        .then(response => response.json())
+    fetch('./china.json')
+        .then(response => {
+            if (!response.ok) throw new Error('china.json 加载失败');
+            return response.json();
+        })
         .then(geoJson => {
             echarts.registerMap('china', geoJson);
 
@@ -883,8 +775,9 @@
                 showProvinceGallery(provinceName);
             });
         })
-        .catch(() => {
-            document.getElementById('click-info').innerText = '地图加载失败，请检查网络';
+        .catch((err) => {
+            console.error(err);
+            document.getElementById('click-info').innerText = '地图加载失败：' + err.message;
         });
 
     preloadImages(globeImages).then(() => {
