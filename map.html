@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 <title>Fibonacci 球体 + 省份分类 + 图片详情</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
 <style>
     :root { --gap: 20px; }
 
@@ -195,15 +196,6 @@
         display: flex;
     }
 
-    .gallery-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 14px;
-        gap: 12px;
-        flex-wrap: wrap;
-    }
-
     .gallery-title {
         font-size: 22px;
         font-weight: bold;
@@ -213,6 +205,7 @@
     .gallery-subtitle {
         font-size: 14px;
         color: #666;
+        margin-bottom: 14px;
     }
 
     .gallery-grid {
@@ -340,10 +333,6 @@
         line-height: 34px;
     }
 
-    .detail-close:hover {
-        background: rgba(0,0,0,0.12);
-    }
-
     .detail-title {
         font-size: 28px;
         font-weight: 700;
@@ -460,19 +449,15 @@
                 <button class="btn" id="backToGlobe" style="display:none;">返回球体</button>
             </div>
 
-            <div class="globe-wrap" id="globeWrap">
+            <div class="globe-wrap">
                 <div class="globe" id="globe">
                     <div class="globe-inner" id="globeInner"></div>
                 </div>
             </div>
 
             <div class="province-gallery" id="provinceGallery">
-                <div class="gallery-header">
-                    <div>
-                        <div class="gallery-title" id="galleryTitle">省份图片列表</div>
-                        <div class="gallery-subtitle" id="gallerySubtitle">按分类展示</div>
-                    </div>
-                </div>
+                <div class="gallery-title" id="galleryTitle">省份图片列表</div>
+                <div class="gallery-subtitle" id="gallerySubtitle">按分类展示</div>
                 <div class="gallery-grid" id="galleryGrid"></div>
                 <div class="empty-box" id="galleryEmpty" style="display:none;">该省份暂无绑定图片</div>
             </div>
@@ -499,365 +484,352 @@
     </div>
 
 <script>
-    const myChart = echarts.init(document.getElementById('map-container'));
+const myChart = echarts.init(document.getElementById('map-container'));
 
-    const imageData = [
-        { province: '北京市', category: '人文', title: '北京图书馆', desc: '这是一张体现北京阅读文化与公共知识空间氛围的图片，适合用于展示首都人文教育、文化传播以及城市公共服务建设。', url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&q=80' },
-        { province: '北京市', category: '建筑', title: '北京城市建筑', desc: '该图片突出首都现代建筑风貌，可用于介绍北京的城市发展、建筑美学以及现代化空间布局。', url: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&q=80' },
-        { province: '北京市', category: '文化', title: '北京文化空间', desc: '图片反映首都文化空间与知识传播环境，适合用于文化场馆、学习空间和展陈应用场景。', url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80' },
-        { province: '上海市', category: '建筑', title: '上海现代建筑', desc: '该图片强调上海现代都市感与城市天际线特征，适用于展示国际化都市形象和创新活力。', url: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&q=80' },
-        { province: '上海市', category: '城市', title: '上海城市影像', desc: '该图可用于说明上海的城市节奏、商业氛围及多元都市生活场景。', url: 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=800&q=80' },
-        { province: '广东省', category: '城市', title: '广东城市街景', desc: '图片体现广东地区开放、活跃、务实的城市特征，适合用于区域发展和城市生活展示。', url: 'https://images.unsplash.com/photo-1481277542470-605612bd2d61?w=800&q=80' },
-        { province: '广东省', category: '风景', title: '广东自然风景', desc: '该图片可用于展示广东自然生态与区域旅游资源，适合旅游宣传及生态主题内容。', url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80' },
-        { province: '广东省', category: '设计', title: '广东空间设计', desc: '图片体现现代设计空间与视觉秩序，适合用于设计展示、城市空间研究等内容。', url: 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?w=800&q=80' },
-        { province: '浙江省', category: '自然', title: '浙江自然景观', desc: '该图反映浙江地区的自然风貌与舒适环境，适合用于山水、文旅和生态主题展示。', url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80' },
-        { province: '浙江省', category: '科技', title: '浙江科技主题', desc: '该图片可用于展示浙江在数字经济、科技创新和现代产业方面的形象表达。', url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80' },
-        { province: '江苏省', category: '人文', title: '江苏人文影像', desc: '图片适合表现江苏的人文气质、文化积淀与区域历史传承。', url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&q=80' },
-        { province: '江苏省', category: '文化', title: '江苏文化空间', desc: '该图可用于文化展示、书香空间以及区域公共文化服务场景。', url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80' },
-        { province: '四川省', category: '风景', title: '四川自然风景', desc: '该图可用于表达四川地区丰富自然资源和独特生态风貌。', url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80' },
-        { province: '四川省', category: '文化', title: '四川文化主题', desc: '图片适合用于介绍四川文化特色、地域风情与人文内涵。', url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80' },
-        { province: '湖北省', category: '城市', title: '湖北城市影像', desc: '该图可用于呈现湖北城市空间、区域活力及现代生活节奏。', url: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&q=80' },
-        { province: '山东省', category: '建筑', title: '山东建筑主题', desc: '图片适合体现山东区域建筑景观、城市面貌和地方空间特色。', url: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&q=80' },
-        { province: '陕西省', category: '文化', title: '陕西文化主题', desc: '该图适合用于介绍陕西厚重的历史文化资源与地域特色。', url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80' },
-        { province: '福建省', category: '海岸', title: '福建海岸风景', desc: '图片适合展示福建沿海风景、滨海资源及区域文旅特色。', url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80' }
-    ];
+const imageData = [
+    { province: '北京', category: '人文', title: '北京图书馆', desc: '这是一张体现北京阅读文化与公共知识空间氛围的图片。', url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&q=80' },
+    { province: '北京', category: '建筑', title: '北京城市建筑', desc: '该图片突出首都现代建筑风貌。', url: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&q=80' },
+    { province: '北京', category: '文化', title: '北京文化空间', desc: '图片反映首都文化空间与知识传播环境。', url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80' },
+    { province: '上海', category: '建筑', title: '上海现代建筑', desc: '该图片强调上海现代都市感与城市天际线特征。', url: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&q=80' },
+    { province: '上海', category: '城市', title: '上海城市影像', desc: '该图可用于说明上海的城市节奏。', url: 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=800&q=80' },
+    { province: '广东', category: '城市', title: '广东城市街景', desc: '图片体现广东地区开放、活跃、务实的城市特征。', url: 'https://images.unsplash.com/photo-1481277542470-605612bd2d61?w=800&q=80' },
+    { province: '广东', category: '风景', title: '广东自然风景', desc: '该图片可用于展示广东自然生态与区域旅游资源。', url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80' },
+    { province: '广东', category: '设计', title: '广东空间设计', desc: '图片体现现代设计空间与视觉秩序。', url: 'https://images.unsplash.com/photo-1493666438817-866a91353ca9?w=800&q=80' },
+    { province: '浙江', category: '自然', title: '浙江自然景观', desc: '该图反映浙江地区的自然风貌与舒适环境。', url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80' },
+    { province: '浙江', category: '科技', title: '浙江科技主题', desc: '该图片可用于展示浙江在数字经济方面的形象。', url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80' },
+    { province: '江苏', category: '人文', title: '江苏人文影像', desc: '图片适合表现江苏的人文气质与文化积淀。', url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&q=80' },
+    { province: '江苏', category: '文化', title: '江苏文化空间', desc: '该图可用于文化展示和书香空间场景。', url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80' },
+    { province: '四川', category: '风景', title: '四川自然风景', desc: '该图可用于表达四川地区丰富自然资源。', url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80' },
+    { province: '四川', category: '文化', title: '四川文化主题', desc: '图片适合用于介绍四川文化特色。', url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80' },
+    { province: '湖北', category: '城市', title: '湖北城市影像', desc: '该图可用于呈现湖北城市空间与区域活力。', url: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&q=80' },
+    { province: '山东', category: '建筑', title: '山东建筑主题', desc: '图片适合体现山东区域建筑景观。', url: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&q=80' },
+    { province: '陕西', category: '文化', title: '陕西文化主题', desc: '该图适合用于介绍陕西厚重的历史文化资源。', url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80' },
+    { province: '福建', category: '海岸', title: '福建海岸风景', desc: '图片适合展示福建沿海风景。', url: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80' }
+];
 
-    const globeImages = imageData.map(item => item.url);
+const globeImages = imageData.map(item => item.url);
 
-    function preloadImages(urls) {
-        const uniqueUrls = [...new Set(urls)];
-        return Promise.all(uniqueUrls.map(url => new Promise(res => {
-            const img = new Image();
-            img.src = url;
-            img.onload = res;
-            img.onerror = res;
-        })));
+function preloadImages(urls) {
+    const uniqueUrls = [...new Set(urls)];
+    return Promise.all(uniqueUrls.map(url => new Promise(res => {
+        const img = new Image();
+        img.src = url;
+        img.onload = res;
+        img.onerror = res;
+    })));
+}
+
+const globeInner = document.getElementById('globeInner');
+const infoEl = document.getElementById('info');
+const provinceGallery = document.getElementById('provinceGallery');
+const galleryGrid = document.getElementById('galleryGrid');
+const galleryTitle = document.getElementById('galleryTitle');
+const gallerySubtitle = document.getElementById('gallerySubtitle');
+const galleryEmpty = document.getElementById('galleryEmpty');
+const backToGlobeBtn = document.getElementById('backToGlobe');
+
+const detailModal = document.getElementById('detailModal');
+const detailImage = document.getElementById('detailImage');
+const detailTitle = document.getElementById('detailTitle');
+const detailProvince = document.getElementById('detailProvince');
+const detailCategory = document.getElementById('detailCategory');
+const detailDesc = document.getElementById('detailDesc');
+const detailClose = document.getElementById('detailClose');
+
+let panelsData = [];
+let totalPanels = 140;
+
+function openDetail(item) {
+    detailImage.src = item.url;
+    detailTitle.textContent = item.title || '未命名';
+    detailProvince.textContent = item.province || '未知省份';
+    detailCategory.textContent = item.category || '未分类';
+    detailDesc.textContent = item.desc || '暂无简介';
+    detailModal.classList.add('show');
+    infoEl.innerText = `已打开：${item.title}`;
+}
+
+function closeDetail() {
+    detailModal.classList.remove('show');
+}
+
+function buildGridSphere() {
+    globeInner.innerHTML = '';
+    panelsData = [];
+
+    const globe = document.getElementById('globe');
+    const size = Math.min(globe.clientWidth, globe.clientHeight);
+    const isMobile = window.innerWidth <= 900;
+
+    const localTotal = isMobile ? 60 : totalPanels;
+    const panelW = isMobile ? Math.max(28, Math.round(size * 0.10)) : Math.max(30, Math.round(size * 0.06));
+    const panelH = Math.round(panelW * 1.6);
+    const radius = isMobile ? Math.round(size * 0.44) : Math.round(size * 0.46);
+
+    let imgIdx = 0;
+    const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+
+    for (let i = 0; i < localTotal; i++) {
+        let y = 1 - (i / (localTotal - 1)) * 2;
+        if (Math.abs(y) > (isMobile ? 0.96 : 0.975)) continue;
+
+        let latRad = Math.asin(y);
+        let theta = goldenAngle * i;
+        let lonDeg = (theta * 180 / Math.PI) % 360;
+        let latDeg = latRad * 180 / Math.PI;
+
+        let nx = Math.cos(latRad) * Math.sin(theta);
+        let ny = -Math.sin(latRad);
+        let nz = Math.cos(latRad) * Math.cos(theta);
+
+        const data = imageData[imgIdx % imageData.length];
+
+        const el = document.createElement('div');
+        el.className = 'book-panel';
+        el.style.width = `${panelW}px`;
+        el.style.height = `${panelH}px`;
+        el.style.marginLeft = `${-panelW / 2}px`;
+        el.style.marginTop = `${-panelH / 2}px`;
+        el.style.backgroundImage = `url(${data.url})`;
+        el.title = `${data.title} - ${data.province} / ${data.category}`;
+        el.style.transform = `rotateY(${lonDeg}deg) rotateX(${-latDeg}deg) translateZ(${radius}px)`;
+        el.__data = data;
+
+        globeInner.appendChild(el);
+        panelsData.push({ el, nx, ny, nz, data });
+        imgIdx++;
     }
+}
 
-    const globeInner = document.getElementById('globeInner');
-    const infoEl = document.getElementById('info');
-    const provinceGallery = document.getElementById('provinceGallery');
-    const galleryGrid = document.getElementById('galleryGrid');
-    const galleryTitle = document.getElementById('galleryTitle');
-    const gallerySubtitle = document.getElementById('gallerySubtitle');
-    const galleryEmpty = document.getElementById('galleryEmpty');
-    const backToGlobeBtn = document.getElementById('backToGlobe');
+let rotationY = 0;
+let rotationX = -10;
+const defaultRotationX = -10;
+const baseSpinSpeed = 0.18;
+let currentSpinSpeed = baseSpinSpeed;
+let playing = true;
 
-    const detailModal = document.getElementById('detailModal');
-    const detailImage = document.getElementById('detailImage');
-    const detailTitle = document.getElementById('detailTitle');
-    const detailProvince = document.getElementById('detailProvince');
-    const detailCategory = document.getElementById('detailCategory');
-    const detailDesc = document.getElementById('detailDesc');
-    const detailClose = document.getElementById('detailClose');
+let isDragging = false;
+let moved = false;
+let activePointerId = null;
+let startX = 0;
+let startY = 0;
+let lastX = 0;
+let lastY = 0;
+let velocityX = 0;
+let velocityY = 0;
+let lastInteractionTime = Date.now();
+const autoResetDelay = 2500;
 
-    let panelsData = [];
-    let totalPanels = 140;
+function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+}
 
-    function openDetail(item) {
-        detailImage.src = item.url;
-        detailTitle.textContent = item.title || '未命名';
-        detailProvince.textContent = item.province || '未知省份';
-        detailCategory.textContent = item.category || '未分类';
-        detailDesc.textContent = item.desc || '暂无简介';
-        detailModal.classList.add('show');
-        infoEl.innerText = `已打开：${item.title}`;
-    }
+function animate() {
+    const now = Date.now();
+    const idleLongEnough = !isDragging && (now - lastInteractionTime > autoResetDelay);
+    const targetSpin = playing ? baseSpinSpeed : 0;
 
-    function closeDetail() {
-        detailModal.classList.remove('show');
-    }
-
-    function buildGridSphere() {
-        globeInner.innerHTML = '';
-        panelsData = [];
-
-        const globe = document.getElementById('globe');
-        const size = Math.min(globe.clientWidth, globe.clientHeight);
-        const isMobile = window.innerWidth <= 900;
-
-        const localTotal = isMobile ? 60 : totalPanels;
-        const panelW = isMobile ? Math.max(28, Math.round(size * 0.10)) : Math.max(30, Math.round(size * 0.06));
-        const panelH = Math.round(panelW * 1.6);
-        const radius = isMobile ? Math.round(size * 0.44) : Math.round(size * 0.46);
-
-        let imgIdx = 0;
-        const goldenAngle = Math.PI * (3 - Math.sqrt(5));
-
-        for (let i = 0; i < localTotal; i++) {
-            let y = 1 - (i / (localTotal - 1)) * 2;
-            if (Math.abs(y) > (isMobile ? 0.96 : 0.975)) continue;
-
-            let latRad = Math.asin(y);
-            let theta = goldenAngle * i;
-            let lonDeg = (theta * 180 / Math.PI) % 360;
-            let latDeg = latRad * 180 / Math.PI;
-
-            let nx = Math.cos(latRad) * Math.sin(theta);
-            let ny = -Math.sin(latRad);
-            let nz = Math.cos(latRad) * Math.cos(theta);
-
-            const data = imageData[imgIdx % imageData.length];
-
-            const el = document.createElement('div');
-            el.className = 'book-panel';
-            el.style.width = `${panelW}px`;
-            el.style.height = `${panelH}px`;
-            el.style.marginLeft = `${-panelW / 2}px`;
-            el.style.marginTop = `${-panelH / 2}px`;
-            el.style.backgroundImage = `url(${data.url})`;
-            el.title = `${data.title} - ${data.province} / ${data.category}`;
-            el.style.transform = `rotateY(${lonDeg}deg) rotateX(${-latDeg}deg) translateZ(${radius}px)`;
-            el.__data = data;
-
-            globeInner.appendChild(el);
-            panelsData.push({ el, nx, ny, nz, data });
-            imgIdx++;
-        }
-    }
-
-    let rotationY = 0;
-    let rotationX = -10;
-    const defaultRotationX = -10;
-    const baseSpinSpeed = 0.18;
-    let currentSpinSpeed = baseSpinSpeed;
-    let playing = true;
-
-    let isDragging = false;
-    let moved = false;
-    let activePointerId = null;
-    let startX = 0;
-    let startY = 0;
-    let lastX = 0;
-    let lastY = 0;
-    let velocityX = 0;
-    let velocityY = 0;
-    let lastInteractionTime = Date.now();
-    const autoResetDelay = 2500;
-
-    function clamp(value, min, max) {
-        return Math.max(min, Math.min(max, value));
-    }
-
-    function animate() {
-        const now = Date.now();
-        const idleLongEnough = !isDragging && (now - lastInteractionTime > autoResetDelay);
-        const targetSpin = playing ? baseSpinSpeed : 0;
-
-        if (isDragging) {
-            rotationY += velocityX;
-            rotationX -= velocityY;
-            currentSpinSpeed = 0;
-        } else {
-            if (idleLongEnough) {
-                velocityX *= 0.88;
-                velocityY *= 0.88;
-
-                rotationX += (defaultRotationX - rotationX) * 0.06;
-                currentSpinSpeed += (targetSpin - currentSpinSpeed) * 0.06;
-
-                rotationY += velocityX + currentSpinSpeed;
-                rotationX -= velocityY;
-            } else {
-                velocityX *= 0.94;
-                velocityY *= 0.94;
-
-                currentSpinSpeed += (targetSpin - currentSpinSpeed) * 0.08;
-
-                rotationY += velocityX + currentSpinSpeed;
-                rotationX -= velocityY;
-            }
-        }
-
-        rotationX = clamp(rotationX, -60, 60);
-        globeInner.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
-
-        const alpha = rotationY * Math.PI / 180;
-        const beta = rotationX * Math.PI / 180;
-        const sinA = Math.sin(alpha), cosA = Math.cos(alpha);
-        const sinB = Math.sin(beta), cosB = Math.cos(beta);
-
-        panelsData.forEach(p => {
-            let x1 = p.nx * cosA + p.nz * sinA;
-            let z1 = -p.nx * sinA + p.nz * cosA;
-            const worldZ = p.ny * sinB + z1 * cosB;
-
-            if (worldZ > 0.02) {
-                p.el.style.opacity = '1';
-                p.el.style.filter = 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))';
-                p.el.style.pointerEvents = 'auto';
-            } else {
-                p.el.style.opacity = '0.18';
-                p.el.style.filter = 'blur(1px) brightness(0.72)';
-                p.el.style.pointerEvents = 'none';
-            }
-        });
-
-        requestAnimationFrame(animate);
-    }
-
-    function showProvinceGallery(provinceName) {
-        const list = imageData.filter(item => item.province === provinceName);
-
-        galleryTitle.textContent = `${provinceName} 图片列表`;
-        gallerySubtitle.textContent = `共 ${list.length} 张，点击图片可查看简介`;
-        galleryGrid.innerHTML = '';
-
-        if (!list.length) {
-            galleryEmpty.style.display = 'flex';
-        } else {
-            galleryEmpty.style.display = 'none';
-
-            list.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'gallery-item';
-                card.innerHTML = `
-                    <div class="gallery-thumb" style="background-image:url('${item.url}')"></div>
-                    <div class="gallery-body">
-                        <div class="gallery-category">${item.category}</div>
-                        <div class="gallery-name">${item.title}</div>
-                    </div>
-                `;
-                card.addEventListener('click', () => openDetail(item));
-                galleryGrid.appendChild(card);
-            });
-        }
-
-        provinceGallery.classList.add('show');
-        backToGlobeBtn.style.display = 'inline-block';
-        infoEl.innerText = `已切换到 ${provinceName} 的图片列表`;
-    }
-
-    function hideProvinceGallery() {
-        provinceGallery.classList.remove('show');
-        backToGlobeBtn.style.display = 'none';
-        infoEl.innerText = '拨动球体，点击图片查看详情';
-    }
-
-    fetch('./china.json')
-        .then(response => {
-            if (!response.ok) throw new Error('china.json 加载失败');
-            return response.json();
-        })
-        .then(geoJson => {
-            echarts.registerMap('china', geoJson);
-
-            myChart.setOption({
-                tooltip: { trigger: 'item' },
-                series: [{
-                    type: 'map',
-                    map: 'china',
-                    roam: true,
-                    zoom: 1.2,
-                    label: {
-                        show: true,
-                        color: '#333',
-                        fontSize: 11
-                    },
-                    itemStyle: {
-                        areaColor: '#f3f3f3',
-                        borderColor: '#ccc'
-                    },
-                    emphasis: {
-                        label: { color: '#fff' },
-                        itemStyle: { areaColor: '#b81b1b' }
-                    },
-                    select: {
-                        label: { color: '#fff' },
-                        itemStyle: { areaColor: '#b81b1b' }
-                    }
-                }]
-            });
-
-            myChart.on('click', params => {
-                const provinceName = params.name;
-                document.getElementById('click-info').innerText = `已锁定区域：${provinceName}`;
-                showProvinceGallery(provinceName);
-            });
-        })
-        .catch((err) => {
-            console.error(err);
-            document.getElementById('click-info').innerText = '地图加载失败：' + err.message;
-        });
-
-    preloadImages(globeImages).then(() => {
-        const mask = document.getElementById('loading-mask');
-        mask.style.opacity = 0;
-        setTimeout(() => mask.style.display = 'none', 500);
-        buildGridSphere();
-        requestAnimationFrame(animate);
-    });
-
-    document.getElementById('playPause').addEventListener('click', () => {
-        playing = !playing;
-        lastInteractionTime = Date.now();
-    });
-
-    document.getElementById('backToGlobe').addEventListener('click', hideProvinceGallery);
-
-    globeInner.addEventListener('pointerdown', e => {
-        isDragging = true;
-        moved = false;
-        activePointerId = e.pointerId;
-
-        startX = lastX = e.clientX;
-        startY = lastY = e.clientY;
-
-        velocityX = 0;
-        velocityY = 0;
+    if (isDragging) {
+        rotationY += velocityX;
+        rotationX -= velocityY;
         currentSpinSpeed = 0;
+    } else {
+        if (idleLongEnough) {
+            velocityX *= 0.88;
+            velocityY *= 0.88;
 
-        lastInteractionTime = Date.now();
-        globeInner.setPointerCapture(e.pointerId);
-    });
+            rotationX += (defaultRotationX - rotationX) * 0.06;
+            currentSpinSpeed += (targetSpin - currentSpinSpeed) * 0.06;
 
-    window.addEventListener('pointermove', e => {
-        if (!isDragging || e.pointerId !== activePointerId) return;
+            rotationY += velocityX + currentSpinSpeed;
+            rotationX -= velocityY;
+        } else {
+            velocityX *= 0.94;
+            velocityY *= 0.94;
 
-        const dx = e.clientX - lastX;
-        const dy = e.clientY - lastY;
+            currentSpinSpeed += (targetSpin - currentSpinSpeed) * 0.08;
 
-        if (Math.abs(e.clientX - startX) > 4 || Math.abs(e.clientY - startY) > 4) {
-            moved = true;
+            rotationY += velocityX + currentSpinSpeed;
+            rotationX -= velocityY;
         }
+    }
 
-        velocityX = dx * 0.22;
-        velocityY = dy * 0.22;
+    rotationX = clamp(rotationX, -60, 60);
+    globeInner.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
 
-        lastX = e.clientX;
-        lastY = e.clientY;
-        lastInteractionTime = Date.now();
-    });
+    const alpha = rotationY * Math.PI / 180;
+    const beta = rotationX * Math.PI / 180;
+    const sinA = Math.sin(alpha), cosA = Math.cos(alpha);
+    const sinB = Math.sin(beta), cosB = Math.cos(beta);
 
-    window.addEventListener('pointerup', e => {
-        if (e.pointerId !== activePointerId) return;
+    panelsData.forEach(p => {
+        let x1 = p.nx * cosA + p.nz * sinA;
+        let z1 = -p.nx * sinA + p.nz * cosA;
+        const worldZ = p.ny * sinB + z1 * cosB;
 
-        isDragging = false;
-        lastInteractionTime = Date.now();
-
-        if (!moved) {
-            const target = document.elementFromPoint(e.clientX, e.clientY);
-            if (target && target.classList.contains('book-panel') && target.__data) {
-                openDetail(target.__data);
-            }
+        if (worldZ > 0.02) {
+            p.el.style.opacity = '1';
+            p.el.style.filter = 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))';
+            p.el.style.pointerEvents = 'auto';
+        } else {
+            p.el.style.opacity = '0.18';
+            p.el.style.filter = 'blur(1px) brightness(0.72)';
+            p.el.style.pointerEvents = 'none';
         }
-
-        activePointerId = null;
     });
 
-    window.addEventListener('resize', () => {
-        myChart.resize();
-        buildGridSphere();
-    });
+    requestAnimationFrame(animate);
+}
 
-    detailClose.addEventListener('click', closeDetail);
-    detailModal.addEventListener('click', (e) => {
-        if (e.target === detailModal) closeDetail();
-    });
+function showProvinceGallery(provinceName) {
+    const list = imageData.filter(item => item.province === provinceName);
 
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeDetail();
-    });
+    galleryTitle.textContent = `${provinceName} 图片列表`;
+    gallerySubtitle.textContent = `共 ${list.length} 张，点击图片可查看简介`;
+    galleryGrid.innerHTML = '';
+
+    if (!list.length) {
+        galleryEmpty.style.display = 'flex';
+    } else {
+        galleryEmpty.style.display = 'none';
+
+        list.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'gallery-item';
+            card.innerHTML = `
+                <div class="gallery-thumb" style="background-image:url('${item.url}')"></div>
+                <div class="gallery-body">
+                    <div class="gallery-category">${item.category}</div>
+                    <div class="gallery-name">${item.title}</div>
+                </div>
+            `;
+            card.addEventListener('click', () => openDetail(item));
+            galleryGrid.appendChild(card);
+        });
+    }
+
+    provinceGallery.classList.add('show');
+    backToGlobeBtn.style.display = 'inline-block';
+    infoEl.innerText = `已切换到 ${provinceName} 的图片列表`;
+}
+
+function hideProvinceGallery() {
+    provinceGallery.classList.remove('show');
+    backToGlobeBtn.style.display = 'none';
+    infoEl.innerText = '拨动球体，点击图片查看详情';
+}
+
+myChart.setOption({
+    tooltip: { trigger: 'item' },
+    series: [{
+        type: 'map',
+        map: 'china',
+        roam: true,
+        zoom: 1.2,
+        label: {
+            show: true,
+            color: '#333',
+            fontSize: 11
+        },
+        itemStyle: {
+            areaColor: '#f3f3f3',
+            borderColor: '#ccc'
+        },
+        emphasis: {
+            label: { color: '#fff' },
+            itemStyle: { areaColor: '#b81b1b' }
+        },
+        select: {
+            label: { color: '#fff' },
+            itemStyle: { areaColor: '#b81b1b' }
+        }
+    }]
+});
+
+myChart.on('click', params => {
+    const provinceName = params.name;
+    document.getElementById('click-info').innerText = `已锁定区域：${provinceName}`;
+    showProvinceGallery(provinceName);
+});
+
+preloadImages(globeImages).then(() => {
+    const mask = document.getElementById('loading-mask');
+    mask.style.opacity = 0;
+    setTimeout(() => mask.style.display = 'none', 500);
+    buildGridSphere();
+    requestAnimationFrame(animate);
+});
+
+document.getElementById('playPause').addEventListener('click', () => {
+    playing = !playing;
+    lastInteractionTime = Date.now();
+});
+
+document.getElementById('backToGlobe').addEventListener('click', hideProvinceGallery);
+
+globeInner.addEventListener('pointerdown', e => {
+    isDragging = true;
+    moved = false;
+    activePointerId = e.pointerId;
+
+    startX = lastX = e.clientX;
+    startY = lastY = e.clientY;
+
+    velocityX = 0;
+    velocityY = 0;
+    currentSpinSpeed = 0;
+
+    lastInteractionTime = Date.now();
+    globeInner.setPointerCapture(e.pointerId);
+});
+
+window.addEventListener('pointermove', e => {
+    if (!isDragging || e.pointerId !== activePointerId) return;
+
+    const dx = e.clientX - lastX;
+    const dy = e.clientY - lastY;
+
+    if (Math.abs(e.clientX - startX) > 4 || Math.abs(e.clientY - startY) > 4) {
+        moved = true;
+    }
+
+    velocityX = dx * 0.22;
+    velocityY = dy * 0.22;
+
+    lastX = e.clientX;
+    lastY = e.clientY;
+    lastInteractionTime = Date.now();
+});
+
+window.addEventListener('pointerup', e => {
+    if (e.pointerId !== activePointerId) return;
+
+    isDragging = false;
+    lastInteractionTime = Date.now();
+
+    if (!moved) {
+        const target = document.elementFromPoint(e.clientX, e.clientY);
+        if (target && target.classList.contains('book-panel') && target.__data) {
+            openDetail(target.__data);
+        }
+    }
+
+    activePointerId = null;
+});
+
+window.addEventListener('resize', () => {
+    myChart.resize();
+    buildGridSphere();
+});
+
+detailClose.addEventListener('click', closeDetail);
+detailModal.addEventListener('click', (e) => {
+    if (e.target === detailModal) closeDetail();
+});
+
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDetail();
+});
 </script>
 </body>
 </html>
