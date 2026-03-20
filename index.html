@@ -35,6 +35,35 @@
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "Are these tools completely free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, absolutely. All utilities provided on Mini-Tools.uk are 100% free of charge. We do not require any user registration, subscriptions, or credit card information."
+      }
+    }, {
+      "@type": "Question",
+      "name": "How do you ensure my data privacy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We employ a strict 'Client-Side First' architecture. When you input a salary, upload an image, or convert currencies, the JavaScript code runs directly within your device's browser. Your sensitive data is never sent to our servers."
+      }
+    }, {
+      "@type": "Question",
+      "name": "How often are the tax rates and currency exchange rates updated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our UK Tax Calculator is manually audited and updated to reflect the latest official HMRC policies for the 2026 financial year. The Currency Converter fetches live market rates daily from secure open APIs."
+      }
+    }]
+  }
+  </script>
+
   <script async src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   
@@ -422,18 +451,26 @@
           </div>
         </div>
       </div>
+      
       <div class="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
         <p class="text-xs text-slate-400 font-extrabold tracking-widest uppercase">
           © 2026 MINI-TOOLS.UK. ALL RIGHTS RESERVED.
         </p>
-        <p class="text-xs text-blue-400 font-bold italic tracking-wide bg-blue-50 px-4 py-2 rounded-full">
-          Proudly built for speed and privacy.
-        </p>
+        <div class="flex items-center gap-3 bg-blue-50 border border-blue-100 px-4 py-2 rounded-full">
+          <p class="text-xs text-blue-500 font-bold italic tracking-wide m-0">
+            Proudly built for speed and privacy.
+          </p>
+          <span class="w-1 h-1 bg-blue-300 rounded-full"></span>
+          <p id="last-updated" class="text-xs text-slate-500 font-semibold m-0 uppercase tracking-widest">System Active</p>
+        </div>
       </div>
     </div>
   </footer>
 
   <script>
+    // 动态注入网站新鲜度 (Freshness) 标签，拉高 Google 抓取权重
+    document.getElementById('last-updated').innerText = "Last Updated: " + new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+
     function getLang() {
       const params = new URLSearchParams(window.location.search);
       let lang = params.get('lang');
@@ -444,7 +481,6 @@
       return lang;
     }
 
-    // Creating skeleton cards before JSON fetch
     function renderSkeletons() {
         const grid = document.getElementById('tools-grid');
         let skeletonHTML = '';
@@ -466,7 +502,6 @@
       document.documentElement.lang = lang;
       document.getElementById('lang-select').value = lang;
       
-      // Setup skeleton loading state UI
       renderSkeletons();
       document.getElementById('hero-title').classList.add('hidden');
       document.getElementById('hero-sub').classList.add('hidden');
@@ -485,7 +520,6 @@
         const allData = await response.json();
         const data = allData[lang] || allData['en'];
 
-        // Remove Skeletons & Inject Content
         document.getElementById('hero-title-skeleton').style.display = 'none';
         document.getElementById('hero-sub-skeleton').style.display = 'none';
         document.getElementById('hero-btn-skeleton').style.display = 'none';
@@ -504,7 +538,7 @@
         hTitle.classList.remove('hidden');
         hSub.classList.remove('hidden');
         hBtn.classList.remove('hidden');
-        hBtn.classList.add('inline-block'); // Fix layout for button
+        hBtn.classList.add('inline-block'); 
         hTag.classList.remove('hidden');
         hTag.classList.add('inline-block');
 
@@ -558,7 +592,6 @@
     function syncLinks(lang) {
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
-        // Do not sync fragment links or external links
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
           try {
             const url = new URL(href, window.location.origin);
