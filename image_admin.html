@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>图床超级后台 - 违规审核</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #eee; }
+        .header { background: #333; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        input[type="password"] { padding: 8px; border-radius: 4px; border: none; outline: none; }
+        button { padding: 8px 15px; cursor: pointer; border: none; border-radius: 4px; background: #007bff; color: white; }
+        button:hover { background: #0056b3; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .card { background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+        .card img { max-width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px; cursor: pointer; }
+        .delete-btn { background: #dc3545; width: 100%; }
+        .delete-btn:hover { background: #c82333; }
+        .meta { font-size: 0.8rem; color: #666; margin-bottom: 10px; word-break: break-all; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2>🛡️ 图床审核中心</h2>
+    <div>
+        <input type="password" id="admin-pwd" placeholder="输入超级管理员密码">
+        <button onclick="loadImages()">加载所有图片</button>
+    </div>
+</div>
+
+<div id="gallery" class="grid">
+    <p style="color: #666;">请先输入密码并点击加载...</p>
+</div>
+
+<script>
+    // 🔴 换成你的 Worker 地址
+    const WORKER_URL = "https://你的worker名字.你的前缀.workers.dev"; 
+    
+    async function loadImages() {
+        const pwd = document.getElementById('admin-pwd').value;
+        if (!pwd) return alert("请输入密码！");
+        
+        const gallery = document.getElementById('gallery');
+        gallery.innerHTML = "加载中...";
+
+        try {
+            const response = await fetch(WORKER_URL + "?action=list", {
+                method: 'GET',
+                headers: { 'X-Admin-Key': pwd }
+            });
+
+            if (!response.ok) {
+                const err = await response.json();
+                throw new Error(err.error || "请求失败");
+            }
+
+            const data = await response.json();
+            gallery.innerHTML = "";
+
+            if (data.keys.length === 0) {
+                gallery.innerHTML = "<p>存储桶目前是空的。</p>";
+                return;
+            }
+
+            data.keys.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                // 使用 R2 公开域名渲染图片
+                const imgUrl = `https://pub.mini-tools.uk/${item.key}`;
+                
+                card.innerHTML = `
+                    <a href="${imgUrl}" target="_blank">
+                        <img src="${imgUrl}" alt="image" loading="lazy">
+                    </a>
+                    <div class="meta">路径: ${item.key}<br>大小: ${(item.size / 1024).toFixed(1)} KB</div>
+                    <button class="delete-btn" onclick="deleteImage('${item.key}', this)">🚨 违规删除</button>
+                `;
+                gallery.appendChild(card);
+            });
+
+        } catch (error) {
+            gallery.innerHTML = `<p style="color:red;">加载失败: ${error.message} (密码可能错误)</p>`;
+        }
+    }
+
+    async function deleteImage(fileKey, btnElement) {
+        if (!confirm("确定要永久物理删除这张图片吗？不可恢复！")) return;
+        
+        const pwd = document.getElementById('admin-pwd').value;
+        const card = btnElement.parentElement;
+        btnElement.innerText = "删除中...";
+        btnElement.disabled = true;
+
+        try {
+            const response = await fetch(WORKER_URL, {
+                method: 'DELETE',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-Admin-Key': pwd 
+                },
+                body: JSON.stringify({ key: fileKey })
+            });
+
+            if (response.ok) {
+                card.remove(); // 界面上移除这张图
+            } else {
+                const err = await response.json();
+                alert("删除失败: " + err.error);
+                btnElement.innerText = "🚨 违规删除";
+                btnElement.disabled = false;
+            }
+        } catch (error) {
+            alert("网络错误: " + error.message);
+            btnElement.innerText = "🚨 违规删除";
+            btnElement.disabled = false;
+        }
+    }
+</script>
+</body>
+</html>
