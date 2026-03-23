@@ -2,45 +2,98 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>图床超级后台 - 违规审核</title>
+    <title>图床超级后台 - 资产与审核中心</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; background: #eee; }
-        .header { background: #333; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        input[type="password"] { padding: 8px; border-radius: 4px; border: none; outline: none; }
-        button { padding: 8px 15px; cursor: pointer; border: none; border-radius: 4px; background: #007bff; color: white; }
-        button:hover { background: #0056b3; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-        .card { background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
-        .card img { max-width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px; cursor: pointer; }
-        .delete-btn { background: #dc3545; width: 100%; }
-        .delete-btn:hover { background: #c82333; }
-        .meta { font-size: 0.8rem; color: #666; margin-bottom: 10px; word-break: break-all; }
+        body { font-family: sans-serif; padding: 20px; background: #f0f2f5; margin: 0; }
+        .header { background: #2c3e50; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; }
+        .header h2 { margin: 0; }
+        .auth-box { display: flex; gap: 10px; }
+        input[type="password"], input[type="file"], select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; outline: none; }
+        button { padding: 10px 15px; cursor: pointer; border: none; border-radius: 5px; background: #3498db; color: white; font-weight: bold; transition: background 0.3s; }
+        button:hover { background: #2980b9; }
+        .btn-danger { background: #e74c3c; }
+        .btn-danger:hover { background: #c0392b; }
+        .btn-success { background: #2ecc71; }
+        .btn-success:hover { background: #27ae60; }
+        
+        /* 控制面板区域 */
+        .control-panel { background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-wrap: wrap; gap: 15px; align-items: center; justify-content: space-between; }
+        .filter-group { display: flex; gap: 15px; align-items: center; }
+        .admin-upload { display: flex; gap: 10px; align-items: center; border-left: 2px solid #eee; padding-left: 15px; }
+
+        /* 图片网格区域 */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; position: relative; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; cursor: pointer; border: 1px solid #eee; }
+        .checkbox-container { position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .checkbox-container input { transform: scale(1.5); cursor: pointer; }
+        .badge { position: absolute; top: 20px; right: 20px; background: #f39c12; color: white; padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; }
+        .badge.personal { background: #8e44ad; }
+        .meta { font-size: 0.8rem; color: #555; margin-bottom: 12px; text-align: left; line-height: 1.4; word-break: break-all; background: #f9f9f9; padding: 8px; border-radius: 4px; }
+        .delete-btn { width: 100%; }
+        
+        #status-msg { margin-top: 10px; color: #666; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h2>🛡️ 图床审核中心</h2>
-    <div>
+    <h2>🛡️ 图床超级资产中心</h2>
+    <div class="auth-box">
         <input type="password" id="admin-pwd" placeholder="输入超级管理员密码">
-        <button onclick="loadImages()">加载所有图片</button>
+        <button onclick="fetchImages()">拉取云端数据</button>
     </div>
 </div>
 
-<div id="gallery" class="grid">
-    <p style="color: #666;">请先输入密码并点击加载...</p>
+<div class="control-panel">
+    <div class="filter-group">
+        <label><strong>分类筛选:</strong></label>
+        <select id="filter-category" onchange="renderGallery()">
+            <option value="all">全部图片 (All)</option>
+            <option value="personal">👑 我的私用图 (personal)</option>
+            <option value="public">🌐 游客图床 (待审核)</option>
+            <option value="1-day">├─ 1天销毁 (1-day)</option>
+            <option value="3-day">├─ 3天销毁 (3-day)</option>
+            <option value="7-day">├─ 7天销毁 (7-day)</option>
+            <option value="30-day">└─ 30天销毁 (30-day)</option>
+        </select>
+
+        <label><strong>时间排序:</strong></label>
+        <select id="sort-time" onchange="renderGallery()">
+            <option value="desc">最新上传在前</option>
+            <option value="asc">最旧上传在前</option>
+        </select>
+
+        <button onclick="selectAll()" style="background: #95a5a6;">全选 / 取消全选</button>
+        <button onclick="batchDelete()" class="btn-danger">🚨 批量删除选中</button>
+    </div>
+
+    <div class="admin-upload">
+        <label><strong>👑 私人永久上传:</strong></label>
+        <input type="file" id="admin-file" accept="image/*">
+        <button onclick="adminUpload()" class="btn-success">直接上传</button>
+    </div>
 </div>
 
+<div id="status-msg">请先输入密码并点击“拉取云端数据”...</div>
+<div id="gallery" class="grid"></div>
+
 <script>
-    // 🔴 换成你的 Worker 地址
+    // 🔴 极其重要：替换为你的真实 Worker 地址，不要带斜杠！
     const WORKER_URL = "https://pic-api.yuyananuu.workers.dev"; 
     
-    async function loadImages() {
+    // 全局变量，用于在前端内存中进行极速筛选和排序
+    let globalImages = [];
+
+    // 1. 获取并缓存所有图片
+    async function fetchImages() {
         const pwd = document.getElementById('admin-pwd').value;
-        if (!pwd) return alert("请输入密码！");
+        if (!pwd) return alert("⚠️ 请先输入超级管理员密码！");
         
-        const gallery = document.getElementById('gallery');
-        gallery.innerHTML = "加载中...";
+        const statusMsg = document.getElementById('status-msg');
+        statusMsg.innerText = "⏳ 正在从 R2 仓库拉取数据，请稍候...";
+        document.getElementById('gallery').innerHTML = "";
 
         try {
             const response = await fetch(WORKER_URL + "?action=list", {
@@ -50,45 +103,102 @@
 
             if (!response.ok) {
                 const err = await response.json();
-                throw new Error(err.error || "请求失败");
+                throw new Error(err.error || "请求失败，可能是密码错误");
             }
 
             const data = await response.json();
-            gallery.innerHTML = "";
-
-            if (data.keys.length === 0) {
-                gallery.innerHTML = "<p>存储桶目前是空的。</p>";
-                return;
-            }
-
-            data.keys.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                // 使用 R2 公开域名渲染图片
-                const imgUrl = `https://pub.mini-tools.uk/${item.key}`;
-                
-                card.innerHTML = `
-                    <a href="${imgUrl}" target="_blank">
-                        <img src="${imgUrl}" alt="image" loading="lazy">
-                    </a>
-                    <div class="meta">路径: ${item.key}<br>大小: ${(item.size / 1024).toFixed(1)} KB</div>
-                    <button class="delete-btn" onclick="deleteImage('${item.key}', this)">🚨 违规删除</button>
-                `;
-                gallery.appendChild(card);
-            });
+            globalImages = data.keys;
+            
+            statusMsg.innerText = `✅ 拉取成功！共发现 ${globalImages.length} 张图片。`;
+            renderGallery(); // 调用渲染引擎
 
         } catch (error) {
-            gallery.innerHTML = `<p style="color:red;">加载失败: ${error.message} (密码可能错误)</p>`;
+            statusMsg.innerHTML = `<span style="color:red;">❌ 拉取失败: ${error.message}</span>`;
         }
     }
 
-    async function deleteImage(fileKey, btnElement) {
-        if (!confirm("确定要永久物理删除这张图片吗？不可恢复！")) return;
+    // 2. 核心渲染引擎：处理过滤、排序和 UI 生成
+    function renderGallery() {
+        const gallery = document.getElementById('gallery');
+        const categoryFilter = document.getElementById('filter-category').value;
+        const timeSort = document.getElementById('sort-time').value;
+
+        gallery.innerHTML = "";
         
+        if (globalImages.length === 0) {
+            gallery.innerHTML = "<p>存储桶目前是空的，没有任何图片。</p>";
+            return;
+        }
+
+        // 步骤 A: 内存过滤
+        let filteredImages = globalImages.filter(item => {
+            const prefix = item.key.split('/')[0];
+            if (categoryFilter === 'all') return true;
+            if (categoryFilter === 'personal') return prefix === 'personal';
+            if (categoryFilter === 'public') return prefix !== 'personal';
+            return prefix === categoryFilter; // 精确匹配 1-day, 3-day 等
+        });
+
+        // 步骤 B: 内存时间排序
+        filteredImages.sort((a, b) => {
+            const timeA = new Date(a.uploaded).getTime();
+            const timeB = new Date(b.uploaded).getTime();
+            return timeSort === 'desc' ? (timeB - timeA) : (timeA - timeB);
+        });
+
+        // 步骤 C: 生成卡片
+        filteredImages.forEach(item => {
+            const prefix = item.key.split('/')[0];
+            const isPersonal = prefix === 'personal';
+            const badgeClass = isPersonal ? 'badge personal' : 'badge';
+            const badgeText = isPersonal ? '👑 私用' : '🌐 游客';
+            
+            // 格式化时间
+            const uploadDate = new Date(item.uploaded).toLocaleString('zh-CN', { hour12: false });
+            // R2 公开访问链接
+            const imgUrl = `https://pub.mini-tools.uk/${item.key}`;
+
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="checkbox-container">
+                    <input type="checkbox" class="img-checkbox" value="${item.key}">
+                </div>
+                <div class="${badgeClass}">${badgeText}</div>
+                <a href="${imgUrl}" target="_blank">
+                    <img src="${imgUrl}" alt="image" loading="lazy">
+                </a>
+                <div class="meta">
+                    <b>路径:</b> ${item.key}<br>
+                    <b>大小:</b> ${(item.size / 1024).toFixed(1)} KB<br>
+                    <b>时间:</b> ${uploadDate}
+                </div>
+                <button class="delete-btn btn-danger" onclick="singleDelete('${item.key}')">🗑️ 单张删除</button>
+            `;
+            gallery.appendChild(card);
+        });
+
+        document.getElementById('status-msg').innerText = `✅ 当前视图共展示 ${filteredImages.length} 张图片。`;
+    }
+
+    // 3. 全选 / 取消全选逻辑
+    function selectAll() {
+        const checkboxes = document.querySelectorAll('.img-checkbox');
+        if (checkboxes.length === 0) return;
+        const isAllChecked = Array.from(checkboxes).every(cb => cb.checked);
+        checkboxes.forEach(cb => cb.checked = !isAllChecked);
+    }
+
+    // 4. 批量删除逻辑 (终极审核武器)
+    async function batchDelete() {
+        const checkboxes = document.querySelectorAll('.img-checkbox:checked');
+        const keysToDelete = Array.from(checkboxes).map(cb => cb.value);
+
+        if (keysToDelete.length === 0) return alert("⚠️ 请先勾选要删除的图片！");
+        if (!confirm(`🚨 警告：您确定要永久物理删除选中的 ${keysToDelete.length} 张图片吗？此操作绝对不可逆转！`)) return;
+
         const pwd = document.getElementById('admin-pwd').value;
-        const card = btnElement.parentElement;
-        btnElement.innerText = "删除中...";
-        btnElement.disabled = true;
+        document.getElementById('status-msg').innerText = `⏳ 正在批量执行删除指令，请勿关闭页面...`;
 
         try {
             const response = await fetch(WORKER_URL, {
@@ -97,21 +207,79 @@
                     'Content-Type': 'application/json',
                     'X-Admin-Key': pwd 
                 },
-                body: JSON.stringify({ key: fileKey })
+                body: JSON.stringify({ keys: keysToDelete }) // 发送数组给后端
             });
 
             if (response.ok) {
-                card.remove(); // 界面上移除这张图
+                alert(`🎉 成功销毁 ${keysToDelete.length} 张违规图片！`);
+                // 从内存中移除这些图片并重新渲染，避免重新发起网络请求拉取所有数据
+                globalImages = globalImages.filter(img => !keysToDelete.includes(img.key));
+                renderGallery();
             } else {
                 const err = await response.json();
-                alert("删除失败: " + err.error);
-                btnElement.innerText = "🚨 违规删除";
-                btnElement.disabled = false;
+                alert("❌ 批量删除部分或全部失败: " + err.error);
             }
         } catch (error) {
-            alert("网络错误: " + error.message);
-            btnElement.innerText = "🚨 违规删除";
-            btnElement.disabled = false;
+            alert("❌ 网络错误: " + error.message);
+        }
+    }
+
+    // 5. 单张删除兼容逻辑
+    async function singleDelete(key) {
+        if (!confirm("确定要删除这张图片吗？")) return;
+        
+        const pwd = document.getElementById('admin-pwd').value;
+        try {
+            const response = await fetch(WORKER_URL, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
+                body: JSON.stringify({ keys: [key] }) // 统一使用数组格式交给后端
+            });
+
+            if (response.ok) {
+                globalImages = globalImages.filter(img => img.key !== key);
+                renderGallery();
+            } else {
+                alert("❌ 删除失败");
+            }
+        } catch (error) {
+            alert("❌ 网络错误: " + error.message);
+        }
+    }
+
+    // 6. 超级管理员专属：直传私人文件夹 (跳过 Turnstile)
+    async function adminUpload() {
+        const fileInput = document.getElementById('admin-file');
+        const file = fileInput.files[0];
+        const pwd = document.getElementById('admin-pwd').value;
+
+        if (!pwd) return alert("⚠️ 请先在上方输入超级管理员密码！");
+        if (!file) return alert("⚠️ 请选择要上传的图片！");
+
+        document.getElementById('status-msg').innerText = `⏳ 正在向专属空间上传 [${file.name}]...`;
+
+        const formData = new FormData();
+        formData.append('file', file);
+        // 后端识别到管理员密码后，会自动将其放入 personal/ 目录，无需前端指定 duration
+
+        try {
+            const response = await fetch(WORKER_URL, {
+                method: 'POST',
+                headers: { 'X-Admin-Key': pwd }, // 携带特权令牌
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                alert(`🎉 私用图上传成功！\n专属链接：${result.url}`);
+                fileInput.value = "";
+                fetchImages(); // 上传成功后自动刷新图库
+            } else {
+                alert(`❌ 上传失败: ${result.error}`);
+            }
+        } catch (error) {
+            alert(`❌ 网络错误: ${error.message}`);
         }
     }
 </script>
