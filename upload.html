@@ -55,8 +55,7 @@
 </div>
 
 <script>
-    // 🔴 极其重要：你需要把下面这个 URL 换成你在 Cloudflare 部署的那个 Worker 的真实地址！
-    // 记得千万不要在末尾加斜杠 /
+    // 🔴 极其重要：务必把这里换成你的 Worker 真实地址！千万别带最后的斜杠！
     const WORKER_URL = "https://你的worker名字.你的前缀.workers.dev"; 
     
     const fileInput = document.getElementById('file-input');
@@ -75,12 +74,12 @@
         logDiv.scrollTop = logDiv.scrollHeight;
     }
 
-    // 1. 异步加载 NSFWJS 模型 (纯本地运算)
+    // 1. 异步加载 NSFWJS 模型 (锁定稳定版 CDN，彻底解决报错)
     async function loadModel() {
         try {
-            logDiv.innerHTML = "正在通过 jsDelivr CDN 拉取 AI 安全模型...\n";
-            // 强行指定走 jsDelivr 的全球 CDN，绕过官方宕机的 S3 节点
-            const modelUrl = "https://cdn.jsdelivr.net/gh/infinitered/nsfwjs/master/example/nsfw_demo/public/quant_nsfw_mobilenet/";
+            logDiv.innerHTML = "正在拉取锁死版本的 AI 安全模型...\n";
+            // 🌟 直接锁死在 v2.4.2 版本的 unpkg 全球镜像，告别 404
+            const modelUrl = "https://unpkg.com/nsfwjs@2.4.2/example/nsfw_demo/public/quant_nsfw_mobilenet/";
             nsfwModel = await nsfwjs.load(modelUrl);
             log("✅ AI 模型加载完毕，可以上传图片了。", "success");
             uploadBtn.innerText = "开始安全上传";
