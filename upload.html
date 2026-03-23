@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini-Tools - 限时阅后即焚图床 (带纯前端 AI 鉴黄)</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f9f9f9; }
+        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { font-size: 1.5rem; margin-bottom: 20px; color: #333; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        select, input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { background: #007bff; color: white; border: none; padding: 12px 20px; width: 100%; border-radius: 5px; font-size: 1rem; cursor: pointer; transition: background 0.3s; }
+        button:hover { background: #0056b3; }
+        button:disabled { background: #aaa; cursor: not-allowed; }
+        #log { margin-top: 20px; padding: 10px; background: #222; color: #0f0; border-radius: 5px; font-family: monospace; font-size: 0.9rem; white-space: pre-wrap; word-wrap: break-word; max-height: 200px; overflow-y: auto;}
+        .error { color: #ff4d4d; }
+        .success { color: #00ff00; }
+        /* 隐藏用于AI分析的图片画布 */
+        #preview-img { display: none; max-width: 100%; margin-top: 10px; border-radius: 5px;}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.7.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nsfwjs@2.3.0/dist/nsfwjs.min.js"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔥 限时隐私图床 (纯净版)</h1>
+    
+    <div class="form-group">
+        <label>1. 选择销毁时间</label>
+        <select id="duration-select">
+            <option value="1-day">1 天后自动销毁</option>
+            <option value="3-day">3 天后自动销毁</option>
+            <option value="7-day">7 天后自动销毁</option>
+            <option value="30-day">30 天后自动销毁 (最长)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>2. 选择图片 (最大 5MB)</label>
+        <input type="file" id="file-input" accept="image/png, image/jpeg, image/gif, image/webp">
+        <img id="preview-img" crossorigin="anonymous">
+    </div>
+
+    <div class="form-group">
+        <label>3. 人机安全验证</label>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAACu0xC_kU_xOZpH4"></div>
+    </div>
+
+    <button id="upload-btn" disabled>初始化 AI 鉴黄引擎中...</button>
+
+    <div id="log">等待操作...</div>
+</div>
+
+<script>
+    // 🔴 极其重要：你需要把下面这个 URL 换成你刚才在 Cloudflare 部署的 Worker 真实地址！
+    // 记得千万不要在末尾加斜杠 /
+    const WORKER_URL = "https://你的worker名字.你的前缀.workers.dev"; 
+    
+    const fileInput = document.getElementById('file-input');
+    const durationSelect = document.getElementById('duration-select');
+    const uploadBtn = document.getElementById('upload-btn');
+    const logDiv = document.getElementById('log');
+    const previewImg = document.getElementById('preview-img');
+
+    let nsfwModel = null;
+
+    function log(msg, type = 'normal') {
+        const span = document.createElement('span');
+        span.className = type;
+        span.innerText = msg + '\n';
+        logDiv.appendChild(span);
+        logDiv.scrollTop = logDiv.scrollHeight;
+    }
+
+    // 1. 异步加载 NSFWJS 模型 (纯本地运算)
+    async function loadModel() {
+        try {
+            logDiv.innerHTML = "正在拉取本地 AI 安全分析模型 (NSFWJS)...\n";
+            nsfwModel = await nsfwjs.load();
+            log("✅ AI 模型加载完毕，可以上传图片了。", "success");
+            uploadBtn.innerText = "开始安全上传";
+            uploadBtn.disabled = false;
+        } catch (error) {
+            log("❌ AI 模型加载失败: " + error, "error");
+            uploadBtn.innerText = "模型加载失败";
+        }
+    }
+    loadModel();
+
+    // 2. 监听文件选择
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (file.size > 5242880) {
+            log("❌ 文件超过 5MB 限制，请重新选择。", "error");
+            fileInput.value = ""; 
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            previewImg.src = event.target.result;
+            // 解决跨域图片加载导致的 canvas 污染问题
+            previewImg.crossOrigin = "anonymous";
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // 3. 点击上传逻辑
+    uploadBtn.addEventListener('click', async () => {
+        const file = fileInput.files[0];
+        if (!file) return log("⚠️ 请先选择图片。", "error");
+        
+        const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]').value;
+        if (!turnstileResponse) return log("⚠️ 请先完成人机验证。", "error");
+
+        uploadBtn.disabled = true;
+        logDiv.innerHTML = ""; 
+        log(`⏳ 正在对 [${file.name}] 进行本地 AI 检测...`);
+
+        try {
+            // 纯前端图片安全性分析
+            const predictions = await nsfwModel.classify(previewImg);
+            
+            let isSafe = true;
+            for (let p of predictions) {
+                if ((p.className === 'Porn' || p.className === 'Hentai') && p.probability > 0.6) {
+                    isSafe = false;
+                    break;
+                }
+            }
+
+            if (!isSafe) {
+                log("🚨 检测到高度疑似违规内容，已在本地阻断上传！", "error");
+                uploadBtn.disabled = false;
+                turnstile.reset();
+                return;
+            }
+
+            log("✅ 本地检测通过，内容安全。正在加密上传至云端...");
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('duration', durationSelect.value);
+            formData.append('cf-turnstile-response', turnstileResponse);
+
+            const response = await fetch(WORKER_URL, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                log(`🎉 上传成功！将在 ${durationSelect.options[durationSelect.selectedIndex].text}。\n`, "success");
+                log(`🌍 您的图片专属链接:\n${result.url}`, "success");
+                
+                const link = document.createElement('a');
+                link.href = result.url;
+                link.target = '_blank';
+                link.innerText = "点击此处查看图片";
+                link.style.color = "#00ff00";
+                logDiv.appendChild(link);
+                
+                fileInput.value = "";
+                turnstile.reset();
+            } else {
+                log(`❌ 服务器拒绝上传: ${result.error}`, "error");
+                turnstile.reset();
+            }
+
+        } catch (error) {
+            log("❌ 发生网络错误: " + error.message, "error");
+            turnstile.reset();
+        } finally {
+            uploadBtn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>
