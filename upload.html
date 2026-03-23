@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>Mini-Tools - 限时阅后即焚图床 (带纯前端 AI 鉴黄)</title>
+    <title>Mini-Tools - 限时阅后即焚图床</title>
     <style>
         body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f9f9f9; }
         .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
@@ -16,17 +16,14 @@
         #log { margin-top: 20px; padding: 10px; background: #222; color: #0f0; border-radius: 5px; font-family: monospace; font-size: 0.9rem; white-space: pre-wrap; word-wrap: break-word; max-height: 200px; overflow-y: auto;}
         .error { color: #ff4d4d; }
         .success { color: #00ff00; }
-        /* 隐藏用于AI分析的图片画布 */
-        #preview-img { display: none; max-width: 100%; margin-top: 10px; border-radius: 5px;}
+        #preview-img { max-width: 100%; margin-top: 10px; border-radius: 5px; display: none; }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.7.0/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/nsfwjs@2.3.0/dist/nsfwjs.min.js"></script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
 <div class="container">
-    <h1>🔥 限时隐私图床 (纯净版)</h1>
+    <h1>🔥 限时隐私图床 (极速版)</h1>
     
     <div class="form-group">
         <label>1. 选择销毁时间</label>
@@ -41,7 +38,7 @@
     <div class="form-group">
         <label>2. 选择图片 (最大 5MB)</label>
         <input type="file" id="file-input" accept="image/png, image/jpeg, image/gif, image/webp">
-        <img id="preview-img" crossorigin="anonymous">
+        <img id="preview-img">
     </div>
 
     <div class="form-group">
@@ -49,13 +46,13 @@
         <div class="cf-turnstile" data-sitekey="0x4AAAAAACu0xC_kU_xOZpH4"></div>
     </div>
 
-    <button id="upload-btn" disabled>初始化 AI 鉴黄引擎中...</button>
+    <button id="upload-btn">开始安全上传</button>
 
     <div id="log">等待操作...</div>
 </div>
 
 <script>
-    // 🔴 极其重要：务必把这里换成你的 Worker 真实地址！千万别带最后的斜杠！
+    // 🔴 换成你的 Worker 地址
     const WORKER_URL = "https://你的worker名字.你的前缀.workers.dev"; 
     
     const fileInput = document.getElementById('file-input');
@@ -63,8 +60,6 @@
     const uploadBtn = document.getElementById('upload-btn');
     const logDiv = document.getElementById('log');
     const previewImg = document.getElementById('preview-img');
-
-    let nsfwModel = null;
 
     function log(msg, type = 'normal') {
         const span = document.createElement('span');
@@ -74,44 +69,23 @@
         logDiv.scrollTop = logDiv.scrollHeight;
     }
 
-    // 1. 异步加载 NSFWJS 模型 (换用最强官方演示站直链)
-    async function loadModel() {
-        try {
-            logDiv.innerHTML = "正在拉取 AI 安全模型 (连接官方专属不宕机节点)...\n";
-            // 🌟 终极方案：直接使用官方演示站自带的云端目录，自带完美跨域头
-            const modelUrl = "https://nsfwjs.com/quant_nsfw_mobilenet/";
-            nsfwModel = await nsfwjs.load(modelUrl);
-            log("✅ AI 模型加载完毕，可以上传图片了。", "success");
-            uploadBtn.innerText = "开始安全上传";
-            uploadBtn.disabled = false;
-        } catch (error) {
-            log("❌ AI 模型加载失败: " + error, "error");
-            uploadBtn.innerText = "模型加载失败，请检查网络或刷新重试";
-        }
-    }
-    loadModel();
-
-    // 2. 监听文件选择
     fileInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (!file) return;
-
         if (file.size > 5242880) {
             log("❌ 文件超过 5MB 限制，请重新选择。", "error");
             fileInput.value = ""; 
+            previewImg.style.display = 'none';
             return;
         }
-
         const reader = new FileReader();
         reader.onload = (event) => {
             previewImg.src = event.target.result;
-            // 解决跨域图片加载导致的 canvas 污染问题
-            previewImg.crossOrigin = "anonymous";
+            previewImg.style.display = 'block';
         };
         reader.readAsDataURL(file);
     });
 
-    // 3. 点击上传逻辑
     uploadBtn.addEventListener('click', async () => {
         const file = fileInput.files[0];
         if (!file) return log("⚠️ 请先选择图片。", "error");
@@ -121,29 +95,9 @@
 
         uploadBtn.disabled = true;
         logDiv.innerHTML = ""; 
-        log(`⏳ 正在对 [${file.name}] 进行本地 AI 检测...`);
+        log(`⏳ 正在加密上传 [${file.name}]...`);
 
         try {
-            // 纯前端图片安全性分析
-            const predictions = await nsfwModel.classify(previewImg);
-            
-            let isSafe = true;
-            for (let p of predictions) {
-                if ((p.className === 'Porn' || p.className === 'Hentai') && p.probability > 0.6) {
-                    isSafe = false;
-                    break;
-                }
-            }
-
-            if (!isSafe) {
-                log("🚨 检测到高度疑似违规内容，已在本地阻断上传！", "error");
-                uploadBtn.disabled = false;
-                turnstile.reset();
-                return;
-            }
-
-            log("✅ 本地检测通过，内容安全。正在加密上传至云端...");
-
             const formData = new FormData();
             formData.append('file', file);
             formData.append('duration', durationSelect.value);
@@ -168,12 +122,12 @@
                 logDiv.appendChild(link);
                 
                 fileInput.value = "";
+                previewImg.style.display = 'none';
                 turnstile.reset();
             } else {
                 log(`❌ 服务器拒绝上传: ${result.error}`, "error");
                 turnstile.reset();
             }
-
         } catch (error) {
             log("❌ 发生网络错误: " + error.message, "error");
             turnstile.reset();
