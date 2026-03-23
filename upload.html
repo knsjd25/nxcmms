@@ -74,19 +74,19 @@
         logDiv.scrollTop = logDiv.scrollHeight;
     }
 
-  // 1. 异步加载 NSFWJS 模型 (锁定 v2.4.2 稳定版 Github CDN)
+    // 1. 异步加载 NSFWJS 模型 (换用最强官方演示站直链)
     async function loadModel() {
         try {
-            logDiv.innerHTML = "正在拉取 AI 安全模型 (⚠️ 如果失败，请检查是否被广告拦截插件拦截)...\n";
-            // 🌟 换用 jsDelivr 的 GitHub 专属镜像，并死死锁定在 v2.4.2 版本！
-            const modelUrl = "https://cdn.jsdelivr.net/gh/infinitered/nsfwjs@v2.4.2/example/nsfw_demo/public/quant_nsfw_mobilenet/";
+            logDiv.innerHTML = "正在拉取 AI 安全模型 (连接官方专属不宕机节点)...\n";
+            // 🌟 终极方案：直接使用官方演示站自带的云端目录，自带完美跨域头
+            const modelUrl = "https://nsfwjs.com/quant_nsfw_mobilenet/";
             nsfwModel = await nsfwjs.load(modelUrl);
             log("✅ AI 模型加载完毕，可以上传图片了。", "success");
             uploadBtn.innerText = "开始安全上传";
             uploadBtn.disabled = false;
         } catch (error) {
             log("❌ AI 模型加载失败: " + error, "error");
-            uploadBtn.innerText = "模型加载失败，请尝试使用无痕模式或关闭去广告插件";
+            uploadBtn.innerText = "模型加载失败，请检查网络或刷新重试";
         }
     }
     loadModel();
