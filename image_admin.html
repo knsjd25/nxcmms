@@ -108,13 +108,15 @@
                 <option value="30-day">└─ 30天销毁 (30-day)</option>
             </select>
 
-            <label><strong>时间排序:</strong></label>
+            <input type="text" id="search-vip" placeholder="🔍 搜索VIP码 (如 user_888)" onkeyup="renderGallery()" style="width: 180px; padding: 8px;">
+
+            <label><strong>时间:</strong></label>
             <select id="sort-time" onchange="renderGallery()">
-                <option value="desc">最新上传在前</option>
-                <option value="asc">最旧上传在前</option>
+                <option value="desc">最新在前</option>
+                <option value="asc">最旧在前</option>
             </select>
 
-            <button onclick="selectAll()" style="background: #95a5a6;">全选 / 取消全选</button>
+            <button onclick="selectAll()" style="background: #95a5a6;">全选 / 取消</button>
             <button onclick="batchAudit()" id="btn-batch-audit" class="btn-warning">✅ 批量标记为安全 (通过审核)</button>
             <button onclick="batchDelete()" class="btn-danger">🚨 批量物理删除</button>
         </div>
@@ -155,7 +157,7 @@
 
 <script>
     // 🔴 极其重要：替换为你的真实 Worker 地址！
-    const WORKER_URL = "https://pic-api.yuyananuu.workers.dev";
+    const WORKER_URL ="https://pic-api.yuyananuu.workers.dev";
     
     let globalImages = [];
     let globalVips = [];
@@ -169,13 +171,11 @@
         statusMsg.innerText = "⏳ 正在同时拉取图片数据和 VIP 配置...";
         
         try {
-            // 1. 拉取图片
             const imgRes = await fetch(WORKER_URL + "?action=list", { headers: { 'X-Admin-Key': pwd } });
             if (!imgRes.ok) throw new Error("密码错误或请求失败");
             const imgData = await imgRes.json();
             globalImages = imgData.keys; 
             
-            // 2. 拉取 VIP 配置
             const vipRes = await fetch(WORKER_URL + "?action=vip_list", { headers: { 'X-Admin-Key': pwd } });
             if (vipRes.ok) {
                 const vipData = await vipRes.json();
@@ -222,21 +222,30 @@
         }
     }
 
-    // ========== 图片渲染引擎 ==========
+    // ========== 图片渲染引擎 (加入 VIP 过滤) ==========
     function renderGallery() {
         const gallery = document.getElementById('gallery');
         const timeSort = document.getElementById('sort-time').value;
         const categoryFilter = document.getElementById('filter-category').value;
+        const searchVip = document.getElementById('search-vip').value.trim().toLowerCase();
 
         gallery.innerHTML = "";
         
         let filteredImages = globalImages.filter(img => img.status === currentTab);
 
+        // 目录前缀过滤
         if (categoryFilter !== 'all') {
             filteredImages = filteredImages.filter(item => {
                 const prefix = item.key.split('/')[0];
                 return prefix === categoryFilter;
             });
+        }
+
+        // 🌟 VIP 码精准搜索过滤
+        if (searchVip) {
+            filteredImages = filteredImages.filter(item => 
+                item.vipId && item.vipId.toLowerCase().includes(searchVip)
+            );
         }
 
         if (filteredImages.length === 0) {
@@ -258,7 +267,6 @@
             let badgeClass = 'badge';
             let badgeText = '';
             
-            // 如果是在 pending/audited 列表中发现了 permanent 目录的图，给它尊贵的提示
             if (prefix === 'permanent') {
                 badgeText = '💎 VIP上传';
                 badgeClass += (item.status === 'pending') ? ' pending' : ' audited';
@@ -267,6 +275,9 @@
                 else if (item.status === 'audited') { badgeClass += ' audited'; badgeText = '✅ 已通过'; }
                 else { badgeClass += ' personal'; badgeText = '👑 私用图'; }
             }
+
+            // 🌟 如果这张图片有 VIP 元数据，就在详情里高亮展示
+            const vipHtml = item.vipId ? `<b style="color:#d35400;">👤 VIP归属: ${item.vipId}</b><br>` : '';
 
             const card = document.createElement('div');
             card.className = 'card';
@@ -277,6 +288,7 @@
                 <div class="meta">
                     <b>路径:</b> ${item.key}<br>
                     <b>大小:</b> ${(item.size / 1024).toFixed(1)} KB<br>
+                    ${vipHtml}
                     <b>时间:</b> ${uploadDate}
                 </div>
                 <div class="action-btns">
@@ -302,7 +314,7 @@
         if (keys.length === 0) return alert("⚠️ 请先勾选图片！");
         
         let confirmMsg = actionType === 'audit' 
-            ? `✅ 确定将这 ${keys.length} 张图片标记为“安全通过”吗？它们将从待审核列表中移出。`
+            ? `✅ 确定将这 ${keys.length} 张图片标记为“安全通过”吗？`
             : `🚨 警告：确定彻底物理删除这 ${keys.length} 张图片吗？不可恢复！`;
             
         if (!confirm(confirmMsg)) return;
@@ -374,7 +386,6 @@
             return;
         }
         
-        // 倒序展示最新生成的码
         const sortedVips = [...globalVips].reverse();
         
         sortedVips.forEach(vip => {
@@ -383,10 +394,19 @@
                 <td><span class="vip-code">${vip.code}</span></td>
                 <td>${vip.note || '-'}</td>
                 <td>${vip.created_at}</td>
-                <td><button class="btn-danger" onclick="deleteVipCode('${vip.code}')" style="padding: 5px 10px; font-size: 0.8rem;">🚨 销毁作废</button></td>
+                <td>
+                    <button class="btn-warning" onclick="searchVipImages('${vip.code}')" style="padding: 5px 10px; font-size: 0.8rem; margin-right: 5px;">🔍 查他上传的图</button>
+                    <button class="btn-danger" onclick="deleteVipCode('${vip.code}')" style="padding: 5px 10px; font-size: 0.8rem;">🚨 销毁作废</button>
+                </td>
             `;
             tbody.appendChild(tr);
         });
+    }
+
+    // 快捷联动跳转：从 VIP 列表直接跳去查图片
+    function searchVipImages(code) {
+        document.getElementById('search-vip').value = code;
+        switchTab('audited'); // 跳转到图片看板 (比如先跳去已审核区)
     }
 
     async function generateVipCode() {
@@ -396,7 +416,6 @@
         let newCode = document.getElementById('new-vip-code').value.trim();
         const note = document.getElementById('new-vip-note').value.trim();
         
-        // 如果留空，自动生成一段酷炫的随机码
         if (!newCode) {
             newCode = 'vip_' + Math.random().toString(36).substr(2, 6) + Math.floor(Date.now() / 1000).toString().slice(-4);
         }
@@ -416,7 +435,7 @@
                 alert(`🎉 VIP 码 [${newCode}] 生成成功！赶快发给你的朋友吧！`);
                 document.getElementById('new-vip-code').value = "";
                 document.getElementById('new-vip-note').value = "";
-                fetchAllData(); // 重新拉取
+                fetchAllData(); 
             } else {
                 const err = await response.json();
                 alert("❌ 生成失败: " + err.error);
