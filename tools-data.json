@@ -25,7 +25,7 @@
       { "id": "json", "t": "JSON Formatter", "d": "Clean up and validate JSON code.", "img": "https://cdn-icons-png.flaticon.com/512/136/136525.png", "hot": false },
       { "id": "diff", "t": "Text Diff Checker", "d": "Compare two texts for changes.", "img": "https://cdn-icons-png.flaticon.com/512/2911/2911230.png", "hot": false },
       { "id": "image", "t": "Image Resizer", "d": "Compress & resize images fast.", "img": "https://cdn-icons-png.flaticon.com/512/2916/2916124.png", "hot": false },
-      { "id": "upload", "t": "Secure Image Hosting", "d": "Auto-destruct & VIP permanent image hosting.", "img": "https://cdn-icons-png.flaticon.com/512/739/739249.png", "hot": true }
+      { "id": "upload", "t": "Secure Image Hosting", "d": "Auto-destruct & VIP permanent storage.", "img": "https://cdn-icons-png.flaticon.com/512/739/739249.png", "hot": true }
     ]
   },
   "zh": {
