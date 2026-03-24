@@ -73,7 +73,6 @@
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
       cursor: crosshair; 
       transform-origin: top left;
-      /* 删除了 transition: width 0.1s, height 0.1s; 以修复滚轮缩放时的剧烈抖动 */
       margin: 0 auto; 
     }
 
@@ -281,7 +280,7 @@
       </div>
     </div>
     
-    <p id="pan-hint" class="text-[13px] font-semibold text-slate-400 mt-4 text-center hidden transition-opacity" style="display: none;">💡 Tip: Right-click & drag to pan, use mouse wheel to zoom.</p>
+    <p id="pan-hint" class="text-[13px] font-semibold text-slate-400 mt-4 text-center transition-opacity">💡 Tip: Right-click & drag to pan, use mouse wheel to zoom.</p>
 
     <div class="prose-content">
       
@@ -734,8 +733,6 @@
           canvasContainer.classList.remove('empty-state'); 
           
           document.getElementById('zoom-controls').style.display = 'flex';
-          
-          panHintText.style.display = 'block'; 
           
           isImageLoaded = true;
           setZoom(fitScale);
