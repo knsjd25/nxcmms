@@ -4,97 +4,213 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>隐私安全图床 | Secure Image Hosting - Mini-Tools</title>
-    <meta name="description" content="Free secure image hosting with auto-destruction and VIP permanent storage. 免费隐私安全图床，支持限时阅后即焚与VIP永久存储。">
-    <meta name="keywords" content="image hosting, secure image upload, temporary image, 隐私图床, 阅后即焚, 图片上传, 免费图床">
-    <meta property="og:title" content="Secure Image Hosting - Mini-Tools">
-    <meta property="og:description" content="Free, fast, and secure image hosting. 100% Privacy first.">
-    <meta property="og:type" content="website">
+    <title>免费安全图床 | Secure Image Hosting - Mini-Tools</title>
+    <meta name="description" content="Free secure image hosting with auto-destruction and VIP permanent storage. 纯本地安全加密，免费安全图床，支持限时阅后即焚与 VIP 永久云端存储。">
+    <meta name="keywords" content="免费图床, 安全图床, 阅后即焚图床, 临时图床, 免注册图床, 高清图床, image hosting, free image hosting, secure image upload, temporary image, Mini-Tools">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    
+    <style>
+        .seo-article { display: none; }
+        .seo-article.active { display: block; }
+        /* 终端风格日志滚动条 */
+        #upload-log::-webkit-scrollbar { width: 6px; }
+        #upload-log::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 3px; }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
+<body class="bg-[#f8f9fa] text-gray-800 font-sans min-h-screen flex flex-col">
 
-    <nav class="w-full bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-3xl mx-auto px-4 py-4 flex items-center">
-            <a href="index.html" class="flex items-center text-blue-600 font-medium hover:text-blue-800 transition">
-                <svg viewBox="0 0 24 24" class="w-5 h-5 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                <span data-i18n="back">返回工具大厅</span>
-            </a>
+    <nav class="w-full bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center gap-3 hover:opacity-80 transition">
+                        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Logo" class="w-8 h-8 rounded-lg shadow-sm border border-gray-100">
+                        <span class="font-bold text-xl text-gray-900 tracking-tight">Mini-Tools.uk</span>
+                    </a>
+                </div>
+                <div class="flex items-center">
+                    <select id="lang-selector" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 outline-none cursor-pointer">
+                        <option value="en">🇬🇧 English</option>
+                        <option value="zh">🇨🇳 简体中文</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="fr">🇫🇷 Français</option>
+                        <option value="de">🇩🇪 Deutsch</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <main class="flex-grow flex items-center justify-center p-4 py-10">
-        <div class="w-full max-w-lg bg-white rounded-2xl shadow-lg border border-gray-100 p-6 sm:p-8">
-            <h1 class="text-2xl font-bold text-center text-gray-900 mb-8" data-i18n="title">🔥 隐私安全图床</h1>
+    <main class="flex-grow max-w-5xl mx-auto w-full px-4 py-8 flex flex-col gap-8">
+        
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden mt-4">
+            <div class="border-b border-gray-100 bg-gray-50/50 px-6 py-5">
+                <h1 class="text-2xl font-bold text-gray-900" data-i18n="title">🔥 免费安全图床</h1>
+            </div>
             
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">
-                        <span data-i18n="step1">1. 选择销毁时间</span> 
-                        <span class="text-xs text-amber-500 font-normal ml-1" data-i18n="hint">(💡 如需永久保存，请联系站长获取 VIP 专属码)</span>
-                    </label>
-                    <select id="duration-select" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-gray-700">
-                        <option value="1-day" data-i18n="opt1">1 天后自动销毁 (最安全)</option>
-                        <option value="3-day" data-i18n="opt3">3 天后自动销毁</option>
-                        <option value="7-day" data-i18n="opt7">7 天后自动销毁</option>
-                        <option value="30-day" data-i18n="opt30">30 天后自动销毁</option>
-                    </select>
+            <div class="p-6 sm:p-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+                
+                <div class="space-y-7">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-800 mb-2">
+                            <span data-i18n="step1">1. 选择销毁时间</span>
+                        </label>
+                        <select id="duration-select" class="w-full p-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition cursor-pointer">
+                            <option value="1-day" data-i18n="opt1">1 天后自动销毁 (最安全)</option>
+                            <option value="3-day" data-i18n="opt3">3 天后自动销毁</option>
+                            <option value="7-day" data-i18n="opt7">7 天后自动销毁</option>
+                            <option value="30-day" data-i18n="opt30">30 天后自动销毁</option>
+                        </select>
+                    </div>
+
+                    <div class="p-5 bg-amber-50 border border-amber-200 rounded-xl relative overflow-hidden">
+                        <div class="absolute -right-4 -top-4 text-amber-100 pointer-events-none">
+                            <svg class="w-20 h-20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <label class="block text-sm font-bold text-amber-700 mb-1 relative z-10" data-i18n="vipLabel">👑 VIP 专属通道 (普通用户留空)</label>
+                        <p class="text-xs text-amber-600 font-medium mb-3 relative z-10" data-i18n="hint">(💡 永久保存请联系邮箱: yuyananuu@gmail.com)</p>
+                        <input type="text" id="vip-id" data-i18n-ph="vipPlaceholder" placeholder="输入 VIP 专属码，解锁无限制永久保存" class="w-full p-3 bg-white border border-amber-300 rounded-lg text-sm focus:ring-2 focus:ring-amber-500 outline-none transition relative z-10">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-800 mb-2" data-i18n="step2">2. 选择图片 (最大支持 5MB)</label>
+                        
+                        <input type="file" id="file-input" accept="image/png, image/jpeg, image/gif, image/webp" class="hidden">
+                        
+                        <label for="file-input" class="flex items-center w-full text-sm text-gray-700 border border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition overflow-hidden shadow-sm">
+                            <div class="bg-blue-50 text-blue-700 border-r border-gray-300 px-5 py-3 font-semibold transition" data-i18n="chooseFile">选择文件</div>
+                            <div class="px-4 text-gray-500 truncate flex-grow" id="custom-file-name" data-i18n="noFile">未选择任何文件</div>
+                        </label>
+                    </div>
                 </div>
 
-                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
-                    <label class="block text-sm font-semibold text-amber-700 mb-2" data-i18n="vipLabel">👑 VIP 专属通道 (普通用户请留空)</label>
-                    <input type="text" id="vip-id" data-i18n-ph="vipPlaceholder" placeholder="输入 VIP 专属码，解锁无限制永久保存" class="w-full px-4 py-2 bg-white border border-amber-200 rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition text-sm">
+                <div class="flex flex-col gap-6">
+                    <div class="flex-grow border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center bg-gray-50 overflow-hidden min-h-[200px] relative">
+                        <img id="preview-img" class="max-w-full max-h-[280px] object-contain hidden z-10">
+                        <div id="preview-placeholder" class="text-gray-400 text-sm font-medium flex flex-col items-center gap-2 absolute">
+                            <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span data-i18n="preview">图片预览区域</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 border border-gray-200 p-3 rounded-xl flex flex-col items-center">
+                        <label class="block text-xs font-bold text-gray-500 mb-2 w-full text-left" data-i18n="step3">3. 人机安全验证</label>
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAACu0xC_kU_xOZpH4"></div>
+                    </div>
+
+                    <button id="upload-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        <span data-i18n="btnUpload">🔒 安全加密并上传</span>
+                    </button>
                 </div>
+            </div>
 
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2" data-i18n="step2">2. 选择图片 (最大支持 5MB)</label>
-                    <input type="file" id="file-input" accept="image/png, image/jpeg, image/gif, image/webp" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                    <img id="preview-img" class="mt-4 w-full h-auto rounded-lg border border-gray-200 shadow-sm hidden">
+            <div class="bg-gray-900 border-t border-gray-800">
+                <div class="flex items-center px-4 py-2 bg-gray-800/80 border-b border-gray-700/50">
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-3 text-xs font-mono text-gray-400">Upload_Terminal</span>
                 </div>
-
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2" data-i18n="step3">3. 人机安全验证</label>
-                    <div class="cf-turnstile" data-sitekey="0x4AAAAAACu0xC_kU_xOZpH4"></div>
-                </div>
-
-                <button id="upload-btn" data-i18n="btnUpload" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
-                    🔒 安全加密并上传
-                </button>
-
-                <div id="upload-log" data-i18n="logReady" class="w-full h-48 bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm overflow-y-auto whitespace-pre-wrap leading-relaxed shadow-inner">就绪：等待选择图片...</div>
+                <div id="upload-log" class="p-4 font-mono text-sm text-green-400 h-40 overflow-y-auto whitespace-pre-wrap leading-relaxed" data-i18n="logReady">就绪：等待选择图片...</div>
             </div>
         </div>
+
+        <section class="bg-white border border-gray-200 rounded-2xl p-8 text-gray-600 text-sm leading-relaxed shadow-sm">
+            <article class="seo-article active" data-lang="en">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Free Secure & Temporary Image Hosting</h2>
+                <p class="mb-4">Mini-Tools provides a specialized free image hosting service built for privacy. Unlike standard hosting, our "Auto-Destruct" mechanism ensures that your shared files are physically erased from our global R2 storage after your chosen duration (1 to 30 days).</p>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">How it works?</h3>
+                <p>100% Client-side metadata handling. Images are uploaded to secure buckets. If you have a VIP ID, your files are stored in a dedicated permanent zone, otherwise, the lifecycle policy takes over. Perfect for sharing sensitive screenshots or temporary assets.</p>
+            </article>
+            <article class="seo-article" data-lang="zh">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">免费的高级安全图床</h2>
+                <p class="mb-4">Mini-Tools 为您提供专为安全设计的免费图像托管服务。与普通图床不同，我们的“阅后即焚”机制可确保您分享的文件在指定时间（1至30天）后从云端被物理彻底擦除，无法恢复。</p>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">阅后即焚与 VIP 永久存储</h3>
+                <p>绝无任何第三方追踪器或广告 SDK，全网最干净的高清图床。持有管理员专属授权码的用户，可将图片直接存入永久安全区，跳过自动销毁机制；普通用户文件将自动进入销毁序列。非常适合分享临时截图或敏感工作素材。</p>
+            </article>
+            <article class="seo-article" data-lang="es">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Alojamiento de Imágenes Seguro, Gratis y Privado</h2>
+                <p class="mb-4">Bienvenido a la utilidad de alojamiento de imágenes gratuita más segura. Diseñada para compartir capturas de pantalla o documentos sin dejar rastro digital permanente.</p>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Autodestrucción y Almacenamiento VIP</h3>
+                <p>Elimine automáticamente sus imágenes después de 1, 3, 7 o 30 días. Los usuarios con un código VIP pueden saltar el protocolo de autodestrucción y guardar imágenes permanentemente.</p>
+            </article>
+            <article class="seo-article" data-lang="fr">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Hébergement d'Images Gratuit, Privé et Sécurisé</h2>
+                <p class="mb-4">Bienvenue sur notre service d'hébergement d'images ultra-sécurisé. Conçu pour partager des captures d'écran temporaires sans laisser d'empreinte numérique.</p>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Auto-destruction et Stockage VIP</h3>
+                <p>Suppression automatique de vos images après 1, 3, 7 ou 30 jours. Les utilisateurs avec un code VIP peuvent contourner l'auto-destruction pour un stockage permanent.</p>
+            </article>
+            <article class="seo-article" data-lang="de">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Kostenloses und Sicheres Bildhosting</h2>
+                <p class="mb-4">Willkommen beim sichersten Bildhosting-Dienst. Entwickelt für das Teilen von Screenshots ohne dauerhafte digitale Spuren zu hinterlassen.</p>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Selbstzerstörung & VIP-Speicher</h3>
+                <p>Bilder nach 1, 3, 7 oder 30 Tagen automatisch löschen lassen. Nutzer mit einem VIP-Code können die Selbstzerstörung umgehen und Bilder dauerhaft speichern.</p>
+            </article>
+        </section>
+
     </main>
 
+    <footer class="bg-white border-t border-gray-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center gap-6 text-sm text-gray-500 mb-4 font-medium">
+                <a href="/" class="hover:text-blue-600 transition">Home</a>
+                <a href="/about.html" class="hover:text-blue-600 transition">About Us</a>
+                <a href="/privacy.html" class="hover:text-blue-600 transition">Privacy Policy</a>
+                <a href="/contact.html" class="hover:text-blue-600 transition">Contact Us</a>
+            </div>
+            <p class="text-sm text-gray-400">© 2026 MINI-TOOLS.UK — Precision & Private Web Utilities. Zero Tracking.</p>
+        </div>
+    </footer>
+
 <script>
-    // 🌟 1. 多语言 (i18n) 纯前端字典引擎
+    // 🌟 1. 完整恢复 5 国语言字典 (增加了 chooseFile 和 noFile 的翻译)
     const i18n = {
-        en: { back: "Back to Home", title: "🔥 Secure Image Hosting", step1: "1. Select Expiration Time", hint: "(💡 Contact admin for VIP code)", opt1: "Auto-destruct in 1 Day (Safest)", opt3: "Auto-destruct in 3 Days", opt7: "Auto-destruct in 7 Days", opt30: "Auto-destruct in 30 Days", vipLabel: "👑 VIP Channel (Leave blank if guest)", vipPlaceholder: "Enter VIP code for permanent storage", step2: "2. Select Image (Max 5MB)", step3: "3. Anti-Bot Verification", btnUpload: "🔒 Encrypt & Upload", logReady: "Ready: Waiting for image selection..." },
-        zh: { back: "返回工具大厅", title: "🔥 隐私安全图床", step1: "1. 选择销毁时间", hint: "(💡 如需永久保存，请联系站长获取VIP码)", opt1: "1 天后自动销毁 (最安全)", opt3: "3 天后自动销毁", opt7: "7 天后自动销毁", opt30: "30 天后自动销毁", vipLabel: "👑 VIP 专属通道 (普通用户请留空)", vipPlaceholder: "输入 VIP 专属码，解锁永久保存", step2: "2. 选择图片 (最大支持 5MB)", step3: "3. 人机安全验证", btnUpload: "🔒 安全加密并上传", logReady: "就绪：等待选择图片..." },
-        es: { back: "Volver a Inicio", title: "🔥 Hosting Seguro", step1: "1. Elegir Caducidad", hint: "(💡 Contacta al admin para código VIP)", opt1: "Autodestrucción en 1 Día", opt3: "Autodestrucción en 3 Días", opt7: "Autodestrucción en 7 Días", opt30: "Autodestrucción en 30 Días", vipLabel: "👑 Canal VIP (Dejar en blanco si invitado)", vipPlaceholder: "Introduce código VIP", step2: "2. Seleccionar Imagen (Max 5MB)", step3: "3. Verificación de Seguridad", btnUpload: "🔒 Subir de Forma Segura", logReady: "Listo: Esperando imagen..." },
-        fr: { back: "Retour à l'Accueil", title: "🔥 Hébergement Sécurisé", step1: "1. Choisir l'Expiration", hint: "(💡 Contactez l'admin pour code VIP)", opt1: "Auto-destruction en 1 Jour", opt3: "Auto-destruction en 3 Jours", opt7: "Auto-destruction en 7 Jours", opt30: "Auto-destruction en 30 Jours", vipLabel: "👑 Canal VIP (Laisser vide si invité)", vipPlaceholder: "Entrez le code VIP", step2: "2. Sélectionner Image (Max 5MB)", step3: "3. Vérification de Sécurité", btnUpload: "🔒 Uploader en Sécurité", logReady: "Prêt : En attente de l'image..." },
-        de: { back: "Zurück zur Startseite", title: "🔥 Sicheres Bildhosting", step1: "1. Ablaufzeit wählen", hint: "(💡 Kontaktieren Sie den Admin für VIP-Code)", opt1: "Zerstörung in 1 Tag", opt3: "Zerstörung in 3 Tagen", opt7: "Zerstörung in 7 Tagen", opt30: "Zerstörung in 30 Tagen", vipLabel: "👑 VIP-Kanal (Als Gast leer lassen)", vipPlaceholder: "VIP-Code eingeben", step2: "2. Bild wählen (Max 5MB)", step3: "3. Sicherheitsüberprüfung", btnUpload: "🔒 Sicher hochladen", logReady: "Bereit: Warte auf Bild..." }
+        en: { title: "Secure Image Hosting", step1: "1. Select Expiration Time", hint: "(💡 Contact yuyananuu@gmail.com for VIP code)", opt1: "Auto-destruct in 1 Day (Safest)", opt3: "Auto-destruct in 3 Days", opt7: "Auto-destruct in 7 Days", opt30: "Auto-destruct in 30 Days", vipLabel: "👑 VIP Channel (Leave blank if guest)", vipPlaceholder: "Enter VIP code for permanent storage", step2: "2. Select Image (Max 5MB)", chooseFile: "Choose File", noFile: "No file chosen", step3: "3. Anti-Bot Verification", btnUpload: "🔒 Encrypt & Upload", logReady: "Ready: Waiting for image selection...", preview: "Image Preview Area" },
+        zh: { title: "免费安全图床", step1: "1. 选择销毁时间", hint: "(💡 永久保存请联系邮箱: yuyananuu@gmail.com)", opt1: "1 天后自动销毁 (最安全)", opt3: "3 天后自动销毁", opt7: "7 天后自动销毁", opt30: "30 天后自动销毁", vipLabel: "👑 VIP 专属通道 (普通用户请留空)", vipPlaceholder: "输入 VIP 专属码，解锁无限制永久保存", step2: "2. 选择图片 (最大支持 5MB)", chooseFile: "选择文件", noFile: "未选择任何文件", step3: "3. 人机安全验证", btnUpload: "🔒 安全加密并上传", logReady: "就绪：等待选择图片...", preview: "图片预览区域" },
+        es: { title: "Hosting Seguro", step1: "1. Elegir Caducidad", hint: "(💡 Contacte a yuyananuu@gmail.com para VIP)", opt1: "Autodestrucción en 1 Día", opt3: "Autodestrucción en 3 Días", opt7: "Autodestrucción en 7 Días", opt30: "Autodestrucción en 30 Días", vipLabel: "👑 Canal VIP (Dejar en blanco si invitado)", vipPlaceholder: "Introduce código VIP", step2: "2. Seleccionar Imagen (Max 5MB)", chooseFile: "Elegir Archivo", noFile: "Ningún archivo", step3: "3. Verificación de Seguridad", btnUpload: "🔒 Subir de Forma Segura", logReady: "Listo: Esperando imagen...", preview: "Área de vista previa" },
+        fr: { title: "Hébergement Sécurisé", step1: "1. Choisir l'Expiration", hint: "(💡 Contactez yuyananuu@gmail.com pour VIP)", opt1: "Auto-destruction en 1 Jour", opt3: "Auto-destruction en 3 Jours", opt7: "Auto-destruction en 7 Jours", opt30: "Auto-destruction en 30 Jours", vipLabel: "👑 Canal VIP (Laisser vide si invité)", vipPlaceholder: "Entrez le code VIP", step2: "2. Sélectionner Image (Max 5MB)", chooseFile: "Choisir Fichier", noFile: "Aucun fichier", step3: "3. Vérification de Sécurité", btnUpload: "🔒 Uploader en Sécurité", logReady: "Prêt : En attente de l'image...", preview: "Zone d'aperçu" },
+        de: { title: "Sicheres Bildhosting", step1: "1. Ablaufzeit wählen", hint: "(💡 Kontaktieren yuyananuu@gmail.com für VIP)", opt1: "Zerstörung in 1 Tag", opt3: "Zerstörung in 3 Tagen", opt7: "Zerstörung in 7 Tagen", opt30: "Zerstörung in 30 Tagen", vipLabel: "👑 VIP-Kanal (Als Gast leer lassen)", vipPlaceholder: "VIP-Code eingeben", step2: "2. Bild wählen (Max 5MB)", chooseFile: "Datei wählen", noFile: "Keine Datei", step3: "3. Sicherheitsüberprüfung", btnUpload: "🔒 Sicher hochladen", logReady: "Bereit: Warte auf Bild...", preview: "Vorschaubereich" }
     };
 
-    // 智能获取语言 (URL 参数 > 本地存储 > 默认中文)
-    const urlParams = new URLSearchParams(window.location.search);
-    const currentLang = urlParams.get('lang') || localStorage.getItem('lang') || 'zh';
+    const langSelector = document.getElementById('lang-selector');
+    const customFileName = document.getElementById('custom-file-name');
     
-    // 瞬间应用翻译
-    if (i18n[currentLang]) {
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            el.innerText = i18n[currentLang][el.getAttribute('data-i18n')];
-        });
-        document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-            el.placeholder = i18n[currentLang][el.getAttribute('data-i18n-ph')];
-        });
-        document.documentElement.lang = currentLang;
+    // 应用翻译函数
+    function setLanguage(lang) {
+        localStorage.setItem('lang', lang);
+        document.documentElement.lang = lang;
+        if (i18n[lang]) {
+            document.querySelectorAll('[data-i18n]').forEach(el => { el.innerText = i18n[lang][el.getAttribute('data-i18n')]; });
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = i18n[lang][el.getAttribute('data-i18n-ph')]; });
+            
+            // 解决重置文件输入框文字时的多语言问题
+            if(!document.getElementById('file-input').files[0]) {
+                customFileName.innerText = i18n[lang]['noFile'];
+            }
+
+            // 切换 SEO 文章显示
+            document.querySelectorAll('.seo-article').forEach(art => art.classList.remove('active'));
+            const activeArt = document.querySelector(`.seo-article[data-lang="${lang}"]`);
+            if (activeArt) activeArt.classList.add('active');
+            else document.querySelector(`.seo-article[data-lang="en"]`).classList.add('active');
+        }
     }
 
-    // 🔴 极其重要：务必把这里换成你的 Worker 真实地址！
-    const WORKER_URL = "https://pic-api.yuyananuu.workers.dev";
+    // 初始化语言
+    const initialLang = new URLSearchParams(window.location.search).get('lang') || localStorage.getItem('lang') || 'zh';
+    langSelector.value = initialLang;
+    setLanguage(initialLang);
+
+    // 监听下拉框改变
+    langSelector.addEventListener('change', (e) => setLanguage(e.target.value));
+
+    // 🌟 2. 完整恢复核心上传与防机器验证逻辑
+    const WORKER_URL = "https://你的worker名字.你的前缀.workers.dev"; 
     
     const fileInput = document.getElementById('file-input');
     const durationSelect = document.getElementById('duration-select');
@@ -102,47 +218,63 @@
     const uploadBtn = document.getElementById('upload-btn');
     const logDiv = document.getElementById('upload-log');
     const previewImg = document.getElementById('preview-img');
+    const placeholder = document.getElementById('preview-placeholder');
 
     function log(msg, type = 'normal') {
         const span = document.createElement('span');
-        // Tailwind 中日志颜色的兼容处理
-        span.className = type === 'error' ? 'text-red-400 font-bold' : (type === 'success' ? 'text-green-400' : 'text-gray-300');
-        span.innerText = msg + '\n';
+        span.className = type === 'error' ? 'text-red-400 font-bold block mb-1' : (type === 'success' ? 'text-green-400 block mb-1' : 'text-gray-300 block mb-1');
+        span.innerText = `> ${msg}`;
         logDiv.appendChild(span);
         logDiv.scrollTop = logDiv.scrollHeight;
     }
 
-    // 监听文件选择与预览
+    // 监听文件选择与预览，执行 5MB 限制
     fileInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
-        if (!file) return;
+        const currentLangVal = langSelector.value;
         
-        // 严格限制前端文件大小 5MB
-        if (file.size > 5242880) {
-            log(currentLang === 'en' ? "❌ File exceeds 5MB limit." : "❌ 文件大小超过 5MB 的安全限制，请重新选择。", "error");
-            fileInput.value = ""; 
-            previewImg.style.display = 'none';
+        if (!file) {
+            customFileName.innerText = i18n[currentLangVal]['noFile'];
             return;
         }
+        
+        if (file.size > 5242880) {
+            log(currentLangVal === 'en' ? "❌ Error: File exceeds the 5MB security limit." : "❌ 安全拦截：文件大小超过 5MB 限制，请重新选择。", "error");
+            fileInput.value = ""; 
+            customFileName.innerText = i18n[currentLangVal]['noFile'];
+            previewImg.style.display = 'none';
+            placeholder.classList.remove('hidden');
+            return;
+        }
+        
+        // 文件选择成功，更新文件名显示
+        customFileName.innerText = file.name;
+        customFileName.classList.remove('text-gray-500');
+        customFileName.classList.add('text-gray-900', 'font-medium');
+
         const reader = new FileReader();
         reader.onload = (event) => {
             previewImg.src = event.target.result;
-            previewImg.style.display = 'block';
+            previewImg.classList.remove('hidden');
+            placeholder.classList.add('hidden');
         };
         reader.readAsDataURL(file);
     });
 
-    // 核心上传逻辑
+    // 完整上传验证链路
     uploadBtn.addEventListener('click', async () => {
         const file = fileInput.files[0];
-        if (!file) return log(currentLang === 'en' ? "⚠️ Please select an image first." : "⚠️ 操作无效：请先选择要上传的图片。", "error");
+        const currentLangVal = langSelector.value;
         
+        if (!file) return log(currentLangVal === 'en' ? "⚠️ Please select an image first." : "⚠️ 操作无效：请先选择要上传的图片。", "error");
+        
+        // 获取 Turnstile 验证 Token
         const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]').value;
-        if (!turnstileResponse) return log(currentLang === 'en' ? "⚠️ Please complete bot verification." : "⚠️ 安全拦截：请先完成人机验证以证明您不是机器人。", "error");
+        if (!turnstileResponse) return log(currentLangVal === 'en' ? "⚠️ Please complete the Anti-Bot verification." : "⚠️ 安全拦截：请先完成人机验证以证明您不是机器人。", "error");
 
         uploadBtn.disabled = true;
         logDiv.innerHTML = ""; 
-        log(currentLang === 'en' ? `⏳ Uploading [${file.name}]...` : `⏳ 正在向安全节点传输文件 [${file.name}]...`);
+        log(currentLangVal === 'en' ? `⏳ Establishing secure connection...\n⏳ Encrypting & Uploading [${file.name}]...` : `⏳ 正在建立安全加密通道...\n⏳ 正在向边缘节点传输文件 [${file.name}]...`);
 
         try {
             const formData = new FormData();
@@ -159,30 +291,35 @@
             const result = await response.json();
 
             if (response.ok && result.success) {
-                const isEn = currentLang === 'en';
+                const isEn = currentLangVal === 'en';
                 const successMsg = result.isVip 
-                    ? (isEn ? "🎉 VIP verified! Image saved permanently." : "🎉 尊贵的 VIP 身份验证成功！该图片已进入永久安全存储区。") 
-                    : (isEn ? "🎉 Upload success!" : `🎉 上传成功！该图片将在 ${durationSelect.options[durationSelect.selectedIndex].text}。`);
+                    ? (isEn ? "🎉 VIP Auth Validated! Image has been transferred to permanent storage." : "🎉 尊贵的 VIP 身份验证成功！该图片已被转移至永久安全存储区。") 
+                    : (isEn ? "🎉 Upload complete!" : `🎉 上传成功！该图片将在 ${durationSelect.options[durationSelect.selectedIndex].text}。`);
                 
-                log(successMsg + '\n', "success");
-                log(isEn ? `🌍 Image Link:\n${result.url}` : `🌍 您的专属图片直链：\n${result.url}`, "success");
+                log(successMsg, "success");
+                log(isEn ? `🌍 Secure Image Link:\n${result.url}` : `🌍 您的专属加密直链：\n${result.url}`, "success");
                 
                 const link = document.createElement('a');
                 link.href = result.url;
                 link.target = '_blank';
-                link.innerText = isEn ? "👉 Click here to view image" : "👉 点击此处在新标签页查看图片";
-                link.className = "text-green-300 font-bold underline mt-2 block hover:text-green-200";
+                link.innerText = isEn ? "👉 Click here to view image in a new tab" : "👉 点击此处在新标签页查看图片";
+                link.className = "text-blue-400 font-bold underline mt-2 inline-block hover:text-blue-300 transition-colors";
                 logDiv.appendChild(link);
                 
+                // 上传成功后重置视图
                 fileInput.value = "";
+                customFileName.innerText = i18n[currentLangVal]['noFile'];
+                customFileName.classList.remove('text-gray-900', 'font-medium');
+                customFileName.classList.add('text-gray-500');
                 previewImg.style.display = 'none';
+                placeholder.classList.remove('hidden');
                 if(typeof turnstile !== 'undefined') turnstile.reset();
             } else {
-                log(`❌ Error: ${result.error}`, "error");
+                log(`❌ Server rejected the upload: ${result.error}`, "error");
                 if(typeof turnstile !== 'undefined') turnstile.reset();
             }
         } catch (error) {
-            log(`❌ Network Error: ${error.message}`, "error");
+            log(`❌ Fatal Network Error: ${error.message}`, "error");
             if(typeof turnstile !== 'undefined') turnstile.reset();
         } finally {
             uploadBtn.disabled = false;
