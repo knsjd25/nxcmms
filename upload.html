@@ -11,102 +11,69 @@
     <meta property="og:description" content="Free, fast, and secure image hosting. 100% Privacy first.">
     <meta property="og:type" content="website">
     
-    <style>
-        /* 适配工具站的基础全局样式 */
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; color: #333; }
-        
-        /* 顶部导航栏 */
-        .navbar { background: #fff; padding: 15px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .navbar a { text-decoration: none; color: #3498db; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; gap: 5px; transition: color 0.3s; }
-        .navbar a:hover { color: #2980b9; }
-        
-        /* 主体内容区 */
-        .main-wrapper { padding: 40px 20px; display: flex; justify-content: center; }
-        .upload-container { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); width: 100%; max-width: 550px; box-sizing: border-box; }
-        
-        .upload-container h1 { font-size: 1.8rem; margin-top: 0; margin-bottom: 25px; color: #2c3e50; text-align: center; }
-        
-        /* 表单控件美化 */
-        .form-group { margin-bottom: 25px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #34495e; font-size: 0.95rem; }
-        .form-group select, .form-group input[type="text"], .form-group input[type="file"] { width: 100%; padding: 12px 15px; border: 2px solid #eef2f5; border-radius: 8px; box-sizing: border-box; font-size: 1rem; color: #333; transition: border-color 0.3s, box-shadow 0.3s; background: #fafbfc; }
-        .form-group select:focus, .form-group input[type="text"]:focus { border-color: #3498db; outline: none; background: #fff; box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1); }
-        
-        .contact-hint { font-size: 0.8rem; color: #e67e22; font-weight: normal; margin-left: 5px; display: inline-block; margin-top: 5px;}
-        
-        /* VIP 专属框样式 */
-        .vip-box { border-left: 4px solid #f39c12; padding-left: 15px; background: #fffdf9; padding-top: 15px; padding-bottom: 15px; padding-right: 15px; border-radius: 0 8px 8px 0; margin-bottom: 25px; }
-        .vip-box label { color: #d35400; }
-        
-        /* 按钮与日志区 */
-        #upload-btn { background: linear-gradient(135deg, #3498db, #2980b9); color: white; border: none; padding: 15px 20px; width: 100%; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3); }
-        #upload-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4); }
-        #upload-btn:disabled { background: #bdc3c7; cursor: not-allowed; transform: none; box-shadow: none; }
-        
-        #upload-log { margin-top: 25px; padding: 15px; background: #1e272e; color: #0be881; border-radius: 8px; font-family: "Fira Code", monospace; font-size: 0.9rem; white-space: pre-wrap; word-wrap: break-word; max-height: 250px; overflow-y: auto; line-height: 1.5; }
-        .log-error { color: #ff5e57; }
-        .log-success { color: #0be881; }
-        
-        #preview-img { max-width: 100%; margin-top: 15px; border-radius: 8px; display: none; border: 1px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-
-        @media (max-width: 600px) {
-            .upload-container { padding: 25px 20px; border-radius: 12px; }
-            .upload-container h1 { font-size: 1.5rem; }
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
 
-<div class="navbar">
-    <a href="index.html" id="nav-back">
-        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        <span data-i18n="back">返回工具大厅</span>
-    </a>
-</div>
-
-<div class="main-wrapper">
-    <div class="upload-container">
-        <h1 data-i18n="title">🔥 隐私安全图床</h1>
-        
-        <div class="form-group">
-            <label><span data-i18n="step1">1. 选择销毁时间</span> <br><span class="contact-hint" data-i18n="hint">(💡 如需永久保存，请联系站长获取 VIP 专属码)</span></label>
-            <select id="duration-select">
-                <option value="1-day" data-i18n="opt1">1 天后自动销毁 (最安全)</option>
-                <option value="3-day" data-i18n="opt3">3 天后自动销毁</option>
-                <option value="7-day" data-i18n="opt7">7 天后自动销毁</option>
-                <option value="30-day" data-i18n="opt30">30 天后自动销毁</option>
-            </select>
+    <nav class="w-full bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-3xl mx-auto px-4 py-4 flex items-center">
+            <a href="index.html" class="flex items-center text-blue-600 font-medium hover:text-blue-800 transition">
+                <svg viewBox="0 0 24 24" class="w-5 h-5 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                <span data-i18n="back">返回工具大厅</span>
+            </a>
         </div>
+    </nav>
 
-        <div class="vip-box">
-            <label data-i18n="vipLabel">👑 VIP 专属通道 (普通用户请留空)</label>
-            <input type="text" id="vip-id" data-i18n-ph="vipPlaceholder" placeholder="输入 VIP 专属码，解锁无限制永久保存">
+    <main class="flex-grow flex items-center justify-center p-4 py-10">
+        <div class="w-full max-w-lg bg-white rounded-2xl shadow-lg border border-gray-100 p-6 sm:p-8">
+            <h1 class="text-2xl font-bold text-center text-gray-900 mb-8" data-i18n="title">🔥 隐私安全图床</h1>
+            
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        <span data-i18n="step1">1. 选择销毁时间</span> 
+                        <span class="text-xs text-amber-500 font-normal ml-1" data-i18n="hint">(💡 如需永久保存，请联系站长获取 VIP 专属码)</span>
+                    </label>
+                    <select id="duration-select" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-gray-700">
+                        <option value="1-day" data-i18n="opt1">1 天后自动销毁 (最安全)</option>
+                        <option value="3-day" data-i18n="opt3">3 天后自动销毁</option>
+                        <option value="7-day" data-i18n="opt7">7 天后自动销毁</option>
+                        <option value="30-day" data-i18n="opt30">30 天后自动销毁</option>
+                    </select>
+                </div>
+
+                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                    <label class="block text-sm font-semibold text-amber-700 mb-2" data-i18n="vipLabel">👑 VIP 专属通道 (普通用户请留空)</label>
+                    <input type="text" id="vip-id" data-i18n-ph="vipPlaceholder" placeholder="输入 VIP 专属码，解锁无限制永久保存" class="w-full px-4 py-2 bg-white border border-amber-200 rounded-md focus:ring-2 focus:ring-amber-400 outline-none transition text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2" data-i18n="step2">2. 选择图片 (最大支持 5MB)</label>
+                    <input type="file" id="file-input" accept="image/png, image/jpeg, image/gif, image/webp" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    <img id="preview-img" class="mt-4 w-full h-auto rounded-lg border border-gray-200 shadow-sm hidden">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2" data-i18n="step3">3. 人机安全验证</label>
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAACu0xC_kU_xOZpH4"></div>
+                </div>
+
+                <button id="upload-btn" data-i18n="btnUpload" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                    🔒 安全加密并上传
+                </button>
+
+                <div id="upload-log" data-i18n="logReady" class="w-full h-48 bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm overflow-y-auto whitespace-pre-wrap leading-relaxed shadow-inner">就绪：等待选择图片...</div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label data-i18n="step2">2. 选择图片 (最大支持 5MB)</label>
-            <input type="file" id="file-input" accept="image/png, image/jpeg, image/gif, image/webp">
-            <img id="preview-img">
-        </div>
-
-        <div class="form-group">
-            <label data-i18n="step3">3. 人机安全验证</label>
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAACu0xC_kU_xOZpH4"></div>
-        </div>
-
-        <button id="upload-btn" data-i18n="btnUpload">🔒 安全加密并上传</button>
-
-        <div id="upload-log" data-i18n="logReady">就绪：等待选择图片...</div>
-    </div>
-</div>
+    </main>
 
 <script>
     // 🌟 1. 多语言 (i18n) 纯前端字典引擎
     const i18n = {
-        en: { back: "Back to Home", title: "🔥 Secure Image Hosting", step1: "1. Select Expiration Time", hint: "(💡 Contact admin for VIP permanent code)", opt1: "Auto-destruct in 1 Day (Safest)", opt3: "Auto-destruct in 3 Days", opt7: "Auto-destruct in 7 Days", opt30: "Auto-destruct in 30 Days", vipLabel: "👑 VIP Channel (Leave blank if guest)", vipPlaceholder: "Enter VIP code for permanent storage", step2: "2. Select Image (Max 5MB)", step3: "3. Anti-Bot Verification", btnUpload: "🔒 Encrypt & Upload", logReady: "Ready: Waiting for image selection..." },
-        zh: { back: "返回工具大厅", title: "🔥 隐私安全图床", step1: "1. 选择销毁时间", hint: "(💡 如需永久保存，请联系站长获取 VIP 专属码)", opt1: "1 天后自动销毁 (最安全)", opt3: "3 天后自动销毁", opt7: "7 天后自动销毁", opt30: "30 天后自动销毁", vipLabel: "👑 VIP 专属通道 (普通用户请留空)", vipPlaceholder: "输入 VIP 专属码，解锁无限制永久保存", step2: "2. 选择图片 (最大支持 5MB)", step3: "3. 人机安全验证", btnUpload: "🔒 安全加密并上传", logReady: "就绪：等待选择图片..." },
-        es: { back: "Volver a Inicio", title: "🔥 Hosting Seguro", step1: "1. Elegir Caducidad", hint: "(💡 Contacta al admin para código VIP)", opt1: "Autodestrucción en 1 Día", opt3: "Autodestrucción en 3 Días", opt7: "Autodestrucción en 7 Días", opt30: "Autodestrucción en 30 Días", vipLabel: "👑 Canal VIP (Dejar en blanco si es invitado)", vipPlaceholder: "Introduce código VIP", step2: "2. Seleccionar Imagen (Max 5MB)", step3: "3. Verificación de Seguridad", btnUpload: "🔒 Subir de Forma Segura", logReady: "Listo: Esperando imagen..." },
+        en: { back: "Back to Home", title: "🔥 Secure Image Hosting", step1: "1. Select Expiration Time", hint: "(💡 Contact admin for VIP code)", opt1: "Auto-destruct in 1 Day (Safest)", opt3: "Auto-destruct in 3 Days", opt7: "Auto-destruct in 7 Days", opt30: "Auto-destruct in 30 Days", vipLabel: "👑 VIP Channel (Leave blank if guest)", vipPlaceholder: "Enter VIP code for permanent storage", step2: "2. Select Image (Max 5MB)", step3: "3. Anti-Bot Verification", btnUpload: "🔒 Encrypt & Upload", logReady: "Ready: Waiting for image selection..." },
+        zh: { back: "返回工具大厅", title: "🔥 隐私安全图床", step1: "1. 选择销毁时间", hint: "(💡 如需永久保存，请联系站长获取VIP码)", opt1: "1 天后自动销毁 (最安全)", opt3: "3 天后自动销毁", opt7: "7 天后自动销毁", opt30: "30 天后自动销毁", vipLabel: "👑 VIP 专属通道 (普通用户请留空)", vipPlaceholder: "输入 VIP 专属码，解锁永久保存", step2: "2. 选择图片 (最大支持 5MB)", step3: "3. 人机安全验证", btnUpload: "🔒 安全加密并上传", logReady: "就绪：等待选择图片..." },
+        es: { back: "Volver a Inicio", title: "🔥 Hosting Seguro", step1: "1. Elegir Caducidad", hint: "(💡 Contacta al admin para código VIP)", opt1: "Autodestrucción en 1 Día", opt3: "Autodestrucción en 3 Días", opt7: "Autodestrucción en 7 Días", opt30: "Autodestrucción en 30 Días", vipLabel: "👑 Canal VIP (Dejar en blanco si invitado)", vipPlaceholder: "Introduce código VIP", step2: "2. Seleccionar Imagen (Max 5MB)", step3: "3. Verificación de Seguridad", btnUpload: "🔒 Subir de Forma Segura", logReady: "Listo: Esperando imagen..." },
         fr: { back: "Retour à l'Accueil", title: "🔥 Hébergement Sécurisé", step1: "1. Choisir l'Expiration", hint: "(💡 Contactez l'admin pour code VIP)", opt1: "Auto-destruction en 1 Jour", opt3: "Auto-destruction en 3 Jours", opt7: "Auto-destruction en 7 Jours", opt30: "Auto-destruction en 30 Jours", vipLabel: "👑 Canal VIP (Laisser vide si invité)", vipPlaceholder: "Entrez le code VIP", step2: "2. Sélectionner Image (Max 5MB)", step3: "3. Vérification de Sécurité", btnUpload: "🔒 Uploader en Sécurité", logReady: "Prêt : En attente de l'image..." },
         de: { back: "Zurück zur Startseite", title: "🔥 Sicheres Bildhosting", step1: "1. Ablaufzeit wählen", hint: "(💡 Kontaktieren Sie den Admin für VIP-Code)", opt1: "Zerstörung in 1 Tag", opt3: "Zerstörung in 3 Tagen", opt7: "Zerstörung in 7 Tagen", opt30: "Zerstörung in 30 Tagen", vipLabel: "👑 VIP-Kanal (Als Gast leer lassen)", vipPlaceholder: "VIP-Code eingeben", step2: "2. Bild wählen (Max 5MB)", step3: "3. Sicherheitsüberprüfung", btnUpload: "🔒 Sicher hochladen", logReady: "Bereit: Warte auf Bild..." }
     };
@@ -127,7 +94,7 @@
     }
 
     // 🔴 极其重要：务必把这里换成你的 Worker 真实地址！
-    const WORKER_URL = "https://你的worker名字.你的前缀.workers.dev"; 
+    const WORKER_URL = "https://pic-api.yuyananuu.workers.dev";
     
     const fileInput = document.getElementById('file-input');
     const durationSelect = document.getElementById('duration-select');
@@ -138,7 +105,8 @@
 
     function log(msg, type = 'normal') {
         const span = document.createElement('span');
-        span.className = type === 'error' ? 'log-error' : (type === 'success' ? 'log-success' : '');
+        // Tailwind 中日志颜色的兼容处理
+        span.className = type === 'error' ? 'text-red-400 font-bold' : (type === 'success' ? 'text-green-400' : 'text-gray-300');
         span.innerText = msg + '\n';
         logDiv.appendChild(span);
         logDiv.scrollTop = logDiv.scrollHeight;
@@ -203,10 +171,7 @@
                 link.href = result.url;
                 link.target = '_blank';
                 link.innerText = isEn ? "👉 Click here to view image" : "👉 点击此处在新标签页查看图片";
-                link.style.color = "#0be881";
-                link.style.fontWeight = "bold";
-                link.style.display = "inline-block";
-                link.style.marginTop = "10px";
+                link.className = "text-green-300 font-bold underline mt-2 block hover:text-green-200";
                 logDiv.appendChild(link);
                 
                 fileInput.value = "";
