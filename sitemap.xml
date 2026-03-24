@@ -194,6 +194,18 @@
     <priority>0.3</priority>
   </url>
 
+         <url>
+    <loc>https://mini-tools.uk/upload.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/upload.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/upload.html?lang=zh"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/upload.html?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/upload.html?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/upload.html?lang=de"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/upload.html"/>
+    <lastmod>2026-03-06</lastmod>
+    <priority>0.3</priority>
+  </url>
+
           <url>
     <loc>https://mini-tools.uk/zx.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/zx.html?lang=en"/>
