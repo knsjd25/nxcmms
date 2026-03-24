@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>Mini-Tools - 限时阅后即焚图床</title>
     <style>
-        /* 这部分样式可以和你主页的样式融合 */
         body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f9f9f9; }
         .upload-container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .upload-container h1 { font-size: 1.5rem; margin-bottom: 20px; color: #333; }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-        .form-group select, .form-group input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group select, .form-group input[type="text"], .form-group input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .contact-hint { font-size: 0.8rem; color: #e67e22; font-weight: normal; margin-left: 5px; }
         #upload-btn { background: #007bff; color: white; border: none; padding: 12px 20px; width: 100%; border-radius: 5px; font-size: 1rem; cursor: pointer; transition: background 0.3s; }
         #upload-btn:hover { background: #0056b3; }
         #upload-btn:disabled { background: #aaa; cursor: not-allowed; }
@@ -18,6 +18,7 @@
         .log-error { color: #ff4d4d; }
         .log-success { color: #00ff00; }
         #preview-img { max-width: 100%; margin-top: 10px; border-radius: 5px; display: none; }
+        .vip-box { border-left: 3px solid #f39c12; padding-left: 10px; background: #fdfbf7; padding: 10px; border-radius: 0 5px 5px 0; }
     </style>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
@@ -27,13 +28,18 @@
     <h1>🔥 限时隐私图床 (免费版)</h1>
     
     <div class="form-group">
-        <label>1. 选择销毁时间</label>
+        <label>1. 选择销毁时间 <span class="contact-hint">(💡 如需永久保存，请联系管理员获取专属码)</span></label>
         <select id="duration-select">
             <option value="1-day">1 天后自动销毁</option>
             <option value="3-day">3 天后自动销毁</option>
             <option value="7-day">7 天后自动销毁</option>
             <option value="30-day">30 天后自动销毁 (最长)</option>
         </select>
+    </div>
+
+    <div class="form-group vip-box">
+        <label>👑 VIP 专属通道 (游客请留空)</label>
+        <input type="text" id="vip-id" placeholder="输入管理员分配的专属码，解锁永久保存">
     </div>
 
     <div class="form-group">
@@ -53,11 +59,12 @@
 </div>
 
 <script>
-    // 🔴 换成你的真实 Worker 地址！
-    const WORKER_URL = "https://pic-api.yuyananuu.workers.dev"; 
+    // 🔴 极其重要：务必把这里换成你的 Worker 真实地址！千万别带最后的斜杠！
+    const WORKER_URL = "https://你的worker名字.你的前缀.workers.dev"; 
     
     const fileInput = document.getElementById('file-input');
     const durationSelect = document.getElementById('duration-select');
+    const vipIdInput = document.getElementById('vip-id');
     const uploadBtn = document.getElementById('upload-btn');
     const logDiv = document.getElementById('upload-log');
     const previewImg = document.getElementById('preview-img');
@@ -70,9 +77,12 @@
         logDiv.scrollTop = logDiv.scrollHeight;
     }
 
+    // 监听文件选择与预览
     fileInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (!file) return;
+        
+        // 严格限制前端文件大小
         if (file.size > 5242880) {
             log("❌ 文件超过 5MB 限制，请重新选择。", "error");
             fileInput.value = ""; 
@@ -87,6 +97,7 @@
         reader.readAsDataURL(file);
     });
 
+    // 核心上传逻辑
     uploadBtn.addEventListener('click', async () => {
         const file = fileInput.files[0];
         if (!file) return log("⚠️ 请先选择图片。", "error");
@@ -103,6 +114,9 @@
             formData.append('file', file);
             formData.append('duration', durationSelect.value);
             formData.append('cf-turnstile-response', turnstileResponse);
+            
+            // 🌟 核心改动：把用户输入的 VIP 码传给后端
+            formData.append('vip_id', vipIdInput.value.trim());
 
             const response = await fetch(WORKER_URL, {
                 method: 'POST',
@@ -112,7 +126,9 @@
             const result = await response.json();
 
             if (response.ok && result.success) {
-                log(`🎉 上传成功！将在 ${durationSelect.options[durationSelect.selectedIndex].text}。\n`, "success");
+                // 如果后端返回了 isVip 标志，说明触发了永久保存
+                const successMsg = result.isVip ? "🎉 VIP 身份验证成功！图片已进入永久存储区。" : `🎉 上传成功！将在 ${durationSelect.options[durationSelect.selectedIndex].text}。`;
+                log(successMsg + '\n', "success");
                 log(`🌍 专属访问链接:\n${result.url}`, "success");
                 
                 const link = document.createElement('a');
@@ -122,6 +138,7 @@
                 link.style.color = "#00ff00";
                 logDiv.appendChild(link);
                 
+                // 上传成功后清理表单
                 fileInput.value = "";
                 previewImg.style.display = 'none';
                 if(typeof turnstile !== 'undefined') turnstile.reset();
