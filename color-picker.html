@@ -46,16 +46,15 @@
       min-height: 500px;
       max-height: 800px;
       border: 2px dashed #cbd5e1;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start; 
       padding: 20px; 
       transition: border-color 0.2s;
     }
 
     .canvas-container.empty-state {
-      cursor: pointer;
+      display: flex;
+      justify-content: center;
       align-items: center; 
+      cursor: pointer;
     }
     .canvas-container.empty-state:hover {
       background-color: #f1f5f9;
@@ -74,7 +73,8 @@
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
       cursor: crosshair; 
       transform-origin: top left;
-      transition: width 0.1s, height 0.1s;
+      /* 删除了 transition: width 0.1s, height 0.1s; 以修复滚轮缩放时的剧烈抖动 */
+      margin: 0 auto; 
     }
 
     #image-canvas { 
@@ -148,6 +148,13 @@
     .zoom-btn:hover { background-color: #f1f5f9; color: #0f172a; }
     .zoom-text { width: 50px; text-align: center; font-size: 13px; font-weight: 800; color: #334155; cursor: pointer; }
     .zoom-text:hover { color: #3b82f6; }
+
+    /* 如果是带有精准指针（鼠标）的电脑设备，强制隐藏悬浮缩放面板，鼓励使用滚轮 */
+    @media (pointer: fine) {
+      #zoom-controls {
+        display: none !important;
+      }
+    }
 
     /* SEO Article Styles */
     .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
@@ -273,6 +280,8 @@
         <button id="btn-zoom-in" class="zoom-btn" title="Zoom In">+</button>
       </div>
     </div>
+    
+    <p id="pan-hint" class="text-[13px] font-semibold text-slate-400 mt-4 text-center hidden transition-opacity" style="display: none;">💡 Tip: Right-click & drag to pan, use mouse wheel to zoom.</p>
 
     <div class="prose-content">
       
@@ -421,6 +430,7 @@
         dropText: "Click or Drag & Drop to upload an image",
         statusText: "100% Local processing. Your images never leave your device.",
         labelPalette: "Recent Palette",
+        panHint: "💡 Tip: Right-click & drag to pan, use mouse wheel to zoom.",
         footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us"
       },
       zh: {
@@ -434,6 +444,7 @@
         dropText: "点击或拖拽图片到此处上传",
         statusText: "100% 纯本地处理。您的图片绝不会上传至服务器。",
         labelPalette: "最近提取的颜色",
+        panHint: "💡 操作提示：按住鼠标右键拖拽可平移，滚动鼠标滚轮可缩放图片。",
         footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们"
       },
       es: {
@@ -445,6 +456,7 @@
         dropText: "Haga clic o arrastre para subir una imagen",
         statusText: "Procesamiento 100% local. Sus imágenes nunca salen de su dispositivo.",
         labelPalette: "Paleta Reciente",
+        panHint: "💡 Consejo: Haga clic derecho y arrastre para mover, use la rueda para acercar.",
         footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto"
       },
       fr: {
@@ -456,6 +468,7 @@
         dropText: "Cliquez ou glissez-déposez une image",
         statusText: "Traitement 100% local. Vos images ne quittent jamais votre appareil.",
         labelPalette: "Palette Récente",
+        panHint: "💡 Astuce : Clic droit et glissez pour déplacer, utilisez la molette pour zoomer.",
         footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact"
       },
       de: {
@@ -467,6 +480,7 @@
         dropText: "Klicken oder ziehen, um ein Bild hochzuladen",
         statusText: "100% lokale Verarbeitung. Ihre Bilder verlassen niemals Ihr Gerät.",
         labelPalette: "Letzte Palette",
+        panHint: "💡 Tipp: Rechtsklick und ziehen zum Verschieben, Mausrad zum Zoomen.",
         footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt"
       }
     };
@@ -486,12 +500,13 @@
     const colorPreview = document.getElementById('color-preview');
     const hexCode = document.getElementById('hex-code');
     const rgbCode = document.getElementById('rgb-code');
-    const hslCode = document.getElementById('hsl-code'); // New HSL element
+    const hslCode = document.getElementById('hsl-code'); 
     
     const modePickBtn = document.getElementById('mode-pick');
     const modeCropBtn = document.getElementById('mode-crop');
     const zoomLevelText = document.getElementById('zoom-level');
     const paletteContainer = document.getElementById('palette-container');
+    const panHintText = document.getElementById('pan-hint');
 
     // State Variables
     let currentLang = 'en';
@@ -502,7 +517,13 @@
     let pendingCrop = null;
     let imgNaturalWidth = 0, imgNaturalHeight = 0;
     let currentScale = 1.0, fitScale = 1.0;
-    let colorHistory = []; // Store up to 8 colors
+    let colorHistory = []; 
+
+    // 平移控制状态变量
+    let isSpacePressed = false;
+    let isPanning = false;
+    let panStartX = 0, panStartY = 0;
+    let scrollStartX = 0, scrollStartY = 0;
 
     // --- Language & Setup ---
     function updateLanguage() {
@@ -521,6 +542,7 @@
       document.getElementById('drop-text').innerText = data.dropText;
       document.getElementById('status-text').innerText = data.statusText;
       document.getElementById('label-palette').innerText = data.labelPalette;
+      panHintText.innerText = data.panHint;
       
       document.getElementById('footer-about').innerText = data.footerAbout;
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
@@ -550,7 +572,6 @@
       for(let i=0; i<8; i++) {
         slots += `<div class="palette-empty" id="pal-${i}"></div>`;
       }
-      // Keep the label, append slots
       paletteContainer.innerHTML = `<div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest w-full mb-1" id="label-palette">${i18n[currentLang].labelPalette}</div>` + slots;
     }
 
@@ -607,7 +628,6 @@
     }
 
     function addToPalette(hex, rgb, hsl) {
-      // Avoid duplicate consecutive colors
       if(colorHistory.length > 0 && colorHistory[0].hex === hex) return;
       
       colorHistory.unshift({hex, rgb, hsl});
@@ -623,7 +643,6 @@
           slot.className = 'palette-swatch';
           slot.style.backgroundColor = colorHistory[i].rgb;
           slot.title = colorHistory[i].hex;
-          // Click swatch to restore it to main console
           slot.onclick = () => updateColorConsole(colorHistory[i].hex, colorHistory[i].rgb, colorHistory[i].hsl);
         }
       }
@@ -631,7 +650,8 @@
 
     // --- Zoom & Image Loading ---
     function setZoom(scale) {
-      currentScale = Math.max(0.1, Math.min(scale, 5));
+      // 放宽放大限制，方便查看细节，最大放大到 10 倍 (1000%)
+      currentScale = Math.max(0.1, Math.min(scale, 10));
       zoomLevelText.innerText = Math.round(currentScale * 100) + '%';
       interactionWrapper.style.width = (imgNaturalWidth * currentScale) + 'px';
       interactionWrapper.style.height = (imgNaturalHeight * currentScale) + 'px';
@@ -641,6 +661,37 @@
     document.getElementById('btn-zoom-in').addEventListener('click', () => setZoom(currentScale + 0.25));
     document.getElementById('btn-zoom-out').addEventListener('click', () => setZoom(currentScale - 0.25));
     zoomLevelText.addEventListener('click', () => setZoom(currentScale !== fitScale ? fitScale : 1.0));
+
+    // --- 修复后的鼠标滚轮精准居中缩放 ---
+    canvasContainer.addEventListener('wheel', function(e) {
+      if (!isImageLoaded) return;
+      e.preventDefault(); 
+      
+      const zoomStep = 0.1; 
+      const oldScale = currentScale;
+      
+      // 计算新的缩放比例
+      let delta = e.deltaY < 0 ? zoomStep : -zoomStep;
+      const newScale = Math.max(0.1, Math.min(oldScale + delta, 10));
+
+      if (newScale === oldScale) return;
+
+      // 1. 获取鼠标在包裹容器（图片层）内的相对像素坐标
+      const wrapperRect = interactionWrapper.getBoundingClientRect();
+      const mouseX = e.clientX - wrapperRect.left;
+      const mouseY = e.clientY - wrapperRect.top;
+      
+      // 2. 计算出鼠标悬停在原图上的哪个物理像素点
+      const origX = mouseX / oldScale;
+      const origY = mouseY / oldScale;
+
+      // 3. 执行缩放 (会瞬间改变 interactionWrapper 的宽高)
+      setZoom(newScale);
+      
+      // 4. 精准调整滚动条位置：补偿放大/缩小产生的位移，保持鼠标底下的像素点不动
+      canvasContainer.scrollLeft += origX * (newScale - oldScale);
+      canvasContainer.scrollTop += origY * (newScale - oldScale);
+    }, { passive: false });
 
     // Drag and Drop implementation
     canvasContainer.addEventListener('dragover', (e) => { e.preventDefault(); canvasContainer.style.borderColor = '#3b82f6'; canvasContainer.style.backgroundColor = '#eff6ff'; });
@@ -678,10 +729,13 @@
           fitScale = Math.min(1.0, containerW / imgNaturalWidth, containerH / imgNaturalHeight);
           
           placeholderText.style.display = 'none';
-          interactionWrapper.style.display = 'inline-block';
+          interactionWrapper.style.display = 'block'; 
           canvasContainer.style.border = 'none';
-          canvasContainer.classList.remove('empty-state');
+          canvasContainer.classList.remove('empty-state'); 
+          
           document.getElementById('zoom-controls').style.display = 'flex';
+          
+          panHintText.style.display = 'block'; 
           
           isImageLoaded = true;
           setZoom(fitScale);
@@ -703,7 +757,7 @@
       } else {
         modeCropBtn.classList.add('active', 'text-white'); modeCropBtn.classList.remove('text-slate-400');
         modePickBtn.classList.remove('active', 'text-white'); modePickBtn.classList.add('text-slate-400');
-        interactionWrapper.style.cursor = 'crosshair'; // Keep crosshair for cropping
+        interactionWrapper.style.cursor = 'crosshair'; 
       }
     };
 
@@ -712,8 +766,81 @@
       pendingCrop = null; isDragging = false;
     }
 
+    // 禁用整个画板区域的默认右键菜单，为右键平移让路
+    canvasContainer.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    // --- 平移控制：空格键监听 ---
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && isImageLoaded) {
+        e.preventDefault(); 
+        isSpacePressed = true;
+        interactionWrapper.style.cursor = isPanning ? 'grabbing' : 'grab';
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.code === 'Space') {
+        isSpacePressed = false;
+        if (!isPanning) {
+          interactionWrapper.style.cursor = 'crosshair';
+        }
+      }
+    });
+
+    // --- 平移控制：全局鼠标拖拽移动 ---
+    window.addEventListener('mousemove', function(e) {
+      if (isPanning) {
+        const dx = e.clientX - panStartX;
+        const dy = e.clientY - panStartY;
+        canvasContainer.scrollLeft = scrollStartX - dx;
+        canvasContainer.scrollTop = scrollStartY - dy;
+        return;
+      }
+    });
+
+    // --- 父容器 mousedown，负责拦截右键/中键/空格 开启平移 ---
+    canvasContainer.addEventListener('mousedown', function(e) {
+      if (!isImageLoaded) return;
+      if (e.button === 2 || e.button === 1 || isSpacePressed) { 
+        e.preventDefault();
+        isPanning = true;
+        panStartX = e.clientX;
+        panStartY = e.clientY;
+        scrollStartX = canvasContainer.scrollLeft;
+        scrollStartY = canvasContainer.scrollTop;
+        canvasContainer.style.cursor = 'grabbing';
+        interactionWrapper.style.cursor = 'grabbing';
+      }
+    });
+
+    window.addEventListener('mouseup', function(e) {
+      if (isPanning) {
+        isPanning = false;
+        canvasContainer.style.cursor = 'default';
+        interactionWrapper.style.cursor = isSpacePressed ? 'grab' : 'crosshair';
+        return; 
+      }
+
+      if(!isImageLoaded || !isDragging || currentMode !== 'crop') return;
+      isDragging = false;
+      const width = parseFloat(cropBox.style.width), height = parseFloat(cropBox.style.height);
+      const left = parseFloat(cropBox.style.left), top = parseFloat(cropBox.style.top);
+
+      if(width < 10 || height < 10) { hideCropBox(); return; }
+      pendingCrop = { cssX: left, cssY: top, cssW: width, cssH: height };
+      cropActionBtns.style.display = 'flex';
+    });
+
+    // --- 原有图层点击操作 ---
     overlayLayer.addEventListener('mousedown', function(e) {
       if(!isImageLoaded) return;
+      
+      if (e.button === 2 || e.button === 1 || isSpacePressed) {
+        return;
+      }
+
       e.stopPropagation(); 
       const x = e.offsetX, y = e.offsetY;
 
@@ -736,17 +863,6 @@
 
       cropBox.style.left = left + 'px'; cropBox.style.top = top + 'px';
       cropBox.style.width = width + 'px'; cropBox.style.height = height + 'px';
-    });
-
-    window.addEventListener('mouseup', function(e) {
-      if(!isImageLoaded || !isDragging || currentMode !== 'crop') return;
-      isDragging = false;
-      const width = parseFloat(cropBox.style.width), height = parseFloat(cropBox.style.height);
-      const left = parseFloat(cropBox.style.left), top = parseFloat(cropBox.style.top);
-
-      if(width < 10 || height < 10) { hideCropBox(); return; }
-      pendingCrop = { cssX: left, cssY: top, cssW: width, cssH: height };
-      cropActionBtns.style.display = 'flex';
     });
 
     document.getElementById('btn-crop-cancel').addEventListener('click', (e) => { e.stopPropagation(); hideCropBox(); });
