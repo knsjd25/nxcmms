@@ -15,7 +15,16 @@
         .btn-danger:hover { background: #c0392b; }
         .btn-success { background: #2ecc71; }
         .btn-success:hover { background: #27ae60; }
+        .btn-warning { background: #f39c12; }
+        .btn-warning:hover { background: #d68910; }
         
+        /* 顶部数据看板面板 */
+        .dashboard-nav { display: flex; gap: 15px; margin-bottom: 20px; }
+        .nav-card { flex: 1; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+        .nav-card.active { border-color: #3498db; background: #ebf5fb; }
+        .nav-card h3 { margin: 0 0 10px 0; color: #333; }
+        .nav-card .count { font-size: 1.5rem; font-weight: bold; color: #3498db; }
+
         /* 控制面板区域 */
         .control-panel { background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-wrap: wrap; gap: 15px; align-items: center; justify-content: space-between; }
         .filter-group { display: flex; gap: 15px; align-items: center; }
@@ -26,14 +35,24 @@
         .card { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; position: relative; transition: transform 0.2s; }
         .card:hover { transform: translateY(-5px); }
         .card img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; cursor: pointer; border: 1px solid #eee; }
-        .checkbox-container { position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .checkbox-container { position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 10;}
         .checkbox-container input { transform: scale(1.5); cursor: pointer; }
-        .badge { position: absolute; top: 20px; right: 20px; background: #f39c12; color: white; padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; }
+        .badge { position: absolute; top: 20px; right: 20px; background: #95a5a6; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; z-index: 10;}
+        .badge.pending { background: #e74c3c; animation: pulse 2s infinite; }
+        .badge.audited { background: #2ecc71; }
         .badge.personal { background: #8e44ad; }
         .meta { font-size: 0.8rem; color: #555; margin-bottom: 12px; text-align: left; line-height: 1.4; word-break: break-all; background: #f9f9f9; padding: 8px; border-radius: 4px; }
-        .delete-btn { width: 100%; }
+        
+        .action-btns { display: flex; gap: 5px; }
+        .action-btns button { flex: 1; padding: 8px 5px; font-size: 0.85rem; }
         
         #status-msg { margin-top: 10px; color: #666; font-weight: bold; }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
     </style>
 </head>
 <body>
@@ -42,23 +61,27 @@
     <h2>🛡️ 图床超级资产中心</h2>
     <div class="auth-box">
         <input type="password" id="admin-pwd" placeholder="输入超级管理员密码">
-        <button onclick="fetchImages()">拉取云端数据</button>
+        <button onclick="fetchImages()">刷新云端数据</button>
+    </div>
+</div>
+
+<div class="dashboard-nav">
+    <div class="nav-card active" onclick="switchTab('pending')" id="tab-pending">
+        <h3>🚨 待审核 (游客新图)</h3>
+        <div class="count" id="count-pending">0</div>
+    </div>
+    <div class="nav-card" onclick="switchTab('audited')" id="tab-audited">
+        <h3>✅ 已通过 (安全内容)</h3>
+        <div class="count" id="count-audited" style="color:#2ecc71;">0</div>
+    </div>
+    <div class="nav-card" onclick="switchTab('personal')" id="tab-personal">
+        <h3>👑 我的私用 (永久保存)</h3>
+        <div class="count" id="count-personal" style="color:#8e44ad;">0</div>
     </div>
 </div>
 
 <div class="control-panel">
     <div class="filter-group">
-        <label><strong>分类筛选:</strong></label>
-        <select id="filter-category" onchange="renderGallery()">
-            <option value="all">全部图片 (All)</option>
-            <option value="personal">👑 我的私用图 (personal)</option>
-            <option value="public">🌐 游客图床 (待审核)</option>
-            <option value="1-day">├─ 1天销毁 (1-day)</option>
-            <option value="3-day">├─ 3天销毁 (3-day)</option>
-            <option value="7-day">├─ 7天销毁 (7-day)</option>
-            <option value="30-day">└─ 30天销毁 (30-day)</option>
-        </select>
-
         <label><strong>时间排序:</strong></label>
         <select id="sort-time" onchange="renderGallery()">
             <option value="desc">最新上传在前</option>
@@ -66,33 +89,34 @@
         </select>
 
         <button onclick="selectAll()" style="background: #95a5a6;">全选 / 取消全选</button>
-        <button onclick="batchDelete()" class="btn-danger">🚨 批量删除选中</button>
+        <button onclick="batchAudit()" id="btn-batch-audit" class="btn-warning">✅ 批量标记为安全 (通过审核)</button>
+        <button onclick="batchDelete()" class="btn-danger">🚨 批量物理删除</button>
     </div>
 
     <div class="admin-upload">
-        <label><strong>👑 私人永久上传:</strong></label>
+        <label><strong>👑 私人永久直传:</strong></label>
         <input type="file" id="admin-file" accept="image/*">
         <button onclick="adminUpload()" class="btn-success">直接上传</button>
     </div>
 </div>
 
-<div id="status-msg">请先输入密码并点击“拉取云端数据”...</div>
+<div id="status-msg">请先输入密码并点击“刷新云端数据”...</div>
 <div id="gallery" class="grid"></div>
 
 <script>
-    // 🔴 极其重要：替换为你的真实 Worker 地址，不要带斜杠！
-    const WORKER_URL = "https://pic-api.yuyananuu.workers.dev"; 
+    // 🔴 极其重要：替换为你的真实 Worker 地址！
+    const WORKER_URL = "https://你的worker名字.你的前缀.workers.dev"; 
     
-    // 全局变量，用于在前端内存中进行极速筛选和排序
     let globalImages = [];
+    let currentTab = 'pending'; // 默认显示待审核
 
-    // 1. 获取并缓存所有图片
+    // 1. 获取并智能分类所有图片
     async function fetchImages() {
         const pwd = document.getElementById('admin-pwd').value;
         if (!pwd) return alert("⚠️ 请先输入超级管理员密码！");
         
         const statusMsg = document.getElementById('status-msg');
-        statusMsg.innerText = "⏳ 正在从 R2 仓库拉取数据，请稍候...";
+        statusMsg.innerText = "⏳ 正在拉取数据并对比审核状态...";
         document.getElementById('gallery').innerHTML = "";
 
         try {
@@ -101,43 +125,56 @@
                 headers: { 'X-Admin-Key': pwd }
             });
 
-            if (!response.ok) {
-                const err = await response.json();
-                throw new Error(err.error || "请求失败，可能是密码错误");
-            }
-
-            const data = await response.json();
-            globalImages = data.keys;
+            if (!response.ok) throw new Error("请求失败，可能是密码错误");
             
-            statusMsg.innerText = `✅ 拉取成功！共发现 ${globalImages.length} 张图片。`;
-            renderGallery(); // 调用渲染引擎
+            const data = await response.json();
+            globalImages = data.keys; // 后端已经处理好了 status 属性 (pending/audited/personal)
+            
+            updateCounts();
+            renderGallery();
 
         } catch (error) {
             statusMsg.innerHTML = `<span style="color:red;">❌ 拉取失败: ${error.message}</span>`;
         }
     }
 
-    // 2. 核心渲染引擎：处理过滤、排序和 UI 生成
+    // 更新看板数字
+    function updateCounts() {
+        const counts = { pending: 0, audited: 0, personal: 0 };
+        globalImages.forEach(img => counts[img.status]++);
+        
+        document.getElementById('count-pending').innerText = counts.pending;
+        document.getElementById('count-audited').innerText = counts.audited;
+        document.getElementById('count-personal').innerText = counts.personal;
+        document.getElementById('status-msg').innerText = `✅ 数据已同步！共 ${globalImages.length} 张图片。`;
+    }
+
+    // 切换顶部看板标签页
+    function switchTab(tab) {
+        currentTab = tab;
+        document.querySelectorAll('.nav-card').forEach(el => el.classList.remove('active'));
+        document.getElementById(`tab-${tab}`).classList.add('active');
+        
+        // 只有在“待审核”列表下，才显示批量通过按钮
+        document.getElementById('btn-batch-audit').style.display = (tab === 'pending') ? 'inline-block' : 'none';
+        
+        renderGallery();
+    }
+
+    // 2. 核心渲染引擎
     function renderGallery() {
         const gallery = document.getElementById('gallery');
-        const categoryFilter = document.getElementById('filter-category').value;
         const timeSort = document.getElementById('sort-time').value;
 
         gallery.innerHTML = "";
         
-        if (globalImages.length === 0) {
-            gallery.innerHTML = "<p>存储桶目前是空的，没有任何图片。</p>";
+        // 步骤 A: 根据当前 Tab 过滤
+        let filteredImages = globalImages.filter(img => img.status === currentTab);
+
+        if (filteredImages.length === 0) {
+            gallery.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #666; padding: 40px;">当前分类下没有图片 🎉</p>`;
             return;
         }
-
-        // 步骤 A: 内存过滤
-        let filteredImages = globalImages.filter(item => {
-            const prefix = item.key.split('/')[0];
-            if (categoryFilter === 'all') return true;
-            if (categoryFilter === 'personal') return prefix === 'personal';
-            if (categoryFilter === 'public') return prefix !== 'personal';
-            return prefix === categoryFilter; // 精确匹配 1-day, 3-day 等
-        });
 
         // 步骤 B: 内存时间排序
         filteredImages.sort((a, b) => {
@@ -148,22 +185,19 @@
 
         // 步骤 C: 生成卡片
         filteredImages.forEach(item => {
-            const prefix = item.key.split('/')[0];
-            const isPersonal = prefix === 'personal';
-            const badgeClass = isPersonal ? 'badge personal' : 'badge';
-            const badgeText = isPersonal ? '👑 私用' : '🌐 游客';
-            
-            // 格式化时间
             const uploadDate = new Date(item.uploaded).toLocaleString('zh-CN', { hour12: false });
-            // R2 公开访问链接
             const imgUrl = `https://pub.mini-tools.uk/${item.key}`;
+            
+            let badgeClass = 'badge';
+            let badgeText = '';
+            if (item.status === 'pending') { badgeClass += ' pending'; badgeText = '🚨 待审核'; }
+            else if (item.status === 'audited') { badgeClass += ' audited'; badgeText = '✅ 已通过'; }
+            else { badgeClass += ' personal'; badgeText = '👑 私用图'; }
 
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `
-                <div class="checkbox-container">
-                    <input type="checkbox" class="img-checkbox" value="${item.key}">
-                </div>
+                <div class="checkbox-container"><input type="checkbox" class="img-checkbox" value="${item.key}"></div>
                 <div class="${badgeClass}">${badgeText}</div>
                 <a href="${imgUrl}" target="_blank">
                     <img src="${imgUrl}" alt="image" loading="lazy">
@@ -173,15 +207,16 @@
                     <b>大小:</b> ${(item.size / 1024).toFixed(1)} KB<br>
                     <b>时间:</b> ${uploadDate}
                 </div>
-                <button class="delete-btn btn-danger" onclick="singleDelete('${item.key}')">🗑️ 单张删除</button>
+                <div class="action-btns">
+                    ${item.status === 'pending' ? `<button class="btn-warning" onclick="singleAudit('${item.key}')">✅ 通过</button>` : ''}
+                    <button class="btn-danger" onclick="singleDelete('${item.key}')">🗑️ 删除</button>
+                </div>
             `;
             gallery.appendChild(card);
         });
-
-        document.getElementById('status-msg').innerText = `✅ 当前视图共展示 ${filteredImages.length} 张图片。`;
     }
 
-    // 3. 全选 / 取消全选逻辑
+    // 3. 全选控制
     function selectAll() {
         const checkboxes = document.querySelectorAll('.img-checkbox');
         if (checkboxes.length === 0) return;
@@ -189,92 +224,84 @@
         checkboxes.forEach(cb => cb.checked = !isAllChecked);
     }
 
-    // 4. 批量删除逻辑 (终极审核武器)
-    async function batchDelete() {
+    // 4. 批量执行逻辑
+    async function executeBatch(actionType) {
         const checkboxes = document.querySelectorAll('.img-checkbox:checked');
-        const keysToDelete = Array.from(checkboxes).map(cb => cb.value);
+        const keys = Array.from(checkboxes).map(cb => cb.value);
 
-        if (keysToDelete.length === 0) return alert("⚠️ 请先勾选要删除的图片！");
-        if (!confirm(`🚨 警告：您确定要永久物理删除选中的 ${keysToDelete.length} 张图片吗？此操作绝对不可逆转！`)) return;
+        if (keys.length === 0) return alert("⚠️ 请先勾选图片！");
+        
+        let confirmMsg = actionType === 'audit' 
+            ? `✅ 确定将这 ${keys.length} 张图片标记为“安全通过”吗？它们将从待审核列表中移出。`
+            : `🚨 警告：确定彻底物理删除这 ${keys.length} 张图片吗？不可恢复！`;
+            
+        if (!confirm(confirmMsg)) return;
 
         const pwd = document.getElementById('admin-pwd').value;
-        document.getElementById('status-msg').innerText = `⏳ 正在批量执行删除指令，请勿关闭页面...`;
-
         try {
-            const response = await fetch(WORKER_URL, {
-                method: 'DELETE',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'X-Admin-Key': pwd 
-                },
-                body: JSON.stringify({ keys: keysToDelete }) // 发送数组给后端
+            const url = WORKER_URL + (actionType === 'audit' ? "?action=audit" : "");
+            const method = actionType === 'audit' ? 'POST' : 'DELETE';
+            
+            const response = await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
+                body: JSON.stringify({ keys: keys })
             });
 
             if (response.ok) {
-                alert(`🎉 成功销毁 ${keysToDelete.length} 张违规图片！`);
-                // 从内存中移除这些图片并重新渲染，避免重新发起网络请求拉取所有数据
-                globalImages = globalImages.filter(img => !keysToDelete.includes(img.key));
+                if (actionType === 'audit') {
+                    // 更新本地内存状态为 audited
+                    globalImages.forEach(img => { if (keys.includes(img.key)) img.status = 'audited'; });
+                } else {
+                    // 从内存彻底移除
+                    globalImages = globalImages.filter(img => !keys.includes(img.key));
+                }
+                updateCounts();
                 renderGallery();
             } else {
                 const err = await response.json();
-                alert("❌ 批量删除部分或全部失败: " + err.error);
+                alert("❌ 操作失败: " + err.error);
             }
         } catch (error) {
             alert("❌ 网络错误: " + error.message);
         }
     }
 
-    // 5. 单张删除兼容逻辑
-    async function singleDelete(key) {
-        if (!confirm("确定要删除这张图片吗？")) return;
-        
-        const pwd = document.getElementById('admin-pwd').value;
-        try {
-            const response = await fetch(WORKER_URL, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
-                body: JSON.stringify({ keys: [key] }) // 统一使用数组格式交给后端
-            });
-
-            if (response.ok) {
-                globalImages = globalImages.filter(img => img.key !== key);
-                renderGallery();
-            } else {
-                alert("❌ 删除失败");
-            }
-        } catch (error) {
-            alert("❌ 网络错误: " + error.message);
-        }
+    function batchAudit() { executeBatch('audit'); }
+    function batchDelete() { executeBatch('delete'); }
+    function singleAudit(key) { 
+        document.querySelector(`.img-checkbox[value="${key}"]`).checked = true;
+        batchAudit();
+    }
+    function singleDelete(key) {
+        document.querySelector(`.img-checkbox[value="${key}"]`).checked = true;
+        batchDelete();
     }
 
-    // 6. 超级管理员专属：直传私人文件夹 (跳过 Turnstile)
+    // 5. 管理员直传私用图
     async function adminUpload() {
         const fileInput = document.getElementById('admin-file');
         const file = fileInput.files[0];
         const pwd = document.getElementById('admin-pwd').value;
 
-        if (!pwd) return alert("⚠️ 请先在上方输入超级管理员密码！");
-        if (!file) return alert("⚠️ 请选择要上传的图片！");
-
-        document.getElementById('status-msg').innerText = `⏳ 正在向专属空间上传 [${file.name}]...`;
+        if (!pwd || !file) return alert("⚠️ 密码未输入或文件未选择！");
+        document.getElementById('status-msg').innerText = `⏳ 正在直传...`;
 
         const formData = new FormData();
         formData.append('file', file);
-        // 后端识别到管理员密码后，会自动将其放入 personal/ 目录，无需前端指定 duration
 
         try {
             const response = await fetch(WORKER_URL, {
                 method: 'POST',
-                headers: { 'X-Admin-Key': pwd }, // 携带特权令牌
+                headers: { 'X-Admin-Key': pwd },
                 body: formData
             });
 
             const result = await response.json();
-
             if (response.ok && result.success) {
-                alert(`🎉 私用图上传成功！\n专属链接：${result.url}`);
+                alert(`🎉 私用图上传成功！\n链接：${result.url}`);
                 fileInput.value = "";
-                fetchImages(); // 上传成功后自动刷新图库
+                fetchImages(); 
             } else {
                 alert(`❌ 上传失败: ${result.error}`);
             }
