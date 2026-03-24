@@ -11,6 +11,7 @@
         input[type="password"], input[type="file"], input[type="text"], select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; outline: none; }
         button { padding: 10px 15px; cursor: pointer; border: none; border-radius: 5px; background: #3498db; color: white; font-weight: bold; transition: background 0.3s; }
         button:hover { background: #2980b9; }
+        button:disabled { background: #bdc3c7; cursor: not-allowed; }
         .btn-danger { background: #e74c3c; }
         .btn-danger:hover { background: #c0392b; }
         .btn-success { background: #2ecc71; }
@@ -46,6 +47,10 @@
         .meta { font-size: 0.8rem; color: #555; margin-bottom: 12px; text-align: left; line-height: 1.4; word-break: break-all; background: #f9f9f9; padding: 8px; border-radius: 4px; }
         .action-btns { display: flex; gap: 5px; }
         .action-btns button { flex: 1; padding: 8px 5px; font-size: 0.85rem; }
+        
+        /* 🌟 分页控件区域 */
+        .pagination-panel { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 30px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .page-info { font-weight: bold; color: #333; }
         
         /* VIP 管理面板 */
         #vip-panel { display: none; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
@@ -99,7 +104,7 @@
     <div class="control-panel">
         <div class="filter-group">
             <label><strong>分类过滤:</strong></label>
-            <select id="filter-category" onchange="renderGallery()">
+            <select id="filter-category" onchange="resetAndRenderGallery()">
                 <option value="all">全部图片 (All)</option>
                 <option value="permanent">├─ 💎 VIP永久图 (permanent)</option>
                 <option value="1-day">├─ 1天销毁 (1-day)</option>
@@ -108,27 +113,41 @@
                 <option value="30-day">└─ 30天销毁 (30-day)</option>
             </select>
 
-            <input type="text" id="search-vip" placeholder="🔍 搜索VIP码 (如 user_888)" onkeyup="renderGallery()" style="width: 180px; padding: 8px;">
+            <input type="text" id="search-vip" placeholder="🔍 搜索VIP码 (如 user_888)" onkeyup="resetAndRenderGallery()" style="width: 180px; padding: 8px;">
 
             <label><strong>时间:</strong></label>
-            <select id="sort-time" onchange="renderGallery()">
+            <select id="sort-time" onchange="resetAndRenderGallery()">
                 <option value="desc">最新在前</option>
                 <option value="asc">最旧在前</option>
             </select>
 
-            <button onclick="selectAll()" style="background: #95a5a6;">全选 / 取消</button>
-            <button onclick="batchAudit()" id="btn-batch-audit" class="btn-warning">✅ 批量标记为安全 (通过审核)</button>
-            <button onclick="batchDelete()" class="btn-danger">🚨 批量物理删除</button>
+            <label><strong>每页显示:</strong></label>
+            <select id="items-per-page" onchange="resetAndRenderGallery()">
+                <option value="12">12 张</option>
+                <option value="24" selected>24 张</option>
+                <option value="48">48 张</option>
+                <option value="96">96 张</option>
+            </select>
+
+            <button onclick="selectAll()" style="background: #95a5a6;">全选本页</button>
+            <button onclick="batchAudit()" id="btn-batch-audit" class="btn-warning">✅ 批量通过</button>
+            <button onclick="batchDelete()" class="btn-danger">🚨 批量删除</button>
         </div>
 
         <div class="admin-upload">
-            <label><strong>👑 私人永久直传:</strong></label>
+            <label><strong>👑 私人直传:</strong></label>
             <input type="file" id="admin-file" accept="image/*">
             <button onclick="adminUpload()" class="btn-success">直接上传</button>
         </div>
     </div>
 
     <div id="gallery" class="grid"></div>
+    
+    <div class="pagination-panel" id="pagination-panel" style="display: none;">
+        <button id="btn-prev-page" onclick="changePage(-1)">⬅️ 上一页</button>
+        <div class="page-info" id="page-info">第 1 / 1 页 (共 0 张)</div>
+        <button id="btn-next-page" onclick="changePage(1)">下一页 ➡️</button>
+    </div>
 </div>
 
 <div id="vip-panel">
@@ -157,11 +176,14 @@
 
 <script>
     // 🔴 极其重要：替换为你的真实 Worker 地址！
-    const WORKER_URL ="https://pic-api.yuyananuu.workers.dev";
+    const WORKER_URL = "https://你的worker名字.你的前缀.workers.dev"; 
     
     let globalImages = [];
     let globalVips = [];
     let currentTab = 'pending'; 
+    
+    // 🌟 分页全局变量
+    let currentPage = 1;
 
     async function fetchAllData() {
         const pwd = document.getElementById('admin-pwd').value;
@@ -187,7 +209,7 @@
             if (currentTab === 'vip_management') {
                 renderVipTable();
             } else {
-                renderGallery();
+                resetAndRenderGallery();
             }
             
             statusMsg.innerText = `✅ 数据全量同步完成！图库: ${globalImages.length} 张 | 激活码: ${globalVips.length} 个`;
@@ -218,22 +240,31 @@
             document.getElementById('image-view').style.display = 'block';
             document.getElementById('vip-panel').style.display = 'none';
             document.getElementById('btn-batch-audit').style.display = (tab === 'pending') ? 'inline-block' : 'none';
-            renderGallery();
+            resetAndRenderGallery();
         }
     }
 
-    // ========== 图片渲染引擎 (加入 VIP 过滤) ==========
+    // 🌟 当条件改变时，重置回第一页并重新渲染
+    function resetAndRenderGallery() {
+        currentPage = 1;
+        renderGallery();
+    }
+
+    // 🌟 核心分页渲染引擎
     function renderGallery() {
         const gallery = document.getElementById('gallery');
+        const paginationPanel = document.getElementById('pagination-panel');
         const timeSort = document.getElementById('sort-time').value;
         const categoryFilter = document.getElementById('filter-category').value;
         const searchVip = document.getElementById('search-vip').value.trim().toLowerCase();
+        const itemsPerPage = parseInt(document.getElementById('items-per-page').value);
 
         gallery.innerHTML = "";
         
+        // 1. 获取当前状态栏下所有图片
         let filteredImages = globalImages.filter(img => img.status === currentTab);
 
-        // 目录前缀过滤
+        // 2. 目录前缀过滤
         if (categoryFilter !== 'all') {
             filteredImages = filteredImages.filter(item => {
                 const prefix = item.key.split('/')[0];
@@ -241,25 +272,41 @@
             });
         }
 
-        // 🌟 VIP 码精准搜索过滤
+        // 3. VIP 码精准搜索过滤
         if (searchVip) {
             filteredImages = filteredImages.filter(item => 
                 item.vipId && item.vipId.toLowerCase().includes(searchVip)
             );
         }
 
-        if (filteredImages.length === 0) {
-            gallery.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #666; padding: 40px;">当前分类下没有符合条件的图片 🎉</p>`;
+        const totalItems = filteredImages.length;
+
+        if (totalItems === 0) {
+            gallery.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #666; padding: 40px;">当前分类或搜索下没有图片 🎉</p>`;
+            paginationPanel.style.display = 'none';
             return;
         }
 
+        // 4. 排序
         filteredImages.sort((a, b) => {
             const timeA = new Date(a.uploaded).getTime();
             const timeB = new Date(b.uploaded).getTime();
             return timeSort === 'desc' ? (timeB - timeA) : (timeA - timeB);
         });
 
-        filteredImages.forEach(item => {
+        // 🌟 5. 精准内存切割 (分页核心)
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        
+        // 防止删除当前页最后一张图时，页码越界
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const paginatedImages = filteredImages.slice(startIndex, endIndex);
+
+        // 6. 渲染切割后的当前页图片
+        paginatedImages.forEach(item => {
             const uploadDate = new Date(item.uploaded).toLocaleString('zh-CN', { hour12: false });
             const imgUrl = `https://pub.mini-tools.uk/${item.key}`;
             const prefix = item.key.split('/')[0];
@@ -276,7 +323,6 @@
                 else { badgeClass += ' personal'; badgeText = '👑 私用图'; }
             }
 
-            // 🌟 如果这张图片有 VIP 元数据，就在详情里高亮展示
             const vipHtml = item.vipId ? `<b style="color:#d35400;">👤 VIP归属: ${item.vipId}</b><br>` : '';
 
             const card = document.createElement('div');
@@ -298,6 +344,20 @@
             `;
             gallery.appendChild(card);
         });
+
+        // 🌟 7. 更新底部翻页控件状态
+        paginationPanel.style.display = 'flex';
+        document.getElementById('page-info').innerText = `当前第 ${currentPage} / ${totalPages} 页 (共筛选出 ${totalItems} 张)`;
+        document.getElementById('btn-prev-page').disabled = (currentPage === 1);
+        document.getElementById('btn-next-page').disabled = (currentPage === totalPages);
+    }
+
+    // 🌟 切换页面事件
+    function changePage(delta) {
+        currentPage += delta;
+        renderGallery();
+        // 翻页后页面自动平滑滚动回顶部
+        document.getElementById('image-view').scrollIntoView({ behavior: 'smooth' });
     }
 
     function selectAll() {
@@ -337,7 +397,7 @@
                     globalImages = globalImages.filter(img => !keys.includes(img.key));
                 }
                 updateCounts();
-                renderGallery();
+                renderGallery(); // 处理完后重绘画廊，当前页面如果为空会自动跳回上一页
             } else {
                 const err = await response.json();
                 alert("❌ 操作失败: " + err.error);
@@ -403,10 +463,9 @@
         });
     }
 
-    // 快捷联动跳转：从 VIP 列表直接跳去查图片
     function searchVipImages(code) {
         document.getElementById('search-vip').value = code;
-        switchTab('audited'); // 跳转到图片看板 (比如先跳去已审核区)
+        switchTab('audited'); 
     }
 
     async function generateVipCode() {
