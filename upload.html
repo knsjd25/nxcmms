@@ -4,26 +4,27 @@
     <meta charset="UTF-8">
     <title>Mini-Tools - 限时阅后即焚图床</title>
     <style>
+        /* 这部分样式可以和你主页的样式融合 */
         body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f9f9f9; }
-        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h1 { font-size: 1.5rem; margin-bottom: 20px; color: #333; }
+        .upload-container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .upload-container h1 { font-size: 1.5rem; margin-bottom: 20px; color: #333; }
         .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-        select, input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        button { background: #007bff; color: white; border: none; padding: 12px 20px; width: 100%; border-radius: 5px; font-size: 1rem; cursor: pointer; transition: background 0.3s; }
-        button:hover { background: #0056b3; }
-        button:disabled { background: #aaa; cursor: not-allowed; }
-        #log { margin-top: 20px; padding: 10px; background: #222; color: #0f0; border-radius: 5px; font-family: monospace; font-size: 0.9rem; white-space: pre-wrap; word-wrap: break-word; max-height: 200px; overflow-y: auto;}
-        .error { color: #ff4d4d; }
-        .success { color: #00ff00; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        .form-group select, .form-group input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        #upload-btn { background: #007bff; color: white; border: none; padding: 12px 20px; width: 100%; border-radius: 5px; font-size: 1rem; cursor: pointer; transition: background 0.3s; }
+        #upload-btn:hover { background: #0056b3; }
+        #upload-btn:disabled { background: #aaa; cursor: not-allowed; }
+        #upload-log { margin-top: 20px; padding: 10px; background: #222; color: #0f0; border-radius: 5px; font-family: monospace; font-size: 0.9rem; white-space: pre-wrap; word-wrap: break-word; max-height: 200px; overflow-y: auto;}
+        .log-error { color: #ff4d4d; }
+        .log-success { color: #00ff00; }
         #preview-img { max-width: 100%; margin-top: 10px; border-radius: 5px; display: none; }
     </style>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
-<div class="container">
-    <h1>🔥 限时隐私图床 (极速版)</h1>
+<div class="upload-container">
+    <h1>🔥 限时隐私图床 (免费版)</h1>
     
     <div class="form-group">
         <label>1. 选择销毁时间</label>
@@ -46,24 +47,24 @@
         <div class="cf-turnstile" data-sitekey="0x4AAAAAACu0xC_kU_xOZpH4"></div>
     </div>
 
-    <button id="upload-btn">开始安全上传</button>
+    <button id="upload-btn">加密并上传</button>
 
-    <div id="log">等待操作...</div>
+    <div id="upload-log">等待选择图片...</div>
 </div>
 
 <script>
-    // 🔴 换成你的 Worker 地址
-    const WORKER_URL = "https://pic-api.yuyananuu.workers.dev"; 
+    // 🔴 换成你的真实 Worker 地址！
+    const WORKER_URL = "https://你的worker名字.你的前缀.workers.dev"; 
     
     const fileInput = document.getElementById('file-input');
     const durationSelect = document.getElementById('duration-select');
     const uploadBtn = document.getElementById('upload-btn');
-    const logDiv = document.getElementById('log');
+    const logDiv = document.getElementById('upload-log');
     const previewImg = document.getElementById('preview-img');
 
     function log(msg, type = 'normal') {
         const span = document.createElement('span');
-        span.className = type;
+        span.className = type === 'error' ? 'log-error' : (type === 'success' ? 'log-success' : '');
         span.innerText = msg + '\n';
         logDiv.appendChild(span);
         logDiv.scrollTop = logDiv.scrollHeight;
@@ -95,7 +96,7 @@
 
         uploadBtn.disabled = true;
         logDiv.innerHTML = ""; 
-        log(`⏳ 正在加密上传 [${file.name}]...`);
+        log(`⏳ 正在向安全节点上传 [${file.name}]...`);
 
         try {
             const formData = new FormData();
@@ -112,25 +113,25 @@
 
             if (response.ok && result.success) {
                 log(`🎉 上传成功！将在 ${durationSelect.options[durationSelect.selectedIndex].text}。\n`, "success");
-                log(`🌍 您的图片专属链接:\n${result.url}`, "success");
+                log(`🌍 专属访问链接:\n${result.url}`, "success");
                 
                 const link = document.createElement('a');
                 link.href = result.url;
                 link.target = '_blank';
-                link.innerText = "点击此处查看图片";
+                link.innerText = "👉 点击此处查看或复制链接";
                 link.style.color = "#00ff00";
                 logDiv.appendChild(link);
                 
                 fileInput.value = "";
                 previewImg.style.display = 'none';
-                turnstile.reset();
+                if(typeof turnstile !== 'undefined') turnstile.reset();
             } else {
                 log(`❌ 服务器拒绝上传: ${result.error}`, "error");
-                turnstile.reset();
+                if(typeof turnstile !== 'undefined') turnstile.reset();
             }
         } catch (error) {
             log("❌ 发生网络错误: " + error.message, "error");
-            turnstile.reset();
+            if(typeof turnstile !== 'undefined') turnstile.reset();
         } finally {
             uploadBtn.disabled = false;
         }
