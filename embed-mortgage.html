@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UK Mortgage Calculator Widget</title>
+  <meta name="robots" content="noindex, follow" /> <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; background: transparent; margin: 0; padding: 0; }
+    input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type=number] { -moz-appearance: textfield; }
+    .widget-container { border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  </style>
+</head>
+<body>
+  <div class="widget-container">
+    <h3 class="text-lg font-extrabold text-slate-900 mb-4 border-b border-slate-100 pb-3">Mortgage Calculator</h3>
+    
+    <div class="space-y-4 mb-6">
+      <div>
+        <label class="block text-xs font-bold text-slate-500 mb-1">Property Value (£)</label>
+        <input type="number" id="in-prop" value="300000" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold outline-none focus:border-emerald-500 transition-colors">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-500 mb-1">Deposit (£)</label>
+        <input type="number" id="in-dep" value="60000" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold outline-none focus:border-emerald-500 transition-colors">
+      </div>
+      <div class="flex gap-4">
+        <div class="flex-1">
+          <label class="block text-xs font-bold text-slate-500 mb-1">Rate (%)</label>
+          <input type="number" id="in-rate" value="4.5" step="0.01" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold outline-none focus:border-emerald-500 transition-colors">
+        </div>
+        <div class="flex-1">
+          <label class="block text-xs font-bold text-slate-500 mb-1">Term (Yrs)</label>
+          <input type="number" id="in-term" value="25" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold outline-none focus:border-emerald-500 transition-colors">
+        </div>
+      </div>
+    </div>
+
+    <button onclick="calc()" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition-colors mb-5 shadow-sm active:scale-95">
+      Calculate Payment
+    </button>
+
+    <div id="res-box" class="hidden bg-emerald-50 p-5 rounded-xl border border-emerald-100 text-center mb-5">
+      <p class="text-[10px] text-emerald-600 font-bold uppercase tracking-widest mb-1">Monthly Repayment</p>
+      <h2 id="res-val" class="text-3xl font-black text-emerald-700 tracking-tight">£0.00</h2>
+    </div>
+
+    <div class="text-center border-t border-slate-100 pt-4">
+      <a href="https://mini-tools.uk/mortgage.html" target="_blank" rel="noopener" class="text-[11px] text-slate-400 hover:text-emerald-600 font-bold flex items-center justify-center gap-1.5 transition-colors uppercase tracking-wider">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+        Powered by Mini-Tools
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function calc() {
+      const p = parseFloat(document.getElementById('in-prop').value) || 0;
+      const d = parseFloat(document.getElementById('in-dep').value) || 0;
+      const r = parseFloat(document.getElementById('in-rate').value) || 0;
+      const t = parseFloat(document.getElementById('in-term').value) || 0;
+      
+      const amt = p - d;
+      if (amt <= 0 || r <= 0 || t <= 0) return;
+
+      const mRate = (r / 100) / 12;
+      const mCount = t * 12;
+      const x = Math.pow(1 + mRate, mCount);
+      const monthly = (amt * x * mRate) / (x - 1);
+
+      document.getElementById('res-val').innerText = "£" + monthly.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('res-box').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
