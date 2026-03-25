@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   
-  <title id="meta-title">Image Color Picker & Cropper | Extract HEX, RGB, HSL Locally</title>
-  <meta name="description" id="meta-desc" content="Free offline image color picker and screenshot cropping tool. Extract precise HEX, RGB, and HSL codes. Build color palettes locally. Zero server uploads." />
-  <meta name="keywords" content="Image color picker, Screenshot tool, Crop image online, HEX color finder, RGB picker, HSL extractor, Color palette generator, Offline image tool" />
+  <title id="meta-title">Image Colour Picker & Cropper | Extract HEX, RGB, HSL Locally</title>
+  <meta name="description" id="meta-desc" content="Free offline image colour picker and screenshot cropping tool. Extract precise HEX, RGB, and HSL codes. Build colour palettes locally. Zero server uploads." />
+  <meta name="keywords" content="Image colour picker, Screenshot tool, Crop image online, HEX colour finder, RGB picker, HSL extractor, Colour palette generator, Offline image tool" />
   <link rel="canonical" href="https://mini-tools.uk/color-picker.html" />
   
   <link rel="alternate" hreflang="en" href="https://mini-tools.uk/color-picker.html?lang=en" />
@@ -32,31 +32,34 @@
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
     .updated-badge { background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; display: inline-flex; align-items: center; gap: 4px; }
     
-    /* Top Toolbar Styles */
+    /* Toolbar Styles */
     .toolbar-panel { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; }
     .file-upload-input { display: none; }
     .tool-btn { transition: all 0.2s; border: 2px solid transparent; }
     .tool-btn.active { background-color: #3b82f6; border-color: #93c5fd; box-shadow: 0 0 0 2px rgba(59,130,246,0.5); }
-    .color-code-box { background: rgba(255, 255, 255, 0.1); padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-family: monospace; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.1); width: 100%; text-align: center; }
+    .color-code-box { background: rgba(255, 255, 255, 0.1); padding: 0.5rem; border-radius: 0.5rem; font-family: monospace; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.1); width: 100%; text-align: center; }
     .color-code-box:hover { background: rgba(255, 255, 255, 0.2); border-color: rgba(255,255,255,0.3); }
 
-    /* Palette Styles (New Feature) */
-    .palette-container { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); }
+    /* Palette Styles */
+    .palette-container { display: flex; gap: 8px; flex-wrap: wrap; }
     .palette-swatch { width: 32px; height: 32px; border-radius: 6px; border: 2px solid rgba(255,255,255,0.2); cursor: pointer; transition: transform 0.1s; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
     .palette-swatch:hover { transform: scale(1.1); border-color: white; z-index: 10; }
     .palette-empty { width: 32px; height: 32px; border-radius: 6px; border: 1px dashed rgba(255,255,255,0.2); background: rgba(0,0,0,0.1); }
 
-    /* Canvas Area Styles */
+    /* 优化：消除滚动条丑陋样式，保持左侧整洁 */
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* 核心修复：Canvas Area Styles */
     .canvas-container { 
       position: relative; 
       width: 100%; 
+      height: 100%; /* 高度被父级 Flex 严格锁死 */
       background-color: #e2e8f0; 
-      border-radius: 1rem; 
-      overflow: auto; 
-      min-height: 500px;
-      max-height: 800px;
+      border-radius: 1.5rem; 
+      overflow: auto; /* 只有这里允许出现滚动条 */
       border: 2px dashed #cbd5e1;
-      padding: 20px; 
+      padding: 0; /* 移除 padding，用 margin 替代以防边缘截断 */
       transition: border-color 0.2s;
     }
 
@@ -83,7 +86,7 @@
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
       cursor: crosshair; 
       transform-origin: top left;
-      margin: 0 auto; 
+      margin: 20px; /* 让图片周围有一点呼吸空间，不会贴死边框 */
     }
 
     #image-canvas { 
@@ -158,7 +161,6 @@
     .zoom-text { width: 50px; text-align: center; font-size: 13px; font-weight: 800; color: #334155; cursor: pointer; }
     .zoom-text:hover { color: #3b82f6; }
 
-    /* 如果是带有精准指针（鼠标）的电脑设备，强制隐藏悬浮缩放面板，鼓励使用滚轮 */
     @media (pointer: fine) {
       #zoom-controls {
         display: none !important;
@@ -182,7 +184,7 @@
 <body class="min-h-screen flex flex-col">
 
   <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="w-full px-6 lg:px-10 py-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
         <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
           <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
@@ -203,116 +205,127 @@
     </div>
   </nav>
 
-  <main class="max-w-7xl mx-auto px-6 py-12 flex-1 w-full">
-    <header class="mb-10 text-center lg:text-left">
+  <main class="w-full px-4 lg:px-8 py-8 flex-1 flex flex-col">
+    
+    <header class="mb-6 text-center lg:text-left max-w-[1600px] mx-auto w-full">
       <div class="mb-4">
         <span class="updated-badge">
           <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
           <span id="update-text">Advanced Palette Mode Added</span>
         </span>
       </div>
-      <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight leading-tight">
-        Image Color Picker & Cropper
+      <h1 id="page-title" class="text-4xl lg:text-4xl font-extrabold text-slate-900 mb-3 tracking-tight leading-tight">
+        Image Colour Picker & Cropper
       </h1>
-      <p id="page-desc" class="text-lg text-slate-500 max-w-2xl">
-        Extract exact HEX, RGB, and HSL colors from any image. Build a palette or crop screenshots entirely locally in your browser.
+      <p id="page-desc" class="text-md text-slate-500 max-w-2xl">
+        Extract exact HEX, RGB, and HSL colours from any image. Build a palette or crop screenshots entirely locally in your browser.
       </p>
     </header>
 
-    <div class="toolbar-panel p-6 rounded-3xl shadow-xl mb-8 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
+    <div class="flex flex-col lg:flex-row gap-6 w-full max-w-[1800px] mx-auto items-stretch" style="height: 75vh; min-height: 600px; max-height: 900px;">
       
-      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full lg:w-auto">
-        <input type="file" id="image-input" class="file-upload-input" accept="image/png, image/jpeg, image/webp, image/svg+xml">
-        <label for="image-input" id="btn-upload" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-blue-500/30 transition-all cursor-pointer text-sm flex items-center justify-center gap-2 w-full sm:w-auto">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-          <span id="label-upload">Open Image</span>
-        </label>
-
-        <div class="h-10 w-px bg-slate-700 mx-2 hidden sm:block"></div>
-
-        <div class="flex bg-slate-800 rounded-xl p-1.5 w-full sm:w-auto">
-          <button id="mode-pick" class="tool-btn active px-5 py-2.5 rounded-lg text-sm font-bold text-white flex-1 flex items-center justify-center gap-2" onclick="setMode('pick')">
-            🎨 <span id="label-pick">Color Picker</span>
-          </button>
-          <button id="mode-crop" class="tool-btn px-5 py-2.5 rounded-lg text-sm font-bold text-slate-400 hover:text-white flex-1 flex items-center justify-center gap-2" onclick="setMode('crop')">
-            ✂️ <span id="label-crop">Screenshot</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="w-full lg:w-[400px] bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50">
-        <div class="flex items-center gap-4">
-          <div id="color-preview" class="w-16 h-16 rounded-xl border-2 border-slate-600 shadow-inner bg-transparent transition-colors duration-200 shrink-0"></div>
-          <div class="flex-1 grid grid-cols-2 gap-2">
-            <div id="hex-code" class="color-code-box" title="Copy HEX">#------</div>
-            <div id="rgb-code" class="color-code-box" title="Copy RGB">rgb(-,-,-)</div>
-            <div id="hsl-code" class="color-code-box col-span-2 text-xs" title="Copy HSL">hsl(-, -%, -%)</div>
-          </div>
-        </div>
+      <div class="w-full lg:w-[340px] shrink-0 h-full flex flex-col gap-5 overflow-y-auto scrollbar-hide pb-4">
         
-        <div class="palette-container" id="palette-container">
-          <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest w-full mb-1" id="label-palette">Recent Palette</div>
-          </div>
-      </div>
-    </div>
+        <div class="toolbar-panel p-6 rounded-3xl shadow-xl flex flex-col gap-6 w-full">
+          <input type="file" id="image-input" class="file-upload-input" accept="image/png, image/jpeg, image/webp, image/svg+xml">
+          <label for="image-input" id="btn-upload" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-blue-500/30 transition-all cursor-pointer text-sm flex items-center justify-center gap-2 w-full">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+            <span id="label-upload">Open Image</span>
+          </label>
 
-    <div class="canvas-container canvas-bg-pattern empty-state" id="canvas-container">
-      
-      <div id="placeholder-text" class="text-slate-500 text-center px-4 pointer-events-none mt-10">
-        <svg class="w-20 h-20 mx-auto mb-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-        <p id="drop-text" class="text-xl font-bold text-slate-700">Click or Drag & Drop to upload an image</p>
-        <p id="status-text" class="text-sm mt-3 font-medium text-slate-400 bg-white/50 inline-block px-4 py-1.5 rounded-full">100% Local processing. Your images never leave your device.</p>
-      </div>
-      
-      <div id="interaction-wrapper" class="interaction-wrapper">
-        <canvas id="image-canvas"></canvas>
-        <div id="overlay-layer"></div>
-        
-        <div id="crop-selection-box">
-            <div class="crop-corner-tr"></div>
-            <div class="crop-corner-bl"></div>
-            
-            <div id="crop-action-btns">
-              <button id="btn-crop-cancel" class="crop-btn crop-btn-cancel" title="Cancel">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
-              </button>
-              <button id="btn-crop-save" class="crop-btn crop-btn-save" title="Save & Download">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-              </button>
+          <div class="flex flex-col gap-2 bg-slate-800 rounded-xl p-1.5 w-full">
+            <button id="mode-pick" class="tool-btn active w-full py-3 rounded-lg text-sm font-bold text-white flex items-center justify-center gap-2" onclick="setMode('pick')">
+              🎨 <span id="label-pick">Colour Picker</span>
+            </button>
+            <button id="mode-crop" class="tool-btn w-full py-3 rounded-lg text-sm font-bold text-slate-400 hover:text-white flex items-center justify-center gap-2" onclick="setMode('crop')">
+              ✂️ <span id="label-crop">Screenshot</span>
+            </button>
+          </div>
+
+          <div class="bg-slate-800/50 p-5 rounded-2xl border border-slate-700/50">
+            <div class="flex flex-col gap-4">
+              <div id="color-preview" class="w-full h-20 rounded-xl border-2 border-slate-600 shadow-inner bg-transparent transition-colors duration-200"></div>
+              
+              <div class="flex flex-col gap-2">
+                <div id="hex-code" class="color-code-box font-bold text-lg" title="Copy HEX">#------</div>
+                <div class="flex gap-2">
+                  <div id="rgb-code" class="color-code-box flex-1 text-xs" title="Copy RGB">rgb(-,-,-)</div>
+                  <div id="hsl-code" class="color-code-box flex-1 text-xs" title="Copy HSL">hsl(-,-,-)</div>
+                </div>
+              </div>
             </div>
+            
+            <div class="mt-6 pt-4 border-t border-slate-700/50">
+              <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest w-full mb-2" id="label-palette">Recent Palette</div>
+              <div class="palette-container" id="palette-container">
+                </div>
+            </div>
+          </div>
+          
+          <p id="pan-hint" class="text-xs font-semibold text-slate-400 text-center leading-relaxed">💡 Tip: Right-click & drag to pan, use mouse wheel to zoom.</p>
+        </div>
+        
+      </div>
+
+      <div class="flex-1 min-w-0 h-full relative flex flex-col">
+        <div class="canvas-container canvas-bg-pattern empty-state w-full h-full" id="canvas-container">
+          
+          <div id="placeholder-text" class="text-slate-500 text-center px-4 pointer-events-none mt-20">
+            <svg class="w-20 h-20 mx-auto mb-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            <p id="drop-text" class="text-xl font-bold text-slate-700">Click or Drag & Drop to upload an image</p>
+            <p id="status-text" class="text-sm mt-3 font-medium text-slate-400 bg-white/50 inline-block px-4 py-1.5 rounded-full">100% Local processing. Your images never leave your device.</p>
+          </div>
+          
+          <div id="interaction-wrapper" class="interaction-wrapper">
+            <canvas id="image-canvas"></canvas>
+            <div id="overlay-layer"></div>
+            
+            <div id="crop-selection-box">
+                <div class="crop-corner-tr"></div>
+                <div class="crop-corner-bl"></div>
+                
+                <div id="crop-action-btns">
+                  <button id="btn-crop-cancel" class="crop-btn crop-btn-cancel" title="Cancel">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                  </button>
+                  <button id="btn-crop-save" class="crop-btn crop-btn-save" title="Save & Download">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                  </button>
+                </div>
+            </div>
+          </div>
+
+          <div id="zoom-controls">
+            <button id="btn-zoom-out" class="zoom-btn" title="Zoom Out">−</button>
+            <span id="zoom-level" class="zoom-text" title="Fit to Screen / 100%">100%</span>
+            <button id="btn-zoom-in" class="zoom-btn" title="Zoom In">+</button>
+          </div>
         </div>
       </div>
-
-      <div id="zoom-controls">
-        <button id="btn-zoom-out" class="zoom-btn" title="Zoom Out">−</button>
-        <span id="zoom-level" class="zoom-text" title="Fit to Screen / 100%">100%</span>
-        <button id="btn-zoom-in" class="zoom-btn" title="Zoom In">+</button>
-      </div>
+      
     </div>
-    
-    <p id="pan-hint" class="text-[13px] font-semibold text-slate-400 mt-4 text-center transition-opacity">💡 Tip: Right-click & drag to pan, use mouse wheel to zoom.</p>
 
-    <div class="prose-content">
+    <div class="prose-content max-w-[1400px] mx-auto w-full">
       
       <article id="seo-en" class="seo-article" data-lang="en">
-        <h2>Advanced Client-Side Image Utility: Color Picker & Cropper</h2>
-        <p>Welcome to the ultimate privacy-focused image utility suite designed for UI/UX designers, frontend developers, and digital creators. Whether you need to extract exact brand colors from a logo or quickly crop a high-resolution screenshot, our dual-purpose tool processes everything directly within your browser memory. <strong>No server uploads, no data retention, and zero waiting time.</strong></p>
+        <h2>Advanced Client-Side Image Utility: Colour Picker & Cropper</h2>
+        <p>Welcome to the ultimate privacy-focused image utility suite designed for UI/UX designers, frontend developers, and digital creators. Whether you need to extract exact brand colours from a logo or quickly crop a high-resolution screenshot, our dual-purpose tool processes everything directly within your browser memory. <strong>No server uploads, no data retention, and zero waiting time.</strong></p>
         
-        <h3>Understanding Color Formats: HEX, RGB, and HSL</h3>
-        <p>Our tool simultaneously generates color codes in three fundamental formats to suit any development or design workflow:</p>
+        <h3>Understanding Colour Formats: HEX, RGB, and HSL</h3>
+        <p>Our tool simultaneously generates colour codes in three fundamental formats to suit any development or design workflow:</p>
         <ul>
           <li><strong>HEX (Hexadecimal):</strong> The standard for web design (e.g., <code>#3B82F6</code>). It represents RGB values in base-16 format, making it compact and easy to copy-paste into CSS or graphic software like Figma and Photoshop.</li>
-          <li><strong>RGB (Red, Green, Blue):</strong> Defines colors based on the intensity of red, green, and blue light (e.g., <code>rgb(59, 130, 246)</code>). It's highly useful when you need to manipulate opacity using the <code>rgba()</code> format in modern CSS.</li>
-          <li><strong>HSL (Hue, Saturation, Lightness):</strong> Often preferred by developers for creating programmatic color themes. HSL (e.g., <code>hsl(217, 90%, 60%)</code>) makes it incredibly intuitive to generate lighter or darker shades of a base color simply by tweaking the "Lightness" percentage.</li>
+          <li><strong>RGB (Red, Green, Blue):</strong> Defines colours based on the intensity of red, green, and blue light (e.g., <code>rgb(59, 130, 246)</code>). It's highly useful when you need to manipulate opacity using the <code>rgba()</code> format in modern CSS.</li>
+          <li><strong>HSL (Hue, Saturation, Lightness):</strong> Often preferred by developers for creating programmatic colour themes. HSL (e.g., <code>hsl(217, 90%, 60%)</code>) makes it incredibly intuitive to generate lighter or darker shades of a base colour simply by tweaking the "Lightness" percentage.</li>
         </ul>
 
-        <h3>New Feature: Local Color Palette History</h3>
-        <p>We've introduced a dynamic <strong>Recent Palette</strong> feature. As you click around an image to extract colors, the tool automatically saves your last 8 selections in the console. This allows you to quickly build a cohesive UI color scheme directly from an inspiration image, without needing to paste codes back and forth into a notepad.</p>
+        <h3>New Feature: Local Colour Palette History</h3>
+        <p>We've introduced a dynamic <strong>Recent Palette</strong> feature. As you click around an image to extract colours, the tool automatically saves your last 8 selections in the console. This allows you to quickly build a cohesive UI colour scheme directly from an inspiration image, without needing to paste codes back and forth into a notepad.</p>
         
         <h2>Frequently Asked Questions (FAQ)</h2>
         <div class="faq-box">
           <h4>Are my confidential images safe?</h4>
-          <p class="mb-0">Absolutely. This tool utilizes the HTML5 Canvas API. When you select an image, it is rendered locally on your device's RAM. Your files are <strong>never</strong> transmitted over the internet or saved to any cloud database, making it 100% safe for unreleased UI mockups or private photos.</p>
+          <p class="mb-0">Absolutely. This tool utilises the HTML5 Canvas API. When you select an image, it is rendered locally on your device's RAM. Your files are <strong>never</strong> transmitted over the internet or saved to any cloud database, making it 100% safe for unreleased UI mockups or private photos.</p>
         </div>
         <div class="faq-box">
           <h4>Does the cropper reduce image quality?</h4>
@@ -429,12 +442,12 @@
   <script>
     const i18n = {
       en: {
-        metaTitle: "Image Color Picker & Cropper | Extract HEX, RGB, HSL Locally",
-        title: "Image Color Picker & Cropper",
-        desc: "Extract exact HEX, RGB, and HSL colors from any image. Build a palette or crop screenshots entirely locally in your browser.",
+        metaTitle: "Image Colour Picker & Cropper | Extract HEX, RGB, HSL Locally",
+        title: "Image Colour Picker & Cropper",
+        desc: "Extract exact HEX, RGB, and HSL colours from any image. Build a palette or crop screenshots entirely locally in your browser.",
         updateText: "Advanced Palette Mode Added",
         labelUpload: "Open Image",
-        labelPick: "Color Picker",
+        labelPick: "Colour Picker",
         labelCrop: "Screenshot",
         dropText: "Click or Drag & Drop to upload an image",
         statusText: "100% Local processing. Your images never leave your device.",
@@ -575,13 +588,12 @@
       });
     }
 
-    // Initialize 8 empty palette slots
     function initPalette() {
       let slots = '';
       for(let i=0; i<8; i++) {
         slots += `<div class="palette-empty" id="pal-${i}"></div>`;
       }
-      paletteContainer.innerHTML = `<div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest w-full mb-1" id="label-palette">${i18n[currentLang].labelPalette}</div>` + slots;
+      paletteContainer.innerHTML = slots;
     }
 
     // --- Core Math Conversions ---
@@ -659,7 +671,6 @@
 
     // --- Zoom & Image Loading ---
     function setZoom(scale) {
-      // 放宽放大限制，方便查看细节，最大放大到 10 倍 (1000%)
       currentScale = Math.max(0.1, Math.min(scale, 10));
       zoomLevelText.innerText = Math.round(currentScale * 100) + '%';
       interactionWrapper.style.width = (imgNaturalWidth * currentScale) + 'px';
@@ -671,7 +682,6 @@
     document.getElementById('btn-zoom-out').addEventListener('click', () => setZoom(currentScale - 0.25));
     zoomLevelText.addEventListener('click', () => setZoom(currentScale !== fitScale ? fitScale : 1.0));
 
-    // --- 修复后的鼠标滚轮精准居中缩放 ---
     canvasContainer.addEventListener('wheel', function(e) {
       if (!isImageLoaded) return;
       e.preventDefault(); 
@@ -679,25 +689,20 @@
       const zoomStep = 0.1; 
       const oldScale = currentScale;
       
-      // 计算新的缩放比例
       let delta = e.deltaY < 0 ? zoomStep : -zoomStep;
       const newScale = Math.max(0.1, Math.min(oldScale + delta, 10));
 
       if (newScale === oldScale) return;
 
-      // 1. 获取鼠标在包裹容器（图片层）内的相对像素坐标
       const wrapperRect = interactionWrapper.getBoundingClientRect();
       const mouseX = e.clientX - wrapperRect.left;
       const mouseY = e.clientY - wrapperRect.top;
       
-      // 2. 计算出鼠标悬停在原图上的哪个物理像素点
       const origX = mouseX / oldScale;
       const origY = mouseY / oldScale;
 
-      // 3. 执行缩放 (会瞬间改变 interactionWrapper 的宽高)
       setZoom(newScale);
       
-      // 4. 精准调整滚动条位置：补偿放大/缩小产生的位移，保持鼠标底下的像素点不动
       canvasContainer.scrollLeft += origX * (newScale - oldScale);
       canvasContainer.scrollTop += origY * (newScale - oldScale);
     }, { passive: false });
@@ -773,12 +778,10 @@
       pendingCrop = null; isDragging = false;
     }
 
-    // 禁用整个画板区域的默认右键菜单，为右键平移让路
     canvasContainer.addEventListener('contextmenu', function(e) {
       e.preventDefault();
     });
 
-    // --- 平移控制：空格键监听 ---
     window.addEventListener('keydown', (e) => {
       if (e.code === 'Space' && isImageLoaded) {
         e.preventDefault(); 
@@ -796,7 +799,6 @@
       }
     });
 
-    // --- 平移控制：全局鼠标拖拽移动 ---
     window.addEventListener('mousemove', function(e) {
       if (isPanning) {
         const dx = e.clientX - panStartX;
@@ -807,7 +809,6 @@
       }
     });
 
-    // --- 父容器 mousedown，负责拦截右键/中键/空格 开启平移 ---
     canvasContainer.addEventListener('mousedown', function(e) {
       if (!isImageLoaded) return;
       if (e.button === 2 || e.button === 1 || isSpacePressed) { 
@@ -840,7 +841,6 @@
       cropActionBtns.style.display = 'flex';
     });
 
-    // --- 原有图层点击操作 ---
     overlayLayer.addEventListener('mousedown', function(e) {
       if(!isImageLoaded) return;
       
