@@ -175,9 +175,9 @@
         <div id="error-overlay" class="hidden absolute inset-x-0 bottom-0 bg-red-900/95 backdrop-blur border-t border-red-700 p-6 transform transition-transform z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.3)]">
           <div class="flex items-start gap-4 text-red-200">
             <svg class="w-6 h-6 text-red-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-            <div>
+            <div class="w-full">
               <h4 class="text-base font-bold text-white mb-2" id="msg-invalid">Invalid JSON Syntax</h4>
-              <p id="error-message" class="text-sm font-mono text-red-300 break-all leading-relaxed"></p>
+              <p id="error-message" class="text-sm font-mono text-red-300 break-all leading-relaxed w-full"></p>
             </div>
           </div>
         </div>
@@ -308,6 +308,8 @@
   </footer>
 
   <script>
+    const BIGINT_PREFIX = "MINITOOLS_BIGINT_";
+
     const i18n = {
       en: {
         metaTitle: "JSON Formatter & Validator | Format, Beautify, and Parse JSON Online",
@@ -437,6 +439,31 @@
       }, 400); // 400ms debounce
     }
 
+    // Escape HTML helper for error formatting
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+      }[tag]));
+    }
+
+    // Helper to render and restore BigInt numbers cleanly in the UI
+    function renderAndRestore() {
+      const outputContainer = document.getElementById('output-json');
+      outputContainer.innerHTML = ''; 
+      outputContainer.appendChild(renderjson(parsedJsonObject));
+
+      // 🛡️ BigInt Shield Restoration: Strip quotes and re-class elements back to numbers in DOM
+      const stringNodes = outputContainer.querySelectorAll('.string');
+      stringNodes.forEach(node => {
+          if(node.innerText.includes(BIGINT_PREFIX)) {
+              const actualNumber = node.innerText.replace(BIGINT_PREFIX, '').replace(/"/g, '');
+              node.innerText = actualNumber;
+              node.classList.remove('string');
+              node.classList.add('number');
+          }
+      });
+    }
+
     // The main processing function
     function formatJSON(isAuto = false) {
       const inputEl = document.getElementById('input-json');
@@ -455,22 +482,39 @@
         return;
       }
 
+      // 🛡️ BigInt Shield Protection: Intercept huge numbers > 15 digits before they lose precision
+      const protectedText = rawJsonString.replace(/(:\s*)([-+]?\d{16,})\s*(?=[,\]}])/g, `$1"${BIGINT_PREFIX}$2"`);
+
       try {
-        parsedJsonObject = JSON.parse(rawJsonString);
+        parsedJsonObject = JSON.parse(protectedText);
         errorOverlay.classList.add('hidden');
         
-        outputContainer.innerHTML = ''; 
-        outputContainer.appendChild(renderjson(parsedJsonObject));
+        renderAndRestore();
 
         // ONLY beautify the input text area if the user explicitly clicked the "Beautify" button.
-        // If it's auto-triggered, changing the input value will mess up their typing cursor!
         if (!isAuto) {
-           inputEl.value = JSON.stringify(parsedJsonObject, null, 2);
+           const beautifulStr = JSON.stringify(parsedJsonObject, null, 2);
+           inputEl.value = beautifulStr.replace(new RegExp(`"${BIGINT_PREFIX}([-+]?\\d+)"`, 'g'), '$1');
         }
 
       } catch (err) {
         parsedJsonObject = null;
-        errorMsg.innerText = err.message; 
+        
+        // 🚀 Smart Error Locator: Pinpoint the exact typo
+        let errorText = err.message;
+        const match = errorText.match(/position\s+(\d+)/);
+        if (match && match[1]) {
+            const pos = parseInt(match[1], 10);
+            const start = Math.max(0, pos - 40);
+            const end = Math.min(rawJsonString.length, pos + 40);
+            const snippetBefore = escapeHtml(rawJsonString.substring(start, pos));
+            const snippetError = escapeHtml(rawJsonString.charAt(pos) || 'EOF');
+            const snippetAfter = escapeHtml(rawJsonString.substring(pos + 1, end));
+
+            errorText += `<br><br><div class="bg-red-950/50 p-4 rounded-xl border border-red-800/50 font-mono text-xs mt-3 break-all whitespace-pre-wrap leading-relaxed"><span class="text-slate-400">${snippetBefore}</span><span class="bg-red-500 text-white font-extrabold px-1.5 py-0.5 rounded shadow-sm animate-pulse">${snippetError}</span><span class="text-slate-400">${snippetAfter}</span></div>`;
+        }
+        
+        errorMsg.innerHTML = errorText; 
         errorOverlay.classList.remove('hidden');
       }
     }
@@ -478,25 +522,21 @@
     function expandAll() {
       if(parsedJsonObject) {
         renderjson.set_show_to_level("all");
-        const outputContainer = document.getElementById('output-json');
-        outputContainer.innerHTML = '';
-        outputContainer.appendChild(renderjson(parsedJsonObject));
+        renderAndRestore();
       }
     }
 
     function collapseAll() {
       if(parsedJsonObject) {
         renderjson.set_show_to_level(0);
-        const outputContainer = document.getElementById('output-json');
-        outputContainer.innerHTML = '';
-        outputContainer.appendChild(renderjson(parsedJsonObject));
+        renderAndRestore();
       }
     }
 
     function copyJSON() {
       if(!parsedJsonObject) return;
       
-      const formattedString = JSON.stringify(parsedJsonObject, null, 2);
+      const formattedString = JSON.stringify(parsedJsonObject, null, 2).replace(new RegExp(`"${BIGINT_PREFIX}([-+]?\\d+)"`, 'g'), '$1');
       navigator.clipboard.writeText(formattedString).then(() => {
         const btn = document.getElementById('btn-copy');
         const originalText = btn.innerText;
@@ -526,7 +566,7 @@
             "active": true
         },
         "results": [
-            { "id": 101, "name": "Apple", "price": 1.20, "tags": ["fruit", "organic"] },
+            { "id": 1234567890123456789, "name": "BigInt Precision Test", "tags": ["protected", "data"] },
             { "id": 102, "name": "Bread", "price": 2.50, "tags": ["bakery"] },
             { "id": 103, "name": "Milk", "price": null, "error": "Out of stock" }
         ],
