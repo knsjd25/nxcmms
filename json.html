@@ -368,7 +368,6 @@
       }
     };
 
-    // Global variables for the JSON logic
     let rawJsonString = "";
     let parsedJsonObject = null;
     let autoFormatTimer;
@@ -392,7 +391,6 @@
       document.getElementById('page-title').innerText = data.title;
       document.getElementById('page-desc').innerText = data.desc;
       
-      // Update buttons, preserving SVG icons if they exist
       const btnFormat = document.getElementById('btn-format');
       btnFormat.lastChild.textContent = " " + data.btnFormat;
       
@@ -431,28 +429,24 @@
       });
     }
 
-    // Triggered automatically as user types or pastes
     function handleInput() {
       clearTimeout(autoFormatTimer);
       autoFormatTimer = setTimeout(() => {
-        formatJSON(true); // true means auto-triggered, so don't alter the textarea
-      }, 400); // 400ms debounce
+        formatJSON(true); 
+      }, 400); 
     }
 
-    // Escape HTML helper for error formatting
     function escapeHtml(str) {
       return String(str).replace(/[&<>'"]/g, tag => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
       }[tag]));
     }
 
-    // Helper to render and restore BigInt numbers cleanly in the UI
     function renderAndRestore() {
       const outputContainer = document.getElementById('output-json');
       outputContainer.innerHTML = ''; 
       outputContainer.appendChild(renderjson(parsedJsonObject));
 
-      // 🛡️ BigInt Shield Restoration: Strip quotes and re-class elements back to numbers in DOM
       const stringNodes = outputContainer.querySelectorAll('.string');
       stringNodes.forEach(node => {
           if(node.innerText.includes(BIGINT_PREFIX)) {
@@ -491,7 +485,6 @@
         
         renderAndRestore();
 
-        // ONLY beautify the input text area if the user explicitly clicked the "Beautify" button.
         if (!isAuto) {
            const beautifulStr = JSON.stringify(parsedJsonObject, null, 2);
            inputEl.value = beautifulStr.replace(new RegExp(`"${BIGINT_PREFIX}([-+]?\\d+)"`, 'g'), '$1');
@@ -500,21 +493,53 @@
       } catch (err) {
         parsedJsonObject = null;
         
-        // 🚀 Smart Error Locator: Pinpoint the exact typo
         let errorText = err.message;
-        const match = errorText.match(/position\s+(\d+)/);
+        let pos = -1;
+
+        let match = errorText.match(/position\s+(\d+)/);
         if (match && match[1]) {
-            const pos = parseInt(match[1], 10);
+            pos = parseInt(match[1], 10);
+        } else {
+            match = errorText.match(/line\s+(\d+)\s+column\s+(\d+)/);
+            if (match) {
+                let line = parseInt(match[1], 10) - 1;
+                let col = parseInt(match[2], 10) - 1;
+                let lines = rawJsonString.split('\n');
+                if (line < lines.length) {
+                    pos = lines.slice(0, line).join('\n').length + (line > 0 ? 1 : 0) + col;
+                }
+            }
+        }
+
+        let smartHint = "";
+        const errLower = errorText.toLowerCase();
+        
+        if (errLower.includes("']'") || errLower.includes("'}'") || errLower.includes("unexpected token ]") || errLower.includes("unexpected token }") || errLower.includes("after array element")) {
+            smartHint = `<div class="mt-4 p-3 bg-yellow-900/40 border border-yellow-600/50 rounded-lg text-yellow-300 text-xs font-bold leading-relaxed tracking-wide shadow-sm">💡 智能诊断：JSON 语法严禁在最后一个元素后添加逗号 (Trailing comma)，请检查上方代码，极有可能是你在 ']' 或 '}' 前面多写了一个 "<span class="text-white text-sm">,</span>" 符号。</div>`;
+        } else if (errLower.includes("double-quoted property") || errLower.includes("expected property name") || errLower.includes("unexpected string")) {
+            smartHint = `<div class="mt-4 p-3 bg-yellow-900/40 border border-yellow-600/50 rounded-lg text-yellow-300 text-xs font-bold leading-relaxed tracking-wide shadow-sm">💡 智能诊断：JSON 的键名必须用双引号 ("") 严格包裹；或者是您在前面多写/漏写了逗号导致结构断裂。</div>`;
+        }
+
+        let contextHtml = "";
+        if (pos >= 0) {
             const start = Math.max(0, pos - 40);
             const end = Math.min(rawJsonString.length, pos + 40);
             const snippetBefore = escapeHtml(rawJsonString.substring(start, pos));
-            const snippetError = escapeHtml(rawJsonString.charAt(pos) || 'EOF');
+            
+            let errChar = rawJsonString.charAt(pos) || 'EOF';
+            let displayChar = errChar;
+            if (errChar === '\n') displayChar = '↵';
+            else if (errChar === '\r') displayChar = '↵';
+            else if (errChar === '\t') displayChar = '⇥';
+            else if (errChar === ' ') displayChar = '␣';
+            else displayChar = escapeHtml(errChar);
+
             const snippetAfter = escapeHtml(rawJsonString.substring(pos + 1, end));
 
-            errorText += `<br><br><div class="bg-red-950/50 p-4 rounded-xl border border-red-800/50 font-mono text-xs mt-3 break-all whitespace-pre-wrap leading-relaxed"><span class="text-slate-400">${snippetBefore}</span><span class="bg-red-500 text-white font-extrabold px-1.5 py-0.5 rounded shadow-sm animate-pulse">${snippetError}</span><span class="text-slate-400">${snippetAfter}</span></div>`;
+            contextHtml = `<br><br><div class="bg-red-950/50 p-4 rounded-xl border border-red-800/50 font-mono text-sm mt-3 break-all whitespace-pre-wrap leading-relaxed shadow-inner"><span class="text-slate-400">${snippetBefore}</span><span class="bg-red-500 text-white font-extrabold px-1.5 py-0.5 rounded shadow-sm animate-pulse" title="解析在这里崩溃">${displayChar}</span><span class="text-slate-400">${snippetAfter}</span></div>`;
         }
         
-        errorMsg.innerHTML = errorText; 
+        errorMsg.innerHTML = errorText + contextHtml + smartHint; 
         errorOverlay.classList.remove('hidden');
       }
     }
@@ -573,7 +598,7 @@
         "nested_test": { "level_1": { "level_2": { "secret_key": "x8f9d0" } } }
       };
       document.getElementById('input-json').value = JSON.stringify(example);
-      formatJSON(true); // Treat loading example like auto-input to just show it
+      formatJSON(true); 
     }
 
     document.getElementById('lang-select').addEventListener('change', (e) => {
