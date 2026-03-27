@@ -134,13 +134,25 @@
 
   <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
     <div class="max-w-[1400px] mx-auto px-6 py-4 flex flex-wrap gap-4 justify-between items-center">
-      <div class="flex items-center gap-3">
-        <a href="/" class="transition-transform active:scale-90 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white border border-slate-100" />
-        </a>
-        <div class="flex flex-col -mt-1">
-          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
-          <span class="text-[10px] text-emerald-600 font-black uppercase tracking-widest mt-1">100% Free & Secure</span>
+      
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-3">
+          <a href="/" class="transition-transform active:scale-90 shrink-0">
+            <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white border border-slate-100" />
+          </a>
+          <div class="flex flex-col -mt-1">
+            <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+            <span class="text-[10px] text-emerald-600 font-black uppercase tracking-widest mt-1">100% Free & Secure</span>
+          </div>
+        </div>
+
+        <div class="hidden sm:flex items-center bg-slate-50 p-1 rounded-xl border border-slate-200 shadow-inner">
+          <a href="/" id="nav-tools" class="px-5 py-1.5 text-sm font-extrabold text-blue-600 bg-white rounded-lg shadow-sm border border-slate-100">
+            Tools
+          </a>
+          <a href="/blog" id="nav-blog" target="_blank" class="px-5 py-1.5 text-sm font-bold text-slate-500 rounded-lg hover:text-slate-900 transition-colors">
+            Blog
+          </a>
         </div>
       </div>
       
@@ -479,8 +491,16 @@
   </footer>
 
   <script>
-    // 动态注入网站新鲜度 (Freshness) 标签，拉高 Google 抓取权重
     document.getElementById('last-updated').innerText = "Last Updated: " + new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+
+    // 新增：顶部导航栏语言切换字典
+    const navDict = {
+        'en': { tools: "Tools", blog: "Blog" },
+        'zh': { tools: "工具", blog: "博客" },
+        'es': { tools: "Herramientas", blog: "Blog" },
+        'fr': { tools: "Outils", blog: "Blog" },
+        'de': { tools: "Tools", blog: "Blog" }
+    };
 
     function getLang() {
       const params = new URLSearchParams(window.location.search);
@@ -492,7 +512,6 @@
       return lang;
     }
 
-    // Creating skeleton cards before JSON fetch
     function renderSkeletons() {
         const grid = document.getElementById('tools-grid');
         let skeletonHTML = '';
@@ -513,8 +532,12 @@
       const lang = getLang();
       document.documentElement.lang = lang;
       document.getElementById('lang-select').value = lang;
+
+      // 核心修改区：动态更新顶部导航栏的“工具”和“博客”文字
+      const currentNavLang = navDict[lang] || navDict['en'];
+      document.getElementById('nav-tools').innerText = currentNavLang.tools;
+      document.getElementById('nav-blog').innerText = currentNavLang.blog;
       
-      // Setup skeleton loading state UI
       renderSkeletons();
       document.getElementById('hero-title').classList.add('hidden');
       document.getElementById('hero-sub').classList.add('hidden');
@@ -533,7 +556,6 @@
         const allData = await response.json();
         const data = allData[lang] || allData['en'];
 
-        // Remove Skeletons & Inject Content
         document.getElementById('hero-title-skeleton').style.display = 'none';
         document.getElementById('hero-sub-skeleton').style.display = 'none';
         document.getElementById('hero-btn-skeleton').style.display = 'none';
@@ -552,7 +574,7 @@
         hTitle.classList.remove('hidden');
         hSub.classList.remove('hidden');
         hBtn.classList.remove('hidden');
-        hBtn.classList.add('inline-block'); // Fix layout for button
+        hBtn.classList.add('inline-block'); 
         hTag.classList.remove('hidden');
         hTag.classList.add('inline-block');
 
@@ -606,7 +628,6 @@
     function syncLinks(lang) {
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
-        // Do not sync fragment links or external links
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
           try {
             const url = new URL(href, window.location.origin);
