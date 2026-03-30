@@ -7,7 +7,8 @@
   <title id="meta-title">UK Salary After Tax Calculator 2026 | PAYE & NI Take Home Pay — Mini-Tools</title>
   <meta name="description" id="meta-desc" content="Free 2026/27 UK Salary after tax calculator. Calculate PAYE income tax, National Insurance, Pension, Student Loan, and take-home pay based on latest HMRC 2026 tax codes." />
   <meta name="keywords" content="UK Salary Calculator 2026, Take home pay UK, PAYE Calculator, National Insurance 2026, Income Tax UK 2026/27, Student Loan Calculator UK, Pension deduction" />
-  <link rel="canonical" href="https://mini-tools.uk/tax.html" />
+  
+  <link rel="canonical" href="https://mini-tools.uk/tax" />
   
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
@@ -15,11 +16,12 @@
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
   
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/tax.html?lang=en" />
-  <link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/tax.html?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/tax.html?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/tax.html?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/tax.html?lang=de" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/tax?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/tax?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/tax?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/tax?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/tax?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/tax" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -40,6 +42,28 @@
     "applicationCategory": "FinanceApplication",
     "description": "Calculate UK take-home pay including Income Tax, National Insurance, Pensions, and Student Loans.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "Is my financial data safe when using this calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. Mini-Tools.uk operates on a strict Client-Side Processing architecture. When you type your salary, the calculation happens entirely within your device's browser memory. Your gross salary data is never transmitted across the internet."
+      }
+    }, {
+      "@type": "Question",
+      "name": "How does the Pension deduction work in this tool?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our calculator assumes a 'Salary Sacrifice' pension scheme, which is the most tax-efficient and common method in the UK today. The percentage you input is deducted from your Gross Salary before Income Tax and National Insurance are calculated."
+      }
+    }]
   }
   </script>
 
@@ -64,11 +88,8 @@
     .breakdown-table .row-net td { color: #38bdf8; font-size: 1rem; font-weight: 800; border-bottom: none; padding-top: 1rem; }
     .breakdown-table .row-deduct td { color: #f87171; }
 
-    /* SEO Article Switching */
-    .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
-    .seo-article.active { display: block; animation: fadeIn 0.5s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    
+    /* SEO Content Styling */
+    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
     .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
     .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
     .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
@@ -242,198 +263,18 @@
       </div>
     </div>
 
-    <div class="prose-content">
-      
-      <article id="seo-en" class="seo-article" data-lang="en">
-        <h2>How is your 2026/27 UK Salary Calculated?</h2>
-        <p>Understanding your payslip shouldn't require an accounting degree. Our <strong>Advanced UK Salary Calculator</strong> is meticulously programmed to reflect the latest HMRC tax bands, ensuring you get a precise breakdown of your net income for both the 2025/26 and the upcoming 2026/27 financial years. We've upgraded our tool to include complex deductions like Pensions and Student Loans.</p>
-        <p>For the vast majority of UK taxpayers working a standard job, your tax code will be <strong>1257L</strong>. This code signifies that you are entitled to the standard <strong>Personal Allowance of £12,570</strong>. This is the bedrock of your salary—it is the amount of money you are legally allowed to earn completely tax-free before HMRC starts applying Income Tax.</p>
-        
-        <h3>2026/27 Income Tax Bands Explained</h3>
-        <p>Once your salary exceeds your Personal Allowance, Income Tax (PAYE) is applied in varying tiers, known as tax bands. Our calculator automatically segments your gross income and applies the exact percentage required for each bracket.</p>
-        
-        <div class="overflow-x-auto">
-          <table class="tax-table">
-            <thead>
-              <tr>
-                <th>Tax Band</th>
-                <th>Income Range (£)</th>
-                <th>Tax Rate</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Personal Allowance</td>
-                <td>Up to £12,570</td>
-                <td>0%</td>
-              </tr>
-              <tr>
-                <td>Basic Rate</td>
-                <td>£12,571 to £50,270</td>
-                <td>20%</td>
-              </tr>
-              <tr>
-                <td>Higher Rate</td>
-                <td>£50,271 to £125,140</td>
-                <td>40%</td>
-              </tr>
-              <tr>
-                <td>Additional Rate</td>
-                <td>Over £125,140</td>
-                <td>45%</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+    <div id="seo-container" class="prose-content">
+      </div>
 
-        <h3>National Insurance (NI) Contributions in 2026</h3>
-        <p>Income tax is only one part of the equation. <strong>National Insurance (NI)</strong> is a mandatory deduction for UK employees used to fund state benefits, including the NHS and state pension. For the 2026 tax year, the Class 1 National Insurance primary rate for employees is calculated at <strong>8%</strong> for earnings falling between the Primary Threshold and the Upper Earnings Limit. Any earnings pushing above this limit are subject to an additional <strong>2%</strong> deduction.</p>
-        
-        <h2>Frequently Asked Questions (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Is my financial data safe when using this calculator?</h4>
-          <p class="mb-0">Absolutely. <strong>Mini-Tools.uk operates on a strict Client-Side Processing architecture.</strong> When you type your salary into the box above, the calculation happens entirely within your device's browser memory. Your gross salary data is never transmitted across the internet, nor is it stored in any backend database.</p>
-        </div>
-        <div class="faq-box">
-          <h4>How does the Pension deduction work in this tool?</h4>
-          <p class="mb-0">Our calculator assumes a "Salary Sacrifice" pension scheme, which is the most tax-efficient and common method in the UK today. The percentage you input is deducted from your Gross Salary *before* Income Tax and National Insurance are calculated, accurately reflecting your true take-home pay.</p>
-        </div>
-        <div class="faq-box">
-          <h4>What happens if my salary is over £100,000?</h4>
-          <p class="mb-0">Once you earn over £100,000, your Personal Allowance decreases by £1 for every £2 you earn above this threshold. This effectively results in a marginal tax rate of 60% on income between £100,000 and £125,140. Our calculator automatically adjusts your Personal Allowance downwards if your inputted salary triggers this HMRC rule.</p>
-        </div>
-      </article>
-
-      <article id="seo-zh" class="seo-article" data-lang="zh">
-        <h2>2026/27 英国个税及税后工资是如何计算的？</h2>
-        <p>读懂您的工资单不应该需要会计学位。我们的<strong>高级英国税后工资计算器</strong>严格根据 HMRC 最新的税务阶梯编写，支持跨年比对，并新增了养老金 (Pension) 和学生贷款 (Student Loan) 扣除功能，为您提供最精准的净收入明细。</p>
-        <p>对于绝大多数在英国从事标准工作的纳税人来说，您的税码通常是 <strong>1257L</strong>。这意味着您享有标准的 <strong>£12,570 个人免税额 (Personal Allowance)</strong>。这是您合法享有的完全免税的收入额度。</p>
-        
-        <h3>2026/27 英国个人所得税 (PAYE) 阶梯详解</h3>
-        <div class="overflow-x-auto">
-          <table class="tax-table">
-            <thead>
-              <tr>
-                <th>税务阶梯 (Tax Band)</th>
-                <th>年收入区间 (£)</th>
-                <th>税率</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>个人免税额 (Personal Allowance)</td><td>至 £12,570</td><td>0%</td></tr>
-              <tr><td>基础税率 (Basic Rate)</td><td>£12,571 至 £50,270</td><td>20%</td></tr>
-              <tr><td>较高税率 (Higher Rate)</td><td>£50,271 至 £125,140</td><td>40%</td></tr>
-              <tr><td>附加税率 (Additional Rate)</td><td>超过 £125,140</td><td>45%</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3>关于 2026 年的国民保险 (National Insurance, NI)</h3>
-        <p>国民保险是英国雇员的一项强制性扣款。在 2026 财年，雇员的 Class 1 国民保险主要费率按 <strong>8%</strong> 计算（在起征点和上限之间）。超过上限的收入将面临 <strong>2%</strong> 的额外扣除。</p>
-        
-        <h2>常见问题解答 (FAQ)</h2>
-        <div class="faq-box">
-          <h4>使用此计算器时，我的财务数据安全吗？</h4>
-          <p class="mb-0">绝对安全。Mini-Tools.uk 采用严格的“纯前端”架构。计算完全在本地设备进行，绝不上传您的薪资数据。</p>
-        </div>
-        <div class="faq-box">
-          <h4>本工具中的养老金 (Pension) 是如何计算的？</h4>
-          <p class="mb-0">我们采用英国最常见的 "Salary Sacrifice"（薪资牺牲）模式计算。您输入的养老金比例会在扣除个税和 NI 之前从总薪资中扣除，这是最省税的方式。</p>
-        </div>
-        <div class="faq-box">
-          <h4>如果我的年薪超过 £100,000 会怎样？</h4>
-          <p class="mb-0">一旦您的年收入超过 10 万英镑，超出部分每赚 2 英镑，您的个人免税额就会减少 1 英镑。本计算器内置了此自动扣减规则。</p>
-        </div>
-      </article>
-
-      <article id="seo-es" class="seo-article" data-lang="es">
-        <h2>¿Cómo se calcula su Salario UK 2026/27?</h2>
-        <p>Nuestra <strong>Calculadora Avanzada de Salario Neto UK</strong> está programada para reflejar las últimas bandas impositivas de HMRC, incluyendo deducciones por pensiones y préstamos estudiantiles. La mayoría de los contribuyentes tienen un <strong>Subsidio Personal de £12,570</strong> libre de impuestos (Código 1257L).</p>
-        
-        <h3>Bandas de Impuestos (Income Tax) 2026/27</h3>
-        <div class="overflow-x-auto">
-          <table class="tax-table">
-            <thead>
-              <tr><th>Banda de Impuestos</th><th>Rango de Ingresos (£)</th><th>Tasa</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Subsidio Personal</td><td>Hasta £12,570</td><td>0%</td></tr>
-              <tr><td>Tasa Básica</td><td>£12,571 a £50,270</td><td>20%</td></tr>
-              <tr><td>Tasa Superior</td><td>£50,271 a £125,140</td><td>40%</td></tr>
-              <tr><td>Tasa Adicional</td><td>Más de £125,140</td><td>45%</td></tr>
-            </tbody>
-          </table>
-        </div>
-        
-        <h2>Preguntas Frecuentes</h2>
-        <div class="faq-box">
-          <h4>¿Es seguro mi dato salarial?</h4>
-          <p class="mb-0">Totalmente. Todos los cálculos se realizan localmente en su navegador mediante procesamiento Client-Side. No guardamos sus datos en ningún servidor.</p>
-        </div>
-      </article>
-
-      <article id="seo-fr" class="seo-article" data-lang="fr">
-        <h2>Comment est calculé votre salaire UK 2026/27 ?</h2>
-        <p>Notre <strong>Calculatrice Avancée de Salaire Net UK</strong> reflète les dernières tranches d'imposition du HMRC, incluant les pensions et les prêts étudiants. La plupart des contribuables bénéficient d'une <strong>Allocation Personnelle de 12 570 £</strong> (Code 1257L) non imposable.</p>
-        
-        <h3>Tranches d'Impôt sur le Revenu 2026/27</h3>
-        <div class="overflow-x-auto">
-          <table class="tax-table">
-            <thead>
-              <tr><th>Tranche d'Impôt</th><th>Revenus (£)</th><th>Taux</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Allocation Personnelle</td><td>Jusqu'à 12 570 £</td><td>0%</td></tr>
-              <tr><td>Taux de Base</td><td>12 571 £ à 50 270 £</td><td>20%</td></tr>
-              <tr><td>Taux Supérieur</td><td>50 271 £ à 125 140 £</td><td>40%</td></tr>
-              <tr><td>Taux Additionnel</td><td>Plus de 125 140 £</td><td>45%</td></tr>
-            </tbody>
-          </table>
-        </div>
-        
-        <h2>Questions Fréquentes</h2>
-        <div class="faq-box">
-          <h4>Mes données sont-elles sécurisées ?</h4>
-          <p class="mb-0">Absolument. Tous les calculs sont effectués localement dans votre navigateur. Nous ne stockons aucune donnée sur nos serveurs.</p>
-        </div>
-      </article>
-
-      <article id="seo-de" class="seo-article" data-lang="de">
-        <h2>Wie wird Ihr UK-Gehalt 2026/27 berechnet?</h2>
-        <p>Unser <strong>Erweiterter UK Netto-Gehaltsrechner</strong> spiegelt die neuesten HMRC-Steuerklassen wider, inklusive Rente und Studienkrediten. Die meisten Steuerzahler haben einen <strong>Steuerfreibetrag von £12.570</strong> (Code 1257L).</p>
-        
-        <h3>Einkommensteuerklassen 2026/27</h3>
-        <div class="overflow-x-auto">
-          <table class="tax-table">
-            <thead>
-              <tr><th>Steuerklasse</th><th>Einkommensbereich (£)</th><th>Steuersatz</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Steuerfreibetrag</td><td>Bis £12.570</td><td>0%</td></tr>
-              <tr><td>Grundfreibetrag</td><td>£12.571 bis £50.270</td><td>20%</td></tr>
-              <tr><td>Höherer Satz</td><td>£50.271 bis £125.140</td><td>40%</td></tr>
-              <tr><td>Zusatzsatz</td><td>Über £125.140</td><td>45%</td></tr>
-            </tbody>
-          </table>
-        </div>
-        
-        <h2>Häufig Gestellte Fragen</h2>
-        <div class="faq-box">
-          <h4>Sind meine Gehaltsdaten sicher?</h4>
-          <p class="mb-0">Absolut. Alle Berechnungen werden lokal in Ihrem Browser durchgeführt. Wir speichern Ihre Daten auf keinem Server.</p>
-        </div>
-      </article>
-
-    </div>
   </main>
 
   <footer class="bg-white border-t border-slate-100 py-12 mt-10">
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
         <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
-        <a href="/about.html" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
       <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
         © 2026 MINI-TOOLS.UK — Precision UK Financial Tools. Zero Tracking.
@@ -447,6 +288,7 @@
     const i18n = {
       en: {
         metaTitle: "UK Salary After Tax Calculator 2026 | PAYE & NI Take Home Pay",
+        metaDesc: "Free 2026/27 UK Salary after tax calculator. Calculate PAYE income tax, National Insurance, Pension, Student Loan, and take-home pay based on latest HMRC 2026 tax codes.",
         update: "Last updated: April 2026",
         title: "Advanced UK Salary Calculator 2026",
         desc: "Calculate your exact take-home pay, including Income Tax, National Insurance, Workplace Pension, and Student Loan deductions.",
@@ -461,10 +303,44 @@
         thDesc: "Breakdown", thYear: "Yearly", thMonth: "Monthly", thWeek: "Weekly",
         tdGross: "Gross Income", tdPension: "Pension", tdTax: "Income Tax", tdNI: "National Insurance", tdStudent: "Student Loan", tdNet: "Net Take-Home",
         note: "* Pension assumes Salary Sacrifice (reduces taxable pay). 2026/27 figures are based on HMRC legislation.",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us"
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
+        // 🌟 英文 SEO 文本
+        seoHtml: `
+          <h2>How is your 2026/27 UK Salary Calculated?</h2>
+          <p>Understanding your payslip shouldn't require an accounting degree. Our <strong>Advanced UK Salary Calculator</strong> is meticulously programmed to reflect the latest HMRC tax bands, ensuring you get a precise breakdown of your net income for both the 2025/26 and the upcoming 2026/27 financial years. We've upgraded our tool to include complex deductions like Pensions and Student Loans.</p>
+          <p>For the vast majority of UK taxpayers working a standard job, your tax code will be <strong>1257L</strong>. This code signifies that you are entitled to the standard <strong>Personal Allowance of £12,570</strong>. This is the bedrock of your salary—it is the amount of money you are legally allowed to earn completely tax-free before HMRC starts applying Income Tax.</p>
+          <h3>2026/27 Income Tax Bands Explained</h3>
+          <p>Once your salary exceeds your Personal Allowance, Income Tax (PAYE) is applied in varying tiers, known as tax bands. Our calculator automatically segments your gross income and applies the exact percentage required for each bracket.</p>
+          <div class="overflow-x-auto">
+            <table class="tax-table">
+              <thead><tr><th>Tax Band</th><th>Income Range (£)</th><th>Tax Rate</th></tr></thead>
+              <tbody>
+                <tr><td>Personal Allowance</td><td>Up to £12,570</td><td>0%</td></tr>
+                <tr><td>Basic Rate</td><td>£12,571 to £50,270</td><td>20%</td></tr>
+                <tr><td>Higher Rate</td><td>£50,271 to £125,140</td><td>40%</td></tr>
+                <tr><td>Additional Rate</td><td>Over £125,140</td><td>45%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>National Insurance (NI) Contributions in 2026</h3>
+          <p>Income tax is only one part of the equation. <strong>National Insurance (NI)</strong> is a mandatory deduction for UK employees used to fund state benefits, including the NHS and state pension. For the 2026 tax year, the Class 1 National Insurance primary rate for employees is calculated at <strong>8%</strong> for earnings falling between the Primary Threshold and the Upper Earnings Limit. Any earnings pushing above this limit are subject to an additional <strong>2%</strong> deduction.</p>
+          <h2>Frequently Asked Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Is my financial data safe when using this calculator?</h4>
+            <p class="mb-0">Absolutely. <strong>Mini-Tools.uk operates on a strict Client-Side Processing architecture.</strong> When you type your salary into the box above, the calculation happens entirely within your device's browser memory. Your gross salary data is never transmitted across the internet, nor is it stored in any backend database.</p>
+          </div>
+          <div class="faq-box">
+            <h4>How does the Pension deduction work in this tool?</h4>
+            <p class="mb-0">Our calculator assumes a "Salary Sacrifice" pension scheme, which is the most tax-efficient and common method in the UK today. The percentage you input is deducted from your Gross Salary *before* Income Tax and National Insurance are calculated, accurately reflecting your true take-home pay.</p>
+          </div>
+          <div class="faq-box">
+            <h4>What happens if my salary is over £100,000?</h4>
+            <p class="mb-0">Once you earn over £100,000, your Personal Allowance decreases by £1 for every £2 you earn above this threshold. This effectively results in a marginal tax rate of 60% on income between £100,000 and £125,140. Our calculator automatically adjusts your Personal Allowance downwards if your inputted salary triggers this HMRC rule.</p>
+          </div>`
       },
       zh: {
         metaTitle: "英国高级个税计算器 2026 | 养老金与学生贷款扣除",
+        metaDesc: "免费2026/27英国税后薪资计算器。根据HMRC最新税法精准计算个人所得税、国民保险(NI)、养老金和学生贷款扣除。",
         update: "最后更新：2026年4月",
         title: "英国高级薪资与个税计算器 (2026)",
         desc: "精确计算您的税后到手工资，包含个人所得税、国民保险 (NI)、职场养老金及学生贷款的全面明细。",
@@ -479,10 +355,43 @@
         thDesc: "款项明细", thYear: "年度", thMonth: "月度", thWeek: "每周",
         tdGross: "税前总收入", tdPension: "养老金", tdTax: "个人所得税 (PAYE)", tdNI: "国民保险 (NI)", tdStudent: "学生贷款", tdNet: "税后到手净额",
         note: "* 养老金计算基于 Salary Sacrifice（税前扣除）模式。以上数据符合 2026/27 财年 HMRC 官方标准。",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们"
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        // 🌟 中文 SEO 文本
+        seoHtml: `
+          <h2>2026/27 英国个税及税后工资是如何计算的？</h2>
+          <p>读懂您的工资单不应该需要会计学位。我们的<strong>高级英国税后工资计算器</strong>严格根据 HMRC 最新的税务阶梯编写，支持跨年比对，并新增了养老金 (Pension) 和学生贷款 (Student Loan) 扣除功能，为您提供最精准的净收入明细。</p>
+          <p>对于绝大多数在英国从事标准工作的纳税人来说，您的税码通常是 <strong>1257L</strong>。这意味着您享有标准的 <strong>£12,570 个人免税额 (Personal Allowance)</strong>。这是您合法享有的完全免税的收入额度。</p>
+          <h3>2026/27 英国个人所得税 (PAYE) 阶梯详解</h3>
+          <div class="overflow-x-auto">
+            <table class="tax-table">
+              <thead><tr><th>税务阶梯 (Tax Band)</th><th>年收入区间 (£)</th><th>税率</th></tr></thead>
+              <tbody>
+                <tr><td>个人免税额 (Personal Allowance)</td><td>至 £12,570</td><td>0%</td></tr>
+                <tr><td>基础税率 (Basic Rate)</td><td>£12,571 至 £50,270</td><td>20%</td></tr>
+                <tr><td>较高税率 (Higher Rate)</td><td>£50,271 至 £125,140</td><td>40%</td></tr>
+                <tr><td>附加税率 (Additional Rate)</td><td>超过 £125,140</td><td>45%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>关于 2026 年的国民保险 (National Insurance, NI)</h3>
+          <p>国民保险是英国雇员的一项强制性扣款。在 2026 财年，雇员的 Class 1 国民保险主要费率按 <strong>8%</strong> 计算（在起征点和上限之间）。超过上限的收入将面临 <strong>2%</strong> 的额外扣除。</p>
+          <h2>常见问题解答 (FAQ)</h2>
+          <div class="faq-box">
+            <h4>使用此计算器时，我的财务数据安全吗？</h4>
+            <p class="mb-0">绝对安全。Mini-Tools.uk 采用严格的“纯前端”架构。计算完全在本地设备进行，绝不上传您的薪资数据。</p>
+          </div>
+          <div class="faq-box">
+            <h4>本工具中的养老金 (Pension) 是如何计算的？</h4>
+            <p class="mb-0">我们采用英国最常见的 "Salary Sacrifice"（薪资牺牲）模式计算。您输入的养老金比例会在扣除个税和 NI 之前从总薪资中扣除，这是最省税的方式。</p>
+          </div>
+          <div class="faq-box">
+            <h4>如果我的年薪超过 £100,000 会怎样？</h4>
+            <p class="mb-0">一旦您的年收入超过 10 万英镑，超出部分每赚 2 英镑，您的个人免税额就会减少 1 英镑。本计算器内置了此自动扣减规则。</p>
+          </div>`
       },
       es: {
         metaTitle: "Calculadora Avanzada Salario Neto UK 2026",
+        metaDesc: "Calculadora gratuita del salario neto en UK 2026/27. Calcule el impuesto PAYE, el Seguro Nacional y la pensión en base a los últimos códigos de HMRC.",
         update: "Última actualización: Abril 2026",
         title: "Calculadora Avanzada de Salario UK 2026",
         desc: "Calcule su salario neto exacto, incluyendo impuestos, NI, pensiones y préstamos estudiantiles.",
@@ -497,10 +406,31 @@
         thDesc: "Desglose", thYear: "Anual", thMonth: "Mensual", thWeek: "Semanal",
         tdGross: "Ingreso Bruto", tdPension: "Pensión", tdTax: "Impuesto (PAYE)", tdNI: "Seguro Nacional", tdStudent: "Préstamo", tdNet: "Neto Estimado",
         note: "* La pensión asume Salary Sacrifice. Datos precisos para 2026/27 según HMRC.",
-        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto"
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        seoHtml: `
+          <h2>¿Cómo se calcula su Salario UK 2026/27?</h2>
+          <p>Nuestra <strong>Calculadora Avanzada de Salario Neto UK</strong> está programada para reflejar las últimas bandas impositivas de HMRC, incluyendo deducciones por pensiones y préstamos estudiantiles. La mayoría de los contribuyentes tienen un <strong>Subsidio Personal de £12,570</strong> libre de impuestos (Código 1257L).</p>
+          <h3>Bandas de Impuestos (Income Tax) 2026/27</h3>
+          <div class="overflow-x-auto">
+            <table class="tax-table">
+              <thead><tr><th>Banda de Impuestos</th><th>Rango de Ingresos (£)</th><th>Tasa</th></tr></thead>
+              <tbody>
+                <tr><td>Subsidio Personal</td><td>Hasta £12,570</td><td>0%</td></tr>
+                <tr><td>Tasa Básica</td><td>£12,571 a £50,270</td><td>20%</td></tr>
+                <tr><td>Tasa Superior</td><td>£50,271 a £125,140</td><td>40%</td></tr>
+                <tr><td>Tasa Adicional</td><td>Más de £125,140</td><td>45%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h2>Preguntas Frecuentes</h2>
+          <div class="faq-box">
+            <h4>¿Es seguro mi dato salarial?</h4>
+            <p class="mb-0">Totalmente. Todos los cálculos se realizan localmente en su navegador mediante procesamiento Client-Side. No guardamos sus datos en ningún servidor.</p>
+          </div>`
       },
       fr: {
         metaTitle: "Calculatrice Avancée Salaire Net UK 2026",
+        metaDesc: "Calculatrice gratuite du salaire net UK 2026/27. Calculez votre impôt PAYE, assurance nationale et pension avec les derniers codes du HMRC.",
         update: "Dernière mise à jour : Avril 2026",
         title: "Calculatrice Avancée de Salaire UK 2026",
         desc: "Calculez votre salaire net exact, y compris les impôts, NI, pensions et prêts étudiants.",
@@ -515,10 +445,31 @@
         thDesc: "Répartition", thYear: "Annuel", thMonth: "Mensuel", thWeek: "Hebdo",
         tdGross: "Revenu Brut", tdPension: "Pension", tdTax: "Impôt (PAYE)", tdNI: "Assurance Nat.", tdStudent: "Prêt Étudiant", tdNet: "Net Estimé",
         note: "* La pension suppose un Salary Sacrifice. Données basées sur le HMRC 2026/27.",
-        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact"
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        seoHtml: `
+          <h2>Comment est calculé votre salaire UK 2026/27 ?</h2>
+          <p>Notre <strong>Calculatrice Avancée de Salaire Net UK</strong> reflète les dernières tranches d'imposition du HMRC, incluant les pensions et les prêts étudiants. La plupart des contribuables bénéficient d'une <strong>Allocation Personnelle de 12 570 £</strong> (Code 1257L) non imposable.</p>
+          <h3>Tranches d'Impôt sur le Revenu 2026/27</h3>
+          <div class="overflow-x-auto">
+            <table class="tax-table">
+              <thead><tr><th>Tranche d'Impôt</th><th>Revenus (£)</th><th>Taux</th></tr></thead>
+              <tbody>
+                <tr><td>Allocation Personnelle</td><td>Jusqu'à 12 570 £</td><td>0%</td></tr>
+                <tr><td>Taux de Base</td><td>12 571 £ à 50 270 £</td><td>20%</td></tr>
+                <tr><td>Taux Supérieur</td><td>50 271 £ à 125 140 £</td><td>40%</td></tr>
+                <tr><td>Taux Additionnel</td><td>Plus de 125 140 £</td><td>45%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h2>Questions Fréquentes</h2>
+          <div class="faq-box">
+            <h4>Mes données sont-elles sécurisées ?</h4>
+            <p class="mb-0">Absolument. Tous les calculs sont effectués localement dans votre navigateur. Nous ne stockons aucune donnée sur nos serveurs.</p>
+          </div>`
       },
       de: {
         metaTitle: "Erweiterter UK Gehaltsrechner Netto 2026",
+        metaDesc: "Kostenloser UK Netto-Gehaltsrechner 2026/27. Berechnen Sie PAYE-Einkommensteuer, Sozialversicherung und Rente basierend auf den neuesten HMRC-Codes.",
         update: "Zuletzt aktualisiert: April 2026",
         title: "Erweiterter UK Gehaltsrechner 2026",
         desc: "Berechnen Sie Ihr genaues Nettogehalt, einschließlich Steuern, NI, Rente und Studienkrediten.",
@@ -533,7 +484,27 @@
         thDesc: "Aufschlüsselung", thYear: "Jährlich", thMonth: "Monatlich", thWeek: "Wöchentlich",
         tdGross: "Bruttoeinkommen", tdPension: "Rente", tdTax: "Einkommensteuer", tdNI: "Sozialvers.", tdStudent: "Studienkredit", tdNet: "Netto",
         note: "* Rente basiert auf Salary Sacrifice. Daten gemäß HMRC 2026/27.",
-        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt"
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        seoHtml: `
+          <h2>Wie wird Ihr UK-Gehalt 2026/27 berechnet?</h2>
+          <p>Unser <strong>Erweiterter UK Netto-Gehaltsrechner</strong> spiegelt die neuesten HMRC-Steuerklassen wider, inklusive Rente und Studienkrediten. Die meisten Steuerzahler haben einen <strong>Steuerfreibetrag von £12.570</strong> (Code 1257L).</p>
+          <h3>Einkommensteuerklassen 2026/27</h3>
+          <div class="overflow-x-auto">
+            <table class="tax-table">
+              <thead><tr><th>Steuerklasse</th><th>Einkommensbereich (£)</th><th>Steuersatz</th></tr></thead>
+              <tbody>
+                <tr><td>Steuerfreibetrag</td><td>Bis £12.570</td><td>0%</td></tr>
+                <tr><td>Grundfreibetrag</td><td>£12.571 bis £50.270</td><td>20%</td></tr>
+                <tr><td>Höherer Satz</td><td>£50.271 bis £125.140</td><td>40%</td></tr>
+                <tr><td>Zusatzsatz</td><td>Über £125.140</td><td>45%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h2>Häufig Gestellte Fragen</h2>
+          <div class="faq-box">
+            <h4>Sind meine Gehaltsdaten sicher?</h4>
+            <p class="mb-0">Absolut. Alle Berechnungen werden lokal in Ihrem Browser durchgeführt. Wir speichern Ihre Daten auf keinem Server.</p>
+          </div>`
       }
     };
 
@@ -554,7 +525,11 @@
       const data = i18n[lang] || i18n['en'];
 
       document.documentElement.lang = lang;
+      
+      // 🌟 核心优化 3：彻底打通 Title 和 Description 标签的动态多语言切换
       document.title = data.metaTitle;
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+
       document.getElementById('update-text').innerText = data.update;
       document.getElementById('page-title').innerText = data.title;
       document.getElementById('page-desc').innerText = data.desc;
@@ -591,13 +566,19 @@
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
       
-      document.querySelectorAll('.seo-article').forEach(article => {
-        if(article.getAttribute('data-lang') === lang) article.classList.add('active');
-        else article.classList.remove('active');
-      });
+      // 🌟 核心优化 4：动态注入对应的纯净 SEO 长文内容，拒绝混杂！
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
       
       document.getElementById('lang-select').value = lang;
       
+      // 去除跳转链接的 .html
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
@@ -626,11 +607,10 @@
       // 2. 扣除养老金 (假设 Salary Sacrifice 模式，降低 Taxable Pay)
       const pensionPercent = parseFloat(document.getElementById('pension-input').value) || 0;
       const annualPension = annualGross * (pensionPercent / 100);
-      const taxableIncome = annualGross - annualPension; // 用于算税和NI的基数
+      const taxableIncome = annualGross - annualPension;
 
       // 3. 个人所得税 (Income Tax) 逻辑
       let allowance = 12570;
-      // 高收入免税额衰减规则
       if (taxableIncome > 100000) {
           let deduction = (taxableIncome - 100000) / 2;
           allowance = Math.max(0, allowance - deduction);
@@ -663,14 +643,13 @@
       const slPlan = document.getElementById('student-loan').value;
       let slDeduction = 0;
       let slThreshold = 0;
-      let slRate = 0.09; // Plans 1,2,4,5 all use 9%
+      let slRate = 0.09; 
 
       if (slPlan === 'plan1') slThreshold = 24990;
       if (slPlan === 'plan2') slThreshold = 27295;
-      if (slPlan === 'plan4') { slThreshold = 31395; slRate = 0.09; } // Plan 4 is usually 9% over Scotland threshold
+      if (slPlan === 'plan4') { slThreshold = 31395; slRate = 0.09; } 
       if (slPlan === 'plan5') slThreshold = 25000;
 
-      // 学生贷款通常是基于扣除养老金前的 Gross 或者是 Qualifying earnings，这里基于 Gross 计算最严谨
       if (slPlan !== 'none' && annualGross > slThreshold) {
           slDeduction = (annualGross - slThreshold) * slRate;
       }
@@ -684,10 +663,8 @@
       
       const formatCurrency = (val) => "£" + val.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
       
-      // 主标题数字 (月到手)
       document.getElementById('final-salary').innerText = formatCurrency(annualNet / 12);
 
-      // 填充 Grid 表格
       document.getElementById('val-gross-y').innerText = formatCurrency(annualGross);
       document.getElementById('val-gross-m').innerText = formatCurrency(annualGross / 12);
       document.getElementById('val-gross-w').innerText = formatCurrency(annualGross / 52);
