@@ -6,14 +6,21 @@
   
   <title id="meta-title">Online Text Compare & Diff Checker | Find Differences Instantly — Mini-Tools</title>
   <meta name="description" id="meta-desc" content="Free, privacy-first online text comparison tool. Instantly find differences between two texts or code snippets. 100% browser-based, safe for sensitive documents." />
-  <meta name="keywords" content="Text compare online, diff checker, word diff, compare two texts, text difference, online diff tool, private text compare, code comparison" />
-  <link rel="canonical" href="https://mini-tools.uk/diff.html" />
+  <meta name="keywords" content="Text compare online, diff checker, word diff, compare two texts, text difference, online diff tool, private text compare, code comparison, compare strings online" />
+  
+  <link rel="canonical" href="https://mini-tools.uk/diff" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/diff?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/diff?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/diff?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/diff?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/diff?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/diff" />
 
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/diff.html?lang=en" />
-  <link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/diff.html?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/diff.html?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/diff.html?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/diff.html?lang=de" />
+  <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -69,10 +76,8 @@
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
     ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-    /* SEO Article Styles */
-    .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
-    .seo-article.active { display: block; animation: fadeIn 0.5s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* SEO Content Typography */
+    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
     .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
     .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
     .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
@@ -188,96 +193,9 @@
       
     </div>
 
-    <div class="prose-content max-w-5xl mx-auto w-full">
-      
-      <article id="seo-en" class="seo-article" data-lang="en">
-        <h2>What is a Diff Checker and How Does it Work?</h2>
-        <p>A <strong>Diff Checker</strong> (short for Difference Checker) is an essential utility designed to compare two text files or code snippets and highlight exactly what was added, deleted, or modified between them. Our tool utilizes the powerful <code>jsdiff</code> algorithm, which performs a <strong>word-level and character-level comparison</strong> rather than just line-by-line, providing you with maximum precision.</p>
+    <div id="seo-container" class="prose-content max-w-5xl mx-auto w-full">
+      </div>
 
-        <h3>Inline vs. Split View Comparison</h3>
-        <p>To cater to different workflows, we offer two distinct visualization modes:</p>
-        <ul>
-          <li><strong>Inline View:</strong> Merges both versions into a single document. <span class="text-red-600 font-bold bg-red-50 px-1">Deleted text</span> is struck through in red, while <span class="text-green-600 font-bold bg-green-50 px-1">Added text</span> is highlighted in green. This is perfect for reading through an article to see editorial revisions.</li>
-          <li><strong>Split View (Side-by-Side):</strong> Displays the original text on the left and the modified text on the right. <em>Smart Sync Scrolling</em> ensures that as you scroll through the left document, the right document moves identically. This mode is the industry standard for software developers performing code reviews or lawyers comparing contract clauses.</li>
-        </ul>
-
-        <h2>Frequently Asked Questions (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Why is Client-Side comparison critical for legal and business documents?</h4>
-          <p class="mb-0">Most free online diff tools upload your text to a backend server to process the comparison. If you are comparing a Non-Disclosure Agreement (NDA), a proprietary software algorithm, or unreleased financial reports, uploading them to a random website is a severe security breach. <strong>Mini-Tools.uk</strong> processes the entire comparison entirely within the memory (RAM) of your own browser using JavaScript. Zero data is transmitted, ensuring absolute confidentiality.</p>
-        </div>
-      </article>
-
-      <article id="seo-zh" class="seo-article" data-lang="zh">
-        <h2>什么是文本对比工具 (Diff Checker)？</h2>
-        <p><strong>文本对比工具</strong>旨在对比两份文档或代码之间的异同，并精确高亮出新增、删除或修改的部分。不同于粗糙的逐行对比，我们的工具采用高级的 <strong>词级/字符级对比 (Word Diff)</strong> 算法。哪怕您只在一万字的文章里修改了一个标点符号，它也能瞬间帮您揪出来。</p>
-
-        <h3>双屏同步视图 vs 内联视图</h3>
-        <p>为了满足程序员、律师和编辑等不同人群的工作流，我们首创了双视图自由切换功能：</p>
-        <ul>
-          <li><strong>内联视图 (Inline View)：</strong> 将新旧两个版本融合成一篇文章。被删除的内容会用<span class="text-red-600 font-bold bg-red-50 px-1">红色删除线</span>标记，新增的内容用<span class="text-green-600 font-bold bg-green-50 px-1">绿色高亮</span>标记。非常适合文案编辑核对修改痕迹。</li>
-          <li><strong>双屏并排视图 (Split View)：</strong> 左侧显示原文，右侧显示修改文。内置<strong>智能同步滚动</strong>引擎，当您滑动左侧代码时，右侧会自动对齐跟随。这是进行 Github 代码 Review 或是核对商业合同时的终极神器。</li>
-        </ul>
-
-        <h2>常见问题解答 (FAQ)</h2>
-        <div class="faq-box">
-          <h4>对比机密商业合同或未开源的代码安全吗？</h4>
-          <p class="mb-0"><strong>绝对安全，这是我们最大的优势。</strong> 市面上绝大多数比对工具都会将您的文本上传到他们的云端服务器。如果您处理的是 NDA 保密协议或核心业务代码，这存在极大的数据泄露风险。Mini-Tools 坚守“纯前端”原则，所有的对比运算只在您电脑浏览器的内存中发生，没有任何数据会通过网线传输，甚至断网都能使用。</p>
-        </div>
-      </article>
-
-      <article id="seo-es" class="seo-article" data-lang="es">
-        <h2>¿Qué es un Diff Checker y cómo funciona?</h2>
-        <p>Un <strong>Diff Checker</strong> compara dos textos o códigos y resalta exactamente qué se añadió o eliminó. Nuestra herramienta realiza una <strong>comparación a nivel de palabra</strong>, ofreciendo máxima precisión.</p>
-
-        <h3>Vistas: En Línea vs Dividida (Split View)</h3>
-        <ul>
-          <li><strong>Vista en Línea:</strong> Fusiona ambas versiones. El <span class="text-red-600 font-bold bg-red-50 px-1">texto eliminado</span> se tacha en rojo y el <span class="text-green-600 font-bold bg-green-50 px-1">añadido</span> en verde. Ideal para revisar artículos.</li>
-          <li><strong>Vista Dividida:</strong> Texto original a la izquierda y modificado a la derecha, con <em>Desplazamiento Sincronizado Inteligente</em>. El estándar de la industria para desarrolladores y abogados.</li>
-        </ul>
-
-        <h2>Preguntas Frecuentes (FAQ)</h2>
-        <div class="faq-box">
-          <h4>¿Por qué el procesamiento local (Client-Side) es vital para contratos?</h4>
-          <p class="mb-0">Otras herramientas suben su texto a un servidor. Mini-Tools.uk procesa la comparación enteramente en la memoria de su navegador mediante JavaScript. Cero datos son transmitidos, garantizando confidencialidad absoluta para sus documentos legales o código privado.</p>
-        </div>
-      </article>
-
-      <article id="seo-fr" class="seo-article" data-lang="fr">
-        <h2>Qu'est-ce qu'un Diff Checker ?</h2>
-        <p>Un <strong>Diff Checker</strong> compare deux textes ou codes et surligne exactement ce qui a été ajouté ou supprimé. Notre outil effectue une <strong>comparaison au niveau des mots</strong>, offrant une précision maximale.</p>
-
-        <h3>Vues : En Ligne vs Divisée (Split View)</h3>
-        <ul>
-          <li><strong>Vue En Ligne :</strong> Fusionne les deux versions. Le <span class="text-red-600 font-bold bg-red-50 px-1">texte supprimé</span> est barré en rouge et l'<span class="text-green-600 font-bold bg-green-50 px-1">ajouté</span> en vert. Idéal pour réviser des articles.</li>
-          <li><strong>Vue Divisée :</strong> Texte original à gauche, modifié à droite, avec <em>Défilement Synchronisé</em>. La norme pour les développeurs et les juristes.</li>
-        </ul>
-
-        <h2>Foire Aux Questions (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Pourquoi le traitement local est-il crucial pour la sécurité ?</h4>
-          <p class="mb-0">D'autres outils téléchargent votre texte sur un serveur. Mini-Tools.uk traite la comparaison entièrement dans la RAM de votre navigateur. Aucune donnée n'est transmise, garantissant une confidentialité absolue pour vos contrats ou votre code source.</p>
-        </div>
-      </article>
-
-      <article id="seo-de" class="seo-article" data-lang="de">
-        <h2>Was ist ein Diff Checker?</h2>
-        <p>Ein <strong>Diff Checker</strong> vergleicht zwei Texte oder Codes und hebt genau hervor, was hinzugefügt oder gelöscht wurde. Unser Tool führt einen <strong>Wort-für-Wort-Vergleich</strong> durch und bietet maximale Präzision.</p>
-
-        <h3>Ansichten: Inline vs Geteilt (Split View)</h3>
-        <ul>
-          <li><strong>Inline-Ansicht:</strong> Führt beide Versionen zusammen. <span class="text-red-600 font-bold bg-red-50 px-1">Gelöschter Text</span> ist rot durchgestrichen, <span class="text-green-600 font-bold bg-green-50 px-1">hinzugefügter</span> grün markiert. Ideal zum Überprüfen von Artikeln.</li>
-          <li><strong>Geteilte Ansicht:</strong> Originaltext links, modifizierter rechts, mit <em>Synchronisiertem Scrollen</em>. Der Branchenstandard für Entwickler und Anwälte.</li>
-        </ul>
-
-        <h2>Häufig Gestellte Fragen (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Warum ist die lokale Verarbeitung für Verträge wichtig?</h4>
-          <p class="mb-0">Andere Tools laden Ihren Text auf einen Server hoch. Mini-Tools.uk verarbeitet den Vergleich vollständig im Arbeitsspeicher Ihres Browsers. Es werden keine Daten übertragen, was absolute Vertraulichkeit für Ihre rechtlichen Dokumente oder privaten Code garantiert.</p>
-        </div>
-      </article>
-
-    </div>
   </main>
 
   <footer class="bg-white border-t border-slate-100 py-12 w-full mt-auto">
@@ -286,9 +204,9 @@
         <a href="/" class="hover:text-indigo-600 transition-colors transition-transform active:scale-95 shrink-0">
           <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
         </a>
-        <a href="/about.html" id="footer-about" class="hover:text-indigo-600 transition-colors">About Us</a>
-        <a href="/privacy.html" id="footer-privacy" class="hover:text-indigo-600 transition-colors">Privacy Policy</a>
-        <a href="/contact.html" id="footer-contact" class="hover:text-indigo-600 transition-colors">Contact Us</a>
+        <a href="/about" id="footer-about" class="hover:text-indigo-600 transition-colors">About Us</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-indigo-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-indigo-600 transition-colors">Contact Us</a>
       </div>
       <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
         © 2026 MINI-TOOLS.UK — SECURE LOCAL TEXT UTILITIES
@@ -297,10 +215,12 @@
   </footer>
 
   <script>
+    // 🌟 核心优化 4：整合所有语言的 Meta (带长尾 Keywords) 和富文本到字典中
     const i18n = {
       en: {
         metaTitle: "Online Text Compare & Diff Checker | Find Differences Instantly",
         metaDesc: "Compare two texts or code versions instantly. Free online diff checker, highlights changes in red/green. 100% private, client-side processing.",
+        metaKeywords: "Text compare online, diff checker, word diff, compare two texts, text difference, online diff tool, private text compare, code comparison, compare strings online",
         update: "100% Client-Side Privacy",
         title: "Text Compare & Diff Checker", 
         desc: "Instantly compare two versions of text and find what changed. Perfect for code, articles, and legal documents.",
@@ -308,11 +228,27 @@
         placeholder1: "Paste your original text or code here...", placeholder2: "Paste the new version here...",
         btnSample: "Load Sample", btnSwap: "Swap Sides", btnClear: "Clear", btnCompare: "Find Differences",
         res: "Comparison Report", lblAdd: "Added", lblRem: "Removed",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us"
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
+        // 英文 SEO HTML
+        seoHtml: `
+          <h2>What is a Diff Checker and How Does it Work?</h2>
+          <p>A <strong>Diff Checker</strong> (short for Difference Checker) is an essential utility designed to compare two text files or code snippets and highlight exactly what was added, deleted, or modified between them. Our tool utilizes the powerful <code>jsdiff</code> algorithm, which performs a <strong>word-level and character-level comparison</strong> rather than just line-by-line, providing you with maximum precision.</p>
+          <h3>Inline vs. Split View Comparison</h3>
+          <p>To cater to different workflows, we offer two distinct visualization modes:</p>
+          <ul>
+            <li><strong>Inline View:</strong> Merges both versions into a single document. <span class="text-red-600 font-bold bg-red-50 px-1">Deleted text</span> is struck through in red, while <span class="text-green-600 font-bold bg-green-50 px-1">Added text</span> is highlighted in green. This is perfect for reading through an article to see editorial revisions.</li>
+            <li><strong>Split View (Side-by-Side):</strong> Displays the original text on the left and the modified text on the right. <em>Smart Sync Scrolling</em> ensures that as you scroll through the left document, the right document moves identically. This mode is the industry standard for software developers performing code reviews or lawyers comparing contract clauses.</li>
+          </ul>
+          <h2>Frequently Asked Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Why is Client-Side comparison critical for legal and business documents?</h4>
+            <p class="mb-0">Most free online diff tools upload your text to a backend server to process the comparison. If you are comparing a Non-Disclosure Agreement (NDA), a proprietary software algorithm, or unreleased financial reports, uploading them to a random website is a severe security breach. <strong>Mini-Tools.uk</strong> processes the entire comparison entirely within the memory (RAM) of your own browser using JavaScript. Zero data is transmitted, ensuring absolute confidentiality.</p>
+          </div>`
       },
       zh: {
         metaTitle: "在线文本对比工具 | 自动查找文字与代码差异 — Mini-Tools",
         metaDesc: "即时比对两段文字或代码。免费在线 Diff Checker，高亮显示增删内容。支持双屏同步视图，100% 本地处理，确保隐私安全。",
+        metaKeywords: "文本对比工具, 代码比对, diff checker, 在线文本比对, 查重对比, 找不同, 两篇文章对比工具",
         update: "绝不上传数据 • 100% 保护隐私",
         title: "文本对比 & 差异检查", 
         desc: "对比两段文字，即时发现增加、删除或修改的内容。程序员核对代码、编辑查稿必备神器。",
@@ -320,11 +256,26 @@
         placeholder1: "在此处粘贴您的原始文本或代码...", placeholder2: "在此处粘贴修改后的新版本...",
         btnSample: "加载示例", btnSwap: "左右互换", btnClear: "清空", btnCompare: "开始比对查找差异",
         res: "差异对比报告", lblAdd: "新增词汇", lblRem: "删除词汇",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们"
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        seoHtml: `
+          <h2>什么是文本对比工具 (Diff Checker)？</h2>
+          <p><strong>文本对比工具</strong>旨在对比两份文档或代码之间的异同，并精确高亮出新增、删除或修改的部分。不同于粗糙的逐行对比，我们的工具采用高级的 <strong>词级/字符级对比 (Word Diff)</strong> 算法。哪怕您只在一万字的文章里修改了一个标点符号，它也能瞬间帮您揪出来。</p>
+          <h3>双屏同步视图 vs 内联视图</h3>
+          <p>为了满足程序员、律师和编辑等不同人群的工作流，我们首创了双视图自由切换功能：</p>
+          <ul>
+            <li><strong>内联视图 (Inline View)：</strong> 将新旧两个版本融合成一篇文章。被删除的内容会用<span class="text-red-600 font-bold bg-red-50 px-1">红色删除线</span>标记，新增的内容用<span class="text-green-600 font-bold bg-green-50 px-1">绿色高亮</span>标记。非常适合文案编辑核对修改痕迹。</li>
+            <li><strong>双屏并排视图 (Split View)：</strong> 左侧显示原文，右侧显示修改文。内置<strong>智能同步滚动</strong>引擎，当您滑动左侧代码时，右侧会自动对齐跟随。这是进行 Github 代码 Review 或是核对商业合同时的终极神器。</li>
+          </ul>
+          <h2>常见问题解答 (FAQ)</h2>
+          <div class="faq-box">
+            <h4>对比机密商业合同或未开源的代码安全吗？</h4>
+            <p class="mb-0"><strong>绝对安全，这是我们最大的优势。</strong> 市面上绝大多数比对工具都会将您的文本上传到他们的云端服务器。如果您处理的是 NDA 保密协议或核心业务代码，这存在极大的数据泄露风险。Mini-Tools 坚守“纯前端”原则，所有的对比运算只在您电脑浏览器的内存中发生，没有任何数据会通过网线传输，甚至断网都能使用。</p>
+          </div>`
       },
       es: {
         metaTitle: "Comparar Textos Online | Encontrar Diferencias al Instante",
         metaDesc: "Compare dos textos o código al instante. Resalta los cambios en rojo/verde. 100% privado, procesamiento local.",
+        metaKeywords: "comparar textos, buscar diferencias, diff checker online, comparar código, texto diff, diferencias entre archivos",
         update: "100% Privacidad (Client-Side)",
         title: "Comparador de Textos (Diff)", 
         desc: "Compare instantáneamente dos versiones de texto y encuentre qué cambió. Ideal para código y contratos.",
@@ -332,11 +283,25 @@
         placeholder1: "Pegue su texto original aquí...", placeholder2: "Pegue la nueva versión aquí...",
         btnSample: "Cargar Ejemplo", btnSwap: "Intercambiar", btnClear: "Borrar", btnCompare: "Encontrar Diferencias",
         res: "Reporte de Comparación", lblAdd: "Añadido", lblRem: "Eliminado",
-        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto"
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        seoHtml: `
+          <h2>¿Qué es un Diff Checker y cómo funciona?</h2>
+          <p>Un <strong>Diff Checker</strong> compara dos textos o códigos y resalta exactamente qué se añadió o eliminó. Nuestra herramienta realiza una <strong>comparación a nivel de palabra</strong>, ofreciendo máxima precisión.</p>
+          <h3>Vistas: En Línea vs Dividida (Split View)</h3>
+          <ul>
+            <li><strong>Vista en Línea:</strong> Fusiona ambas versiones. El <span class="text-red-600 font-bold bg-red-50 px-1">texto eliminado</span> se tacha en rojo y el <span class="text-green-600 font-bold bg-green-50 px-1">añadido</span> en verde. Ideal para revisar artículos.</li>
+            <li><strong>Vista Dividida:</strong> Texto original a la izquierda y modificado a la derecha, con <em>Desplazamiento Sincronizado Inteligente</em>. El estándar de la industria para desarrolladores y abogados.</li>
+          </ul>
+          <h2>Preguntas Frecuentes (FAQ)</h2>
+          <div class="faq-box">
+            <h4>¿Por qué el procesamiento local (Client-Side) es vital para contratos?</h4>
+            <p class="mb-0">Otras herramientas suben su texto a un servidor. Mini-Tools.uk procesa la comparación enteramente en la memoria de su navegador mediante JavaScript. Cero datos son transmitidos, garantizando confidencialidad absoluta para sus documentos legales o código privado.</p>
+          </div>`
       },
       fr: {
         metaTitle: "Comparateur de Texte en Ligne | Trouver les Différences",
         metaDesc: "Comparez deux textes ou codes instantanément. Surligne les changements en rouge/vert. 100% privé, traitement local.",
+        metaKeywords: "comparer texte, trouver différence, outil diff en ligne, comparaison code, texte original vs modifié",
         update: "Confidentialité 100% (Client-Side)",
         title: "Comparateur de Texte (Diff)", 
         desc: "Comparez instantanément deux versions de texte et trouvez ce qui a changé. Idéal pour le code et les contrats.",
@@ -344,11 +309,25 @@
         placeholder1: "Collez votre texte original ici...", placeholder2: "Collez la nouvelle version ici...",
         btnSample: "Charger Exemple", btnSwap: "Échanger", btnClear: "Effacer", btnCompare: "Trouver les Différences",
         res: "Rapport de Comparaison", lblAdd: "Ajouté", lblRem: "Supprimé",
-        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact"
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        seoHtml: `
+          <h2>Qu'est-ce qu'un Diff Checker ?</h2>
+          <p>Un <strong>Diff Checker</strong> compare deux textes ou codes et surligne exactement ce qui a été ajouté ou supprimé. Notre outil effectue une <strong>comparaison au niveau des mots</strong>, offrant une précision maximale.</p>
+          <h3>Vues : En Ligne vs Divisée (Split View)</h3>
+          <ul>
+            <li><strong>Vue En Ligne :</strong> Fusionne les deux versions. Le <span class="text-red-600 font-bold bg-red-50 px-1">texte supprimé</span> est barré en rouge et l'<span class="text-green-600 font-bold bg-green-50 px-1">ajouté</span> en vert. Idéal pour réviser des articles.</li>
+            <li><strong>Vue Divisée :</strong> Texte original à gauche, modifié à droite, avec <em>Défilement Synchronisé</em>. La norme pour les développeurs et les juristes.</li>
+          </ul>
+          <h2>Foire Aux Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Pourquoi le traitement local est-il crucial pour la sécurité ?</h4>
+            <p class="mb-0">D'autres outils téléchargent votre texte sur un serveur. Mini-Tools.uk traite la comparaison entièrement dans la RAM de votre navigateur. Aucune donnée n'est transmise, garantissant une confidentialité absolue pour vos contrats ou votre code source.</p>
+          </div>`
       },
       de: {
         metaTitle: "Text Vergleichen Online | Unterschiede Sofort Finden",
         metaDesc: "Vergleichen Sie zwei Texte oder Codes sofort. Hebt Änderungen in rot/grün hervor. 100% privat, lokale Verarbeitung.",
+        metaKeywords: "Text vergleichen, unterschiede finden, code vergleich, diff checker online, versionen vergleichen",
         update: "100% Privatsphäre (Client-Side)",
         title: "Text & Code Vergleichen", 
         desc: "Vergleichen Sie sofort zwei Textversionen und finden Sie Änderungen. Perfekt für Code und Verträge.",
@@ -356,7 +335,20 @@
         placeholder1: "Originaltext hier einfügen...", placeholder2: "Neue Version hier einfügen...",
         btnSample: "Beispiel Laden", btnSwap: "Tauschen", btnClear: "Löschen", btnCompare: "Unterschiede Finden",
         res: "Vergleichsbericht", lblAdd: "Hinzugefügt", lblRem: "Entfernt",
-        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt"
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        seoHtml: `
+          <h2>Was ist ein Diff Checker?</h2>
+          <p>Ein <strong>Diff Checker</strong> vergleicht zwei Texte oder Codes und hebt genau hervor, was hinzugefügt oder gelöscht wurde. Unser Tool führt einen <strong>Wort-für-Wort-Vergleich</strong> durch und bietet maximale Präzision.</p>
+          <h3>Ansichten: Inline vs Geteilt (Split View)</h3>
+          <ul>
+            <li><strong>Inline-Ansicht:</strong> Führt beide Versionen zusammen. <span class="text-red-600 font-bold bg-red-50 px-1">Gelöschter Text</span> ist rot durchgestrichen, <span class="text-green-600 font-bold bg-green-50 px-1">hinzugefügter</span> grün markiert. Ideal zum Überprüfen von Artikeln.</li>
+            <li><strong>Geteilte Ansicht:</strong> Originaltext links, modifizierter rechts, mit <em>Synchronisiertem Scrollen</em>. Der Branchenstandard für Entwickler und Anwälte.</li>
+          </ul>
+          <h2>Häufig Gestellte Fragen (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Warum ist die lokale Verarbeitung für Verträge wichtig?</h4>
+            <p class="mb-0">Andere Tools laden Ihren Text auf einen Server hoch. Mini-Tools.uk verarbeitet den Vergleich vollständig im Arbeitsspeicher Ihres Browsers. Es werden keine Daten übertragen, was absolute Vertraulichkeit für Ihre rechtlichen Dokumente oder privaten Code garantiert.</p>
+          </div>`
       }
     };
 
@@ -372,8 +364,11 @@
       const data = i18n[lang] || i18n['en'];
 
       document.documentElement.lang = lang;
+      
+      // 🌟 动态接管 Meta 数据：Title, Description 和核心长尾 Keywords
       document.title = data.metaTitle;
       document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
 
       document.getElementById('badge-privacy').innerText = data.update;
       document.getElementById('page-title').innerText = data.title;
@@ -397,12 +392,19 @@
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
       
-      document.querySelectorAll('.seo-article').forEach(article => {
-        if(article.getAttribute('data-lang') === lang) article.classList.add('active');
-        else article.classList.remove('active');
-      });
+      // 🌟 动态注入纯净的 SEO 长文内容，消灭多语言混杂代码
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
 
       document.getElementById('lang-select').value = lang;
+      
+      // 去除内链的 .html 后缀
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
@@ -422,7 +424,6 @@
 
       if (!one && !other) return;
 
-      // Use Word Diff for better readability than char diff
       currentDiffData = Diff.diffWords(one, other);
       container.classList.remove('hidden');
       
@@ -435,7 +436,6 @@
     function setViewMode(mode) {
         currentViewMode = mode;
         
-        // Update Buttons UI
         document.getElementById('btn-view-inline').className = mode === 'inline' 
             ? 'px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 bg-white shadow-sm transition-all' 
             : 'px-3 py-1.5 rounded-lg text-xs font-bold text-slate-500 hover:text-slate-700 transition-all';
@@ -444,7 +444,6 @@
             ? 'px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 bg-white shadow-sm transition-all' 
             : 'px-3 py-1.5 rounded-lg text-xs font-bold text-slate-500 hover:text-slate-700 transition-all';
 
-        // Toggle Containers
         if (mode === 'inline') {
             document.getElementById('output-inline').classList.remove('hidden');
             document.getElementById('output-split').classList.add('hidden');
@@ -493,17 +492,15 @@
             spanR.className = "diff-added";
             spanR.innerText = part.value;
             outSplitRight.appendChild(spanR);
-            // Left gets empty space to align
             const spanL = document.createElement('span');
             spanL.className = "opacity-0 select-none";
-            spanL.innerText = part.value.replace(/[^\n]/g, ' '); // maintain line breaks but hide text
+            spanL.innerText = part.value.replace(/[^\n]/g, ' '); 
             outSplitLeft.appendChild(spanL);
         } else if (part.removed) {
             const spanL = document.createElement('span');
             spanL.className = "diff-removed";
             spanL.innerText = part.value;
             outSplitLeft.appendChild(spanL);
-            // Right gets empty space
             const spanR = document.createElement('span');
             spanR.className = "opacity-0 select-none";
             spanR.innerText = part.value.replace(/[^\n]/g, ' ');
