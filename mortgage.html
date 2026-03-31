@@ -4,22 +4,23 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   
-  <title id="meta-title">Free UK Mortgage Calculator | Calculate Home Loan & Repayments</title>
+  <title id="meta-title">Free UK Mortgage Calculator | Calculate Home Loan & Repayments — Mini-Tools</title>
   <meta name="description" id="meta-desc" content="Calculate your home loan instantly. Use our free UK mortgage repayment calculator to find out how much your mortgage will cost, go up, and what your monthly payment would be." />
-  <meta name="keywords" content="UK Mortgage Calculator, calculate home loan, mortgage repayment calculator uk, monthly mortgage payments, how much will my mortgage cost, calculate mortgage" />
-  <link rel="canonical" href="https://mini-tools.uk/mortgage.html" />
+  <meta name="keywords" content="UK Mortgage Calculator 2026, calculate home loan, mortgage repayment calculator uk, monthly mortgage payments, how much will my mortgage cost, LTV calculator UK, stamp duty calculator" />
+  
+  <link rel="canonical" href="https://mini-tools.uk/mortgage" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/mortgage?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/mortgage?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/mortgage?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/mortgage?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/mortgage?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/mortgage" />
 
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
-
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/mortgage.html?lang=en" />
-  <link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/mortgage.html?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/mortgage.html?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/mortgage.html?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/mortgage.html?lang=de" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -102,9 +103,8 @@
     .ratio-bar-capital { height: 100%; background-color: #ffffff; transition: width 0.5s ease; }
     .ratio-bar-interest { height: 100%; background-color: #fca5a5; transition: width 0.5s ease; }
 
-    .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
-    .seo-article.active { display: block; animation: fadeIn 0.5s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* SEO Content Typography */
+    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
     .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
     .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
     .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
@@ -281,130 +281,16 @@
           <h4 id="embed-title" class="text-lg font-extrabold text-slate-900 mb-2">Embed this calculator on your own website</h4>
           <p id="embed-desc" class="text-sm text-slate-500 mb-4 leading-relaxed font-medium">Are you a property blogger, estate agent, or financial advisor? Copy the code below to embed our lightweight, ad-free calculator directly into your articles for free.</p>
           <div class="relative group w-full">
-            <textarea readonly class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-600 outline-none resize-none h-20 focus:ring-2 focus:ring-emerald-500 transition-shadow cursor-pointer" onclick="this.select(); document.getElementById('copy-hint').classList.remove('hidden'); setTimeout(()=>document.getElementById('copy-hint').classList.add('hidden'), 2000);">&lt;iframe src="https://mini-tools.uk/embed-mortgage.html" width="100%" height="450" frameborder="0" scrolling="no" style="border-radius:12px; max-width: 400px; margin: 0 auto; display: block;"&gt;&lt;/iframe&gt;</textarea>
+            <textarea readonly class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-600 outline-none resize-none h-20 focus:ring-2 focus:ring-emerald-500 transition-shadow cursor-pointer" onclick="this.select(); document.getElementById('copy-hint').classList.remove('hidden'); setTimeout(()=>document.getElementById('copy-hint').classList.add('hidden'), 2000);">&lt;iframe src="https://mini-tools.uk/embed-mortgage" width="100%" height="450" frameborder="0" scrolling="no" style="border-radius:12px; max-width: 400px; margin: 0 auto; display: block;"&gt;&lt;/iframe&gt;</textarea>
             <span id="copy-hint" class="hidden absolute top-3 right-3 bg-slate-800 text-white text-[10px] font-bold px-2 py-1 rounded shadow-md">Copied!</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="prose-content">
-      
-      <article id="seo-en" class="seo-article" data-lang="en">
-        <h2>How to Calculate Your Home Loan & Repayments?</h2>
-        <p>Buying a home in the UK is a significant financial commitment. Whether you are a First-Time Buyer stepping onto the property ladder, or a homeowner looking to remortgage, understanding your potential monthly outgoings is crucial. Our <strong>UK Mortgage Calculator</strong> uses exact financial formulas to help you <strong>calculate home loan</strong> metrics instantly, adapting to different Bank of England base rates and terms.</p>
-        
-        <h3>What is LTV (Loan-to-Value)?</h3>
-        <p><strong>LTV (Loan-to-Value)</strong> is a critical metric. It represents the ratio of the loan amount compared to the total value of the property. For example, if you buy a £300,000 house and put down a deposit of £60,000, you need a mortgage of £240,000. Your LTV is calculated as: <code>(£240,000 / £300,000) * 100 = 80%</code>. A lower LTV grants you access to cheaper, more competitive interest rates.</p>
+    <div id="seo-container" class="prose-content">
+      </div>
 
-        <h2>Frequently Asked Questions (FAQ)</h2>
-        
-        <div class="faq-box">
-          <h4>How much will my mortgage cost?</h4>
-          <p class="mb-0">The total cost of your mortgage depends on the property value, your deposit, the interest rate, and the loan term. Our calculator shows you not just the monthly payment, but also the <strong>Total Interest Paid</strong> over the lifetime of the loan, giving you the true cost of borrowing.</p>
-        </div>
-
-        <div class="faq-box">
-          <h4>How much will my mortgage go up?</h4>
-          <p class="mb-0">If Bank of England base rates increase, or your fixed-rate deal ends and you move to a Standard Variable Rate (SVR), your payments can rise significantly. You can use this calculator to test different, higher interest rates to see exactly <strong>how much your mortgage will go up</strong> under various financial stress scenarios.</p>
-        </div>
-
-        <div class="faq-box">
-          <h4>What would my mortgage payment be?</h4>
-          <p class="mb-0">To find out exactly <strong>what your mortgage payment would be</strong>, simply enter your property value, deposit amount, interest rate, and term length above. The tool will instantly calculate your estimated monthly repayment.</p>
-        </div>
-
-        <div class="faq-box">
-          <h4>How to calculate mortgage home loan payments?</h4>
-          <p class="mb-0">Calculating a home loan manually requires a complex amortization formula. Fortunately, our free online <strong>mortgage repayment calculator UK</strong> automates this entirely. Just plug in your numbers to calculate your mortgage repayment instantly without the math headache.</p>
-        </div>
-      </article>
-
-      <article id="seo-zh" class="seo-article" data-lang="zh">
-        <h2>2026 英国房贷计算与购房财务指南</h2>
-        <p>在英国购房是一项重大的财务承诺。无论您是首次购房者还是准备重新抵押贷款 (Remortgage)，清晰掌握每月的还款压力都至关重要。我们的<strong>英国房贷计算器</strong>采用标准的银行摊销公式，帮助您精准评估不同的基准利率和贷款期限对您财务预算的影响。</p>
-        
-        <h3>核心概念：什么是 LTV (贷款成数)？</h3>
-        <p><strong>LTV (Loan-to-Value)</strong> 是评估贷款风险的最重要指标。例如，如果您购买一套价值 £300,000 的房产，首付了 £60,000，那么您需要贷款 £240,000。您的 LTV 就是 80%。通常情况下，LTV 越低，您能申请到的利率就越低。我们的工具内置了 LTV 健康度指示器，帮您瞬间判断资金结构是否安全。</p>
-
-        <h2>常见问题解答 (FAQ)</h2>
-        
-        <div class="faq-box">
-          <h4>我的房贷总成本到底是多少？ (How much will my mortgage cost?)</h4>
-          <p class="mb-0">房贷的总成本不仅是您借的本金，更包含漫长的利息。在计算器结果中，请注意查看“预计利息总支出 (Total Interest Paid)”，这才是您向银行支付的真实借款成本。</p>
-        </div>
-
-        <div class="faq-box">
-          <h4>如果利率上涨，我的月供会增加多少？ (How much will my mortgage go up?)</h4>
-          <p class="mb-0">当您的固定利率 (Fixed-rate) 到期，或者央行加息时，月供可能会急剧上升。您可以在本计算器中输入一个稍高的“压力测试利率”，就能立刻看到月供和总利息会上涨多少。</p>
-        </div>
-
-        <div class="faq-box">
-          <h4>我每月的确切还款额是多少？ (What would my mortgage payment be?)</h4>
-          <p class="mb-0">只需在上方输入房屋总价、您的首付预算、贷款年限和预期利率，点击计算即可瞬间获取精确到便士的每月预计还款额。</p>
-        </div>
-
-        <div class="faq-box">
-          <h4>这个计算结果包含印花税 (Stamp Duty) 吗？</h4>
-          <p class="mb-0">本工具能够自动为您估算印花税。只需选择您的购房者身份（首次购房者、换房者等），并在上方输入房屋总价，系统会自动结合 2026 年最新税率门槛计算出您需要准备的印花税预估额。</p>
-        </div>
-      </article>
-
-      <article id="seo-es" class="seo-article" data-lang="es">
-        <h2>Cómo Usar la Calculadora de Hipotecas UK</h2>
-        <p>Comprar una casa en el Reino Unido es un gran compromiso financiero. Nuestra <strong>Calculadora de Hipotecas</strong> le ayuda a comprender el impacto de diferentes tasas de interés y plazos en su presupuesto mensual. Está diseñada con las reglas de préstamos estándar del Reino Unido.</p>
-        
-        <h3>¿Qué es el LTV (Loan-to-Value)?</h3>
-        <p>El <strong>LTV</strong> es la proporción del préstamo en comparación con el valor de la propiedad. Por ejemplo, si compra una casa de £300,000 y da un depósito de £60,000, necesita un préstamo de £240,000. Su LTV es del 80%. Generalmente, un LTV más bajo le permite acceder a mejores tasas de interés en bancos del Reino Unido.</p>
-
-        <h2>Preguntas Frecuentes (FAQ)</h2>
-        <div class="faq-box">
-          <h4>¿Cuánto costará mi hipoteca en total?</h4>
-          <p class="mb-0">Nuestra calculadora le muestra no solo el pago mensual, sino también el "Total de Intereses Pagados", dándole una visión real del costo de su préstamo.</p>
-        </div>
-        <div class="faq-box">
-          <h4>¿Cuánto subiría mi hipoteca si cambian las tasas?</h4>
-          <p class="mb-0">Puede usar esta herramienta para probar diferentes tasas de interés y ver exactamente cuánto aumentaría su pago mensual en diferentes escenarios financieros.</p>
-        </div>
-      </article>
-
-      <article id="seo-fr" class="seo-article" data-lang="fr">
-        <h2>Calculatrice de Prêt Immobilier UK</h2>
-        <p>Acheter une maison au Royaume-Uni est un engagement majeur. Notre <strong>Calculatrice de Prêt Immobilier</strong> vous aide à comprendre l'impact des taux d'intérêt et de la durée sur vos mensualités.</p>
-        
-        <h3>Qu'est-ce que le LTV (Loan-to-Value) ?</h3>
-        <p>Le <strong>LTV</strong> est le ratio entre le montant du prêt et la valeur du bien. Si vous achetez une maison de 300 000 £ avec un apport de 60 000 £, votre prêt est de 240 000 £, soit un LTV de 80 %. Un LTV plus faible permet d'obtenir de meilleurs taux auprès des banques britanniques.</p>
-
-        <h2>Foire Aux Questions (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Combien coûtera mon prêt au total ?</h4>
-          <p class="mb-0">Notre outil vous montre non seulement la mensualité, mais aussi le "Total des Intérêts Payés" sur toute la durée du prêt.</p>
-        </div>
-        <div class="faq-box">
-          <h4>De combien ma mensualité augmentera-t-elle si les taux changent ?</h4>
-          <p class="mb-0">Vous pouvez utiliser cette calculatrice pour tester différents taux d'intérêt et voir exactement de combien votre mensualité augmenterait.</p>
-        </div>
-      </article>
-
-      <article id="seo-de" class="seo-article" data-lang="de">
-        <h2>UK Hypothekenrechner (2026)</h2>
-        <p>Der Kauf eines Hauses in Großbritannien ist eine große finanzielle Verpflichtung. Unser <strong>Hypothekenrechner</strong> hilft Ihnen, die Auswirkungen verschiedener Zinssätze und Laufzeiten auf Ihr monatliches Budget zu verstehen.</p>
-        
-        <h3>Was ist der LTV (Loan-to-Value)?</h3>
-        <p>Der <strong>LTV</strong> ist das Verhältnis des Kreditbetrags zum Immobilienwert. Bei einem Haus für £300.000 und einer Anzahlung von £60.000 benötigen Sie eine Hypothek von £240.000. Ihr LTV beträgt 80%. Ein niedrigerer LTV ermöglicht Ihnen in der Regel bessere Zinssätze.</p>
-
-        <h2>Häufig Gestellte Fragen (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Wie viel wird meine Hypothek insgesamt kosten?</h4>
-          <p class="mb-0">Unser Rechner zeigt Ihnen nicht nur die monatliche Rate, sondern auch die "Gezahlten Gesamtzinsen", damit Sie die wahren Kosten Ihres Darlehens kennen.</p>
-        </div>
-        <div class="faq-box">
-          <h4>Wie stark könnte meine Hypothek steigen?</h4>
-          <p class="mb-0">Sie können dieses Tool verwenden, um verschiedene Zinssätze zu testen und genau zu sehen, um wie viel Ihre Hypothek bei steigenden Zinsen steigen würde.</p>
-        </div>
-      </article>
-
-    </div>
   </main>
 
   <footer class="bg-white border-t border-slate-100 py-12 mt-12 w-full">
@@ -413,9 +299,9 @@
         <a href="/" class="hover:text-emerald-600 transition-colors transition-transform active:scale-95 shrink-0">
           <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
         </a>
-        <a href="/about.html" id="footer-about" class="hover:text-emerald-600 transition-colors">About Us</a>
-        <a href="/privacy.html" id="footer-privacy" class="hover:text-emerald-600 transition-colors">Privacy Policy</a>
-        <a href="/contact.html" id="footer-contact" class="hover:text-emerald-600 transition-colors">Contact Us</a>
+        <a href="/about" id="footer-about" class="hover:text-emerald-600 transition-colors">About Us</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-emerald-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-emerald-600 transition-colors">Contact Us</a>
       </div>
       <p class="text-[10px] text-slate-300 font-bold uppercase tracking-widest">
         © 2026 MINI-TOOLS.UK — PRECISION MORTGAGE UTILITIES
@@ -424,10 +310,12 @@
   </footer>
 
   <script>
+    // 🌟 核心优化 4：整合所有语言的 Meta (带长尾 Keywords) 和富文本到字典中
     const i18n = {
       en: {
         metaTitle: "Free UK Mortgage Calculator | Calculate Home Loan & Repayments",
         metaDesc: "Calculate your home loan instantly. Use our free UK mortgage repayment calculator to find out how much your mortgage will cost, go up, and what your monthly payment would be.",
+        metaKeywords: "UK Mortgage Calculator 2026, calculate home loan, mortgage repayment calculator uk, monthly mortgage payments, how much will my mortgage cost, LTV calculator UK, stamp duty calculator",
         update: "Bank of England Rate Ready: 2026",
         title: "UK Mortgage Calculator", 
         desc: "Estimate your monthly mortgage payments, total interest costs, and LTV ratio instantly. Smart syncing between property value, deposit, and loan amount.",
@@ -445,11 +333,34 @@
         resTotalRepay: "Total Amount to Repay", resTotalInt: "Total Interest Paid",
         disclaimer: "* Disclaimer: SDLT rules are based on standard UK thresholds. This tool provides estimates for illustrative purposes only. Your actual rate and LTV limits depend entirely on your specific lender's criteria.",
         footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
-        embedTitle: "Embed this calculator on your own website", embedDesc: "Are you a property blogger, estate agent, or financial advisor? Copy the code below to embed our lightweight, ad-free calculator directly into your articles for free."
+        embedTitle: "Embed this calculator on your own website", embedDesc: "Are you a property blogger, estate agent, or financial advisor? Copy the code below to embed our lightweight, ad-free calculator directly into your articles for free.",
+        seoHtml: `
+          <h2>How to Calculate Your Home Loan & Repayments?</h2>
+          <p>Buying a home in the UK is a significant financial commitment. Whether you are a First-Time Buyer stepping onto the property ladder, or a homeowner looking to remortgage, understanding your potential monthly outgoings is crucial. Our <strong>UK Mortgage Calculator</strong> uses exact financial formulas to help you <strong>calculate home loan</strong> metrics instantly, adapting to different Bank of England base rates and terms.</p>
+          <h3>What is LTV (Loan-to-Value)?</h3>
+          <p><strong>LTV (Loan-to-Value)</strong> is a critical metric. It represents the ratio of the loan amount compared to the total value of the property. For example, if you buy a £300,000 house and put down a deposit of £60,000, you need a mortgage of £240,000. Your LTV is calculated as: <code>(£240,000 / £300,000) * 100 = 80%</code>. A lower LTV grants you access to cheaper, more competitive interest rates.</p>
+          <h2>Frequently Asked Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>How much will my mortgage cost?</h4>
+            <p class="mb-0">The total cost of your mortgage depends on the property value, your deposit, the interest rate, and the loan term. Our calculator shows you not just the monthly payment, but also the <strong>Total Interest Paid</strong> over the lifetime of the loan, giving you the true cost of borrowing.</p>
+          </div>
+          <div class="faq-box">
+            <h4>How much will my mortgage go up?</h4>
+            <p class="mb-0">If Bank of England base rates increase, or your fixed-rate deal ends and you move to a Standard Variable Rate (SVR), your payments can rise significantly. You can use this calculator to test different, higher interest rates to see exactly <strong>how much your mortgage will go up</strong> under various financial stress scenarios.</p>
+          </div>
+          <div class="faq-box">
+            <h4>What would my mortgage payment be?</h4>
+            <p class="mb-0">To find out exactly <strong>what your mortgage payment would be</strong>, simply enter your property value, deposit amount, interest rate, and term length above. The tool will instantly calculate your estimated monthly repayment.</p>
+          </div>
+          <div class="faq-box">
+            <h4>How to calculate mortgage home loan payments?</h4>
+            <p class="mb-0">Calculating a home loan manually requires a complex amortization formula. Fortunately, our free online <strong>mortgage repayment calculator UK</strong> automates this entirely. Just plug in your numbers to calculate your mortgage repayment instantly without the math headache.</p>
+          </div>`
       },
       zh: {
         metaTitle: "英国房贷计算器 2026 | 月供、首付 LTV 与印花税估算",
         metaDesc: "精准的英国房贷计算器。自动反算首付与贷款额，智能评估 LTV 健康度与加息压力测试。支持本息同还及仅还利息模式。",
+        metaKeywords: "英国房贷计算器, 英国购房印花税计算, LTV贷款成数怎么算, 英国房贷加息压力测试, 2026英国买房税费估算, 英国房贷月供计算",
         update: "已同步 2026 年英国基准利率规则",
         title: "英国房贷计算器", 
         desc: "快速估算您的每月还款额、利息总额以及 LTV 贷款成数。独家首付、总价与贷款额智能联动计算。",
@@ -467,11 +378,26 @@
         resTotalRepay: "预计总还款额", resTotalInt: "预计利息总支出",
         disclaimer: "* 免责声明：印花税基于当前英国标准税率。本计算器仅供参考估算。您实际能获批的利率和最高贷款额取决于贷款机构对您个人信用的严格审查。",
         footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
-        embedTitle: "将此计算器嵌入到您自己的网站或博客", embedDesc: "您是房产博主、中介或财务顾问吗？复制下方代码，即可将我们轻量、无广告的计算器免费嵌入到您的文章中。"
+        embedTitle: "将此计算器嵌入到您自己的网站或博客", embedDesc: "您是房产博主、中介或财务顾问吗？复制下方代码，即可将我们轻量、无广告的计算器免费嵌入到您的文章中。",
+        seoHtml: `
+          <h2>2026 英国购房：房贷计算与购房财务指南</h2>
+          <p>在英国购房是一项重大的财务承诺。无论您是首次购房者还是准备重新抵押贷款 (Remortgage)，清晰掌握每月的还款压力都至关重要。我们的<strong>英国房贷计算器</strong>采用标准的银行摊销公式，帮助您精准评估不同的基准利率和贷款期限对您财务预算的影响。</p>
+          <h3>核心概念：英国 LTV 贷款成数怎么算？</h3>
+          <p><strong>LTV (Loan-to-Value) 贷款成数</strong> 是评估贷款风险的最重要指标。例如，如果您购买一套价值 £300,000 的房产，首付了 £60,000，那么您需要贷款 £240,000。您的 LTV 就是 80%。通常情况下，LTV 越低，您能申请到的利率就越低。我们的工具内置了 LTV 健康度指示器，帮您瞬间判断购房资金结构是否安全。</p>
+          <h2>英国买房常见问题解答 (FAQ)</h2>
+          <div class="faq-box">
+            <h4>如何应对英国房贷加息压力测试？</h4>
+            <p class="mb-0">当您的固定利率 (Fixed-rate) 到期，或者央行加息时，月供可能会急剧上升。您可以在本计算器自带的<strong>加息压力测试</strong>模块中，立刻看到在基准利率上涨 1%、2% 或 3% 的情况下，您的月供和总利息会增加多少，从而提前做好资金储备。</p>
+          </div>
+          <div class="faq-box">
+            <h4>这个计算结果包含英国购房印花税 (SDLT) 计算吗？</h4>
+            <p class="mb-0">是的，本工具能够自动为您进行<strong>英国购房印花税计算</strong>。只需选择您的购房者身份（首次购房者、换房者或购买二套房），系统会自动结合最新税率门槛计算出您需要准备的印花税 (SDLT) 预估额。</p>
+          </div>`
       },
       es: {
         metaTitle: "Calculadora de Hipotecas UK 2026 | Pagos Mensuales y LTV",
         metaDesc: "Calculadora de hipotecas del Reino Unido. Calcule pagos mensuales, intereses totales y LTV.",
+        metaKeywords: "Calculadora de Hipotecas, hipoteca UK, calcular prestamo, LTV, impuestos",
         update: "Tasas Listas para 2026",
         title: "Calculadora de Hipotecas UK", 
         desc: "Estime sus pagos hipotecarios mensuales, costos de interés y LTV al instante.",
@@ -484,11 +410,26 @@
         resMonthly: "Pago Mensual Estimado", resStress: "Prueba de Estrés", resLTV: "Ratio LTV", resSDLT: "Impuesto Estimado (SDLT)", resTotalRepay: "Total a Pagar", resTotalInt: "Total Intereses",
         disclaimer: "* Aviso: Esta herramienta proporciona estimaciones. Su tasa real depende del prestamista.",
         footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
-        embedTitle: "Incruste esta calculadora en su propio sitio web", embedDesc: "¿Es usted un bloguero inmobiliario o asesor financiero? Copie el código a continuación para incrustar nuestra calculadora directamente en sus artículos de forma gratuita."
+        embedTitle: "Incruste esta calculadora en su propio sitio web", embedDesc: "¿Es usted un bloguero inmobiliario o asesor financiero? Copie el código a continuación para incrustar nuestra calculadora directamente en sus artículos de forma gratuita.",
+        seoHtml: `
+          <h2>Cómo Usar la Calculadora de Hipotecas UK</h2>
+          <p>Comprar una casa en el Reino Unido es un gran compromiso financiero. Nuestra <strong>Calculadora de Hipotecas</strong> le ayuda a comprender el impacto de diferentes tasas de interés y plazos en su presupuesto mensual. Está diseñada con las reglas de préstamos estándar del Reino Unido.</p>
+          <h3>¿Qué es el LTV (Loan-to-Value)?</h3>
+          <p>El <strong>LTV</strong> es la proporción del préstamo en comparación con el valor de la propiedad. Por ejemplo, si compra una casa de £300,000 y da un depósito de £60,000, necesita un préstamo de £240,000. Su LTV es del 80%. Generalmente, un LTV más bajo le permite acceder a mejores tasas de interés en bancos del Reino Unido.</p>
+          <h2>Preguntas Frecuentes (FAQ)</h2>
+          <div class="faq-box">
+            <h4>¿Cuánto costará mi hipoteca en total?</h4>
+            <p class="mb-0">Nuestra calculadora le muestra no solo el pago mensual, sino también el "Total de Intereses Pagados", dándole una visión real del costo de su préstamo.</p>
+          </div>
+          <div class="faq-box">
+            <h4>¿Cuánto subiría mi hipoteca si cambian las tasas?</h4>
+            <p class="mb-0">Puede usar esta herramienta para probar diferentes tasas de interés y ver exactamente cuánto aumentaría su pago mensual en diferentes escenarios financieros.</p>
+          </div>`
       },
       fr: {
         metaTitle: "Calculatrice de Prêt Immobilier UK 2026",
         metaDesc: "Estimez vos mensualités de prêt immobilier au Royaume-Uni, les intérêts totaux et le ratio LTV.",
+        metaKeywords: "Calculatrice de Prêt Immobilier, prêt UK, LTV, mensualités, intérêts",
         update: "Prêt pour les taux 2026",
         title: "Calculatrice de Prêt UK", 
         desc: "Estimez instantanément vos mensualités, le coût total des intérêts et le ratio LTV.",
@@ -501,11 +442,26 @@
         resMonthly: "Mensualité Estimée", resStress: "Test de Résistance", resLTV: "Ratio LTV", resSDLT: "Frais de Timbre (SDLT)", resTotalRepay: "Montant Total à Rembourser", resTotalInt: "Total des Intérêts",
         disclaimer: "* Avertissement : Les résultats sont des estimations. Votre taux dépend des critères de la banque.",
         footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
-        embedTitle: "Intégrez cette calculatrice sur votre propre site web", embedDesc: "Êtes-vous un blogueur immobilier ou un conseiller financier ? Copiez le code ci-dessous pour intégrer notre calculatrice directement dans vos articles gratuitement."
+        embedTitle: "Intégrez cette calculatrice sur votre propre site web", embedDesc: "Êtes-vous un blogueur immobilier ou un conseiller financier ? Copiez le code ci-dessous pour intégrer notre calculatrice directement dans vos articles gratuitement.",
+        seoHtml: `
+          <h2>Calculatrice de Prêt Immobilier UK</h2>
+          <p>Acheter une maison au Royaume-Uni est un engagement majeur. Notre <strong>Calculatrice de Prêt Immobilier</strong> vous aide à comprendre l'impact des taux d'intérêt et de la durée sur vos mensualités.</p>
+          <h3>Qu'est-ce que le LTV (Loan-to-Value) ?</h3>
+          <p>Le <strong>LTV</strong> est le ratio entre le montant du prêt et la valeur du bien. Si vous achetez une maison de 300 000 £ avec un apport de 60 000 £, votre prêt est de 240 000 £, soit un LTV de 80 %. Un LTV plus faible permet d'obtenir de meilleurs taux auprès des banques britanniques.</p>
+          <h2>Foire Aux Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Combien coûtera mon prêt au total ?</h4>
+            <p class="mb-0">Notre outil vous montre non seulement la mensualité, mais aussi le "Total des Intérêts Payés" sur toute la durée du prêt.</p>
+          </div>
+          <div class="faq-box">
+            <h4>De combien ma mensualité augmentera-t-elle si les taux changent ?</h4>
+            <p class="mb-0">Vous pouvez utiliser cette calculatrice pour tester différents taux d'intérêt et voir exactement de combien votre mensualité augmenterait.</p>
+          </div>`
       },
       de: {
         metaTitle: "UK Hypothekenrechner 2026 | Monatliche Raten & LTV",
         metaDesc: "Kostenloser Hypothekenrechner für Großbritannien. Berechnen Sie Raten, Zinsen und LTV.",
+        metaKeywords: "UK Hypothekenrechner, Immobilienkredit berechnen, LTV, monatliche Raten",
         update: "Bereit für Zinsen 2026",
         title: "UK Hypothekenrechner", 
         desc: "Schätzen Sie Ihre monatlichen Raten, Zinskosten und das LTV-Verhältnis sofort.",
@@ -518,7 +474,21 @@
         resMonthly: "Geschätzte Rate", resStress: "Stresstest (Zinsen)", resLTV: "LTV-Verhältnis", resSDLT: "Geschätzte Steuer (SDLT)", resTotalRepay: "Gesamtrückzahlung", resTotalInt: "Gezahlte Zinsen",
         disclaimer: "* Haftungsausschluss: Diese Schätzungen dienen nur zur Veranschaulichung. Der tatsächliche Zinssatz hängt vom Kreditgeber ab.",
         footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
-        embedTitle: "Binden Sie diesen Rechner auf Ihrer eigenen Website ein", embedDesc: "Sind Sie ein Immobilien-Blogger oder Finanzberater? Kopieren Sie den folgenden Code, um unseren Rechner kostenlos in Ihre Artikel einzubinden."
+        embedTitle: "Binden Sie diesen Rechner auf Ihrer eigenen Website ein", embedDesc: "Sind Sie ein Immobilien-Blogger oder Finanzberater? Kopieren Sie den folgenden Code, um unseren Rechner kostenlos in Ihre Artikel einzubinden.",
+        seoHtml: `
+          <h2>UK Hypothekenrechner (2026)</h2>
+          <p>Der Kauf eines Hauses in Großbritannien ist eine große finanzielle Verpflichtung. Unser <strong>Hypothekenrechner</strong> hilft Ihnen, die Auswirkungen verschiedener Zinssätze und Laufzeiten auf Ihr monatliches Budget zu verstehen.</p>
+          <h3>Was ist der LTV (Loan-to-Value)?</h3>
+          <p>Der <strong>LTV</strong> ist das Verhältnis des Kreditbetrags zum Immobilienwert. Bei einem Haus für £300.000 und einer Anzahlung von £60.000 benötigen Sie eine Hypothek von £240.000. Ihr LTV beträgt 80%. Ein niedrigerer LTV ermöglicht Ihnen in der Regel bessere Zinssätze.</p>
+          <h2>Häufig Gestellte Fragen (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Wie viel wird meine Hypothek insgesamt kosten?</h4>
+            <p class="mb-0">Unser Rechner zeigt Ihnen nicht nur die monatliche Rate, sondern auch die "Gezahlten Gesamtzinsen", damit Sie die wahren Kosten Ihres Darlehens kennen.</p>
+          </div>
+          <div class="faq-box">
+            <h4>Wie stark könnte meine Hypothek steigen?</h4>
+            <p class="mb-0">Sie können dieses Tool verwenden, um verschiedene Zinssätze zu testen und genau zu sehen, um wie viel Ihre Hypothek bei steigenden Zinsen steigen würde.</p>
+          </div>`
       }
     };
 
@@ -564,8 +534,11 @@
       const data = i18n[lang] || i18n['en'];
 
       document.documentElement.lang = lang;
+      
+      // 🌟 动态接管 Meta 数据：Title, Description 和核心长尾 Keywords
       document.title = data.metaTitle;
       document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
       
       document.getElementById('update-status').innerHTML = `<span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> ${data.update}`;
       document.getElementById('page-title').innerText = data.title;
@@ -607,12 +580,19 @@
       document.getElementById('embed-title').innerText = data.embedTitle;
       document.getElementById('embed-desc').innerText = data.embedDesc;
 
-      document.querySelectorAll('.seo-article').forEach(article => {
-        if(article.getAttribute('data-lang') === lang) article.classList.add('active');
-        else article.classList.remove('active');
-      });
+      // 🌟 动态注入纯净的 SEO 长文内容，消灭多语言混杂代码
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
 
       document.getElementById('lang-select').value = lang;
+      
+      // 去除内链的 .html 后缀
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
