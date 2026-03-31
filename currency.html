@@ -7,19 +7,21 @@
   <title id="meta-title">Real-time Currency Converter | Offline Forex Rates — Mini-Tools</title>
   <meta name="description" id="meta-desc" content="Free real-time currency converter supporting 160+ world currencies. Accurate live exchange rates with offline caching capability. Zero ads." />
   <meta name="keywords" content="Currency converter, Exchange rates, Forex calculator, USD to GBP, EUR to USD, Offline exchange rate, Free currency tool, Currency matrix" />
-  <link rel="canonical" href="https://mini-tools.uk/currency.html" />
   
+  <link rel="canonical" href="https://mini-tools.uk/currency" />
+  
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/currency?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/currency?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/currency?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/currency?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/currency?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/currency" />
+
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
-  
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/currency.html?lang=en" />
-  <link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/currency.html?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/currency.html?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/currency.html?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/currency.html?lang=de" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -45,7 +47,7 @@
     .swap-btn:hover { transform: rotate(180deg) scale(1.1); background-color: #eff6ff; }
     .swap-btn:active { transform: rotate(180deg) scale(0.95); }
 
-    /* Quick Comparison Matrix Styles (New) */
+    /* Quick Comparison Matrix Styles */
     .matrix-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; }
     @media (min-width: 768px) { .matrix-grid { grid-template-columns: repeat(3, 1fr); } }
     .matrix-item { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 0.75rem; padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }
@@ -53,10 +55,8 @@
     .matrix-currency { font-size: 0.875rem; font-weight: 800; color: #94a3b8; }
     .matrix-value { font-size: 1rem; font-weight: 800; color: #f8fafc; }
 
-    /* SEO Article Styles */
-    .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
-    .seo-article.active { display: block; animation: fadeIn 0.5s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* SEO Content Styling */
+    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
     .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
     .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
     .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
@@ -80,7 +80,7 @@
         </div>
       </div>
       <div class="flex items-center gap-4">
-        <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
+        <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold text-slate-700 outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
           <option value="en">🇬🇧 English</option>
           <option value="zh">🇨🇳 简体中文</option>
           <option value="es">🇪🇸 Español</option>
@@ -167,151 +167,18 @@
       </div>
     </div>
 
+    <div id="seo-container" class="prose-content">
+      </div>
 
-    <div class="prose-content">
-      
-      <article id="seo-en" class="seo-article" data-lang="en">
-        <h2>Accurate Real-Time Currency Converter</h2>
-        <p>Welcome to the most straightforward and reliable currency exchange tool on the web. Whether you are a traveler planning your next trip, a freelance developer invoicing international clients, or an investor monitoring the Forex market, our tool provides lightning-fast conversions for over 160 global currencies, including USD, EUR, GBP, JPY, and modern digital currencies.</p>
-
-        <h3>Why our Converter stands out: The "Offline-First" Advantage</h3>
-        <p>Most currency calculators on the internet are essentially thin wrappers around an API. The moment you lose Wi-Fi—such as on a long-haul flight or an underground subway—those tools become completely useless. We decided to fix this.</p>
-        <ul>
-            <li><strong>Intelligent Local Caching:</strong> The first time you open this page with an internet connection, our tool fetches the latest daily rates and securely stores them in your browser's <code>LocalStorage</code>. If you go offline later, the tool will automatically detect the network drop and seamlessly switch to the cached rates, allowing you to continue calculating prices while abroad without incurring exorbitant roaming data charges.</li>
-            <li><strong>Live & Accurate Rates:</strong> When online, we fetch data directly from highly reliable open exchange APIs (updated every 24 hours) to ensure your calculations reflect the true mid-market values.</li>
-            <li><strong>Privacy First:</strong> Your financial queries and entered amounts are processed entirely on your device's CPU. We do not track, store, or transmit your calculation history to any backend server.</li>
-        </ul>
-
-        <h3>New Feature: The Quick Comparison Matrix</h3>
-        <p>We understand that users often need to compare a specific amount across multiple currencies simultaneously (e.g., comparing the price of a software subscription in USD, EUR, and GBP). Our new <strong>Quick Comparison Matrix</strong> dynamically generates equivalent values for the world's top 6 fiat currencies instantly below your main result. This eliminates the tedious process of constantly changing the dropdown menus.</p>
-        
-        <h2>Frequently Asked Questions (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Are there any hidden fees or commissions added to the rate?</h4>
-          <p class="mb-0">No. Our calculator provides the "mid-market rate"—the midpoint between the buy and sell prices of two currencies. This is the real, exact exchange rate. Please note that banks, credit cards, and money transfer services usually add a markup (spread) to this rate when you actually exchange money.</p>
-        </div>
-        <div class="faq-box">
-          <h4>How accurate is the offline mode?</h4>
-          <p class="mb-0">The offline mode relies on the exact rates from the last time you accessed the tool with an internet connection. Since major fiat currencies typically fluctuate by only fractions of a percent daily, the cached rates are highly reliable for general travel budgeting and retail shopping estimations.</p>
-        </div>
-      </article>
-
-      <article id="seo-zh" class="seo-article" data-lang="zh">
-        <h2>精准且支持离线的实时汇率转换器</h2>
-        <p>无论您是正在规划出国旅行的游客、处理跨国发票的自由职业者，还是关注外汇市场的投资者，我们的汇率转换器都能为您提供极速、精准的服务。支持美元 (USD)、欧元 (EUR)、英镑 (GBP)、日元 (JPY)、人民币 (CNY) 等 160 多种全球法定货币的实时换算。</p>
-        
-        <h3>我们的核心优势：独家“离线可用”技术</h3>
-        <p>互联网上大多数汇率计算器都极度依赖实时网络。一旦您在长途飞行或地铁中失去信号，这些工具就会彻底瘫痪。我们彻底解决了这个痛点：</p>
-        <ul>
-            <li><strong>智能本地缓存：</strong> 当您在有网状态下首次打开本页面时，系统会拉取当天的最新汇率并安全地存入您浏览器的 <code>LocalStorage</code> 中。如果随后网络断开，工具会自动无缝切换至缓存数据。让您在异国他乡的免税店里，无需开启昂贵的数据漫游也能流畅计算价格。</li>
-            <li><strong>实时精准：</strong> 联网状态下，我们会自动拉取权威开源外汇接口的数据（每 24 小时更新），确保每一次换算都贴合当前真实的中间市场汇率。</li>
-            <li><strong>纯净无追踪：</strong> 您的所有输入金额和查询记录仅在设备本地进行纯前端计算，我们绝不会上传或记录您的任何财务隐私数据。</li>
-        </ul>
-
-        <h3>全新功能：多币种快速对比矩阵</h3>
-        <p>我们深知，海淘用户或跨境电商经常需要同时比对一种商品在多个国家的售价。全新的<strong>多币种对比矩阵</strong>会在您的主计算结果下方，瞬间列出该笔金额在全球 6 大主流货币中的等值金额。省去了您反复切换下拉菜单的繁琐操作。</p>
-
-        <h2>常见问题解答 (FAQ)</h2>
-        <div class="faq-box">
-          <h4>显示的汇率包含了银行手续费吗？</h4>
-          <p class="mb-0">没有。本工具提供的是“中间市场汇率”（买入价和卖出价的中间值），这是最真实的基础汇率。请注意，当您在银行、信用卡或换汇门店实际操作时，他们通常会在此汇率基础上加收一定的点差或手续费。</p>
-        </div>
-        <div class="faq-box">
-          <h4>离线模式下的汇率准确吗？</h4>
-          <p class="mb-0">离线模式依赖于您最后一次在有网状态下访问本工具时获取的汇率。由于主流法定货币每天的波动通常只有百分之零点几，因此缓存的汇率对于一般的旅行预算和购物估算来说是高度可靠的。</p>
-        </div>
-      </article>
-
-      <article id="seo-es" class="seo-article" data-lang="es">
-        <h2>Conversor de Divisas Preciso y en Tiempo Real</h2>
-        <p>Bienvenido a la herramienta de cambio de divisas más confiable. Proporcionamos conversiones ultrarrápidas para más de 160 monedas globales, incluyendo USD, EUR, GBP, JPY y MXN.</p>
-        
-        <h3>Nuestra Ventaja: Capacidad Offline</h3>
-        <p>A diferencia de otras herramientas, nuestro conversor guarda en caché las últimas tasas en su navegador. Si pierde la conexión a internet (ej. en un vuelo prolongado), la herramienta detectará la caída de la red y usará los datos guardados, permitiéndole calcular precios en el extranjero sin gastar datos en roaming.</p>
-        <ul>
-            <li><strong>Caché Local Inteligente:</strong> Guardamos de forma segura las tasas diarias en el <code>LocalStorage</code> de su navegador para acceso sin conexión.</li>
-            <li><strong>Tasas en Vivo:</strong> Obtenemos datos de APIs confiables actualizados diariamente para reflejar el mercado medio real.</li>
-            <li><strong>Privacidad Primero:</strong> Sus montos se procesan completamente en la CPU de su dispositivo. No rastreamos ni almacenamos su historial en ningún servidor.</li>
-        </ul>
-
-        <h3>Nueva Función: Matriz de Comparación Rápida</h3>
-        <p>Debajo de su resultado principal, nuestra nueva <strong>Matriz de Comparación Rápida</strong> genera dinámicamente los valores equivalentes para las 6 monedas principales del mundo al instante. Esto elimina el proceso tedioso de cambiar constantemente los menús desplegables cuando necesita comparar precios en USD, EUR y GBP simultáneamente.</p>
-        
-        <h2>Preguntas Frecuentes (FAQ)</h2>
-        <div class="faq-box">
-          <h4>¿Hay comisiones ocultas en esta tasa?</h4>
-          <p class="mb-0">No. Mostramos la "tasa del mercado medio", que es el punto medio entre los precios de compra y venta. Los bancos y tarjetas de crédito suelen añadir un margen (spread) a esta tasa cuando usted realiza un cambio de moneda real.</p>
-        </div>
-        <div class="faq-box">
-          <h4>¿Qué tan preciso es el modo offline?</h4>
-          <p class="mb-0">El modo offline se basa en las tasas exactas de la última vez que accedió con internet. Dado que las monedas principales fluctúan muy poco diariamente, las tasas en caché son muy fiables para presupuestos de viaje y compras.</p>
-        </div>
-      </article>
-
-      <article id="seo-fr" class="seo-article" data-lang="fr">
-        <h2>Convertisseur de Devises Précis en Temps Réel</h2>
-        <p>Bienvenue sur l'outil de change le plus fiable du web. Que vous planifiez un voyage, facturiez des clients ou surveilliez le marché du Forex, nous offrons des conversions ultra-rapides pour plus de 160 devises mondiales (USD, EUR, GBP, CAD, etc.).</p>
-        
-        <h3>Notre Avantage : L'approche "Hors Ligne"</h3>
-        <p>La plupart des calculatrices deviennent inutiles dès que vous perdez le Wi-Fi (ex. dans le métro ou en avion). Notre outil résout ce problème.</p>
-        <ul>
-            <li><strong>Mise en Cache Intelligente :</strong> L'outil récupère les taux quotidiens et les stocke dans le <code>LocalStorage</code> de votre navigateur. Si vous vous déconnectez, il passe de manière transparente aux taux en cache pour éviter les frais d'itinérance à l'étranger.</li>
-            <li><strong>Taux en Direct :</strong> En ligne, nous utilisons des APIs fiables mises à jour toutes les 24 heures pour garantir des valeurs réelles du marché moyen.</li>
-            <li><strong>Confidentialité d'Abord :</strong> Vos requêtes sont traitées entièrement sur votre appareil. Nous ne stockons aucun historique sur nos serveurs.</li>
-        </ul>
-
-        <h3>Nouvelle Fonctionnalité : Matrice de Comparaison</h3>
-        <p>Notre nouvelle <strong>Matrice de Comparaison Rapide</strong> génère instantanément, sous votre résultat principal, les valeurs équivalentes pour les 6 principales devises mondiales. Fini les changements fastidieux dans les menus déroulants pour comparer des prix en USD, EUR et GBP !</p>
-        
-        <h2>Foire Aux Questions (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Y a-t-il des frais cachés ajoutés à ce taux ?</h4>
-          <p class="mb-0">Non. Notre calculatrice fournit le "taux moyen du marché". Veuillez noter que les banques et les services de transfert d'argent ajoutent généralement une marge à ce taux lors d'un échange réel.</p>
-        </div>
-        <div class="faq-box">
-          <h4>Le mode hors ligne est-il précis ?</h4>
-          <p class="mb-0">Il s'appuie sur les taux de votre dernière connexion. Les devises majeures fluctuant peu quotidiennement, ces taux en cache sont très fiables pour estimer vos dépenses de voyage.</p>
-        </div>
-      </article>
-
-      <article id="seo-de" class="seo-article" data-lang="de">
-        <h2>Genauer Echtzeit-Währungsrechner</h2>
-        <p>Willkommen beim unkompliziertesten und zuverlässigsten Währungsumrechner im Web. Egal, ob Sie Reisender, Freelancer oder Investor sind, wir bieten blitzschnelle Umrechnungen für über 160 globale Währungen, einschließlich USD, EUR, GBP und JPY.</p>
-        
-        <h3>Unser Vorteil: Die "Offline-First" Funktion</h3>
-        <p>Die meisten Umrechner im Internet werden nutzlos, sobald Sie das WLAN verlieren (z.B. im Flugzeug). Wir haben dieses Problem gelöst.</p>
-        <ul>
-            <li><strong>Intelligentes Lokales Caching:</strong> Wenn Sie die Seite mit Internetverbindung öffnen, speichert das Tool die aktuellen Kurse sicher im <code>LocalStorage</code> Ihres Browsers. Wenn Sie offline gehen, wechselt es nahtlos zu diesen gespeicherten Kursen. So können Sie im Ausland ohne Roaming-Gebühren weiterrechnen.</li>
-            <li><strong>Live & Genaue Kurse:</strong> Online rufen wir Daten direkt von zuverlässigen APIs ab (alle 24 Stunden aktualisiert), um echte Mittelkurse zu gewährleisten.</li>
-            <li><strong>Datenschutz Zuerst:</strong> Ihre Eingaben werden vollständig auf der CPU Ihres Geräts verarbeitet. Wir speichern Ihren Berechnungsverlauf auf keinem Server.</li>
-        </ul>
-
-        <h3>Neues Feature: Die Schnelle Vergleichsmatrix</h3>
-        <p>Oft müssen Nutzer einen Betrag in mehreren Währungen gleichzeitig vergleichen. Unsere neue <strong>Schnelle Vergleichsmatrix</strong> generiert unter Ihrem Hauptergebnis dynamisch die entsprechenden Werte für die 6 wichtigsten Fiat-Währungen der Welt. Das ständige Ändern der Dropdown-Menüs entfällt.</p>
-        
-        <h2>Häufig Gestellte Fragen (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Sind in diesem Kurs versteckte Gebühren enthalten?</h4>
-          <p class="mb-0">Nein. Unser Rechner liefert den "Mittelkurs" – den genauen Mittelwert zwischen Kauf- und Verkaufspreis. Banken und Kreditkartenunternehmen schlagen beim tatsächlichen Umtausch in der Regel eine Marge auf diesen Kurs auf.</p>
-        </div>
-        <div class="faq-box">
-          <h4>Wie genau ist der Offline-Modus?</h4>
-          <p class="mb-0">Der Offline-Modus stützt sich auf die exakten Kurse Ihres letzten Online-Zugriffs. Da große Währungen täglich meist nur um Bruchteile eines Prozents schwanken, sind die zwischengespeicherten Kurse für Reisebudgets und Einkäufe sehr zuverlässig.</p>
-        </div>
-      </article>
-
-    </div>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-12 w-full">
+  <footer class="bg-white border-t border-slate-100 py-12 mt-auto w-full">
     <div class="max-w-4xl mx-auto px-6">
       <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
-        </a>
-        <a href="/about.html" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+        <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
+        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
       <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
         © 2026 MINI-TOOLS.UK — Precision & Private Web Utilities
@@ -320,9 +187,11 @@
   </footer>
 
   <script>
+    // 🌟 核心优化 4：字典补全 Meta 描述和纯净版 SEO 长文
     const i18n = {
       en: {
         metaTitle: "Real-time Currency Converter | Offline Forex Rates — Mini-Tools",
+        metaDesc: "Free real-time currency converter supporting 160+ world currencies. Accurate live exchange rates with offline caching capability. Zero ads.",
         title: "Global Currency Converter",
         desc: "Real-time exchange rates for 160+ global currencies. Features local caching for offline use and zero tracking.",
         statusLive: "Live rates active",
@@ -333,10 +202,27 @@
         labelResult: "Converted Amount", btnCopy: "Copy Value", btnCopied: "Copied!",
         labelMatrix: "Quick Comparison",
         apiCredit: "Rates updated daily via open exchange API. Cached locally for offline access.",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us"
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
+        seoHtml: `
+          <h2>Accurate Real-Time Currency Converter</h2>
+          <p>Welcome to the most straightforward and reliable currency exchange tool on the web. Whether you are a traveler planning your next trip, a freelance developer invoicing international clients, or an investor monitoring the Forex market, our tool provides lightning-fast conversions for over 160 global currencies, including USD, EUR, GBP, JPY, and modern digital currencies.</p>
+          <h3>Why our Converter stands out: The "Offline-First" Advantage</h3>
+          <p>Most currency calculators on the internet are essentially thin wrappers around an API. The moment you lose Wi-Fi—such as on a long-haul flight or an underground subway—those tools become completely useless. We decided to fix this.</p>
+          <ul>
+            <li><strong>Intelligent Local Caching:</strong> The first time you open this page with an internet connection, our tool fetches the latest daily rates and securely stores them in your browser's <code>LocalStorage</code>. If you go offline later, the tool will seamlessly switch to the cached rates.</li>
+            <li><strong>Live & Accurate Rates:</strong> When online, we fetch data directly from highly reliable open exchange APIs (updated every 24 hours) to ensure your calculations reflect the true mid-market values.</li>
+          </ul>
+          <h3>New Feature: The Quick Comparison Matrix</h3>
+          <p>Our new <strong>Quick Comparison Matrix</strong> dynamically generates equivalent values for the world's top 6 fiat currencies instantly below your main result. This eliminates the tedious process of constantly changing the dropdown menus.</p>
+          <h2>Frequently Asked Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Are there any hidden fees or commissions added to the rate?</h4>
+            <p class="mb-0">No. Our calculator provides the "mid-market rate"—the midpoint between the buy and sell prices of two currencies. This is the real, exact exchange rate.</p>
+          </div>`
       },
       zh: {
         metaTitle: "实时汇率转换器 | 支持离线使用 — Mini-Tools",
+        metaDesc: "免费的全球实时汇率转换器，支持160+种货币。独家离线缓存技术，断网也能看汇率，保护您的财务隐私。",
         title: "全球实时汇率转换器",
         desc: "极速换算全球 160+ 种货币。独创本地缓存技术，支持彻底断网离线使用，保护您的财务隐私。",
         statusLive: "实时汇率已同步",
@@ -347,10 +233,27 @@
         labelResult: "折合金额", btnCopy: "复制结果", btnCopied: "已复制！",
         labelMatrix: "多币种快速对比",
         apiCredit: "汇率数据源自开源接口每日更新。已自动缓存至本地浏览器，支持无网访问。",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们"
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        seoHtml: `
+          <h2>精准且支持离线的实时汇率转换器</h2>
+          <p>无论您是正在规划出国旅行的游客、处理跨国发票的自由职业者，还是关注外汇市场的投资者，我们的汇率转换器都能为您提供极速、精准的服务。支持美元 (USD)、欧元 (EUR)、英镑 (GBP)、日元 (JPY)、人民币 (CNY) 等 160 多种全球法定货币的实时换算。</p>
+          <h3>我们的核心优势：独家“离线可用”技术</h3>
+          <p>互联网上大多数汇率计算器都极度依赖实时网络。一旦您在长途飞行或地铁中失去信号，这些工具就会彻底瘫痪。我们彻底解决了这个痛点：</p>
+          <ul>
+            <li><strong>智能本地缓存：</strong> 当您在有网状态下首次打开本页面时，系统会拉取当天的最新汇率并安全地存入您浏览器的 <code>LocalStorage</code> 中。如果随后网络断开，工具会自动无缝切换至缓存数据。</li>
+            <li><strong>实时精准：</strong> 联网状态下，我们会自动拉取权威开源外汇接口的数据（每 24 小时更新），确保每一次换算都贴合当前真实的中间市场汇率。</li>
+          </ul>
+          <h3>全新功能：多币种快速对比矩阵</h3>
+          <p>全新的<strong>多币种对比矩阵</strong>会在您的主计算结果下方，瞬间列出该笔金额在全球 6 大主流货币中的等值金额。省去了您反复切换下拉菜单的繁琐操作。</p>
+          <h2>常见问题解答 (FAQ)</h2>
+          <div class="faq-box">
+            <h4>显示的汇率包含了银行手续费吗？</h4>
+            <p class="mb-0">没有。本工具提供的是“中间市场汇率”（买入价和卖出价的中间值），这是最真实的基础汇率。请注意，当您在银行实际操作时，他们通常会在此汇率基础上加收一定的点差或手续费。</p>
+          </div>`
       },
       es: {
         metaTitle: "Conversor de Divisas en Tiempo Real | Tasas Offline",
+        metaDesc: "Conversor de divisas en tiempo real gratuito para más de 160 monedas. Funciona sin conexión con caché local. Sin anuncios.",
         title: "Conversor de Divisas Global",
         desc: "Tasas de cambio en vivo para más de 160 monedas. Funciona sin conexión a internet.",
         statusLive: "Tasas en vivo activas", statusOffline: "Usando tasas guardadas (Offline)", statusFetching: "Obteniendo tasas...", statusError: "Error de red",
@@ -358,10 +261,24 @@
         labelResult: "Cantidad Convertida", btnCopy: "Copiar Valor", btnCopied: "¡Copiado!",
         labelMatrix: "Comparación Rápida",
         apiCredit: "Tasas actualizadas diariamente. Guardadas localmente para acceso offline.",
-        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto"
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        seoHtml: `
+          <h2>Conversor de Divisas Preciso y en Tiempo Real</h2>
+          <p>Bienvenido a la herramienta de cambio de divisas más confiable. Proporcionamos conversiones ultrarrápidas para más de 160 monedas globales, incluyendo USD, EUR, GBP, JPY y MXN.</p>
+          <h3>Nuestra Ventaja: Capacidad Offline</h3>
+          <ul>
+            <li><strong>Caché Local Inteligente:</strong> Guardamos de forma segura las tasas diarias en el <code>LocalStorage</code> de su navegador para acceso sin conexión.</li>
+            <li><strong>Tasas en Vivo:</strong> Obtenemos datos de APIs confiables actualizados diariamente para reflejar el mercado medio real.</li>
+          </ul>
+          <h2>Preguntas Frecuentes (FAQ)</h2>
+          <div class="faq-box">
+            <h4>¿Hay comisiones ocultas en esta tasa?</h4>
+            <p class="mb-0">No. Mostramos la "tasa del mercado medio", que es el punto medio entre los precios de compra y venta. Es la tasa real del mercado.</p>
+          </div>`
       },
       fr: {
         metaTitle: "Convertisseur de Devises en Direct | Taux Hors Ligne",
+        metaDesc: "Convertisseur de devises gratuit prenant en charge plus de 160 monnaies. Utilisation hors ligne grâce au cache local. Zéro publicité.",
         title: "Convertisseur de Devises",
         desc: "Taux de change en direct pour plus de 160 devises. Fonctionne sans connexion internet.",
         statusLive: "Taux en direct actifs", statusOffline: "Utilisation des taux en cache", statusFetching: "Récupération des taux...", statusError: "Erreur réseau",
@@ -369,10 +286,24 @@
         labelResult: "Montant Converti", btnCopy: "Copier", btnCopied: "Copié !",
         labelMatrix: "Comparaison Rapide",
         apiCredit: "Taux mis à jour quotidiennement. Mis en cache pour un accès hors ligne.",
-        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact"
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        seoHtml: `
+          <h2>Convertisseur de Devises Précis en Temps Réel</h2>
+          <p>Bienvenue sur l'outil de change le plus fiable du web. Que vous planifiez un voyage, facturiez des clients ou surveilliez le marché du Forex, nous offrons des conversions ultra-rapides pour plus de 160 devises mondiales.</p>
+          <h3>Notre Avantage : L'approche "Hors Ligne"</h3>
+          <ul>
+            <li><strong>Mise en Cache Intelligente :</strong> L'outil récupère les taux quotidiens et les stocke dans le <code>LocalStorage</code> de votre navigateur. Si vous vous déconnectez, il passe de manière transparente aux taux en cache.</li>
+            <li><strong>Taux en Direct :</strong> En ligne, nous utilisons des APIs fiables mises à jour toutes les 24 heures pour garantir des valeurs réelles du marché moyen.</li>
+          </ul>
+          <h2>Foire Aux Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Y a-t-il des frais cachés ajoutés à ce taux ?</h4>
+            <p class="mb-0">Non. Notre calculatrice fournit le "taux moyen du marché". Veuillez noter que les banques ajoutent généralement une marge à ce taux lors d'un échange réel.</p>
+          </div>`
       },
       de: {
         metaTitle: "Echtzeit-Währungsrechner | Offline-Kurse",
+        metaDesc: "Kostenloser Echtzeit-Währungsrechner für über 160 Währungen. Mit lokaler Caching-Funktion für Offline-Nutzung. Keine Werbung.",
         title: "Globaler Währungsrechner",
         desc: "Echtzeit-Wechselkurse für 160+ Währungen. Funktioniert ohne Internetverbindung.",
         statusLive: "Live-Kurse aktiv", statusOffline: "Offline-Kurse werden verwendet", statusFetching: "Kurse werden abgerufen...", statusError: "Netzwerkfehler",
@@ -380,7 +311,20 @@
         labelResult: "Umgerechneter Betrag", btnCopy: "Kopieren", btnCopied: "Kopiert!",
         labelMatrix: "Schneller Vergleich",
         apiCredit: "Kurse werden täglich aktualisiert. Lokal gespeichert für Offline-Zugriff.",
-        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt"
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        seoHtml: `
+          <h2>Genauer Echtzeit-Währungsrechner</h2>
+          <p>Willkommen beim unkompliziertesten und zuverlässigsten Währungsumrechner im Web. Wir bieten blitzschnelle Umrechnungen für über 160 globale Währungen, einschließlich USD, EUR, GBP und JPY.</p>
+          <h3>Unser Vorteil: Die "Offline-First" Funktion</h3>
+          <ul>
+            <li><strong>Intelligentes Lokales Caching:</strong> Wenn Sie die Seite mit Internetverbindung öffnen, speichert das Tool die aktuellen Kurse sicher im <code>LocalStorage</code> Ihres Browsers. Wenn Sie offline gehen, wechselt es nahtlos zu diesen gespeicherten Kursen.</li>
+            <li><strong>Live & Genaue Kurse:</strong> Online rufen wir Daten direkt von zuverlässigen APIs ab (alle 24 Stunden aktualisiert).</li>
+          </ul>
+          <h2>Häufig Gestellte Fragen (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Sind in diesem Kurs versteckte Gebühren enthalten?</h4>
+            <p class="mb-0">Nein. Unser Rechner liefert den "Mittelkurs" – den genauen Mittelwert zwischen Kauf- und Verkaufspreis. Banken schlagen beim tatsächlichen Umtausch in der Regel eine Marge auf diesen Kurs auf.</p>
+          </div>`
       }
     };
 
@@ -418,7 +362,11 @@
       const data = i18n[currentLang];
 
       document.documentElement.lang = currentLang;
+      
+      // 🌟 动态替换 Meta 标签
       document.title = data.metaTitle;
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+
       document.getElementById('page-title').innerText = data.title;
       document.getElementById('page-desc').innerText = data.desc;
       document.getElementById('label-amount').innerText = data.labelAmount;
@@ -433,12 +381,19 @@
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
       
-      document.querySelectorAll('.seo-article').forEach(article => {
-        if(article.getAttribute('data-lang') === currentLang) article.classList.add('active');
-        else article.classList.remove('active');
-      });
+      // 🌟 动态注入 SEO 长文
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
       
       document.getElementById('lang-select').value = currentLang;
+      
+      // 去除跳转链接的 .html
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
