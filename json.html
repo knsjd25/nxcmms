@@ -7,13 +7,20 @@
   <title id="meta-title">JSON Formatter & Validator | Format, Beautify, and Parse JSON Online</title>
   <meta name="description" id="meta-desc" content="Free online JSON formatter and validator. Beautify, parse, and debug JSON code instantly. Features syntax highlighting and collapsible tree views. 100% client-side privacy." />
   <meta name="keywords" content="JSON formatter, JSON validator, JSON beautifier, parse JSON online, JSON viewer, collapsible JSON, offline JSON tool" />
-  <link rel="canonical" href="https://mini-tools.uk/json.html" />
+  
+  <link rel="canonical" href="https://mini-tools.uk/json" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/json?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/json?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/json?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/json?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/json?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/json" />
 
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/json.html?lang=en" />
-  <link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/json.html?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/json.html?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/json.html?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/json.html?lang=de" />
+  <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -60,31 +67,27 @@
     .renderjson { margin: 0; }
     .renderjson a { text-decoration: none; color: #64748b; font-weight: 800; display: inline-block; padding: 0 4px; }
     .renderjson a:hover { color: #f8fafc; background: #334155; border-radius: 4px; }
-    .renderjson .disclosure { color: #ef4444; font-size: 1rem; font-weight: bold; } /* Collapse/Expand icons */
-    .renderjson .syntax { color: #94a3b8; } /* Brackets, commas */
-    .renderjson .string { color: #a7f3d0; } /* Green strings */
-    .renderjson .number { color: #fde047; } /* Yellow numbers */
-    .renderjson .boolean { color: #c084fc; font-weight: bold; } /* Purple booleans */
-    .renderjson .key { color: #60a5fa; font-weight: 700; } /* Blue keys */
-    .renderjson .keyword { color: #f472b6; font-weight: bold; } /* Pink null/undefined */
+    .renderjson .disclosure { color: #ef4444; font-size: 1rem; font-weight: bold; }
+    .renderjson .syntax { color: #94a3b8; } 
+    .renderjson .string { color: #a7f3d0; } 
+    .renderjson .number { color: #fde047; } 
+    .renderjson .boolean { color: #c084fc; font-weight: bold; } 
+    .renderjson .key { color: #60a5fa; font-weight: 700; } 
+    .renderjson .keyword { color: #f472b6; font-weight: bold; } 
     .renderjson .object.syntax { color: #cbd5e1; }
     .renderjson .array.syntax { color: #cbd5e1; }
 
-    /* Custom Scrollbar for both left and right panels */
     ::-webkit-scrollbar { width: 10px; height: 10px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     
-    /* Dark scrollbar for the right terminal */
     .renderjson-container::-webkit-scrollbar-track { background: #0f172a; }
     .renderjson-container::-webkit-scrollbar-thumb { background: #334155; }
     .renderjson-container::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-    /* SEO Article Styles */
-    .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
-    .seo-article.active { display: block; animation: fadeIn 0.5s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* SEO Content Typography */
+    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
     .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
     .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
     .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
@@ -94,25 +97,21 @@
     .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
     .faq-box h4 { font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; font-size: 1.1rem; }
 
-    /* =============================================================
-       Custom Styles for html2canvas (Beautiful Card Export)
-       Note: We use explicit CSS classes for capture because html2canvas 
-       struggles with complex Tailwind utility classes sometimes.
-    ============================================================= */
+    /* Custom Styles for html2canvas (Beautiful Card Export) */
     .capture-canvas {
         padding: 40px;
         border-radius: 16px;
-        background: linear-gradient(135deg, #10192e 0%, #1e293b 100%); /* Elegant dark gradient */
+        background: linear-gradient(135deg, #10192e 0%, #1e293b 100%); 
         width: auto;
         font-family: 'JetBrains Mono', 'Monaco', monospace;
         display: flex;
         flex-direction: column;
     }
     .capture-mac-window {
-        background-color: #020617; /* Slate-950 */
+        background-color: #020617; 
         border-radius: 10px;
-        border: 1px solid #1e293b; /* Slate-800 */
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* Soft deep shadow */
+        border: 1px solid #1e293b; 
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
         overflow: hidden;
     }
     .capture-mac-dots {
@@ -121,11 +120,7 @@
         padding: 12px;
         border-bottom: 1px solid #1e293b;
     }
-    .capture-mac-dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-    }
+    .capture-mac-dot { width: 12px; height: 12px; border-radius: 50%; }
     .capture-content {
         padding: 24px;
         color: #cbd5e1;
@@ -134,7 +129,6 @@
         word-break: break-all;
         white-space: pre-wrap;
     }
-    /* Restoring original renderjson coloring inside the captured image */
     .capture-content .disclosure { color: #ef4444 !important; font-weight: bold; font-family: sans-serif; }
     .capture-content .syntax { color: #94a3b8 !important; }
     .capture-content .string { color: #a7f3d0 !important; }
@@ -147,7 +141,7 @@
         position: absolute;
         bottom: 10px;
         right: 15px;
-        color: #475569; /* slate-600 */
+        color: #475569; 
         font-size: 10px;
         opacity: 0.8;
         font-family: 'Plus Jakarta Sans', sans-serif;
@@ -253,112 +247,11 @@
         </div>
 
       </div>
-
     </div>
 
-    <div class="prose-content max-w-5xl mx-auto w-full">
-      
-      <article id="seo-en" class="seo-article" data-lang="en">
-        <h2>Why developers need a robust JSON Formatter</h2>
-        <p>JSON (JavaScript Object Notation) is the undisputed standard for data exchange on the web. However, to save bandwidth, servers usually output JSON in a single, minified line of text. While perfect for machines, this is completely unreadable for human developers debugging an API response. Our <strong>online JSON Formatter and Validator</strong> acts as your essential decoding layer, transforming unreadable text into a beautifully structured, color-coded, and navigable data tree.</p>
+    <div id="seo-container" class="prose-content max-w-5xl mx-auto w-full">
+      </div>
 
-        <h3>Beyond Simple Beautification: The Interactive Tree Viewer</h3>
-        <p>Unlike basic formatters that just add line breaks and indents, our tool incorporates a powerful <strong>Collapsible Tree Viewer</strong> with an ultra-wide, immersive workspace. When you paste complex, deeply nested JSON objects or massive arrays, you don't have to scroll endlessly. Our interface allows you to:</p>
-        <ul>
-          <li><strong>Auto-Detection & Parsing:</strong> No need to click buttons. As soon as you paste your code, the engine instantly validates and renders the tree on the right.</li>
-          <li><strong>Collapse and Expand:</strong> Click the <code>⊕</code> or <code>⊖</code> icons next to any Object <code>{}</code> or Array <code>[]</code> to fold away data you don't currently need to see.</li>
-          <li><strong>Syntax Highlighting:</strong> We use an IDE-grade dark theme color palette. Keys are distinctly colored from values, and strings, numbers, and booleans (true/false) all have specific colors so you can spot data type errors at a glance.</li>
-          <li><strong>Real-time Validation:</strong> If your JSON is broken (e.g., missing a trailing comma or an unescaped quote), our tool displays a prominent error message specifying exactly why the parsing failed, helping you debug your code instantly.</li>
-        </ul>
-
-        <h2>Frequently Asked Questions (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Is it safe to paste confidential API responses here?</h4>
-          <p class="mb-0">Yes. The most critical feature of our JSON Formatter is its <strong>Zero-Trust Client-Side Architecture</strong>. The parsing, validation, and rendering algorithms are executed entirely by JavaScript within your browser's local memory. Your sensitive payloads, API keys, or customer data never leave your device and are never sent to our servers.</p>
-        </div>
-      </article>
-
-      <article id="seo-zh" class="seo-article" data-lang="zh">
-        <h2>开发者为什么需要专业的 JSON 格式化工具？</h2>
-        <p>JSON (JavaScript Object Notation) 是目前互联网数据交互的绝对标准。为了节省带宽，后端 API 接口返回的 JSON 通常是经过压缩的单行文本。这对于机器来说很高效，但对于需要排查 Bug 的前端开发者来说根本无法阅读。我们的<strong>在线 JSON 格式化与校验工具</strong>能瞬间将这一团乱码转化为结构清晰、色彩分明且支持交互的数据树。</p>
-
-        <h3>超越简单的换行：超大屏交互式可折叠数据树</h3>
-        <p>市面上普通的格式化工具仅仅是加入了回车和缩进。一旦遇到嵌套极深或包含成千上万条数据的数组，用户只能绝望地滑动滚轮。而本工具引入了强大的 <strong>树状视图 (Tree Viewer)</strong>，并适配了超宽屏幕，让您的体验直逼专业的 IDE：</p>
-        <ul>
-          <li><strong>无感自动解析：</strong> 告别繁琐的点击！当您在左侧粘贴或修改代码时，右侧会自动瞬间渲染出可视化的树状图。</li>
-          <li><strong>一键折叠/展开：</strong> 您可以点击任何对象 <code>{}</code> 或数组 <code>[]</code> 旁边的 <code>⊕</code> 图标，将不关心的层级折叠起来，从而专注于核心数据结构。上方甚至提供了“全部展开”和“全部折叠”的快捷键。</li>
-          <li><strong>独立丝滑滚动：</strong> 左右两侧的输入和输出面板均支持独立的纵向与横向滚动，处理几十兆的超大 JSON 文件依然流畅。</li>
-          <li><strong>智能错误诊断：</strong> 哪怕只是少写了一个逗号，普通的工具通常会直接白屏死机。而我们的验证器会弹出醒目的红色终端警告，并精准抛出解析失败的原因，极大提升 Debug 效率。</li>
-        </ul>
-
-        <h2>常见问题解答 (FAQ)</h2>
-        <div class="faq-box">
-          <h4>在这里粘贴包含机密用户数据的 API 返回值安全吗？</h4>
-          <p class="mb-0"><strong>绝对安全。</strong> 我们的 JSON 工具坚持“纯前端本地计算”原则。所有的格式化、着色和校验代码均在您自己的电脑浏览器内存中执行。您的敏感数据、API Key 或生产环境的 Payload 绝不会被上传到任何外部服务器，保护您的商业机密。</p>
-        </div>
-      </article>
-
-      <article id="seo-es" class="seo-article" data-lang="es">
-        <h2>El Formateador JSON Definitivo para Desarrolladores</h2>
-        <p>Las respuestas de las APIs suelen estar comprimidas en una sola línea, haciéndolas ilegibles para los humanos. Nuestro <strong>Formateador y Validador JSON online</strong> transforma esa masa de texto en un árbol de datos estructurado y con colores, ideal para depurar (debugging).</p>
-
-        <h3>Detección Automática y Visor de Árbol Plegable</h3>
-        <p>A diferencia de herramientas básicas, nuestra interfaz amplia le permite:</p>
-        <ul>
-          <li><strong>Auto-Formateo:</strong> Simplemente pegue su código y el árbol se generará instantáneamente sin hacer clic en nada.</li>
-          <li><strong>Plegar y Desplegar:</strong> Oculte objetos <code>{}</code> o arrays <code>[]</code> gigantes haciendo clic en los iconos junto a ellos.</li>
-          <li><strong>Resaltado de Sintaxis:</strong> Colores distintos para claves, cadenas, números y booleanos, facilitando la detección de errores.</li>
-          <li><strong>Validación Inteligente:</strong> Si falta una coma o hay un error de sintaxis, le mostraremos exactamente dónde falló el análisis en un panel rojo destacado.</li>
-        </ul>
-
-        <h2>Preguntas Frecuentes (FAQ)</h2>
-        <div class="faq-box">
-          <h4>¿Es seguro pegar datos de producción confidenciales aquí?</h4>
-          <p class="mb-0">Sí. El procesamiento se realiza 100% en la memoria de su navegador (Client-Side). Sus datos nunca viajan por internet ni se guardan en nuestros servidores, garantizando privacidad absoluta para sus APIs.</p>
-        </div>
-      </article>
-
-      <article id="seo-fr" class="seo-article" data-lang="fr">
-        <h2>Le Formateur JSON Essentiel pour les Développeurs</h2>
-        <p>Les API renvoient généralement le JSON sur une seule ligne minifiée. Notre <strong>Formateur et Validateur JSON en ligne</strong> transforme ce texte illisible en un arbre de données structuré et coloré, indispensable pour le débogage.</p>
-
-        <h3>Détection Automatique et Visualiseur d'Arbre</h3>
-        <p>Notre outil va bien au-delà d'un simple ajout d'espaces :</p>
-        <ul>
-          <li><strong>Détection Instantanée :</strong> Collez votre code et l'arbre se génère de lui-même.</li>
-          <li><strong>Plier et Déplier :</strong> Masquez les objets <code>{}</code> ou les grands tableaux <code>[]</code> en un clic pour vous concentrer sur l'essentiel.</li>
-          <li><strong>Coloration Syntaxique :</strong> Les clés, chaînes, nombres et booléens ont des couleurs spécifiques pour repérer les erreurs d'un coup d'œil.</li>
-          <li><strong>Validation en Temps Réel :</strong> En cas d'erreur de syntaxe, un message d'erreur clair vous aide à corriger le problème immédiatement.</li>
-        </ul>
-
-        <h2>Foire Aux Questions (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Mes données d'API sont-elles en sécurité ici ?</h4>
-          <p class="mb-0">Absolument. Tout le traitement (formatage, coloration) est effectué localement dans votre navigateur (Côté Client). Vos clés d'API ne sont jamais envoyées sur nos serveurs.</p>
-        </div>
-      </article>
-
-      <article id="seo-de" class="seo-article" data-lang="de">
-        <h2>Der Ultimative JSON-Formatierer für Entwickler</h2>
-        <p>APIs liefern JSON meist als komprimierte, einzeilige Zeichenfolge, die für Menschen unlesbar ist. Unser <strong>Online-JSON-Formatierer und Validator</strong> verwandelt diesen Text in einen strukturierten, farbcodierten Datenbaum, ideal zum Debuggen von Schnittstellen.</p>
-
-        <h3>Automatische Erkennung & Interaktiver Datenbaum</h3>
-        <p>Im Gegensatz zu einfachen Tools bietet unsere breite Schnittstelle:</p>
-        <ul>
-          <li><strong>Auto-Parse:</strong> Fügen Sie Ihren Code ein und der strukturierte Baum erscheint sofort, ohne dass Sie auf einen Button klicken müssen.</li>
-          <li><strong>Ausklappen und Reduzieren:</strong> Verbergen Sie riesige Objekte <code>{}</code> oder Arrays <code>[]</code> mit einem Klick auf das <code>⊖</code> Symbol.</li>
-          <li><strong>Syntax-Hervorhebung:</strong> Unterschiedliche Farben für Schlüssel, Strings, Zahlen und Booleans erleichtern das Erkennen von Datentypfehlern.</li>
-          <li><strong>Intelligente Validierung:</strong> Fehlt ein Komma? Unser Tool zeigt in einem roten Warnfeld sofort an, warum das Parsen fehlgeschlagen ist.</li>
-        </ul>
-
-        <h2>Häufig Gestellte Fragen (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Ist es sicher, vertrauliche API-Daten hier einzufügen?</h4>
-          <p class="mb-0">Ja. Die gesamte Verarbeitung findet zu 100% im Arbeitsspeicher Ihres Browsers statt (Client-Side Architektur). Ihre Payloads verlassen niemals Ihr Gerät.</p>
-        </div>
-      </article>
-
-    </div>
   </main>
 
   <footer class="bg-white border-t border-slate-100 py-12 w-full mt-auto">
@@ -367,9 +260,9 @@
         <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
           <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
         </a>
-        <a href="/about.html" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
       <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
         © 2026 MINI-TOOLS.UK — SECURE LOCAL DEVELOPER UTILITIES
@@ -380,10 +273,12 @@
   <script>
     const BIGINT_PREFIX = "MINITOOLS_BIGINT_";
 
+    // 🌟 核心优化 4：整合所有语言的 Meta (带长尾 Keywords) 和富文本到字典中
     const i18n = {
       en: {
         metaTitle: "JSON Formatter & Validator | Format, Beautify, and Parse JSON Online",
         metaDesc: "Free online JSON formatter and validator. Beautify, parse, and debug JSON code instantly. Features syntax highlighting and collapsible tree views. 100% client-side privacy.",
+        metaKeywords: "JSON formatter, JSON validator, JSON beautifier, parse JSON online, JSON viewer, collapsible JSON, offline JSON tool, format JSON to image",
         title: "JSON Formatter & Validator", 
         desc: "Beautify, parse, and collapse your JSON data locally. Zero server uploads.",
         btnFormat: "Beautify Left Panel", btnClear: "Clear", btnExample: "Load Example",
@@ -391,11 +286,29 @@
         btnExpand: "Expand All", btnCollapse: "Collapse All", btnCopy: "Copy JSON",
         btnExportImg: "Export Image",
         msgWaiting: "Awaiting valid JSON...", msgInvalid: "Invalid JSON Syntax",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us"
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
+        // 英文 SEO HTML
+        seoHtml: `
+          <h2>Why developers need a robust JSON Formatter</h2>
+          <p>JSON (JavaScript Object Notation) is the undisputed standard for data exchange on the web. However, to save bandwidth, servers usually output JSON in a single, minified line of text. While perfect for machines, this is completely unreadable for human developers debugging an API response. Our <strong>online JSON Formatter and Validator</strong> acts as your essential decoding layer, transforming unreadable text into a beautifully structured, color-coded, and navigable data tree.</p>
+          <h3>Beyond Simple Beautification: The Interactive Tree Viewer</h3>
+          <p>Unlike basic formatters that just add line breaks and indents, our tool incorporates a powerful <strong>Collapsible Tree Viewer</strong> with an ultra-wide, immersive workspace. When you paste complex, deeply nested JSON objects or massive arrays, you don't have to scroll endlessly. Our interface allows you to:</p>
+          <ul>
+            <li><strong>Auto-Detection & Parsing:</strong> No need to click buttons. As soon as you paste your code, the engine instantly validates and renders the tree on the right.</li>
+            <li><strong>Collapse and Expand:</strong> Click the <code>⊕</code> or <code>⊖</code> icons next to any Object <code>{}</code> or Array <code>[]</code> to fold away data you don't currently need to see.</li>
+            <li><strong>Syntax Highlighting:</strong> We use an IDE-grade dark theme color palette. Keys are distinctly colored from values, and strings, numbers, and booleans (true/false) all have specific colors so you can spot data type errors at a glance.</li>
+            <li><strong>Real-time Validation:</strong> If your JSON is broken, our tool displays a prominent error message specifying exactly why the parsing failed, helping you debug your code instantly.</li>
+          </ul>
+          <h2>Frequently Asked Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Is it safe to paste confidential API responses here?</h4>
+            <p class="mb-0">Yes. The most critical feature of our JSON Formatter is its <strong>Zero-Trust Client-Side Architecture</strong>. The parsing, validation, and rendering algorithms are executed entirely by JavaScript within your browser's local memory. Your sensitive payloads, API keys, or customer data never leave your device and are never sent to our servers.</p>
+          </div>`
       },
       zh: {
         metaTitle: "在线 JSON 格式化与校验工具 | 高亮、折叠、美化 — Mini-Tools",
         metaDesc: "免费纯前端 JSON 格式化工具。支持一键美化、折叠树状视图和语法高亮。实时错误诊断，绝不上传您的 API 数据，保护商业隐私。",
+        metaKeywords: "JSON美化, 前端JSON校验, JSON树状折叠, 在线解析JSON, json在线工具, JSON大整数处理, 将JSON导出为图片",
         title: "JSON 格式化与校验工具", 
         desc: "将杂乱的 JSON 压缩文本转换为极客级的彩色可折叠数据树。100% 纯本地运行。",
         btnFormat: "美化左侧代码", btnClear: "清空", btnExample: "加载示例",
@@ -403,11 +316,28 @@
         btnExpand: "全部展开", btnCollapse: "全部折叠", btnCopy: "复制树状数据",
         btnExportImg: "导出美化卡片",
         msgWaiting: "等待输入有效的 JSON...", msgInvalid: "JSON 语法解析错误",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们"
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        seoHtml: `
+          <h2>开发者为什么需要专业的 JSON 格式化工具？</h2>
+          <p>JSON (JavaScript Object Notation) 是目前互联网数据交互的绝对标准。为了节省带宽，后端 API 接口返回的 JSON 通常是经过压缩的单行文本。这对于机器来说很高效，但对于需要排查 Bug 的前端开发者来说根本无法阅读。我们的<strong>在线 JSON 格式化与校验工具</strong>能瞬间将这一团乱码转化为结构清晰、色彩分明且支持交互的数据树。</p>
+          <h3>超越简单的换行：超大屏交互式可折叠数据树</h3>
+          <p>市面上普通的格式化工具仅仅是加入了回车和缩进。一旦遇到嵌套极深或包含成千上万条数据的数组，用户只能绝望地滑动滚轮。而本工具引入了强大的 <strong>树状视图 (Tree Viewer)</strong>，并适配了超宽屏幕，让您的体验直逼专业的 IDE：</p>
+          <ul>
+            <li><strong>无感自动解析：</strong> 告别繁琐的点击！当您在左侧粘贴或修改代码时，右侧会自动瞬间渲染出可视化的树状图。</li>
+            <li><strong>一键折叠/展开：</strong> 您可以点击任何对象 <code>{}</code> 或数组 <code>[]</code> 旁边的 <code>⊕</code> 图标，将不关心的层级折叠起来，从而专注于核心数据结构。上方甚至提供了“全部展开”和“全部折叠”的快捷键。</li>
+            <li><strong>独立丝滑滚动：</strong> 左右两侧的输入和输出面板均支持独立的纵向与横向滚动，处理几十兆的超大 JSON 文件依然流畅。</li>
+            <li><strong>智能错误诊断：</strong> 哪怕只是少写了一个逗号，普通的工具通常会直接白屏死机。而我们的验证器会弹出醒目的红色终端警告，并精准抛出解析失败的原因，极大提升 Debug 效率。</li>
+          </ul>
+          <h2>常见问题解答 (FAQ)</h2>
+          <div class="faq-box">
+            <h4>在这里粘贴包含机密用户数据的 API 返回值安全吗？</h4>
+            <p class="mb-0"><strong>绝对安全。</strong> 我们的 JSON 工具坚持“纯前端本地计算”原则。所有的格式化、着色和校验代码均在您自己的电脑浏览器内存中执行。您的敏感数据、API Key 或生产环境的 Payload 绝不会被上传到任何外部服务器，保护您的商业机密。</p>
+          </div>`
       },
       es: {
         metaTitle: "Formateador y Validador JSON | Visor de Árbol en Línea",
         metaDesc: "Formateador JSON gratuito. Embellezca y depure código JSON al instante con resaltado de sintaxis y vistas plegables. Privacidad total.",
+        metaKeywords: "Formateador JSON, JSON online, validar JSON, visor de árbol JSON, JSON a imagen",
         title: "Formateador y Validador JSON", 
         desc: "Embellezca, analice y pliegue sus datos JSON localmente. Cero subidas al servidor.",
         btnFormat: "Embellecer Panel Izquierdo", btnClear: "Borrar", btnExample: "Cargar Ejemplo",
@@ -415,11 +345,28 @@
         btnExpand: "Expandir Todo", btnCollapse: "Plegar Todo", btnCopy: "Copiar JSON",
         btnExportImg: "Exportar Imagen",
         msgWaiting: "Esperando JSON válido...", msgInvalid: "Sintaxis JSON Inválida",
-        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto"
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        seoHtml: `
+          <h2>El Formateador JSON Definitivo para Desarrolladores</h2>
+          <p>Las respuestas de las APIs suelen estar comprimidas en una sola línea, haciéndolas ilegibles para los humanos. Nuestro <strong>Formateador y Validador JSON online</strong> transforma esa masa de texto en un árbol de datos estructurado y con colores, ideal para depurar (debugging).</p>
+          <h3>Detección Automática y Visor de Árbol Plegable</h3>
+          <p>A diferencia de herramientas básicas, nuestra interfaz amplia le permite:</p>
+          <ul>
+            <li><strong>Auto-Formateo:</strong> Simplemente pegue su código y el árbol se generará instantáneamente sin hacer clic en nada.</li>
+            <li><strong>Plegar y Desplegar:</strong> Oculte objetos <code>{}</code> o arrays <code>[]</code> gigantes haciendo clic en los iconos junto a ellos.</li>
+            <li><strong>Resaltado de Sintaxis:</strong> Colores distintos para claves, cadenas, números y booleanos, facilitando la detección de errores.</li>
+            <li><strong>Validación Inteligente:</strong> Si falta una coma o hay un error de sintaxis, le mostraremos exactamente dónde falló el análisis en un panel rojo destacado.</li>
+          </ul>
+          <h2>Preguntas Frecuentes (FAQ)</h2>
+          <div class="faq-box">
+            <h4>¿Es seguro pegar datos de producción confidenciales aquí?</h4>
+            <p class="mb-0">Sí. El procesamiento se realiza 100% en la memoria de su navegador (Client-Side). Sus datos nunca viajan por internet ni se guardan en nuestros servidores, garantizando privacidad absoluta para sus APIs.</p>
+          </div>`
       },
       fr: {
         metaTitle: "Formateur et Validateur JSON | Embellir et Analyser en Ligne",
         metaDesc: "Formateur JSON en ligne gratuit. Embellissez et déboguez le code instantanément. Vues en arbre et coloration syntaxique.",
+        metaKeywords: "Formateur JSON, valider JSON, embellir JSON, arbre JSON, JSON en image",
         title: "Formateur et Validateur JSON", 
         desc: "Embellissez et pliez vos données JSON localement. Aucun téléchargement sur serveur.",
         btnFormat: "Embellir le panneau gauche", btnClear: "Effacer", btnExample: "Charger Exemple",
@@ -427,11 +374,28 @@
         btnExpand: "Tout Déplier", btnCollapse: "Tout Plier", btnCopy: "Copier JSON",
         btnExportImg: "Exporter Image",
         msgWaiting: "En attente de JSON valide...", msgInvalid: "Syntaxe JSON Invalide",
-        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact"
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        seoHtml: `
+          <h2>Le Formateur JSON Essentiel pour les Développeurs</h2>
+          <p>Les API renvoient généralement le JSON sur une seule ligne minifiée. Notre <strong>Formateur et Validateur JSON en ligne</strong> transforme ce texte illisible en un arbre de données structuré et coloré, indispensable pour le débogage.</p>
+          <h3>Détection Automatique et Visualiseur d'Arbre</h3>
+          <p>Notre outil va bien au-delà d'un simple ajout d'espaces :</p>
+          <ul>
+            <li><strong>Détection Instantanée :</strong> Collez votre code et l'arbre se génère de lui-même.</li>
+            <li><strong>Plier et Déplier :</strong> Masquez les objets <code>{}</code> ou les grands tableaux <code>[]</code> en un clic pour vous concentrer sur l'essentiel.</li>
+            <li><strong>Coloration Syntaxique :</strong> Les clés, chaînes, nombres et booléens ont des couleurs spécifiques pour repérer les erreurs d'un coup d'œil.</li>
+            <li><strong>Validation en Temps Réel :</strong> En cas d'erreur de syntaxe, un message d'erreur clair vous aide à corriger le problème immédiatement.</li>
+          </ul>
+          <h2>Foire Aux Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Mes données d'API sont-elles en sécurité ici ?</h4>
+            <p class="mb-0">Absolument. Tout le traitement (formatage, coloration) est effectué localement dans votre navigateur (Côté Client). Vos clés d'API ne sont jamais envoyées sur nos serveurs.</p>
+          </div>`
       },
       de: {
         metaTitle: "JSON Formatierer & Validator | JSON Online Verschönern",
         metaDesc: "Kostenloser JSON-Formatierer. Code verschönern und debuggen. Syntax-Hervorhebung und ausklappbare Baumansichten. 100% lokal.",
+        metaKeywords: "JSON Formatierer, JSON Validator, JSON verschönern, JSON zu Bild, JSON offline tool",
         title: "JSON Formatierer & Validator", 
         desc: "JSON-Daten lokal verschönern, analysen und reduzieren. Keine Server-Uploads.",
         btnFormat: "Linkes Panel verschönern", btnClear: "Löschen", btnExample: "Beispiel Laden",
@@ -439,7 +403,23 @@
         btnExpand: "Alle Ausklappen", btnCollapse: "Alle Reduzieren", btnCopy: "JSON Kopieren",
         btnExportImg: "Bild exportieren",
         msgWaiting: "Warte auf gültiges JSON...", msgInvalid: "Ungültige JSON-Syntax",
-        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt"
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        seoHtml: `
+          <h2>Der Ultimative JSON-Formatierer für Entwickler</h2>
+          <p>APIs liefern JSON meist als komprimierte, einzeilige Zeichenfolge, die für Menschen unlesbar ist. Unser <strong>Online-JSON-Formatierer und Validator</strong> verwandelt diesen Text in einen strukturierten, farbcodierten Datenbaum, ideal zum Debuggen von Schnittstellen.</p>
+          <h3>Automatische Erkennung & Interaktiver Datenbaum</h3>
+          <p>Im Gegensatz zu einfachen Tools bietet unsere breite Schnittstelle:</p>
+          <ul>
+            <li><strong>Auto-Parse:</strong> Fügen Sie Ihren Code ein und der strukturierte Baum erscheint sofort, ohne dass Sie auf einen Button klicken müssen.</li>
+            <li><strong>Ausklappen und Reduzieren:</strong> Verbergen Sie riesige Objekte <code>{}</code> oder Arrays <code>[]</code> mit einem Klick auf das <code>⊖</code> Symbol.</li>
+            <li><strong>Syntax-Hervorhebung:</strong> Unterschiedliche Farben für Schlüssel, Strings, Zahlen und Booleans erleichtern das Erkennen von Datentypfehlern.</li>
+            <li><strong>Intelligente Validierung:</strong> Fehlt ein Komma? Unser Tool zeigt in einem roten Warnfeld sofort an, warum das Parsen fehlgeschlagen ist.</li>
+          </ul>
+          <h2>Häufig Gestellte Fragen (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Ist es sicher, vertrauliche API-Daten hier einzufügen?</h4>
+            <p class="mb-0">Ja. Die gesamte Verarbeitung findet zu 100% im Arbeitsspeicher Ihres Browsers statt (Client-Side Architektur). Ihre Payloads verlassen niemals Ihr Gerät.</p>
+          </div>`
       }
     };
 
@@ -460,8 +440,11 @@
       const data = i18n[lang] || i18n['en'];
 
       document.documentElement.lang = lang;
+      
+      // 🌟 动态接管 Meta 数据：Title, Description 和核心长尾 Keywords
       document.title = data.metaTitle;
       document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
 
       document.getElementById('page-title').innerText = data.title;
       document.getElementById('page-desc').innerText = data.desc;
@@ -479,7 +462,6 @@
       document.getElementById('btn-collapse').innerText = data.btnCollapse;
       document.getElementById('btn-copy').innerText = data.btnCopy;
       
-      // Update new Export Image button preservin SVG
       const btnExport = document.getElementById('btn-export-img');
       btnExport.lastChild.textContent = " " + data.btnExportImg;
       
@@ -490,12 +472,19 @@
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
       
-      document.querySelectorAll('.seo-article').forEach(article => {
-        if(article.getAttribute('data-lang') === lang) article.classList.add('active');
-        else article.classList.remove('active');
-      });
+      // 🌟 动态注入纯净的 SEO 长文内容，消灭多语言混杂代码
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
 
       document.getElementById('lang-select').value = lang;
+      
+      // 去除内链的 .html 后缀
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
@@ -527,7 +516,7 @@
         renderjson.set_show_to_level(expandLevel);
         targetEl.appendChild(renderjson(dataObj));
 
-        // 🛡️ BigInt Shield Restoration: Strip quotes and re-class elements back to numbers
+        // 🛡️ BigInt Shield Restoration
         const stringNodes = targetEl.querySelectorAll('.string');
         stringNodes.forEach(node => {
             if(node.innerText.includes(BIGINT_PREFIX)) {
@@ -596,25 +585,22 @@
        100% Client-Side. High-Resolution. BigInt Protected.
     ============================================================= */
     function exportJSONToImage() {
-      // Original UI validation: exit if no valid JSON parsed
       if (!parsedJsonObject) return;
 
       const btn = document.getElementById('btn-export-img');
       const originalText = btn.lastChild.textContent;
-      // UI Feedback: Loading state
+      
       btn.lastChild.textContent = " Processing...";
       btn.classList.add('opacity-50', 'pointer-events-none');
 
-      // 1. Create temporary hidden DOM structure for high-res capture
       const captureContainer = document.createElement('div');
       captureContainer.id = 'temp-capture-container';
       captureContainer.style.position = 'absolute';
-      captureContainer.style.left = '-9999px'; // Hide off-screen
+      captureContainer.style.left = '-9999px'; 
       captureContainer.style.top = '0';
-      captureContainer.style.width = 'auto'; // Width grows with content
+      captureContainer.style.width = 'auto'; 
       document.body.appendChild(captureContainer);
 
-      // 2. Build Beautiful Card Structure (Carbon-style)
       captureContainer.innerHTML = `
         <div class="capture-canvas relative">
             <div class="capture-mac-window">
@@ -632,51 +618,42 @@
         </div>
       `;
 
-      // 3. Render JSON to temporary DOM (must expand all levels for capture)
       const tempRender = document.getElementById('temp-json-render');
-      // Special render for image: Expand ALL nodes for complete view in picture
       renderToElement(tempRender, parsedJsonObject, "all");
 
-      // Reset original renderjson settings back to level 2 for web view
       renderjson.set_show_to_level(2);
 
-      // 4. Capture using html2canvas
       const captureDOM = captureContainer.querySelector('.capture-canvas');
 
       html2canvas(captureDOM, {
-        backgroundColor: null, // Transparent outer background for shadow compatibility
-        scale: 2, // High-Resolution (HiDPI/Retina)
-        useCORS: true, // Handle cross-origin fonts if Tailwind CDN uses them
-        logging: false, // Cleaner console
-        windowWidth: captureDOM.scrollWidth + 80, // Allow space for padding/shadow
+        backgroundColor: null, 
+        scale: 2, 
+        useCORS: true, 
+        logging: false, 
+        windowWidth: captureDOM.scrollWidth + 80, 
         windowHeight: captureDOM.scrollHeight + 80
       }).then(canvas => {
-        // 5. Convert canvas to PNG and trigger download
         const imgData = canvas.toDataURL("image/png");
         const link = document.createElement('a');
         link.href = imgData;
         link.download = 'mini-tools.uk_beautiful_json_' + new Date().toISOString().slice(0, 10) + '.png';
         link.click();
 
-        // 6. UI Feedback: Success state
         btn.lastChild.textContent = originalText;
         btn.classList.remove('opacity-50', 'pointer-events-none');
-        btn.classList.add('text-green-400'); // Temp green success
+        btn.classList.add('text-green-400'); 
         btn.classList.remove('text-red-400');
         setTimeout(() => {
             btn.classList.remove('text-green-400');
             btn.classList.add('text-red-400');
         }, 1500);
 
-        // Cleanup
         document.body.removeChild(captureContainer);
       }).catch(err => {
         console.error("Beautiful Card Export Failed:", err);
-        // Reset UI on error
         btn.lastChild.textContent = originalText;
         btn.classList.remove('opacity-50', 'pointer-events-none');
         alert("Sorry, could not generate image. Check browser console for details.");
-        // Cleanup
         if(document.getElementById('temp-capture-container')) {
             document.body.removeChild(captureContainer);
         }
