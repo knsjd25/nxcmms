@@ -7,13 +7,20 @@
   <title id="meta-title">UK VAT Calculator 2026 | Add or Remove Value Added Tax — Mini-Tools</title>
   <meta name="description" id="meta-desc" content="Free UK VAT Calculator updated for 2026. Easily add or remove VAT (20%, 5%, or custom rates). Accurate calculations based on HMRC standards. No registration required." />
   <meta name="keywords" content="UK VAT Calculator 2026, Remove VAT calculator, Add VAT online, HMRC VAT rates, VAT inclusive to exclusive, value added tax tool UK, invoice calculator" />
-  <link rel="canonical" href="https://mini-tools.uk/vat.html" />
   
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/vat.html?lang=en" />
-  <link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/vat.html?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/vat.html?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/vat.html?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/vat.html?lang=de" />
+  <link rel="canonical" href="https://mini-tools.uk/vat" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/vat?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/vat?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/vat?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/vat?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/vat?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/vat" />
+
+  <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -64,12 +71,8 @@
     .receipt-total .receipt-label { color: #0f172a; font-weight: 800; font-size: 1.25rem; text-transform: uppercase; }
     .receipt-total .receipt-value { color: #2563eb; font-weight: 900; font-size: 2rem; }
 
-    /* Multilingual SEO Article Switching */
-    .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
-    .seo-article.active { display: block; animation: fadeIn 0.5s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    
     /* SEO Content Typography */
+    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
     .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
     .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
     .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
@@ -183,203 +186,18 @@
       </div>
     </div>
 
-    <div class="prose-content">
-      
-      <article id="seo-en" class="seo-article" data-lang="en">
-        <h2>Understanding VAT in the UK (2026/27)</h2>
-        <p><strong>Value Added Tax (VAT)</strong> is the third-largest source of government revenue in the UK. It is a consumption tax placed on a product whenever value is added at each stage of the supply chain, from production to the point of sale. For businesses, managing invoices and ensuring the correct VAT amount is calculated is critical for compliance with HM Revenue and Customs (HMRC).</p>
-        <p>Our <strong>Advanced UK VAT Calculator</strong> is designed to completely eliminate the manual math involved in invoicing. Whether you need to reverse-engineer a Gross (VAT-inclusive) price to find the Net amount, or add standard VAT to a wholesale price, our tool provides an instant, copyable receipt.</p>
-        
-        <div class="overflow-x-auto my-8">
-          <table class="vat-table">
-            <thead>
-              <tr>
-                <th>VAT Rate Type</th>
-                <th>Current Rate</th>
-                <th>Typical Goods and Services</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Standard Rate</strong></td>
-                <td>20%</td>
-                <td>Most everyday goods and services, including electronics, consulting services, restaurant meals, and adult clothing.</td>
-              </tr>
-              <tr>
-                <td><strong>Reduced Rate</strong></td>
-                <td>5%</td>
-                <td>Children's car seats, domestic energy (gas/electricity), and certain mobility aids for older people.</td>
-              </tr>
-              <tr>
-                <td><strong>Zero Rate</strong></td>
-                <td>0%</td>
-                <td>Most food (excluding hot takeaways), children's clothing and shoes, books, newspapers, and public transport.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+    <div id="seo-container" class="prose-content">
+      </div>
 
-        <h3>When Do UK Businesses Need to Register for VAT?</h3>
-        <p>Not all businesses need to charge VAT. In the UK, a business must register for VAT with HMRC if its VAT-taxable turnover exceeds the <strong>VAT registration threshold</strong> (currently £90,000 for the 2026 tax year) in a rolling 12-month period. Alternatively, businesses can choose to register voluntarily, which can be beneficial if they wish to reclaim VAT on business expenses.</p>
-
-        <h2>Frequently Asked Questions (FAQ)</h2>
-        <div class="faq-box">
-          <h4>How do I manually calculate removing 20% VAT?</h4>
-          <p class="mb-0">Removing VAT is not as simple as subtracting 20% from the total. To find the original Net amount (before VAT), you must divide the Gross total by <strong>1.20</strong>. For example, if a product costs £120 including VAT: £120 / 1.20 = £100 (Net price). Our calculator automates this logic.</p>
-        </div>
-        <div class="faq-box">
-          <h4>Is my financial calculation data private?</h4>
-          <p class="mb-0">Yes. Like all tools on Mini-Tools.uk, this VAT calculator operates entirely on your local device using <strong>Client-Side Processing</strong>. We do not store, track, or record the financial figures you input.</p>
-        </div>
-      </article>
-
-      <article id="seo-zh" class="seo-article" data-lang="zh">
-        <h2>2026年英国增值税 (VAT) 深度指南</h2>
-        <p><strong>增值税 (Value Added Tax, VAT)</strong> 是英国第三大政府收入来源，它是一种在供应链各个阶段附加的消费税。对于英国的企业主、跨境电商或自由职业者来说，在开具发票或处理报销时，准确计算并区分出商品价格中的“净额 (Net)”与“税额 (VAT)”是符合 HMRC 规定的关键要求。</p>
-        <p>我们提供的<strong>在线增值税计算器</strong>旨在彻底免去手动算税的烦恼。无论您是需要通过“倒推法”将含税总价 (Gross) 拆分为净额，还是需要在商品出厂价上加收 20% 的标准税率，我们的工具都能在瞬间生成格式工整、可一键复制的发票明细账单。</p>
-        
-        <div class="overflow-x-auto my-8">
-          <table class="vat-table">
-            <thead>
-              <tr>
-                <th>增值税类型 (VAT Type)</th>
-                <th>税率</th>
-                <th>适用商品与服务示例</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>标准税率 (Standard Rate)</strong></td>
-                <td>20%</td>
-                <td>绝大部分日常商品及服务，包含电子产品、咨询服务费、餐厅餐饮以及成人服装等。</td>
-              </tr>
-              <tr>
-                <td><strong>减让税率 (Reduced Rate)</strong></td>
-                <td>5%</td>
-                <td>家庭能源（天然气、电力）、儿童安全座椅以及特定的老年人辅助器材。</td>
-              </tr>
-              <tr>
-                <td><strong>零税率 (Zero Rate)</strong></td>
-                <td>0%</td>
-                <td>大部分未加工食品、儿童服装鞋帽、实体书籍、报纸以及公共交通票务。</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3>英国企业何时必须注册 VAT？</h3>
-        <p>并非所有企业开具发票都需要加收增值税。在英国，如果企业的应税营业额在连续 12 个月内超过了 <strong>VAT 注册门槛</strong>（2026 财年该门槛为 £90,000），则法律强制要求该企业向 HMRC 注册 VAT。当然，即使未达门槛，企业也可以选择自愿注册，这通常有利于抵扣企业采购成本中的进项税。</p>
-
-        <h2>常见问题解答 (FAQ)</h2>
-        <div class="faq-box">
-          <h4>我应该如何手动扣除 20% 的 VAT？</h4>
-          <p class="mb-0">扣除 VAT 的数学逻辑并不是直接减去总价的 20%。要从含税总价 (Gross) 中倒推出原始的净额 (Net)，您需要将总价除以 <strong>1.20</strong>。例如：含税总价为 £120，那么净额 = £120 / 1.20 = £100。如果您觉得手动计算容易出错，直接点击上方的“计算不含税价 (Remove VAT)”按钮即可。</p>
-        </div>
-        <div class="faq-box">
-          <h4>我的发票金额数据安全吗？</h4>
-          <p class="mb-0">绝对安全。本网站坚持“纯前端计算”原则。当您输入财务金额并点击计算时，所有的数据处理都在您的浏览器内存中完成。我们绝不会将您的商业机密数据上传到任何服务器。</p>
-        </div>
-      </article>
-
-      <article id="seo-es" class="seo-article" data-lang="es">
-        <h2>Guía del IVA (VAT) en el Reino Unido 2026</h2>
-        <p>El <strong>Impuesto al Valor Agregado (VAT)</strong> es un impuesto al consumo crucial en el Reino Unido. Para empresas y profesionales independientes (freelancers), calcular el importe exacto del IVA para facturas o recibos es vital para cumplir con las normativas de HMRC.</p>
-        <p>Nuestra <strong>Calculadora de IVA del Reino Unido</strong> elimina las matemáticas manuales de la facturación. Ya sea que necesite extraer la porción de impuestos de un precio Bruto (Gross) o añadir la tasa estándar del 20% a un precio Neto (Net), nuestra herramienta genera un recibo instantáneo y copiable.</p>
-        
-        <div class="overflow-x-auto my-8">
-          <table class="vat-table">
-            <thead>
-              <tr><th>Tipo de Tasa VAT</th><th>Tasa</th><th>Bienes y Servicios Típicos</th></tr>
-            </thead>
-            <tbody>
-              <tr><td><strong>Tasa Estándar</strong></td><td>20%</td><td>Mayoría de bienes, electrónica, honorarios de consultoría.</td></tr>
-              <tr><td><strong>Tasa Reducida</strong></td><td>5%</td><td>Energía doméstica (gas/electricidad), asientos infantiles.</td></tr>
-              <tr><td><strong>Tasa Cero</strong></td><td>0%</td><td>Alimentos no procesados, ropa para niños, libros, transporte.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h2>Preguntas Frecuentes (FAQ)</h2>
-        <div class="faq-box">
-          <h4>¿Cómo calculo manualmente para quitar el 20% de IVA?</h4>
-          <p class="mb-0">Para encontrar el precio Neto original, no debe restar el 20%. En su lugar, debe dividir el importe Bruto por <strong>1.20</strong>. Por ejemplo, un total de £120 dividido entre 1.20 da £100 de importe neto. Nuestra calculadora automatiza este proceso.</p>
-        </div>
-        <div class="faq-box">
-          <h4>¿Están seguros mis datos financieros?</h4>
-          <p class="mb-0">Sí. Operamos con una arquitectura 100% Client-Side. Sus cifras no se guardan ni se transmiten por internet, asegurando la privacidad total de su contabilidad.</p>
-        </div>
-      </article>
-
-      <article id="seo-fr" class="seo-article" data-lang="fr">
-        <h2>Comprendre la TVA (VAT) au Royaume-Uni en 2026</h2>
-        <p>La <strong>Taxe sur la Valeur Ajoutée (VAT)</strong> est une taxe à la consommation essentielle au Royaume-Uni. Pour les entreprises et les indépendants, calculer la part exacte de TVA sur une facture est obligatoire pour être en règle avec le HMRC.</p>
-        <p>Notre <strong>Calculatrice de TVA UK</strong> simplifie la facturation. Que vous deviez extraire la TVA d'un prix TTC (Gross) ou ajouter les 20 % standards à un prix HT (Net), notre outil génère un reçu détaillé que vous pouvez copier en un clic.</p>
-        
-        <div class="overflow-x-auto my-8">
-          <table class="vat-table">
-            <thead>
-              <tr><th>Type de Taux VAT</th><th>Taux</th><th>Exemples Typiques</th></tr>
-            </thead>
-            <tbody>
-              <tr><td><strong>Taux Standard</strong></td><td>20%</td><td>Majorité des biens, électronique, prestations de services.</td></tr>
-              <tr><td><strong>Taux Réduit</strong></td><td>5%</td><td>Énergie domestique, sièges auto pour enfants.</td></tr>
-              <tr><td><strong>Taux Zéro</strong></td><td>0%</td><td>Aliments non transformés, vêtements pour enfants, livres.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h2>Foire Aux Questions (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Comment soustraire manuellement 20 % de TVA ?</h4>
-          <p class="mb-0">Pour retrouver le prix HT, vous ne devez pas soustraire 20 %. Vous devez diviser le montant TTC par <strong>1,20</strong>. Par exemple, 120 £ TTC / 1,20 = 100 £ HT. Cliquez simplement sur "Remove VAT" pour automatiser le calcul.</p>
-        </div>
-        <div class="faq-box">
-          <h4>Mes données comptables sont-elles privées ?</h4>
-          <p class="mb-0">Absolument. Nous n'utilisons aucun serveur pour stocker vos saisies. Tout est calculé dans la mémoire locale de votre navigateur.</p>
-        </div>
-      </article>
-
-      <article id="seo-de" class="seo-article" data-lang="de">
-        <h2>Verstehen der Mehrwertsteuer (VAT) in UK 2026</h2>
-        <p>Die <strong>Value Added Tax (VAT)</strong> ist die britische Mehrwertsteuer. Für Unternehmen und Freiberufler ist die korrekte Berechnung der VAT-Beträge auf Rechnungen entscheidend, um die HMRC-Vorschriften einzuhalten.</p>
-        <p>Unser <strong>UK VAT-Rechner</strong> macht die manuelle Mathematik überflüssig. Ob Sie die Steuer aus einem Bruttobetrag (Gross) herausrechnen oder 20% auf einen Nettobetrag aufschlagen möchten, unser Tool liefert sofort einen kopierbaren Beleg.</p>
-        
-        <div class="overflow-x-auto my-8">
-          <table class="vat-table">
-            <thead>
-              <tr><th>VAT-Satz Typ</th><th>Satz</th><th>Typische Waren & Dienstleistungen</th></tr>
-            </thead>
-            <tbody>
-              <tr><td><strong>Standardsatz</strong></td><td>20%</td><td>Die meisten Waren, Elektronik, Dienstleistungen.</td></tr>
-              <tr><td><strong>Ermäßigter Satz</strong></td><td>5%</td><td>Haushaltsenergie, Autokindersitze.</td></tr>
-              <tr><td><strong>Nullsatz</strong></td><td>0%</td><td>Die meisten Lebensmittel, Kinderkleidung, Bücher.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h2>Häufig Gestellte Fragen (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Wie ziehe ich manuell 20% VAT ab?</h4>
-          <p class="mb-0">Um den ursprünglichen Nettopreis zu ermitteln, dürfen Sie nicht einfach 20% abziehen. Sie müssen den Bruttobetrag durch <strong>1,20</strong> teilen. Beispiel: £120 Brutto / 1,20 = £100 Netto. Unser Rechner erledigt das automatisch für Sie.</p>
-        </div>
-        <div class="faq-box">
-          <h4>Sind meine Finanzdaten sicher?</h4>
-          <p class="mb-0">Ja. Wie alle unsere Tools arbeitet dieser Rechner vollständig lokal in Ihrem Browser (Client-Side Processing). Wir speichern keine Ihrer Eingaben.</p>
-        </div>
-      </article>
-
-    </div>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-10">
-    <div class="max-w-6xl mx-auto px-6">
+  <footer class="bg-white border-t border-slate-100 py-12 mt-10 w-full">
+    <div class="max-w-4xl mx-auto px-6">
       <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
-        </a>
-        <a href="/about.html" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+        <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
+        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
       <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
         © 2026 MINI-TOOLS.UK — Precision UK Financial Tools. Zero Tracking.
@@ -388,11 +206,11 @@
   </footer>
 
   <script>
-    // 1. I18N 翻译字典
+    // 🌟 核心优化 4：整合所有语言的 Meta 和富文本到字典中
     const i18n = {
       en: {
-        metaTitle: "UK VAT Calculator 2026 | Add or Remove Value Added Tax",
-        metaDesc: "Free UK VAT Calculator updated for 2026. Easily add or remove VAT (20%, 5%, or custom rates). Accurate calculations based on HMRC standards.",
+        metaTitle: "UK VAT Calculator 2026 | Add or Remove Value Added Tax — Mini-Tools",
+        metaDesc: "Free UK VAT Calculator updated for 2026. Easily add or remove VAT (20%, 5%, or custom rates). Accurate calculations based on HMRC standards. No registration required.",
         title: "UK VAT Calculator", 
         desc: "Quickly add or remove VAT (Value Added Tax) from any amount. Generates a copyable invoice receipt optimized for UK businesses.",
         labelAmount: "Amount (£)", labelRate: "VAT Rate",
@@ -400,7 +218,32 @@
         resTitleAdd: "VAT Added Receipt", resTitleRem: "VAT Removed Receipt",
         resTotal: "Gross Total", resNet: "Net Amount (Excl. VAT)", resVAT: "VAT Amount",
         btnCopy: "Copy Receipt as Text", btnCopied: "Receipt Copied!",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us"
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
+        seoHtml: `
+          <h2>Understanding VAT in the UK (2026/27)</h2>
+          <p><strong>Value Added Tax (VAT)</strong> is the third-largest source of government revenue in the UK. It is a consumption tax placed on a product whenever value is added at each stage of the supply chain, from production to the point of sale. For businesses, managing invoices and ensuring the correct VAT amount is calculated is critical for compliance with HM Revenue and Customs (HMRC).</p>
+          <p>Our <strong>Advanced UK VAT Calculator</strong> is designed to completely eliminate the manual math involved in invoicing. Whether you need to reverse-engineer a Gross (VAT-inclusive) price to find the Net amount, or add standard VAT to a wholesale price, our tool provides an instant, copyable receipt.</p>
+          <div class="overflow-x-auto my-8">
+            <table class="vat-table">
+              <thead><tr><th>VAT Rate Type</th><th>Current Rate</th><th>Typical Goods and Services</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Standard Rate</strong></td><td>20%</td><td>Most everyday goods and services, including electronics, consulting services, restaurant meals, and adult clothing.</td></tr>
+                <tr><td><strong>Reduced Rate</strong></td><td>5%</td><td>Children's car seats, domestic energy (gas/electricity), and certain mobility aids for older people.</td></tr>
+                <tr><td><strong>Zero Rate</strong></td><td>0%</td><td>Most food (excluding hot takeaways), children's clothing and shoes, books, newspapers, and public transport.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>When Do UK Businesses Need to Register for VAT?</h3>
+          <p>Not all businesses need to charge VAT. In the UK, a business must register for VAT with HMRC if its VAT-taxable turnover exceeds the <strong>VAT registration threshold</strong> (currently £90,000 for the 2026 tax year) in a rolling 12-month period.</p>
+          <h2>Frequently Asked Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>How do I manually calculate removing 20% VAT?</h4>
+            <p class="mb-0">Removing VAT is not as simple as subtracting 20% from the total. To find the original Net amount (before VAT), you must divide the Gross total by <strong>1.20</strong>. For example, if a product costs £120 including VAT: £120 / 1.20 = £100 (Net price). Our calculator automates this logic.</p>
+          </div>
+          <div class="faq-box">
+            <h4>Is my financial calculation data private?</h4>
+            <p class="mb-0">Yes. Like all tools on Mini-Tools.uk, this VAT calculator operates entirely on your local device using <strong>Client-Side Processing</strong>. We do not store, track, or record the financial figures you input.</p>
+          </div>`
       },
       zh: {
         metaTitle: "英国增值税计算器 2026 | 快速加税/退税计算 (VAT)",
@@ -412,7 +255,32 @@
         resTitleAdd: "含税计算明细单", resTitleRem: "扣税计算明细单",
         resTotal: "总额 (Gross)", resNet: "净额 (Net)", resVAT: "增值税额 (VAT)",
         btnCopy: "一键复制明细", btnCopied: "明细已复制！",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们"
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        seoHtml: `
+          <h2>2026年英国增值税 (VAT) 深度指南</h2>
+          <p><strong>增值税 (Value Added Tax, VAT)</strong> 是英国第三大政府收入来源。对于英国的企业主、跨境电商或自由职业者来说，在开具发票或处理报销时，准确计算并区分出商品价格中的“净额 (Net)”与“税额 (VAT)”是符合 HMRC 规定的关键要求。</p>
+          <p>我们提供的<strong>在线增值税计算器</strong>旨在彻底免去手动算税的烦恼。无论您是需要通过“倒推法”将含税总价 (Gross) 拆分为净额，还是需要在商品出厂价上加收 20% 的标准税率，我们的工具都能在瞬间生成格式工整、可一键复制的发票明细账单。</p>
+          <div class="overflow-x-auto my-8">
+            <table class="vat-table">
+              <thead><tr><th>增值税类型 (VAT Type)</th><th>税率</th><th>适用商品与服务示例</th></tr></thead>
+              <tbody>
+                <tr><td><strong>标准税率 (Standard Rate)</strong></td><td>20%</td><td>绝大部分日常商品及服务，包含电子产品、咨询服务费、餐饮等。</td></tr>
+                <tr><td><strong>减让税率 (Reduced Rate)</strong></td><td>5%</td><td>家庭能源（天然气、电力）、儿童安全座椅等。</td></tr>
+                <tr><td><strong>零税率 (Zero Rate)</strong></td><td>0%</td><td>未加工食品、儿童服装鞋帽、实体书籍、公共交通票务。</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>英国企业何时必须注册 VAT？</h3>
+          <p>如果企业的应税营业额在连续 12 个月内超过了 <strong>VAT 注册门槛</strong>（2026 财年该门槛为 £90,000），则法律强制要求该企业向 HMRC 注册 VAT。</p>
+          <h2>常见问题解答 (FAQ)</h2>
+          <div class="faq-box">
+            <h4>我应该如何手动扣除 20% 的 VAT？</h4>
+            <p class="mb-0">扣除 VAT 的数学逻辑并不是直接减去总价的 20%。要从含税总价中倒推出原始的净额，您需要将总价除以 <strong>1.20</strong>。例如：含税总价为 £120，那么净额 = £120 / 1.20 = £100。</p>
+          </div>
+          <div class="faq-box">
+            <h4>我的发票金额数据安全吗？</h4>
+            <p class="mb-0">绝对安全。本网站坚持“纯前端计算”原则。当您输入财务金额并点击计算时，所有的数据处理都在您的浏览器内存中完成。</p>
+          </div>`
       },
       es: {
         metaTitle: "Calculadora de IVA UK 2026 | Añadir o Quitar VAT",
@@ -424,7 +292,30 @@
         resTitleAdd: "Recibo (IVA Añadido)", resTitleRem: "Recibo (IVA Extraído)",
         resTotal: "Total Bruto", resNet: "Importe Neto", resVAT: "Importe IVA",
         btnCopy: "Copiar Recibo", btnCopied: "¡Copiado!",
-        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto"
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        seoHtml: `
+          <h2>Guía del IVA (VAT) en el Reino Unido 2026</h2>
+          <p>El <strong>Impuesto al Valor Agregado (VAT)</strong> es un impuesto al consumo crucial en el Reino Unido. Para empresas y profesionales independientes, calcular el importe exacto del IVA para facturas o recibos es vital para cumplir con las normativas de HMRC.</p>
+          <p>Nuestra <strong>Calculadora de IVA del Reino Unido</strong> elimina las matemáticas manuales de la facturación. Ya sea que necesite extraer la porción de impuestos de un precio Bruto o añadir la tasa estándar del 20%, nuestra herramienta genera un recibo instantáneo.</p>
+          <div class="overflow-x-auto my-8">
+            <table class="vat-table">
+              <thead><tr><th>Tipo de Tasa VAT</th><th>Tasa</th><th>Bienes y Servicios Típicos</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Tasa Estándar</strong></td><td>20%</td><td>Mayoría de bienes, electrónica, honorarios de consultoría.</td></tr>
+                <tr><td><strong>Tasa Reducida</strong></td><td>5%</td><td>Energía doméstica, asientos infantiles.</td></tr>
+                <tr><td><strong>Tasa Cero</strong></td><td>0%</td><td>Alimentos no procesados, ropa para niños, libros.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h2>Preguntas Frecuentes (FAQ)</h2>
+          <div class="faq-box">
+            <h4>¿Cómo calculo manualmente para quitar el 20% de IVA?</h4>
+            <p class="mb-0">Para encontrar el precio Neto original, no debe restar el 20%. En su lugar, debe dividir el importe Bruto por <strong>1.20</strong>. Nuestra calculadora automatiza este proceso.</p>
+          </div>
+          <div class="faq-box">
+            <h4>¿Están seguros mis datos financieros?</h4>
+            <p class="mb-0">Sí. Operamos con una arquitectura 100% Client-Side. Sus cifras no se guardan ni se transmiten por internet.</p>
+          </div>`
       },
       fr: {
         metaTitle: "Calculatrice TVA UK 2026 | Ajouter ou Enlever la VAT",
@@ -436,7 +327,30 @@
         resTitleAdd: "Reçu (TVA Ajoutée)", resTitleRem: "Reçu (TVA Retirée)",
         resTotal: "Total TTC (Gross)", resNet: "Montant HT (Net)", resVAT: "Montant TVA",
         btnCopy: "Copier le Reçu", btnCopied: "Copié !",
-        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact"
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        seoHtml: `
+          <h2>Comprendre la TVA (VAT) au Royaume-Uni en 2026</h2>
+          <p>La <strong>Taxe sur la Valeur Ajoutée (VAT)</strong> est une taxe à la consommation essentielle au Royaume-Uni. Pour les entreprises et les indépendants, calculer la part exacte de TVA sur une facture est obligatoire pour être en règle avec le HMRC.</p>
+          <p>Notre <strong>Calculatrice de TVA UK</strong> simplifie la facturation. Que vous deviez extraire la TVA d'un prix TTC ou ajouter les 20 % standards à un prix HT, notre outil génère un reçu détaillé que vous pouvez copier.</p>
+          <div class="overflow-x-auto my-8">
+            <table class="vat-table">
+              <thead><tr><th>Type de Taux VAT</th><th>Taux</th><th>Exemples Typiques</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Taux Standard</strong></td><td>20%</td><td>Majorité des biens, électronique, prestations de services.</td></tr>
+                <tr><td><strong>Taux Réduit</strong></td><td>5%</td><td>Énergie domestique, sièges auto pour enfants.</td></tr>
+                <tr><td><strong>Taux Zéro</strong></td><td>0%</td><td>Aliments non transformés, vêtements pour enfants, livres.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h2>Foire Aux Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Comment soustraire manuellement 20 % de TVA ?</h4>
+            <p class="mb-0">Pour retrouver le prix HT, vous ne devez pas soustraire 20 %. Vous devez diviser le montant TTC par <strong>1,20</strong>. Cliquez simplement sur "Remove VAT" pour automatiser le calcul.</p>
+          </div>
+          <div class="faq-box">
+            <h4>Mes données comptables sont-elles privées ?</h4>
+            <p class="mb-0">Absolument. Nous n'utilisons aucun serveur pour stocker vos saisies. Tout est calculé dans la mémoire locale de votre navigateur.</p>
+          </div>`
       },
       de: {
         metaTitle: "UK Mehrwertsteuer-Rechner 2026 | VAT Hinzufügen/Abziehen",
@@ -448,7 +362,30 @@
         resTitleAdd: "Beleg (VAT Hinzugefügt)", resTitleRem: "Beleg (VAT Abgezogen)",
         resTotal: "Bruttosumme", resNet: "Nettobetrag", resVAT: "VAT-Betrag",
         btnCopy: "Beleg Kopieren", btnCopied: "Kopiert!",
-        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt"
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        seoHtml: `
+          <h2>Verstehen der Mehrwertsteuer (VAT) in UK 2026</h2>
+          <p>Die <strong>Value Added Tax (VAT)</strong> ist die britische Mehrwertsteuer. Für Unternehmen und Freiberufler ist die korrekte Berechnung der VAT-Beträge auf Rechnungen entscheidend, um die HMRC-Vorschriften einzuhalten.</p>
+          <p>Unser <strong>UK VAT-Rechner</strong> macht die manuelle Mathematik überflüssig. Ob Sie die Steuer aus einem Bruttobetrag herausrechnen oder 20% auf einen Nettobetrag aufschlagen möchten, unser Tool liefert sofort einen kopierbaren Beleg.</p>
+          <div class="overflow-x-auto my-8">
+            <table class="vat-table">
+              <thead><tr><th>VAT-Satz Typ</th><th>Satz</th><th>Typische Waren & Dienstleistungen</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Standardsatz</strong></td><td>20%</td><td>Die meisten Waren, Elektronik, Dienstleistungen.</td></tr>
+                <tr><td><strong>Ermäßigter Satz</strong></td><td>5%</td><td>Haushaltsenergie, Autokindersitze.</td></tr>
+                <tr><td><strong>Nullsatz</strong></td><td>0%</td><td>Die meisten Lebensmittel, Kinderkleidung, Bücher.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h2>Häufig Gestellte Fragen (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Wie ziehe ich manuell 20% VAT ab?</h4>
+            <p class="mb-0">Um den ursprünglichen Nettopreis zu ermitteln, dürfen Sie nicht einfach 20% abziehen. Sie müssen den Bruttobetrag durch <strong>1,20</strong> teilen. Unser Rechner erledigt das automatisch für Sie.</p>
+          </div>
+          <div class="faq-box">
+            <h4>Sind meine Finanzdaten sicher?</h4>
+            <p class="mb-0">Ja. Wie alle unsere Tools arbeitet dieser Rechner vollständig lokal in Ihrem Browser. Wir speichern keine Ihrer Eingaben.</p>
+          </div>`
       }
     };
 
@@ -461,6 +398,8 @@
       const data = i18n[lang] || i18n['en'];
       
       document.documentElement.lang = lang;
+      
+      // 🌟 动态替换 Title 和 Meta Description
       document.title = data.metaTitle;
       document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
       
@@ -480,18 +419,19 @@
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
       
-      // Toggle SEO content visibility based on language
-      document.querySelectorAll('.seo-article').forEach(article => {
-        if(article.getAttribute('data-lang') === lang) {
-          article.classList.add('active');
-        } else {
-          article.classList.remove('active');
-        }
-      });
+      // 🌟 动态注入 SEO 长文，消灭混杂
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
 
       document.getElementById('lang-select').value = lang;
       
-      // Update all relative links to keep the lang parameter
+      // Update all relative links to keep the lang parameter (No .html)
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
@@ -526,7 +466,6 @@
         btnElement.className = 'rate-btn py-3 rounded-xl border-2 active-rate font-bold text-sm';
         document.getElementById('custom-rate').value = ''; // clear custom input
       } else {
-        // If typing in custom input, highlight the input box
         document.getElementById('custom-rate').classList.add('active-rate', 'border-2');
       }
       
@@ -574,14 +513,13 @@
       document.getElementById('val-vat').innerText = (mode === 'add' ? "+ £" : "£") + vat.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     }
 
-    // Copy Receipt Logic (Killer Feature)
+    // Copy Receipt Logic
     document.getElementById('btn-copy').addEventListener('click', () => {
       if(!lastResults.total) return;
       
       const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
       const dict = i18n[lang] || i18n['en'];
       
-      // Format as a neat text receipt
       const formatVal = (val) => "£" + val.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2});
       
       const receiptText = `--- VAT BREAKDOWN (${lastResults.rate}%) ---\n` +
@@ -602,9 +540,8 @@
       });
     });
 
-    // Listen for Enter key
     document.getElementById('amount-input').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') calculateVAT(currentMode); // Use last active mode
+      if (e.key === 'Enter') calculateVAT(currentMode); 
     });
 
     document.getElementById('lang-select').addEventListener('change', (e) => {
