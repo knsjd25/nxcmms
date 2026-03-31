@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   
-  <title>Mini-Tools — Free Online Utilities | UK PAYE, Currency & Developer Tools</title>
-  <meta name="description" content="Access free, privacy-first online tools. Features UK Salary (PAYE) calculator, real-time currency converter, JSON formatter, and local image color picker. No sign-up, 100% secure." />
-  <meta name="keywords" content="online tools, free utilities, UK tax calculator 2026, PAYE calculator, currency converter, image color picker, JSON formatter, private password generator, privacy-first tools, offline web apps" />
-  
-  <link rel="canonical" href="https://mini-tools.uk/" />
+  <title id="meta-title">Mini-Tools.uk | Free Secure Online Utilities & Developer Tools</title>
+  <meta name="description" id="meta-desc" content="A collection of fast, privacy-first online tools. Calculators, image compressors, password generators, and formatters working 100% locally in your browser." />
+  <meta name="keywords" content="free online tools, developer utilities, tax calculator, image compressor, pdf converter, mini tools uk, secure web tools" />
+  <meta name="robots" content="index, follow" />
 
+  <link rel="canonical" href="https://mini-tools.uk/" />
   <link rel="alternate" hreflang="en" href="https://mini-tools.uk/?lang=en" />
   <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/?lang=zh" />
   <link rel="alternate" hreflang="es" href="https://mini-tools.uk/?lang=es" />
@@ -22,12 +22,6 @@
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Mini-Tools — Premium Free Online Utilities" />
-  <meta property="og:description" content="Lightweight, privacy-focused online tools for daily tasks. Optimized for fast, secure processing." />
-  <meta property="og:url" content="https://mini-tools.uk/" />
-  <meta name="twitter:card" content="summary_large_image" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -43,9 +37,9 @@
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Mini-Tools",
+    "name": "Mini-Tools.uk",
     "url": "https://mini-tools.uk/",
-    "description": "A collection of free, privacy-focused online utilities including financial calculators and developer tools.",
+    "description": "A collection of fast, privacy-first online tools.",
     "potentialAction": {
       "@type": "SearchAction",
       "target": "https://mini-tools.uk/?q={search_term_string}",
@@ -54,120 +48,64 @@
   }
   </script>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [{
-      "@type": "Question",
-      "name": "Are these tools completely free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, absolutely. All utilities provided on Mini-Tools.uk are 100% free of charge. We do not require any user registration, subscriptions, or credit card information."
-      }
-    }, {
-      "@type": "Question",
-      "name": "How do you ensure my data privacy?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "We employ a strict 'Client-Side First' architecture. When you input a salary, upload an image, or convert currencies, the JavaScript code runs directly within your device's browser. Your sensitive data is never sent to our servers."
-      }
-    }, {
-      "@type": "Question",
-      "name": "How often are the tax rates and currency exchange rates updated?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Our UK Tax Calculator is manually audited and updated to reflect the latest official HMRC policies for the 2026 financial year. The Currency Converter fetches live market rates daily from secure open APIs."
-      }
-    }]
-  }
-  </script>
-
   <script async src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
   
   <style>
-    body { font-family: 'Plus Jakarta Sans', ui-sans-serif, sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
     
-    /* Advanced Hero Background */
-    .hero-bg { 
-      background-color: #ffffff;
-      background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
-      background-size: 24px 24px;
-      position: relative;
+    .tool-card { 
+      background: white; 
+      border: 1px solid #e2e8f0; 
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      position: relative; 
+      overflow: hidden; 
     }
-    .hero-glow { position: absolute; top: -20%; left: 50%; transform: translateX(-50%); width: 800px; height: 400px; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(255,255,255,0) 70%); pointer-events: none; }
-    
-    /* Tool Cards */
-    .tool-card { transition: all .3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #f1f5f9; cursor: pointer; position: relative; overflow: hidden; }
-    .tool-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -10px rgba(14, 165, 233, 0.15); border-color: #bae6fd; }
-    .tool-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #3b82f6, #0ea5e9); opacity: 0; transition: opacity 0.3s; }
+    .tool-card:hover { 
+      transform: translateY(-4px); 
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); 
+      border-color: #bfdbfe; 
+    }
+    .tool-card::before { 
+      content: ""; 
+      position: absolute; 
+      top: 0; left: 0; 
+      width: 4px; height: 100%; 
+      background: #3b82f6; 
+      opacity: 0; 
+      transition: opacity 0.3s; 
+    }
     .tool-card:hover::before { opacity: 1; }
+    
+    .icon-box { transition: transform 0.3s; }
+    .tool-card:hover .icon-box { transform: scale(1.1) rotate(5deg); }
 
-    /* HOT Tag Styling */
-    .hot-tag { background: linear-gradient(135deg,#ef4444,#f97316); color:#fff; padding:4px 10px; border-radius:999px; font-weight:800; font-size:10px; position:absolute; top:16px; right:16px; letter-spacing: 0.05em; box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.2); z-index: 10; text-transform: uppercase; }
-
-    /* Skeleton Loading Animation */
-    .skeleton { background: #e2e8f0; border-radius: 8px; overflow: hidden; position: relative; }
-    .skeleton::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); animation: shimmer 1.5s infinite; }
-    @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-
-    /* SEO Content Styling */
-    .content-section { margin-bottom: 5rem; }
-    .section-title { font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 1.5rem; line-height: 1.2; letter-spacing: -0.025em; }
-    .section-subtitle { font-size: 1.35rem; font-weight: 800; color: #1e293b; margin-top: 2.5rem; margin-bottom: 1rem; }
-    
-    .text-body { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
-    .text-body strong { color: #0f172a; font-weight: 800; }
-    
-    .feature-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 3rem; }
-    @media (min-width: 768px) { .feature-grid { grid-template-columns: repeat(3, 1fr); } }
-    
-    .feature-box { background: white; padding: 2.5rem 2rem; border-radius: 1.5rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); border: 1px solid #f1f5f9; transition: transform 0.3s; }
-    .feature-box:hover { transform: translateY(-5px); border-color: #bfdbfe; }
-    .feature-icon { width: 4rem; height: 4rem; background: #eff6ff; color: #2563eb; border-radius: 1rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; }
-    .feature-title { font-weight: 800; font-size: 1.25rem; color: #0f172a; margin-bottom: 1rem; }
-    
-    .faq-item { border-bottom: 1px solid #e2e8f0; padding: 2rem 0; }
-    .faq-item:last-child { border-bottom: none; }
-    .faq-q { font-weight: 800; color: #0f172a; font-size: 1.25rem; margin-bottom: 0.75rem; }
-    .faq-a { color: #475569; line-height: 1.8; font-size: 1.05rem; }
+    /* SEO Content Typography */
+    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
+    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
+    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
+    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
+    .prose-content strong { color: #0f172a; font-weight: 700; }
+    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
+    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
+    .faq-box h4 { font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; font-size: 1.1rem; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-    <div class="max-w-[1400px] mx-auto px-6 py-4 flex flex-wrap gap-4 justify-between items-center">
-      
-      <div class="flex items-center gap-6">
-        <div class="flex items-center gap-3">
-          <a href="/" class="transition-transform active:scale-90 shrink-0">
-            <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white border border-slate-100" />
-          </a>
-          <div class="flex flex-col -mt-1">
-            <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
-            <span class="text-[10px] text-emerald-600 font-black uppercase tracking-widest mt-1">100% Free & Secure</span>
-          </div>
-        </div>
-
-        <div class="hidden sm:flex items-center bg-slate-50 p-1 rounded-xl border border-slate-200 shadow-inner">
-          <a href="/" id="nav-tools" class="px-5 py-1.5 text-sm font-extrabold text-blue-600 bg-white rounded-lg shadow-sm border border-slate-100">
-            Tools
-          </a>
-          <a href="/blog" id="nav-blog" target="_blank" class="px-5 py-1.5 text-sm font-bold text-slate-500 rounded-lg hover:text-slate-900 transition-colors">
-            Blog
-          </a>
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" class="transition-transform active:scale-90 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
+        </a>
+        <div class="flex flex-col -mt-1 hidden sm:flex">
+          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
         </div>
       </div>
-      
-      <div class="hidden lg:flex items-center gap-8 text-sm font-bold text-slate-500">
-        <a href="/about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact" class="hover:text-blue-600 transition-colors">Contact</a>
-      </div>
-
       <div class="flex items-center gap-4">
-        <select id="lang-select" class="bg-slate-50 px-4 py-2 rounded-xl text-sm font-bold text-slate-700 outline-none cursor-pointer border border-slate-200 hover:bg-slate-100 transition-colors focus:ring-2 focus:ring-blue-500 shadow-sm">
+        <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500">
           <option value="en">🇬🇧 English</option>
           <option value="zh">🇨🇳 简体中文</option>
           <option value="es">🇪🇸 Español</option>
@@ -178,382 +116,329 @@
     </div>
   </nav>
 
-  <header class="hero-bg border-b border-slate-100">
-    <div class="hero-glow"></div>
-    <div class="max-w-[1400px] mx-auto pt-24 pb-20 px-6 text-center flex flex-col items-center justify-center relative z-10">
-      
-      <div id="hero-tag-skeleton" class="skeleton w-48 h-8 rounded-full mb-8"></div>
-      <div class="hidden px-5 py-2 bg-blue-50 text-blue-600 rounded-full text-xs font-black mb-8 uppercase tracking-widest border border-blue-100 shadow-sm" id="hero-tag"></div>
-      
-      <div id="hero-title-skeleton" class="flex flex-col items-center gap-3 mb-6 w-full max-w-4xl">
-         <div class="skeleton w-3/4 h-16 md:h-20 rounded-2xl"></div>
-         <div class="skeleton w-2/3 h-16 md:h-20 rounded-2xl"></div>
-      </div>
-      <h1 id="hero-title" class="hidden text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-6 leading-tight tracking-tight max-w-4xl drop-shadow-sm"></h1>
-      
-      <div id="hero-sub-skeleton" class="skeleton w-1/2 h-6 mb-12 rounded-lg"></div>
-      <p id="hero-sub" class="hidden text-xl text-slate-500 mb-12 max-w-2xl leading-relaxed font-medium"></p>
-      
-      <div id="hero-btn-skeleton" class="skeleton w-40 h-14 rounded-2xl"></div>
-      <a href="#tools-grid" id="hero-btn" class="hidden bg-blue-600 text-white px-10 py-4 rounded-2xl font-black text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-1 tracking-wide"></a>
-    </div>
-  </header>
-
-  <main class="max-w-[1400px] mx-auto px-6 py-16 flex-1 w-full relative z-20">
+  <main class="max-w-[1400px] mx-auto px-6 py-12 flex-1 w-full">
     
-    <section class="mb-20">
-      <div class="flex items-center justify-center md:justify-start mb-12">
-        <h2 class="text-3xl font-extrabold text-slate-900 flex items-center gap-3">
-          <span class="w-2.5 h-8 bg-blue-600 rounded-full shadow-sm shadow-blue-500/50"></span>
-          <span id="grid-title">Loading Tools...</span>
-        </h2>
-      </div>
-      
-      <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
-          </div>
-    </section>
+    <header class="mb-16 text-center">
+      <h1 id="hero-title" class="text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+        Precision Web Utilities
+      </h1>
+      <p id="hero-desc" class="text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed">
+        A curated collection of fast, ad-free, and privacy-first online tools. 
+        Most run entirely locally in your browser to keep your data secure.
+      </p>
+    </header>
 
-    <div id="seo-container" class="mt-20 pt-16 border-t-2 border-slate-200 transition-opacity duration-300">
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-20">
+      
+      <a href="/tax" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">💷</div>
+        <h3 id="t_tax" class="text-lg font-extrabold text-slate-900 mb-2">UK Tax Calculator</h3>
+        <p id="d_tax" class="text-sm text-slate-500 font-medium">Calculate Take-Home Pay, National Insurance, and Pension.</p>
+      </a>
+
+      <a href="/vat" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">🛒</div>
+        <h3 id="t_vat" class="text-lg font-extrabold text-slate-900 mb-2">UK VAT Calculator</h3>
+        <p id="d_vat" class="text-sm text-slate-500 font-medium">Add or remove 20% standard VAT instantly.</p>
+      </a>
+
+      <a href="/mortgage" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">🏠</div>
+        <h3 id="t_mor" class="text-lg font-extrabold text-slate-900 mb-2">Mortgage Calculator</h3>
+        <p id="d_mor" class="text-sm text-slate-500 font-medium">Estimate monthly repayments and Loan-to-Value limits.</p>
+      </a>
+
+      <a href="/currency" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-yellow-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">💱</div>
+        <h3 id="t_cur" class="text-lg font-extrabold text-slate-900 mb-2">Currency Converter</h3>
+        <p id="d_cur" class="text-sm text-slate-500 font-medium">Real-time live exchange rates across the globe.</p>
+      </a>
+
+      <a href="/json" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">💻</div>
+        <h3 id="t_jsn" class="text-lg font-extrabold text-slate-900 mb-2">JSON Formatter</h3>
+        <p id="d_jsn" class="text-sm text-slate-500 font-medium">Beautify, parse, and validate JSON with tree views.</p>
+      </a>
+
+      <a href="/diff" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">⚖️</div>
+        <h3 id="t_dif" class="text-lg font-extrabold text-slate-900 mb-2">Text Diff Checker</h3>
+        <p id="d_dif" class="text-sm text-slate-500 font-medium">Find differences between texts or code side-by-side.</p>
+      </a>
+
+      <a href="/color" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-pink-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">🎨</div>
+        <h3 id="t_col" class="text-lg font-extrabold text-slate-900 mb-2">Color Picker</h3>
+        <p id="d_col" class="text-sm text-slate-500 font-medium">Extract HEX/RGB palettes directly from your images.</p>
+      </a>
+
+      <a href="/pass" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">🔐</div>
+        <h3 id="t_pas" class="text-lg font-extrabold text-slate-900 mb-2">Password Generator</h3>
+        <p id="d_pas" class="text-sm text-slate-500 font-medium">Cryptographically secure offline password creator.</p>
+      </a>
+
+      <a href="/image" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">🖼️</div>
+        <h3 id="t_img" class="text-lg font-extrabold text-slate-900 mb-2">Image Compressor</h3>
+        <p id="d_img" class="text-sm text-slate-500 font-medium">Resize, crop, and convert to WebP/JPG offline.</p>
+      </a>
+
+      <a href="/pdf2img" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">📄</div>
+        <h3 id="t_pdf" class="text-lg font-extrabold text-slate-900 mb-2">PDF to Image</h3>
+        <p id="d_pdf" class="text-sm text-slate-500 font-medium">High-res offline rendering without server uploads.</p>
+      </a>
+
+      <a href="/upload" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">🔥</div>
+        <h3 id="t_up" class="text-lg font-extrabold text-slate-900 mb-2">Secure Image Host</h3>
+        <p id="d_up" class="text-sm text-slate-500 font-medium">Auto-destructing temporary image hosting.</p>
+      </a>
+
+      <a href="/qr" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">📱</div>
+        <h3 id="t_qr" class="text-lg font-extrabold text-slate-900 mb-2">QR Generator</h3>
+        <p id="d_qr" class="text-sm text-slate-500 font-medium">Create Wi-Fi, URL, and vCard QR codes instantly.</p>
+      </a>
+
+      <a href="/unit" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">📏</div>
+        <h3 id="t_uni" class="text-lg font-extrabold text-slate-900 mb-2">Unit Converter</h3>
+        <p id="d_uni" class="text-sm text-slate-500 font-medium">Metric to Imperial precision physics engine.</p>
+      </a>
+
+      <a href="/word" class="tool-card block p-6 rounded-2xl">
+        <div class="icon-box w-14 h-14 bg-cyan-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">📝</div>
+        <h3 id="t_wrd" class="text-lg font-extrabold text-slate-900 mb-2">Word Counter</h3>
+        <p id="d_wrd" class="text-sm text-slate-500 font-medium">Real-time character counts and reading time stats.</p>
+      </a>
+
+      <a href="/prompt" class="tool-card block p-6 rounded-2xl border-purple-200 bg-purple-50/30">
+        <div class="icon-box w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">✨</div>
+        <h3 id="t_prm" class="text-lg font-extrabold text-purple-900 mb-2">AI Prompt Helper</h3>
+        <p id="d_prm" class="text-sm text-purple-700/70 font-medium">Engineering framework for ChatGPT and Claude.</p>
+      </a>
+
+    </div>
+
+    <div id="seo-container" class="prose-content max-w-4xl mx-auto w-full">
+      </div>
 
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-16 w-full">
-    <div class="max-w-[1400px] mx-auto px-6">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12 text-center md:text-left">
-        <div>
-          <h4 class="font-extrabold text-slate-900 text-xl mb-4">Mini-Tools.uk</h4>
-          <p class="text-slate-500 text-sm leading-relaxed font-medium pr-0 md:pr-10">Providing high-performance, privacy-first web utilities for professionals worldwide. Zero server uploads. 100% free forever.</p>
-        </div>
-        <div>
-          <h4 class="font-extrabold text-slate-900 text-lg mb-4">Legal & Trust</h4>
-          <div class="flex flex-col gap-3 text-sm font-bold text-slate-500">
-            <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors w-fit mx-auto md:mx-0">Privacy Policy</a>
-            <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors w-fit mx-auto md:mx-0">About Us</a>
-          </div>
-        </div>
-        <div>
-          <h4 class="font-extrabold text-slate-900 text-lg mb-4">Support</h4>
-          <div class="flex flex-col gap-3 text-sm font-bold text-slate-500">
-            <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors w-fit mx-auto md:mx-0">Contact Us</a>
-            <a href="mailto:admin@mini-tools.uk" class="hover:text-blue-600 transition-colors w-fit mx-auto md:mx-0">admin@mini-tools.uk</a>
-          </div>
-        </div>
+  <footer class="bg-white border-t border-slate-100 py-12 mt-10 w-full">
+    <div class="max-w-[1400px] mx-auto px-6 text-center">
+      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
+        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
+        </a>
+        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
-      
-      <div class="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-xs text-slate-400 font-extrabold tracking-widest uppercase">
-          © 2026 MINI-TOOLS.UK. ALL RIGHTS RESERVED.
-        </p>
-        <div class="flex items-center gap-3 bg-blue-50 border border-blue-100 px-4 py-2 rounded-full">
-          <p class="text-xs text-blue-500 font-bold italic tracking-wide m-0">
-            Proudly built for speed and privacy.
-          </p>
-          <span class="w-1 h-1 bg-blue-300 rounded-full"></span>
-          <p id="last-updated" class="text-[11px] text-slate-500 font-black m-0 uppercase tracking-widest">System Active</p>
-        </div>
-      </div>
+      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
+        © 2026 MINI-TOOLS.UK — SECURE CLIENT-SIDE WEB UTILITIES
+      </p>
     </div>
   </footer>
 
   <script>
-    document.getElementById('last-updated').innerText = "Last Updated: " + new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+    // 🌟 核心优化 4：全局多语言字典，彻底接管 Meta、Title 和卡片文本
+    const i18n = {
+      en: {
+        metaTitle: "Mini-Tools.uk | Free Secure Online Utilities & Developer Tools",
+        metaDesc: "A collection of fast, privacy-first online tools. Calculators, image compressors, password generators, and formatters working 100% locally in your browser.",
+        metaKeywords: "free online tools, developer utilities, tax calculator, image compressor, pdf converter, mini tools uk, secure web tools",
+        heroTitle: "Precision Web Utilities",
+        heroDesc: "Fast, ad-free, and privacy-first online tools. Most run entirely in your browser to keep your data secure.",
+        
+        t_tax: "UK Tax Calculator", d_tax: "Calculate Take-Home Pay, National Insurance, and Pension.",
+        t_vat: "UK VAT Calculator", d_vat: "Add or remove 20% standard VAT instantly.",
+        t_mor: "Mortgage Calculator", d_mor: "Estimate monthly repayments and Loan-to-Value limits.",
+        t_cur: "Currency Converter", d_cur: "Real-time live exchange rates across the globe.",
+        t_jsn: "JSON Formatter", d_jsn: "Beautify, parse, and validate JSON with tree views.",
+        t_dif: "Text Diff Checker", d_dif: "Find differences between texts or code side-by-side.",
+        t_col: "Color Picker", d_col: "Extract HEX/RGB palettes directly from your images.",
+        t_pas: "Password Generator", d_pas: "Cryptographically secure offline password creator.",
+        t_img: "Image Compressor", d_img: "Resize, crop, and convert to WebP/JPG offline.",
+        t_pdf: "PDF to Image", d_pdf: "High-res offline rendering without server uploads.",
+        t_up: "Secure Image Host", d_up: "Auto-destructing temporary image hosting.",
+        t_qr: "QR Generator", d_qr: "Create Wi-Fi, URL, and vCard QR codes instantly.",
+        t_uni: "Unit Converter", d_uni: "Metric to Imperial precision physics engine.",
+        t_wrd: "Word Counter", d_wrd: "Real-time character counts and reading time stats.",
+        t_prm: "AI Prompt Helper", d_prm: "Engineering framework for ChatGPT and Claude.",
+        
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
+        seoHtml: `
+          <h2>Why choose Mini-Tools.uk?</h2>
+          <p>The web is cluttered with slow, ad-heavy websites that ask you to upload your sensitive files to unknown servers. At <strong>Mini-Tools.uk</strong>, we take a fundamentally different approach. We are building a comprehensive suite of <strong>Zero-Trust Web Utilities</strong>.</p>
+          <h3>100% Client-Side Processing</h3>
+          <p>Whenever possible, our tools are engineered using advanced JavaScript APIs (like HTML5 Canvas, Web Crypto, and Web Workers) to process your data <strong>locally within your own browser</strong>. Whether you are formatting confidential JSON payloads, compressing a passport scan, or comparing proprietary code, your data never leaves your device.</p>
+          <h3>Clean, Fast, and Free</h3>
+          <p>We hate intrusive pop-ups and hidden paywalls as much as you do. All utilities on this platform are completely free to use with no artificial limits on file sizes or processing power.</p>`
+      },
+      zh: {
+        metaTitle: "Mini-Tools | 免费在线工具合集，纯前端处理保护隐私",
+        metaDesc: "极速、无广告的在线工具箱。包含英国个税计算器、图片压缩、JSON格式化、密码生成等，大部分工具纯前端运行，绝不上传您的隐私数据。",
+        metaKeywords: "免费在线工具, 开发者工具, 英国个税计算器, 图片压缩, PDF转图片, 随机密码生成, 安全图床, Mini-Tools, 纯本地工具",
+        heroTitle: "极简・极速・极致隐私",
+        heroDesc: "专为现代互联网打造的安全在线工具箱。纯前端架构，数据不上传服务器，彻底保护您的商业机密与隐私。",
+        
+        t_tax: "英国个税计算器", d_tax: "精准计算 2026/27 财年税后净收入与养老金。",
+        t_vat: "增值税 (VAT) 计算", d_vat: "一键计算 20% 标准增值税含税/不含税价格。",
+        t_mor: "英国房贷计算器", d_mor: "估算每月还款额、首付比例与印花税。",
+        t_cur: "实时汇率转换", d_cur: "获取全球主流货币的实时外汇中间价。",
+        t_jsn: "JSON 格式化", d_jsn: "代码美化、高亮解析与本地结构树预览。",
+        t_dif: "文本/代码差异比对", d_dif: "左右双屏同步比对，精准找出修改痕迹。",
+        t_col: "图片拾色器", d_col: "纯本地上传图片，提取任意像素 HEX/RGB 色值。",
+        t_pas: "安全密码生成", d_pas: "调用浏览器底层加密 API，生成防破解密码。",
+        t_img: "图片压缩与裁剪", d_img: "调整尺寸比例，无损转码 WebP，极速瘦身。",
+        t_pdf: "PDF 转图片", d_pdf: "纯本地 2 倍超清渲染提取，保护文件隐私。",
+        t_up: "安全阅后即焚图床", d_up: "限时销毁的临时图片托管，支持加密存储。",
+        t_qr: "二维码生成器", d_qr: "免费制作高清 Wi-Fi、网址或电子名片二维码。",
+        t_uni: "万能单位换算", d_uni: "公制英制无缝切换，独家智能同类速查面板。",
+        t_wrd: "字数与排版统计", d_wrd: "实时统计中英文字符、估算阅读与演讲时长。",
+        t_prm: "AI 提示词助手", d_prm: "为 ChatGPT 和 Claude 编写高质量 Prompt。",
 
-    // 导航栏字典
-    const navDict = {
-        'en': { tools: "Tools", blog: "Blog" },
-        'zh': { tools: "工具", blog: "博客" },
-        'es': { tools: "Herramientas", blog: "Blog" },
-        'fr': { tools: "Outils", blog: "Blog" },
-        'de': { tools: "Tools", blog: "Blog" }
-    };
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        seoHtml: `
+          <h2>为什么您应该首选纯本地处理工具？</h2>
+          <p>互联网上充斥着无数粗制滥造的在线工具网站，它们通常夹杂着牛皮癣广告，最危险的是，它们往往需要您将文件上传到云端服务器。这意味着您机密的财务报表、未开源的代码或是身份证照片，都可能被保存在第三方的硬盘里。在 <strong>Mini-Tools.uk</strong>，我们彻底颠覆了这种模式。</p>
+          <h3>“零信任”的前端架构</h3>
+          <p>我们采用现代浏览器的高级 API（如 HTML5 Canvas、Web Crypto 等），将 90% 的工具打造成了<strong>纯前端（Client-Side）</strong>应用。无论您是在压缩一张绝密图纸，还是在比对核心代码，所有的计算和内存读写都在您自己的电脑上瞬间完成。<strong>拔掉网线，它们依然可以工作。</strong>这从物理层面上杜绝了数据泄露的可能。</p>
+          <h3>无任何隐藏限制</h3>
+          <p>我们没有恶心的“VIP 文件大小限制”，也不会在您处理完文件后要求您关注公众号获取下载密码。这是一个由极客打造，服务于专业人群的干净平台。</p>`
+      },
+      es: {
+        metaTitle: "Mini-Tools | Herramientas en Línea Gratis y Seguras",
+        metaDesc: "Una colección de herramientas online rápidas y privadas. Calculadoras, compresores de imágenes, y utilidades para desarrolladores 100% locales.",
+        metaKeywords: "herramientas en línea gratis, utilidades para desarrolladores, calculadora de impuestos, compresor de imágenes, convertidor pdf, mini herramientas",
+        heroTitle: "Utilidades Web de Precisión",
+        heroDesc: "Herramientas web rápidas, sin anuncios y orientadas a la privacidad. La mayoría se ejecutan 100% localmente en su navegador.",
+        
+        t_tax: "Calculadora de Impuestos", d_tax: "Calcule su salario neto, seguro nacional y pensión (UK).",
+        t_vat: "Calculadora de IVA", d_vat: "Agregue o elimine el IVA del 20% al instante.",
+        t_mor: "Calculadora de Hipotecas", d_mor: "Estime pagos mensuales y límites de préstamo.",
+        t_cur: "Conversor de Moneda", d_cur: "Tipos de cambio en tiempo real.",
+        t_jsn: "Formateador JSON", d_jsn: "Embellezca y valide JSON con vista de árbol.",
+        t_dif: "Comparador de Textos", d_dif: "Encuentre diferencias entre códigos o textos.",
+        t_col: "Selector de Color", d_col: "Extraiga HEX/RGB directamente de sus imágenes.",
+        t_pas: "Generador de Contraseñas", d_pas: "Cree contraseñas seguras criptográficamente.",
+        t_img: "Compresor de Imágenes", d_img: "Redimensione y comprima JPG/PNG/WebP offline.",
+        t_pdf: "PDF a Imagen", d_pdf: "Renderizado de alta resolución offline.",
+        t_up: "Hosting de Imágenes", d_up: "Alojamiento temporal con autodestrucción.",
+        t_qr: "Generador QR", d_qr: "Cree códigos QR de URL, Wi-Fi y vCard.",
+        t_uni: "Conversor de Unidades", d_uni: "Métrico a Imperial con panel inteligente.",
+        t_wrd: "Contador de Palabras", d_wrd: "Estadísticas de texto y tiempo de lectura.",
+        t_prm: "Asistente AI Prompt", d_prm: "Ayudante de ingeniería para ChatGPT y Claude.",
 
-    // 🌟 SEO 元数据字典：根据语言瞬间替换 Title 和 Description
-    const seoMeta = {
-        en: { title: "Mini-Tools — Free Online Utilities | UK PAYE, Currency & Developer Tools", desc: "Access free, privacy-first online tools. Features UK Salary (PAYE) calculator, real-time currency converter, JSON formatter, and local image color picker. No sign-up, 100% secure." },
-        zh: { title: "Mini-Tools — 免费的高级在线工具箱 | 纯本地计算更安全", desc: "解锁超过20个轻量级在线工具。包含英国个税计算器、免费安全图床、实时汇率转换与 JSON 格式化。无需注册，隐私第一。" },
-        es: { title: "Mini-Tools — Utilidades en línea gratuitas y seguras", desc: "Acceda a herramientas en línea gratuitas y privadas. Calculadora de impuestos, conversor de divisas, alojamiento de imágenes seguro. 100% seguro." },
-        fr: { title: "Mini-Tools — Outils en ligne gratuits et privés", desc: "Outils en ligne gratuits axés sur la confidentialité. Calculatrice d'impôts, convertisseur de devises, hébergement d'images sécurisé." },
-        de: { title: "Mini-Tools — Kostenlose & sichere Online-Tools", desc: "Kostenlose, datenschutzorientierte Online-Tools. Gehaltsrechner, Währungsrechner, sicheres Bildhosting. Keine Anmeldung erforderlich." }
-    };
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        seoHtml: `
+          <h2>El Enfoque Client-Side (Cero Confianza)</h2>
+          <p>En <strong>Mini-Tools.uk</strong>, la mayoría de nuestras herramientas funcionan completamente en su navegador. Esto significa que si está comprimiendo una imagen confidencial o formateando JSON privado, sus datos nunca tocan nuestros servidores.</p>`
+      },
+      fr: {
+        metaTitle: "Mini-Tools | Outils en Ligne Gratuits et Sécurisés",
+        metaDesc: "Une collection d'outils en ligne rapides. Calculatrices, compresseurs d'images et générateurs fonctionnant à 100 % localement.",
+        metaKeywords: "outils en ligne gratuits, utilitaires développeur, calculateur d'impôts, compresseur d'images, convertisseur pdf, mini outils",
+        heroTitle: "Utilitaires Web de Précision",
+        heroDesc: "Des outils en ligne rapides, sans pub et respectueux de la vie privée. S'exécutent entièrement dans votre navigateur.",
+        
+        t_tax: "Calculateur d'Impôts", d_tax: "Calculez votre salaire net et retraite (UK).",
+        t_vat: "Calculateur de TVA", d_vat: "Ajoutez ou retirez 20% de TVA instantanément.",
+        t_mor: "Calculateur de Prêt", d_mor: "Estimez les mensualités de votre prêt immobilier.",
+        t_cur: "Convertisseur de Devises", d_cur: "Taux de change en direct.",
+        t_jsn: "Formateur JSON", d_jsn: "Embellissez et validez vos données JSON.",
+        t_dif: "Comparateur de Texte", d_dif: "Trouvez les différences entre deux textes.",
+        t_col: "Sélecteur de Couleur", d_col: "Extrayez les couleurs HEX/RGB de vos images.",
+        t_pas: "Générateur de Mots de Passe", d_pas: "Création de mots de passe hors ligne ultra-sécurisés.",
+        t_img: "Compresseur d'Image", d_img: "Redimensionnez et compressez hors ligne.",
+        t_pdf: "PDF en Image", d_pdf: "Rendu PNG haute résolution sans serveur.",
+        t_up: "Hébergement d'Images", d_up: "Hébergement temporaire avec auto-destruction.",
+        t_qr: "Générateur QR", d_qr: "Créez des codes QR (Wi-Fi, URL, vCard).",
+        t_uni: "Convertisseur d'Unités", d_uni: "Métrique vers Impérial avec tableau de bord.",
+        t_wrd: "Compteur de Mots", d_wrd: "Statistiques en direct et temps de lecture.",
+        t_prm: "Assistant AI Prompt", d_prm: "Framework d'ingénierie pour ChatGPT.",
 
-    // 🌟 SEO 长文字典：按需注入，杜绝多语言文本大杂烩
-    const seoContent = {
-        en: `
-          <section class="content-section">
-            <h2 class="section-title">The Ultimate Privacy-First Online Utility Platform for 2026</h2>
-            <p class="text-body">Welcome to <strong>Mini-Tools.uk</strong>, the premier destination for professionals, frontend developers, and everyday users seeking fast, reliable, and secure online utilities. From complex UK tax calculations and global currency conversions to precise JSON formatting and image cryptography, we deliver expert-level results without ever compromising your privacy.</p>
-            <p class="text-body">Unlike traditional cloud-based web services, we utilize cutting-edge <strong>Client-Side Processing technology</strong>. Every single algorithmic calculation and rendering process happens directly within your local browser's memory (RAM). Your proprietary data never travels across the internet.</p>
-          </section>
-          <section class="content-section">
-            <h2 class="section-title">Why Industry Professionals Choose Mini-Tools</h2>
-            <div class="feature-grid">
-              <div class="feature-box">
-                <div class="feature-icon"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg></div>
-                <h3 class="feature-title">Zero-Trust Privacy</h3>
-                <p class="text-body text-sm mb-0">We operate on a zero-upload policy. We do not store, track, or transmit your inputs. Your confidential contracts, financial figures, and personal images remain entirely on your own device.</p>
-              </div>
-              <div class="feature-box">
-                <div class="feature-icon"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
-                <h3 class="feature-title">Lightning Fast Speeds</h3>
-                <p class="text-body text-sm mb-0">By completely eliminating the latency of backend server requests, our web utilities respond instantly to your inputs.</p>
-              </div>
-              <div class="feature-box">
-                <div class="feature-icon"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
-                <h3 class="feature-title">Offline Capabilities</h3>
-                <p class="text-body text-sm mb-0">Tools like our Global Currency Converter intelligently cache data locally. Once loaded, you can disconnect from the internet and continue calculating.</p>
-              </div>
-            </div>
-          </section>
-          <section class="content-section">
-            <h2 class="section-title">Frequently Asked Questions (FAQ)</h2>
-            <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
-              <div class="faq-item"><h4 class="faq-q">Are these tools genuinely free to use?</h4><p class="faq-a">Yes, absolutely. Every single utility provided on Mini-Tools.uk is 100% free of charge for both personal and commercial use. No registration required.</p></div>
-              <div class="faq-item"><h4 class="faq-q">How exactly do you ensure my data privacy?</h4><p class="faq-a">We employ a strict "Client-Side Processing" methodology. Because we do not rely on backend processing, your sensitive data is physically incapable of being sent to our servers.</p></div>
-            </div>
-          </section>
-        `,
-        zh: `
-          <section class="content-section">
-            <h2 class="section-title">终极隐私优先的在线极客工具平台</h2>
-            <p class="text-body">欢迎访问 <strong>Mini-Tools.uk</strong>。在当今数字化环境中，工作效率与数据安全同等重要。无论是计算 2026 年的英国个人所得税，还是解析嵌套 JSON 代码，我们都能在不妥协您隐私的前提下，交付专家级的结果。</p>
-            <p class="text-body">与传统要求上传文件的危险云服务不同，Mini-Tools 全面拥抱 <strong>纯前端本地计算技术 (Client-Side Processing)</strong>。每一次计算和渲染都直接在您的浏览器内存中完成，物理上切断了数据外泄的路径。</p>
-          </section>
-          <section class="content-section">
-            <h2 class="section-title">为什么专业人士首选 Mini-Tools？</h2>
-            <div class="feature-grid">
-              <div class="feature-box">
-                <div class="feature-icon"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg></div>
-                <h3 class="feature-title">100% 数据隐私护城河</h3>
-                <p class="text-body text-sm mb-0">我们贯彻“零信任”原则。零服务器上传，绝不存储、追踪或向第三方传输您的输入信息。您的账单和代码永远只留在自己的设备上。</p>
-              </div>
-              <div class="feature-box">
-                <div class="feature-icon"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
-                <h3 class="feature-title">无感级的极速响应</h3>
-                <p class="text-body text-sm mb-0">彻底消除冗长的服务器网络请求，我们的工具能对您的按键操作做出毫秒级的响应，提供媲美原生桌面软件的丝滑体验。</p>
-              </div>
-              <div class="feature-box">
-                <div class="feature-icon"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
-                <h3 class="feature-title">断网离线继续使用</h3>
-                <p class="text-body text-sm mb-0">例如全球汇率转换器支持本地缓存技术。只要成功加载过一次，即使在地铁上断开网络，依然可以精确计算。</p>
-              </div>
-            </div>
-          </section>
-          <section class="content-section">
-            <h2 class="section-title">常见问题解答 (FAQ)</h2>
-            <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
-              <div class="faq-item"><h4 class="faq-q">这些高级工具真的完全免费吗？</h4><p class="faq-a">是的，绝对免费。Mini-Tools.uk 提供的所有工具对个人和商业用途都是 100% 免费的。不设使用上限，不需要注册账号。</p></div>
-              <div class="faq-item"><h4 class="faq-q">你们如何保证不上传文件？</h4><p class="faq-a">我们利用 HTML5 Canvas API 和浏览器底层算力。服务器在这个过程中仅提供代码脚本，不参与任何实际的数据加工或存储。</p></div>
-            </div>
-          </section>
-        `,
-        es: `
-          <section class="content-section">
-            <h2 class="section-title">La Plataforma Definitiva de Utilidades en Línea (2026)</h2>
-            <p class="text-body">Bienvenido a <strong>Mini-Tools.uk</strong>, el destino principal para herramientas rápidas y seguras. A diferencia de los servicios tradicionales en la nube que requieren que suba archivos confidenciales a servidores remotos, utilizamos tecnología de vanguardia de <strong>Procesamiento del Lado del Cliente</strong>. Sus datos nunca viajan por internet.</p>
-          </section>
-          <section class="content-section">
-            <h2 class="section-title">Por Qué Elegir Mini-Tools</h2>
-            <div class="feature-grid">
-              <div class="feature-box">
-                <h3 class="feature-title">Privacidad Zero-Trust</h3>
-                <p class="text-body text-sm mb-0">No almacenamos ni rastreamos sus entradas. Sus archivos permanecen en su dispositivo.</p>
-              </div>
-              <div class="feature-box">
-                <h3 class="feature-title">Velocidad Ultrarrápida</h3>
-                <p class="text-body text-sm mb-0">Al eliminar peticiones al servidor, nuestras herramientas responden al instante.</p>
-              </div>
-              <div class="feature-box">
-                <h3 class="feature-title">Capacidad Offline</h3>
-                <p class="text-body text-sm mb-0">Herramientas cacheadas localmente para uso sin conexión a internet.</p>
-              </div>
-            </div>
-          </section>
-        `,
-        fr: `
-          <section class="content-section">
-            <h2 class="section-title">La Plateforme d'Utilitaires Sécurisés (2026)</h2>
-            <p class="text-body">Bienvenue sur <strong>Mini-Tools.uk</strong>. Contrairement aux services cloud classiques, nous utilisons une architecture <strong>Traitement Côté Client</strong>. Vos données ne sont jamais transférées sur nos serveurs.</p>
-          </section>
-          <section class="content-section">
-            <h2 class="section-title">Pourquoi Choisir Mini-Tools ?</h2>
-            <div class="feature-grid">
-              <div class="feature-box">
-                <h3 class="feature-title">Confidentialité Absolue</h3>
-                <p class="text-body text-sm mb-0">Aucun téléchargement sur serveur. Vos fichiers restent sur votre propre appareil.</p>
-              </div>
-              <div class="feature-box">
-                <h3 class="feature-title">Rapidité Native</h3>
-                <p class="text-body text-sm mb-0">Sans la latence du réseau, nos outils réagissent instantanément.</p>
-              </div>
-              <div class="feature-box">
-                <h3 class="feature-title">Mode Hors Ligne</h3>
-                <p class="text-body text-sm mb-0">Certains outils fonctionnent parfaitement sans connexion Internet une fois chargés.</p>
-              </div>
-            </div>
-          </section>
-        `,
-        de: `
-          <section class="content-section">
-            <h2 class="section-title">Die Ultimative Datenschutz-Plattform für 2026</h2>
-            <p class="text-body">Willkommen bei <strong>Mini-Tools.uk</strong>. Im Gegensatz zu herkömmlichen Cloud-Diensten nutzen wir fortschrittliche <strong>Client-Side-Processing-Technologie</strong>. Ihre sensiblen Daten verlassen niemals Ihr Gerät.</p>
-          </section>
-          <section class="content-section">
-            <h2 class="section-title">Warum Profis Mini-Tools Wählen</h2>
-            <div class="feature-grid">
-              <div class="feature-box">
-                <h3 class="feature-title">Zero-Trust Datenschutz</h3>
-                <p class="text-body text-sm mb-0">Wir speichern oder übertragen Ihre Eingaben nicht.</p>
-              </div>
-              <div class="feature-box">
-                <h3 class="feature-title">Blitzschnelle Leistung</h3>
-                <p class="text-body text-sm mb-0">Keine Serveranfragen erforderlich, unsere Tools reagieren sofort.</p>
-              </div>
-              <div class="feature-box">
-                <h3 class="feature-title">Offline Funktionen</h3>
-                <p class="text-body text-sm mb-0">Tools cachen Daten, sodass Sie ohne Internet weiterarbeiten können.</p>
-              </div>
-            </div>
-          </section>
-        `
-    };
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        seoHtml: `
+          <h2>Sécurité et Confidentialité (Côté Client)</h2>
+          <p>Chez <strong>Mini-Tools.uk</strong>, la plupart de nos outils fonctionnent directement dans la mémoire de votre appareil. Vos fichiers et données sensibles ne sont jamais téléchargés sur un serveur distant.</p>`
+      },
+      de: {
+        metaTitle: "Mini-Tools | Kostenlose Sichere Online-Tools",
+        metaDesc: "Schnelle Online-Tools mit Fokus auf Datenschutz. Rechner, Bildkompressoren und Generatoren, die zu 100 % lokal in Ihrem Browser arbeiten.",
+        metaKeywords: "kostenlose online-tools, entwickler-dienstprogramme, steuerrechner, bildkompressor, pdf-konverter, mini-tools",
+        heroTitle: "Präzisions-Web-Dienstprogramme",
+        heroDesc: "Schnelle, werbefreie Online-Tools. Die meisten laufen vollständig lokal in Ihrem Browser.",
+        
+        t_tax: "UK Steuerrechner", d_tax: "Berechnen Sie Nettogehalt, NI und Rente.",
+        t_vat: "MwSt.-Rechner", d_vat: "20% Standard-MwSt. sofort hinzufügen oder entfernen.",
+        t_mor: "Hypothekenrechner", d_mor: "Schätzen Sie monatliche Raten und LTV.",
+        t_cur: "Währungsrechner", d_cur: "Echtzeit-Wechselkurse.",
+        t_jsn: "JSON-Formatierer", d_jsn: "JSON-Daten lokal verschönern und validieren.",
+        t_dif: "Textvergleich", d_dif: "Finden Sie Unterschiede zwischen Texten oder Code.",
+        t_col: "Farbwähler", d_col: "HEX/RGB-Farbpaletten aus Bildern extrahieren.",
+        t_pas: "Passwort-Generator", d_pas: "Kryptografisch sichere Passwörter erstellen.",
+        t_img: "Bildkompressor", d_img: "Offline Größe ändern und nach WebP konvertieren.",
+        t_pdf: "PDF zu Bild", d_pdf: "Hochauflösendes Rendern ohne Upload.",
+        t_up: "Sicheres Bildhosting", d_up: "Temporäres Hosting mit Selbstzerstörung.",
+        t_qr: "QR-Generator", d_qr: "Erstellen Sie sofort Wi-Fi und URL QR-Codes.",
+        t_uni: "Einheitenumrechner", d_uni: "Metrisch zu Imperial mit Dashboard.",
+        t_wrd: "Wortzähler", d_wrd: "Echtzeit-Statistiken und Lesezeit.",
+        t_prm: "AI Prompt Helfer", d_prm: "Framework für ChatGPT und Claude.",
 
-    function getLang() {
-      const params = new URLSearchParams(window.location.search);
-      let lang = params.get('lang');
-      if (!lang) {
-        const navLang = navigator.language.split('-')[0];
-        lang = ['en', 'zh', 'es', 'fr', 'de'].includes(navLang) ? navLang : 'en';
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        seoHtml: `
+          <h2>Client-Side Verarbeitung für Ihre Sicherheit</h2>
+          <p>Bei <strong>Mini-Tools.uk</strong> laufen die meisten unserer Tools vollständig in Ihrem Browser. Wenn Sie ein Bild komprimieren oder JSON formatieren, verlassen Ihre Daten niemals Ihr Gerät.</p>`
       }
-      return lang;
-    }
+    };
 
-    function renderSkeletons() {
-        const grid = document.getElementById('tools-grid');
-        let skeletonHTML = '';
-        for(let i=0; i<8; i++) {
-            skeletonHTML += `
-            <div class="tool-card bg-white p-8 rounded-3xl flex flex-col items-start h-[240px]">
-                <div class="w-14 h-14 mb-6 skeleton rounded-2xl"></div>
-                <div class="w-3/4 h-6 skeleton rounded-md mb-4"></div>
-                <div class="w-full h-4 skeleton rounded-sm mb-2"></div>
-                <div class="w-5/6 h-4 skeleton rounded-sm"></div>
-                <div class="mt-auto w-1/3 h-4 skeleton rounded-sm"></div>
-            </div>`;
-        }
-        grid.innerHTML = skeletonHTML;
-    }
+    function updateLanguage() {
+      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+      const data = i18n[lang] || i18n['en'];
 
-    async function loadToolsData() {
-      const lang = getLang();
       document.documentElement.lang = lang;
+      
+      // 🌟 动态接管全局 Meta 数据和长尾大词
+      document.title = data.metaTitle;
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
+
+      // Hero Section
+      document.getElementById('hero-title').innerText = data.heroTitle;
+      document.getElementById('hero-desc').innerText = data.heroDesc;
+
+      // Cards Injection
+      const keys = ['tax', 'vat', 'mor', 'cur', 'jsn', 'dif', 'col', 'pas', 'img', 'pdf', 'up', 'qr', 'uni', 'wrd', 'prm'];
+      keys.forEach(k => {
+          document.getElementById('t_' + k).innerText = data['t_' + k];
+          document.getElementById('d_' + k).innerText = data['d_' + k];
+      });
+      
+      // Footer
+      document.getElementById('footer-about').innerText = data.footerAbout;
+      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
+      document.getElementById('footer-contact').innerText = data.footerContact;
+      
+      // SEO Content Injection
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
+
       document.getElementById('lang-select').value = lang;
-
-      // 🌟 核心更新 1：动态切换 Title 和 Description 标签
-      if(seoMeta[lang]) {
-          document.title = seoMeta[lang].title;
-          document.querySelector('meta[name="description"]').setAttribute("content", seoMeta[lang].desc);
-      }
-
-      // 动态更新顶部导航栏的“工具”和“博客”文字
-      const currentNavLang = navDict[lang] || navDict['en'];
-      document.getElementById('nav-tools').innerText = currentNavLang.tools;
-      document.getElementById('nav-blog').innerText = currentNavLang.blog;
       
-      renderSkeletons();
-      document.getElementById('hero-title').classList.add('hidden');
-      document.getElementById('hero-sub').classList.add('hidden');
-      document.getElementById('hero-btn').classList.add('hidden');
-      document.getElementById('hero-tag').classList.add('hidden');
-      
-      document.getElementById('hero-title-skeleton').style.display = 'flex';
-      document.getElementById('hero-sub-skeleton').style.display = 'block';
-      document.getElementById('hero-btn-skeleton').style.display = 'block';
-      document.getElementById('hero-tag-skeleton').style.display = 'block';
-
-      try {
-        const response = await fetch('https://mini-tools.uk/tools-data.json?v=' + new Date().getTime());
-        if (!response.ok) throw new Error('Network response was not ok');
-        
-        const allData = await response.json();
-        const data = allData[lang] || allData['en'];
-
-        document.getElementById('hero-title-skeleton').style.display = 'none';
-        document.getElementById('hero-sub-skeleton').style.display = 'none';
-        document.getElementById('hero-btn-skeleton').style.display = 'none';
-        document.getElementById('hero-tag-skeleton').style.display = 'none';
-        
-        const hTitle = document.getElementById('hero-title');
-        const hSub = document.getElementById('hero-sub');
-        const hBtn = document.getElementById('hero-btn');
-        const hTag = document.getElementById('hero-tag');
-
-        hTag.innerText = data.tag;
-        hTitle.innerHTML = data.hero;
-        hSub.innerText = data.sub;
-        hBtn.innerText = data.btn;
-        
-        hTitle.classList.remove('hidden');
-        hSub.classList.remove('hidden');
-        hBtn.classList.remove('hidden');
-        hBtn.classList.add('inline-block'); 
-        hTag.classList.remove('hidden');
-        hTag.classList.add('inline-block');
-
-        document.getElementById('grid-title').innerText = data.gridTitle;
-        
-        document.getElementById('footer-about').innerText = data.about;
-        document.getElementById('footer-privacy').innerText = data.privacy;
-        document.getElementById('footer-contact').innerText = data.contact;
-
-        const grid = document.getElementById('tools-grid');
-        grid.innerHTML = data.tools.map(tool => {
-          const hotBadgeHTML = tool.hot ? `<span class="hot-tag">${data.hot}</span>` : '';
-          return `
-            <a class="tool-link block h-full outline-none focus:ring-4 focus:ring-blue-500/20 rounded-3xl" href="/${tool.id}">
-              <article class="tool-card bg-white p-8 rounded-3xl flex flex-col items-start h-full group relative">
-                ${hotBadgeHTML}
-                <div class="w-14 h-14 mb-6 bg-slate-50 rounded-2xl flex items-center justify-center group-hover:bg-blue-50 transition-colors border border-slate-100 group-hover:border-blue-100 shadow-sm">
-                  <img src="${tool.img}" class="w-8 h-8 opacity-80 group-hover:opacity-100 transition-opacity" alt="${tool.t}" loading="lazy">
-                </div>
-                <h3 class="font-extrabold text-xl text-slate-900 mb-3 group-hover:text-blue-600 transition-colors leading-tight">${tool.t}</h3>
-                <p class="text-sm text-slate-500 leading-relaxed mb-8 flex-1 font-medium">${tool.d}</p>
-                <div class="mt-auto text-blue-600 font-bold text-xs uppercase flex items-center gap-2 group-hover:translate-x-2 transition-transform tracking-widest">
-                  ${data.open}
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                </div>
-              </article>
-            </a>`;
-        }).join('');
-
-        // 🌟 核心更新 3：动态注入对应语言的 SEO 长文内容
-        const seoContainer = document.getElementById('seo-container');
-        if (seoContent[lang]) {
-            seoContainer.style.opacity = 0;
-            setTimeout(() => {
-                seoContainer.innerHTML = seoContent[lang];
-                seoContainer.style.opacity = 1;
-            }, 100);
-        }
-
-        syncLinks(lang);
-
-      } catch (error) {
-        console.error("Data load failed:", error);
-        document.getElementById('hero-title-skeleton').style.display = 'none';
-        document.getElementById('hero-title').innerText = "System Update in Progress";
-        document.getElementById('hero-title').classList.remove('hidden');
-        document.getElementById('hero-sub-skeleton').style.display = 'none';
-        document.getElementById('hero-sub').innerText = "We are currently optimizing our tools. Please check back in a few minutes.";
-        document.getElementById('hero-sub').classList.remove('hidden');
-      }
-    }
-
-    function syncLinks(lang) {
-      document.querySelectorAll('a').forEach(link => {
+      // Update all internal links with ?lang parameter WITHOUT .html
+      document.querySelectorAll('a.tool-card, footer a').forEach(link => {
         const href = link.getAttribute('href');
-        // 只同步内部链接，忽略外部链接或锚点
-        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
+        if (href && href.startsWith('/')) {
           try {
             const url = new URL(href, window.location.origin);
             url.searchParams.set('lang', lang);
@@ -569,7 +454,7 @@
       window.location.href = url.href;
     });
 
-    window.onload = loadToolsData;
+    window.onload = updateLanguage;
   </script>
 </body>
 </html>
