@@ -3,9 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Contact Us | Mini-Tools.uk — We're Here to Help</title>
-  <meta name="description" content="Get in touch with the Mini-Tools.uk team. Have a question, feature request, or need support? Send us a message and we'll respond within 24 hours." />
-  <link rel="canonical" href="https://mini-tools.uk/contact.html" />
+  
+  <title id="meta-title">Contact Us | Mini-Tools.uk — We're Here to Help</title>
+  <meta name="description" id="meta-desc" content="Get in touch with the Mini-Tools.uk team. Have a question, feature request, or need support? Send us a message and we'll respond within 24 hours." />
+  <meta name="keywords" id="meta-keywords" content="contact mini-tools, support, feature request, bug report, online tools support, contact developer" />
+  
+  <link rel="canonical" href="https://mini-tools.uk/contact" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/contact?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/contact?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/contact?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/contact?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/contact?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/contact" />
 
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
@@ -27,17 +36,14 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', ui-sans-serif, sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
     
-    /* Multilingual Content Switching */
-    .lang-content { display: none; animation: fadeIn 0.5s ease-out; }
-    .lang-content.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
     .hero-pattern { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 24px 24px; }
     
     /* Form Styles */
     .form-input { width: 100%; padding: 1rem 1.25rem; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; font-size: 1rem; color: #0f172a; transition: all 0.2s; outline: none; }
     .form-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); background-color: #ffffff; }
     .form-label { display: block; font-size: 0.875rem; font-weight: 700; color: #475569; margin-bottom: 0.5rem; }
+    
+    .lang-content-transition { transition: opacity 0.3s ease-out; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -54,9 +60,10 @@
       </div>
       
       <div class="hidden md:flex items-center gap-6 text-sm font-bold text-slate-500">
-        <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
-        <a href="/about.html" class="hover:text-blue-600 transition-colors">About</a>
-        <a href="/privacy.html" class="hover:text-blue-600 transition-colors">Privacy</a>
+        <a href="/" id="nav-home" class="hover:text-blue-600 transition-colors">Home</a>
+        <a href="/about" id="nav-about" class="hover:text-blue-600 transition-colors">About</a>
+        <a href="/blog" id="nav-blog" class="hover:text-blue-600 transition-colors">Blog</a>
+        <a href="/privacy" id="nav-privacy" class="hover:text-blue-600 transition-colors">Privacy</a>
       </div>
 
       <div class="flex items-center gap-4">
@@ -88,114 +95,13 @@
     
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
       
-      <div class="lg:col-span-2 flex flex-col gap-6">
-        <div id="info-en" class="lang-content" data-lang="en">
-          <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 h-full">
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-6">Contact Information</h3>
-            <p class="text-slate-500 mb-8 leading-relaxed">We prefer email communication to keep a clear record of your requests. We aim to respond to all inquiries within 24-48 hours.</p>
-            
-            <div class="flex items-start gap-4 mb-8">
-              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-              </div>
-              <div>
-                <h4 class="font-bold text-slate-900">Email Us</h4>
-                <a href="mailto:admin@mini-tools.uk" class="text-blue-600 hover:underline font-medium">admin@mini-tools.uk</a>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              </div>
-              <div>
-                <h4 class="font-bold text-slate-900">Response Time</h4>
-                <p class="text-slate-500 font-medium">Monday - Friday<br>09:00 - 18:00 (GMT)</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="info-zh" class="lang-content" data-lang="zh">
-          <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 h-full">
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-6">联系信息</h3>
-            <p class="text-slate-500 mb-8 leading-relaxed">我们倾向于通过电子邮件进行沟通，以便清晰记录您的需求。我们的目标是在 24-48 小时内回复所有咨询。</p>
-            
-            <div class="flex items-start gap-4 mb-8">
-              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-              </div>
-              <div>
-                <h4 class="font-bold text-slate-900">发送邮件</h4>
-                <a href="mailto:hello@mini-tools.uk" class="text-blue-600 hover:underline font-medium">hello@mini-tools.uk</a>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              </div>
-              <div>
-                <h4 class="font-bold text-slate-900">响应时间</h4>
-                <p class="text-slate-500 font-medium">周一 至 周五<br>09:00 - 18:00 (格林威治时间)</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="info-es" class="lang-content" data-lang="es">
-          <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 h-full">
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-6">Información de Contacto</h3>
-            <p class="text-slate-500 mb-8 leading-relaxed">Preferimos la comunicación por correo electrónico. Nuestro objetivo es responder a todas las consultas en un plazo de 24-48 horas.</p>
-            <div class="flex items-start gap-4 mb-8">
-              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-              </div>
-              <div>
-                <h4 class="font-bold text-slate-900">Envíenos un Correo</h4>
-                <a href="mailto:hello@mini-tools.uk" class="text-blue-600 hover:underline font-medium">hello@mini-tools.uk</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="info-fr" class="lang-content" data-lang="fr">
-          <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 h-full">
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-6">Coordonnées</h3>
-            <p class="text-slate-500 mb-8 leading-relaxed">Nous préférons communiquer par e-mail. Nous visons à répondre à toutes les demandes dans les 24 à 48 heures.</p>
-            <div class="flex items-start gap-4 mb-8">
-              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-              </div>
-              <div>
-                <h4 class="font-bold text-slate-900">Envoyez-nous un e-mail</h4>
-                <a href="mailto:hello@mini-tools.uk" class="text-blue-600 hover:underline font-medium">hello@mini-tools.uk</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="info-de" class="lang-content" data-lang="de">
-          <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 h-full">
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-6">Kontaktinformationen</h3>
-            <p class="text-slate-500 mb-8 leading-relaxed">Wir bevorzugen E-Mail-Kommunikation. Wir bemühen uns, alle Anfragen innerhalb von 24-48 Stunden zu beantworten.</p>
-            <div class="flex items-start gap-4 mb-8">
-              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-              </div>
-              <div>
-                <h4 class="font-bold text-slate-900">E-Mail schreiben</h4>
-                <a href="mailto:hello@mini-tools.uk" class="text-blue-600 hover:underline font-medium">hello@mini-tools.uk</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="lg:col-span-2 flex flex-col gap-6 lang-content-transition" id="contact-info-container">
+         </div>
 
       <div class="lg:col-span-3">
         <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-slate-200/40 border border-slate-100">
           
-          <form action="mailto:hello@mini-tools.uk" method="POST" enctype="text/plain" class="flex flex-col gap-6">
+          <form action="mailto:admin@mini-tools.uk" method="POST" enctype="text/plain" class="flex flex-col gap-6">
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -245,47 +151,183 @@
   </footer>
 
   <script>
-    // Translations for UI & Form elements
-    const uiTrans = {
+    // 🌟 核心优化 4：整合所有语言的 Meta (带长尾 Keywords) 和富文本到字典中
+    const i18n = {
       en: { 
+        metaTitle: "Contact Us | Mini-Tools.uk — We're Here to Help",
+        metaDesc: "Get in touch with the Mini-Tools.uk team. Have a question, feature request, or need support? Send us a message and we'll respond within 24 hours.",
+        metaKeywords: "contact mini-tools, support, feature request, bug report, online tools support, contact developer",
+        navHome: "Home", navAbout: "About", navBlog: "Blog", navPrivacy: "Privacy",
         tag: "Support & Inquiries", title: "Get in Touch.", sub: "Have a question, feature request, or spotted a bug? Our developer team is ready to help you out.",
         labelName: "Your Name", inputName: "John Doe",
         labelEmail: "Email Address", inputEmail: "john@example.com",
         labelSubject: "Subject", opt1: "General Inquiry", opt2: "Bug Report", opt3: "Feature Request", opt4: "Business / Partnership",
         labelMessage: "Message", inputMessage: "How can we help you?",
-        btnSubmit: "Send Message", formNote: "By submitting this form, your default email client will open."
+        btnSubmit: "Send Message", formNote: "By submitting this form, your default email client will open.",
+        // 动态注入的左侧 HTML 结构
+        contactInfoHtml: `
+          <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 h-full">
+            <h3 class="text-2xl font-extrabold text-slate-900 mb-6">Contact Information</h3>
+            <p class="text-slate-500 mb-8 leading-relaxed">We prefer email communication to keep a clear record of your requests. We aim to respond to all inquiries within 24-48 hours.</p>
+            <div class="flex items-start gap-4 mb-8">
+              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">Email Us</h4>
+                <a href="mailto:admin@mini-tools.uk" class="text-blue-600 hover:underline font-medium">admin@mini-tools.uk</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">Response Time</h4>
+                <p class="text-slate-500 font-medium">Monday - Friday<br>09:00 - 18:00 (GMT)</p>
+              </div>
+            </div>
+          </div>`
       },
       zh: { 
+        metaTitle: "联系我们 | Mini-Tools.uk — 随时为您提供支持",
+        metaDesc: "联系 Mini-Tools.uk 团队。有任何问题、功能建议或需要技术支持？请给我们留言，我们将尽快为您解答。",
+        metaKeywords: "联系Mini-Tools, 工具支持, 反馈Bug, 功能建议, 在线工具帮助, 商业合作",
+        navHome: "首页", navAbout: "关于我们", navBlog: "官方博客", navPrivacy: "隐私政策",
         tag: "支持与咨询", title: "联系我们。", sub: "有疑问、功能建议或发现了 Bug？我们的开发者团队随时准备为您提供帮助。",
         labelName: "您的姓名", inputName: "张三",
         labelEmail: "电子邮箱", inputEmail: "zhangsan@example.com",
         labelSubject: "咨询主题", opt1: "常规咨询", opt2: "报告 Bug", opt3: "功能建议", opt4: "商业合作",
         labelMessage: "留言内容", inputMessage: "请问有什么可以帮到您？",
-        btnSubmit: "发送留言", formNote: "点击提交后将唤起您的默认邮件客户端。"
+        btnSubmit: "发送留言", formNote: "点击提交后将唤起您的默认邮件客户端。",
+        contactInfoHtml: `
+          <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 h-full">
+            <h3 class="text-2xl font-extrabold text-slate-900 mb-6">联系信息</h3>
+            <p class="text-slate-500 mb-8 leading-relaxed">我们倾向于通过电子邮件进行沟通，以便清晰记录您的需求。我们的目标是在 24-48 小时内回复所有咨询。</p>
+            <div class="flex items-start gap-4 mb-8">
+              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">发送邮件</h4>
+                <a href="mailto:admin@mini-tools.uk" class="text-blue-600 hover:underline font-medium">admin@mini-tools.uk</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">响应时间</h4>
+                <p class="text-slate-500 font-medium">周一 至 周五<br>09:00 - 18:00 (格林威治时间)</p>
+              </div>
+            </div>
+          </div>`
       },
       es: { 
+        metaTitle: "Contáctenos | Mini-Tools.uk — Estamos aquí para ayudar",
+        metaDesc: "Póngase en contacto con el equipo de Mini-Tools.uk. ¿Tiene alguna pregunta o necesita soporte? Envíenos un mensaje.",
+        metaKeywords: "contacto mini-tools, soporte técnico, reportar error, herramientas online, asistencia herramientas",
+        navHome: "Inicio", navAbout: "Nosotros", navBlog: "Blog", navPrivacy: "Privacidad",
         tag: "Soporte y Consultas", title: "Contáctenos.", sub: "¿Tiene alguna pregunta o solicitud de función? Nuestro equipo de desarrollo está listo para ayudarle.",
         labelName: "Su Nombre", inputName: "Juan Pérez",
         labelEmail: "Correo Electrónico", inputEmail: "juan@example.com",
         labelSubject: "Asunto", opt1: "Consulta General", opt2: "Reporte de Error", opt3: "Solicitud de Función", opt4: "Negocios / Asociación",
         labelMessage: "Mensaje", inputMessage: "¿Cómo podemos ayudarle?",
-        btnSubmit: "Enviar Mensaje", formNote: "Al enviar este formulario, se abrirá su cliente de correo predeterminado."
+        btnSubmit: "Enviar Mensaje", formNote: "Al enviar este formulario, se abrirá su cliente de correo predeterminado.",
+        contactInfoHtml: `
+          <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 h-full">
+            <h3 class="text-2xl font-extrabold text-slate-900 mb-6">Información de Contacto</h3>
+            <p class="text-slate-500 mb-8 leading-relaxed">Preferimos la comunicación por correo electrónico. Nuestro objetivo es responder a todas las consultas en un plazo de 24-48 horas.</p>
+            <div class="flex items-start gap-4 mb-8">
+              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">Envíenos un Correo</h4>
+                <a href="mailto:admin@mini-tools.uk" class="text-blue-600 hover:underline font-medium">admin@mini-tools.uk</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">Tiempo de Respuesta</h4>
+                <p class="text-slate-500 font-medium">Lunes - Viernes<br>09:00 - 18:00 (GMT)</p>
+              </div>
+            </div>
+          </div>`
       },
       fr: { 
+        metaTitle: "Contactez-nous | Mini-Tools.uk — Nous sommes là pour aider",
+        metaDesc: "Entrez en contact avec l'équipe Mini-Tools.uk. Vous avez une question ou besoin d'assistance ? Envoyez-nous un message.",
+        metaKeywords: "contact mini-tools, support technique, signaler un bug, outils en ligne, support développeur",
+        navHome: "Accueil", navAbout: "À Propos", navBlog: "Blog", navPrivacy: "Confidentialité",
         tag: "Support et Demandes", title: "Contactez-nous.", sub: "Une question, une demande de fonctionnalité ou un bug ? Notre équipe est prête à vous aider.",
         labelName: "Votre Nom", inputName: "Jean Dupont",
         labelEmail: "Adresse E-mail", inputEmail: "jean@example.com",
         labelSubject: "Sujet", opt1: "Demande Générale", opt2: "Rapport de Bug", opt3: "Demande de Fonctionnalité", opt4: "Affaires / Partenariat",
         labelMessage: "Message", inputMessage: "Comment pouvons-nous vous aider ?",
-        btnSubmit: "Envoyer le Message", formNote: "En soumettant ce formulaire, votre client de messagerie par défaut s'ouvrira."
+        btnSubmit: "Envoyer le Message", formNote: "En soumettant ce formulaire, votre client de messagerie par défaut s'ouvrira.",
+        contactInfoHtml: `
+          <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 h-full">
+            <h3 class="text-2xl font-extrabold text-slate-900 mb-6">Coordonnées</h3>
+            <p class="text-slate-500 mb-8 leading-relaxed">Nous préférons communiquer par e-mail. Nous visons à répondre à toutes les demandes dans les 24 à 48 heures.</p>
+            <div class="flex items-start gap-4 mb-8">
+              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">Envoyez-nous un e-mail</h4>
+                <a href="mailto:admin@mini-tools.uk" class="text-blue-600 hover:underline font-medium">admin@mini-tools.uk</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">Temps de Réponse</h4>
+                <p class="text-slate-500 font-medium">Lundi - Vendredi<br>09:00 - 18:00 (GMT)</p>
+              </div>
+            </div>
+          </div>`
       },
       de: { 
+        metaTitle: "Kontaktiere uns | Mini-Tools.uk — Wir sind hier, um zu helfen",
+        metaDesc: "Treten Sie mit dem Mini-Tools.uk Team in Kontakt. Haben Sie Fragen oder benötigen Sie Support? Senden Sie uns eine Nachricht.",
+        metaKeywords: "kontakt mini-tools, support, fehlerbericht, online-werkzeuge hilfe, entwickler kontaktieren",
+        navHome: "Startseite", navAbout: "Über Uns", navBlog: "Blog", navPrivacy: "Datenschutz",
         tag: "Support & Anfragen", title: "Kontaktiere uns.", sub: "Haben Sie eine Frage oder einen Fehler entdeckt? Unser Entwicklerteam hilft Ihnen gerne weiter.",
         labelName: "Ihr Name", inputName: "Max Mustermann",
         labelEmail: "E-Mail-Adresse", inputEmail: "max@example.com",
         labelSubject: "Betreff", opt1: "Allgemeine Anfrage", opt2: "Fehlerbericht", opt3: "Funktionsanfrage", opt4: "Geschäft / Partnerschaft",
         labelMessage: "Nachricht", inputMessage: "Wie können wir Ihnen helfen?",
-        btnSubmit: "Nachricht senden", formNote: "Durch das Absenden dieses Formulars wird Ihr Standard-E-Mail-Client geöffnet."
+        btnSubmit: "Nachricht senden", formNote: "Durch das Absenden dieses Formulars wird Ihr Standard-E-Mail-Client geöffnet.",
+        contactInfoHtml: `
+          <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 h-full">
+            <h3 class="text-2xl font-extrabold text-slate-900 mb-6">Kontaktinformationen</h3>
+            <p class="text-slate-500 mb-8 leading-relaxed">Wir bevorzugen E-Mail-Kommunikation. Wir bemühen uns, alle Anfragen innerhalb von 24-48 Stunden zu beantworten.</p>
+            <div class="flex items-start gap-4 mb-8">
+              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">E-Mail schreiben</h4>
+                <a href="mailto:admin@mini-tools.uk" class="text-blue-600 hover:underline font-medium">admin@mini-tools.uk</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">Antwortzeit</h4>
+                <p class="text-slate-500 font-medium">Montag - Freitag<br>09:00 - 18:00 (GMT)</p>
+              </div>
+            </div>
+          </div>`
       }
     };
 
@@ -297,43 +339,58 @@
         lang = ['en', 'zh', 'es', 'fr', 'de'].includes(navLang) ? navLang : 'en';
       }
       
+      const data = i18n[lang] || i18n['en'];
+
       document.documentElement.lang = lang;
-      document.getElementById('lang-select').value = lang;
       
+      // 🌟 动态接管 Meta 数据：Title, Description 和核心长尾 Keywords
+      document.title = data.metaTitle;
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
+
+      // Update Navigation Links
+      document.getElementById('nav-home').innerText = data.navHome;
+      document.getElementById('nav-about').innerText = data.navAbout;
+      document.getElementById('nav-blog').innerText = data.navBlog;
+      document.getElementById('nav-privacy').innerText = data.navPrivacy;
+
       // Hero text
-      document.getElementById('hero-tag').innerText = uiTrans[lang].tag;
-      document.getElementById('hero-title').innerText = uiTrans[lang].title;
-      document.getElementById('hero-sub').innerText = uiTrans[lang].sub;
+      document.getElementById('hero-tag').innerText = data.tag;
+      document.getElementById('hero-title').innerText = data.title;
+      document.getElementById('hero-sub').innerText = data.sub;
 
       // Form Text & Placeholders
-      document.getElementById('label-name').innerText = uiTrans[lang].labelName;
-      document.getElementById('input-name').placeholder = uiTrans[lang].inputName;
+      document.getElementById('label-name').innerText = data.labelName;
+      document.getElementById('input-name').placeholder = data.inputName;
       
-      document.getElementById('label-email').innerText = uiTrans[lang].labelEmail;
-      document.getElementById('input-email').placeholder = uiTrans[lang].inputEmail;
+      document.getElementById('label-email').innerText = data.labelEmail;
+      document.getElementById('input-email').placeholder = data.inputEmail;
       
-      document.getElementById('label-subject').innerText = uiTrans[lang].labelSubject;
-      document.getElementById('opt-1').innerText = uiTrans[lang].opt1;
-      document.getElementById('opt-2').innerText = uiTrans[lang].opt2;
-      document.getElementById('opt-3').innerText = uiTrans[lang].opt3;
-      document.getElementById('opt-4').innerText = uiTrans[lang].opt4;
+      document.getElementById('label-subject').innerText = data.labelSubject;
+      document.getElementById('opt-1').innerText = data.opt1;
+      document.getElementById('opt-2').innerText = data.opt2;
+      document.getElementById('opt-3').innerText = data.opt3;
+      document.getElementById('opt-4').innerText = data.opt4;
       
-      document.getElementById('label-message').innerText = uiTrans[lang].labelMessage;
-      document.getElementById('input-message').placeholder = uiTrans[lang].inputMessage;
+      document.getElementById('label-message').innerText = data.labelMessage;
+      document.getElementById('input-message').placeholder = data.inputMessage;
       
-      document.getElementById('btn-submit').innerText = uiTrans[lang].btnSubmit;
-      document.getElementById('form-note').innerText = uiTrans[lang].formNote;
+      document.getElementById('btn-submit').innerText = data.btnSubmit;
+      document.getElementById('form-note').innerText = data.formNote;
 
-      // Left column Info block
-      document.querySelectorAll('.lang-content').forEach(block => {
-        if(block.getAttribute('data-lang') === lang) {
-          block.classList.add('active');
-        } else {
-          block.classList.remove('active');
-        }
-      });
+      // 🌟 动态注入联系信息模块 (左侧栏)
+      const infoContainer = document.getElementById('contact-info-container');
+      if (data.contactInfoHtml) {
+          infoContainer.style.opacity = 0;
+          setTimeout(() => {
+              infoContainer.innerHTML = data.contactInfoHtml;
+              infoContainer.style.opacity = 1;
+          }, 150);
+      }
 
-      // Sync links
+      document.getElementById('lang-select').value = lang;
+
+      // Sync links (Ensure .html is removed)
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && !href.startsWith('mailto') && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
