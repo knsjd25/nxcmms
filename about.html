@@ -4,16 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   
-  <title>About Us | Mini-Tools.uk — The Privacy-First Utility Platform</title>
-  <meta name="description" content="Learn about the mission, technology, and team behind Mini-Tools.uk. We build high-performance, privacy-focused online utilities for professionals worldwide." />
+  <title id="meta-title">About Us | Mini-Tools.uk — The Privacy-First Utility Platform</title>
+  <meta name="description" id="meta-desc" content="Learn about the mission, technology, and team behind Mini-Tools.uk. We build high-performance, privacy-focused online utilities for professionals worldwide." />
+  <meta name="keywords" id="meta-keywords" content="about mini-tools, privacy-first web tools, client-side utilities, secure developer tools, zero trust architecture" />
   
-  <link rel="canonical" href="https://mini-tools.uk/about.html" />
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/about.html?lang=en" />
-  <link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/about.html?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/about.html?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/about.html?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/about.html?lang=de" />
-  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/about.html" />
+  <link rel="canonical" href="https://mini-tools.uk/about" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/about?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/about?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/about?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/about?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/about?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/about" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -26,9 +27,9 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
 
   <meta property="og:title" content="About Us | Mini-Tools.uk — The Privacy-First Utility Platform">
-  <meta property="og:description" content="Learn about the mission, technology, and team behind Mini-Tools.uk. We build high-performance, privacy-focused online utilities for professionals worldwide.">
+  <meta property="og:description" content="We build high-performance, privacy-focused online utilities for professionals worldwide.">
   <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-192x192.png">
-  <meta property="og:url" content="https://mini-tools.uk/about.html">
+  <meta property="og:url" content="https://mini-tools.uk/about">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="About Us | Mini-Tools.uk">
@@ -59,13 +60,9 @@
   
   <style>
     body { font-family: 'Plus Jakarta Sans', ui-sans-serif, sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
-    
-    /* Multilingual Content Switching */
-    .lang-content { display: none; animation: fadeIn 0.5s ease-out; }
-    .lang-content.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     /* Typography for About Content (Optimized for Deep Reading & SEO) */
+    .prose-content { transition: opacity 0.3s ease-out; }
     .prose-content p { font-size: 1.125rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
     .prose-content h2 { font-size: 2.25rem; font-weight: 800; color: #0f172a; margin-top: 4rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.75rem; }
     .prose-content h3 { font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-top: 2.5rem; margin-bottom: 1rem; }
@@ -93,9 +90,9 @@
       </div>
       
       <div class="hidden md:flex items-center gap-6 text-sm font-bold text-slate-500">
-        <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
-        <a href="/privacy.html" class="hover:text-blue-600 transition-colors">Privacy</a>
-        <a href="/contact.html" class="hover:text-blue-600 transition-colors">Contact</a>
+        <a href="/" id="nav-home" class="hover:text-blue-600 transition-colors">Home</a>
+        <a href="/privacy" id="nav-privacy" class="hover:text-blue-600 transition-colors">Privacy</a>
+        <a href="/contact" id="nav-contact" class="hover:text-blue-600 transition-colors">Contact</a>
       </div>
 
       <div class="flex items-center gap-4">
@@ -124,203 +121,194 @@
   </header>
 
   <main class="max-w-4xl mx-auto px-6 py-16 flex-1 w-full bg-white -mt-12 rounded-[2.5rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-slate-100 relative z-20 mb-20 prose-content">
-    
-    <div id="content-en" class="lang-content" data-lang="en">
-      <p>Welcome to <strong>Mini-Tools.uk</strong>. We are a dedicated collective of independent web developers, software engineers, and digital productivity enthusiasts. Our mission is clear: to build everyday online utilities that are fast, universally accessible, and unequivocally respectful of user privacy.</p>
-      
-      <h2>The Problem with Modern "Free" Web Tools</h2>
-      <p>The internet is saturated with utility websites offering to format your JSON, compress your images, or calculate your taxes. However, over the years, we observed a disturbing trend. The vast majority of these "free" services come with a hidden cost: your data.</p>
-      <p>Have you ever needed to quickly extract a HEX color from a highly confidential design mockup, only to realize the online color picker required you to upload the image to their remote server? Have you ever calculated your personal salary, wondering if the server logging your keystrokes is secure? We realized that the current ecosystem of web tools is fundamentally broken. It relies on unnecessary server round-trips that compromise both speed and security.</p>
-      
-      <blockquote>
-        "We believe that a tool should solve a problem, not create a privacy liability. If a calculation can be done on your device, it should stay on your device."
-      </blockquote>
-
-      <h2>Our "Client-Side First" Technical Philosophy</h2>
-      <p>At Mini-Tools.uk, we engineered a completely different architectural approach. We leverage the immense processing power of modern web browsers (using HTML5, Advanced JavaScript, and WebAssembly) to perform complex calculations and data manipulations <strong>strictly on your local machine</strong>.</p>
-      <p>This architectural decision fundamentally changes how you interact with our tools:</p>
-      <ul>
-        <li><strong>Absolute Data Sovereignty:</strong> When you use our Image Color Picker, the image is rendered locally on an HTML5 Canvas within your browser. When you use our UK PAYE Tax Calculator, the math happens on your CPU. We literally do not have the server infrastructure to receive, store, or analyze your personal inputs.</li>
-        <li><strong>Zero Latency & Instant Response:</strong> By eliminating the need to wait for a remote server to process data and send it back, our tools achieve sub-millisecond response times. Every slider you move and every number you type updates the results instantaneously, providing a native-app-level experience.</li>
-        <li><strong>Offline Capability:</strong> Many of our tools, such as the Global Currency Converter, utilize intelligent LocalStorage caching. Once the initial exchange rates are fetched, you can disconnect from the internet entirely (e.g., during a flight or subway commute) and the tool will continue to function flawlessly using the cached data.</li>
-      </ul>
-
-      <h2>The Evolution of Our Toolbox</h2>
-      <p>What started as a personal project to build a reliable UK Salary Calculator for the 2026 financial year has quickly expanded into a comprehensive suite of 14 professional-grade utilities. We carefully selected and developed tools that digital professionals need daily.</p>
-      <p>Our tools are divided into three core categories:</p>
-      <p><strong>1. Financial & Tax Utilities:</strong> Specifically optimized for the UK market, incorporating the latest HMRC thresholds, National Insurance (NI) rates, and VAT standards to ensure penny-perfect accuracy.</p>
-      <p><strong>2. Developer & Text Utilities:</strong> Including our JSON Formatter, Text Diff Checker, and AI Prompt Helper, designed to streamline coding and LLM interaction workflows.</p>
-      <p><strong>3. Media & Security Tools:</strong> Featuring our local Image Resizer, PDF to Image extractor, and Cryptographically Secure Password Generator—all guaranteed to keep your files off the cloud.</p>
-
-      <h2>Our Commitment to You</h2>
-      <p>We are not a massive corporation; we are independent builders. We do not require user registrations, we do not lock features behind premium paywalls, and we do not engage in shady tracking practices.</p>
-      <p>Our commitment remains steadfast: to continually refine, update, and expand our toolbox while adhering strictly to our privacy-first philosophy. Whether you are a freelance designer in London, a web developer in Berlin, or an investor tracking Forex rates in Tokyo, we are honored to be a small, reliable part of your daily workflow.</p>
-      <p>Thank you for trusting <strong>Mini-Tools.uk</strong>.</p>
-    </div>
-
-    <div id="content-zh" class="lang-content" data-lang="zh">
-      <p>欢迎访问 <strong>Mini-Tools.uk</strong>。我们是由独立 Web 开发者、软件工程师和数字生产力极客组成的团队。我们的使命非常明确：构建极速、无门槛且绝对尊重用户隐私的日常在线工具集。</p>
-      
-      <h2>现代“免费”在线工具的致命缺陷</h2>
-      <p>如今的互联网充斥着各种宣称能帮您格式化 JSON、压缩图片或计算税务的工具网站。然而，多年来我们观察到了一个令人不安的趋势：绝大多数所谓的“免费”服务都暗藏代价——您的数据和隐私。</p>
-      <p>您是否曾为了从一份高度机密的设计初稿中提取颜色，却发现必须将图片上传到未知的远程服务器？您是否在计算私人薪资时，担忧过记录您按键的服务器是否安全？我们意识到，现有的在线工具生态系统存在根本性的缺陷，它们依赖于非必要的服务器往返传输，从而同时牺牲了处理速度和数据安全。</p>
-      
-      <blockquote>
-        “我们坚信，工具的存在是为了解决问题，而不是制造隐私隐患。如果计算可以在您的设备上完成，数据就应该永远留在您的设备上。”
-      </blockquote>
-
-      <h2>我们坚守的“纯前端架构”技术哲学</h2>
-      <p>在 Mini-Tools.uk，我们采用了一种完全颠覆传统架构的方法。我们充分利用现代浏览器的强大算力（依托 HTML5、高级 JavaScript 和 WebAssembly 技术），将所有复杂的计算和数据处理<strong>严格限制在您的本地设备上执行</strong>。</p>
-      <p>这一底层架构的决定，从根本上改变了您使用工具的体验：</p>
-      <ul>
-        <li><strong>绝对的数据主权：</strong> 当您使用我们的图片取色器时，图片仅在您浏览器的 HTML5 Canvas 中本地渲染；当您使用我们的英国个税计算器时，所有数学运算都由您自己的 CPU 完成。事实上，我们根本没有部署用于接收、存储或分析您输入数据的后端服务器设施。</li>
-        <li><strong>零延迟与极速响应：</strong> 因为彻底消除了等待远程服务器处理和回传数据的网络延迟，我们的工具能实现亚毫秒级的响应。您拖动的每一个滑块、输入的每一个数字，都能瞬间刷新结果，带来媲美原生桌面软件的丝滑体验。</li>
-        <li><strong>强悍的离线能力：</strong> 我们许多工具（如全球实时汇率转换器）内置了智能的 LocalStorage 本地缓存机制。只要成功拉取过一次最新汇率，即使您随后完全断开网络（如在飞机或地铁上），工具依然能调用缓存数据完美运行。</li>
-      </ul>
-
-      <h2>我们工具箱的演进历程</h2>
-      <p>Mini-Tools.uk 最初只是为了创建一个完全精准反映 2026 财年政策的英国薪资计算器，但很快，它发展成了一个包含 14 款专业级实用程序的综合工具箱。我们精心挑选并开发了数字专业人士每天不可或缺的核心工具。</p>
-      <p>我们的工具集主要分为三大核心领域：</p>
-      <p><strong>1. 财务与税务工具：</strong> 专为英国市场深度优化，内置最新的 HMRC 免税额、国民保险 (NI) 费率及增值税标准，确保计算结果精确到便士。</p>
-      <p><strong>2. 开发者与文本工具：</strong> 包含 JSON 格式化、文本深度比对（Diff）以及 AI 提示词助手，旨在大幅简化编程开发和与大型语言模型（LLM）的交互流程。</p>
-      <p><strong>3. 媒体与安全工具：</strong> 提供纯本地的图片尺寸调整、PDF 转图片提取器以及密码生成器——郑重承诺绝不让您的文件接触云端。</p>
-
-      <h2>我们对您的郑重承诺</h2>
-      <p>我们不是臃肿的大型企业，我们是热爱技术的独立开发者。我们不要求用户注册，不设置高级功能的付费墙，更拒绝参与任何隐蔽的用户追踪行为。</p>
-      <p>我们的承诺始终如一：在严格恪守“隐私优先”哲学的同时，不断优化、更新并扩充我们的工具箱。无论您是伦敦的自由设计师、柏林的前端开发者，还是东京的外汇投资者，我们都非常荣幸能成为您高效、可靠的日常工作流的一部分。</p>
-      <p>感谢您信任并选择 <strong>Mini-Tools.uk</strong>。</p>
-    </div>
-
-    <div id="content-es" class="lang-content" data-lang="es">
-      <p>Bienvenido a <strong>Mini-Tools.uk</strong>. Somos un colectivo de desarrolladores web independientes e ingenieros de software. Nuestra misión es clara: construir utilidades en línea que sean rápidas, accesibles y que respeten inequívocamente la privacidad del usuario.</p>
-      
-      <h2>El Problema con las Herramientas Web "Gratuitas"</h2>
-      <p>Internet está saturado de sitios que ofrecen formatear su JSON, comprimir imágenes o calcular impuestos. Sin embargo, la gran mayoría de estos servicios "gratuitos" tienen un costo oculto: sus datos. ¿Alguna vez ha necesitado extraer un color de un diseño confidencial y se ha dado cuenta de que debía subir la imagen a un servidor remoto? Nos dimos cuenta de que el ecosistema actual de herramientas web está roto; depende de viajes innecesarios al servidor que comprometen la velocidad y la seguridad.</p>
-      
-      <blockquote>
-        "Creemos que una herramienta debe resolver un problema, no crear una vulnerabilidad de privacidad. Si un cálculo se puede hacer en su dispositivo, debe permanecer en su dispositivo."
-      </blockquote>
-
-      <h2>Nuestra Filosofía Técnica "Client-Side First"</h2>
-      <p>En Mini-Tools.uk, aprovechamos la inmensa potencia de procesamiento de los navegadores web modernos para realizar cálculos complejos <strong>estrictamente en su máquina local</strong>.</p>
-      <ul>
-        <li><strong>Soberanía Absoluta de Datos:</strong> Literalmente, no tenemos la infraestructura de servidores para recibir, almacenar o analizar sus entradas personales. Todo ocurre en su navegador.</li>
-        <li><strong>Cero Latencia:</strong> Al eliminar la necesidad de esperar a un servidor remoto, nuestras herramientas logran tiempos de respuesta instantáneos.</li>
-        <li><strong>Capacidad Offline:</strong> Herramientas como el Conversor de Divisas utilizan caché inteligente (LocalStorage). Puede desconectarse de internet y la herramienta seguirá funcionando perfectamente con los datos guardados.</li>
-      </ul>
-
-      <h2>La Evolución de Nuestra Caja de Herramientas</h2>
-      <p>Lo que comenzó como un proyecto para construir una Calculadora de Salario precisa para el año fiscal 2026, se ha expandido a un conjunto de 14 utilidades profesionales. Nuestras herramientas se dividen en tres categorías principales:</p>
-      <p><strong>1. Financieras y Fiscales:</strong> Optimizadas para el mercado del Reino Unido, incorporando los últimos umbrales de HMRC y tasas de NI.</p>
-      <p><strong>2. Desarrollo y Texto:</strong> Formateador JSON, comparador de texto (Diff) y asistentes de IA para flujos de trabajo eficientes.</p>
-      <p><strong>3. Multimedia y Seguridad:</strong> Redimensionador de imágenes local, extractor de PDF a imagen y generador de contraseñas seguras, garantizando que sus archivos nunca toquen la nube.</p>
-
-      <h2>Nuestro Compromiso</h2>
-      <p>No somos una corporación masiva; somos constructores independientes. No requerimos registros ni muros de pago. Nuestro compromiso es expandir nuestras herramientas adhiriéndonos estrictamente a nuestra filosofía de privacidad. Gracias por confiar en <strong>Mini-Tools.uk</strong>.</p>
-    </div>
-
-    <div id="content-fr" class="lang-content" data-lang="fr">
-      <p>Bienvenue sur <strong>Mini-Tools.uk</strong>. Nous sommes un collectif de développeurs web et d'ingénieurs logiciels. Notre mission est claire : créer des utilitaires en ligne rapides, accessibles et respectueux de la vie privée des utilisateurs.</p>
-      
-      <h2>Le Problème des Outils Web "Gratuits"</h2>
-      <p>Internet est saturé de sites proposant de formater du JSON ou de compresser des images. Cependant, la plupart de ces services "gratuits" ont un coût caché : vos données. Le système actuel est cassé ; il repose sur des transferts serveur inutiles qui compromettent la vitesse et la sécurité.</p>
-      
-      <blockquote>
-        "Un outil doit résoudre un problème, pas créer une faille de confidentialité. Si un calcul peut être fait sur votre appareil, il doit y rester."
-      </blockquote>
-
-      <h2>Notre Philosophie Technique "Côté Client"</h2>
-      <p>Chez Mini-Tools.uk, nous utilisons la puissance des navigateurs modernes pour effectuer des calculs complexes <strong>strictement sur votre machine locale</strong>.</p>
-      <ul>
-        <li><strong>Souveraineté des Données :</strong> Nous n'avons aucune infrastructure serveur pour stocker vos saisies. Tout se passe dans votre navigateur.</li>
-        <li><strong>Zéro Latence :</strong> En éliminant l'attente du serveur, nos outils offrent des temps de réponse instantanés.</li>
-        <li><strong>Fonctionnement Hors Ligne :</strong> Nos outils, comme le convertisseur de devises, utilisent le cache local. Vous pouvez vous déconnecter d'Internet et continuer à utiliser l'outil.</li>
-      </ul>
-
-      <h2>L'Évolution de Notre Boîte à Outils</h2>
-      <p>Ce qui a commencé par une calculatrice de salaire UK s'est élargi à 14 utilitaires professionnels, divisés en trois catégories :</p>
-      <p><strong>1. Finance et Fiscalité :</strong> Optimisés pour le Royaume-Uni (HMRC, NI, TVA).</p>
-      <p><strong>2. Développement et Texte :</strong> Formateur JSON, vérificateur de différences (Diff) et aide pour l'IA.</p>
-      <p><strong>3. Média et Sécurité :</strong> Redimensionnement d'images local et génération de mots de passe, sans aucun contact avec le cloud.</p>
-
-      <h2>Notre Engagement</h2>
-      <p>Nous sommes des développeurs indépendants. Pas d'inscription, pas de péage. Notre engagement est de développer nos outils tout en respectant notre philosophie de confidentialité. Merci de faire confiance à <strong>Mini-Tools.uk</strong>.</p>
-    </div>
-
-    <div id="content-de" class="lang-content" data-lang="de">
-      <p>Willkommen bei <strong>Mini-Tools.uk</strong>. Wir sind ein Kollektiv von unabhängigen Webentwicklern und Software-Ingenieuren. Unsere Mission ist klar: Online-Tools zu entwickeln, die schnell und zugänglich sind und die Privatsphäre der Nutzer respektieren.</p>
-      
-      <h2>Das Problem mit "Kostenlosen" Web-Tools</h2>
-      <p>Das Internet ist voll von Websites, die Bilder komprimieren oder Steuern berechnen. Die meisten dieser "kostenlosen" Dienste haben jedoch versteckte Kosten: Ihre Daten. Das aktuelle Ökosystem ist fehlerhaft; es stützt sich auf unnötige Serverkommunikation, die Geschwindigkeit und Sicherheit gefährdet.</p>
-      
-      <blockquote>
-        "Ein Tool sollte ein Problem lösen, kein Datenschutzrisiko schaffen. Wenn eine Berechnung auf Ihrem Gerät durchgeführt werden kann, sollte sie dort bleiben."
-      </blockquote>
-
-      <h2>Unsere Technische Philosophie "Client-Side First"</h2>
-      <p>Bei Mini-Tools.uk nutzen wir die immense Rechenleistung moderner Webbrowser, um komplexe Berechnungen <strong>streng auf Ihrem lokalen Rechner</strong> durchzuführen.</p>
-      <ul>
-        <li><strong>Absolute Datensouveränität:</strong> Wir haben keine Server-Infrastruktur, um Ihre Eingaben zu speichern oder zu analysieren.</li>
-        <li><strong>Null Latenz:</strong> Durch den Wegfall der Serverwartezeiten reagieren unsere Tools sofort.</li>
-        <li><strong>Offline-Fähigkeit:</strong> Tools wie der Währungsrechner nutzen intelligentes lokales Caching, sodass sie auch ohne Internetverbindung funktionieren.</li>
-      </ul>
-
-      <h2>Die Entwicklung Unseres Werkzeugkastens</h2>
-      <p>Was als Gehaltsrechner für UK begann, hat sich zu einer Suite von 14 professionellen Tools entwickelt, unterteilt in drei Kategorien:</p>
-      <p><strong>1. Finanzen & Steuern:</strong> Optimiert für den britischen Markt (HMRC, NI, VAT).</p>
-      <p><strong>2. Entwickler & Text:</strong> JSON-Formatierer, Text-Diff-Prüfer und KI-Eingabehilfe.</p>
-      <p><strong>3. Medien & Sicherheit:</strong> Lokaler Bildverkleinerer und Passwortgenerator – Dateien bleiben offline.</p>
-
-      <h2>Unser Versprechen</h2>
-      <p>Wir sind unabhängige Entwickler. Keine Registrierung, keine Paywalls. Wir verpflichten uns, unsere Tools unter strikter Einhaltung unserer Datenschutzphilosophie zu erweitern. Danke, dass Sie <strong>Mini-Tools.uk</strong> vertrauen.</p>
-    </div>
+    <div id="seo-container">
+        </div>
   </main>
 
-  <footer class="bg-white border-t border-slate-200 py-16 mt-auto">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-xs text-slate-400 font-bold tracking-widest uppercase">
-          © 2026 MINI-TOOLS.UK. ALL RIGHTS RESERVED.
-        </p>
-        <p class="text-xs text-slate-300 font-medium italic">
-          Proudly built for speed and privacy.
-        </p>
-      </div>
-    </div>
-  </footer>
-
   <script>
-    const uiTrans = {
-      en: { tag: "Our Story & Mission", title: "Engineering the Future of Secure Web Utilities.", sub: "Discover why thousands of professionals trust our zero-server, privacy-first toolset for their daily digital workflows." },
-      zh: { tag: "我们的故事与使命", title: "构建安全在线工具的未来。", sub: "了解为什么成千上万的专业人士在日常工作流中信任我们这款“零服务器、隐私优先”的工具集。" },
-      es: { tag: "Nuestra Historia", title: "Ingeniería del Futuro de Utilidades Web Seguras.", sub: "Descubra por qué miles de profesionales confían en nuestro conjunto de herramientas sin servidor para sus flujos de trabajo." },
-      fr: { tag: "Notre Histoire", title: "Ingénierie de l'Avenir des Utilitaires Web Sécurisés.", sub: "Découvrez pourquoi des milliers de professionnels font confiance à nos outils sans serveur pour leurs flux de travail quotidiens." },
-      de: { tag: "Unsere Geschichte", title: "Die Zukunft Sicherer Web-Dienstprogramme.", sub: "Entdecken Sie, warum Tausende von Profis für ihre täglichen Workflows auf unsere serverlosen Tools vertrauen." }
+    // 🌟 核心优化 4：整合所有语言的 Meta (带长尾 Keywords) 和富文本到字典中
+    const i18n = {
+      en: {
+        metaTitle: "About Us | Mini-Tools.uk — The Privacy-First Utility Platform",
+        metaDesc: "Learn about the mission, technology, and team behind Mini-Tools.uk. We build high-performance, privacy-focused online utilities for professionals worldwide.",
+        metaKeywords: "about mini-tools, privacy-first web tools, client-side utilities, secure developer tools, zero trust architecture",
+        navHome: "Home", navPrivacy: "Privacy", navContact: "Contact",
+        heroTag: "Our Story & Mission",
+        heroTitle: "Engineering the Future of Secure Web Utilities.",
+        heroSub: "Discover why thousands of professionals trust our zero-server, privacy-first toolset for their daily digital workflows.",
+        seoHtml: `
+          <p>Welcome to <strong>Mini-Tools.uk</strong>. We are a dedicated collective of independent web developers, software engineers, and digital productivity enthusiasts. Our mission is clear: to build everyday online utilities that are fast, universally accessible, and unequivocally respectful of user privacy.</p>
+          <h2>The Problem with Modern "Free" Web Tools</h2>
+          <p>The internet is saturated with utility websites offering to format your JSON, compress your images, or calculate your taxes. However, over the years, we observed a disturbing trend. The vast majority of these "free" services come with a hidden cost: your data.</p>
+          <p>Have you ever needed to quickly extract a HEX color from a highly confidential design mockup, only to realize the online color picker required you to upload the image to their remote server? Have you ever calculated your personal salary, wondering if the server logging your keystrokes is secure? We realized that the current ecosystem of web tools is fundamentally broken. It relies on unnecessary server round-trips that compromise both speed and security.</p>
+          <blockquote>
+            "We believe that a tool should solve a problem, not create a privacy liability. If a calculation can be done on your device, it should stay on your device."
+          </blockquote>
+          <h2>Our "Client-Side First" Technical Philosophy</h2>
+          <p>At Mini-Tools.uk, we engineered a completely different architectural approach. We leverage the immense processing power of modern web browsers (using HTML5, Advanced JavaScript, and WebAssembly) to perform complex calculations and data manipulations <strong>strictly on your local machine</strong>.</p>
+          <p>This architectural decision fundamentally changes how you interact with our tools:</p>
+          <ul>
+            <li><strong>Absolute Data Sovereignty:</strong> When you use our Image Color Picker, the image is rendered locally on an HTML5 Canvas within your browser. When you use our UK PAYE Tax Calculator, the math happens on your CPU. We literally do not have the server infrastructure to receive, store, or analyze your personal inputs.</li>
+            <li><strong>Zero Latency & Instant Response:</strong> By eliminating the need to wait for a remote server to process data and send it back, our tools achieve sub-millisecond response times. Every slider you move and every number you type updates the results instantaneously, providing a native-app-level experience.</li>
+            <li><strong>Offline Capability:</strong> Many of our tools, such as the Global Currency Converter, utilize intelligent LocalStorage caching. Once the initial exchange rates are fetched, you can disconnect from the internet entirely (e.g., during a flight or subway commute) and the tool will continue to function flawlessly using the cached data.</li>
+          </ul>
+          <h2>The Evolution of Our Toolbox</h2>
+          <p>What started as a personal project to build a reliable UK Salary Calculator for the 2026 financial year has quickly expanded into a comprehensive suite of 14 professional-grade utilities. We carefully selected and developed tools that digital professionals need daily.</p>
+          <p>Our tools are divided into three core categories:</p>
+          <p><strong>1. Financial & Tax Utilities:</strong> Specifically optimized for the UK market, incorporating the latest HMRC thresholds, National Insurance (NI) rates, and VAT standards to ensure penny-perfect accuracy.</p>
+          <p><strong>2. Developer & Text Utilities:</strong> Including our JSON Formatter, Text Diff Checker, and AI Prompt Helper, designed to streamline coding and LLM interaction workflows.</p>
+          <p><strong>3. Media & Security Tools:</strong> Featuring our local Image Resizer, PDF to Image extractor, and Cryptographically Secure Password Generator—all guaranteed to keep your files off the cloud.</p>
+          <h2>Our Commitment to You</h2>
+          <p>We are not a massive corporation; we are independent builders. We do not require user registrations, we do not lock features behind premium paywalls, and we do not engage in shady tracking practices.</p>
+          <p>Our commitment remains steadfast: to continually refine, update, and expand our toolbox while adhering strictly to our privacy-first philosophy. Whether you are a freelance designer in London, a web developer in Berlin, or an investor tracking Forex rates in Tokyo, we are honored to be a small, reliable part of your daily workflow.</p>
+          <p>Thank you for trusting <strong>Mini-Tools.uk</strong>.</p>`
+      },
+      zh: {
+        metaTitle: "关于我们 | Mini-Tools.uk — 隐私优先的在线工具平台",
+        metaDesc: "了解 Mini-Tools 背后的团队、使命与核心技术。我们致力于为全球数字工作者打造极致性能且坚守隐私安全的纯前端工具箱。",
+        metaKeywords: "关于Mini-Tools, 纯前端在线工具, 隐私保护工具, 开发者工具集合, 安全在线工具, 零信任架构",
+        navHome: "首页", navPrivacy: "隐私政策", navContact: "联系我们",
+        heroTag: "我们的故事与使命",
+        heroTitle: "构建安全在线工具的未来。",
+        heroSub: "了解为什么成千上万的专业人士在日常工作流中信任我们这款“零服务器、隐私优先”的极客工具集。",
+        seoHtml: `
+          <p>欢迎访问 <strong>Mini-Tools.uk</strong>。我们是由独立 Web 开发者、软件工程师和数字生产力极客组成的团队。我们的使命非常明确：构建极速、无门槛且绝对尊重用户隐私的日常在线工具集。</p>
+          <h2>现代“免费”在线工具的致命缺陷</h2>
+          <p>如今的互联网充斥着各种宣称能帮您格式化 JSON、压缩图片或计算税务的工具网站。然而，多年来我们观察到了一个令人不安的趋势：绝大多数所谓的“免费”服务都暗藏代价——您的数据和隐私。</p>
+          <p>您是否曾为了从一份高度机密的设计初稿中提取颜色，却发现必须将图片上传到未知的远程服务器？您是否在计算私人薪资时，担忧过记录您按键的服务器是否安全？我们意识到，现有的在线工具生态系统存在根本性的缺陷，它们依赖于非必要的服务器往返传输，从而同时牺牲了处理速度和数据安全。</p>
+          <blockquote>
+            “我们坚信，工具的存在是为了解决问题，而不是制造隐私隐患。如果计算可以在您的设备上完成，数据就应该永远留在您的设备上。”
+          </blockquote>
+          <h2>我们坚守的“纯前端架构”技术哲学</h2>
+          <p>在 Mini-Tools.uk，我们采用了一种完全颠覆传统架构的方法。我们充分利用现代浏览器的强大算力（依托 HTML5、高级 JavaScript 和 WebAssembly 技术），将所有复杂的计算和数据处理<strong>严格限制在您的本地设备上执行</strong>。</p>
+          <p>这一底层架构的决定，从根本上改变了您使用工具的体验：</p>
+          <ul>
+            <li><strong>绝对的数据主权：</strong> 当您使用我们的图片取色器时，图片仅在您浏览器的 HTML5 Canvas 中本地渲染；当您使用我们的英国个税计算器时，所有数学运算都由您自己的 CPU 完成。事实上，我们根本没有部署用于接收、存储或分析您输入数据的后端服务器设施。</li>
+            <li><strong>零延迟与极速响应：</strong> 因为彻底消除了等待远程服务器处理和回传数据的网络延迟，我们的工具能实现亚毫秒级的响应。您拖动的每一个滑块、输入的每一个数字，都能瞬间刷新结果，带来媲美原生桌面软件的丝滑体验。</li>
+            <li><strong>强悍的离线能力：</strong> 我们许多工具（如全球实时汇率转换器）内置了智能的 LocalStorage 本地缓存机制。只要成功拉取过一次最新汇率，即使您随后完全断开网络（如在飞机或地铁上），工具依然能调用缓存数据完美运行。</li>
+          </ul>
+          <h2>我们工具箱的演进历程</h2>
+          <p>Mini-Tools.uk 最初只是为了创建一个完全精准反映 2026 财年政策的英国薪资计算器，但很快，它发展成了一个包含 14 款专业级实用程序的综合工具箱。我们精心挑选并开发了数字专业人士每天不可或缺的核心工具。</p>
+          <p>我们的工具集主要分为三大核心领域：</p>
+          <p><strong>1. 财务与税务工具：</strong> 专为英国市场深度优化，内置最新的 HMRC 免税额、国民保险 (NI) 费率及增值税标准，确保计算结果精确到便士。</p>
+          <p><strong>2. 开发者与文本工具：</strong> 包含 JSON 格式化、文本深度比对（Diff）以及 AI 提示词助手，旨在大幅简化编程开发和与大型语言模型（LLM）的交互流程。</p>
+          <p><strong>3. 媒体与安全工具：</strong> 提供纯本地的图片尺寸调整、PDF 转图片提取器以及密码生成器——郑重承诺绝不让您的文件接触云端。</p>
+          <h2>我们对您的郑重承诺</h2>
+          <p>我们不是臃肿的大型企业，我们是热爱技术的独立开发者。我们不要求用户注册，不设置高级功能的付费墙，更拒绝参与任何隐蔽的用户追踪行为。</p>
+          <p>我们的承诺始终如一：在严格恪守“隐私优先”哲学的同时，不断优化、更新并扩充我们的工具箱。无论您是伦敦的自由设计师、柏林的前端开发者，还是东京的外汇投资者，我们都非常荣幸能成为您高效、可靠的日常工作流的一部分。</p>
+          <p>感谢您信任并选择 <strong>Mini-Tools.uk</strong>。</p>`
+      },
+      es: {
+        metaTitle: "Sobre Nosotros | Mini-Tools.uk — Plataforma de Utilidades Privadas",
+        metaDesc: "Conozca la misión y la tecnología detrás de Mini-Tools.uk. Herramientas web de alto rendimiento orientadas a la privacidad del usuario.",
+        metaKeywords: "sobre mini-tools, herramientas privacidad, procesamiento local, utilidades web seguras",
+        navHome: "Inicio", navPrivacy: "Privacidad", navContact: "Contacto",
+        heroTag: "Nuestra Historia",
+        heroTitle: "Ingeniería del Futuro de Utilidades Web Seguras.",
+        heroSub: "Descubra por qué miles de profesionales confían en nuestro conjunto de herramientas sin servidor para sus flujos de trabajo diarios.",
+        seoHtml: `
+          <p>Bienvenido a <strong>Mini-Tools.uk</strong>. Somos un colectivo de desarrolladores web independientes e ingenieros de software. Nuestra misión es clara: construir utilidades en línea que sean rápidas, accesibles y que respeten inequívocamente la privacidad del usuario.</p>
+          <h2>El Problema con las Herramientas Web "Gratuitas"</h2>
+          <p>Internet está saturado de sitios que ofrecen formatear su JSON, comprimir imágenes o calcular impuestos. Sin embargo, la gran mayoría de estos servicios "gratuitos" tienen un costo oculto: sus datos. Nos dimos cuenta de que el ecosistema actual depende de viajes innecesarios al servidor que comprometen la velocidad y la seguridad.</p>
+          <blockquote>
+            "Creemos que una herramienta debe resolver un problema, no crear una vulnerabilidad de privacidad. Si un cálculo se puede hacer en su dispositivo, debe permanecer en su dispositivo."
+          </blockquote>
+          <h2>Nuestra Filosofía Técnica "Client-Side First"</h2>
+          <p>En Mini-Tools.uk, aprovechamos la inmensa potencia de procesamiento de los navegadores modernos para realizar cálculos complejos <strong>estrictamente en su máquina local</strong>.</p>
+          <ul>
+            <li><strong>Soberanía Absoluta de Datos:</strong> Literalmente, no tenemos la infraestructura para recibir, almacenar o analizar sus entradas. Todo ocurre en su navegador.</li>
+            <li><strong>Cero Latencia:</strong> Al eliminar la necesidad de esperar a un servidor, nuestras herramientas logran tiempos de respuesta instantáneos.</li>
+            <li><strong>Capacidad Offline:</strong> Herramientas como el Conversor de Divisas utilizan caché inteligente. Puede desconectarse de internet y seguirán funcionando.</li>
+          </ul>
+          <h2>Nuestro Compromiso</h2>
+          <p>No somos una corporación masiva; somos constructores independientes. No requerimos registros ni muros de pago. Nuestro compromiso es expandir nuestras herramientas adhiriéndonos estrictamente a nuestra filosofía de privacidad. Gracias por confiar en <strong>Mini-Tools.uk</strong>.</p>`
+      },
+      fr: {
+        metaTitle: "À Propos | Mini-Tools.uk — Plateforme d'Utilitaires Privés",
+        metaDesc: "Découvrez la mission et l'équipe derrière Mini-Tools.uk. Des outils en ligne performants et respectueux de la vie privée pour les professionnels.",
+        metaKeywords: "à propos mini-tools, outils web privés, traitement côté client, utilitaires sécurisés",
+        navHome: "Accueil", navPrivacy: "Confidentialité", navContact: "Contact",
+        heroTag: "Notre Histoire",
+        heroTitle: "Ingénierie de l'Avenir des Utilitaires Web Sécurisés.",
+        heroSub: "Découvrez pourquoi des milliers de professionnels font confiance à nos outils sans serveur pour leurs flux de travail quotidiens.",
+        seoHtml: `
+          <p>Bienvenue sur <strong>Mini-Tools.uk</strong>. Nous sommes un collectif de développeurs web et d'ingénieurs logiciels. Notre mission est claire : créer des utilitaires en ligne rapides, accessibles et respectueux de la vie privée.</p>
+          <h2>Le Problème des Outils Web "Gratuits"</h2>
+          <p>Internet est saturé de sites proposant des outils gratuits. Cependant, la plupart ont un coût caché : vos données. Le système actuel repose sur des transferts serveur inutiles qui compromettent la vitesse et la sécurité.</p>
+          <blockquote>
+            "Un outil doit résoudre un problème, pas créer une faille de confidentialité. Si un calcul peut être fait sur votre appareil, il doit y rester."
+          </blockquote>
+          <h2>Notre Philosophie "Côté Client"</h2>
+          <p>Chez Mini-Tools.uk, nous utilisons la puissance des navigateurs modernes pour effectuer des calculs complexes <strong>strictement sur votre machine locale</strong>.</p>
+          <ul>
+            <li><strong>Souveraineté des Données :</strong> Nous n'avons aucune infrastructure pour stocker vos saisies. Tout se passe dans votre navigateur.</li>
+            <li><strong>Zéro Latence :</strong> En éliminant l'attente du serveur, nos outils offrent des temps de réponse instantanés.</li>
+            <li><strong>Fonctionnement Hors Ligne :</strong> Nos outils utilisent le cache local. Vous pouvez vous déconnecter et continuer à travailler.</li>
+          </ul>
+          <h2>Notre Engagement</h2>
+          <p>Nous sommes des développeurs indépendants. Pas d'inscription, pas de péage. Notre engagement est de développer nos outils tout en respectant notre philosophie de confidentialité. Merci de faire confiance à <strong>Mini-Tools.uk</strong>.</p>`
+      },
+      de: {
+        metaTitle: "Über Uns | Mini-Tools.uk — Die datenschutzfreundliche Utility-Plattform",
+        metaDesc: "Erfahren Sie mehr über die Mission und das Team hinter Mini-Tools.uk. Hochleistungsfähige, datenschutzorientierte Online-Tools.",
+        metaKeywords: "über mini-tools, private web tools, client-side verarbeitung, sichere entwickler tools",
+        navHome: "Startseite", navPrivacy: "Datenschutz", navContact: "Kontakt",
+        heroTag: "Unsere Geschichte",
+        heroTitle: "Die Zukunft Sicherer Web-Dienstprogramme.",
+        heroSub: "Entdecken Sie, warum Tausende von Profis für ihre täglichen Workflows auf unsere serverlosen Tools vertrauen.",
+        seoHtml: `
+          <p>Willkommen bei <strong>Mini-Tools.uk</strong>. Wir sind ein Kollektiv von unabhängigen Webentwicklern und Software-Ingenieuren. Unsere Mission ist klar: Online-Tools zu entwickeln, die schnell und zugänglich sind und die Privatsphäre der Nutzer respektieren.</p>
+          <h2>Das Problem mit "Kostenlosen" Web-Tools</h2>
+          <p>Das Internet ist voll von kostenlosen Tools, aber die meisten haben versteckte Kosten: Ihre Daten. Das aktuelle Ökosystem stützt sich auf unnötige Serverkommunikation, die Geschwindigkeit und Sicherheit gefährdet.</p>
+          <blockquote>
+            "Ein Tool sollte ein Problem lösen, kein Datenschutzrisiko schaffen. Wenn eine Berechnung auf Ihrem Gerät durchgeführt werden kann, sollte sie dort bleiben."
+          </blockquote>
+          <h2>Unsere Philosophie "Client-Side First"</h2>
+          <p>Bei Mini-Tools.uk nutzen wir die immense Rechenleistung moderner Webbrowser, um komplexe Berechnungen <strong>streng auf Ihrem lokalen Rechner</strong> durchzuführen.</p>
+          <ul>
+            <li><strong>Absolute Datensouveränität:</strong> Wir haben keine Server-Infrastruktur, um Ihre Eingaben zu speichern oder zu analysieren.</li>
+            <li><strong>Null Latenz:</strong> Durch den Wegfall der Serverwartezeiten reagieren unsere Tools sofort.</li>
+            <li><strong>Offline-Fähigkeit:</strong> Tools nutzen intelligentes lokales Caching, sodass sie auch ohne Internetverbindung funktionieren.</li>
+          </ul>
+          <h2>Unser Versprechen</h2>
+          <p>Wir sind unabhängige Entwickler. Keine Registrierung, keine Paywalls. Wir verpflichten uns, unsere Tools unter strikter Einhaltung unserer Datenschutzphilosophie zu erweitern. Danke, dass Sie <strong>Mini-Tools.uk</strong> vertrauen.</p>`
+      }
     };
 
     function updateLanguage() {
-      const params = new URLSearchParams(window.location.search);
-      let lang = params.get('lang');
-      if (!lang) {
-        const navLang = navigator.language.split('-')[0];
-        lang = ['en', 'zh', 'es', 'fr', 'de'].includes(navLang) ? navLang : 'en';
-      }
+      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+      const data = i18n[lang] || i18n['en'];
       
       document.documentElement.lang = lang;
+      
+      // 🌟 动态接管 Meta 数据：Title, Description 和核心长尾 Keywords
+      document.title = data.metaTitle;
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
+
+      // Update Navigation
+      document.getElementById('nav-home').innerText = data.navHome;
+      document.getElementById('nav-privacy').innerText = data.navPrivacy;
+      document.getElementById('nav-contact').innerText = data.navContact;
+
+      // Update Hero Section
+      document.getElementById('hero-tag').innerText = data.heroTag;
+      document.getElementById('hero-title').innerText = data.heroTitle;
+      document.getElementById('hero-sub').innerText = data.heroSub;
+      
+      // 🌟 动态注入纯净的 SEO 长文内容，消灭多语言混杂代码
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
+
       document.getElementById('lang-select').value = lang;
       
-      document.getElementById('hero-tag').innerText = uiTrans[lang].tag;
-      document.getElementById('hero-title').innerText = uiTrans[lang].title;
-      document.getElementById('hero-sub').innerText = uiTrans[lang].sub;
-
-      document.querySelectorAll('.lang-content').forEach(block => {
-        if(block.getAttribute('data-lang') === lang) {
-          block.classList.add('active');
-        } else {
-          block.classList.remove('active');
-        }
-      });
-
+      // 去除跳转链接的 .html 后缀
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
