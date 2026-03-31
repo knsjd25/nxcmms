@@ -9,13 +9,19 @@
   <meta name="keywords" content="PDF to Image, PDF to PNG, PDF to JPG, free PDF converter, private PDF tool, browser-based PDF rendering, high-res PDF export, convert PDF offline" />
   <meta name="robots" content="index,follow" />
 
-  <link rel="canonical" href="https://mini-tools.uk/pdf2img.html" />
+  <link rel="canonical" href="https://mini-tools.uk/pdf2img" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/pdf2img?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/pdf2img?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/pdf2img?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/pdf2img?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/pdf2img?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/pdf2img" />
 
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/pdf2img.html?lang=en" />
-  <link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/pdf2img.html?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/pdf2img.html?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/pdf2img.html?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/pdf2img.html?lang=de" />
+  <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -65,10 +71,8 @@
     .progress-bg { width: 100%; height: 8px; background-color: #334155; border-radius: 4px; overflow: hidden; margin-top: 12px; }
     .progress-fill { height: 100%; background-color: #3b82f6; width: 0%; transition: width 0.3s ease; }
 
-    /* SEO Article Styles */
-    .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
-    .seo-article.active { display: block; animation: fadeIn 0.5s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* SEO Content Typography */
+    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
     .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
     .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
     .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
@@ -160,192 +164,175 @@
 
     <div id="output-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20"></div>
 
-    <div class="prose-content">
-      
-      <article id="seo-en" class="seo-article" data-lang="en">
-        <h2>Why convert PDF to Image locally?</h2>
-        <p>In today's digital landscape, converting PDF documents into standard image formats (like PNG or JPG) is a common requirement for social media sharing, web embedding, or digital archiving. However, when you use a typical <strong>online PDF to PNG converter</strong>, you are often required to upload your files to a remote cloud server. This poses a massive security vulnerability if you are processing sensitive documents such as bank statements, passports, medical records, or confidential legal contracts.</p>
-        
-        <h3>The Zero-Trust Architecture</h3>
-        <p>At <strong>Mini-Tools.uk</strong>, we implemented a Zero-Trust architecture. Our tool utilizes the powerful, open-source <strong>PDF.js</strong> engine originally developed by Mozilla. When you drag and drop a PDF into the box above, the JavaScript engine parses and renders the document entirely within the memory (RAM) of your own web browser. Your files never leave your device, ensuring 100% absolute privacy.</p>
+    <div id="seo-container" class="prose-content">
+      </div>
 
-        <h3>Core Advantages & Features</h3>
-        <ul class="list-disc pl-5 mb-6 space-y-2">
-            <li><strong>Zero Server Uploads:</strong> All PDF parsing and image rendering is done in your local device memory. We cannot see, store, or access your documents.</li>
-            <li><strong>No File Size Limits:</strong> As long as your device has enough memory, you can easily convert high-definition PDF drawings hundreds of megabytes in size without hitting artificial "VIP" limits.</li>
-            <li><strong>High-Resolution 2x Rendering:</strong> Many free tools output blurry images. Our converter is programmed to render every single page at a <strong>high 2x scale multiplier</strong>. This guarantees razor-sharp text and preserves vector graphic fidelity.</li>
-            <li><strong>Completely Free, No Registration:</strong> Ready to use immediately, with absolutely no intrusive tracking or ad SDKs.</li>
-        </ul>
-
-        <h2>Frequently Asked Questions (FAQ)</h2>
-        <div class="faq-box">
-          <h4>1. Will converting a multi-page PDF slow down my computer?</h4>
-          <p class="mb-0">Conversion speed depends entirely on your device's CPU performance. Because it relies on local computing, multi-page PDFs are rendered page-by-page. For extremely large books (e.g., 500+ pages), it may take a few moments, but the tool will steadily process it without network bottlenecks.</p>
-        </div>
-        <div class="faq-box">
-          <h4>2. How does the "Download All as ZIP" feature work?</h4>
-          <p class="mb-0">To save you the hassle of clicking "Download" on every individual page, our tool automatically compresses all the rendered high-res PNG images into a single ZIP file using a purely client-side zipping algorithm. This makes bulk exporting fast and completely private.</p>
-        </div>
-
-        <div class="mt-8 p-5 bg-blue-50 rounded-xl border border-blue-100">
-            <p class="text-blue-900 font-medium m-0">💡 <strong>Efficiency Tip:</strong> Once your images are converted, if you need to share them securely, try our <a href="/" class="text-blue-600 underline font-bold hover:text-blue-800">Secure Image Hosting Tool</a>, featuring encrypted transfers and auto-destruct (Burn After Reading) capabilities.</p>
-        </div>
-      </article>
-
-      <article id="seo-zh" class="seo-article" data-lang="zh">
-        <h2>为什么选择纯本地处理的 PDF 转图片工具？</h2>
-        <p>在日常办公中，将 PDF 转换为高清图片（如 PNG）是排版、发朋友圈或嵌入网页的刚需。然而，市面上绝大多数“免费在线转换器”都要求您将文件上传到他们的云端服务器。如果您处理的是包含身份证件、财务报表或商业机密合同的 PDF 文件，这种上传行为存在极大的数据泄露风险。</p>
-        
-        <h3>100% 隐私安全的零信任架构</h3>
-        <p><strong>Mini-Tools.uk</strong> 坚守隐私底线。我们采用了由 Mozilla 开发的强大的 <strong>PDF.js</strong> 前端引擎。当您将文件拖入网页时，所有的解析和绘图工作都在您自己电脑的浏览器内存中瞬间完成。<strong>文件绝不会被发送到任何互联网服务器。</strong> 断网状态下，本工具依然可以完美运行。</p>
-
-        <h3>核心优势与功能 (Key Features)</h3>
-        <ul class="list-disc pl-5 mb-6 space-y-2">
-            <li><strong>零服务器上传：</strong> 所有的 PDF 解析和图像渲染全在您的本地设备完成，我们无法查看、存储或访问您的任何文档，保护绝对隐私。</li>
-            <li><strong>无文件大小限制：</strong> 只要您的设备内存足够，几百兆的高清 PDF 图纸也能轻松转换，彻底告别恶心的“VIP 大小限制”和付费墙。</li>
-            <li><strong>2 倍超清无损导出：</strong> 很多免费工具转换的图片文字发虚。我们的算法默认采用 2x 采样渲染，完美保留原本 PDF 中的矢量文字和高清图像细节，适合打印和专业设计。</li>
-            <li><strong>完全免费，无需注册：</strong> 随开随用，没有任何烦人的强制登录或隐藏追踪器。</li>
-        </ul>
-
-        <h2>常见问题解答 (FAQ)</h2>
-        <div class="faq-box">
-          <h4>1. 转换多页 PDF 会变慢吗？</h4>
-          <p class="mb-0">转换速度完全取决于您当前设备的 CPU 与内存性能。由于是纯本地计算，多页 PDF 会被逐页渲染为独立的图片文件。即使是处理几百页的电子书，本工具也能依靠本地算力稳步完成转换，且不受网络带宽影响。</p>
-        </div>
-        <div class="faq-box">
-          <h4>2. 如何一次性下载所有页面的图片？</h4>
-          <p class="mb-0">为了提升效率，我们内置了纯前端的 ZIP 打包引擎。当 PDF 渲染完成后，您只需点击顶部的“打包下载 ZIP (Download All as ZIP)”按钮，系统会瞬间将所有高清图片打包成一个压缩包供您保存，彻底省去了逐张点击下载的繁琐。</p>
-        </div>
-
-        <div class="mt-8 p-5 bg-blue-50 rounded-xl border border-blue-100">
-            <p class="text-blue-900 font-medium m-0">💡 <strong>效率提升：</strong> 转换完成后，如果您需要将这些图片安全地分享给他人或同事，可以尝试我们的 <a href="/" class="text-blue-600 underline font-bold hover:text-blue-800">免费安全图床 (阅后即焚)</a> 工具，支持纯本地加密与限时自动销毁功能。</p>
-        </div>
-      </article>
-
-      <article id="seo-es" class="seo-article" data-lang="es">
-        <h2>Conversor de PDF a Imagen 100% Privado</h2>
-        <p>Muchos conversores en línea requieren que suba sus archivos PDF a sus servidores, lo cual es un riesgo si contiene información sensible (contratos, extractos bancarios). En Mini-Tools.uk, utilizamos tecnología <strong>Client-Side Processing (PDF.js)</strong>. Sus archivos se renderizan directamente en la memoria de su navegador y <strong>nunca se suben a internet</strong>.</p>
-        
-        <h3>Calidad de Imagen de Alta Resolución</h3>
-        <p>Nuestra herramienta renderiza cada página con un multiplicador de escala 2x, asegurando que el texto sea nítido y las imágenes mantengan su calidad original. Exportamos en formato PNG de alta fidelidad.</p>
-
-        <h2>Preguntas Frecuentes (FAQ)</h2>
-        <div class="faq-box">
-          <h4>¿Hay límite de tamaño o páginas?</h4>
-          <p class="mb-0">No hay límites artificiales ni muros de pago. Dado que se ejecuta localmente, el límite depende de la memoria (RAM) de su propio dispositivo.</p>
-        </div>
-        <div class="faq-box">
-          <h4>¿Cómo descargo todas las imágenes a la vez?</h4>
-          <p class="mb-0">Hemos integrado un algoritmo local para comprimir archivos. Simplemente haga clic en "Download All as ZIP" y obtendrá todas las imágenes empaquetadas al instante.</p>
-        </div>
-      </article>
-
-      <article id="seo-fr" class="seo-article" data-lang="fr">
-        <h2>Convertisseur PDF en Image Sécurisé (Client-Side)</h2>
-        <p>La plupart des outils en ligne nécessitent le téléchargement de vos fichiers sur leurs serveurs. Si vous traitez des contrats ou des documents d'identité, c'est un risque majeur. Notre outil utilise <strong>PDF.js</strong> pour traiter votre fichier entièrement dans votre navigateur. <strong>Vos documents ne quittent jamais votre ordinateur.</strong></p>
-        
-        <h3>Rendu Haute Résolution</h3>
-        <p>Notre algorithme génère des images avec une échelle 2x. Le texte reste net et les images conservent leur qualité, idéal pour le partage professionnel ou l'impression.</p>
-
-        <h2>Foire Aux Questions (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Y a-t-il une limite de pages ?</h4>
-          <p class="mb-0">Non. Puisque le calcul se fait sur votre machine, il n'y a pas de limite artificielle. La seule limite est la RAM de votre appareil.</p>
-        </div>
-        <div class="faq-box">
-          <h4>Puis-je télécharger toutes les pages d'un coup ?</h4>
-          <p class="mb-0">Oui ! Utilisez le bouton "Download All as ZIP" pour regrouper instantanément toutes les images PNG haute résolution dans une seule archive.</p>
-        </div>
-      </article>
-
-      <article id="seo-de" class="seo-article" data-lang="de">
-        <h2>Sicherer PDF-zu-Bild-Konverter (Lokal)</h2>
-        <p>Die meisten Online-Tools verlangen, dass Sie Ihre Dateien auf deren Server hochladen. Das ist ein Risiko bei vertraulichen Dokumenten. Unser Tool verwendet <strong>PDF.js</strong>, um Ihre Datei vollständig in Ihrem Browser zu verarbeiten. <strong>Ihre Dokumente verlassen niemals Ihren Computer.</strong></p>
-        
-        <h3>Hochauflösendes Rendering</h3>
-        <p>Unser Algorithmus generiert Bilder in doppelter Größe (2x Scale). Der Text bleibt gestochen scharf und Bilder behalten ihre Qualität.</p>
-
-        <h2>Häufig Gestellte Fragen (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Gibt es ein Seitenlimit?</h4>
-          <p class="mb-0">Nein. Da die Berechnung auf Ihrem Gerät erfolgt, gibt es kein künstliches Limit. Die einzige Grenze ist der Arbeitsspeicher (RAM) Ihres Geräts.</p>
-        </div>
-        <div class="faq-box">
-          <h4>Kann ich alle Seiten auf einmal herunterladen?</h4>
-          <p class="mb-0">Ja! Verwenden Sie die Schaltfläche "Download All as ZIP", um sofort alle hochauflösenden PNG-Bilder in einem einzigen ZIP-Archiv zusammenzufassen.</p>
-        </div>
-      </article>
-
-    </div>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-10 w-full">
+  <footer class="bg-white border-t border-slate-100 py-12 mt-auto w-full">
     <div class="max-w-4xl mx-auto px-6 text-center">
       <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
         <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
           <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
         </a>
-        <a href="/about.html" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
-      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
+      <p class="text-[10px] text-slate-300 font-bold uppercase tracking-widest">
         © 2026 MINI-TOOLS.UK — SECURE LOCAL PDF PROCESSING
       </p>
     </div>
   </footer>
 
   <script>
+    // 🌟 核心优化 4：整合所有语言的 Meta (带长尾 Keywords) 和富文本到字典中
     const i18n = {
       en: {
         metaTitle: "Free PDF to Image Converter | Private & High-Resolution PNG",
         metaDesc: "Convert PDF to PNG images instantly. 100% private, client-side processing. No server uploads. Safe for sensitive documents. Batch download as ZIP.",
+        metaKeywords: "PDF to Image, PDF to PNG, PDF to JPG, free PDF converter, private PDF tool, browser-based PDF rendering, high-res PDF export, convert PDF offline, batch pdf to image",
         badge: "Client-Side Processing",
         title: "PDF to Image Converter", desc: "Transform PDF pages into clear PNG images instantly. Safe for sensitive documents, no server uploads.",
         upload: "Click or Drag PDF Here", privacy: "Max Resolution • Batch Export • Local Engine",
         status: "Rendering Pages...", page: "Page", btnDown: "Download",
         success: "Conversion Complete", pagesRendered: "Pages ready for download", btnZip: "Download All as ZIP",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us"
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
+        // 英文 SEO HTML
+        seoHtml: `
+          <h2>Why convert PDF to Image locally?</h2>
+          <p>In today's digital landscape, converting PDF documents into standard image formats (like PNG or JPG) is a common requirement for social media sharing, web embedding, or digital archiving. However, when you use a typical <strong>online PDF to PNG converter</strong>, you are often required to upload your files to a remote cloud server. This poses a massive security vulnerability if you are processing sensitive documents such as bank statements, passports, medical records, or confidential legal contracts.</p>
+          <h3>The Zero-Trust Architecture</h3>
+          <p>At <strong>Mini-Tools.uk</strong>, we implemented a Zero-Trust architecture. Our tool utilizes the powerful, open-source <strong>PDF.js</strong> engine originally developed by Mozilla. When you drag and drop a PDF into the box above, the JavaScript engine parses and renders the document entirely within the memory (RAM) of your own web browser. Your files never leave your device, ensuring 100% absolute privacy.</p>
+          <h3>Core Advantages & Features</h3>
+          <ul class="list-disc pl-5 mb-6 space-y-2">
+              <li><strong>Zero Server Uploads:</strong> All PDF parsing and image rendering is done in your local device memory. We cannot see, store, or access your documents.</li>
+              <li><strong>No File Size Limits:</strong> As long as your device has enough memory, you can easily convert high-definition PDF drawings hundreds of megabytes in size without hitting artificial "VIP" limits.</li>
+              <li><strong>High-Resolution 2x Rendering:</strong> Many free tools output blurry images. Our converter is programmed to render every single page at a <strong>high 2x scale multiplier</strong>. This guarantees razor-sharp text and preserves vector graphic fidelity.</li>
+              <li><strong>Completely Free, No Registration:</strong> Ready to use immediately, with absolutely no intrusive tracking or ad SDKs.</li>
+          </ul>
+          <h2>Frequently Asked Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>1. Will converting a multi-page PDF slow down my computer?</h4>
+            <p class="mb-0">Conversion speed depends entirely on your device's CPU performance. Because it relies on local computing, multi-page PDFs are rendered page-by-page. For extremely large books (e.g., 500+ pages), it may take a few moments, but the tool will steadily process it without network bottlenecks.</p>
+          </div>
+          <div class="faq-box">
+            <h4>2. How does the "Download All as ZIP" feature work?</h4>
+            <p class="mb-0">To save you the hassle of clicking "Download" on every individual page, our tool automatically compresses all the rendered high-res PNG images into a single ZIP file using a purely client-side zipping algorithm. This makes bulk exporting fast and completely private.</p>
+          </div>
+          <div class="mt-8 p-5 bg-blue-50 rounded-xl border border-blue-100">
+              <p class="text-blue-900 font-medium m-0">💡 <strong>Efficiency Tip:</strong> Once your images are converted, if you need to share them securely, try our <a href="/upload" class="text-blue-600 underline font-bold hover:text-blue-800">Secure Image Hosting Tool</a>, featuring encrypted transfers and auto-destruct (Burn After Reading) capabilities.</p>
+          </div>`
       },
       zh: {
         metaTitle: "免费 PDF 转图片 | 高清 PNG 导出 & 纯本地保护隐私",
         metaDesc: "即时将 PDF 转换为高清图片。100% 本地处理，不上传服务器，保护您的隐私安全。支持一键打包下载 ZIP。",
+        metaKeywords: "PDF转图片, 免费PDF转PNG, 在线PDF转长图, 纯本地PDF转换, 批量PDF转图片, 高清PDF转JPG, 保护隐私的PDF工具",
         badge: "100% 纯本地处理",
         title: "PDF 转图片工具", desc: "将 PDF 页面即时转换为高质量 PNG 图片。绝不上传服务器，确保敏感文件绝对安全。",
         upload: "点击或拖拽 PDF 至此处", privacy: "高清渲染 • 一键打包 • 纯前端计算",
         status: "正在渲染高清页面...", page: "第", btnDown: "下载",
         success: "转换完成", pagesRendered: "张页面已准备就绪", btnZip: "打包下载全部 (ZIP)",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们"
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        seoHtml: `
+          <h2>为什么选择纯本地处理的 PDF 转图片工具？</h2>
+          <p>在日常办公中，将 PDF 转换为高清图片（如 PNG）是排版、发朋友圈或嵌入网页的刚需。然而，市面上绝大多数“免费在线转换器”都要求您将文件上传到他们的云端服务器。如果您处理的是包含身份证件、财务报表或商业机密合同的 PDF 文件，这种上传行为存在极大的数据泄露风险。</p>
+          <h3>100% 隐私安全的零信任架构</h3>
+          <p><strong>Mini-Tools.uk</strong> 坚守隐私底线。我们采用了由 Mozilla 开发的强大的 <strong>PDF.js</strong> 前端引擎。当您将文件拖入网页时，所有的解析和绘图工作都在您自己电脑的浏览器内存中瞬间完成。<strong>文件绝不会被发送到任何互联网服务器。</strong> 断网状态下，本工具依然可以完美运行。</p>
+          <h3>核心优势与功能 (Key Features)</h3>
+          <ul class="list-disc pl-5 mb-6 space-y-2">
+              <li><strong>零服务器上传：</strong> 所有的 PDF 解析和图像渲染全在您的本地设备完成，我们无法查看、存储或访问您的任何文档，保护绝对隐私。</li>
+              <li><strong>无文件大小限制：</strong> 只要您的设备内存足够，几百兆的高清 PDF 图纸也能轻松转换，彻底告别恶心的“VIP 大小限制”和付费墙。</li>
+              <li><strong>2 倍超清无损导出：</strong> 很多免费工具转换的图片文字发虚。我们的算法默认采用 2x 采样渲染，完美保留原本 PDF 中的矢量文字和高清图像细节，适合打印和专业设计。</li>
+              <li><strong>完全免费，无需注册：</strong> 随开随用，没有任何烦人的强制登录或隐藏追踪器。</li>
+          </ul>
+          <h2>常见问题解答 (FAQ)</h2>
+          <div class="faq-box">
+            <h4>1. 转换多页 PDF 会变慢吗？</h4>
+            <p class="mb-0">转换速度完全取决于您当前设备的 CPU 与内存性能。由于是纯本地计算，多页 PDF 会被逐页渲染为独立的图片文件。即使是处理几百页的电子书，本工具也能依靠本地算力稳步完成转换，且不受网络带宽影响。</p>
+          </div>
+          <div class="faq-box">
+            <h4>2. 如何一次性下载所有页面的图片？</h4>
+            <p class="mb-0">为了提升效率，我们内置了纯前端的 ZIP 打包引擎。当 PDF 渲染完成后，您只需点击顶部的“打包下载 ZIP (Download All as ZIP)”按钮，系统会瞬间将所有高清图片打包成一个压缩包供您保存，彻底省去了逐张点击下载的繁琐。</p>
+          </div>
+          <div class="mt-8 p-5 bg-blue-50 rounded-xl border border-blue-100">
+              <p class="text-blue-900 font-medium m-0">💡 <strong>效率提升：</strong> 转换完成后，如果您需要将这些图片安全地分享给他人或同事，可以尝试我们的 <a href="/upload" class="text-blue-600 underline font-bold hover:text-blue-800">免费安全图床 (阅后即焚)</a> 工具，支持纯本地加密与限时自动销毁功能。</p>
+          </div>`
       },
       es: {
         metaTitle: "Convertidor de PDF a Imagen Gratis | PNG Alta Resolución",
         metaDesc: "Convierta PDF a imágenes PNG al instante. Procesamiento 100% privado sin subidas al servidor. Descarga en lote como ZIP.",
+        metaKeywords: "PDF a Imagen, PDF a PNG, conversor de PDF gratis, extraer imagenes de PDF, PDF offline",
         badge: "Procesamiento Local",
         title: "Convertidor PDF a Imagen", desc: "Transforme páginas PDF en imágenes PNG claras al instante. Seguro para documentos sensibles.",
         upload: "Haga clic o arrastre el PDF aquí", privacy: "Alta Resolución • Exportación en Lote • Motor Local",
         status: "Renderizando páginas...", page: "Página", btnDown: "Descargar",
         success: "Conversión Completa", pagesRendered: "Páginas listas para descargar", btnZip: "Descargar Todo (ZIP)",
-        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto"
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        seoHtml: `
+          <h2>Conversor de PDF a Imagen 100% Privado</h2>
+          <p>Muchos conversores en línea requieren que suba sus archivos PDF a sus servidores, lo cual es un riesgo si contiene información sensible (contratos, extractos bancarios). En Mini-Tools.uk, utilizamos tecnología <strong>Client-Side Processing (PDF.js)</strong>. Sus archivos se renderizan directamente en la memoria de su navegador y <strong>nunca se suben a internet</strong>.</p>
+          <h3>Calidad de Imagen de Alta Resolución</h3>
+          <p>Nuestra herramienta renderiza cada página con un multiplicador de escala 2x, asegurando que el texto sea nítido y las imágenes mantengan su calidad original. Exportamos en formato PNG de alta fidelidad.</p>
+          <h2>Preguntas Frecuentes (FAQ)</h2>
+          <div class="faq-box">
+            <h4>¿Hay límite de tamaño o páginas?</h4>
+            <p class="mb-0">No hay límites artificiales ni muros de pago. Dado que se ejecuta localmente, el límite depende de la memoria (RAM) de su propio dispositivo.</p>
+          </div>
+          <div class="faq-box">
+            <h4>¿Cómo descargo todas las imágenes a la vez?</h4>
+            <p class="mb-0">Hemos integrado un algoritmo local para comprimir archivos. Simplemente haga clic en "Download All as ZIP" y obtendrá todas las imágenes empaquetadas al instante.</p>
+          </div>`
       },
       fr: {
         metaTitle: "Convertisseur PDF en Image Gratuit | PNG Haute Résolution",
         metaDesc: "Convertissez vos PDF en images PNG instantanément. Traitement 100% privé, sans serveur. Téléchargement en lot (ZIP).",
+        metaKeywords: "PDF en Image, PDF en PNG, convertisseur PDF gratuit, pdf hors ligne, transformer pdf en image",
         badge: "Traitement Côté Client",
         title: "Convertisseur PDF en Image", desc: "Transformez vos pages PDF en images claires. Sécurisé pour les documents sensibles, aucun téléchargement.",
         upload: "Cliquez ou Glissez le PDF ici", privacy: "Haute Résolution • Export par Lot • Moteur Local",
         status: "Rendu des pages...", page: "Page", btnDown: "Télécharger",
         success: "Conversion Terminée", pagesRendered: "Pages prêtes au téléchargement", btnZip: "Télécharger Tout (ZIP)",
-        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact"
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        seoHtml: `
+          <h2>Convertisseur PDF en Image Sécurisé (Client-Side)</h2>
+          <p>La plupart des outils en ligne nécessitent le téléchargement de vos fichiers sur leurs serveurs. Si vous traitez des contrats ou des documents d'identité, c'est un risque majeur. Notre outil utilise <strong>PDF.js</strong> pour traiter votre fichier entièrement dans votre navigateur. <strong>Vos documents ne quittent jamais votre ordinateur.</strong></p>
+          <h3>Rendu Haute Résolution</h3>
+          <p>Notre algorithme génère des images avec une échelle 2x. Le texte reste net et les images conservent leur qualité, idéal pour le partage professionnel ou l'impression.</p>
+          <h2>Foire Aux Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Y a-t-il une limite de pages ?</h4>
+            <p class="mb-0">Non. Puisque le calcul se fait sur votre machine, il n'y a pas de limite artificielle. La seule limite est la RAM de votre appareil.</p>
+          </div>
+          <div class="faq-box">
+            <h4>Puis-je télécharger toutes les pages d'un coup ?</h4>
+            <p class="mb-0">Oui ! Utilisez le bouton "Download All as ZIP" pour regrouper instantanément toutes les images PNG haute résolution dans une seule archive.</p>
+          </div>`
       },
       de: {
         metaTitle: "Kostenloser PDF zu Bild Konverter | Hochauflösende PNGs",
         metaDesc: "Konvertieren Sie PDF sofort in PNG. 100% privat, keine Server-Uploads. Sicher für sensible Dokumente. Als ZIP herunterladen.",
+        metaKeywords: "PDF zu Bild, PDF zu PNG, kostenloser PDF konverter, PDF extrahieren, offline PDF konverter",
         badge: "Lokale Verarbeitung",
         title: "PDF zu Bild Konverter", desc: "Verwandeln Sie PDF-Seiten sofort in klare PNG-Bilder. Sicher für sensible Dokumente, keine Server-Uploads.",
         upload: "Klicken oder PDF hierher ziehen", privacy: "Max Auflösung • Batch-Export • Lokale Engine",
         status: "Seiten werden gerendert...", page: "Seite", btnDown: "Download",
         success: "Konvertierung Abgeschlossen", pagesRendered: "Seiten zum Download bereit", btnZip: "Alle als ZIP Herunterladen",
-        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt"
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        seoHtml: `
+          <h2>Sicherer PDF-zu-Bild-Konverter (Lokal)</h2>
+          <p>Die meisten Online-Tools verlangen, dass Sie Ihre Dateien auf deren Server hochladen. Das ist ein Risiko bei vertraulichen Dokumenten. Unser Tool verwendet <strong>PDF.js</strong>, um Ihre Datei vollständig in Ihrem Browser zu verarbeiten. <strong>Ihre Dokumente verlassen niemals Ihren Computer.</strong></p>
+          <h3>Hochauflösendes Rendering</h3>
+          <p>Unser Algorithmus generiert Bilder in doppelter Größe (2x Scale). Der Text bleibt gestochen scharf und Bilder behalten ihre Qualität.</p>
+          <h2>Häufig Gestellte Fragen (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Gibt es ein Seitenlimit?</h4>
+            <p class="mb-0">Nein. Da die Berechnung auf Ihrem Gerät erfolgt, gibt es kein künstliches Limit. Die einzige Grenze ist der Arbeitsspeicher (RAM) Ihres Geräts.</p>
+          </div>
+          <div class="faq-box">
+            <h4>Kann ich alle Seiten auf einmal herunterladen?</h4>
+            <p class="mb-0">Ja! Verwenden Sie die Schaltfläche "Download All as ZIP", um sofort alle hochauflösenden PNG-Bilder in einem einzigen ZIP-Archiv zusammenzufassen.</p>
+          </div>`
       }
     };
 
@@ -376,8 +363,11 @@
       const data = i18n[lang] || i18n['en'];
 
       document.documentElement.lang = lang;
+      
+      // 🌟 动态接管 Meta 数据：Title, Description 和核心长尾 Keywords
       document.title = data.metaTitle;
       document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
 
       document.getElementById('badge-privacy').innerText = data.badge;
       document.getElementById('page-title').innerText = data.title;
@@ -393,12 +383,19 @@
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
       
-      document.querySelectorAll('.seo-article').forEach(article => {
-        if(article.getAttribute('data-lang') === lang) article.classList.add('active');
-        else article.classList.remove('active');
-      });
+      // 🌟 动态注入纯净的 SEO 长文内容，消灭多语言混杂代码
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
 
       document.getElementById('lang-select').value = lang;
+      
+      // 去除跳转链接的 .html
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
