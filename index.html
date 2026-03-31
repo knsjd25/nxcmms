@@ -170,13 +170,13 @@
         <p id="d_dif" class="text-sm text-slate-500 font-medium">Find differences between texts or code side-by-side.</p>
       </a>
 
-      <a href="/color" class="tool-card block p-6 rounded-2xl">
+      <a href="/color-picker" class="tool-card block p-6 rounded-2xl">
         <div class="icon-box w-14 h-14 bg-pink-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">🎨</div>
         <h3 id="t_col" class="text-lg font-extrabold text-slate-900 mb-2">Color Picker</h3>
         <p id="d_col" class="text-sm text-slate-500 font-medium">Extract HEX/RGB palettes directly from your images.</p>
       </a>
 
-      <a href="/pass" class="tool-card block p-6 rounded-2xl">
+      <a href="/password" class="tool-card block p-6 rounded-2xl">
         <div class="icon-box w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">🔐</div>
         <h3 id="t_pas" class="text-lg font-extrabold text-slate-900 mb-2">Password Generator</h3>
         <p id="d_pas" class="text-sm text-slate-500 font-medium">Cryptographically secure offline password creator.</p>
@@ -260,6 +260,7 @@
   </footer>
 
   <script>
+    // 🌟 全量包含 15 个工具的完整词典！
     const i18n = {
       en: {
         metaTitle: "Mini-Tools.uk | Free Secure Online Utilities & Developer Tools",
@@ -451,26 +452,30 @@
       document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
       document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
 
+      // Hero Section
       document.getElementById('hero-title').innerText = data.heroTitle;
       document.getElementById('hero-desc').innerText = data.heroDesc;
       
-      // Update Blog texts
+      // Blog Texts
       document.getElementById('nav-blog-text').innerText = data.navBlog;
       document.getElementById('footer-blog').innerText = data.footerBlog;
       document.getElementById('blog-banner-title').innerText = data.blogBannerTitle;
       document.getElementById('blog-banner-desc').innerText = data.blogBannerDesc;
       document.getElementById('blog-banner-btn').innerHTML = `${data.blogBannerBtn} <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>`;
 
+      // Exactly 15 Cards Injection
       const keys = ['tax', 'vat', 'mor', 'cur', 'jsn', 'dif', 'col', 'pas', 'img', 'pdf', 'up', 'qr', 'uni', 'wrd', 'prm'];
       keys.forEach(k => {
           document.getElementById('t_' + k).innerText = data['t_' + k];
           document.getElementById('d_' + k).innerText = data['d_' + k];
       });
       
+      // Footer
       document.getElementById('footer-about').innerText = data.footerAbout;
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
       
+      // SEO Content Injection
       const seoContainer = document.getElementById('seo-container');
       if (data.seoHtml) {
           seoContainer.style.opacity = 0;
@@ -482,7 +487,8 @@
 
       document.getElementById('lang-select').value = lang;
       
-      document.querySelectorAll('a.tool-card, footer a, #nav-blog, #blog-banner-btn').forEach(link => {
+      // Update all internal links with ?lang parameter WITHOUT .html
+      document.querySelectorAll('a.tool-card, footer a, #nav-blog, #nav-about, #nav-privacy, #nav-home, #blog-banner-btn').forEach(link => {
         const href = link.getAttribute('href');
         if (href && href.startsWith('/')) {
           try {
