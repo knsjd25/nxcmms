@@ -80,8 +80,7 @@
     .icon-box { transition: transform 0.3s; }
     .tool-card:hover .icon-box { transform: scale(1.1) rotate(5deg); }
 
-    /* SEO Content Typography */
-    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
+    .prose-content { margin-top: 2rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
     .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
     .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
     .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
@@ -104,8 +103,13 @@
           <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
         </div>
       </div>
-      <div class="flex items-center gap-4">
-        <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500">
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
+          <span id="nav-blog-text">Blog & Guides</span>
+        </a>
+        
+        <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500 transition-colors hover:bg-slate-100">
           <option value="en">🇬🇧 English</option>
           <option value="zh">🇨🇳 简体中文</option>
           <option value="es">🇪🇸 Español</option>
@@ -128,7 +132,7 @@
       </p>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
       
       <a href="/tax" class="tool-card block p-6 rounded-2xl">
         <div class="icon-box w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">💷</div>
@@ -222,6 +226,17 @@
 
     </div>
 
+    <div class="mt-8 mb-12 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-8 sm:p-12 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between shadow-xl shadow-blue-500/20">
+        <div class="mb-6 sm:mb-0">
+            <h2 id="blog-banner-title" class="text-2xl sm:text-3xl font-extrabold text-white mb-2 tracking-tight">Learn & Discover More</h2>
+            <p id="blog-banner-desc" class="text-blue-100 text-sm sm:text-base font-medium max-w-xl">Explore our latest tutorials, developer guides, and tips on how to maximize your productivity.</p>
+        </div>
+        <a href="/blog" id="blog-banner-btn" class="px-8 py-4 bg-white text-blue-600 font-black rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all active:scale-95 whitespace-nowrap flex items-center gap-2">
+            Read Our Blog
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+    </div>
+
     <div id="seo-container" class="prose-content max-w-4xl mx-auto w-full">
       </div>
 
@@ -234,6 +249,7 @@
           <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
         </a>
         <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
         <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
         <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
@@ -244,14 +260,19 @@
   </footer>
 
   <script>
-    // 🌟 核心优化 4：全局多语言字典，彻底接管 Meta、Title 和卡片文本
     const i18n = {
       en: {
         metaTitle: "Mini-Tools.uk | Free Secure Online Utilities & Developer Tools",
         metaDesc: "A collection of fast, privacy-first online tools. Calculators, image compressors, password generators, and formatters working 100% locally in your browser.",
         metaKeywords: "free online tools, developer utilities, tax calculator, image compressor, pdf converter, mini tools uk, secure web tools",
         heroTitle: "Precision Web Utilities",
-        heroDesc: "Fast, ad-free, and privacy-first online tools. Most run entirely in your browser to keep your data secure.",
+        heroDesc: "Fast, ad-free, and privacy-first online tools. Most run entirely locally in your browser to keep your data secure.",
+        
+        navBlog: "Blog & Guides",
+        footerBlog: "Blog",
+        blogBannerTitle: "Learn & Discover More",
+        blogBannerDesc: "Explore our latest tutorials, developer guides, and tips on how to maximize your productivity.",
+        blogBannerBtn: "Read Our Blog",
         
         t_tax: "UK Tax Calculator", d_tax: "Calculate Take-Home Pay, National Insurance, and Pension.",
         t_vat: "UK VAT Calculator", d_vat: "Add or remove 20% standard VAT instantly.",
@@ -285,6 +306,12 @@
         heroTitle: "极简・极速・极致隐私",
         heroDesc: "专为现代互联网打造的安全在线工具箱。纯前端架构，数据不上传服务器，彻底保护您的商业机密与隐私。",
         
+        navBlog: "官方博客与教程",
+        footerBlog: "官方博客",
+        blogBannerTitle: "探索更多深度教程",
+        blogBannerDesc: "阅读我们最新发布的开发者指南、工具使用技巧以及提高生产力的硬核文章。",
+        blogBannerBtn: "前往阅读博客",
+
         t_tax: "英国个税计算器", d_tax: "精准计算 2026/27 财年税后净收入与养老金。",
         t_vat: "增值税 (VAT) 计算", d_vat: "一键计算 20% 标准增值税含税/不含税价格。",
         t_mor: "英国房贷计算器", d_mor: "估算每月还款额、首付比例与印花税。",
@@ -317,6 +344,12 @@
         heroTitle: "Utilidades Web de Precisión",
         heroDesc: "Herramientas web rápidas, sin anuncios y orientadas a la privacidad. La mayoría se ejecutan 100% localmente en su navegador.",
         
+        navBlog: "Blog y Guías",
+        footerBlog: "Blog",
+        blogBannerTitle: "Aprende y Descubre Más",
+        blogBannerDesc: "Explore nuestros últimos tutoriales, guías para desarrolladores y consejos de productividad.",
+        blogBannerBtn: "Leer Nuestro Blog",
+
         t_tax: "Calculadora de Impuestos", d_tax: "Calcule su salario neto, seguro nacional y pensión (UK).",
         t_vat: "Calculadora de IVA", d_vat: "Agregue o elimine el IVA del 20% al instante.",
         t_mor: "Calculadora de Hipotecas", d_mor: "Estime pagos mensuales y límites de préstamo.",
@@ -345,6 +378,12 @@
         heroTitle: "Utilitaires Web de Précision",
         heroDesc: "Des outils en ligne rapides, sans pub et respectueux de la vie privée. S'exécutent entièrement dans votre navigateur.",
         
+        navBlog: "Blog et Guides",
+        footerBlog: "Blog",
+        blogBannerTitle: "Apprendre et Découvrir",
+        blogBannerDesc: "Explorez nos derniers tutoriels, guides pour développeurs et astuces de productivité.",
+        blogBannerBtn: "Lire Notre Blog",
+
         t_tax: "Calculateur d'Impôts", d_tax: "Calculez votre salaire net et retraite (UK).",
         t_vat: "Calculateur de TVA", d_vat: "Ajoutez ou retirez 20% de TVA instantanément.",
         t_mor: "Calculateur de Prêt", d_mor: "Estimez les mensualités de votre prêt immobilier.",
@@ -373,6 +412,12 @@
         heroTitle: "Präzisions-Web-Dienstprogramme",
         heroDesc: "Schnelle, werbefreie Online-Tools. Die meisten laufen vollständig lokal in Ihrem Browser.",
         
+        navBlog: "Blog & Anleitungen",
+        footerBlog: "Blog",
+        blogBannerTitle: "Lernen und Entdecken",
+        blogBannerDesc: "Entdecken Sie unsere neuesten Tutorials, Entwicklerhandbücher und Produktivitätstipps.",
+        blogBannerBtn: "Unseren Blog lesen",
+
         t_tax: "UK Steuerrechner", d_tax: "Berechnen Sie Nettogehalt, NI und Rente.",
         t_vat: "MwSt.-Rechner", d_vat: "20% Standard-MwSt. sofort hinzufügen oder entfernen.",
         t_mor: "Hypothekenrechner", d_mor: "Schätzen Sie monatliche Raten und LTV.",
@@ -402,28 +447,30 @@
 
       document.documentElement.lang = lang;
       
-      // 🌟 动态接管全局 Meta 数据和长尾大词
       document.title = data.metaTitle;
       document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
       document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
 
-      // Hero Section
       document.getElementById('hero-title').innerText = data.heroTitle;
       document.getElementById('hero-desc').innerText = data.heroDesc;
+      
+      // Update Blog texts
+      document.getElementById('nav-blog-text').innerText = data.navBlog;
+      document.getElementById('footer-blog').innerText = data.footerBlog;
+      document.getElementById('blog-banner-title').innerText = data.blogBannerTitle;
+      document.getElementById('blog-banner-desc').innerText = data.blogBannerDesc;
+      document.getElementById('blog-banner-btn').innerHTML = `${data.blogBannerBtn} <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>`;
 
-      // Cards Injection
       const keys = ['tax', 'vat', 'mor', 'cur', 'jsn', 'dif', 'col', 'pas', 'img', 'pdf', 'up', 'qr', 'uni', 'wrd', 'prm'];
       keys.forEach(k => {
           document.getElementById('t_' + k).innerText = data['t_' + k];
           document.getElementById('d_' + k).innerText = data['d_' + k];
       });
       
-      // Footer
       document.getElementById('footer-about').innerText = data.footerAbout;
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
       
-      // SEO Content Injection
       const seoContainer = document.getElementById('seo-container');
       if (data.seoHtml) {
           seoContainer.style.opacity = 0;
@@ -435,8 +482,7 @@
 
       document.getElementById('lang-select').value = lang;
       
-      // Update all internal links with ?lang parameter WITHOUT .html
-      document.querySelectorAll('a.tool-card, footer a').forEach(link => {
+      document.querySelectorAll('a.tool-card, footer a, #nav-blog, #blog-banner-btn').forEach(link => {
         const href = link.getAttribute('href');
         if (href && href.startsWith('/')) {
           try {
