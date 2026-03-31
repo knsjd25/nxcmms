@@ -7,13 +7,15 @@
   <title id="meta-title">Image Colour Picker & Cropper | Extract HEX, RGB, HSL Locally</title>
   <meta name="description" id="meta-desc" content="Free offline image colour picker and screenshot cropping tool. Extract precise HEX, RGB, and HSL codes. Build colour palettes locally. Zero server uploads." />
   <meta name="keywords" content="Image colour picker, Screenshot tool, Crop image online, HEX colour finder, RGB picker, HSL extractor, Colour palette generator, Offline image tool" />
-  <link rel="canonical" href="https://mini-tools.uk/color-picker.html" />
   
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/color-picker.html?lang=en" />
-  <link rel="alternate" hreflang="zh-Hans" href="https://mini-tools.uk/color-picker.html?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/color-picker.html?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/color-picker.html?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/color-picker.html?lang=de" />
+  <link rel="canonical" href="https://mini-tools.uk/color-picker" />
+  
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/color-picker?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/color-picker?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/color-picker?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/color-picker?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/color-picker?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/color-picker" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -46,20 +48,19 @@
     .palette-swatch:hover { transform: scale(1.1); border-color: white; z-index: 10; }
     .palette-empty { width: 32px; height: 32px; border-radius: 6px; border: 1px dashed rgba(255,255,255,0.2); background: rgba(0,0,0,0.1); }
 
-    /* 优化：消除滚动条丑陋样式，保持左侧整洁 */
     .scrollbar-hide::-webkit-scrollbar { display: none; }
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* 核心修复：Canvas Area Styles */
+    /* Canvas Area Styles */
     .canvas-container { 
       position: relative; 
       width: 100%; 
-      height: 100%; /* 高度被父级 Flex 严格锁死 */
+      height: 100%; 
       background-color: #e2e8f0; 
       border-radius: 1.5rem; 
-      overflow: auto; /* 只有这里允许出现滚动条 */
+      overflow: auto; 
       border: 2px dashed #cbd5e1;
-      padding: 0; /* 移除 padding，用 margin 替代以防边缘截断 */
+      padding: 0; 
       transition: border-color 0.2s;
     }
 
@@ -86,7 +87,7 @@
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
       cursor: crosshair; 
       transform-origin: top left;
-      margin: 20px; /* 让图片周围有一点呼吸空间，不会贴死边框 */
+      margin: 20px; 
     }
 
     #image-canvas { 
@@ -105,7 +106,6 @@
       z-index: 10;
     }
 
-    /* 截图选择框 UI */
     #crop-selection-box {
       position: absolute;
       border: 2px solid #3b82f6;
@@ -122,7 +122,6 @@
     .crop-corner-tr { position: absolute; top: -4px; right: -4px; width: 6px; height: 6px; background: white; border: 1px solid #3b82f6; }
     .crop-corner-bl { position: absolute; bottom: -4px; left: -4px; width: 6px; height: 6px; background: white; border: 1px solid #3b82f6; }
 
-    /* 完成与取消按钮 */
     #crop-action-btns {
       position: absolute;
       right: -2px; 
@@ -139,7 +138,6 @@
     .crop-btn-save { background-color: #f0fdf4; color: #22c55e; }
     .crop-btn-save:hover { background-color: #dcfce7; transform: scale(1.1); }
 
-    /* 悬浮缩放控制台 */
     #zoom-controls {
       position: absolute;
       bottom: 20px;
@@ -162,15 +160,11 @@
     .zoom-text:hover { color: #3b82f6; }
 
     @media (pointer: fine) {
-      #zoom-controls {
-        display: none !important;
-      }
+      #zoom-controls { display: none !important; }
     }
 
-    /* SEO Article Styles */
-    .seo-article { display: none; margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; }
-    .seo-article.active { display: block; animation: fadeIn 0.5s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* SEO Content Styling */
+    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
     .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
     .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
     .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
@@ -264,7 +258,6 @@
           
           <p id="pan-hint" class="text-xs font-semibold text-slate-400 text-center leading-relaxed">💡 Tip: Right-click & drag to pan, use mouse wheel to zoom.</p>
         </div>
-        
       </div>
 
       <div class="flex-1 min-w-0 h-full relative flex flex-col">
@@ -305,133 +298,18 @@
       
     </div>
 
-    <div class="prose-content max-w-[1400px] mx-auto w-full">
-      
-      <article id="seo-en" class="seo-article" data-lang="en">
-        <h2>Advanced Client-Side Image Utility: Colour Picker & Cropper</h2>
-        <p>Welcome to the ultimate privacy-focused image utility suite designed for UI/UX designers, frontend developers, and digital creators. Whether you need to extract exact brand colours from a logo or quickly crop a high-resolution screenshot, our dual-purpose tool processes everything directly within your browser memory. <strong>No server uploads, no data retention, and zero waiting time.</strong></p>
-        
-        <h3>Understanding Colour Formats: HEX, RGB, and HSL</h3>
-        <p>Our tool simultaneously generates colour codes in three fundamental formats to suit any development or design workflow:</p>
-        <ul>
-          <li><strong>HEX (Hexadecimal):</strong> The standard for web design (e.g., <code>#3B82F6</code>). It represents RGB values in base-16 format, making it compact and easy to copy-paste into CSS or graphic software like Figma and Photoshop.</li>
-          <li><strong>RGB (Red, Green, Blue):</strong> Defines colours based on the intensity of red, green, and blue light (e.g., <code>rgb(59, 130, 246)</code>). It's highly useful when you need to manipulate opacity using the <code>rgba()</code> format in modern CSS.</li>
-          <li><strong>HSL (Hue, Saturation, Lightness):</strong> Often preferred by developers for creating programmatic colour themes. HSL (e.g., <code>hsl(217, 90%, 60%)</code>) makes it incredibly intuitive to generate lighter or darker shades of a base colour simply by tweaking the "Lightness" percentage.</li>
-        </ul>
+    <div id="seo-container" class="prose-content max-w-[1400px] mx-auto w-full">
+      </div>
 
-        <h3>New Feature: Local Colour Palette History</h3>
-        <p>We've introduced a dynamic <strong>Recent Palette</strong> feature. As you click around an image to extract colours, the tool automatically saves your last 8 selections in the console. This allows you to quickly build a cohesive UI colour scheme directly from an inspiration image, without needing to paste codes back and forth into a notepad.</p>
-        
-        <h2>Frequently Asked Questions (FAQ)</h2>
-        <div class="faq-box">
-          <h4>Are my confidential images safe?</h4>
-          <p class="mb-0">Absolutely. This tool utilises the HTML5 Canvas API. When you select an image, it is rendered locally on your device's RAM. Your files are <strong>never</strong> transmitted over the internet or saved to any cloud database, making it 100% safe for unreleased UI mockups or private photos.</p>
-        </div>
-        <div class="faq-box">
-          <h4>Does the cropper reduce image quality?</h4>
-          <p class="mb-0">No. Unlike other online tools that crop based on the compressed, scaled-down CSS preview, our intelligent cropping algorithm maps your selection back to the <strong>original, physical pixels</strong> of your uploaded image. The downloaded PNG file maintains pixel-perfect, lossless quality.</p>
-        </div>
-      </article>
-
-      <article id="seo-zh" class="seo-article" data-lang="zh">
-        <h2>纯本地运行的高级图片取色与裁剪工具</h2>
-        <p>欢迎使用专为 UI/UX 设计师、前端开发者和数字创作者打造的终极隐私保护图像工具。无论您是需要从 logo 中提取精确的品牌颜色，还是需要快速裁剪高清屏幕截图，我们的双效合一工具都能在您的浏览器内存中直接完成所有处理。<strong>绝无服务器上传，无数据留存，零等待时间。</strong></p>
-        
-        <h3>深入了解颜色格式：HEX、RGB 与 HSL</h3>
-        <p>我们的工具会同时生成三种最基础的颜色代码，以适应任何开发或设计工作流：</p>
-        <ul>
-          <li><strong>HEX (十六进制)：</strong> 网页设计的标准格式（例如 <code>#3B82F6</code>）。它使用 16 进制表示 RGB 值，非常紧凑，便于复制粘贴到 CSS 或 Figma、Photoshop 等图形软件中。</li>
-          <li><strong>RGB (红绿蓝)：</strong> 基于红、绿、蓝光的强度定义颜色。当您需要在现代 CSS 中使用 <code>rgba()</code> 格式调整透明度时，它非常实用。</li>
-          <li><strong>HSL (色相、饱和度、亮度)：</strong> 开发者通常更喜欢使用 HSL 来创建编程颜色主题。HSL 格式使得仅通过调整“亮度”百分比来生成基础色的深浅变体变得极其直观。</li>
-        </ul>
-
-        <h3>全新功能：本地调色板历史记录</h3>
-        <p>我们引入了动态的<strong>最近调色板</strong>功能。当您在图片上点击提取颜色时，工具会自动在控制台中保存您最近的 8 次选择。这使您能够直接从灵感图片中快速构建一套连贯的 UI 配色方案，而无需在记事本中来回粘贴代码。</p>
-        
-        <h2>常见问题解答 (FAQ)</h2>
-        <div class="faq-box">
-          <h4>我上传的机密设计图或照片安全吗？</h4>
-          <p class="mb-0">绝对安全。本工具利用 HTML5 Canvas API 技术。当您选择图片时，它仅在您设备的本地内存中渲染。您的文件<strong>永远不会</strong>通过互联网传输或保存到任何云端数据库中，非常适合处理未发布的 UI 设计稿或私人照片。</p>
-        </div>
-        <div class="faq-box">
-          <h4>裁剪截图会降低图片画质吗？</h4>
-          <p class="mb-0">不会。与其他在线工具基于压缩后的网页预览进行裁剪不同，我们智能的裁剪算法会将您的选区坐标映射回您上传图片的<strong>原始物理像素</strong>。下载的 PNG 文件能保持像素级完美的无损画质。</p>
-        </div>
-      </article>
-
-      <article id="seo-es" class="seo-article" data-lang="es">
-        <h2>Selector de Color y Recortador de Imágenes Local</h2>
-        <p>Bienvenido a la suite definitiva de utilidades de imágenes centrada en la privacidad para diseñadores UI/UX y desarrolladores frontend. Extraiga colores exactos o recorte capturas de pantalla directamente en la memoria de su navegador. <strong>Sin subidas a servidores y cero tiempos de espera.</strong></p>
-        
-        <h3>Formatos de Color: HEX, RGB y HSL</h3>
-        <ul>
-          <li><strong>HEX:</strong> El estándar para diseño web (ej. <code>#3B82F6</code>). Compacto y fácil de usar en CSS o Figma.</li>
-          <li><strong>RGB:</strong> Define colores por la intensidad de luz roja, verde y azul. Útil para manipular opacidad con <code>rgba()</code>.</li>
-          <li><strong>HSL (Tono, Saturación, Luminosidad):</strong> Ideal para desarrolladores para crear temas de color programáticos ajustando solo la "Luminosidad".</li>
-        </ul>
-
-        <h3>Nueva Función: Historial de Paleta</h3>
-        <p>La nueva función de <strong>Paleta Reciente</strong> guarda automáticamente sus últimas 8 selecciones, permitiéndole construir un esquema de colores coherente rápidamente.</p>
-        
-        <h2>Preguntas Frecuentes</h2>
-        <div class="faq-box">
-          <h4>¿Son seguras mis imágenes confidenciales?</h4>
-          <p class="mb-0">Absolutamente. Este proceso se realiza utilizando HTML5 Canvas en la memoria de su dispositivo. Sus archivos <strong>nunca</strong> se transmiten por internet.</p>
-        </div>
-      </article>
-
-      <article id="seo-fr" class="seo-article" data-lang="fr">
-        <h2>Sélecteur de Couleur et Outil de Recadrage Local</h2>
-        <p>Bienvenue dans la suite d'utilitaires d'images axée sur la confidentialité pour les designers UI/UX et les développeurs frontend. Extrayez des couleurs ou recadrez des captures d'écran directement dans la mémoire de votre navigateur. <strong>Aucun téléchargement sur serveur.</strong></p>
-        
-        <h3>Formats de Couleur : HEX, RGB et HSL</h3>
-        <ul>
-          <li><strong>HEX :</strong> Le standard pour le web (ex. <code>#3B82F6</code>). Compact et facile à utiliser dans CSS ou Figma.</li>
-          <li><strong>RGB :</strong> Définit les couleurs par l'intensité de la lumière rouge, verte et bleue.</li>
-          <li><strong>HSL (Teinte, Saturation, Luminosité) :</strong> Idéal pour créer des thèmes de couleurs programmatiques.</li>
-        </ul>
-
-        <h3>Nouvelle Fonctionnalité : Historique de Palette</h3>
-        <p>La fonction <strong>Palette Récente</strong> sauvegarde automatiquement vos 8 dernières sélections, vous permettant de construire rapidement un schéma de couleurs.</p>
-        
-        <h2>Foire Aux Questions</h2>
-        <div class="faq-box">
-          <h4>Mes images confidentielles sont-elles en sécurité ?</h4>
-          <p class="mb-0">Absolument. Ce processus utilise HTML5 Canvas dans la mémoire de votre appareil. Vos fichiers ne sont <strong>jamais</strong> transmis sur internet.</p>
-        </div>
-      </article>
-
-      <article id="seo-de" class="seo-article" data-lang="de">
-        <h2>Lokaler Farbpipette und Bildzuschneider</h2>
-        <p>Willkommen bei der datenschutzorientierten Bild-Utility-Suite für UI/UX-Designer und Frontend-Entwickler. Extrahieren Sie Farben oder schneiden Sie Screenshots direkt im Speicher Ihres Browsers zu. <strong>Keine Server-Uploads, keine Wartezeiten.</strong></p>
-        
-        <h3>Farbformate verstehen: HEX, RGB und HSL</h3>
-        <ul>
-          <li><strong>HEX:</strong> Der Standard für Webdesign (z.B. <code>#3B82F6</code>). Kompakt und einfach in CSS oder Figma zu verwenden.</li>
-          <li><strong>RGB:</strong> Definiert Farben durch die Intensität von rotem, grünem und blauem Licht.</li>
-          <li><strong>HSL (Farbton, Sättigung, Helligkeit):</strong> Ideal für Entwickler, um programmatische Farbthemen zu erstellen.</li>
-        </ul>
-
-        <h3>Neues Feature: Palettenverlauf</h3>
-        <p>Die Funktion <strong>Zuletzt verwendete Palette</strong> speichert automatisch Ihre letzten 8 Auswahlen, sodass Sie schnell ein Farbschema erstellen können.</p>
-        
-        <h2>Häufig Gestellte Fragen</h2>
-        <div class="faq-box">
-          <h4>Sind meine vertraulichen Bilder sicher?</h4>
-          <p class="mb-0">Absolut. Dieser Prozess verwendet HTML5 Canvas im Speicher Ihres Geräts. Ihre Dateien werden <strong>niemals</strong> über das Internet übertragen.</p>
-        </div>
-      </article>
-
-    </div>
   </main>
 
   <footer class="bg-white border-t border-slate-100 py-12 mt-10">
     <div class="max-w-7xl mx-auto px-6">
       <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
         <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
-        <a href="/about.html" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/privacy.html" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact.html" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
       <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
         © 2026 MINI-TOOLS.UK — Precision & Private Web Utilities
@@ -440,37 +318,79 @@
   </footer>
 
   <script>
+    // 🌟 1. 字典大换血：加入 MetaDesc 和 SEO 富文本
     const i18n = {
       en: {
         metaTitle: "Image Colour Picker & Cropper | Extract HEX, RGB, HSL Locally",
+        metaDesc: "Free offline image colour picker and screenshot cropping tool. Extract precise HEX, RGB, and HSL codes. Build colour palettes locally. Zero server uploads.",
         title: "Image Colour Picker & Cropper",
         desc: "Extract exact HEX, RGB, and HSL colours from any image. Build a palette or crop screenshots entirely locally in your browser.",
         updateText: "Advanced Palette Mode Added",
-        labelUpload: "Open Image",
-        labelPick: "Colour Picker",
-        labelCrop: "Screenshot",
+        labelUpload: "Open Image", labelPick: "Colour Picker", labelCrop: "Screenshot",
         dropText: "Click or Drag & Drop to upload an image",
         statusText: "100% Local processing. Your images never leave your device.",
         labelPalette: "Recent Palette",
         panHint: "💡 Tip: Right-click & drag to pan, use mouse wheel to zoom.",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us"
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
+        // 🌟 英文 SEO 文本
+        seoHtml: `
+          <h2>Advanced Client-Side Image Utility: Colour Picker & Cropper</h2>
+          <p>Welcome to the ultimate privacy-focused image utility suite designed for UI/UX designers, frontend developers, and digital creators. Whether you need to extract exact brand colours from a logo or quickly crop a high-resolution screenshot, our dual-purpose tool processes everything directly within your browser memory. <strong>No server uploads, no data retention, and zero waiting time.</strong></p>
+          <h3>Understanding Colour Formats: HEX, RGB, and HSL</h3>
+          <p>Our tool simultaneously generates colour codes in three fundamental formats to suit any development or design workflow:</p>
+          <ul>
+            <li><strong>HEX (Hexadecimal):</strong> The standard for web design (e.g., <code>#3B82F6</code>). It represents RGB values in base-16 format.</li>
+            <li><strong>RGB (Red, Green, Blue):</strong> Defines colours based on the intensity of red, green, and blue light.</li>
+            <li><strong>HSL (Hue, Saturation, Lightness):</strong> Often preferred by developers for creating programmatic colour themes.</li>
+          </ul>
+          <h3>New Feature: Local Colour Palette History</h3>
+          <p>We've introduced a dynamic <strong>Recent Palette</strong> feature. As you click around an image to extract colours, the tool automatically saves your last 8 selections in the console.</p>
+          <h2>Frequently Asked Questions (FAQ)</h2>
+          <div class="faq-box">
+            <h4>Are my confidential images safe?</h4>
+            <p class="mb-0">Absolutely. This tool utilises the HTML5 Canvas API. When you select an image, it is rendered locally on your device's RAM. Your files are <strong>never</strong> transmitted over the internet or saved to any cloud database.</p>
+          </div>
+          <div class="faq-box">
+            <h4>Does the cropper reduce image quality?</h4>
+            <p class="mb-0">No. Unlike other online tools that crop based on the compressed CSS preview, our intelligent algorithm maps your selection back to the <strong>original physical pixels</strong>.</p>
+          </div>`
       },
       zh: {
         metaTitle: "图片颜色拾取与局部截图 | 提取 HEX/RGB/HSL",
+        metaDesc: "免费离线图片取色与截图裁剪工具。精准提取 HEX、RGB 和 HSL 代码。本地生成调色板，绝无服务器上传。",
         title: "高级图片取色与截图工具",
         desc: "精准提取任何图片的 HEX、RGB 和 HSL 颜色代码。生成调色板历史记录，或进行局部高清截图。纯本地运行，保护隐私。",
         updateText: "全新加入调色板历史功能",
-        labelUpload: "打开图片",
-        labelPick: "提取颜色",
-        labelCrop: "局部截图",
+        labelUpload: "打开图片", labelPick: "提取颜色", labelCrop: "局部截图",
         dropText: "点击或拖拽图片到此处上传",
         statusText: "100% 纯本地处理。您的图片绝不会上传至服务器。",
         labelPalette: "最近提取的颜色",
         panHint: "💡 操作提示：按住鼠标右键拖拽可平移，滚动鼠标滚轮可缩放图片。",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们"
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        seoHtml: `
+          <h2>纯本地运行的高级图片取色与裁剪工具</h2>
+          <p>欢迎使用专为 UI/UX 设计师、前端开发者和数字创作者打造的终极隐私保护图像工具。无论您是需要从 logo 中提取精确的品牌颜色，还是需要快速裁剪高清屏幕截图，我们的双效合一工具都能在您的浏览器内存中直接完成所有处理。<strong>绝无服务器上传，无数据留存，零等待时间。</strong></p>
+          <h3>深入了解颜色格式：HEX、RGB 与 HSL</h3>
+          <ul>
+            <li><strong>HEX (十六进制)：</strong> 网页设计的标准格式（例如 <code>#3B82F6</code>）。非常紧凑，便于复制粘贴。</li>
+            <li><strong>RGB (红绿蓝)：</strong> 当您需要在现代 CSS 中使用 <code>rgba()</code> 格式调整透明度时，它非常实用。</li>
+            <li><strong>HSL (色相、饱和度、亮度)：</strong> 开发者通常更喜欢使用 HSL 来创建编程颜色主题。</li>
+          </ul>
+          <h3>全新功能：本地调色板历史记录</h3>
+          <p>我们引入了动态的<strong>最近调色板</strong>功能。当您在图片上点击提取颜色时，工具会自动在控制台中保存您最近的 8 次选择。</p>
+          <h2>常见问题解答 (FAQ)</h2>
+          <div class="faq-box">
+            <h4>我上传的机密设计图或照片安全吗？</h4>
+            <p class="mb-0">绝对安全。本工具利用 HTML5 Canvas API 技术。您的文件<strong>永远不会</strong>通过互联网传输或保存到任何云端数据库中。</p>
+          </div>
+          <div class="faq-box">
+            <h4>裁剪截图会降低图片画质吗？</h4>
+            <p class="mb-0">不会。我们智能的裁剪算法会将您的选区坐标映射回您上传图片的<strong>原始物理像素</strong>。下载的 PNG 文件能保持像素级完美的无损画质。</p>
+          </div>`
       },
       es: {
         metaTitle: "Selector de Color de Imagen y Recortador | Extraer HEX, RGB, HSL",
+        metaDesc: "Selector de color de imagen sin conexión y herramienta de recorte. Extraiga códigos HEX, RGB y HSL. Construya paletas localmente sin subir al servidor.",
         title: "Selector de Color y Recortador",
         desc: "Extraiga colores exactos HEX, RGB y HSL de cualquier imagen. Construya una paleta o recorte capturas localmente.",
         updateText: "Modo Paleta Avanzado Añadido",
@@ -479,10 +399,25 @@
         statusText: "Procesamiento 100% local. Sus imágenes nunca salen de su dispositivo.",
         labelPalette: "Paleta Reciente",
         panHint: "💡 Consejo: Haga clic derecho y arrastre para mover, use la rueda para acercar.",
-        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto"
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        seoHtml: `
+          <h2>Selector de Color y Recortador de Imágenes Local</h2>
+          <p>Bienvenido a la suite definitiva de utilidades de imágenes centrada en la privacidad para diseñadores UI/UX y desarrolladores frontend. Extraiga colores exactos o recorte capturas de pantalla directamente en la memoria de su navegador. <strong>Sin subidas a servidores y cero tiempos de espera.</strong></p>
+          <h3>Formatos de Color: HEX, RGB y HSL</h3>
+          <ul>
+            <li><strong>HEX:</strong> El estándar para diseño web (ej. <code>#3B82F6</code>).</li>
+            <li><strong>RGB:</strong> Define colores por la intensidad de luz roja, verde y azul.</li>
+            <li><strong>HSL:</strong> Ideal para desarrolladores para crear temas de color programáticos.</li>
+          </ul>
+          <h2>Preguntas Frecuentes</h2>
+          <div class="faq-box">
+            <h4>¿Son seguras mis imágenes confidenciales?</h4>
+            <p class="mb-0">Absolutamente. Este proceso se realiza utilizando HTML5 Canvas en la memoria de su dispositivo. Sus archivos <strong>nunca</strong> se transmiten por internet.</p>
+          </div>`
       },
       fr: {
         metaTitle: "Sélecteur de Couleur d'Image | Extraire HEX, RGB, HSL",
+        metaDesc: "Sélecteur de couleur d'image hors ligne et outil de recadrage. Extrayez les codes HEX, RGB et HSL. Zéro téléchargement sur serveur.",
         title: "Sélecteur de Couleur & Recadrage",
         desc: "Extrayez les couleurs HEX, RGB et HSL exactes. Construisez une palette ou recadrez des captures d'écran localement.",
         updateText: "Mode Palette Avancé Ajouté",
@@ -491,10 +426,25 @@
         statusText: "Traitement 100% local. Vos images ne quittent jamais votre appareil.",
         labelPalette: "Palette Récente",
         panHint: "💡 Astuce : Clic droit et glissez pour déplacer, utilisez la molette pour zoomer.",
-        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact"
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        seoHtml: `
+          <h2>Sélecteur de Couleur et Outil de Recadrage Local</h2>
+          <p>Bienvenue dans la suite d'utilitaires d'images axée sur la confidentialité pour les designers UI/UX et les développeurs frontend. Extrayez des couleurs ou recadrez des captures d'écran directement dans la mémoire de votre navigateur. <strong>Aucun téléchargement sur serveur.</strong></p>
+          <h3>Formats de Couleur : HEX, RGB et HSL</h3>
+          <ul>
+            <li><strong>HEX :</strong> Le standard pour le web (ex. <code>#3B82F6</code>).</li>
+            <li><strong>RGB :</strong> Définit les couleurs par l'intensité de la lumière rouge, verte et bleue.</li>
+            <li><strong>HSL :</strong> Idéal pour créer des thèmes de couleurs programmatiques.</li>
+          </ul>
+          <h2>Foire Aux Questions</h2>
+          <div class="faq-box">
+            <h4>Mes images confidentielles sont-elles en sécurité ?</h4>
+            <p class="mb-0">Absolument. Ce processus utilise HTML5 Canvas dans la mémoire de votre appareil. Vos fichiers ne sont <strong>jamais</strong> transmis sur internet.</p>
+          </div>`
       },
       de: {
         metaTitle: "Bild Farbpipette & Zuschneider | HEX, RGB, HSL Extrahieren",
+        metaDesc: "Kostenloser Offline-Farbpipette und Screenshot-Zuschneidetool. Extrahieren Sie genaue HEX-, RGB- und HSL-Codes. Keine Server-Uploads.",
         title: "Farbpipette & Bildzuschneider",
         desc: "Extrahieren Sie genaue HEX-, RGB- und HSL-Farben. Erstellen Sie eine Palette oder schneiden Sie Screenshots lokal zu.",
         updateText: "Erweiterter Palettenmodus Hinzugefügt",
@@ -503,7 +453,21 @@
         statusText: "100% lokale Verarbeitung. Ihre Bilder verlassen niemals Ihr Gerät.",
         labelPalette: "Letzte Palette",
         panHint: "💡 Tipp: Rechtsklick und ziehen zum Verschieben, Mausrad zum Zoomen.",
-        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt"
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        seoHtml: `
+          <h2>Lokaler Farbpipette und Bildzuschneider</h2>
+          <p>Willkommen bei der datenschutzorientierten Bild-Utility-Suite für UI/UX-Designer und Frontend-Entwickler. Extrahieren Sie Farben oder schneiden Sie Screenshots direkt im Speicher Ihres Browsers zu. <strong>Keine Server-Uploads, keine Wartezeiten.</strong></p>
+          <h3>Farbformate verstehen: HEX, RGB und HSL</h3>
+          <ul>
+            <li><strong>HEX:</strong> Der Standard für Webdesign (z.B. <code>#3B82F6</code>).</li>
+            <li><strong>RGB:</strong> Definiert Farben durch die Intensität von rotem, grünem und blauem Licht.</li>
+            <li><strong>HSL:</strong> Ideal für Entwickler, um programmatische Farbthemen zu erstellen.</li>
+          </ul>
+          <h2>Häufig Gestellte Fragen</h2>
+          <div class="faq-box">
+            <h4>Sind meine vertraulichen Bilder sicher?</h4>
+            <p class="mb-0">Absolut. Dieser Prozess verwendet HTML5 Canvas im Speicher Ihres Geräts. Ihre Dateien werden <strong>niemals</strong> über das Internet übertragen.</p>
+          </div>`
       }
     };
 
@@ -541,7 +505,6 @@
     let currentScale = 1.0, fitScale = 1.0;
     let colorHistory = []; 
 
-    // 平移控制状态变量
     let isSpacePressed = false;
     let isPanning = false;
     let panStartX = 0, panStartY = 0;
@@ -554,7 +517,11 @@
       const data = i18n[lang] || i18n['en'];
 
       document.documentElement.lang = lang;
+      
+      // 🌟 核心优化 3：彻底打通 Title 和 Description 标签的动态多语言切换
       document.title = data.metaTitle;
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+
       document.getElementById('update-text').innerText = data.updateText;
       document.getElementById('page-title').innerText = data.title;
       document.getElementById('page-desc').innerText = data.desc;
@@ -570,12 +537,19 @@
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
       
-      document.querySelectorAll('.seo-article').forEach(article => {
-        if(article.getAttribute('data-lang') === lang) article.classList.add('active');
-        else article.classList.remove('active');
-      });
+      // 🌟 核心优化 4：动态注入对应的纯净 SEO 长文内容
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
       
       document.getElementById('lang-select').value = lang;
+      
+      // 去除跳转链接的 .html
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
@@ -707,7 +681,6 @@
       canvasContainer.scrollTop += origY * (newScale - oldScale);
     }, { passive: false });
 
-    // Drag and Drop implementation
     canvasContainer.addEventListener('dragover', (e) => { e.preventDefault(); canvasContainer.style.borderColor = '#3b82f6'; canvasContainer.style.backgroundColor = '#eff6ff'; });
     canvasContainer.addEventListener('dragleave', (e) => { e.preventDefault(); canvasContainer.style.borderColor = '#cbd5e1'; canvasContainer.style.backgroundColor = '#e2e8f0'; });
     canvasContainer.addEventListener('drop', (e) => {
