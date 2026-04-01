@@ -79,8 +79,12 @@
           <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
         </div>
       </div>
-      <div class="flex items-center gap-4">
-        <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold text-slate-700 outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
+          <span id="nav-blog-text">Blog & Guides</span>
+        </a>
+        <select id="lang-select" class="bg-slate-100 px-3 py-2 rounded-lg text-sm font-bold text-slate-700 outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
           <option value="en">🇬🇧 English</option>
           <option value="zh">🇨🇳 简体中文</option>
           <option value="es">🇪🇸 Español</option>
@@ -168,7 +172,22 @@
     </div>
 
     <div id="seo-container" class="prose-content">
+      <h2>Accurate Real-Time Currency Converter</h2>
+      <p>Welcome to the most straightforward and reliable currency exchange tool on the web. Whether you are a traveler planning your next trip, a freelance developer invoicing international clients, or an investor monitoring the Forex market, our tool provides lightning-fast conversions for over 160 global currencies, including USD, EUR, GBP, JPY, and modern digital currencies.</p>
+      <h3>Why our Converter stands out: The "Offline-First" Advantage</h3>
+      <p>Most currency calculators on the internet are essentially thin wrappers around an API. The moment you lose Wi-Fi—such as on a long-haul flight or an underground subway—those tools become completely useless. We decided to fix this.</p>
+      <ul>
+        <li><strong>Intelligent Local Caching:</strong> The first time you open this page with an internet connection, our tool fetches the latest daily rates and securely stores them in your browser's <code>LocalStorage</code>. If you go offline later, the tool will seamlessly switch to the cached rates.</li>
+        <li><strong>Live & Accurate Rates:</strong> When online, we fetch data directly from highly reliable open exchange APIs (updated every 24 hours) to ensure your calculations reflect the true mid-market values.</li>
+      </ul>
+      <h3>New Feature: The Quick Comparison Matrix</h3>
+      <p>Our new <strong>Quick Comparison Matrix</strong> dynamically generates equivalent values for the world's top 6 fiat currencies instantly below your main result. This eliminates the tedious process of constantly changing the dropdown menus.</p>
+      <h2>Frequently Asked Questions (FAQ)</h2>
+      <div class="faq-box">
+        <h4>Are there any hidden fees or commissions added to the rate?</h4>
+        <p class="mb-0">No. Our calculator provides the "mid-market rate"—the midpoint between the buy and sell prices of two currencies. This is the real, exact exchange rate.</p>
       </div>
+    </div>
 
   </main>
 
@@ -177,6 +196,7 @@
       <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
         <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
         <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
         <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
         <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
@@ -187,7 +207,6 @@
   </footer>
 
   <script>
-    // 🌟 核心优化 4：字典补全 Meta 描述和纯净版 SEO 长文
     const i18n = {
       en: {
         metaTitle: "Real-time Currency Converter | Offline Forex Rates — Mini-Tools",
@@ -201,6 +220,7 @@
         labelAmount: "Amount", labelFrom: "From", labelTo: "To",
         labelResult: "Converted Amount", btnCopy: "Copy Value", btnCopied: "Copied!",
         labelMatrix: "Quick Comparison",
+        navBlog: "Blog & Guides", footerBlog: "Blog",
         apiCredit: "Rates updated daily via open exchange API. Cached locally for offline access.",
         footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
         seoHtml: `
@@ -232,6 +252,7 @@
         labelAmount: "转换金额", labelFrom: "原货币", labelTo: "目标货币",
         labelResult: "折合金额", btnCopy: "复制结果", btnCopied: "已复制！",
         labelMatrix: "多币种快速对比",
+        navBlog: "官方博客与教程", footerBlog: "官方博客",
         apiCredit: "汇率数据源自开源接口每日更新。已自动缓存至本地浏览器，支持无网访问。",
         footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
         seoHtml: `
@@ -260,6 +281,7 @@
         labelAmount: "Cantidad", labelFrom: "De", labelTo: "A",
         labelResult: "Cantidad Convertida", btnCopy: "Copiar Valor", btnCopied: "¡Copiado!",
         labelMatrix: "Comparación Rápida",
+        navBlog: "Blog y Guías", footerBlog: "Blog",
         apiCredit: "Tasas actualizadas diariamente. Guardadas localmente para acceso offline.",
         footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
         seoHtml: `
@@ -285,6 +307,7 @@
         labelAmount: "Montant", labelFrom: "De", labelTo: "À",
         labelResult: "Montant Converti", btnCopy: "Copier", btnCopied: "Copié !",
         labelMatrix: "Comparaison Rapide",
+        navBlog: "Blog et Guides", footerBlog: "Blog",
         apiCredit: "Taux mis à jour quotidiennement. Mis en cache pour un accès hors ligne.",
         footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
         seoHtml: `
@@ -310,6 +333,7 @@
         labelAmount: "Betrag", labelFrom: "Von", labelTo: "Zu",
         labelResult: "Umgerechneter Betrag", btnCopy: "Kopieren", btnCopied: "Kopiert!",
         labelMatrix: "Schneller Vergleich",
+        navBlog: "Blog & Anleitungen", footerBlog: "Blog",
         apiCredit: "Kurse werden täglich aktualisiert. Lokal gespeichert für Offline-Zugriff.",
         footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
         seoHtml: `
@@ -363,7 +387,6 @@
 
       document.documentElement.lang = currentLang;
       
-      // 🌟 动态替换 Meta 标签
       document.title = data.metaTitle;
       document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
 
@@ -380,8 +403,14 @@
       document.getElementById('footer-about').innerText = data.footerAbout;
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
+
+      const navBlogText = document.getElementById('nav-blog-text');
+      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
       
-      // 🌟 动态注入 SEO 长文
+      // 🌟 同步更新底部的 Blog 链接文字
+      const footerBlog = document.getElementById('footer-blog');
+      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
+
       const seoContainer = document.getElementById('seo-container');
       if (data.seoHtml) {
           seoContainer.style.opacity = 0;
@@ -393,7 +422,6 @@
       
       document.getElementById('lang-select').value = currentLang;
       
-      // 去除跳转链接的 .html
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
