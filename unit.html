@@ -96,7 +96,11 @@
           <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
         </div>
       </div>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
+          <span id="nav-blog-text">Blog & Guides</span>
+        </a>
         <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
           <option value="en">🇬🇧 English</option>
           <option value="zh">🇨🇳 简体中文</option>
@@ -179,7 +183,26 @@
     </div>
 
     <div id="seo-container" class="prose-content">
+      <h2>Metric vs. Imperial: Why We Need Conversion</h2>
+      <p>In our highly connected global economy, the clash between the <strong>Metric system</strong> (meters, kilograms, Celsius) and the <strong>Imperial system</strong> (inches, pounds, Fahrenheit) is a daily hurdle. While over 95% of the world's population officially uses the Metric system, the Imperial system remains dominant in the United States. Our <strong>online unit converter</strong> is engineered to bridge this gap instantly and accurately.</p>
+      <h3>How Our "Smart Dashboard" Works</h3>
+      <p>Unlike traditional converters that force you to endlessly select options from dropdown menus, Mini-Tools.uk features a <strong>Quick Reference Dashboard</strong>. When you input a single value—for example, 1 Kilogram—our client-side algorithm simultaneously calculates and displays the equivalent value in Pounds, Ounces, Grams, and Stone right below the main tool.</p>
+      <h3>Temperature Conversion: The Complex Formula</h3>
+      <p>Converting lengths or weights usually involves a simple multiplication. However, <strong>Temperature conversion</strong> is mathematically unique because the scales do not start at the same zero point.</p>
+      <ul>
+        <li><strong>Celsius to Fahrenheit:</strong> The formula is <code>(°C × 9/5) + 32</code>.</li>
+        <li><strong>Fahrenheit to Celsius:</strong> The formula reverses to <code>(°F - 32) × 5/9</code>.</li>
+      </ul>
+      <h2>Frequently Asked Questions (FAQ)</h2>
+      <div class="faq-box">
+        <h4>Is this tool suitable for precise engineering or baking conversions?</h4>
+        <p class="mb-0">Yes. Our underlying physics engine calculates conversions up to 6 decimal places of precision.</p>
       </div>
+      <div class="faq-box">
+        <h4>Are my inputs tracked or saved?</h4>
+        <p class="mb-0">No. Mini-Tools.uk operates entirely via <strong>Client-Side JavaScript</strong>. Your numbers never leave your browser.</p>
+      </div>
+    </div>
 
   </main>
 
@@ -190,6 +213,7 @@
           <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
         </a>
         <a href="/about" id="footer-about" class="hover:text-indigo-600 transition-colors">About Us</a>
+        <a href="/blog" id="footer-blog" class="hover:text-indigo-600 transition-colors">Blog</a>
         <a href="/privacy" id="footer-privacy" class="hover:text-indigo-600 transition-colors">Privacy Policy</a>
         <a href="/contact" id="footer-contact" class="hover:text-indigo-600 transition-colors">Contact Us</a>
       </div>
@@ -217,6 +241,7 @@
           c: "Celsius (°C)", f: "Fahrenheit (°F)", k: "Kelvin (K)",
           l: "Liters (L)", ml: "Milliliters (ml)", gal: "Gallons (US)", floz: "Fluid Ounces (oz)"
         },
+        navBlog: "Blog & Guides", footerBlog: "Blog",
         footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
         // 英文 SEO HTML
         seoHtml: `
@@ -255,6 +280,7 @@
           c: "摄氏度 (°C)", f: "华氏度 (°F)", k: "开尔文 (K)",
           l: "升 (L)", ml: "毫升 (ml)", gal: "加仑 (美制)", floz: "液量盎司 (oz)"
         },
+        navBlog: "官方博客与教程", footerBlog: "官方博客",
         footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
         seoHtml: `
           <h2>公制与英制：为什么我们需要无缝换算？</h2>
@@ -292,6 +318,7 @@
           c: "Celsius (°C)", f: "Fahrenheit (°F)", k: "Kelvin (K)",
           l: "Litros (L)", ml: "Mililitres (ml)", gal: "Galones (US)", floz: "Onzas Líquidas (oz)"
         },
+        navBlog: "Blog y Guías", footerBlog: "Blog",
         footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
         seoHtml: `
           <h2>Sistema Métrico vs. Imperial: La necesidad de convertir</h2>
@@ -319,6 +346,7 @@
           c: "Celsius (°C)", f: "Fahrenheit (°F)", k: "Kelvin (K)",
           l: "Litres (L)", ml: "Millilitres (ml)", gal: "Gallons (US)", floz: "Onces Liquides (oz)"
         },
+        navBlog: "Blog et Guides", footerBlog: "Blog",
         footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
         seoHtml: `
           <h2>Système Métrique vs Impérial : Pourquoi convertir ?</h2>
@@ -346,6 +374,7 @@
           c: "Celsius (°C)", f: "Fahrenheit (°F)", k: "Kelvin (K)",
           l: "Liter (L)", ml: "Milliliter (ml)", gal: "Gallonen (US)", floz: "Flüssigunzen (oz)"
         },
+        navBlog: "Blog & Anleitungen", footerBlog: "Blog",
         footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
         seoHtml: `
           <h2>Metrisches vs. Imperiales System</h2>
@@ -532,6 +561,13 @@
       document.getElementById('footer-about').innerText = data.footerAbout;
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
+
+      // Update Nav & Footer Blog Links
+      const navBlogText = document.getElementById('nav-blog-text');
+      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
+      
+      const footerBlog = document.getElementById('footer-blog');
+      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
       
       // 🌟 动态注入纯净的 SEO 长文内容，消灭多语言混杂代码
       const seoContainer = document.getElementById('seo-container');
@@ -545,7 +581,7 @@
 
       document.getElementById('lang-select').value = lang;
       
-      // 去除内链的 .html 后缀
+      // 修复：确保内链跳转时不丢失原有的路径名
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
