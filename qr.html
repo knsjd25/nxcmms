@@ -102,7 +102,11 @@
           <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
         </div>
       </div>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
+          <span id="nav-blog-text">Blog & Guides</span>
+        </a>
         <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
           <option value="en">🇬🇧 English</option>
           <option value="zh">🇨🇳 简体中文</option>
@@ -252,7 +256,29 @@
     </div>
 
     <div id="seo-container" class="prose-content">
+      <h2>What are the different types of QR Codes?</h2>
+      <p>A QR Code (Quick Response Code) is a two-dimensional matrix barcode that can store significantly more data than a standard UPC barcode. Our <strong>free online QR generator</strong> is optimized to create highly functional "Smart Codes" for various scenarios:</p>
+      <ul>
+        <li><strong>URL / Web Links:</strong> The most common type. Instantly redirects the user's smartphone to your website or an online PDF menu.</li>
+        <li><strong>Wi-Fi Access:</strong> Stop forcing guests to type complex passwords. A Wi-Fi QR code automatically authenticates and connects the scanning device to your local network.</li>
+        <li><strong>vCard (Digital Business Card):</strong> Encodes your name, phone number, and email. When scanned, the smartphone automatically prompts the user to save you as a new contact.</li>
+      </ul>
+      <h3>Understanding QR Error Correction (ECC)</h3>
+      <p>Have you ever wondered why some QR codes still work perfectly even when they are dirty, scratched, or have a logo placed in the middle? This is due to the Reed-Solomon <strong>Error Correction Algorithm</strong>. On our tool, you can manually select from 4 recovery levels:</p>
+      <ul>
+        <li><strong>Level M (Medium - 15%):</strong> The standard default for most general purposes.</li>
+        <li><strong>Level H (High - 30%):</strong> Creates a very dense pattern but allows nearly a third of the code to be obscured. Absolutely essential for codes printed on physical goods, outdoor posters, or if you plan to digitally edit a logo into the center.</li>
+      </ul>
+      <h2>Frequently Asked Questions (FAQ)</h2>
+      <div class="faq-box">
+        <h4>Is it safe to generate Wi-Fi or Contact QR codes here?</h4>
+        <p class="mb-0">Yes, it is <strong>100% secure</strong>. Unlike cloud-based generators that send your personal phone number to a remote server for processing, Mini-Tools.uk utilizes <strong>Client-Side Generation</strong>. We never see, track, or save the data you input.</p>
       </div>
+      <div class="faq-box">
+        <h4>Will my QR Code ever expire?</h4>
+        <p class="mb-0">No. The QR codes generated on this platform are <strong>Static QR Codes</strong>. The destination URL or text is permanently hard-coded into the black and white pattern itself. As long as the link you provided remains active, the QR code will work forever.</p>
+      </div>
+    </div>
 
   </main>
 
@@ -263,6 +289,7 @@
           <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
         </a>
         <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
         <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
         <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
@@ -291,8 +318,8 @@
         labelLevel: "Error Correction", optL: "L - 7% Recovery", optM: "M - 15% Recovery", optQ: "Q - 25% Recovery", optH: "H - 30% Recovery",
         labelPreview: "Live Preview",
         btnDown: "Download High-Res PNG", hint: "Scan to test before printing",
+        navBlog: "Blog & Guides", footerBlog: "Blog",
         footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
-        // 英文 SEO HTML
         seoHtml: `
           <h2>What are the different types of QR Codes?</h2>
           <p>A QR Code (Quick Response Code) is a two-dimensional matrix barcode that can store significantly more data than a standard UPC barcode. Our <strong>free online QR generator</strong> is optimized to create highly functional "Smart Codes" for various scenarios:</p>
@@ -333,6 +360,7 @@
         labelLevel: "抗破损等级 (容错率)", optL: "L - 7% 抗损 (图码最简洁)", optM: "M - 15% 抗损 (默认推荐)", optQ: "Q - 25% 抗损", optH: "H - 30% 抗损 (适合中间加Logo)",
         labelPreview: "实时预览",
         btnDown: "下载高清 PNG 图像", hint: "请使用手机扫码测试无误后再进行印刷",
+        navBlog: "官方博客与教程", footerBlog: "官方博客",
         footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
         seoHtml: `
           <h2>深入了解二维码 (QR Code) 及其应用场景</h2>
@@ -374,6 +402,7 @@
         labelLevel: "Corrección de Errores", optL: "L - 7% Recuperación", optM: "M - 15%", optQ: "Q - 25%", optH: "H - 30% Recuperación",
         labelPreview: "Vista Previa en Vivo",
         btnDown: "Descargar PNG en Alta Resolución", hint: "Escanee para probar antes de imprimir",
+        navBlog: "Blog y Guías", footerBlog: "Blog",
         footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
         seoHtml: `
           <h2>Tipos de Códigos QR y su Uso</h2>
@@ -414,6 +443,7 @@
         labelLevel: "Correction d'Erreur", optL: "L - 7% Récupération", optM: "M - 15%", optQ: "Q - 25%", optH: "H - 30% Récupération",
         labelPreview: "Aperçu en Direct",
         btnDown: "Télécharger PNG Haute Résolution", hint: "Scannez pour tester avant d'imprimer",
+        navBlog: "Blog et Guides", footerBlog: "Blog",
         footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
         seoHtml: `
           <h2>Les Différents Types de Codes QR</h2>
@@ -454,6 +484,7 @@
         labelLevel: "Fehlerkorrektur", optL: "L - 7% Wiederherstellung", optM: "M - 15%", optQ: "Q - 25%", optH: "H - 30% Wiederherstellung",
         labelPreview: "Live-Vorschau",
         btnDown: "Hochauflösendes PNG Herunterladen", hint: "Vor dem Drucken scannen und testen",
+        navBlog: "Blog & Anleitungen", footerBlog: "Blog",
         footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
         seoHtml: `
           <h2>Arten von QR-Codes</h2>
@@ -537,6 +568,12 @@
       document.getElementById('footer-about').innerText = data.footerAbout;
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
+
+      // Update Nav & Footer Blog Links
+      const navBlogText = document.getElementById('nav-blog-text');
+      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
+      const footerBlog = document.getElementById('footer-blog');
+      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
       
       // 🌟 动态注入纯净的 SEO 长文内容，消灭多语言混杂代码
       const seoContainer = document.getElementById('seo-container');
@@ -550,7 +587,7 @@
 
       document.getElementById('lang-select').value = lang;
       
-      // 去除内链的 .html 后缀
+      // 修复：确保内链跳转时不丢失原有的路径名
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
