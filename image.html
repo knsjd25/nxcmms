@@ -87,7 +87,11 @@
           <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
         </div>
       </div>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
+          <span id="nav-blog-text">Blog & Guides</span>
+        </a>
         <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500">
           <option value="en">🇬🇧 English</option>
           <option value="zh">🇨🇳 简体中文</option>
@@ -227,7 +231,15 @@
     </div>
 
     <div id="seo-container" class="prose-content max-w-4xl mx-auto w-full">
-      </div>
+      <h2>Professional Image Compression & Cropping</h2>
+      <p>Large, unoptimized images are the primary cause of slow website performance. Our <strong>online image resizer and compressor</strong> utilizes advanced HTML5 Canvas rendering to reduce file size and crop photos to perfect social media ratios without sacrificing visual clarity.</p>
+      <h3>Smart Aspect Ratio Cropping</h3>
+      <p>We've introduced one-click aspect ratio cropping. Need a perfectly square image for an Instagram post? Just click <strong>1:1</strong>. Need a YouTube thumbnail? Click <strong>16:9</strong>. The engine will automatically center-crop your image ensuring no distortion or stretching occurs.</p>
+      <h3>Why we highly recommend the WebP format</h3>
+      <p>While JPG and PNG have been the internet standards for decades, <strong>WebP</strong> (developed by Google) provides vastly superior compression. Our tool allows you to convert any image into WebP with a single click, instantly boosting your website's loading speed.</p>
+      <h3>The Privacy Guarantee</h3>
+      <p>We process everything on the <strong>client-side</strong> using JavaScript directly inside your browser. Your photos never leave your device, making this the most secure way to handle private documents.</p>
+    </div>
 
   </main>
 
@@ -240,6 +252,7 @@
           <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
         </a>
         <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
         <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
         <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
@@ -264,6 +277,7 @@
         labelW: "Width (px)", labelH: "Height (px)",
         ratioLock: "Lock Aspect Ratio", quality: "Image Quality (Slide to Compress)", format: "Export Format",
         btnDown: "Download Optimized",
+        navBlog: "Blog & Guides", footerBlog: "Blog",
         footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
         seoHtml: `
           <h2>Professional Image Compression & Cropping</h2>
@@ -288,6 +302,7 @@
         labelW: "宽度 (像素)", labelH: "高度 (像素)",
         ratioLock: "锁定等比例缩放", quality: "画质调节 (滑动压缩体积)", format: "最终导出格式",
         btnDown: "立即下载压缩图片",
+        navBlog: "官方博客与教程", footerBlog: "官方博客",
         footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
         seoHtml: `
           <h2>为什么选择 Mini-Tools 进行图片压缩与调整？</h2>
@@ -313,6 +328,7 @@
         labelW: "Ancho (px)", labelH: "Alto (px)",
         ratioLock: "Bloquear Proporción", quality: "Calidad de Imagen (Deslizar para comprimir)", format: "Formato de Exportación",
         btnDown: "Descargar Optimizada",
+        navBlog: "Blog y Guías", footerBlog: "Blog",
         footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
         seoHtml: `
           <h2>Compresión y Recorte de Imágenes 100% Privado</h2>
@@ -335,6 +351,7 @@
         labelW: "Largeur (px)", labelH: "Hauteur (px)",
         ratioLock: "Verrouiller les Proportions", quality: "Qualité d'Image (Glisser pour compresser)", format: "Format d'Exportation",
         btnDown: "Télécharger l'Image",
+        navBlog: "Blog et Guides", footerBlog: "Blog",
         footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
         seoHtml: `
           <h2>Compression et Recadrage d'Images</h2>
@@ -357,6 +374,7 @@
         labelW: "Breite (px)", labelH: "Höhe (px)",
         ratioLock: "Seitenverhältnis Sperren", quality: "Bildqualität (Schieben zum Komprimieren)", format: "Exportformat",
         btnDown: "Optimiert Herunterladen",
+        navBlog: "Blog & Anleitungen", footerBlog: "Blog",
         footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
         seoHtml: `
           <h2>Professionelle Bildkomprimierung & Zuschnitt</h2>
@@ -386,6 +404,7 @@
       
       document.documentElement.lang = lang;
       
+      // 🌟 动态接管 Meta 数据：Title, Description 和核心长尾 Keywords
       document.title = data.metaTitle;
       document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
       document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
@@ -404,14 +423,22 @@
       document.getElementById('label-w').innerText = data.labelW;
       document.getElementById('label-h').innerText = data.labelH;
       document.getElementById('label-ratio-lock').innerText = data.ratioLock;
-      document.getElementById('label-quality').innerHTML = `<svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg> ${data.quality}`;
+      document.getElementById('label-quality').innerHTML = `<svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg> ${data.quality}`;
       document.getElementById('label-format').innerText = data.format;
       document.getElementById('label-btn-down').innerText = data.btnDown;
       
       document.getElementById('footer-about').innerText = data.footerAbout;
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
+
+      // Update Nav & Footer Blog Links
+      const navBlogText = document.getElementById('nav-blog-text');
+      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
       
+      const footerBlog = document.getElementById('footer-blog');
+      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
+      
+      // 🌟 动态注入纯净的 SEO 长文内容，消灭多语言混杂代码
       const seoContainer = document.getElementById('seo-container');
       if (data.seoHtml) {
           seoContainer.style.opacity = 0;
@@ -423,11 +450,12 @@
 
       document.getElementById('lang-select').value = lang;
       
+      // 修复：确保内链跳转时不丢失原有的路径名
       document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
         if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
           try {
-            const url = new URL(window.location.origin);
+            const url = new URL(href, window.location.origin);
             url.searchParams.set('lang', lang);
             link.href = url.pathname + url.search;
           } catch(e) {}
