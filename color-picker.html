@@ -187,7 +187,11 @@
           <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
         </div>
       </div>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
+          <span id="nav-blog-text">Blog & Guides</span>
+        </a>
         <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
           <option value="en">🇬🇧 English</option>
           <option value="zh">🇨🇳 简体中文</option>
@@ -299,7 +303,27 @@
     </div>
 
     <div id="seo-container" class="prose-content max-w-[1400px] mx-auto w-full">
+      <h2>Advanced Client-Side Image Utility: Colour Picker & Cropper</h2>
+      <p>Welcome to the ultimate privacy-focused image utility suite designed for UI/UX designers, frontend developers, and digital creators. Whether you need to extract exact brand colours from a logo or quickly crop a high-resolution screenshot, our dual-purpose tool processes everything directly within your browser memory. <strong>No server uploads, no data retention, and zero waiting time.</strong></p>
+      <h3>Understanding Colour Formats: HEX, RGB, and HSL</h3>
+      <p>Our tool simultaneously generates colour codes in three fundamental formats to suit any development or design workflow:</p>
+      <ul>
+        <li><strong>HEX (Hexadecimal):</strong> The standard for web design (e.g., <code>#3B82F6</code>). It represents RGB values in base-16 format.</li>
+        <li><strong>RGB (Red, Green, Blue):</strong> Defines colours based on the intensity of red, green, and blue light.</li>
+        <li><strong>HSL (Hue, Saturation, Lightness):</strong> Often preferred by developers for creating programmatic colour themes.</li>
+      </ul>
+      <h3>New Feature: Local Colour Palette History</h3>
+      <p>We've introduced a dynamic <strong>Recent Palette</strong> feature. As you click around an image to extract colours, the tool automatically saves your last 8 selections in the console.</p>
+      <h2>Frequently Asked Questions (FAQ)</h2>
+      <div class="faq-box">
+        <h4>Are my confidential images safe?</h4>
+        <p class="mb-0">Absolutely. This tool utilises the HTML5 Canvas API. When you select an image, it is rendered locally on your device's RAM. Your files are <strong>never</strong> transmitted over the internet or saved to any cloud database.</p>
       </div>
+      <div class="faq-box">
+        <h4>Does the cropper reduce image quality?</h4>
+        <p class="mb-0">No. Unlike other online tools that crop based on the compressed CSS preview, our intelligent algorithm maps your selection back to the <strong>original physical pixels</strong>.</p>
+      </div>
+    </div>
 
   </main>
 
@@ -308,6 +332,7 @@
       <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
         <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
         <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
         <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
         <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
@@ -330,6 +355,7 @@
         dropText: "Click or Drag & Drop to upload an image",
         statusText: "100% Local processing. Your images never leave your device.",
         labelPalette: "Recent Palette",
+        navBlog: "Blog & Guides", footerBlog: "Blog",
         panHint: "💡 Tip: Right-click & drag to pan, use mouse wheel to zoom.",
         footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
         // 🌟 英文 SEO 文本
@@ -365,6 +391,7 @@
         dropText: "点击或拖拽图片到此处上传",
         statusText: "100% 纯本地处理。您的图片绝不会上传至服务器。",
         labelPalette: "最近提取的颜色",
+        navBlog: "官方博客与教程", footerBlog: "官方博客",
         panHint: "💡 操作提示：按住鼠标右键拖拽可平移，滚动鼠标滚轮可缩放图片。",
         footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
         seoHtml: `
@@ -398,6 +425,7 @@
         dropText: "Haga clic o arrastre para subir una imagen",
         statusText: "Procesamiento 100% local. Sus imágenes nunca salen de su dispositivo.",
         labelPalette: "Paleta Reciente",
+        navBlog: "Blog y Guías", footerBlog: "Blog",
         panHint: "💡 Consejo: Haga clic derecho y arrastre para mover, use la rueda para acercar.",
         footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
         seoHtml: `
@@ -425,6 +453,7 @@
         dropText: "Cliquez ou glissez-déposez une image",
         statusText: "Traitement 100% local. Vos images ne quittent jamais votre appareil.",
         labelPalette: "Palette Récente",
+        navBlog: "Blog et Guides", footerBlog: "Blog",
         panHint: "💡 Astuce : Clic droit et glissez pour déplacer, utilisez la molette pour zoomer.",
         footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
         seoHtml: `
@@ -452,6 +481,7 @@
         dropText: "Klicken oder ziehen, um ein Bild hochzuladen",
         statusText: "100% lokale Verarbeitung. Ihre Bilder verlassen niemals Ihr Gerät.",
         labelPalette: "Letzte Palette",
+        navBlog: "Blog & Anleitungen", footerBlog: "Blog",
         panHint: "💡 Tipp: Rechtsklick und ziehen zum Verschieben, Mausrad zum Zoomen.",
         footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
         seoHtml: `
@@ -536,6 +566,13 @@
       document.getElementById('footer-about').innerText = data.footerAbout;
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
+
+      // Update Nav Blog Links
+      const navBlogText = document.getElementById('nav-blog-text');
+      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
+      
+      const footerBlog = document.getElementById('footer-blog');
+      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
       
       // 🌟 核心优化 4：动态注入对应的纯净 SEO 长文内容
       const seoContainer = document.getElementById('seo-container');
