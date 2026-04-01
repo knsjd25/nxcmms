@@ -160,7 +160,11 @@
           <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
         </div>
       </div>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
+          <span id="nav-blog-text">Blog & Guides</span>
+        </a>
         <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
           <option value="en">🇬🇧 English</option>
           <option value="zh">🇨🇳 简体中文</option>
@@ -250,7 +254,22 @@
     </div>
 
     <div id="seo-container" class="prose-content max-w-5xl mx-auto w-full">
+      <h2>Why developers need a robust JSON Formatter</h2>
+      <p>JSON (JavaScript Object Notation) is the undisputed standard for data exchange on the web. However, to save bandwidth, servers usually output JSON in a single, minified line of text. While perfect for machines, this is completely unreadable for human developers debugging an API response. Our <strong>online JSON Formatter and Validator</strong> acts as your essential decoding layer, transforming unreadable text into a beautifully structured, color-coded, and navigable data tree.</p>
+      <h3>Beyond Simple Beautification: The Interactive Tree Viewer</h3>
+      <p>Unlike basic formatters that just add line breaks and indents, our tool incorporates a powerful <strong>Collapsible Tree Viewer</strong> with an ultra-wide, immersive workspace. When you paste complex, deeply nested JSON objects or massive arrays, you don't have to scroll endlessly. Our interface allows you to:</p>
+      <ul>
+        <li><strong>Auto-Detection & Parsing:</strong> No need to click buttons. As soon as you paste your code, the engine instantly validates and renders the tree on the right.</li>
+        <li><strong>Collapse and Expand:</strong> Click the <code>⊕</code> or <code>⊖</code> icons next to any Object <code>{}</code> or Array <code>[]</code> to fold away data you don't currently need to see.</li>
+        <li><strong>Syntax Highlighting:</strong> We use an IDE-grade dark theme color palette. Keys are distinctly colored from values, and strings, numbers, and booleans (true/false) all have specific colors so you can spot data type errors at a glance.</li>
+        <li><strong>Real-time Validation:</strong> If your JSON is broken, our tool displays a prominent error message specifying exactly why the parsing failed, helping you debug your code instantly.</li>
+      </ul>
+      <h2>Frequently Asked Questions (FAQ)</h2>
+      <div class="faq-box">
+        <h4>Is it safe to paste confidential API responses here?</h4>
+        <p class="mb-0">Yes. The most critical feature of our JSON Formatter is its <strong>Zero-Trust Client-Side Architecture</strong>. The parsing, validation, and rendering algorithms are executed entirely by JavaScript within your browser's local memory. Your sensitive payloads, API keys, or customer data never leave your device and are never sent to our servers.</p>
       </div>
+    </div>
 
   </main>
 
@@ -261,6 +280,7 @@
           <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
         </a>
         <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
         <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
         <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
@@ -286,8 +306,7 @@
         btnExpand: "Expand All", btnCollapse: "Collapse All", btnCopy: "Copy JSON",
         btnExportImg: "Export Image",
         msgWaiting: "Awaiting valid JSON...", msgInvalid: "Invalid JSON Syntax",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
-        // 英文 SEO HTML
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us", footerBlog: "Blog", navBlog: "Blog & Guides",
         seoHtml: `
           <h2>Why developers need a robust JSON Formatter</h2>
           <p>JSON (JavaScript Object Notation) is the undisputed standard for data exchange on the web. However, to save bandwidth, servers usually output JSON in a single, minified line of text. While perfect for machines, this is completely unreadable for human developers debugging an API response. Our <strong>online JSON Formatter and Validator</strong> acts as your essential decoding layer, transforming unreadable text into a beautifully structured, color-coded, and navigable data tree.</p>
@@ -316,7 +335,7 @@
         btnExpand: "全部展开", btnCollapse: "全部折叠", btnCopy: "复制树状数据",
         btnExportImg: "导出美化卡片",
         msgWaiting: "等待输入有效的 JSON...", msgInvalid: "JSON 语法解析错误",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们", footerBlog: "官方博客", navBlog: "官方博客与教程",
         seoHtml: `
           <h2>开发者为什么需要专业的 JSON 格式化工具？</h2>
           <p>JSON (JavaScript Object Notation) 是目前互联网数据交互的绝对标准。为了节省带宽，后端 API 接口返回的 JSON 通常是经过压缩的单行文本。这对于机器来说很高效，但对于需要排查 Bug 的前端开发者来说根本无法阅读。我们的<strong>在线 JSON 格式化与校验工具</strong>能瞬间将这一团乱码转化为结构清晰、色彩分明且支持交互的数据树。</p>
@@ -345,7 +364,7 @@
         btnExpand: "Expandir Todo", btnCollapse: "Plegar Todo", btnCopy: "Copiar JSON",
         btnExportImg: "Exportar Imagen",
         msgWaiting: "Esperando JSON válido...", msgInvalid: "Sintaxis JSON Inválida",
-        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto", footerBlog: "Blog", navBlog: "Blog y Guías",
         seoHtml: `
           <h2>El Formateador JSON Definitivo para Desarrolladores</h2>
           <p>Las respuestas de las APIs suelen estar comprimidas en una sola línea, haciéndolas ilegibles para los humanos. Nuestro <strong>Formateador y Validador JSON online</strong> transforma esa masa de texto en un árbol de datos estructurado y con colores, ideal para depurar (debugging).</p>
@@ -374,7 +393,7 @@
         btnExpand: "Tout Déplier", btnCollapse: "Tout Plier", btnCopy: "Copier JSON",
         btnExportImg: "Exporter Image",
         msgWaiting: "En attente de JSON valide...", msgInvalid: "Syntaxe JSON Invalide",
-        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact", footerBlog: "Blog", navBlog: "Blog et Guides",
         seoHtml: `
           <h2>Le Formateur JSON Essentiel pour les Développeurs</h2>
           <p>Les API renvoient généralement le JSON sur une seule ligne minifiée. Notre <strong>Formateur et Validateur JSON en ligne</strong> transforme ce texte illisible en un arbre de données structuré et coloré, indispensable pour le débogage.</p>
@@ -403,7 +422,7 @@
         btnExpand: "Alle Ausklappen", btnCollapse: "Alle Reduzieren", btnCopy: "JSON Kopieren",
         btnExportImg: "Bild exportieren",
         msgWaiting: "Warte auf gültiges JSON...", msgInvalid: "Ungültige JSON-Syntax",
-        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt", footerBlog: "Blog", navBlog: "Blog & Anleitungen",
         seoHtml: `
           <h2>Der Ultimative JSON-Formatierer für Entwickler</h2>
           <p>APIs liefern JSON meist als komprimierte, einzeilige Zeichenfolge, die für Menschen unlesbar ist. Unser <strong>Online-JSON-Formatierer und Validator</strong> verwandelt diesen Text in einen strukturierten, farbcodierten Datenbaum, ideal zum Debuggen von Schnittstellen.</p>
@@ -471,6 +490,14 @@
       document.getElementById('footer-about').innerText = data.footerAbout;
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
+
+      // Update Nav Blog Links
+      const navBlogText = document.getElementById('nav-blog-text');
+      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
+      
+      // 🌟 同步更新底部的 Blog 链接文字
+      const footerBlog = document.getElementById('footer-blog');
+      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
       
       // 🌟 动态注入纯净的 SEO 长文内容，消灭多语言混杂代码
       const seoContainer = document.getElementById('seo-container');
