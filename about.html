@@ -89,14 +89,12 @@
         </div>
       </div>
       
-      <div class="hidden md:flex items-center gap-6 text-sm font-bold text-slate-500">
-        <a href="/" id="nav-home" class="hover:text-blue-600 transition-colors">Home</a>
-        <a href="/blog" id="nav-blog" class="hover:text-blue-600 transition-colors">Blog</a>
-        <a href="/privacy" id="nav-privacy" class="hover:text-blue-600 transition-colors">Privacy</a>
-        <a href="/contact" id="nav-contact" class="hover:text-blue-600 transition-colors">Contact</a>
-      </div>
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
+          <span id="nav-blog-text">Blog & Guides</span>
+        </a>
 
-      <div class="flex items-center gap-4">
         <select id="lang-select" class="bg-slate-100 px-3 py-2 rounded-lg text-sm font-bold text-slate-700 outline-none cursor-pointer border-none hover:bg-slate-200 transition-colors">
           <option value="en">🇬🇧 English</option>
           <option value="zh">🇨🇳 简体中文</option>
@@ -151,7 +149,7 @@
         metaTitle: "About Us | Mini-Tools.uk — The Privacy-First Utility Platform",
         metaDesc: "Learn about the mission, technology, and team behind Mini-Tools.uk. We build high-performance, privacy-focused online utilities for professionals worldwide.",
         metaKeywords: "about mini-tools, privacy-first web tools, client-side utilities, secure developer tools, zero trust architecture",
-        navHome: "Home", navBlog: "Blog", navPrivacy: "Privacy", navContact: "Contact",
+        navBlog: "Blog & Guides",
         footerAbout: "About Us", footerBlog: "Blog", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
         lastUpdated: "LAST UPDATED: ",
         heroTag: "Our Story & Mission",
@@ -175,7 +173,7 @@
         metaTitle: "关于我们 | Mini-Tools.uk — 隐私优先的在线工具平台",
         metaDesc: "了解 Mini-Tools 背后的团队、使命与核心技术。我们致力于为全球数字工作者打造极致性能且坚守隐私安全的纯前端工具箱。",
         metaKeywords: "关于Mini-Tools, 纯前端在线工具, 隐私保护工具, 开发者工具集合, 安全在线工具, 零信任架构",
-        navHome: "首页", navBlog: "博客", navPrivacy: "隐私政策", navContact: "联系我们",
+        navBlog: "官方博客与教程",
         footerAbout: "关于我们", footerBlog: "官方博客", footerPrivacy: "隐私政策", footerContact: "联系我们",
         lastUpdated: "最后更新：",
         heroTag: "我们的故事与使命",
@@ -199,7 +197,7 @@
         metaTitle: "Sobre Nosotros | Mini-Tools.uk — Plataforma de Utilidades Privadas",
         metaDesc: "Conozca la misión y la tecnología detrás de Mini-Tools.uk. Herramientas web de alto rendimiento orientadas a la privacidad del usuario.",
         metaKeywords: "sobre mini-tools, herramientas privacidad, procesamiento local, utilidades web seguras",
-        navHome: "Inicio", navBlog: "Blog", navPrivacy: "Privacidad", navContact: "Contacto",
+        navBlog: "Blog y Guías",
         footerAbout: "Sobre Nosotros", footerBlog: "Blog", footerPrivacy: "Privacidad", footerContact: "Contacto",
         lastUpdated: "ÚLTIMA ACTUALIZACIÓN: ",
         heroTag: "Nuestra Historia",
@@ -221,7 +219,7 @@
         metaTitle: "À Propos | Mini-Tools.uk — Plateforme d'Utilitaires Privés",
         metaDesc: "Découvrez la mission et l'équipe derrière Mini-Tools.uk. Des outils en ligne performants et respectueux de la vie privée pour les professionnels.",
         metaKeywords: "à propos mini-tools, outils web privés, traitement côté client, utilitaires sécurisés",
-        navHome: "Accueil", navBlog: "Blog", navPrivacy: "Confidentialité", navContact: "Contact",
+        navBlog: "Blog et Guides",
         footerAbout: "À Propos", footerBlog: "Blog", footerPrivacy: "Confidentialité", footerContact: "Contact",
         lastUpdated: "DERNIÈRE MISE À JOUR : ",
         heroTag: "Notre Histoire",
@@ -243,7 +241,7 @@
         metaTitle: "Über Uns | Mini-Tools.uk — Die datenschutzfreundliche Utility-Plattform",
         metaDesc: "Erfahren Sie mehr über die Mission und das Team hinter Mini-Tools.uk. Hochleistungsfähige, datenschutzorientierte Online-Tools.",
         metaKeywords: "über mini-tools, private web tools, client-side verarbeitung, sichere entwickler tools",
-        navHome: "Startseite", navBlog: "Blog", navPrivacy: "Datenschutz", navContact: "Kontakt",
+        navBlog: "Blog & Anleitungen",
         footerAbout: "Über Uns", footerBlog: "Blog", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
         lastUpdated: "ZULETZT AKTUALISIERT: ",
         heroTag: "Unsere Geschichte",
@@ -275,10 +273,7 @@
       document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
 
       // Update Navigation
-      document.getElementById('nav-home').innerText = data.navHome;
-      if (document.getElementById('nav-blog')) document.getElementById('nav-blog').innerText = data.navBlog;
-      document.getElementById('nav-privacy').innerText = data.navPrivacy;
-      document.getElementById('nav-contact').innerText = data.navContact;
+      if (document.getElementById('nav-blog-text')) document.getElementById('nav-blog-text').innerText = data.navBlog;
 
       // Update Hero Section
       document.getElementById('hero-tag').innerText = data.heroTag;
