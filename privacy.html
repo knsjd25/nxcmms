@@ -3,9 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Privacy Policy | Mini-Tools.uk — 100% Client-Side Processing</title>
-  <meta name="description" content="Read the Mini-Tools.uk Privacy Policy. Learn how our client-side architecture guarantees your data privacy by never uploading files to our servers." />
-  <link rel="canonical" href="https://mini-tools.uk/privacy.html" />
+  <title id="meta-title">Privacy Policy | Mini-Tools.uk — 100% Client-Side Processing</title>
+  <meta name="description" id="meta-desc" content="Read the Mini-Tools.uk Privacy Policy. Learn how our client-side architecture guarantees your data privacy by never uploading files to our servers." />
+  <link rel="canonical" href="https://mini-tools.uk/privacy" />
+
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/privacy?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/privacy?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/privacy?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/privacy?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/privacy?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/privacy" />
 
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
@@ -27,12 +34,8 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', ui-sans-serif, sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
     
-    /* Multilingual Content Switching */
-    .lang-content { display: none; animation: fadeIn 0.5s ease-out; }
-    .lang-content.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
     /* Typography for Privacy Policy (Legal/Formal but readable) */
+    .prose-content { transition: opacity 0.3s ease-out; }
     .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
     .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.75rem; }
     .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
@@ -47,7 +50,7 @@
 <body class="min-h-screen flex flex-col">
 
   <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap gap-4 justify-between items-center">
+    <div class="max-w-[1400px] mx-auto px-6 py-4 flex flex-wrap gap-4 justify-between items-center">
       <div class="flex items-center gap-3">
         <a href="/" class="transition-transform active:scale-90 shrink-0">
           <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
@@ -57,13 +60,12 @@
         </div>
       </div>
       
-      <div class="hidden md:flex items-center gap-6 text-sm font-bold text-slate-500">
-        <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
-        <a href="/about.html" class="hover:text-blue-600 transition-colors">About</a>
-        <a href="/contact.html" class="hover:text-blue-600 transition-colors">Contact</a>
-      </div>
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
+          <span id="nav-blog-text">Blog & Guides</span>
+        </a>
 
-      <div class="flex items-center gap-4">
         <select id="lang-select" class="bg-slate-100 px-3 py-2 rounded-lg text-sm font-bold text-slate-700 outline-none cursor-pointer border-none hover:bg-slate-200 transition-colors">
           <option value="en">🇬🇧 English</option>
           <option value="zh">🇨🇳 简体中文</option>
@@ -89,221 +91,308 @@
   </header>
 
   <main class="max-w-4xl mx-auto px-6 py-16 flex-1 w-full bg-white -mt-8 rounded-3xl shadow-sm border border-slate-100 relative z-20 mb-20 prose-content">
-    
-    <div id="content-en" class="lang-content" data-lang="en">
-      <p><strong>Last Updated: March 2026</strong></p>
-      <p>At Mini-Tools.uk, accessible from https://mini-tools.uk, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Mini-Tools.uk and how we use it.</p>
-      
-      <h2>1. The "Client-Side Processing" Guarantee</h2>
-      <p>The core philosophy of Mini-Tools.uk is absolute data privacy. Unlike traditional web services, <strong>all calculations, image processing, and text manipulations are executed entirely within your web browser</strong> (Client-Side). This means:</p>
-      <ul>
-        <li>When you calculate your UK PAYE Tax, your salary inputs are <strong>never</strong> transmitted over the internet.</li>
-        <li>When you use our Image Color Picker, your images are rendered locally via HTML5 Canvas and are <strong>never</strong> uploaded to our servers.</li>
-        <li>We do not have backend databases to store, log, or analyze the contents you process using our utilities.</li>
-      </ul>
-
-      <h2>2. Use of LocalStorage</h2>
-      <p>To improve your user experience and enable offline capabilities, we may utilize your browser's <code>LocalStorage</code>. For instance, our Currency Converter caches the latest fetched exchange rates locally so the tool can function without an active internet connection. This data is strictly stored on your own device and is not accessible by our servers.</p>
-
-      <h2>3. Third-Party Services and Cookies (Google AdSense)</h2>
-      <p>While our utility tools process data locally, our website relies on standard third-party services for analytics and monetization, which may use cookies:</p>
-      <div class="legal-box">
-        <h3>Google AdSense and DoubleClick DART Cookie</h3>
-        <p>Google, as a third-party vendor, uses cookies to serve ads on our site. Google's use of the DART cookie enables it to serve ads to our site's visitors based upon their visit to Mini-Tools.uk and other sites on the internet. However, visitors may choose to decline the use of the DART cookie by visiting the Google ad and content network Privacy Policy at the following URL – <a href="https://policies.google.com/technologies/ads" target="_blank" class="text-blue-600 hover:underline">https://policies.google.com/technologies/ads</a></p>
-        <p>We use Google AdSense Advertising on our website. Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to your website or other websites.</p>
+    <div id="seo-container">
       </div>
-
-      <h2>4. Log Files</h2>
-      <p>Mini-Tools.uk follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and it is a part of hosting services' analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable.</p>
-
-      <h2>5. Consent</h2>
-      <p>By using our website, you hereby consent to our Privacy Policy and agree to its Terms and Conditions.</p>
-
-      <h2>6. Contact Us</h2>
-      <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us at <strong>hello@mini-tools.uk</strong>.</p>
-    </div>
-
-    <div id="content-zh" class="lang-content" data-lang="zh">
-      <p><strong>最后更新日期：2026年3月</strong></p>
-      <p>在 Mini-Tools.uk（访问地址：https://mini-tools.uk），保护访客隐私是我们最核心的优先事项之一。本《隐私政策》详细说明了 Mini-Tools.uk 收集和记录的信息类型，以及我们如何使用这些信息。</p>
-      
-      <h2>1. “纯前端本地处理”的绝对保证</h2>
-      <p>Mini-Tools.uk 的核心技术哲学是绝对的数据隐私。与传统的在线服务不同，<strong>所有的数学计算、图片处理和文本比对操作，完全在您自己的设备浏览器内执行（纯前端）</strong>。这意味着：</p>
-      <ul>
-        <li>当您计算个人所得税时，您的薪资输入<strong>绝不会</strong>通过互联网传输。</li>
-        <li>当您使用我们的图片取色器时，您的图片仅通过 HTML5 Canvas 在本地渲染，<strong>绝不会</strong>被上传到我们的服务器。</li>
-        <li>我们没有后端数据库来记录、保存或分析您使用我们工具时处理的任何内容。</li>
-      </ul>
-
-      <h2>2. 关于 LocalStorage (本地存储) 的使用</h2>
-      <p>为了提升用户体验并支持离线使用功能，我们可能会使用您浏览器的 <code>LocalStorage</code>。例如，我们的“汇率转换器”会将拉取到的最新汇率缓存在本地，以便在没有网络的情况下工具仍能正常计算。这些数据严格保存在您自己的设备上，我们的服务器无法访问。</p>
-
-      <h2>3. 第三方服务与 Cookie (Google AdSense 广告)</h2>
-      <p>尽管我们的核心工具在本地处理数据，但为了维持网站运营，我们使用了标准的第三方流量统计和广告服务，这些服务可能会使用 Cookie：</p>
-      <div class="legal-box">
-        <h3>Google AdSense 与 DoubleClick DART Cookie</h3>
-        <p>Google 作为第三方供应商，使用 Cookie 在我们的网站上投放广告。Google 使用 DART Cookie，可以根据用户之前对 Mini-Tools.uk 及互联网上其他网站的访问情况，向用户投放相关广告。您可以访问 Google 广告和内容网络隐私政策，选择停用 DART Cookie，网址为 – <a href="https://policies.google.com/technologies/ads" target="_blank" class="text-blue-600 hover:underline">https://policies.google.com/technologies/ads</a></p>
-        <p>我们在网站上使用 Google AdSense 广告。包括 Google 在内的第三方供应商会使用 Cookie，根据用户之前对本网站或其他网站的访问记录来投放广告。</p>
-      </div>
-
-      <h2>4. 日志文件 (Log Files)</h2>
-      <p>Mini-Tools.uk 遵循使用日志文件的标准程序。当访客访问网站时，这些文件会记录访客信息。所有的托管服务提供商都会进行此类操作，这是托管服务分析的一部分。日志文件收集的信息包括 IP 地址、浏览器类型、互联网服务提供商 (ISP)、日期和时间戳、引用/退出页面，以及可能的点击次数。这些数据与任何可识别个人身份的信息均无关联。</p>
-
-      <h2>5. 用户同意</h2>
-      <p>使用我们的网站，即表示您同意我们的《隐私政策》并接受其条款和条件。</p>
-
-      <h2>6. 联系我们</h2>
-      <p>如果您对我们的《隐私政策》有其他疑问或需要更多信息，请随时通过 <strong>hello@mini-tools.uk</strong> 与我们联系。</p>
-    </div>
-
-    <div id="content-es" class="lang-content" data-lang="es">
-      <p><strong>Última actualización: Marzo 2026</strong></p>
-      <p>En Mini-Tools.uk, una de nuestras principales prioridades es la privacidad de nuestros visitantes. Este documento de Política de Privacidad contiene los tipos de información que son recopilados y cómo los usamos.</p>
-      
-      <h2>1. La Garantía de "Procesamiento del Lado del Cliente"</h2>
-      <p>La filosofía central de Mini-Tools.uk es la privacidad absoluta de los datos. A diferencia de los servicios web tradicionales, <strong>todos los cálculos, el procesamiento de imágenes y las manipulaciones de texto se ejecutan completamente dentro de su navegador web (Client-Side)</strong>. Esto significa que:</p>
-      <ul>
-        <li>Cuando calcula su impuesto, sus datos salariales <strong>nunca</strong> se transmiten por internet.</li>
-        <li>Cuando usa nuestro Selector de Color de Imagen, sus imágenes se renderizan localmente y <strong>nunca</strong> se suben a nuestros servidores.</li>
-        <li>No tenemos bases de datos para almacenar o registrar los contenidos que usted procesa.</li>
-      </ul>
-
-      <h2>2. Uso de LocalStorage</h2>
-      <p>Para mejorar su experiencia y habilitar capacidades offline (sin conexión), podemos utilizar el <code>LocalStorage</code> de su navegador. Por ejemplo, nuestro Conversor de Divisas guarda temporalmente las tasas de cambio localmente. Estos datos se almacenan estrictamente en su dispositivo.</p>
-
-      <h2>3. Servicios de Terceros y Cookies (Google AdSense)</h2>
-      <p>Aunque nuestras herramientas procesan datos localmente, nuestro sitio depende de servicios estándar de terceros para analíticas y monetización, los cuales pueden usar cookies:</p>
-      <div class="legal-box">
-        <h3>Google AdSense y Cookie DART de DoubleClick</h3>
-        <p>Google, como proveedor externo, utiliza cookies para mostrar anuncios en nuestro sitio. El uso de la cookie DART por parte de Google le permite mostrar anuncios basados en las visitas de los usuarios a nuestro sitio y otros sitios en internet. Los usuarios pueden optar por no usar la cookie DART visitando la Política de Privacidad de la red de anuncios de Google: <a href="https://policies.google.com/technologies/ads" target="_blank" class="text-blue-600 hover:underline">https://policies.google.com/technologies/ads</a></p>
-        <p>Los proveedores de terceros, incluido Google, utilizan cookies para mostrar anuncios relevantes basados en las visitas anteriores del usuario a este u otros sitios web.</p>
-      </div>
-
-      <h2>4. Archivos de Registro (Log Files)</h2>
-      <p>Mini-Tools.uk sigue un procedimiento estándar de uso de archivos de registro. La información recopilada incluye direcciones IP, tipo de navegador, ISP, marca de fecha y hora. Estos datos no están vinculados a ninguna información que sea de identificación personal.</p>
-
-      <h2>5. Consentimiento</h2>
-      <p>Al utilizar nuestro sitio web, por la presente acepta nuestra Política de Privacidad y sus términos.</p>
-
-      <h2>6. Contáctenos</h2>
-      <p>Si tiene preguntas adicionales sobre nuestra Política de Privacidad, contáctenos en <strong>hello@mini-tools.uk</strong>.</p>
-    </div>
-
-    <div id="content-fr" class="lang-content" data-lang="fr">
-      <p><strong>Dernière mise à jour : Mars 2026</strong></p>
-      <p>Chez Mini-Tools.uk, l'une de nos principales priorités est la confidentialité de nos visiteurs. Ce document de Politique de Confidentialité contient les types d'informations qui sont collectées par Mini-Tools.uk et la manière dont nous les utilisons.</p>
-      
-      <h2>1. La garantie du "Traitement Côté Client"</h2>
-      <p>La philosophie fondamentale de Mini-Tools.uk est la confidentialité absolue des données. Contrairement aux services web traditionnels, <strong>tous les calculs, le traitement des images et les manipulations de texte sont exécutés entièrement dans votre navigateur web</strong>. Cela signifie que :</p>
-      <ul>
-        <li>Lorsque vous calculez vos impôts, vos saisies de salaire ne sont <strong>jamais</strong> transmises sur Internet.</li>
-        <li>Lorsque vous utilisez notre Sélecteur de Couleur, vos images sont traitées localement et ne sont <strong>jamais</strong> téléchargées sur nos serveurs.</li>
-        <li>Nous n'avons pas de bases de données pour stocker le contenu que vous traitez avec nos utilitaires.</li>
-      </ul>
-
-      <h2>2. Utilisation du LocalStorage</h2>
-      <p>Pour améliorer votre expérience et permettre une utilisation hors ligne, nous pouvons utiliser le <code>LocalStorage</code> de votre navigateur. Par exemple, notre Convertisseur de Devises met en cache les taux de change localement. Ces données sont strictement stockées sur votre appareil.</p>
-
-      <h2>3. Services Tiers et Cookies (Google AdSense)</h2>
-      <p>Bien que nos outils traitent les données localement, notre site utilise des services tiers pour les statistiques et la monétisation, qui peuvent utiliser des cookies :</p>
-      <div class="legal-box">
-        <h3>Google AdSense et Cookie DART DoubleClick</h3>
-        <p>Google, en tant que fournisseur tiers, utilise des cookies pour diffuser des annonces sur notre site. L'utilisation du cookie DART permet de diffuser des annonces en fonction de la visite des utilisateurs sur Mini-Tools.uk et d'autres sites. Les visiteurs peuvent refuser l'utilisation du cookie DART en visitant la politique de confidentialité du réseau publicitaire de Google : <a href="https://policies.google.com/technologies/ads" target="_blank" class="text-blue-600 hover:underline">https://policies.google.com/technologies/ads</a></p>
-        <p>Les fournisseurs tiers, y compris Google, utilisent des cookies pour diffuser des annonces en fonction des visites antérieures de l'utilisateur sur notre site web ou d'autres sites web.</p>
-      </div>
-
-      <h2>4. Fichiers Journaux (Log Files)</h2>
-      <p>Mini-Tools.uk suit une procédure standard d'utilisation des fichiers journaux. Les informations collectées incluent les adresses IP, le type de navigateur, le FAI, la date et l'heure. Celles-ci ne sont liées à aucune information personnellement identifiable.</p>
-
-      <h2>5. Consentement</h2>
-      <p>En utilisant notre site Web, vous consentez par la présente à notre Politique de Confidentialité.</p>
-
-      <h2>6. Nous Contacter</h2>
-      <p>Si vous avez des questions sur notre Politique de Confidentialité, contactez-nous à <strong>hello@mini-tools.uk</strong>.</p>
-    </div>
-
-    <div id="content-de" class="lang-content" data-lang="de">
-      <p><strong>Zuletzt aktualisiert: März 2026</strong></p>
-      <p>Bei Mini-Tools.uk ist eine unserer Hauptprioritäten die Privatsphäre unserer Besucher. Dieses Dokument zur Datenschutzrichtlinie enthält die Arten von Informationen, die von Mini-Tools.uk gesammelt werden, und wie wir sie verwenden.</p>
-      
-      <h2>1. Die "Client-Side Processing" Garantie</h2>
-      <p>Die Kernphilosophie von Mini-Tools.uk ist absolute Datenprivatsphäre. Im Gegensatz zu herkömmlichen Webdiensten werden <strong>alle Berechnungen, Bildverarbeitungen und Textmanipulationen vollständig in Ihrem Webbrowser ausgeführt</strong>. Das bedeutet:</p>
-      <ul>
-        <li>Wenn Sie Ihre Steuern berechnen, werden Ihre Gehaltseingaben <strong>niemals</strong> über das Internet übertragen.</li>
-        <li>Wenn Sie unsere Farbpipette verwenden, werden Ihre Bilder lokal gerendert und <strong>niemals</strong> auf unsere Server hochgeladen.</li>
-        <li>Wir haben keine Datenbanken, um die von Ihnen verarbeiteten Inhalte zu speichern oder zu protokollieren.</li>
-      </ul>
-
-      <h2>2. Verwendung von LocalStorage</h2>
-      <p>Um Ihre Benutzererfahrung zu verbessern und Offline-Funktionen zu ermöglichen, verwenden wir möglicherweise den <code>LocalStorage</code> Ihres Browsers. Zum Beispiel speichert unser Währungsrechner die Wechselkurse lokal zwischen. Diese Daten werden streng auf Ihrem eigenen Gerät gespeichert.</p>
-
-      <h2>3. Drittanbieterdienste und Cookies (Google AdSense)</h2>
-      <p>Während unsere Tools Daten lokal verarbeiten, nutzt unsere Website Standarddienste von Drittanbietern für Analysen und Monetarisierung, die Cookies verwenden können:</p>
-      <div class="legal-box">
-        <h3>Google AdSense und DoubleClick DART-Cookie</h3>
-        <p>Google verwendet als Drittanbieter Cookies, um Anzeigen auf unserer Website zu schalten. Die Verwendung des DART-Cookies durch Google ermöglicht es, unseren Besuchern Anzeigen basierend auf ihrem Besuch auf Mini-Tools.uk und anderen Websites im Internet bereitzustellen. Besucher können der Verwendung des DART-Cookies widersprechen, indem sie die Datenschutzrichtlinie des Google-Anzeigennetzwerks aufrufen: <a href="https://policies.google.com/technologies/ads" target="_blank" class="text-blue-600 hover:underline">https://policies.google.com/technologies/ads</a></p>
-        <p>Drittanbieter, einschließlich Google, verwenden Cookies, um Anzeigen basierend auf vorherigen Besuchen eines Nutzers auf Ihrer Website oder anderen Websites zu schalten.</p>
-      </div>
-
-      <h2>4. Protokolldateien (Log Files)</h2>
-      <p>Mini-Tools.uk folgt einem Standardverfahren zur Verwendung von Protokolldateien. Die gesammelten Informationen umfassen IP-Adressen, Browsertyp, ISP, Datums- und Zeitstempel. Diese sind nicht mit persönlich identifizierbaren Informationen verknüpft.</p>
-
-      <h2>5. Zustimmung</h2>
-      <p>Durch die Nutzung unserer Website stimmen Sie hiermit unserer Datenschutzrichtlinie zu.</p>
-
-      <h2>6. Kontaktieren Sie Uns</h2>
-      <p>Wenn Sie weitere Fragen zu unserer Datenschutzrichtlinie haben, kontaktieren Sie uns unter <strong>hello@mini-tools.uk</strong>.</p>
-    </div>
   </main>
 
-  <footer class="bg-white border-t border-slate-200 py-16 mt-auto">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-xs text-slate-400 font-bold tracking-widest uppercase">
-          © 2026 MINI-TOOLS.UK. ALL RIGHTS RESERVED.
-        </p>
-        <p class="text-xs text-slate-300 font-medium italic">
-          Proudly built for speed and privacy.
-        </p>
+  <footer class="bg-white border-t border-slate-100 py-12 mt-auto w-full">
+    <div class="max-w-[1400px] mx-auto px-6 text-center">
+      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
+        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
+        </a>
+        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
       </div>
+      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
+        © 2026 MINI-TOOLS.UK — SECURE CLIENT-SIDE WEB UTILITIES
+      </p>
+      <p id="last-updated-text" class="text-center text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-2"></p>
     </div>
   </footer>
 
   <script>
-    const uiTrans = {
-      en: { tag: "Data Protection", title: "Privacy Policy", sub: "Your data belongs to you. Read how our strict client-side architecture guarantees your privacy." },
-      zh: { tag: "数据保护", title: "隐私政策", sub: "您的数据属于您自己。阅读我们如何通过严格的前端架构保护您的隐私。" },
-      es: { tag: "Protección de Datos", title: "Política de Privacidad", sub: "Sus datos le pertenecen. Lea cómo nuestra arquitectura garantiza su privacidad." },
-      fr: { tag: "Protection des Données", title: "Politique de Confidentialité", sub: "Vos données vous appartiennent. Découvrez comment nous garantissons votre vie privée." },
-      de: { tag: "Datenschutz", title: "Datenschutzrichtlinie", sub: "Ihre Daten gehören Ihnen. Lesen Sie, wie unsere Architektur Ihre Privatsphäre garantiert." }
+    const i18n = {
+      en: {
+        metaTitle: "Privacy Policy | Mini-Tools.uk — 100% Client-Side Processing",
+        metaDesc: "Read the Mini-Tools.uk Privacy Policy. Learn how our client-side architecture guarantees your data privacy by never uploading files to our servers.",
+        navBlog: "Blog & Guides",
+        footerAbout: "About Us", footerBlog: "Blog", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
+        lastUpdated: "LAST UPDATED: ",
+        heroTag: "Data Protection",
+        heroTitle: "Privacy Policy",
+        heroSub: "Your data belongs to you. Read how our strict client-side architecture guarantees your privacy.",
+        seoHtml: `
+          <h2>1. The "Client-Side Processing" Guarantee</h2>
+          <p>The core philosophy of Mini-Tools.uk is absolute data privacy. Unlike traditional web services, <strong>the vast majority of our calculations, image processing, and text manipulations are executed entirely within your web browser</strong> (Client-Side). This means:</p>
+          <ul>
+            <li>When you calculate your UK PAYE Tax, your salary inputs are <strong>never</strong> transmitted over the internet.</li>
+            <li>When you use our Image Color Picker, your images are rendered locally via HTML5 Canvas and are <strong>never</strong> uploaded to our servers.</li>
+            <li>We do not have backend databases to store, log, or analyze the local contents you process using our utilities.</li>
+          </ul>
+
+          <h2>2. Exceptions: Server-Dependent Tools</h2>
+          <p>While over 90% of our tools operate strictly offline, certain specific utilities require server interaction by their very nature. We remain fully transparent about how these handle your data:</p>
+          <ul>
+            <li><strong>Secure Image Hosting (/upload):</strong> When using this specific tool to create shareable links, your image is temporarily uploaded to our servers. It is hosted via a secure, auto-destructing mechanism and is permanently deleted from our system after the expiration period you set.</li>
+            <li><strong>Global Currency Converter (/currency):</strong> To fetch live, real-time exchange rates, this tool makes an anonymous HTTPS ping to a trusted third-party financial API. No personal financial data or user inputs are transmitted during this request.</li>
+          </ul>
+
+          <h2>3. Use of LocalStorage</h2>
+          <p>To improve your user experience and enable offline capabilities, we may utilize your browser's <code>LocalStorage</code>. For instance, our Currency Converter caches the latest fetched exchange rates locally so the tool can function without an active internet connection. This data is strictly stored on your own device and is not accessible by our servers.</p>
+
+          <h2>4. Third-Party Services and Cookies (Google AdSense)</h2>
+          <p>While our utility tools process data locally, our website relies on standard third-party services for analytics and monetization, which may use cookies:</p>
+          <div class="legal-box">
+            <h3>Google AdSense and DoubleClick DART Cookie</h3>
+            <p>Google, as a third-party vendor, uses cookies to serve ads on our site. Google's use of the DART cookie enables it to serve ads to our site's visitors based upon their visit to Mini-Tools.uk and other sites on the internet. However, visitors may choose to decline the use of the DART cookie by visiting the Google ad and content network Privacy Policy at the following URL – <a href="https://policies.google.com/technologies/ads" target="_blank" class="text-blue-600 hover:underline">https://policies.google.com/technologies/ads</a></p>
+            <p>We use Google AdSense Advertising on our website. Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to your website or other websites.</p>
+          </div>
+
+          <h2>5. Log Files</h2>
+          <p>Mini-Tools.uk follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and it is a part of hosting services' analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable.</p>
+
+          <h2>6. Consent</h2>
+          <p>By using our website, you hereby consent to our Privacy Policy and agree to its Terms and Conditions.</p>
+
+          <h2>7. Contact Us</h2>
+          <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us at <strong>yuyananuu (at) gmail.com</strong>.</p>`
+      },
+      zh: {
+        metaTitle: "隐私政策 | Mini-Tools.uk — 纯前端数据处理",
+        metaDesc: "阅读 Mini-Tools 隐私政策。了解我们的纯前端架构如何通过拒绝上传文件来绝对保证您的数据安全与隐私。",
+        navBlog: "官方博客与教程",
+        footerAbout: "关于我们", footerBlog: "官方博客", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        lastUpdated: "最后更新：",
+        heroTag: "数据保护",
+        heroTitle: "隐私政策",
+        heroSub: "您的数据属于您自己。阅读我们如何通过严格的前端架构保护您的隐私。",
+        seoHtml: `
+          <h2>1. “纯前端本地处理”的保证</h2>
+          <p>Mini-Tools.uk 的核心技术哲学是绝对的数据隐私。与传统的在线服务不同，<strong>我们绝大多数的数学计算、图片处理和文本比对操作，完全在您自己的设备浏览器内执行（纯前端）</strong>。这意味着：</p>
+          <ul>
+            <li>当您计算个人所得税时，您的薪资输入<strong>绝不会</strong>通过互联网传输。</li>
+            <li>当您使用我们的图片取色器时，您的图片仅通过 HTML5 Canvas 在本地渲染，<strong>绝不会</strong>被上传到我们的服务器。</li>
+            <li>我们没有后端数据库来记录、保存或分析您本地处理的任何内容。</li>
+          </ul>
+
+          <h2>2. 特殊说明：依赖服务器的工具</h2>
+          <p>虽然我们 90% 以上的工具都在严格的离线环境下运行，但某些特定工具的本质决定了它们必须与服务器进行交互。我们对此保持绝对的透明：</p>
+          <ul>
+            <li><strong>安全图床 (/upload)：</strong>当您使用此工具生成可分享链接时，图片会被临时上传至我们的服务器。我们采用安全的自动销毁机制，图片在您设定的到期时间后将被彻底从我们的系统中永久删除。</li>
+            <li><strong>实时汇率转换 (/currency)：</strong>为了获取最新汇率，该工具会向可信的第三方金融 API 发起匿名的 HTTPS 请求。在此过程中，您的任何输入和个人财务数据都不会被传输。</li>
+          </ul>
+
+          <h2>3. 关于 LocalStorage (本地存储) 的使用</h2>
+          <p>为了提升用户体验并支持离线使用功能，我们可能会使用您浏览器的 <code>LocalStorage</code>。例如，我们的“汇率转换器”会将拉取到的最新汇率缓存在本地，以便在没有网络的情况下工具仍能正常计算。这些数据严格保存在您自己的设备上，我们的服务器无法访问。</p>
+
+          <h2>4. 第三方服务与 Cookie (Google AdSense 广告)</h2>
+          <p>尽管我们的核心工具在本地处理数据，但为了维持网站运营，我们使用了标准的第三方流量统计和广告服务，这些服务可能会使用 Cookie：</p>
+          <div class="legal-box">
+            <h3>Google AdSense 与 DoubleClick DART Cookie</h3>
+            <p>Google 作为第三方供应商，使用 Cookie 在我们的网站上投放广告。Google 使用 DART Cookie，可以根据用户之前对 Mini-Tools.uk 及互联网上其他网站的访问情况，向用户投放相关广告。您可以访问 Google 广告和内容网络隐私政策，选择停用 DART Cookie，网址为 – <a href="https://policies.google.com/technologies/ads" target="_blank" class="text-blue-600 hover:underline">https://policies.google.com/technologies/ads</a></p>
+            <p>我们在网站上使用 Google AdSense 广告。包括 Google 在内的第三方供应商会使用 Cookie，根据用户之前对本网站或其他网站的访问记录来投放广告。</p>
+          </div>
+
+          <h2>5. 日志文件 (Log Files)</h2>
+          <p>Mini-Tools.uk 遵循使用日志文件的标准程序。当访客访问网站时，这些文件会记录访客信息。所有的托管服务提供商都会进行此类操作，这是托管服务分析的一部分。日志文件收集的信息包括 IP 地址、浏览器类型、互联网服务提供商 (ISP)、日期和时间戳、引用/退出页面，以及可能的点击次数。这些数据与任何可识别个人身份的信息均无关联。</p>
+
+          <h2>6. 用户同意</h2>
+          <p>使用我们的网站，即表示您同意我们的《隐私政策》并接受其条款和条件。</p>
+
+          <h2>7. 联系我们</h2>
+          <p>如果您对我们的《隐私政策》有其他疑问或需要更多信息，请随时通过 <strong>yuyananuu (at) gmail.com</strong> 与我们联系。</p>`
+      },
+      es: {
+        metaTitle: "Política de Privacidad | Mini-Tools.uk",
+        metaDesc: "Lea la Política de Privacidad de Mini-Tools.uk. Conozca cómo nuestra arquitectura garantiza su privacidad al nunca subir archivos a nuestros servidores.",
+        navBlog: "Blog y Guías",
+        footerAbout: "Sobre Nosotros", footerBlog: "Blog", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        lastUpdated: "ÚLTIMA ACTUALIZACIÓN: ",
+        heroTag: "Protección de Datos",
+        heroTitle: "Política de Privacidad",
+        heroSub: "Sus datos le pertenecen. Lea cómo nuestra estricta arquitectura garantiza su privacidad.",
+        seoHtml: `
+          <h2>1. La Garantía de "Procesamiento del Lado del Cliente"</h2>
+          <p>La filosofía central de Mini-Tools.uk es la privacidad de los datos. <strong>La gran mayoría de los cálculos, el procesamiento de imágenes y las manipulaciones de texto se ejecutan completamente dentro de su navegador web</strong>. Esto significa que:</p>
+          <ul>
+            <li>Cuando calcula su impuesto, sus datos salariales <strong>nunca</strong> se transmiten por internet.</li>
+            <li>Cuando usa nuestro Selector de Color, sus imágenes <strong>nunca</strong> se suben a nuestros servidores.</li>
+          </ul>
+
+          <h2>2. Excepciones: Herramientas Dependientes del Servidor</h2>
+          <p>Aunque más del 90% de nuestras herramientas operan estrictamente sin conexión, algunas utilidades requieren interacción con el servidor por su propia naturaleza. Somos totalmente transparentes:</p>
+          <ul>
+            <li><strong>Alojamiento Seguro de Imágenes (/upload):</strong> Al usar esta herramienta, su imagen se sube temporalmente a nuestros servidores. Se aloja mediante un mecanismo de autodestrucción y se elimina permanentemente tras el período de expiración.</li>
+            <li><strong>Conversor de Divisas (/currency):</strong> Para obtener tasas en tiempo real, esta herramienta realiza una solicitud anónima a una API financiera. No se transmiten datos financieros personales.</li>
+          </ul>
+
+          <h2>3. Uso de LocalStorage</h2>
+          <p>Para mejorar su experiencia y habilitar capacidades offline, podemos utilizar el <code>LocalStorage</code> de su navegador. Estos datos se almacenan estrictamente en su dispositivo.</p>
+
+          <h2>4. Servicios de Terceros y Cookies (Google AdSense)</h2>
+          <p>Nuestro sitio depende de servicios de terceros para analíticas y monetización, los cuales pueden usar cookies:</p>
+          <div class="legal-box">
+            <h3>Google AdSense y Cookie DART de DoubleClick</h3>
+            <p>Google utiliza cookies para mostrar anuncios en nuestro sitio. Los usuarios pueden optar por no usar la cookie DART visitando la Política de Privacidad de la red de anuncios de Google: <a href="https://policies.google.com/technologies/ads" target="_blank" class="text-blue-600 hover:underline">https://policies.google.com/technologies/ads</a></p>
+          </div>
+
+          <h2>5. Archivos de Registro</h2>
+          <p>Mini-Tools.uk sigue un procedimiento estándar de uso de archivos de registro. Estos datos no están vinculados a ninguna información de identificación personal.</p>
+
+          <h2>6. Consentimiento</h2>
+          <p>Al utilizar nuestro sitio web, por la presente acepta nuestra Política de Privacidad.</p>
+
+          <h2>7. Contáctenos</h2>
+          <p>Si tiene preguntas adicionales, contáctenos en <strong>yuyananuu (at) gmail.com</strong>.</p>`
+      },
+      fr: {
+        metaTitle: "Politique de Confidentialité | Mini-Tools.uk",
+        metaDesc: "Lisez la politique de confidentialité de Mini-Tools.uk. Découvrez comment notre architecture garantit votre vie privée.",
+        navBlog: "Blog et Guides",
+        footerAbout: "À Propos", footerBlog: "Blog", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        lastUpdated: "DERNIÈRE MISE À JOUR : ",
+        heroTag: "Protection des Données",
+        heroTitle: "Politique de Confidentialité",
+        heroSub: "Vos données vous appartiennent. Découvrez comment nous garantissons votre vie privée.",
+        seoHtml: `
+          <h2>1. La garantie du "Traitement Côté Client"</h2>
+          <p>La philosophie de Mini-Tools.uk est la confidentialité. <strong>La grande majorité des calculs et du traitement des images sont exécutés entièrement dans votre navigateur</strong>. Cela signifie que :</p>
+          <ul>
+            <li>Lorsque vous calculez vos impôts, vos saisies ne sont <strong>jamais</strong> transmises sur Internet.</li>
+            <li>Lorsque vous utilisez notre Sélecteur de Couleur, vos images ne sont <strong>jamais</strong> téléchargées sur nos serveurs.</li>
+          </ul>
+
+          <h2>2. Exceptions : Outils Dépendant d'un Serveur</h2>
+          <p>Bien que plus de 90 % de nos outils fonctionnent hors ligne, certains utilitaires nécessitent une interaction avec un serveur. Nous sommes totalement transparents :</p>
+          <ul>
+            <li><strong>Hébergement d'Images Sécurisé (/upload) :</strong> Lors de l'utilisation de cet outil, votre image est temporairement téléchargée sur nos serveurs. Elle est complètement supprimée après expiration de la durée fixée.</li>
+            <li><strong>Convertisseur de Devises (/currency) :</strong> Pour obtenir les taux en direct, cet outil effectue une requête anonyme vers une API financière. Aucune donnée financière personnelle n'est transmise.</li>
+          </ul>
+
+          <h2>3. Utilisation du LocalStorage</h2>
+          <p>Pour permettre une utilisation hors ligne, nous utilisons le <code>LocalStorage</code> de votre navigateur. Ces données sont stockées sur votre appareil.</p>
+
+          <h2>4. Services Tiers et Cookies (Google AdSense)</h2>
+          <p>Notre site utilise des services tiers pour la monétisation, qui peuvent utiliser des cookies :</p>
+          <div class="legal-box">
+            <h3>Google AdSense et Cookie DART DoubleClick</h3>
+            <p>Google utilise des cookies pour diffuser des annonces. Vous pouvez refuser l'utilisation du cookie DART en visitant la politique de confidentialité : <a href="https://policies.google.com/technologies/ads" target="_blank" class="text-blue-600 hover:underline">https://policies.google.com/technologies/ads</a></p>
+          </div>
+
+          <h2>5. Fichiers Journaux</h2>
+          <p>Mini-Tools.uk utilise des fichiers journaux standards. Elles ne sont liées à aucune information personnellement identifiable.</p>
+
+          <h2>6. Consentement</h2>
+          <p>En utilisant notre site Web, vous consentez à notre Politique de Confidentialité.</p>
+
+          <h2>7. Nous Contacter</h2>
+          <p>Si vous avez des questions, contactez-nous à <strong>yuyananuu (at) gmail.com</strong>.</p>`
+      },
+      de: {
+        metaTitle: "Datenschutzrichtlinie | Mini-Tools.uk",
+        metaDesc: "Lesen Sie die Datenschutzrichtlinie von Mini-Tools.uk. Erfahren Sie, wie unsere Architektur Ihre Privatsphäre garantiert.",
+        navBlog: "Blog & Anleitungen",
+        footerAbout: "Über Uns", footerBlog: "Blog", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        lastUpdated: "ZULETZT AKTUALISIERT: ",
+        heroTag: "Datenschutz",
+        heroTitle: "Datenschutzrichtlinie",
+        heroSub: "Ihre Daten gehören Ihnen. Lesen Sie, wie unsere strikte Architektur Ihre Privatsphäre garantiert.",
+        seoHtml: `
+          <h2>1. Die "Client-Side Processing" Garantie</h2>
+          <p>Die Kernphilosophie von Mini-Tools.uk ist Datenprivatsphäre. <strong>Die überwiegende Mehrheit aller Berechnungen und Bildverarbeitungen werden vollständig in Ihrem Webbrowser ausgeführt</strong>. Das bedeutet:</p>
+          <ul>
+            <li>Wenn Sie Ihre Steuern berechnen, werden Ihre Eingaben <strong>niemals</strong> über das Internet übertragen.</li>
+            <li>Wenn Sie unsere Farbpipette verwenden, werden Ihre Bilder <strong>niemals</strong> hochgeladen.</li>
+          </ul>
+
+          <h2>2. Ausnahmen: Serverabhängige Tools</h2>
+          <p>Während über 90 % unserer Tools offline arbeiten, erfordern bestimmte Dienstprogramme naturgemäß eine Serverinteraktion. Wir bleiben völlig transparent:</p>
+          <ul>
+            <li><strong>Sicheres Bildhosting (/upload):</strong> Wenn Sie dieses Tool verwenden, wird Ihr Bild vorübergehend auf unsere Server hochgeladen. Es wird über einen Selbstzerstörungsmechanismus gehostet und nach Ablauf der Frist vollständig gelöscht.</li>
+            <li><strong>Währungsrechner (/currency):</strong> Um Live-Kurse abzurufen, sendet dieses Tool eine anonyme Anfrage an eine Finanz-API. Es werden keine persönlichen Finanzdaten übertragen.</li>
+          </ul>
+
+          <h2>3. Verwendung von LocalStorage</h2>
+          <p>Um Offline-Funktionen zu ermöglichen, verwenden wir möglicherweise den <code>LocalStorage</code> Ihres Browsers. Diese Daten werden auf Ihrem eigenen Gerät gespeichert.</p>
+
+          <h2>4. Drittanbieterdienste und Cookies (Google AdSense)</h2>
+          <p>Unsere Website nutzt Standarddienste von Drittanbietern für Monetarisierung, die Cookies verwenden können:</p>
+          <div class="legal-box">
+            <h3>Google AdSense und DoubleClick DART-Cookie</h3>
+            <p>Google verwendet Cookies, um Anzeigen zu schalten. Besucher können der Verwendung des DART-Cookies widersprechen: <a href="https://policies.google.com/technologies/ads" target="_blank" class="text-blue-600 hover:underline">https://policies.google.com/technologies/ads</a></p>
+          </div>
+
+          <h2>5. Protokolldateien</h2>
+          <p>Mini-Tools.uk verwendet Standard-Protokolldateien. Diese sind nicht mit persönlich identifizierbaren Informationen verknüpft.</p>
+
+          <h2>6. Zustimmung</h2>
+          <p>Durch die Nutzung unserer Website stimmen Sie unserer Datenschutzrichtlinie zu.</p>
+
+          <h2>7. Kontaktieren Sie Uns</h2>
+          <p>Bei Fragen kontaktieren Sie uns unter <strong>yuyananuu (at) gmail.com</strong>.</p>`
+      }
     };
 
     function updateLanguage() {
-      const params = new URLSearchParams(window.location.search);
-      let lang = params.get('lang');
-      if (!lang) {
-        const navLang = navigator.language.split('-')[0];
-        lang = ['en', 'zh', 'es', 'fr', 'de'].includes(navLang) ? navLang : 'en';
-      }
+      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+      const data = i18n[lang] || i18n['en'];
       
       document.documentElement.lang = lang;
+      
+      // Update Meta
+      document.title = data.metaTitle;
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+
+      // Update Navigation
+      if (document.getElementById('nav-blog-text')) document.getElementById('nav-blog-text').innerText = data.navBlog;
+
+      // Update Hero Section
+      document.getElementById('hero-tag').innerText = data.heroTag;
+      document.getElementById('hero-title').innerText = data.heroTitle;
+      document.getElementById('hero-sub').innerText = data.heroSub;
+      
+      // Update Footer
+      if (document.getElementById('footer-about')) document.getElementById('footer-about').innerText = data.footerAbout;
+      if (document.getElementById('footer-blog')) document.getElementById('footer-blog').innerText = data.footerBlog;
+      if (document.getElementById('footer-privacy')) document.getElementById('footer-privacy').innerText = data.footerPrivacy;
+      if (document.getElementById('footer-contact')) document.getElementById('footer-contact').innerText = data.footerContact;
+      
+      // QDF 永动更新护城河
+      const updateSpan = document.getElementById('last-updated-text');
+      if (updateSpan && data.lastUpdated) {
+          const now = new Date();
+          now.setDate(now.getDate() - 1); 
+          
+          let locale = 'en-GB';
+          if(lang === 'zh') locale = 'zh-CN';
+          if(lang === 'es') locale = 'es-ES';
+          if(lang === 'fr') locale = 'fr-FR';
+          if(lang === 'de') locale = 'de-DE';
+          
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          const formattedDate = now.toLocaleDateString(locale, options);
+          updateSpan.innerText = data.lastUpdated + formattedDate;
+      }
+      
+      // Inject SEO content
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
+
       document.getElementById('lang-select').value = lang;
       
-      document.getElementById('hero-tag').innerText = uiTrans[lang].tag;
-      document.getElementById('hero-title').innerText = uiTrans[lang].title;
-      document.getElementById('hero-sub').innerText = uiTrans[lang].sub;
-
-      document.querySelectorAll('.lang-content').forEach(block => {
-        if(block.getAttribute('data-lang') === lang) {
-          block.classList.add('active');
-        } else {
-          block.classList.remove('active');
-        }
-      });
-
+      // Clean URLs for internal links
       document.querySelectorAll('a').forEach(link => {
-        // Exclude external links (like Google Privacy Policy) from sync
         const href = link.getAttribute('href');
+        // Ignore external HTTP links
         if (href && !href.startsWith('http') && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
           try {
             const url = new URL(href, window.location.origin);
