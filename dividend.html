@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
+  <title id="meta-title">Salary vs Dividend Calculator 2026/27 | UK Tax — Mini-Tools</title>
+  <meta name="description" id="meta-desc" content="Free UK Salary vs Dividend calculator for limited company directors. Find the most tax-efficient way to pay yourself in the 2026/27 tax year." />
+  <meta name="keywords" id="meta-keywords" content="salary vs dividend calculator, director salary 2026, limited company tax calculator, optimum director salary, dividend tax calculator uk" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="https://mini-tools.uk/dividend" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/dividend?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/dividend?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/dividend?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/dividend?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/dividend?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/dividend" />
+
+  <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DR6V84JEZW');
+  </script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Mini-Tools Salary vs Dividend Calculator",
+        "operatingSystem": "Web",
+        "applicationCategory": "FinanceApplication",
+        "description": "Calculate the most tax-efficient split between salary and dividends for UK limited company directors.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the optimum director's salary for 2026/27 in the UK?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For most UK limited company directors with no other income, the optimum salary is usually £12,570 per year. This utilizes your full tax-free Personal Allowance and secures a qualifying year for your State Pension without triggering Income Tax, though slight Employer NI may apply."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the UK dividend allowance for 2026/27?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The tax-free dividend allowance in the UK is £500. Dividends earned above this amount are taxed at 8.75% (basic rate), 33.75% (higher rate), or 39.35% (additional rate)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How are dividends taxed in a limited company?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Dividends are paid out of company profits AFTER Corporation Tax (19%-25%) has been deducted. They are then subject to personal dividend tax based on your income band."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <script async src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
+    
+    .input-group { background: #ffffff; border: 2px solid #e2e8f0; transition: all 0.3s; border-radius: 1rem; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between; }
+    .input-group:focus-within { border-color: #8b5cf6; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1); }
+    .input-group input { width: 100%; outline: none; font-size: 1.25rem; font-weight: 800; color: #0f172a; background: transparent; }
+    .input-group span { font-weight: 800; color: #94a3b8; margin-right: 0.5rem; font-size: 1.125rem; user-select: none; }
+    
+    .calc-card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); overflow: hidden; transition: transform 0.3s ease; padding: 2rem; }
+    .calc-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
+    
+    .result-bg { background: linear-gradient(135deg, #4c1d95 0%, #3b0764 100%); border-color: #5b21b6; color: white; }
+    
+    .breakdown-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px dashed rgba(255,255,255,0.2); font-size: 0.95rem; }
+    .breakdown-row:last-child { border-bottom: none; }
+    .val-negative { color: #fca5a5; font-weight: 700; }
+    .val-positive { color: #a7f3d0; font-weight: 800; }
+
+    /* SEO Content Typography */
+    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
+    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
+    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
+    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
+    .prose-content strong { color: #0f172a; font-weight: 700; }
+    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
+    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
+    .faq-box h3 { margin-top: 0; margin-bottom: 0.5rem; font-size: 1.25rem; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
+        </a>
+        <div class="flex flex-col -mt-1 hidden sm:flex">
+          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
+          <span id="nav-blog-text">Blog & Guides</span>
+        </a>
+        <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500 transition-colors hover:bg-slate-100">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 简体中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-6 py-12 flex-1 w-full">
+    <header class="mb-12 text-center">
+      <div class="mb-4">
+        <span id="update-status" class="bg-purple-50 text-purple-600 px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-widest border border-purple-200">
+          🇬🇧 2026/27 UK Tax Year Rates
+        </span>
+      </div>
+      <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
+        Salary vs Dividend Calculator
+      </h1>
+      <p id="page-desc" class="text-lg text-slate-500 max-w-2xl mx-auto">
+        Find the most tax-efficient way to extract profits from your UK Limited Company. Compare Corporation Tax, Income Tax, and Dividends.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+      
+      <div class="lg:col-span-5 calc-card space-y-6">
+        <div class="flex items-center gap-3 mb-2 border-b border-slate-100 pb-4">
+          <span class="text-2xl">📊</span>
+          <h2 id="lbl-input-title" class="text-xl font-extrabold text-slate-900">Company Finances</h2>
+        </div>
+        
+        <div>
+          <label id="lbl-profit" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Available Profit (Before Salary & Taxes)</label>
+          <div class="input-group border-slate-300">
+            <span>£</span>
+            <input type="number" id="input-profit" value="50000" min="0" step="1000" oninput="calcDiv()">
+          </div>
+        </div>
+
+        <div>
+          <label id="lbl-salary" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 flex justify-between">
+            <span>Director's Salary (Annual)</span>
+            <span class="text-purple-500 tooltip cursor-help font-bold" title="Optimum for 26/27 is usually £12,570">Optimum: £12,570</span>
+          </label>
+          <div class="input-group border-purple-300 bg-purple-50/50">
+            <span class="text-purple-600">£</span>
+            <input type="number" id="input-salary" value="12570" min="0" step="10" class="text-purple-900" oninput="calcDiv()">
+          </div>
+        </div>
+        
+        <div class="pt-4 border-t border-slate-100 text-sm text-slate-500 font-medium">
+          <p id="lbl-hint">💡 <strong>Hint:</strong> The calculator assumes you extract all remaining post-tax profits as dividends.</p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 calc-card result-bg flex flex-col h-full shadow-2xl shadow-purple-900/20">
+        <div class="flex items-center justify-between mb-8">
+          <h2 id="lbl-result-title" class="text-xl font-extrabold text-white">Your Take-Home Pay</h2>
+          <span class="text-3xl">💷</span>
+        </div>
+        
+        <div class="text-center mb-8">
+          <span id="val-take-home" class="text-6xl md:text-7xl font-black text-white tracking-tight">£0</span>
+          <span id="lbl-net-annual" class="block text-xs font-black text-purple-300 uppercase tracking-widest mt-3">Net Annual Income</span>
+        </div>
+
+        <div class="bg-white/10 rounded-2xl p-5 md:p-6 mt-auto border border-white/10 backdrop-blur-sm space-y-1">
+          <div class="breakdown-row font-bold text-white">
+            <span id="lbl-gross">Gross Company Profit</span>
+            <span id="val-gross">£0</span>
+          </div>
+          <div class="breakdown-row">
+            <span id="lbl-er-ni">Employer NI (Company pays)</span>
+            <span id="val-er-ni" class="val-negative">-£0</span>
+          </div>
+          <div class="breakdown-row">
+            <span id="lbl-corp-tax">Corporation Tax (Company pays)</span>
+            <span id="val-corp-tax" class="val-negative">-£0</span>
+          </div>
+          <div class="breakdown-row border-t border-white/20 pt-3 mt-3">
+            <span id="lbl-inc-tax">Income Tax & Employee NI (on Salary)</span>
+            <span id="val-inc-tax" class="val-negative">-£0</span>
+          </div>
+          <div class="breakdown-row">
+            <span id="lbl-div-tax">Dividend Tax (Personal)</span>
+            <span id="val-div-tax" class="val-negative">-£0</span>
+          </div>
+        </div>
+        
+        <div class="flex justify-between items-center mt-6 px-2">
+            <span id="lbl-total-taxes" class="text-sm font-bold text-purple-300">Total Taxes Paid to HMRC:</span>
+            <span id="val-total-taxes" class="text-lg font-black text-red-300">£0</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="seo-container" class="prose-content">
+      </div>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-100 py-12 mt-10 w-full">
+    <div class="max-w-[1400px] mx-auto px-6 text-center">
+      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
+        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
+        </a>
+        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+      </div>
+      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
+        © 2026 MINI-TOOLS.UK — SECURE CLIENT-SIDE WEB UTILITIES
+      </p>
+      <p id="last-updated-text" class="text-center text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-2"></p>
+    </div>
+  </footer>
+
+  <script>
+    // --- 💷 UK Tax Logic (Approximated for 2026/27) ---
+    const gbp = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
+
+    // 🌟 SEO 杀招 1：动态路由与 URL 共享
+    function updateURLParams(profit, salary, takeHome) {
+      const url = new URL(window.location.href);
+      
+      if (profit > 0) {
+        url.searchParams.set('profit', profit);
+        url.searchParams.set('salary', salary);
+        
+        // 🌟 SEO 杀招 2：动态重写网页标题
+        const i18nTitle = i18n[document.documentElement.lang || 'en'].dynTitle;
+        document.title = `${gbp.format(takeHome)} Take-Home | ${i18nTitle} | Mini-Tools.uk`;
+      } else {
+        url.searchParams.delete('profit');
+        url.searchParams.delete('salary');
+        document.title = i18n[document.documentElement.lang || 'en'].metaTitle;
+      }
+      window.history.replaceState({}, '', url);
+    }
+
+    function calcDiv() {
+      const profitStr = document.getElementById('input-profit').value;
+      const salaryStr = document.getElementById('input-salary').value;
+
+      const profit = parseFloat(profitStr) || 0;
+      const salary = parseFloat(salaryStr) || 0;
+
+      if (profit <= 0) {
+          document.getElementById('val-take-home').innerText = '£0';
+          document.getElementById('val-gross').innerText = '£0';
+          document.getElementById('val-er-ni').innerText = '-£0';
+          document.getElementById('val-corp-tax').innerText = '-£0';
+          document.getElementById('val-inc-tax').innerText = '-£0';
+          document.getElementById('val-div-tax').innerText = '-£0';
+          document.getElementById('val-total-taxes').innerText = '£0';
+          updateURLParams(0, 0, 0);
+          return;
+      }
+
+      // 1. Employer NI (Secondary Threshold £9,100)
+      let erNi = 0;
+      if (salary > 9100) {
+          erNi = (salary - 9100) * 0.138;
+      }
+
+      // 2. Corporation Tax (Flat 19% for small profits up to £50k, blended up to £250k. Simplified here)
+      let taxableProfit = Math.max(0, profit - salary - erNi);
+      let corpTax = 0;
+      if (taxableProfit <= 50000) {
+          corpTax = taxableProfit * 0.19;
+      } else if (taxableProfit <= 250000) {
+          // Marginal relief simplified
+          corpTax = (50000 * 0.19) + ((taxableProfit - 50000) * 0.265);
+      } else {
+          corpTax = taxableProfit * 0.25;
+      }
+
+      // 3. Available Dividends
+      let availableDiv = taxableProfit - corpTax;
+
+      // 4. Personal Taxes on Salary
+      let personalAllowance = 12570;
+      let totalIncomeEst = salary + availableDiv;
+      
+      // Personal Allowance reduction over £100k
+      if (totalIncomeEst > 100000) {
+          personalAllowance = Math.max(0, personalAllowance - ((totalIncomeEst - 100000) / 2));
+      }
+
+      let taxableSalary = Math.max(0, salary - personalAllowance);
+      let incomeTax = 0;
+      if (taxableSalary > 0) {
+          let basic = Math.min(taxableSalary, 37700);
+          incomeTax += basic * 0.20;
+          if (taxableSalary > 37700) {
+              let higher = Math.min(taxableSalary - 37700, 125140 - 50270);
+              incomeTax += higher * 0.40;
+          }
+      }
+
+      // Employee NI (Primary Threshold £12,570)
+      let eeNi = 0;
+      if (salary > 12570) {
+          let basicNi = Math.min(salary - 12570, 50270 - 12570);
+          eeNi += basicNi * 0.08; // 8% for 2026
+      }
+      
+      let totalSalaryTax = incomeTax + eeNi;
+
+      // 5. Dividend Tax
+      let divTax = 0;
+      let remainingPA = Math.max(0, personalAllowance - salary);
+      let taxFreeDiv = remainingPA + 500; // £500 Dividend Allowance
+
+      let taxableDiv = Math.max(0, availableDiv - taxFreeDiv);
+
+      if (taxableDiv > 0) {
+          let usedBasicBand = Math.max(0, salary - personalAllowance);
+          let remainingBasicBand = Math.max(0, 37700 - usedBasicBand);
+
+          let divAtBasic = Math.min(taxableDiv, remainingBasicBand);
+          divTax += divAtBasic * 0.0875;
+
+          taxableDiv -= divAtBasic;
+
+          if (taxableDiv > 0) {
+              let remainingHigherBand = (125140 - 50270); // Approx
+              let divAtHigher = Math.min(taxableDiv, remainingHigherBand);
+              divTax += divAtHigher * 0.3375;
+
+              taxableDiv -= divAtHigher;
+
+              if (taxableDiv > 0) {
+                  divTax += taxableDiv * 0.3935;
+              }
+          }
+      }
+
+      // 6. Totals
+      let takeHome = salary - totalSalaryTax + availableDiv - divTax;
+      let totalTaxesHMRC = erNi + corpTax + totalSalaryTax + divTax;
+
+      // Update DOM
+      document.getElementById('val-take-home').innerText = gbp.format(takeHome);
+      document.getElementById('val-gross').innerText = gbp.format(profit);
+      document.getElementById('val-er-ni').innerText = `-${gbp.format(erNi)}`;
+      document.getElementById('val-corp-tax').innerText = `-${gbp.format(corpTax)}`;
+      document.getElementById('val-inc-tax').innerText = `-${gbp.format(totalSalaryTax)}`;
+      document.getElementById('val-div-tax').innerText = `-${gbp.format(divTax)}`;
+      document.getElementById('val-total-taxes').innerText = gbp.format(totalTaxesHMRC);
+
+      updateURLParams(profit, salary, takeHome);
+    }
+
+    function initFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      let hasParams = false;
+
+      if (params.has('profit')) { document.getElementById('input-profit').value = params.get('profit'); hasParams = true; }
+      if (params.has('salary')) { document.getElementById('input-salary').value = params.get('salary'); hasParams = true; }
+      
+      calcDiv(); // Always calculate on load
+    }
+
+    // 🌟 Multi-language Engine & SEO 🌟
+    const i18n = {
+      en: {
+        metaTitle: "Salary vs Dividend Calculator 2026/27 | UK Tax — Mini-Tools",
+        metaDesc: "Free UK Salary vs Dividend calculator for limited company directors. Find the most tax-efficient way to pay yourself in the 2026/27 tax year.",
+        metaKeywords: "salary vs dividend calculator, director salary 2026, limited company tax calculator, optimum director salary, dividend tax calculator uk",
+        title: "Salary vs Dividend", desc: "Find the most tax-efficient way to extract profits from your UK Limited Company. Compare Corporation Tax, Income Tax, and Dividends.",
+        update: "🇬🇧 2026/27 UK Tax Year Rates",
+        dynTitle: "Salary vs Dividend",
+        
+        lblInpTitle: "Company Finances", lblResTitle: "Your Take-Home Pay",
+        lblProfit: "Available Profit (Before Salary & Taxes)", lblSalary: "Director's Salary (Annual)",
+        lblHint: "💡 <strong>Hint:</strong> The calculator assumes you extract all remaining post-tax profits as dividends.",
+        
+        lblNetAnnual: "Net Annual Income",
+        lblGross: "Gross Company Profit", lblErNi: "Employer NI (Company pays)", lblCorp: "Corporation Tax (Company pays)",
+        lblInc: "Income Tax & Employee NI (on Salary)", lblDiv: "Dividend Tax (Personal)",
+        lblTotalTax: "Total Taxes Paid to HMRC:",
+        
+        navBlog: "Blog & Guides", footerBlog: "Blog",
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
+        lastUpdated: "LAST UPDATED: ",
+        
+        seoHtml: `
+          <h2>What is the Optimum Director's Salary for 2026/27?</h2>
+          <p>For most directors of UK Limited Companies, the most tax-efficient strategy is to take a combination of a low base salary and high dividends. The calculator defaults to <strong>£12,570</strong> because it is the current standard Personal Allowance. By setting your salary exactly here, you pay £0 in Income Tax while still securing a qualifying year towards your State Pension. Note that salaries above £9,100 will attract a small amount of Employer's National Insurance, but this is usually offset by the Corporation Tax savings since salary is a deductible business expense.</p>
+          
+          <div class="faq-box">
+            <h3>What is the UK dividend allowance?</h3>
+            <p>For the 2026/27 tax year, the tax-free dividend allowance remains strictly at <strong>£500</strong>. Any dividends you extract above this allowance (and above any remaining Personal Allowance) will be taxed at the basic rate (8.75%), higher rate (33.75%), or additional rate (39.35%) depending on your total income bracket.</p>
+          </div>
+          
+          <div class="faq-box">
+            <h3>How does Corporation Tax affect my dividends?</h3>
+            <p>Dividends can only be paid out of <strong>post-tax profits</strong>. This means your company must first pay Corporation Tax (19% for profits under £50k, up to 25% for larger profits) on the money before it can be distributed to you. Our calculator automatically handles this deduction sequence in the browser.</p>
+          </div>
+
+          <h2>100% Secure Client-Side Calculation</h2>
+          <p>Financial data is sensitive. The Mini-Tools <strong>Salary vs Dividend Calculator</strong> is built using a Zero-Trust architecture. Your company's profit and salary figures are processed instantly via JavaScript in your local browser memory. We never transmit or store your financial planning data on our servers.</p>`
+      },
+      zh: {
+        metaTitle: "英国底薪与分红计算器 (Salary vs Dividend) 2026 — Mini-Tools",
+        metaDesc: "免费的英国有限公司董事税务计算器。一键算出最省税的底薪与分红提取比例，完美适配 2026/27 财年最新英国税法。",
+        metaKeywords: "英国分红计算器, Salary vs Dividend, 英国注册公司避税, 英国董事薪资最优解",
+        title: "底薪与分红计算器", desc: "为英国有限公司董事寻找最省税的利润提取方案。自动计算并对比企业所得税、个人所得税及分红税。",
+        update: "🇬🇧 适用 2026/27 英国最新税法",
+        dynTitle: "底薪与分红",
+        
+        lblInpTitle: "公司财务数据", lblResTitle: "您的税后净收入",
+        lblProfit: "可用利润 (扣除薪资和税金前)", lblSalary: "董事底薪 (年薪)",
+        lblHint: "💡 <strong>提示：</strong> 本计算器默认您会将公司税后剩余的所有利润，全额作为分红提取。",
+        
+        lblNetAnnual: "年度税后总收入",
+        lblGross: "公司税前总利润", lblErNi: "雇主国民保险 (公司承担)", lblCorp: "企业所得税 (公司承担)",
+        lblInc: "个人所得税及雇员 NI (基于薪资)", lblDiv: "分红税 (个人承担)",
+        lblTotalTax: "缴纳给 HMRC 的总税金:",
+        
+        navBlog: "官方博客与教程", footerBlog: "官方博客",
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        lastUpdated: "最后更新：",
+        
+        seoHtml: `
+          <h2>2026/27 财年，英国董事的最佳底薪是多少？</h2>
+          <p>对于大多数英国有限公司（Limited Company）的老板来说，最省税的策略是“低底薪 + 高分红”。本计算器默认底薪为 <strong>£12,570</strong>，因为这是目前的标准免税额（Personal Allowance）。将底薪设定在这个数值，您可以完全免交个人所得税，同时依然能积累国家养老金的资格年份。</p>
+          
+          <div class="faq-box">
+            <h3>英国的分红免税额是多少？</h3>
+            <p>在 2026/27 财年，英国的分红免税额（Dividend Allowance）严格维持在 <strong>£500</strong>。超出此额度且超出个人免税额的部分，将根据您的总收入区间，分别征收 8.75%（基础税率）、33.75%（较高税率）或 39.35%（附加税率）的分红税。</p>
+          </div>
+          
+          <div class="faq-box">
+            <h3>企业所得税 (Corporation Tax) 如何影响分红？</h3>
+            <p>分红只能从公司的<strong>税后利润</strong>中提取。这意味着在将钱发给您之前，公司必须先按 19%（利润低于 5 万英镑）至 25% 的税率缴纳企业所得税。我们的工具会自动在您的浏览器中处理这一复杂的扣税顺序。</p>
+          </div>
+
+          <h2>纯前端运行，保护您的财务隐私</h2>
+          <p>财务数据高度敏感。本计算器采用零信任（Zero-Trust）架构开发。您输入的任何公司利润和薪资数据，都仅在您的设备本地通过 JavaScript 瞬间完成计算，绝不会被上传至我们的服务器进行记录或分析。</p>`
+      },
+      es: {
+        metaTitle: "Calculadora de Salario vs Dividendo 2026 | Impuestos UK",
+        metaDesc: "Calculadora gratuita para directores de empresas en UK. Encuentre la forma más eficiente de extraer beneficios en el año fiscal 2026/27.",
+        metaKeywords: "salario vs dividendo uk, impuestos empresas uk, calculadora dividendos",
+        title: "Salario vs Dividendo", desc: "Encuentre la forma más eficiente de impuestos para extraer beneficios de su empresa en el Reino Unido.",
+        update: "🇬🇧 Tasas del Año Fiscal UK 2026/27",
+        dynTitle: "Salario vs Dividendo",
+        lblInpTitle: "Finanzas de la Empresa", lblResTitle: "Su Ingreso Neto",
+        lblProfit: "Beneficio Disponible (Antes de Salario e Impuestos)", lblSalary: "Salario del Director (Anual)",
+        lblHint: "💡 <strong>Pista:</strong> La calculadora asume que extrae todos los beneficios restantes después de impuestos como dividendos.",
+        lblNetAnnual: "Ingreso Neto Anual", lblGross: "Beneficio Bruto de la Empresa", lblErNi: "NI del Empleador (Paga la empresa)", lblCorp: "Impuesto de Sociedades",
+        lblInc: "Impuesto sobre la Renta y NI", lblDiv: "Impuesto a Dividendos (Personal)", lblTotalTax: "Total de Impuestos Pagados:",
+        navBlog: "Blog y Guías", footerBlog: "Blog", footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        lastUpdated: "ÚLTIMA ACTUALIZACIÓN: ",
+        seoHtml: `<h2>¿Cuál es el salario óptimo para un director en 2026/27?</h2><p>Para la mayoría de los directores en UK, la estrategia más eficiente es un salario base bajo y altos dividendos. El valor por defecto es <strong>£12,570</strong> porque utiliza su asignación personal libre de impuestos.</p>`
+      },
+      fr: {
+        metaTitle: "Calculateur Salaire vs Dividende 2026 | Impôts UK",
+        metaDesc: "Calculateur gratuit pour les directeurs d'entreprises britanniques. Trouvez le moyen le plus efficace d'extraire des bénéfices.",
+        metaKeywords: "salaire vs dividende uk, impôts entreprise uk, calculateur dividendes",
+        title: "Salaire vs Dividende", desc: "Trouvez le moyen le plus efficace d'extraire les bénéfices de votre société limitée au Royaume-Uni.",
+        update: "🇬🇧 Taux de l'année fiscale UK 2026/27",
+        dynTitle: "Salaire vs Dividende",
+        lblInpTitle: "Finances de l'Entreprise", lblResTitle: "Votre Salaire Net",
+        lblProfit: "Bénéfice Disponible (Avant Salaire et Impôts)", lblSalary: "Salaire du Directeur (Annuel)",
+        lblHint: "💡 <strong>Astuce :</strong> Le calculateur suppose que vous extrayez tous les bénéfices restants sous forme de dividendes.",
+        lblNetAnnual: "Revenu Net Annuel", lblGross: "Bénéfice Brut", lblErNi: "NI Employeur (Payé par l'entreprise)", lblCorp: "Impôt sur les Sociétés",
+        lblInc: "Impôt sur le Revenu et NI", lblDiv: "Impôt sur les Dividendes", lblTotalTax: "Total des Impôts Payés :",
+        navBlog: "Blog et Guides", footerBlog: "Blog", footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        lastUpdated: "DERNIÈRE MISE À JOUR : ",
+        seoHtml: `<h2>Quel est le salaire optimal du directeur pour 2026/27 ?</h2><p>Pour la plupart des directeurs au Royaume-Uni, la stratégie la plus efficace est de prendre un salaire de base bas et des dividendes élevés. Le calculateur utilise par défaut <strong>12 570 £</strong>.</p>`
+      },
+      de: {
+        metaTitle: "Gehalt vs Dividende Rechner 2026 | UK Steuern",
+        metaDesc: "Kostenloser Rechner für Geschäftsführer britischer Limited Companies. Finden Sie den steuereffizientesten Weg für 2026/27.",
+        metaKeywords: "gehalt vs dividende uk, firmensteuern uk, dividendenrechner",
+        title: "Gehalt vs Dividende", desc: "Finden Sie den steuereffizientesten Weg, um Gewinne aus Ihrer UK Limited Company zu entnehmen.",
+        update: "🇬🇧 UK Steuerjahr 2026/27",
+        dynTitle: "Gehalt vs Dividende",
+        lblInpTitle: "Unternehmensfinanzen", lblResTitle: "Ihr Nettoeinkommen",
+        lblProfit: "Verfügbarer Gewinn (Vor Gehalt & Steuern)", lblSalary: "Geschäftsführergehalt (Jährlich)",
+        lblHint: "💡 <strong>Hinweis:</strong> Der Rechner geht davon aus, dass Sie alle verbleibenden Gewinne nach Steuern als Dividende entnehmen.",
+        lblNetAnnual: "Jährliches Nettoeinkommen", lblGross: "Bruttogewinn", lblErNi: "Arbeitgeber-NI (Firma zahlt)", lblCorp: "Körperschaftsteuer",
+        lblInc: "Einkommensteuer & NI", lblDiv: "Dividendensteuer (Persönlich)", lblTotalTax: "Gezahlte Gesamtsteuern:",
+        navBlog: "Blog & Anleitungen", footerBlog: "Blog", footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        lastUpdated: "ZULETZT AKTUALISIERT: ",
+        seoHtml: `<h2>Was ist das optimale Geschäftsführergehalt für 2026/27?</h2><p>Für die meisten Geschäftsführer in Großbritannien ist ein niedriges Grundgehalt und hohe Dividenden am effizientesten. Der Standardwert ist <strong>£12.570</strong>.</p>`
+      }
+    };
+
+    function updateLanguage() {
+      const params = new URLSearchParams(window.location.search);
+      const lang = params.get('lang') || 'en';
+      const data = i18n[lang] || i18n['en'];
+
+      document.documentElement.lang = lang;
+      
+      // Update Meta
+      if (!params.has('profit')) {
+          document.title = data.metaTitle;
+      }
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
+
+      // Update UI Text
+      document.getElementById('update-status').innerText = data.update;
+      document.getElementById('page-title').innerText = data.title;
+      document.getElementById('page-desc').innerText = data.desc;
+      
+      document.getElementById('lbl-input-title').innerText = data.lblInpTitle;
+      document.getElementById('lbl-result-title').innerText = data.lblResTitle;
+      
+      document.getElementById('lbl-profit').innerText = data.lblProfit;
+      document.getElementById('lbl-salary').children[0].innerText = data.lblSalary;
+      document.getElementById('lbl-hint').innerHTML = data.lblHint;
+      
+      document.getElementById('lbl-net-annual').innerText = data.lblNetAnnual;
+      document.getElementById('lbl-gross').innerText = data.lblGross;
+      document.getElementById('lbl-er-ni').innerText = data.lblErNi;
+      document.getElementById('lbl-corp-tax').innerText = data.lblCorp;
+      document.getElementById('lbl-inc-tax').innerText = data.lblInc;
+      document.getElementById('lbl-div-tax').innerText = data.lblDiv;
+      document.getElementById('lbl-total-taxes').innerText = data.lblTotalTax;
+
+      // Nav & Footer
+      const navBlogText = document.getElementById('nav-blog-text');
+      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
+      const footerBlog = document.getElementById('footer-blog');
+      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
+      
+      document.getElementById('footer-about').innerText = data.footerAbout;
+      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
+      document.getElementById('footer-contact').innerText = data.footerContact;
+
+      // SEO Html
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
+
+      // QDF
+      const updateSpan = document.getElementById('last-updated-text');
+      if (updateSpan && data.lastUpdated) {
+          const now = new Date();
+          now.setDate(now.getDate() - 1);
+          let locale = 'en-GB';
+          if(lang === 'zh') locale = 'zh-CN';
+          if(lang === 'es') locale = 'es-ES';
+          if(lang === 'fr') locale = 'fr-FR';
+          if(lang === 'de') locale = 'de-DE';
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          updateSpan.innerText = data.lastUpdated + now.toLocaleDateString(locale, options);
+      }
+
+      document.getElementById('lang-select').value = lang;
+      
+      // Clean URLs
+      document.querySelectorAll('a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
+          try {
+            const url = new URL(href, window.location.origin);
+            url.searchParams.set('lang', lang);
+            link.href = url.pathname + url.search;
+          } catch(e) {}
+        }
+      });
+    }
+
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      window.location.href = url.href;
+    });
+
+    window.onload = () => {
+      updateLanguage();
+      initFromURL();
+    };
+  </script>
+</body>
+</html>

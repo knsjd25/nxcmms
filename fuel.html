@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
+  <title id="meta-title">UK Fuel Cost & MPG Calculator | Journey Price — Mini-Tools</title>
+  <meta name="description" id="meta-desc" content="Free UK fuel cost calculator. Instantly calculate your petrol or diesel journey cost using Miles, MPG, and Pence per Litre. Split costs easily." />
+  <meta name="keywords" id="meta-keywords" content="uk fuel calculator, mpg calculator, petrol cost calculator, journey cost, pence per litre to mpg, split fuel cost" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="https://mini-tools.uk/fuel" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/fuel?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/fuel?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/fuel?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/fuel?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/fuel?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/fuel" />
+
+  <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DR6V84JEZW');
+  </script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Mini-Tools UK Fuel Cost Calculator",
+        "operatingSystem": "Web",
+        "applicationCategory": "UtilityApplication",
+        "description": "Calculate journey petrol costs using UK metrics (Miles, MPG, Pence per Litre) completely offline.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do you calculate fuel cost in the UK?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "First, divide your journey miles by your car's MPG to get total gallons. Multiply gallons by 4.54609 to get total litres. Finally, multiply total litres by the fuel price (in pence per litre) and divide by 100 to get the cost in Pounds (£)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many litres are in a UK gallon?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "One UK (Imperial) Gallon is equal to 4.54609 litres. This is different from a US Gallon, which is 3.785 litres."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is a good MPG in the UK?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In the UK, anything over 50 MPG is generally considered good fuel efficiency for a standard petrol or diesel car, while hybrids often achieve 60-70+ MPG."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <script async src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
+    
+    .input-group { background: #ffffff; border: 2px solid #e2e8f0; transition: all 0.3s; border-radius: 1rem; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between; }
+    .input-group:focus-within { border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+    .input-group input { width: 100%; outline: none; font-size: 1.25rem; font-weight: 800; color: #0f172a; background: transparent; }
+    .input-group span { font-weight: 800; color: #94a3b8; margin-left: 0.5rem; font-size: 1rem; user-select: none; }
+    
+    .calc-card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); overflow: hidden; transition: transform 0.3s ease; padding: 2rem; }
+    .calc-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
+    
+    .result-bg { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-color: #334155; color: white; }
+
+    /* SEO Content Typography */
+    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
+    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
+    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
+    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
+    .prose-content strong { color: #0f172a; font-weight: 700; }
+    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
+    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
+    .faq-box h3 { margin-top: 0; margin-bottom: 0.5rem; font-size: 1.25rem; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
+        </a>
+        <div class="flex flex-col -mt-1 hidden sm:flex">
+          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
+          <span id="nav-blog-text">Blog & Guides</span>
+        </a>
+        <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500 transition-colors hover:bg-slate-100">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 简体中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-6 py-12 flex-1 w-full">
+    <header class="mb-12 text-center">
+      <div class="mb-4">
+        <span id="update-status" class="bg-indigo-50 text-indigo-600 px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-widest border border-indigo-100">
+          🇬🇧 UK Imperial to Metric Engine
+        </span>
+      </div>
+      <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
+        Fuel Cost Calculator
+      </h1>
+      <p id="page-desc" class="text-lg text-slate-500 max-w-2xl mx-auto">
+        Calculate your journey cost instantly using UK standards (Miles, MPG, and Pence per Litre). Easily split the bill with passengers.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+      
+      <div class="lg:col-span-7 calc-card space-y-6">
+        <div class="flex items-center gap-3 mb-2 border-b border-slate-100 pb-4">
+          <span class="text-2xl">🚗</span>
+          <h2 id="lbl-input-title" class="text-xl font-extrabold text-slate-900">Journey Details</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label id="lbl-dist" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Distance</label>
+            <div class="input-group">
+              <input type="number" id="input-dist" placeholder="e.g., 150" min="0" oninput="calcFuel()">
+              <span>miles</span>
+            </div>
+          </div>
+          <div>
+            <label id="lbl-mpg" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Fuel Efficiency</label>
+            <div class="input-group">
+              <input type="number" id="input-mpg" placeholder="e.g., 45" min="0" oninput="calcFuel()">
+              <span>mpg</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label id="lbl-price" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 text-blue-600">Fuel Price (Pence/Litre)</label>
+            <div class="input-group border-blue-200 bg-blue-50/30">
+              <input type="number" id="input-price" placeholder="e.g., 145.9" min="0" step="0.1" oninput="calcFuel()" class="text-blue-900">
+              <span class="text-blue-400">pence</span>
+            </div>
+            <p id="lbl-price-hint" class="text-[10px] text-slate-400 font-bold mt-1.5 ml-1">Enter pence, not pounds (e.g. 145.9)</p>
+          </div>
+          <div>
+            <label id="lbl-split" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 text-purple-600">Split Bill (Passengers)</label>
+            <div class="input-group border-purple-200 bg-purple-50/30">
+              <span class="text-purple-400 ml-0 mr-2">👥</span>
+              <input type="number" id="input-split" value="1" min="1" oninput="calcFuel()" class="text-purple-900">
+              <span class="text-purple-400">people</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 calc-card result-bg flex flex-col h-full relative">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-2xl">💷</span>
+          <h2 id="lbl-result-title" class="text-xl font-extrabold text-white">Estimated Cost</h2>
+        </div>
+        
+        <div class="flex-grow flex flex-col justify-center items-center text-center pb-6">
+          <span id="lbl-total-cost" class="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Total Journey Cost</span>
+          <span id="val-total-cost" class="text-6xl font-black text-white tracking-tight">£0.00</span>
+          
+          <div id="split-container" class="mt-6 pt-6 border-t border-slate-700 w-full opacity-50 transition-opacity duration-300">
+            <span id="lbl-split-cost" class="block text-xs font-black text-purple-400 uppercase tracking-widest mb-1">Cost Per Person</span>
+            <span id="val-split-cost" class="text-3xl font-bold text-purple-200">£0.00</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-800/50 rounded-xl p-4 mt-auto">
+          <div class="flex justify-between items-center text-sm font-bold border-b border-slate-700/50 pb-2 mb-2">
+            <span class="text-slate-400" id="lbl-litres">Fuel Required (Litres)</span>
+            <span class="text-slate-200" id="val-litres">0.0 L</span>
+          </div>
+          <div class="flex justify-between items-center text-sm font-bold">
+            <span class="text-slate-400" id="lbl-gallons">Fuel Required (Gallons)</span>
+            <span class="text-slate-200" id="val-gallons">0.0 gal</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="seo-container" class="prose-content">
+      </div>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-100 py-12 mt-10 w-full">
+    <div class="max-w-[1400px] mx-auto px-6 text-center">
+      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
+        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
+        </a>
+        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+      </div>
+      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
+        © 2026 MINI-TOOLS.UK — SECURE CLIENT-SIDE WEB UTILITIES
+      </p>
+      <p id="last-updated-text" class="text-center text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-2"></p>
+    </div>
+  </footer>
+
+  <script>
+    // --- ⛽ UK Fuel Math Logic ---
+    const LITRES_IN_UK_GALLON = 4.54609;
+    const gbp = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' });
+
+    // 🌟 SEO 杀招 1：动态路由更新 (生成带参数的可分享链接)
+    function updateURLParams(dist, mpg, price, split) {
+      const url = new URL(window.location.href);
+      
+      if (dist > 0 && mpg > 0 && price > 0) {
+        url.searchParams.set('dist', dist);
+        url.searchParams.set('mpg', mpg);
+        url.searchParams.set('price', price);
+        if (split > 1) {
+            url.searchParams.set('split', split);
+        } else {
+            url.searchParams.delete('split');
+        }
+        
+        // 🌟 SEO 杀招 2：动态重写网页标题
+        const i18nTitle = i18n[document.documentElement.lang || 'en'].dynTitle;
+        document.title = `${dist} Miles at ${mpg} MPG | ${i18nTitle} | Mini-Tools.uk`;
+      } else {
+        url.searchParams.delete('dist');
+        url.searchParams.delete('mpg');
+        url.searchParams.delete('price');
+        url.searchParams.delete('split');
+        document.title = i18n[document.documentElement.lang || 'en'].metaTitle;
+      }
+      window.history.replaceState({}, '', url);
+    }
+
+    function calcFuel() {
+      const distStr = document.getElementById('input-dist').value;
+      const mpgStr = document.getElementById('input-mpg').value;
+      const priceStr = document.getElementById('input-price').value;
+      const splitStr = document.getElementById('input-split').value;
+
+      const dist = parseFloat(distStr) || 0;
+      const mpg = parseFloat(mpgStr) || 0;
+      const pricePence = parseFloat(priceStr) || 0;
+      const split = parseInt(splitStr) || 1;
+
+      if (dist > 0 && mpg > 0 && pricePence > 0) {
+        // 1. Calculate gallons needed
+        const gallons = dist / mpg;
+        // 2. Convert to litres (UK)
+        const litres = gallons * LITRES_IN_UK_GALLON;
+        // 3. Calculate total cost in pounds (Price is in pence, so divide by 100)
+        const totalCostPounds = litres * (pricePence / 100);
+        // 4. Calculate split
+        const costPerPerson = totalCostPounds / split;
+
+        document.getElementById('val-total-cost').innerText = gbp.format(totalCostPounds);
+        document.getElementById('val-litres').innerText = `${litres.toFixed(1)} L`;
+        document.getElementById('val-gallons').innerText = `${gallons.toFixed(1)} gal`;
+        
+        const splitContainer = document.getElementById('split-container');
+        document.getElementById('val-split-cost').innerText = gbp.format(costPerPerson);
+        
+        if (split > 1) {
+            splitContainer.style.opacity = '1';
+        } else {
+            splitContainer.style.opacity = '0.3';
+        }
+        
+        updateURLParams(dist, mpg, pricePence, split);
+      } else {
+        document.getElementById('val-total-cost').innerText = '£0.00';
+        document.getElementById('val-split-cost').innerText = '£0.00';
+        document.getElementById('val-litres').innerText = '0.0 L';
+        document.getElementById('val-gallons').innerText = '0.0 gal';
+        document.getElementById('split-container').style.opacity = '0.3';
+        updateURLParams(0, 0, 0, 1);
+      }
+    }
+
+    // Initialize from URL params if present
+    function initFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      let hasParams = false;
+
+      if (params.has('dist')) { document.getElementById('input-dist').value = params.get('dist'); hasParams = true; }
+      if (params.has('mpg')) { document.getElementById('input-mpg').value = params.get('mpg'); hasParams = true; }
+      if (params.has('price')) { document.getElementById('input-price').value = params.get('price'); hasParams = true; }
+      if (params.has('split')) { document.getElementById('input-split').value = params.get('split'); hasParams = true; }
+      
+      if (hasParams) {
+          calcFuel();
+      }
+    }
+
+    // 🌟 Multi-language Engine & SEO 🌟
+    const i18n = {
+      en: {
+        metaTitle: "UK Fuel Cost & MPG Calculator | Journey Price — Mini-Tools",
+        metaDesc: "Free UK fuel cost calculator. Instantly calculate your petrol or diesel journey cost using Miles, MPG, and Pence per Litre. Split costs easily.",
+        metaKeywords: "uk fuel calculator, mpg calculator, petrol cost calculator, journey cost, pence per litre to mpg, split fuel cost",
+        title: "Fuel Cost Calculator", desc: "Calculate your journey cost instantly using UK standards (Miles, MPG, and Pence per Litre). Easily split the bill with passengers.",
+        update: "🇬🇧 UK Imperial to Metric Engine",
+        dynTitle: "Fuel Cost",
+        
+        lblInpTitle: "Journey Details", lblResTitle: "Estimated Cost",
+        lblDist: "Distance", lblMpg: "Fuel Efficiency", lblPrice: "Fuel Price (Pence/Litre)",
+        lblPriceHint: "Enter pence, not pounds (e.g. 145.9)", lblSplit: "Split Bill (Passengers)",
+        
+        lblTotalCost: "Total Journey Cost", lblSplitCost: "Cost Per Person",
+        lblLitres: "Fuel Required (Litres)", lblGallons: "Fuel Required (Gallons)",
+        
+        navBlog: "Blog & Guides", footerBlog: "Blog",
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
+        lastUpdated: "LAST UPDATED: ",
+        
+        seoHtml: `
+          <h2>The UK's Unique Fuel Math Explained</h2>
+          <p>Calculating petrol or diesel costs in the United Kingdom is notoriously confusing due to our mixed use of imperial and metric systems. We drive in <strong>Miles</strong>, measure car efficiency in <strong>Miles Per Gallon (MPG)</strong>, but we buy fuel at the pumps in <strong>Litres</strong>, priced in <strong>Pence</strong>. Our calculator bridges this gap instantly.</p>
+          
+          <div class="faq-box">
+            <h3>How do you calculate fuel cost in the UK?</h3>
+            <p>If you want to do the math manually, here is the exact formula our Client-Side engine uses:</p>
+            <ol>
+                <li>Divide your journey distance (Miles) by your car's MPG to get Total Gallons.</li>
+                <li>Multiply Total Gallons by <strong>4.54609</strong> (the number of litres in a UK Imperial Gallon) to get Total Litres.</li>
+                <li>Multiply Total Litres by the fuel price (in Pence).</li>
+                <li>Divide by 100 to convert the final cost into Pounds (£).</li>
+            </ol>
+          </div>
+          
+          <div class="faq-box">
+            <h3>How many litres are in a UK gallon?</h3>
+            <p>One UK (Imperial) Gallon is equal to exactly <strong>4.54609 litres</strong>. Note: This is significantly larger than a US Liquid Gallon (which is 3.785 litres). Our calculator is strictly calibrated for UK vehicles.</p>
+          </div>
+
+          <h2>Shareable Journey Costs & Privacy</h2>
+          <p>Planning a road trip with friends? As you type in your distance, MPG, fuel price, and the number of passengers, our Zero-Trust engine generates a <strong>dynamic URL in your address bar</strong>. You can copy and paste this link to your friends in WhatsApp or Slack to show them exactly how much they owe for the petrol. Because the calculation runs strictly via local JavaScript, your travel plans and location data are never sent to our servers.</p>`
+      },
+      zh: {
+        metaTitle: "英国油费计算器 | 里程与 MPG 转换估算 — Mini-Tools",
+        metaDesc: "免费的英国油价计算器。输入里程(Miles)、油耗(MPG)和每升便士(Pence)，极速算出单趟或往返的总油费，支持 AA 制拼车分摊计算。",
+        metaKeywords: "英国油费计算, MPG换算, 汽油成本计算器, 英国自驾游算钱, Pence per Litre",
+        title: "油费成本计算器", desc: "专门解决英国“里程/MPG/升”混合度量衡的算钱难题。支持一键生成 URL 分享拼车账单。",
+        update: "🇬🇧 专为英国混用度量衡打造",
+        dynTitle: "预估油费",
+        
+        lblInpTitle: "行程详情", lblResTitle: "预估开销",
+        lblDist: "行驶里程", lblMpg: "车辆油耗", lblPrice: "油价 (便士/升)",
+        lblPriceHint: "请输入便士而非英镑 (例如: 145.9)", lblSplit: "拼车人数 (AA分摊)",
+        
+        lblTotalCost: "总行程油费", lblSplitCost: "每人需支付",
+        lblLitres: "消耗燃油 (升/L)", lblGallons: "消耗燃油 (加仑/Gal)",
+        
+        navBlog: "官方博客与教程", footerBlog: "官方博客",
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        lastUpdated: "最后更新：",
+        
+        seoHtml: `
+          <h2>解析英国独有的“奇葩”算油逻辑</h2>
+          <p>在英国算油费之所以让人头疼，是因为英国奇特地混用了英制和公制：我们的路标是<strong>英里 (Miles)</strong>，汽车仪表盘的油耗是<strong>每加仑英里数 (MPG)</strong>，但加油站卖油却是按<strong>升 (Litres)</strong> 计价，标价单位还是<strong>便士 (Pence)</strong>。这个工具就是为了瞬间抹平这道换算鸿沟而生的。</p>
+          
+          <div class="faq-box">
+            <h3>人工手算的公式是什么？</h3>
+            <p>如果您想自己计算，底层逻辑如下：</p>
+            <ol>
+                <li>用总里程 (Miles) 除以车辆的 MPG，得出需要的“加仑数”。</li>
+                <li>将加仑数乘以 <strong>4.54609</strong>（英国帝国加仑换算升的常数），得出需要的“升数”。</li>
+                <li>用升数乘以加油站的便士单价。</li>
+                <li>最后除以 100，得出最终的英镑 (£) 花费。</li>
+            </ol>
+          </div>
+          
+          <div class="faq-box">
+            <h3>1 英国加仑等于多少升？</h3>
+            <p>1 英国（帝国）加仑严格等于 <strong>4.54609 升</strong>。请注意，这与美国加仑（3.785 升）完全不同，本工具严格按照英国汽车标准校准。</p>
+          </div>
+
+          <h2>纯前端分享账单，保护出行隐私</h2>
+          <p>准备和朋友周末自驾游？当您输入里程、油耗、油价和乘客人数时，我们的纯前端引擎会自动在地址栏生成一段<strong>专属的动态网址</strong>。您可以直接复制这个链接发给朋友，告诉他们每人该 AA 多少钱。由于一切运算都在本地浏览器完成，您的旅行路线和账单数据绝对不会被上传至任何服务器。</p>`
+      },
+      es: {
+        metaTitle: "Calculadora de Combustible UK | Costo de Viaje",
+        metaDesc: "Calculadora gratuita de costos de gasolina en el Reino Unido. Use Millas, MPG y Peniques por Litro.",
+        metaKeywords: "calculadora combustible uk, costo viaje, mpg a litros",
+        title: "Calculadora de Combustible", desc: "Calcule el costo de su viaje al instante usando estándares del Reino Unido. Divida la cuenta fácilmente con los pasajeros.",
+        update: "🇬🇧 Motor de Conversión Imperial UK",
+        dynTitle: "Costo Viaje",
+        lblInpTitle: "Detalles del Viaje", lblResTitle: "Costo Estimado",
+        lblDist: "Distancia (Millas)", lblMpg: "Eficiencia (MPG)", lblPrice: "Precio (Peniques/Litro)",
+        lblPriceHint: "Ingrese peniques, no libras (ej. 145.9)", lblSplit: "Dividir Cuenta (Pasajeros)",
+        lblTotalCost: "Costo Total", lblSplitCost: "Costo Por Persona",
+        lblLitres: "Combustible (Litros)", lblGallons: "Combustible (Galones)",
+        navBlog: "Blog y Guías", footerBlog: "Blog", footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        lastUpdated: "ÚLTIMA ACTUALIZACIÓN: ",
+        seoHtml: `<h2>Matemáticas de Combustible en UK</h2><p>Calcular el costo en el Reino Unido es confuso porque conducimos en Millas, medimos en MPG, pero compramos combustible en Litros y pagamos en Peniques. Un Galón Imperial (UK) equivale a 4.54609 Litros.</p>`
+      },
+      fr: {
+        metaTitle: "Calculateur de Carburant UK | Coût du Trajet",
+        metaDesc: "Calculez le coût de votre trajet en essence au Royaume-Uni avec les Miles, MPG et Pence par Litre.",
+        metaKeywords: "calculateur carburant uk, coût essence, mpg",
+        title: "Coût du Carburant", desc: "Calculez le coût de votre trajet instantanément selon les normes UK. Partagez facilement la facture avec les passagers.",
+        update: "🇬🇧 Moteur de Conversion UK",
+        dynTitle: "Coût Trajet",
+        lblInpTitle: "Détails du Trajet", lblResTitle: "Coût Estimé",
+        lblDist: "Distance (Miles)", lblMpg: "Efficacité (MPG)", lblPrice: "Prix (Pence/Litre)",
+        lblPriceHint: "Entrez en pence, pas en livres (ex. 145.9)", lblSplit: "Partager (Passagers)",
+        lblTotalCost: "Coût Total", lblSplitCost: "Coût Par Personne",
+        lblLitres: "Carburant (Litres)", lblGallons: "Carburant (Gallons)",
+        navBlog: "Blog et Guides", footerBlog: "Blog", footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        lastUpdated: "DERNIÈRE MISE À JOUR : ",
+        seoHtml: `<h2>Le Système de Carburant UK</h2><p>Au Royaume-Uni, nous conduisons en Miles, mesurons l'efficacité en MPG, mais achetons le carburant en Litres avec des prix en Pence. Un gallon impérial (UK) équivaut à 4,54609 litres.</p>`
+      },
+      de: {
+        metaTitle: "UK Kraftstoffkosten Rechner | Reisekosten",
+        metaDesc: "Kostenloser UK-Benzinkostenrechner. Berechnen Sie Ihre Reisekosten mit Meilen, MPG und Pence pro Liter.",
+        metaKeywords: "uk benzinrechner, mpg rechner, reisekosten",
+        title: "Kraftstoffkosten Rechner", desc: "Berechnen Sie Ihre Reisekosten sofort nach britischen Standards. Teilen Sie die Rechnung einfach mit den Mitfahrern.",
+        update: "🇬🇧 UK Konvertierungs-Engine",
+        dynTitle: "Kraftstoffkosten",
+        lblInpTitle: "Reisedetails", lblResTitle: "Geschätzte Kosten",
+        lblDist: "Entfernung (Meilen)", lblMpg: "Effizienz (MPG)", lblPrice: "Preis (Pence/Liter)",
+        lblPriceHint: "Geben Sie Pence ein (z.B. 145.9)", lblSplit: "Rechnung Teilen (Personen)",
+        lblTotalCost: "Gesamtkosten", lblSplitCost: "Kosten pro Person",
+        lblLitres: "Kraftstoff (Liter)", lblGallons: "Kraftstoff (Gallonen)",
+        navBlog: "Blog & Anleitungen", footerBlog: "Blog", footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        lastUpdated: "ZULETZT AKTUALISIERT: ",
+        seoHtml: `<h2>UK Kraftstoff-Mathematik</h2><p>In Großbritannien fahren wir in Meilen, messen die Effizienz in MPG, kaufen aber Kraftstoff in Litern und zahlen in Pence. Eine britische (imperiale) Gallone entspricht 4,54609 Litern.</p>`
+      }
+    };
+
+    function updateLanguage() {
+      const params = new URLSearchParams(window.location.search);
+      const lang = params.get('lang') || 'en';
+      const data = i18n[lang] || i18n['en'];
+
+      document.documentElement.lang = lang;
+      
+      // Update Meta
+      if (!params.has('dist') && !params.has('mpg') && !params.has('price')) {
+          document.title = data.metaTitle;
+      }
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
+
+      // Update UI Text
+      document.getElementById('update-status').innerText = data.update;
+      document.getElementById('page-title').innerText = data.title;
+      document.getElementById('page-desc').innerText = data.desc;
+      
+      document.getElementById('lbl-input-title').innerText = data.lblInpTitle;
+      document.getElementById('lbl-result-title').innerText = data.lblResTitle;
+      
+      document.getElementById('lbl-dist').innerText = data.lblDist;
+      document.getElementById('lbl-mpg').innerText = data.lblMpg;
+      document.getElementById('lbl-price').innerText = data.lblPrice;
+      document.getElementById('lbl-price-hint').innerText = data.lblPriceHint;
+      document.getElementById('lbl-split').innerText = data.lblSplit;
+      
+      document.getElementById('lbl-total-cost').innerText = data.lblTotalCost;
+      document.getElementById('lbl-split-cost').innerText = data.lblSplitCost;
+      document.getElementById('lbl-litres').innerText = data.lblLitres;
+      document.getElementById('lbl-gallons').innerText = data.lblGallons;
+
+      // Nav & Footer
+      const navBlogText = document.getElementById('nav-blog-text');
+      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
+      const footerBlog = document.getElementById('footer-blog');
+      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
+      
+      document.getElementById('footer-about').innerText = data.footerAbout;
+      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
+      document.getElementById('footer-contact').innerText = data.footerContact;
+
+      // SEO Html
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
+
+      // QDF 永动更新
+      const updateSpan = document.getElementById('last-updated-text');
+      if (updateSpan && data.lastUpdated) {
+          const now = new Date();
+          now.setDate(now.getDate() - 1);
+          let locale = 'en-GB';
+          if(lang === 'zh') locale = 'zh-CN';
+          if(lang === 'es') locale = 'es-ES';
+          if(lang === 'fr') locale = 'fr-FR';
+          if(lang === 'de') locale = 'de-DE';
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          updateSpan.innerText = data.lastUpdated + now.toLocaleDateString(locale, options);
+      }
+
+      document.getElementById('lang-select').value = lang;
+      
+      // Clean URLs for internal links
+      document.querySelectorAll('a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
+          try {
+            const url = new URL(href, window.location.origin);
+            url.searchParams.set('lang', lang);
+            link.href = url.pathname + url.search;
+          } catch(e) {}
+        }
+      });
+    }
+
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      window.location.href = url.href;
+    });
+
+    window.onload = () => {
+      updateLanguage();
+      initFromURL();
+    };
+  </script>
+</body>
+</html>

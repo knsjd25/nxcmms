@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
+  <title id="meta-title">Stones to Kg Converter | UK Body Weight Calculator — Mini-Tools</title>
+  <meta name="description" id="meta-desc" content="Free UK body weight converter. Instantly convert Stones and Pounds (st & lbs) to Kilograms (kg). Fast, client-side, and privacy-focused." />
+  <meta name="keywords" id="meta-keywords" content="stones to kg, st to kg, stones and pounds to kilograms, uk weight converter, body weight calculator, imperial to metric weight" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="https://mini-tools.uk/weight" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/weight?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/weight?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/weight?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/weight?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/weight?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/weight" />
+
+  <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DR6V84JEZW');
+  </script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Mini-Tools Stones to Kg Converter",
+        "operatingSystem": "Web",
+        "applicationCategory": "HealthApplication",
+        "description": "Instantly convert UK body weight between Stones & Pounds and Kilograms strictly offline in your browser.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How many kg is a stone?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "One stone is exactly equal to 6.35029318 kilograms (kg)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many pounds are in a stone?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "There are exactly 14 pounds (lbs) in one stone (st)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is 10 stone in kg?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "10 stone is equal to exactly 63.50 kilograms."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <script async src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
+    
+    .input-group { background: #ffffff; border: 2px solid #e2e8f0; transition: all 0.3s; border-radius: 1rem; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between; }
+    .input-group:focus-within { border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+    .input-group input { width: 100%; outline: none; font-size: 1.5rem; font-weight: 800; color: #0f172a; background: transparent; }
+    .input-group span { font-weight: 800; color: #94a3b8; margin-left: 0.5rem; font-size: 1.125rem; user-select: none; }
+    
+    .calc-card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); overflow: hidden; transition: transform 0.3s ease; padding: 2rem; }
+    .calc-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
+    
+    .imperial-bg { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-color: #bae6fd; }
+    .metric-bg { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-color: #bbf7d0; }
+
+    /* SEO Content Typography */
+    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
+    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
+    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
+    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
+    .prose-content strong { color: #0f172a; font-weight: 700; }
+    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
+    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+    .ref-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+    .ref-table th, .ref-table td { padding: 0.75rem 1rem; border: 1px solid #e2e8f0; text-align: left; }
+    .ref-table th { background-color: #f8fafc; font-weight: 800; color: #0f172a; }
+    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
+    .faq-box h3 { margin-top: 0; margin-bottom: 0.5rem; font-size: 1.25rem; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
+        </a>
+        <div class="flex flex-col -mt-1 hidden sm:flex">
+          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
+          <span id="nav-blog-text">Blog & Guides</span>
+        </a>
+        <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500 transition-colors hover:bg-slate-100">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 简体中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-5xl mx-auto px-6 py-12 flex-1 w-full">
+    <header class="mb-12 text-center">
+      <div class="mb-4">
+        <span id="update-status" class="bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-widest border border-blue-100">
+          🇬🇧 Standard UK Weight Converter
+        </span>
+      </div>
+      <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
+        Stones to Kg Converter
+      </h1>
+      <p id="page-desc" class="text-lg text-slate-500 max-w-2xl mx-auto">
+        Instantly convert UK body weight between Stones & Pounds (st & lbs) and Kilograms (kg). Shareable links generated automatically.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16 relative">
+      
+      <div class="calc-card imperial-bg">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-3xl">🇬🇧</span>
+          <div>
+            <h2 id="lbl-imperial-title" class="text-xl font-extrabold text-slate-900">Imperial (UK)</h2>
+            <p id="lbl-imperial-sub" class="text-sm font-bold text-blue-600/70 uppercase tracking-widest">Stones & Pounds</p>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label id="lbl-stones" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Stones</label>
+            <div class="input-group">
+              <input type="number" id="input-st" placeholder="0" min="0" oninput="calcFromImperial()">
+              <span>st</span>
+            </div>
+          </div>
+          <div>
+            <label id="lbl-pounds" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Pounds</label>
+            <div class="input-group">
+              <input type="number" id="input-lbs" placeholder="0" min="0" oninput="calcFromImperial()">
+              <span>lbs</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-6 pt-4 border-t border-blue-200/50">
+          <span id="lbl-total-lbs" class="text-sm font-bold text-slate-500">Total in Pounds:</span>
+          <span id="val-total-lbs" class="text-lg font-black text-slate-800 ml-2">0 lbs</span>
+        </div>
+      </div>
+
+      <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full border-2 border-slate-100 shadow-lg items-center justify-center text-slate-400">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+      </div>
+
+      <div class="calc-card metric-bg">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-3xl">🌍</span>
+          <div>
+            <h2 id="lbl-metric-title" class="text-xl font-extrabold text-slate-900">Metric (Global)</h2>
+            <p id="lbl-metric-sub" class="text-sm font-bold text-emerald-600/70 uppercase tracking-widest">Kilograms</p>
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <label id="lbl-kg" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Kilograms</label>
+          <div class="input-group">
+            <input type="number" id="input-kg" placeholder="0" min="0" step="0.01" oninput="calcFromMetric()">
+            <span>kg</span>
+          </div>
+        </div>
+        
+        <div class="text-center mt-[4.5rem] pt-4 border-t border-emerald-200/50">
+          <span id="lbl-kg-hint" class="text-sm font-bold text-slate-500">Standard medical measurement</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="seo-container" class="prose-content">
+      </div>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-100 py-12 mt-10 w-full">
+    <div class="max-w-[1400px] mx-auto px-6 text-center">
+      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
+        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
+        </a>
+        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+      </div>
+      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
+        © 2026 MINI-TOOLS.UK — SECURE CLIENT-SIDE WEB UTILITIES
+      </p>
+      <p id="last-updated-text" class="text-center text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-2"></p>
+    </div>
+  </footer>
+
+  <script>
+    // --- ⚖️ Conversion Logic ---
+    const LBS_IN_STONE = 14;
+    const KG_IN_LB = 0.45359237;
+
+    // Fix floating point issues
+    function round2(num) {
+      return Math.round((num + Number.EPSILON) * 100) / 100;
+    }
+
+    // 🌟 SEO 杀招 1：动态路由更新 (生成带参数的可分享链接，无刷新)
+    function updateURLParams(source) {
+      const st = document.getElementById('input-st').value;
+      const lbs = document.getElementById('input-lbs').value;
+      const kg = document.getElementById('input-kg').value;
+      
+      const url = new URL(window.location.href);
+      
+      if (source === 'imperial' && (st !== '' || lbs !== '')) {
+        url.searchParams.set('st', st || 0);
+        url.searchParams.set('lbs', lbs || 0);
+        url.searchParams.delete('kg');
+        // 🌟 SEO 杀招 2：动态重写网页标题，霸占书签栏
+        document.title = `${st || 0} st ${lbs || 0} lbs to kg | Mini-Tools.uk`;
+      } else if (source === 'metric' && kg !== '') {
+        url.searchParams.set('kg', kg);
+        url.searchParams.delete('st');
+        url.searchParams.delete('lbs');
+        document.title = `${kg} kg to stones and lbs | Mini-Tools.uk`;
+      } else {
+        url.searchParams.delete('st');
+        url.searchParams.delete('lbs');
+        url.searchParams.delete('kg');
+        document.title = i18n[document.documentElement.lang || 'en'].metaTitle;
+      }
+      window.history.replaceState({}, '', url);
+    }
+
+    function calcFromImperial() {
+      const stStr = document.getElementById('input-st').value;
+      const lbsStr = document.getElementById('input-lbs').value;
+      
+      if (stStr === '' && lbsStr === '') {
+          document.getElementById('input-kg').value = '';
+          document.getElementById('val-total-lbs').innerText = `0 lbs`;
+          updateURLParams('imperial');
+          return;
+      }
+
+      const st = stStr === '' ? 0 : parseFloat(stStr);
+      const lbs = lbsStr === '' ? 0 : parseFloat(lbsStr);
+      
+      const totalLbs = (st * LBS_IN_STONE) + lbs;
+      const totalKg = totalLbs * KG_IN_LB;
+      
+      document.getElementById('input-kg').value = totalKg > 0 ? round2(totalKg) : '';
+      document.getElementById('val-total-lbs').innerText = `${round2(totalLbs)} lbs`;
+      
+      updateURLParams('imperial');
+    }
+
+    function calcFromMetric() {
+      const kgStr = document.getElementById('input-kg').value;
+      
+      if (kgStr === '') {
+          document.getElementById('input-st').value = '';
+          document.getElementById('input-lbs').value = '';
+          document.getElementById('val-total-lbs').innerText = `0 lbs`;
+          updateURLParams('metric');
+          return;
+      }
+
+      const kg = parseFloat(kgStr);
+      const totalLbs = kg / KG_IN_LB;
+      
+      if (kg > 0) {
+        const st = Math.floor(totalLbs / LBS_IN_STONE);
+        const lbs = totalLbs % LBS_IN_STONE;
+        
+        document.getElementById('input-st').value = st;
+        document.getElementById('input-lbs').value = round2(lbs);
+        document.getElementById('val-total-lbs').innerText = `${round2(totalLbs)} lbs`;
+      } else {
+        document.getElementById('input-st').value = 0;
+        document.getElementById('input-lbs').value = 0;
+        document.getElementById('val-total-lbs').innerText = `0 lbs`;
+      }
+      
+      updateURLParams('metric');
+    }
+
+    // Initialize from URL params if present
+    function initFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('st') || params.has('lbs')) {
+        document.getElementById('input-st').value = params.get('st') || '';
+        document.getElementById('input-lbs').value = params.get('lbs') || '';
+        calcFromImperial();
+      } else if (params.has('kg')) {
+        document.getElementById('input-kg').value = params.get('kg') || '';
+        calcFromMetric();
+      } else {
+        // Defaults if no params
+        document.getElementById('input-st').value = 11;
+        document.getElementById('input-lbs').value = 4;
+        calcFromImperial();
+      }
+    }
+
+    // 🌟 Multi-language Engine & SEO 🌟
+    const i18n = {
+      en: {
+        metaTitle: "Stones to Kg Converter | UK Body Weight Calculator — Mini-Tools",
+        metaDesc: "Free UK body weight converter. Instantly convert Stones and Pounds (st & lbs) to Kilograms (kg). Fast, client-side, and privacy-focused.",
+        metaKeywords: "stones to kg, st to kg, stones and pounds to kilograms, uk weight converter, body weight calculator, imperial to metric weight",
+        title: "Stones to Kg Converter", desc: "Instantly convert UK body weight between Stones & Pounds (st & lbs) and Kilograms (kg). Shareable links generated automatically.",
+        update: "🇬🇧 Standard UK Weight Converter",
+        
+        lblImpTitle: "Imperial (UK)", lblImpSub: "Stones & Pounds",
+        lblMetTitle: "Metric (Global)", lblMetSub: "Kilograms",
+        
+        lblStones: "Stones", lblPounds: "Pounds", lblKg: "Kilograms",
+        lblTotalLbs: "Total in Pounds:", lblKgHint: "Standard medical measurement",
+        
+        navBlog: "Blog & Guides", footerBlog: "Blog",
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
+        lastUpdated: "LAST UPDATED: ",
+        
+        seoHtml: `
+          <h2>Why Does the UK Use Stones for Body Weight?</h2>
+          <p>The United Kingdom has a unique relationship with weights and measures. While the metric system (Kilograms and Grams) is legally required for trading and is used in medical settings, the general public still overwhelmingly uses the imperial system for personal body weight. Specifically, British people weigh themselves in <strong>Stones and Pounds (st & lbs)</strong>.</p>
+          
+          <div class="faq-box">
+            <h3>How many kg is a stone?</h3>
+            <p>One stone is exactly equal to <strong>6.35029318 kilograms (kg)</strong>. For everyday estimation, multiplying stones by 6.35 gives an accurate enough measurement for body weight.</p>
+          </div>
+          
+          <div class="faq-box">
+            <h3>How many pounds are in a stone?</h3>
+            <p>There are exactly <strong>14 pounds (lbs)</strong> in one stone (st). If you weigh 10 stone, you weigh exactly 140 pounds.</p>
+          </div>
+
+          <h2>Conversion Formulas</h2>
+          <p>If you are trying to write your own conversion logic, here are the exact mathematical constants required to convert between the UK Imperial system and the Metric system:</p>
+          <ul>
+            <li><strong>1 Stone (st)</strong> = 14 Pounds (lbs)</li>
+            <li><strong>1 Pound (lb)</strong> = 0.45359237 Kilograms (kg)</li>
+          </ul>
+          
+          <h2>Quick Reference Chart (Stones to Kg)</h2>
+          <table class="ref-table">
+            <thead>
+              <tr><th>Stones & Pounds (UK)</th><th>Total Pounds (US)</th><th>Kilograms (Global)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>8 st 0 lbs</td><td>112 lbs</td><td>50.80 kg</td></tr>
+              <tr><td>9 st 0 lbs</td><td>126 lbs</td><td>57.15 kg</td></tr>
+              <tr><td>10 st 0 lbs</td><td>140 lbs</td><td>63.50 kg</td></tr>
+              <tr><td>11 st 0 lbs</td><td>154 lbs</td><td>69.85 kg</td></tr>
+              <tr><td>12 st 0 lbs</td><td>168 lbs</td><td>76.20 kg</td></tr>
+              <tr><td>13 st 0 lbs</td><td>182 lbs</td><td>82.55 kg</td></tr>
+              <tr><td>14 st 0 lbs</td><td>196 lbs</td><td>88.90 kg</td></tr>
+            </tbody>
+          </table>
+          
+          <h2>100% Client-Side Privacy & Dynamic Sharing</h2>
+          <p>Whether you are tracking your fitness journey or converting medical records, your body weight data is intensely personal. The <strong>Mini-Tools.uk Converter</strong> is built using a strict Zero-Trust architecture. Furthermore, our engine generates <strong>dynamic URL links</strong> as you type, allowing you to share specific conversion results (e.g., sending an exact Kg weight to your doctor) without any server tracking.</p>`
+      },
+      zh: {
+        metaTitle: "英石换算公斤 | 英国体重计算器 (Stones to Kg) — Mini-Tools",
+        metaDesc: "免费的英国体重转换器。支持英石、磅 (st & lbs) 与公斤 (kg) 之间的双向实时换算。纯前端运行，保护隐私。",
+        metaKeywords: "英石换算公斤, 英国体重计算器, 磅换算公斤, stones to kg, uk weight",
+        title: "体重换算器 (英石转公斤)", desc: "支持英石/磅与公斤之间的双向实时换算。自动生成带参数的专属网址，方便分享。",
+        update: "🇬🇧 英国标准度量衡转换",
+        
+        lblImpTitle: "英制 (英国本土)", lblImpSub: "英石 (Stones) 与 磅 (Pounds)",
+        lblMetTitle: "公制 (国际标准)", lblMetSub: "公斤 (Kilograms)",
+        
+        lblStones: "英石 (Stones)", lblPounds: "磅 (Pounds)", lblKg: "公斤 (Kg)",
+        lblTotalLbs: "总计磅数:", lblKgHint: "全球通用医学测量标准",
+        
+        navBlog: "官方博客与教程", footerBlog: "官方博客",
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        lastUpdated: "最后更新：",
+        
+        seoHtml: `
+          <h2>为什么英国人还在用“英石 (Stone)”称体重？</h2>
+          <p>虽然法律规定在贸易和医疗领域必须使用公制，但英国民众在日常生活中测量体重时，依然压倒性地偏爱传统的英制：<strong>英石和磅 (Stones and Pounds)</strong>。</p>
+          
+          <div class="faq-box">
+            <h3>1 英石等于多少公斤 (kg)？</h3>
+            <p>1 英石严格等于 <strong>6.35029318 公斤 (kg)</strong>。在日常生活中，直接乘以 6.35 就可以得到非常准确的体重估算。</p>
+          </div>
+          
+          <div class="faq-box">
+            <h3>1 英石等于多少磅 (lbs)？</h3>
+            <p>1 英石完全等于 <strong>14 磅 (lbs)</strong>。如果一个人的体重是 10 英石，那么他的准确体重就是 140 磅。</p>
+          </div>
+
+          <h2>换算公式</h2>
+          <ul>
+            <li><strong>1 英石 (st)</strong> = 14 磅 (lbs)</li>
+            <li><strong>1 磅 (lb)</strong> = 0.45359237 公斤 (kg)</li>
+          </ul>
+          
+          <h2>纯前端保护隐私与动态路由分享</h2>
+          <p>体重数据极其私密。我们的转换器采用纯前端架构，所有计算在浏览器内存中瞬间完成，绝不上传服务器。此外，随着您的输入，系统会自动改变浏览器地址栏，为您生成带有具体参数的链接（例如：医生需要您的公斤数据，您可以直接分享该生成的特定网址）。</p>`
+      },
+      es: {
+        metaTitle: "Convertidor de Stones a Kg | Calculadora de Peso UK",
+        metaDesc: "Convertidor gratuito de peso corporal. Convierta Stones y Libras a Kilos (kg) al instante.",
+        metaKeywords: "convertir stones a kg, libras a kilos, peso uk",
+        title: "Convertidor de Stones a Kg", desc: "Convierta peso corporal británico entre Stones/Libras (st & lbs) y Kilogramos (kg) en tiempo real. Enlaces para compartir automáticos.",
+        update: "🇬🇧 Estándar de Peso en UK",
+        lblImpTitle: "Imperial (UK)", lblImpSub: "Stones y Libras", lblMetTitle: "Métrico (Global)", lblMetSub: "Kilogramos",
+        lblStones: "Stones", lblPounds: "Libras", lblKg: "Kilogramos", lblTotalLbs: "Total en Libras:", lblKgHint: "Medición médica estándar",
+        navBlog: "Blog y Guías", footerBlog: "Blog", footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        lastUpdated: "ÚLTIMA ACTUALIZACIÓN: ",
+        seoHtml: `
+          <h2>¿Por qué el Reino Unido usa Stones?</h2>
+          <p>El público británico usa el sistema imperial para el peso corporal, específicamente <strong>Stones y Libras</strong>.</p>
+          <div class="faq-box">
+            <h3>¿Cuántos kg es un stone?</h3>
+            <p>Un stone equivale exactamente a <strong>6.35029318 kilogramos (kg)</strong>.</p>
+          </div>
+          <div class="faq-box">
+            <h3>¿Cuántas libras hay en un stone?</h3>
+            <p>Hay exactamente <strong>14 libras (lbs)</strong> en un stone (st).</p>
+          </div>`
+      },
+      fr: {
+        metaTitle: "Convertisseur de Stones en Kg | Poids Corporel UK",
+        metaDesc: "Convertisseur gratuit de poids. Convertissez les Stones et Livres (lbs) en Kilogrammes (kg).",
+        metaKeywords: "stones en kg, livres en kg, poids anglais",
+        title: "Convertisseur Stones en Kg", desc: "Convertissez instantanément le poids corporel entre Stones/Livres (st & lbs) et Kilogrammes (kg). Liens partageables générés automatiquement.",
+        update: "🇬🇧 Mesure Standard UK",
+        lblImpTitle: "Impérial (UK)", lblImpSub: "Stones & Livres", lblMetTitle: "Métrique (Global)", lblMetSub: "Kilogrammes",
+        lblStones: "Stones", lblPounds: "Livres", lblKg: "Kilogrammes", lblTotalLbs: "Total en Livres:", lblKgHint: "Mesure médicale standard",
+        navBlog: "Blog et Guides", footerBlog: "Blog", footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        lastUpdated: "DERNIÈRE MISE À JOUR : ",
+        seoHtml: `
+          <h2>Pourquoi le Royaume-Uni utilise les Stones ?</h2>
+          <p>Les Britanniques se pèsent en <strong>Stones et Livres (st & lbs)</strong>.</p>
+          <div class="faq-box">
+            <h3>Combien de kg fait un stone ?</h3>
+            <p>Un stone équivaut exactement à <strong>6.35029318 kilogrammes (kg)</strong>.</p>
+          </div>
+          <div class="faq-box">
+            <h3>Combien de livres y a-t-il dans un stone ?</h3>
+            <p>Il y a exactement <strong>14 livres (lbs)</strong> dans un stone (st).</p>
+          </div>`
+      },
+      de: {
+        metaTitle: "Stones in Kg Umrechner | UK Körpergewicht",
+        metaDesc: "Kostenloser UK-Körpergewicht-Umrechner. Stones und Pfund sofort in Kilogramm (kg) umrechnen.",
+        metaKeywords: "stones in kg, pfund in kg, uk gewicht",
+        title: "Stones in Kg Umrechner", desc: "Britisches Körpergewicht sofort umrechnen. Teilbare Links werden automatisch generiert.",
+        update: "🇬🇧 UK Standardgewicht",
+        lblImpTitle: "Imperial (UK)", lblImpSub: "Stones & Pfund", lblMetTitle: "Metrisch (Global)", lblMetSub: "Kilogramm",
+        lblStones: "Stones", lblPounds: "Pfund", lblKg: "Kilogramm", lblTotalLbs: "Gesamt in Pfund:", lblKgHint: "Medizinische Standardmessung",
+        navBlog: "Blog & Anleitungen", footerBlog: "Blog", footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        lastUpdated: "ZULETZT AKTUALISIERT: ",
+        seoHtml: `
+          <h2>Warum verwendet UK Stones?</h2>
+          <p>In Großbritannien verwendet die breite Öffentlichkeit für das Körpergewicht das imperiale System: <strong>Stones und Pfund</strong>.</p>
+          <div class="faq-box">
+            <h3>Wie viele kg sind ein Stone?</h3>
+            <p>Ein Stone entspricht genau <strong>6.35029318 Kilogramm (kg)</strong>.</p>
+          </div>
+          <div class="faq-box">
+            <h3>Wie viele Pfund sind in einem Stone?</h3>
+            <p>Es sind genau <strong>14 Pfund (lbs)</strong> in einem Stone (st).</p>
+          </div>`
+      }
+    };
+
+    function updateLanguage() {
+      const params = new URLSearchParams(window.location.search);
+      const lang = params.get('lang') || 'en';
+      const data = i18n[lang] || i18n['en'];
+
+      document.documentElement.lang = lang;
+      
+      // Update Meta - We do NOT overwrite document.title here IF there are weight params, 
+      // because updateURLParams() will handle the dynamic title. We only set defaults.
+      if (!params.has('st') && !params.has('lbs') && !params.has('kg')) {
+          document.title = data.metaTitle;
+      }
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
+
+      // Update UI Text
+      document.getElementById('update-status').innerText = data.update;
+      document.getElementById('page-title').innerText = data.title;
+      document.getElementById('page-desc').innerText = data.desc;
+      
+      document.getElementById('lbl-imperial-title').innerText = data.lblImpTitle;
+      document.getElementById('lbl-imperial-sub').innerText = data.lblImpSub;
+      document.getElementById('lbl-metric-title').innerText = data.lblMetTitle;
+      document.getElementById('lbl-metric-sub').innerText = data.lblMetSub;
+      
+      document.getElementById('lbl-stones').innerText = data.lblStones;
+      document.getElementById('lbl-pounds').innerText = data.lblPounds;
+      document.getElementById('lbl-kg').innerText = data.lblKg;
+      
+      document.getElementById('lbl-total-lbs').innerText = data.lblTotalLbs;
+      document.getElementById('lbl-kg-hint').innerText = data.lblKgHint;
+
+      // Nav & Footer
+      const navBlogText = document.getElementById('nav-blog-text');
+      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
+      const footerBlog = document.getElementById('footer-blog');
+      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
+      
+      document.getElementById('footer-about').innerText = data.footerAbout;
+      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
+      document.getElementById('footer-contact').innerText = data.footerContact;
+
+      // SEO Html
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
+
+      // QDF 永动更新
+      const updateSpan = document.getElementById('last-updated-text');
+      if (updateSpan && data.lastUpdated) {
+          const now = new Date();
+          now.setDate(now.getDate() - 1);
+          let locale = 'en-GB';
+          if(lang === 'zh') locale = 'zh-CN';
+          if(lang === 'es') locale = 'es-ES';
+          if(lang === 'fr') locale = 'fr-FR';
+          if(lang === 'de') locale = 'de-DE';
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          updateSpan.innerText = data.lastUpdated + now.toLocaleDateString(locale, options);
+      }
+
+      document.getElementById('lang-select').value = lang;
+      
+      // Clean URLs for internal links (preserve lang, but clean up .html)
+      document.querySelectorAll('a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
+          try {
+            const url = new URL(href, window.location.origin);
+            url.searchParams.set('lang', lang);
+            link.href = url.pathname + url.search;
+          } catch(e) {}
+        }
+      });
+    }
+
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      window.location.href = url.href;
+    });
+
+    window.onload = () => {
+      updateLanguage();
+      initFromURL(); // Calls calculation & routing init
+    };
+  </script>
+</body>
+</html>
