@@ -326,7 +326,7 @@
   </footer>
 
   <script>
-    // --- 🇬🇧 UK Tax Engine Core Constants (Approximated for 2026/27 logic) ---
+    // --- 🇬🇧 UK Tax Engine Core Constants (Updated for 2026/27 logic) ---
     const TAX_BANDS = {
         personalAllowance: 12570,
         basicRateLimit: 37700, // Total 50270
@@ -338,16 +338,16 @@
         upperEarningsLimit: 50270,
         employeeBasicRate: 0.08, // 8% main rate
         employeeHigherRate: 0.02, // 2% above UEL
-        employerThreshold: 9100,
-        employerRate: 0.138,
+        employerThreshold: 5000, // 🌟 2026 UPDATE: Threshold dropped from 9100 to 5000
+        employerRate: 0.15,      // 🌟 2026 UPDATE: Rate increased from 13.8% to 15%
         appLevyRate: 0.005
     };
 
     const CORP_TAX = 0.19; // Simplified small profits rate for contractors
     const DIV_ALLOWANCE = 500;
-    const DIV_BASIC = 0.0875;
-    const DIV_HIGHER = 0.3375;
-    const DIV_ADDITIONAL = 0.3935;
+    const DIV_BASIC = 0.1075;      // 🌟 2026 UPDATE: Increased from 8.75%
+    const DIV_HIGHER = 0.3575;     // 🌟 2026 UPDATE: Increased from 33.75%
+    const DIV_ADDITIONAL = 0.4135; // 🌟 2026 UPDATE: Increased from 39.35%
 
     // Standard Currency Formatter
     const gbp = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
@@ -387,10 +387,10 @@
         
         // Reverse engineer Employer NI to find gross salary
         // GrossAnnual = GrossSalary + EmployerNI + AppLevy + UmbrellaFee
-        // ER_NI = (GrossSalary - 9100) * 0.138
+        // ER_NI = (GrossSalary - 5000) * 0.15 
         // AppLevy = GrossSalary * 0.005
-        // GrossAnnual - UmbrellaFee = GrossSalary + (GrossSalary - 9100)*0.138 + GrossSalary*0.005
-        // GrossAnnual - UmbrellaFee + (9100*0.138) = GrossSalary * (1 + 0.138 + 0.005)
+        // GrossAnnual - UmbrellaFee = GrossSalary + (GrossSalary - 5000)*0.15 + GrossSalary*0.005
+        // GrossAnnual - UmbrellaFee + (5000*0.15) = GrossSalary * (1 + 0.15 + 0.005)
         
         let targetAmount = grossAnnual - annualUmbrellaFee;
         let inGrossSalary = 0;
