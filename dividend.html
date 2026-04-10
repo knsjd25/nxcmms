@@ -61,7 +61,7 @@
             "name": "What is the UK dividend allowance for 2026/27?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The tax-free dividend allowance in the UK is £500. Dividends earned above this amount are taxed at 8.75% (basic rate), 33.75% (higher rate), or 39.35% (additional rate)."
+              "text": "The tax-free dividend allowance in the UK is £500. Dividends earned above this amount are taxed at 10.75% (basic rate), 35.75% (higher rate), or 41.35% (additional rate)."
             }
           },
           {
@@ -252,7 +252,7 @@
   </footer>
 
   <script>
-    // --- 💷 UK Tax Logic (Approximated for 2026/27) ---
+    // --- 💷 UK Tax Logic (Updated for 2026/27) ---
     const gbp = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
 
     // 🌟 SEO 杀招 1：动态路由与 URL 共享
@@ -293,10 +293,10 @@
           return;
       }
 
-      // 1. Employer NI (Secondary Threshold £9,100)
+      // 1. Employer NI (🌟 2026 UPDATE: Secondary Threshold dropped to £5,000, rate to 15%)
       let erNi = 0;
-      if (salary > 9100) {
-          erNi = (salary - 9100) * 0.138;
+      if (salary > 5000) {
+          erNi = (salary - 5000) * 0.15;
       }
 
       // 2. Corporation Tax (Flat 19% for small profits up to £50k, blended up to £250k. Simplified here)
@@ -355,19 +355,19 @@
           let remainingBasicBand = Math.max(0, 37700 - usedBasicBand);
 
           let divAtBasic = Math.min(taxableDiv, remainingBasicBand);
-          divTax += divAtBasic * 0.0875;
+          divTax += divAtBasic * 0.1075; // 🌟 2026 UPDATE
 
           taxableDiv -= divAtBasic;
 
           if (taxableDiv > 0) {
               let remainingHigherBand = (125140 - 50270); // Approx
               let divAtHigher = Math.min(taxableDiv, remainingHigherBand);
-              divTax += divAtHigher * 0.3375;
+              divTax += divAtHigher * 0.3575; // 🌟 2026 UPDATE
 
               taxableDiv -= divAtHigher;
 
               if (taxableDiv > 0) {
-                  divTax += taxableDiv * 0.3935;
+                  divTax += taxableDiv * 0.4135; // 🌟 2026 UPDATE
               }
           }
       }
@@ -423,11 +423,11 @@
         
         seoHtml: `
           <h2>What is the Optimum Director's Salary for 2026/27?</h2>
-          <p>For most directors of UK Limited Companies, the most tax-efficient strategy is to take a combination of a low base salary and high dividends. The calculator defaults to <strong>£12,570</strong> because it is the current standard Personal Allowance. By setting your salary exactly here, you pay £0 in Income Tax while still securing a qualifying year towards your State Pension. Note that salaries above £9,100 will attract a small amount of Employer's National Insurance, but this is usually offset by the Corporation Tax savings since salary is a deductible business expense.</p>
+          <p>For most directors of UK Limited Companies, the most tax-efficient strategy is to take a combination of a low base salary and high dividends. The calculator defaults to <strong>£12,570</strong> because it is the current standard Personal Allowance. By setting your salary exactly here, you pay £0 in Income Tax while still securing a qualifying year towards your State Pension. Note that salaries above £5,000 will attract a small amount of Employer's National Insurance, but this is usually offset by the Corporation Tax savings since salary is a deductible business expense.</p>
           
           <div class="faq-box">
             <h3>What is the UK dividend allowance?</h3>
-            <p>For the 2026/27 tax year, the tax-free dividend allowance remains strictly at <strong>£500</strong>. Any dividends you extract above this allowance (and above any remaining Personal Allowance) will be taxed at the basic rate (8.75%), higher rate (33.75%), or additional rate (39.35%) depending on your total income bracket.</p>
+            <p>For the 2026/27 tax year, the tax-free dividend allowance remains strictly at <strong>£500</strong>. Any dividends you extract above this allowance (and above any remaining Personal Allowance) will be taxed at the basic rate (10.75%), higher rate (35.75%), or additional rate (41.35%) depending on your total income bracket.</p>
           </div>
           
           <div class="faq-box">
@@ -465,7 +465,7 @@
           
           <div class="faq-box">
             <h3>英国的分红免税额是多少？</h3>
-            <p>在 2026/27 财年，英国的分红免税额（Dividend Allowance）严格维持在 <strong>£500</strong>。超出此额度且超出个人免税额的部分，将根据您的总收入区间，分别征收 8.75%（基础税率）、33.75%（较高税率）或 39.35%（附加税率）的分红税。</p>
+            <p>在 2026/27 财年，英国的分红免税额（Dividend Allowance）严格维持在 <strong>£500</strong>。超出此额度且超出个人免税额的部分，将根据您的总收入区间，分别征收 10.75%（基础税率）、35.75%（较高税率）或 41.35%（附加税率）的分红税。</p>
           </div>
           
           <div class="faq-box">
@@ -479,7 +479,7 @@
       es: {
         metaTitle: "Calculadora de Salario vs Dividendo 2026 | Impuestos UK",
         metaDesc: "Calculadora gratuita para directores de empresas en UK. Encuentre la forma más eficiente de extraer beneficios en el año fiscal 2026/27.",
-        metaKeywords: "salario vs dividendo uk, impuestos empresas uk, calculadora dividendos",
+        metaKeywords: "salario vs dividendo uk, impuestos empresas uk, calculadora dividendes",
         title: "Salario vs Dividendo", desc: "Encuentre la forma más eficiente de impuestos para extraer beneficios de su empresa en el Reino Unido.",
         update: "🇬🇧 Tasas del Año Fiscal UK 2026/27",
         dynTitle: "Salario vs Dividendo",
