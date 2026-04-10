@@ -87,6 +87,7 @@
     .breakdown-table td:first-child { text-align: left; color: #cbd5e1; }
     .breakdown-table .row-net td { color: #38bdf8; font-size: 1rem; font-weight: 800; border-bottom: none; padding-top: 1rem; }
     .breakdown-table .row-deduct td { color: #f87171; }
+    .breakdown-table .row-employer td { color: #8b5cf6; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 1rem; font-size: 0.8rem;}
 
     /* SEO Content Styling */
     .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
@@ -253,6 +254,12 @@
                   <td id="val-net-m">£0.00</td>
                   <td id="val-net-w">£0.00</td>
                 </tr>
+                <tr class="row-employer" id="row-emp-ni" style="display:none;">
+                  <td id="td-emp-ni">Employer NI (Cost)</td>
+                  <td id="val-emp-y">£0.00</td>
+                  <td id="val-emp-m">£0.00</td>
+                  <td id="val-emp-w">£0.00</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -333,7 +340,7 @@
         btnCalc: "Calculate My Take-Home",
         resTakehome: "Monthly Take-Home Pay",
         thDesc: "Breakdown", thYear: "Yearly", thMonth: "Monthly", thWeek: "Weekly",
-        tdGross: "Gross Income", tdPension: "Pension", tdTax: "Income Tax", tdNI: "National Insurance", tdStudent: "Student Loan", tdNet: "Net Take-Home",
+        tdGross: "Gross Income", tdPension: "Pension", tdTax: "Income Tax", tdNI: "National Insurance", tdStudent: "Student Loan", tdNet: "Net Take-Home", tdEmpNI: "Employer NI (15% Cost)",
         note: "* Pension assumes Salary Sacrifice (reduces taxable pay). 2026/27 figures are based on HMRC legislation.",
         footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us", footerBlog: "Blog",
         // 🌟 英文 SEO 文本
@@ -385,7 +392,7 @@
         btnCalc: "立即计算详细明细",
         resTakehome: "预计到手月薪",
         thDesc: "款项明细", thYear: "年度", thMonth: "月度", thWeek: "每周",
-        tdGross: "税前总收入", tdPension: "养老金", tdTax: "个人所得税 (PAYE)", tdNI: "国民保险 (NI)", tdStudent: "学生贷款", tdNet: "税后到手净额",
+        tdGross: "税前总收入", tdPension: "养老金", tdTax: "个人所得税 (PAYE)", tdNI: "国民保险 (NI)", tdStudent: "学生贷款", tdNet: "税后到手净额", tdEmpNI: "雇主国民保险 (隐形成本)",
         note: "* 养老金计算基于 Salary Sacrifice（税前扣除）模式。以上数据符合 2026/27 财年 HMRC 官方标准。",
         footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们", footerBlog: "官方博客",
         // 🌟 中文 SEO 文本
@@ -436,7 +443,7 @@
         btnCalc: "Calcular Mi Salario Neto",
         resTakehome: "Salario Neto Mensual",
         thDesc: "Desglose", thYear: "Anual", thMonth: "Mensual", thWeek: "Semanal",
-        tdGross: "Ingreso Bruto", tdPension: "Pensión", tdTax: "Impuesto (PAYE)", tdNI: "Seguro Nacional", tdStudent: "Préstamo", tdNet: "Neto Estimado",
+        tdGross: "Ingreso Bruto", tdPension: "Pensión", tdTax: "Impuesto (PAYE)", tdNI: "Seguro Nacional", tdStudent: "Préstamo", tdNet: "Neto Estimado", tdEmpNI: "Costo Empleador (NI)",
         note: "* La pensión asume Salary Sacrifice. Datos precisos para 2026/27 según HMRC.",
         footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto", footerBlog: "Blog",
         seoHtml: `
@@ -475,7 +482,7 @@
         btnCalc: "Calculer Mon Salaire Net",
         resTakehome: "Salaire Net Mensuel",
         thDesc: "Répartition", thYear: "Annuel", thMonth: "Mensuel", thWeek: "Hebdo",
-        tdGross: "Revenu Brut", tdPension: "Pension", tdTax: "Impôt (PAYE)", tdNI: "Assurance Nat.", tdStudent: "Prêt Étudiant", tdNet: "Net Estimé",
+        tdGross: "Revenu Brut", tdPension: "Pension", tdTax: "Impôt (PAYE)", tdNI: "Assurance Nat.", tdStudent: "Prêt Étudiant", tdNet: "Net Estimé", tdEmpNI: "Coût Employeur (NI)",
         note: "* La pension suppose un Salary Sacrifice. Données basées sur le HMRC 2026/27.",
         footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact", footerBlog: "Blog",
         seoHtml: `
@@ -514,7 +521,7 @@
         btnCalc: "Mein Netto Berechnen",
         resTakehome: "Monatliches Netto",
         thDesc: "Aufschlüsselung", thYear: "Jährlich", thMonth: "Monatlich", thWeek: "Wöchentlich",
-        tdGross: "Bruttoeinkommen", tdPension: "Rente", tdTax: "Einkommensteuer", tdNI: "Sozialvers.", tdStudent: "Studienkredit", tdNet: "Netto",
+        tdGross: "Bruttoeinkommen", tdPension: "Rente", tdTax: "Einkommensteuer", tdNI: "Sozialvers.", tdStudent: "Studienkredit", tdNet: "Netto", tdEmpNI: "Arbeitgeber NI (Kosten)",
         note: "* Rente basiert auf Salary Sacrifice. Daten gemäß HMRC 2026/27.",
         footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt", footerBlog: "Blog",
         seoHtml: `
@@ -592,6 +599,7 @@
       document.getElementById('td-ni').innerText = data.tdNI;
       document.getElementById('td-student').innerText = data.tdStudent;
       document.getElementById('td-net').innerText = data.tdNet;
+      document.getElementById('td-emp-ni').innerText = data.tdEmpNI;
 
       document.getElementById('footer-note').innerText = data.note;
       document.getElementById('footer-about').innerText = data.footerAbout;
@@ -692,6 +700,17 @@
       // 6. 计算最终税后 (Net Take-home)
       const annualNet = annualGross - annualPension - tax - ni - slDeduction;
 
+      // ==========================================
+      // ★ 2026/27 新增核弹级计算: Employer NI (雇主成本)
+      // 起征点降至 £5,000，税率暴涨至 15%
+      // ==========================================
+      const empNiThreshold = 5000;
+      const empNiRate = 0.15;
+      let employerNI = 0;
+      if (currentYear === '2026' && taxableIncome > empNiThreshold) {
+          employerNI = (taxableIncome - empNiThreshold) * empNiRate;
+      }
+
       // 7. 更新 UI 渲染数据网格
       document.getElementById('result-area').style.opacity = '1';
       document.getElementById('result-area').classList.remove('hidden');
@@ -731,6 +750,17 @@
       document.getElementById('val-net-y').innerText = formatCurrency(annualNet);
       document.getElementById('val-net-m').innerText = formatCurrency(annualNet / 12);
       document.getElementById('val-net-w').innerText = formatCurrency(annualNet / 52);
+
+      // 渲染 Employer NI 隐形行
+      const rowEmpNI = document.getElementById('row-emp-ni');
+      if (employerNI > 0) {
+        rowEmpNI.style.display = 'table-row';
+        document.getElementById('val-emp-y').innerText = formatCurrency(employerNI);
+        document.getElementById('val-emp-m').innerText = formatCurrency(employerNI / 12);
+        document.getElementById('val-emp-w').innerText = formatCurrency(employerNI / 52);
+      } else {
+        rowEmpNI.style.display = 'none';
+      }
 
       setTimeout(() => {
         document.getElementById('result-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
