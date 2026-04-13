@@ -197,6 +197,13 @@
     <h2 id="sec-dev" class="text-2xl font-extrabold text-slate-900 mb-6 mt-16 flex items-center gap-2">💻 Developer & Universal Utilities</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
       
+      <a href="/token" class="tool-card block p-6 rounded-2xl border-rose-200 bg-rose-50/30">
+        <div class="absolute top-4 right-4 bg-rose-500 text-white text-[10px] font-black px-2 py-1 rounded uppercase tracking-widest shadow-sm">HOT</div>
+        <div class="icon-box w-14 h-14 bg-rose-100 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">🤖</div>
+        <h3 id="t_tok" class="text-lg font-extrabold text-slate-900 mb-2">AI Token Calculator</h3>
+        <p id="d_tok" class="text-sm text-slate-500 font-medium">Count tokens and estimate API costs for GPT-4o & Claude.</p>
+      </a>
+
       <a href="/json" class="tool-card block p-6 rounded-2xl">
         <div class="icon-box w-14 h-14 bg-slate-800 rounded-2xl flex items-center justify-center text-3xl mb-5 shadow-inner">💻</div>
         <h3 id="t_jsn" class="text-lg font-extrabold text-slate-900 mb-2">JSON Formatter</h3>
@@ -341,6 +348,7 @@
         t_wgt: "Stones to Kg Converter", d_wgt: "Convert UK body weight (Stones & Lbs) to Kilograms.",
         t_day: "Working Days Calculator", d_day: "Calculate business days including UK Bank Holidays.",
 
+        t_tok: "AI Token Calculator", d_tok: "Count tokens and estimate API costs for GPT-4o & Claude.",
         t_tax: "UK Tax Calculator", d_tax: "Calculate Take-Home Pay, National Insurance, and Pension.",
         t_vat: "UK VAT Calculator", d_vat: "Add or remove 20% standard VAT instantly.",
         t_mor: "Mortgage Calculator", d_mor: "Estimate monthly repayments and Loan-to-Value limits.",
@@ -398,6 +406,7 @@
         t_wgt: "体重转换器 (英石)", d_wgt: "将英国特色的英石 (Stones) 无缝转换为公斤。",
         t_day: "工作日计算器", d_day: "精准计算日期，自动排除英格兰及全英法定节假日。",
 
+        t_tok: "AI Token 成本计算器", d_tok: "实时统计 Prompt Token 并预估 GPT-4o 与 Claude 3 API 成本。",
         t_tax: "英国个税计算器", d_tax: "精准计算 2026/27 财年税后净收入与养老金。",
         t_vat: "增值税 (VAT) 计算", d_vat: "一键计算 20% 标准增值税含税/不含税价格。",
         t_mor: "英国房贷计算器", d_mor: "估算每月还款额、首付比例与印花税。",
@@ -454,6 +463,7 @@
         t_wgt: "Convertidor de Stones a Kg", d_wgt: "Convierta peso corporal británico (Stones) a Kilos.",
         t_day: "Días Laborables", d_day: "Calcule días hábiles incluyendo festivos británicos.",
 
+        t_tok: "Calculadora Tokens AI", d_tok: "Cuente tokens y estime costos de API para GPT-4o y Claude.",
         t_tax: "Calculadora de Impuestos", d_tax: "Calcule su salario neto, seguro nacional y pensión (UK).",
         t_vat: "Calculadora de IVA", d_vat: "Agregue o elimine el IVA del 20% al instante.",
         t_mor: "Calculadora de Hipotecas", d_mor: "Estime pagos mensuales y límites de préstamo.",
@@ -503,6 +513,7 @@
         t_wgt: "Convertisseur Stones en Kg", d_wgt: "Convertissez le poids britannique (Stones) en Kg.",
         t_day: "Jours Ouvrables", d_day: "Calculez les jours ouvrables incluant les jours fériés UK.",
 
+        t_tok: "Calculateur Tokens IA", d_tok: "Comptez les tokens et estimez les coûts API (GPT-4o, Claude).",
         t_tax: "Calculateur d'Impôts", d_tax: "Calculez votre salaire net et retraite (UK).",
         t_vat: "Calculateur de TVA", d_vat: "Ajoutez ou retirez 20% de TVA instantanément.",
         t_mor: "Calculateur de Prêt", d_mor: "Estimez les mensualités de votre prêt immobilier.",
@@ -552,6 +563,7 @@
         t_wgt: "Stones in Kg", d_wgt: "Britisches Körpergewicht (Stones) in Kg umrechnen.",
         t_day: "Arbeitstage-Rechner", d_day: "Arbeitstage inkl. britischer Feiertage berechnen.",
 
+        t_tok: "KI Token Rechner", d_tok: "Token zählen und API-Kosten für GPT-4o & Claude schätzen.",
         t_tax: "UK Steuerrechner", d_tax: "Berechnen Sie Nettogehalt, NI und Rente.",
         t_vat: "MwSt.-Rechner", d_vat: "20% Standard-MwSt. sofort hinzufügen oder entfernen.",
         t_mor: "Hypothekenrechner", d_mor: "Schätzen Sie monatliche Raten und LTV.",
@@ -606,10 +618,10 @@
       document.getElementById('sec-uk').innerHTML = `🇬🇧 ${data.sec_uk}`;
       document.getElementById('sec-dev').innerHTML = `💻 ${data.sec_dev}`;
 
-      // All 21 Cards Injection
+      // All 22 Cards Injection (including new Token tool)
       const keys = [
         'ir35', 'div', 'sdt', 'ful', 'wgt', 'day',
-        'tax', 'vat', 'mor', 'cur', 'jsn', 'dif', 'col', 'pas', 'img', 'pdf', 'up', 'qr', 'uni', 'wrd', 'prm'
+        'tok', 'tax', 'vat', 'mor', 'cur', 'jsn', 'dif', 'col', 'pas', 'img', 'pdf', 'up', 'qr', 'uni', 'wrd', 'prm'
       ];
       keys.forEach(k => {
           const tEl = document.getElementById('t_' + k);
