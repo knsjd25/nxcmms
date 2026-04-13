@@ -97,23 +97,27 @@
     }
     a{color:inherit;text-decoration:none}
     .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-    .nav{
-      position:sticky;top:0;z-index:20;
-      backdrop-filter: blur(10px);
-      background:rgba(255,255,255,.9);
-      border-bottom:1px solid var(--line);
-    }
-    .nav-inner{
-      display:flex;align-items:center;justify-content:space-between;
-      min-height:72px;gap:20px;
-    }
-    .brand{display:flex;align-items:center;gap:12px;font-weight:800}
-    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.06)}
-    .nav-links{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-    .nav-links a{
-      padding:10px 14px;border-radius:12px;color:#334155;font-weight:700;font-size:14px;
-    }
-    .nav-links a:hover{background:#f8fafc}
+
+    .nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;min-width:0}
+    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;box-shadow:0 4px 12px rgba(15,23,42,.08)}
+    .brand-copy{display:flex;flex-direction:column;line-height:1.05}
+    .brand-title{font-size:1.06rem;letter-spacing:-.03em}
+    .brand-subtitle{margin-top:4px;color:#64748b;font-size:.79rem;font-weight:600}
+    .nav-links{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .nav-link,.nav-trigger{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;color:#334155;font-weight:700;font-size:14px;border:1px solid transparent;background:transparent}
+    .nav-link:hover,.nav-trigger:hover,.nav-group:hover .nav-trigger{background:#f8fafc;color:#0f172a}
+    .nav-link.current{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+    .nav-group{position:relative;padding-bottom:14px;margin-bottom:-14px}
+    .nav-trigger svg{width:14px;height:14px;transition:transform .2s ease}.nav-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}
+    .nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg{transform:rotate(180deg)}
+    .dropdown{position:absolute;top:calc(100% + 2px);left:0;min-width:220px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 22px 44px rgba(15,23,42,.12);padding:10px;display:none}
+    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown{display:block}
+    .dropdown a{display:block;padding:10px 12px;border-radius:12px;color:#334155;font-size:14px;font-weight:700}
+    .dropdown a small{display:block;margin-top:2px;color:#64748b;font-size:12px;font-weight:600}
+    .dropdown a:hover{background:#f8fafc;color:#0f172a}
+
     .hero{
       padding:48px 0 24px;
     }
@@ -297,13 +301,27 @@
     <div class="wrap nav-inner">
       <a class="brand" href="/">
         <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" />
-        <span>Mini-Tools<span style="color:#2563eb">.uk</span></span>
+        <span class="brand-copy">
+          <span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span>
+          <span class="brand-subtitle">Practical tools, cleaner structure</span>
+        </span>
       </a>
       <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/blog">Guides</a>
-        <a href="/about">About</a>
-        <a href="/privacy">Privacy</a>
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/#featured-tools">All Tools</a>
+        <div class="nav-group">
+          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">Categories
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="dropdown" role="menu">
+            <a href="/#uk-calculators">UK Finance<small>Tax, VAT, mortgage and workday tools</small></a>
+            <a href="/#developer-tools">Developer Tools<small>JSON, diff, word and coding helpers</small></a>
+            <a href="/#image-tools">Image & PDF<small>Compression, conversion and media utilities</small></a>
+            <a href="/password">Security & Privacy<small>Password and privacy-first helpers</small></a>
+          </div>
+        </div>
+        <a class="nav-link" href="/blog">Blog</a>
+        <a class="nav-link" href="/about">About</a>
       </div>
     </div>
   </nav>
