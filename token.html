@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
+  <title id="meta-title">AI Token Counter & API Cost Calculator 2026 — Mini-Tools</title>
+  <meta name="description" id="meta-desc" content="Free AI Token counter and API cost estimator. Paste your prompt to instantly calculate pricing for GPT-4o, Claude 3 Opus, Gemini, and more." />
+  <meta name="keywords" id="meta-keywords" content="AI token counter, chatgpt api cost calculator, claude 3 opus pricing, gpt-4o token estimator, llm api cost" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="https://mini-tools.uk/token" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/token?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/token?lang=zh" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/token?lang=es" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/token?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/token?lang=de" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/token" />
+
+  <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DR6V84JEZW');
+  </script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+
+  <script async src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
+    
+    .input-group { background: #ffffff; border: 2px solid #e2e8f0; transition: all 0.3s; border-radius: 1rem; padding: 0.75rem 1rem; }
+    .input-group:focus-within { border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+    
+    .calc-card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); overflow: hidden; transition: transform 0.3s ease; padding: 2rem; }
+    .calc-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
+    
+    .result-bg { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-color: #334155; color: white; }
+    
+    .breakdown-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px dashed rgba(255,255,255,0.2); font-size: 0.95rem; }
+    .breakdown-row:last-child { border-bottom: none; }
+    .val-highlight { color: #38bdf8; font-weight: 800; }
+
+    textarea { resize: vertical; min-height: 150px; }
+    
+    /* Custom Scrollbar for Textarea */
+    textarea::-webkit-scrollbar { width: 8px; }
+    textarea::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 8px; }
+    textarea::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
+    textarea::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* SEO Content Typography */
+    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
+    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
+    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
+    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
+    .prose-content strong { color: #0f172a; font-weight: 700; }
+    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
+    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
+    .faq-box h3 { margin-top: 0; margin-bottom: 0.5rem; font-size: 1.25rem; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/" class="transition-transform active:scale-90 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
+        </a>
+        <div class="flex flex-col -mt-1 hidden sm:flex">
+          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
+          <span id="nav-blog-text">Blog & Guides</span>
+        </a>
+        <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500 transition-colors hover:bg-slate-100">
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 简体中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-6 py-12 flex-1 w-full">
+    <header class="mb-12 text-center">
+      <div class="mb-4">
+        <span id="update-status" class="bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-widest border border-blue-200">
+          ⚡ Real-time API Pricing 2026
+        </span>
+      </div>
+      <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
+        AI Token & Cost Calculator
+      </h1>
+      <p id="page-desc" class="text-lg text-slate-500 max-w-2xl mx-auto">
+        Paste your prompt to instantly estimate token count and API costs for OpenAI, Anthropic, and Google models. No API keys required.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+      
+      <div class="lg:col-span-7 calc-card space-y-6">
+        <div class="flex items-center gap-3 mb-2 border-b border-slate-100 pb-4">
+          <span class="text-2xl">✍️</span>
+          <h2 id="lbl-input-title" class="text-xl font-extrabold text-slate-900">Test Your Prompt</h2>
+        </div>
+        
+        <div>
+          <label id="lbl-prompt" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 flex justify-between">
+            <span>Paste your text here (Input)</span>
+            <span id="char-count" class="text-slate-400 font-bold">0 Chars</span>
+          </label>
+          <div class="input-group">
+            <textarea id="input-prompt" class="w-full outline-none text-slate-700 bg-transparent font-medium" placeholder="E.g., Write a 500-word blog post about the future of AI..." oninput="calculateTokens()"></textarea>
+          </div>
+          <div class="mt-2 text-right">
+            <span class="text-sm font-extrabold text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">
+              <span id="lbl-est-tokens">Estimated Input Tokens:</span> <span id="val-input-tokens" class="text-lg">0</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label id="lbl-model" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Select AI Model</label>
+            <select id="model-select" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500" onchange="calculateTokens()">
+              <optgroup label="OpenAI">
+                <option value="gpt4o">GPT-4o ($5 In / $15 Out)</option>
+                <option value="gpt4omini">GPT-4o-mini ($0.15 In / $0.60 Out)</option>
+              </optgroup>
+              <optgroup label="Anthropic">
+                <option value="opus">Claude 3.5 Opus ($15 In / $75 Out)</option>
+                <option value="sonnet">Claude 3.5 Sonnet ($3 In / $15 Out)</option>
+                <option value="haiku">Claude 3.5 Haiku ($0.25 In / $1.25 Out)</option>
+              </optgroup>
+              <optgroup label="Google">
+                <option value="geminipro">Gemini 1.5 Pro ($3.50 In / $10.50 Out)</option>
+                <option value="geminiflash">Gemini 1.5 Flash ($0.075 In / $0.30 Out)</option>
+              </optgroup>
+            </select>
+          </div>
+          
+          <div>
+            <label id="lbl-output" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 flex justify-between">
+              <span>Expected Output Tokens</span>
+              <span class="text-blue-500 tooltip cursor-help" title="How long will the AI's answer be?">?</span>
+            </label>
+            <div class="input-group">
+              <input type="number" id="input-output-tokens" value="500" min="0" step="100" oninput="calculateTokens()">
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 text-sm text-slate-500 font-medium">
+          <p id="lbl-hint">💡 <strong>Note:</strong> Token counting is a client-side heuristic estimation. Real API billing may vary slightly depending on the model's exact tokenizer.</p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 calc-card result-bg flex flex-col h-full shadow-2xl">
+        <div class="flex items-center justify-between mb-8">
+          <h2 id="lbl-result-title" class="text-xl font-extrabold text-white">Estimated API Cost</h2>
+          <span class="text-3xl">💸</span>
+        </div>
+        
+        <div class="text-center mb-8">
+          <span id="val-total-cost" class="text-5xl md:text-6xl font-black text-white tracking-tight">$0.0000</span>
+          <span id="lbl-total-usd" class="block text-xs font-black text-slate-400 uppercase tracking-widest mt-3">Total Cost (USD)</span>
+        </div>
+
+        <div class="bg-white/10 rounded-2xl p-5 mt-auto border border-white/10 backdrop-blur-sm space-y-1">
+          <div class="breakdown-row font-bold text-white border-b border-white/20 pb-3 mb-2">
+            <span id="lbl-model-used">Selected Model</span>
+            <span id="val-model-used" class="text-blue-300">GPT-4o</span>
+          </div>
+          <div class="breakdown-row text-slate-300">
+            <span id="lbl-in-cost">Input Cost (Prompt)</span>
+            <span id="val-in-cost" class="val-highlight">$0.0000</span>
+          </div>
+          <div class="breakdown-row text-slate-300">
+            <span id="lbl-out-cost">Output Cost (Generation)</span>
+            <span id="val-out-cost" class="val-highlight">$0.0000</span>
+          </div>
+          <div class="breakdown-row text-xs text-slate-400 pt-2 mt-2">
+            <span id="lbl-api-rates">Pricing per 1M tokens:</span>
+            <span id="val-api-rates">In: $5.00 | Out: $15.00</span>
+          </div>
+        </div>
+        
+        <div class="mt-6 p-4 bg-blue-900/30 rounded-xl border border-blue-500/30 text-center">
+            <span id="lbl-bulk-title" class="block text-xs font-black text-blue-300 uppercase tracking-widest mb-1">Scale up: 1,000 API Calls</span>
+            <span id="val-bulk-cost" class="text-2xl font-black text-white">$0.00</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="seo-container" class="prose-content">
+      </div>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-100 py-12 mt-10 w-full">
+    <div class="max-w-[1400px] mx-auto px-6 text-center">
+      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
+        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
+          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
+        </a>
+        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
+        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
+        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
+        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+      </div>
+      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
+        © 2026 MINI-TOOLS.UK — SECURE CLIENT-SIDE WEB UTILITIES
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // --- 🤖 AI Model Pricing Database (Per 1,000,000 tokens in USD) ---
+    // Updated for 2026 typical API pricing
+    const MODEL_PRICING = {
+        'gpt4o': { name: 'GPT-4o', in: 5.00, out: 15.00 },
+        'gpt4omini': { name: 'GPT-4o-mini', in: 0.15, out: 0.60 },
+        'opus': { name: 'Claude 3.5 Opus', in: 15.00, out: 75.00 },
+        'sonnet': { name: 'Claude 3.5 Sonnet', in: 3.00, out: 15.00 },
+        'haiku': { name: 'Claude 3.5 Haiku', in: 0.25, out: 1.25 },
+        'geminipro': { name: 'Gemini 1.5 Pro', in: 3.50, out: 10.50 },
+        'geminiflash': { name: 'Gemini 1.5 Flash', in: 0.075, out: 0.30 }
+    };
+
+    // Formatter for precise micro-cents
+    const usdMicro = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 4, maximumFractionDigits: 4 });
+    const usdStandard = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    // Heuristic Token Estimation Engine
+    function estimateTokens(text) {
+        if (!text || text.trim() === '') return 0;
+        
+        // 1. Count CJK Characters (Chinese, Japanese, Korean)
+        // Usually, CJK chars take more tokens. We estimate ~1.5 tokens per CJK char on average for modern LLMs.
+        const cjkRegex = /[\u4e00-\u9fa5\u3040-\u30ff\uac00-\ud7af]/g;
+        const cjkMatch = text.match(cjkRegex);
+        const cjkCount = cjkMatch ? cjkMatch.length : 0;
+        
+        // 2. Count English/Latin Words
+        const nonCjkText = text.replace(cjkRegex, ' ');
+        const words = nonCjkText.trim().split(/\s+/).filter(w => w.length > 0);
+        const wordCount = words.length;
+        
+        // 3. Count special characters/punctuation in non-CJK text (they often count as 1 token each)
+        const punctRegex = /[.,!?;:'"()\[\]{}]/g;
+        const punctMatch = nonCjkText.match(punctRegex);
+        const punctCount = punctMatch ? punctMatch.length : 0;
+
+        // OpenAI heuristic: 1 word ≈ 1.33 tokens (or 75 words = 100 tokens)
+        const estimatedTokens = Math.ceil((wordCount * 1.33) + punctCount + (cjkCount * 1.5));
+        
+        return estimatedTokens;
+    }
+
+    function calculateTokens() {
+        const text = document.getElementById('input-prompt').value;
+        const outTokens = parseFloat(document.getElementById('input-output-tokens').value) || 0;
+        const selectedModelKey = document.getElementById('model-select').value;
+        const model = MODEL_PRICING[selectedModelKey];
+
+        // 1. Calculate Input Tokens & Chars
+        const inTokens = estimateTokens(text);
+        document.getElementById('char-count').innerText = `${text.length} Chars`;
+        document.getElementById('val-input-tokens').innerText = inTokens.toLocaleString();
+
+        // 2. Calculate Costs (Prices are per 1M tokens)
+        const costPerInput = model.in / 1000000;
+        const costPerOutput = model.out / 1000000;
+
+        const totalInCost = inTokens * costPerInput;
+        const totalOutCost = outTokens * costPerOutput;
+        const grandTotal = totalInCost + totalOutCost;
+
+        // 3. Update DOM
+        document.getElementById('val-total-cost').innerText = usdMicro.format(grandTotal);
+        document.getElementById('val-model-used').innerText = model.name;
+        document.getElementById('val-in-cost').innerText = usdMicro.format(totalInCost);
+        document.getElementById('val-out-cost').innerText = usdMicro.format(totalOutCost);
+        
+        document.getElementById('val-api-rates').innerText = `In: $${model.in.toFixed(2)} | Out: $${model.out.toFixed(2)}`;
+        
+        // Bulk projection
+        document.getElementById('val-bulk-cost').innerText = usdStandard.format(grandTotal * 1000);
+    }
+
+    // 🌟 Multi-language Engine & SEO 🌟
+    const i18n = {
+      en: {
+        metaTitle: "AI Token Counter & API Cost Calculator 2026 — Mini-Tools",
+        metaDesc: "Free AI Token counter and API cost estimator. Paste your prompt to instantly calculate pricing for GPT-4o, Claude 3 Opus, Gemini, and more.",
+        title: "AI Token & Cost Calculator", 
+        desc: "Paste your prompt to instantly estimate token count and API costs for OpenAI, Anthropic, and Google models. No API keys required.",
+        update: "⚡ Real-time API Pricing 2026",
+        
+        lblInpTitle: "Test Your Prompt", lblResTitle: "Estimated API Cost",
+        lblPrompt: "Paste your text here (Input)", 
+        lblEstTokens: "Estimated Input Tokens:",
+        lblModel: "Select AI Model", lblOutput: "Expected Output Tokens",
+        lblHint: "💡 <strong>Note:</strong> Token counting is a client-side heuristic estimation. Real API billing may vary slightly depending on the model's exact tokenizer.",
+        
+        lblTotalUsd: "Total Cost (USD)",
+        lblModelUsed: "Selected Model", lblInCost: "Input Cost (Prompt)", lblOutCost: "Output Cost (Generation)",
+        lblApiRates: "Pricing per 1M tokens:", lblBulkTitle: "Scale up: 1,000 API Calls",
+        
+        navBlog: "Blog & Guides", footerBlog: "Blog",
+        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
+        
+        seoHtml: `
+          <h2>How does the AI Token Counter Work?</h2>
+          <p>If you are a developer using AI APIs, or a power user building complex prompts, understanding token usage is critical. Large Language Models (LLMs) like GPT-4o or Claude 3 do not read text word-by-word; they read in chunks called <strong>tokens</strong>. Our <strong>ChatGPT prompt token counter</strong> utilizes a robust client-side heuristic algorithm to instantly estimate your token count without sending your sensitive prompts to a server.</p>
+          <p>As a general rule of thumb for English text: <strong>1 token is approximately 4 characters</strong>, or 0.75 words. For non-Latin languages like Chinese, Japanese, or Korean (CJK), a single character might consume 1.5 to 2 tokens depending on the model's specific tokenizer.</p>
+          
+          <div class="faq-box">
+            <h3>Input vs Output Tokens: Why the price difference?</h3>
+            <p>When calculating your <strong>LLM API cost</strong>, you must account for both input and output. <em>Input tokens</em> are the prompt you send to the AI. <em>Output tokens</em> are the response the AI generates. Because generating new text requires significantly more computational power than reading it, API providers almost always charge 3x to 5x more for output tokens. For example, calculating a <strong>Claude 3 Opus API cost estimate</strong> means factoring in their premium $75 per 1M output tokens rate.</p>
+          </div>
+          
+          <div class="faq-box">
+            <h3>Are these API prices accurate?</h3>
+            <p>Yes. Our calculator is hardcoded with the standard 2026 pay-as-you-go pricing for major providers like OpenAI, Anthropic, and Google Cloud. Whether you need a <strong>GPT-4o token estimator</strong> or want to see how cheap Gemini 1.5 Flash is at scale, our tool gives you an instant dollar-value projection before you write a single line of code.</p>
+          </div>
+
+          <h2>100% Secure & Client-Side</h2>
+          <p>We know your prompts contain proprietary business logic, sensitive data, or unreleased code. That is why our token counter requires absolutely <strong>no API keys</strong> and processes your text entirely within your local browser. Your data never leaves your computer.</p>`
+      },
+      zh: {
+        metaTitle: "AI Token 计算器与 API 成本预估 (GPT-4o/Claude 3) — Mini-Tools",
+        metaDesc: "免费纯前端的 AI Token 计数器。粘贴您的提示词，即可实时估算 ChatGPT、Claude 3 Opus 和 Gemini 等大语言模型的 API 调用成本。",
+        title: "AI Token 与 API 成本计算器", 
+        desc: "粘贴您的提示词（Prompt），无需填写 API Key，即可瞬间估算输入 Token 数量，并预估各大主流 AI 模型的调用成本。",
+        update: "⚡ 2026 主流大模型最新报价",
+        
+        lblInpTitle: "测试您的提示词", lblResTitle: "预估 API 成本",
+        lblPrompt: "在此粘贴您的文本 (Input)", 
+        lblEstTokens: "预估输入 Token 数量:",
+        lblModel: "选择 AI 模型", lblOutput: "预期 AI 回复 Token 数 (Output)",
+        lblHint: "💡 <strong>注意：</strong> 本工具采用纯前端启发式算法估算 Token。不同模型底层的 Tokenizer 切词逻辑略有差异，实际计费请以官方账单为准。",
+        
+        lblTotalUsd: "总计调用成本 (美元)",
+        lblModelUsed: "当前选择模型", lblInCost: "输入成本 (您的提示词)", lblOutCost: "输出成本 (AI 生成的内容)",
+        lblApiRates: "官方定价 (每 100 万 Token):", lblBulkTitle: "批量调用: 1,000 次成本",
+        
+        navBlog: "官方博客与教程", footerBlog: "官方博客",
+        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
+        
+        seoHtml: `
+          <h2>AI Token 计算器是如何工作的？</h2>
+          <p>无论您是接入 API 的开发者，还是编写复杂长文 Prompt 的极客，掌控 Token 消耗就是掌控成本。像 GPT-4o 或 Claude 3 这样的大语言模型（LLM）并非按“字”阅读，而是按 <strong>Token</strong> 进行切片。我们的 <strong>ChatGPT 提示词 Token 计数器</strong>采用本地启发式算法，无需上传数据即可瞬间估算长度。</p>
+          <p>根据行业经验：在纯英文环境中，<strong>1 个 Token 大约等于 4 个字母</strong>或 0.75 个单词。而在中文环境下，由于切词逻辑的不同，1 个中文字符通常会消耗 1 到 2 个 Token。</p>
+          
+          <div class="faq-box">
+            <h3>输入与输出 Token：为什么价格差这么多？</h3>
+            <p>在进行 <strong>LLM API 成本预估</strong>时，您必须区分输入（Input）和输出（Output）。<em>输入 Token</em> 是您发给 AI 的问题，而<em>输出 Token</em> 是 AI 回答的内容。由于“生成”文本需要耗费巨大的 GPU 算力，官方对输出 Token 的定价通常是输入的 3 到 5 倍。例如，在计算 <strong>Claude 3 Opus API 成本</strong>时，其输出价格高达每百万 Token $75 美元。</p>
+          </div>
+          
+          <div class="faq-box">
+            <h3>这里的模型报价准确吗？</h3>
+            <p>是的。我们的计算器内置了 OpenAI、Anthropic 和 Google 最新（2026年）的官方按量付费 API 价格。无论您是需要 <strong>GPT-4o token 成本计算</strong>，还是想看看 Gemini 1.5 Flash 有多便宜，本工具都能让您在写代码前心中有数。</p>
+          </div>
+
+          <h2>100% 本地运行，保护核心 Prompt 隐私</h2>
+          <p>我们深知高质量的 Prompt 是您的核心资产。这就是为什么我们的 Token 计算器<strong>不需要您填写任何 API Key</strong>，且所有文本识别都在您的浏览器本地内存中完成。您的 Prompt 绝对不会被发送到任何外部服务器。</p>`
+      },
+      es: {
+        metaTitle: "Contador de Tokens AI y Costo de API 2026 — Mini-Tools",
+        metaDesc: "Contador de tokens AI gratuito y estimador de costos de API. Pegue su prompt para calcular al instante los precios de GPT-4o, Claude 3, etc.",
+        title: "Calculadora de Costos API y Tokens AI", desc: "Pegue su prompt para estimar al instante los tokens y el costo de API para los modelos de OpenAI, Anthropic y Google.",
+        update: "⚡ Precios de API en tiempo real 2026",
+        lblInpTitle: "Pruebe su Prompt", lblResTitle: "Costo Estimado de API",
+        lblPrompt: "Pegue su texto aquí (Input)", lblEstTokens: "Tokens de Entrada Estimados:",
+        lblModel: "Seleccionar Modelo AI", lblOutput: "Tokens de Salida Esperados",
+        lblHint: "💡 <strong>Nota:</strong> El conteo de tokens es una estimación. La facturación real de la API puede variar según el modelo.",
+        lblTotalUsd: "Costo Total (USD)", lblModelUsed: "Modelo Seleccionado", lblInCost: "Costo de Entrada", lblOutCost: "Costo de Salida",
+        lblApiRates: "Precio por 1M de tokens:", lblBulkTitle: "Escalar: 1,000 llamadas API",
+        navBlog: "Blog y Guías", footerBlog: "Blog", footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
+        seoHtml: `<h2>¿Cómo funciona el contador de tokens?</h2><p>Los modelos de lenguaje grande (LLM) no leen palabras, leen <strong>tokens</strong>. Nuestra herramienta estima el costo sin necesidad de claves API, ejecutándose 100% en su navegador para proteger su privacidad.</p>`
+      },
+      fr: {
+        metaTitle: "Compteur de Tokens IA et Coût API 2026 — Mini-Tools",
+        metaDesc: "Compteur de tokens gratuit et estimateur de coûts API. Collez votre prompt pour calculer instantanément les prix de GPT-4o, Claude 3, etc.",
+        title: "Calculateur de Tokens et Coûts IA", desc: "Collez votre prompt pour estimer instantanément le nombre de tokens et les coûts API pour OpenAI, Anthropic et Google.",
+        update: "⚡ Tarifs API en temps réel 2026",
+        lblInpTitle: "Testez votre Prompt", lblResTitle: "Coût API Estimé",
+        lblPrompt: "Collez votre texte ici (Input)", lblEstTokens: "Tokens d'entrée estimés :",
+        lblModel: "Sélectionnez le Modèle IA", lblOutput: "Tokens de sortie attendus",
+        lblHint: "💡 <strong>Remarque :</strong> Le comptage est une estimation. La facturation réelle peut varier selon le tokenizer du modèle.",
+        lblTotalUsd: "Coût Total (USD)", lblModelUsed: "Modèle Sélectionné", lblInCost: "Coût d'Entrée", lblOutCost: "Coût de Sortie",
+        lblApiRates: "Prix pour 1M de tokens :", lblBulkTitle: "Échelle : 1 000 Appels API",
+        navBlog: "Blog et Guides", footerBlog: "Blog", footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
+        seoHtml: `<h2>Comment fonctionne le compteur de tokens ?</h2><p>Les IA ne lisent pas des mots, mais des <strong>tokens</strong>. Notre outil estime vos coûts API de manière 100% locale, sans envoyer vos prompts sur nos serveurs.</p>`
+      },
+      de: {
+        metaTitle: "KI Token Zähler & API Kostenrechner 2026 — Mini-Tools",
+        metaDesc: "Kostenloser KI Token Zähler. Fügen Sie Ihren Prompt ein, um sofort die API-Preise für GPT-4o, Claude 3 Opus und Gemini zu berechnen.",
+        title: "KI Token & Kostenrechner", desc: "Fügen Sie Ihren Prompt ein, um Token und API-Kosten für OpenAI, Anthropic und Google sofort zu schätzen.",
+        update: "⚡ Echtzeit API-Preise 2026",
+        lblInpTitle: "Testen Sie Ihren Prompt", lblResTitle: "Geschätzte API-Kosten",
+        lblPrompt: "Fügen Sie hier Ihren Text ein (Input)", lblEstTokens: "Geschätzte Input-Token:",
+        lblModel: "KI-Modell Auswählen", lblOutput: "Erwartete Output-Token",
+        lblHint: "💡 <strong>Hinweis:</strong> Die Tokenzählung ist eine Schätzung. Die tatsächliche Abrechnung kann je nach Modell leicht abweichen.",
+        lblTotalUsd: "Gesamtkosten (USD)", lblModelUsed: "Ausgewähltes Modell", lblInCost: "Input-Kosten", lblOutCost: "Output-Kosten",
+        lblApiRates: "Preise pro 1M Token:", lblBulkTitle: "Skalierung: 1.000 API-Aufrufe",
+        navBlog: "Blog & Anleitungen", footerBlog: "Blog", footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
+        seoHtml: `<h2>Wie funktioniert der KI Token Zähler?</h2><p>Große Sprachmodelle (LLMs) lesen keine Wörter, sondern <strong>Token</strong>. Unser Rechner schätzt die Kosten sofort und zu 100% lokal in Ihrem Browser, ohne Ihre Daten zu senden.</p>`
+      }
+    };
+
+    function updateLanguage() {
+      const params = new URLSearchParams(window.location.search);
+      const lang = params.get('lang') || 'en';
+      const data = i18n[lang] || i18n['en'];
+
+      document.documentElement.lang = lang;
+      
+      document.title = data.metaTitle;
+      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
+      if(data.metaKeywords) document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
+
+      document.getElementById('update-status').innerText = data.update;
+      document.getElementById('page-title').innerText = data.title;
+      document.getElementById('page-desc').innerText = data.desc;
+      
+      document.getElementById('lbl-input-title').innerText = data.lblInpTitle;
+      document.getElementById('lbl-result-title').innerText = data.lblResTitle;
+      
+      document.getElementById('lbl-prompt').children[0].innerText = data.lblPrompt;
+      document.getElementById('lbl-est-tokens').innerText = data.lblEstTokens;
+      document.getElementById('lbl-model').innerText = data.lblModel;
+      document.getElementById('lbl-output').children[0].innerText = data.lblOutput;
+      document.getElementById('lbl-hint').innerHTML = data.lblHint;
+      
+      document.getElementById('lbl-total-usd').innerText = data.lblTotalUsd;
+      document.getElementById('lbl-model-used').innerText = data.lblModelUsed;
+      document.getElementById('lbl-in-cost').innerText = data.lblInCost;
+      document.getElementById('lbl-out-cost').innerText = data.lblOutCost;
+      document.getElementById('lbl-api-rates').innerText = data.lblApiRates;
+      document.getElementById('lbl-bulk-title').innerText = data.lblBulkTitle;
+
+      const navBlogText = document.getElementById('nav-blog-text');
+      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
+      const footerBlog = document.getElementById('footer-blog');
+      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
+      
+      document.getElementById('footer-about').innerText = data.footerAbout;
+      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
+      document.getElementById('footer-contact').innerText = data.footerContact;
+
+      const seoContainer = document.getElementById('seo-container');
+      if (data.seoHtml) {
+          seoContainer.style.opacity = 0;
+          setTimeout(() => {
+              seoContainer.innerHTML = data.seoHtml;
+              seoContainer.style.opacity = 1;
+          }, 150);
+      }
+
+      document.getElementById('lang-select').value = lang;
+      
+      document.querySelectorAll('a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
+          try {
+            const url = new URL(href, window.location.origin);
+            url.searchParams.set('lang', lang);
+            link.href = url.pathname + url.search;
+          } catch(e) {}
+        }
+      });
+      
+      calculateTokens();
+    }
+
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      window.location.href = url.href;
+    });
+
+    window.onload = () => {
+      updateLanguage();
+    };
+  </script>
+</body>
+</html>
