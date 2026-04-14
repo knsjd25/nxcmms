@@ -3,751 +3,795 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  
-  <title id="meta-title">Free UK Mortgage Calculator | Calculate Home Loan & Repayments — Mini-Tools</title>
-  <meta name="description" id="meta-desc" content="Calculate your home loan instantly. Use our free UK mortgage repayment calculator to find out how much your mortgage will cost, go up, and what your monthly payment would be." />
-  <meta name="keywords" content="UK Mortgage Calculator 2026, calculate home loan, mortgage repayment calculator uk, monthly mortgage payments, how much will my mortgage cost, LTV calculator UK, stamp duty calculator" />
-  
+  <title>UK Mortgage Calculator | Monthly Payments, LTV & SDLT Estimate</title>
+  <meta name="description" content="Estimate UK mortgage repayments, total interest, loan-to-value ratio and residential Stamp Duty Land Tax for England and Northern Ireland." />
+  <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://mini-tools.uk/mortgage" />
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/mortgage?lang=en" />
-  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/mortgage?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/mortgage?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/mortgage?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/mortgage?lang=de" />
-  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/mortgage" />
-
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
-  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DR6V84JEZW');
-  </script>
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "UK Mortgage & LTV Calculator",
-    "operatingSystem": "Web",
-    "applicationCategory": "FinanceApplication",
-    "description": "Estimate monthly mortgage repayments and loan-to-value (LTV) ratios based on current UK lending standards.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "GBP"
-    }
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Mini-Tools UK Mortgage Calculator",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "GBP"},
+        "description": "Estimate monthly mortgage repayments, total interest, LTV ratio and residential SDLT for England and Northern Ireland."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How are monthly mortgage payments estimated?",
+            "acceptedAnswer": {"@type": "Answer", "text": "Monthly payments are estimated using a standard amortisation formula for repayment mortgages, or simple monthly interest for interest-only mortgages."}
+          },
+          {
+            "@type": "Question",
+            "name": "What is LTV?",
+            "acceptedAnswer": {"@type": "Answer", "text": "LTV means loan-to-value. It is the mortgage amount divided by the property value, shown as a percentage."}
+          },
+          {
+            "@type": "Question",
+            "name": "Does this calculator include Stamp Duty?",
+            "acceptedAnswer": {"@type": "Answer", "text": "Yes. It includes an estimate of residential Stamp Duty Land Tax for England and Northern Ireland based on buyer type and optional non-UK resident surcharge."}
+          }
+        ]
+      }
+    ]
   }
   </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [{
-      "@type": "Question",
-      "name": "How much will my mortgage cost?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The total cost of your mortgage depends on the property value, your deposit, the interest rate, and the loan term. Our calculator shows you not just the monthly payment, but also the 'Total Interest Paid' over the lifetime of the loan, giving you the true cost of borrowing."
-      }
-    }, {
-      "@type": "Question",
-      "name": "How much will my mortgage go up?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "If Bank of England base rates increase, or your fixed-rate deal ends and you move to a Standard Variable Rate (SVR), your payments can rise significantly. You can use this calculator to test different, higher interest rates to see exactly how much your mortgage will go up."
-      }
-    }, {
-      "@type": "Question",
-      "name": "What would my mortgage payment be?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "To find out exactly what your mortgage payment would be, simply enter your property value, deposit amount, interest rate, and term length above. The tool will instantly calculate your estimated monthly repayment."
-      }
-    }]
-  }
-  </script>
-
-  <script async src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-  
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
-    .updated-badge { background: #ecfdf5; color: #065f46; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; display: inline-flex; align-items: center; gap: 4px; }
-    .result-card { background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: white; }
-    
-    input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-    input[type=number] { -moz-appearance: textfield; }
-    
-    .form-input { width: 100%; padding: 1rem 1.25rem; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; font-size: 1.125rem; font-weight: 700; color: #0f172a; transition: all 0.2s; outline: none; }
-    .form-input:focus { border-color: #10b981; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); background-color: #ffffff; }
-    .form-label { display: block; font-size: 0.875rem; font-weight: 700; color: #475569; margin-bottom: 0.5rem; }
-    
-    .form-select { appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 1rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --line: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --brand: #059669;
+      --brand-dark: #047857;
+      --result-start: #065f46;
+      --result-end: #022c22;
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1200px, calc(100% - 32px)); margin: 0 auto; }
 
-    .ltv-badge { transition: all 0.3s ease; padding: 4px 12px; border-radius: 8px; font-weight: 800; font-size: 0.875rem; }
-    .ltv-good { background-color: rgba(255,255,255,0.9); color: #059669; }
-    .ltv-ok { background-color: #fef08a; color: #854d0e; }
-    .ltv-risk { background-color: #fecaca; color: #991b1b; }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 74px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+    .brand span { font-size: 1.1rem; }
+    .brand .dot { color: #2563eb; }
 
-    .ratio-bar-container { width: 100%; height: 8px; background-color: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden; display: flex; margin-top: 8px; }
-    .ratio-bar-capital { height: 100%; background-color: #ffffff; transition: width 0.5s ease; }
-    .ratio-bar-interest { height: 100%; background-color: #fca5a5; transition: width 0.5s ease; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-link,
+    .nav-button {
+      padding: 10px 14px;
+      border-radius: 14px;
+      color: #334155;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: background .2s ease, color .2s ease;
+      position: relative;
+    }
+    .nav-link:hover,
+    .nav-button:hover,
+    .nav-link.active {
+      background: #f1f5f9;
+      color: var(--text);
+    }
+    .dropdown {
+      position: relative;
+    }
+    .dropdown::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      height: 16px;
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 0;
+      min-width: 240px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 10px;
+      display: none;
+    }
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+      display: block;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: #334155;
+      font-weight: 700;
+      font-size: 0.93rem;
+    }
+    .dropdown-menu a small {
+      display: block;
+      color: var(--muted);
+      font-weight: 600;
+      margin-top: 3px;
+      font-size: 0.8rem;
+    }
+    .dropdown-menu a:hover {
+      background: #f8fafc;
+      color: var(--text);
+    }
 
-    /* SEO Content Typography */
-    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
-    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
-    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
-    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
-    .prose-content strong { color: #0f172a; font-weight: 700; }
-    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
-    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
-    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
-    .faq-box h4 { font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    main { padding: 40px 0 72px; }
+    .hero {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #bbf7d0;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+    .hero p {
+      margin: 0 auto;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.7;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+    .result-card {
+      background: linear-gradient(135deg, var(--result-start), var(--result-end));
+      color: #fff;
+      position: sticky;
+      top: 102px;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.06rem;
+      font-weight: 800;
+      margin: 0 0 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #eef2f7;
+    }
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .field { margin-bottom: 18px; }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: .88rem;
+      font-weight: 700;
+      color: #334155;
+    }
+    .help {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .input,
+    .select {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font: inherit;
+      color: var(--text);
+      font-weight: 700;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .input:focus,
+    .select:focus {
+      background: #fff;
+      border-color: #6ee7b7;
+      box-shadow: 0 0 0 4px rgba(16,185,129,.12);
+    }
+    .select { cursor: pointer; }
+
+    .inline-note {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 700;
+    }
+    .calc-btn {
+      width: 100%;
+      margin-top: 8px;
+      border: 0;
+      border-radius: 16px;
+      background: var(--brand);
+      color: #fff;
+      padding: 16px 18px;
+      font: inherit;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform .15s ease, background .2s ease;
+    }
+    .calc-btn:hover { background: var(--brand-dark); }
+    .calc-btn:active { transform: scale(.99); }
+
+    .summary-kicker {
+      color: #a7f3d0;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 800;
+      font-size: .75rem;
+      margin-bottom: 10px;
+    }
+    .monthly {
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: 20px;
+    }
+    .stress {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 16px 0 22px;
+      padding: 14px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+    }
+    .stress div { text-align: center; }
+    .stress span {
+      display: block;
+      color: #d1fae5;
+      font-size: .76rem;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+    .stress strong { font-size: .98rem; }
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      font-size: .95rem;
+    }
+    .stat:last-child { border-bottom: 0; }
+    .stat span:first-child { color: #d1fae5; }
+    .stat strong { color: #fff; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 12px;
+      font-size: .82rem;
+      font-weight: 800;
+    }
+    .good { background: rgba(255,255,255,.9); color: #047857; }
+    .ok { background: #fef3c7; color: #92400e; }
+    .risk { background: #fecaca; color: #991b1b; }
+    .bar {
+      margin-top: 12px;
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,.12);
+      display: flex;
+    }
+    .bar-capital { background: #fff; }
+    .bar-interest { background: #fca5a5; }
+    .fineprint {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.14);
+      color: #d1fae5;
+      font-size: .8rem;
+      line-height: 1.6;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 56px auto 0;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+    .content h2 {
+      font-size: 1.65rem;
+      margin: 0 0 16px;
+      letter-spacing: -0.03em;
+    }
+    .content h3 {
+      font-size: 1.15rem;
+      margin: 28px 0 10px;
+    }
+    .content p, .content li {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 1rem;
+    }
+    .content ul { padding-left: 20px; }
+    .faq {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 16px;
+    }
+    .related {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .related a {
+      display: block;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 16px;
+      font-weight: 800;
+    }
+    .related a small {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 600;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: #fff;
+      padding: 28px 0 40px;
+      margin-top: 48px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: #64748b;
+      font-size: .85rem;
+      font-weight: 700;
+    }
+    .footer-copy {
+      margin-top: 14px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: .75rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
+      .result-card { position: static; }
+      .field-grid, .related { grid-template-columns: 1fr; }
+      .nav-row { min-height: auto; padding: 12px 0; align-items: flex-start; }
+      .nav-links { width: 100%; }
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
-
-  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
-        </a>
-        <div class="flex flex-col -mt-1 hidden sm:flex">
-          <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
+<body>
+  <header class="site-header">
+    <div class="container nav-row">
+      <a href="/" class="brand" aria-label="Mini-Tools home">
+        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools logo">
+        <span>Mini-Tools<span class="dot">.uk</span></span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/">All Tools</a>
+        <div class="dropdown">
+          <a class="nav-button" href="#" aria-haspopup="true">Categories</a>
+          <div class="dropdown-menu">
+            <a href="/tax">UK Finance<small>Tax, SDLT, mortgage and contractor tools</small></a>
+            <a href="/json">Developer Tools<small>JSON, diff, token and prompt helpers</small></a>
+            <a href="/image">Image &amp; PDF<small>Compress, convert and export files</small></a>
+            <a href="/word">Text &amp; Conversion<small>Word count, units and calculators</small></a>
+            <a href="/password">Security &amp; Privacy<small>Password and local processing tools</small></a>
+          </div>
         </div>
-      </div>
-      <div class="flex items-center gap-4">
-        <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-emerald-500">
-          <option value="en">🇬🇧 English</option>
-          <option value="zh">🇨🇳 简体中文</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="de">🇩🇪 Deutsch</option>
-        </select>
-      </div>
+        <a class="nav-link" href="/blog">Blog</a>
+        <a class="nav-link" href="/about">About</a>
+      </nav>
     </div>
-  </nav>
+  </header>
 
-  <main class="max-w-5xl mx-auto px-6 py-12 flex-1 w-full">
-    <header class="mb-10 text-center lg:text-left">
-      <div class="mb-4">
-        <span id="update-status" class="updated-badge">
-          <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-          Bank of England Rate Ready: 2026
-        </span>
-      </div>
-      <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight leading-tight">
-        UK Mortgage Calculator
-      </h1>
-      <p id="page-desc" class="text-lg text-slate-500 max-w-2xl">
-        Estimate your monthly mortgage payments, total interest costs, and LTV ratio instantly. Smart syncing between property value, deposit, and loan amount.
-      </p>
-    </header>
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">England &amp; Northern Ireland SDLT estimate included</div>
+      <h1>UK Mortgage Calculator</h1>
+      <p>Estimate monthly repayments, total interest, loan-to-value ratio, and a residential SDLT estimate in one place. Built for quick planning, not lender approval.</p>
+    </section>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
-      
-      <div class="lg:col-span-7 bg-white p-8 md:p-10 rounded-3xl border border-slate-100 shadow-sm relative overflow-visible">
-        
-        <h3 class="text-lg font-extrabold text-slate-900 mb-6 flex items-center gap-2 border-b border-slate-100 pb-4" id="section-finance">
-          1. Financial Details
-        </h3>
+    <section class="grid">
+      <div class="card">
+        <div class="section-title">1. Property and borrowing details</div>
 
-        <div class="mb-6">
-          <label id="label-buyer" class="form-label">Buyer Type (For Stamp Duty)</label>
-          <select id="input-buyer" class="form-input form-select cursor-pointer">
-            <option value="ftb" id="opt-ftb">First-Time Buyer (No SDLT up to £425k)</option>
-            <option value="mover" id="opt-mover">Moving Home / Next Time Buyer</option>
-            <option value="second" id="opt-second">Additional Property / Buy-to-Let (+3% Surcharge)</option>
-          </select>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-          <div>
-            <label id="label-property" class="form-label">Property Value (£)</label>
-            <input type="number" id="input-property" placeholder="300000" class="form-input">
+        <div class="field-grid">
+          <div class="field">
+            <label for="propertyPrice">Property value (£)</label>
+            <input class="input" id="propertyPrice" type="number" min="0" step="1000" value="300000">
           </div>
-          <div>
-            <label id="label-amount" class="form-label">Loan Amount (£)</label>
-            <input type="number" id="input-amount" placeholder="240000" class="form-input bg-slate-100">
+          <div class="field">
+            <label for="mortgageAmount">Mortgage amount (£)</label>
+            <input class="input" id="mortgageAmount" type="number" min="0" step="1000" value="240000">
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-          <div>
-            <label id="label-deposit" class="form-label flex justify-between">
-              <span>Deposit (£)</span>
-              <span id="deposit-percent-display" class="text-emerald-600">20%</span>
-            </label>
-            <input type="number" id="input-deposit" placeholder="60000" class="form-input">
+        <div class="field-grid">
+          <div class="field">
+            <label for="depositAmount">Deposit (£)</label>
+            <input class="input" id="depositAmount" type="number" min="0" step="1000" value="60000">
+            <div class="inline-note">Deposit: <strong id="depositPercent">20.0%</strong></div>
+          </div>
+          <div class="field">
+            <label for="buyerType">Buyer type for SDLT</label>
+            <select class="select" id="buyerType">
+              <option value="main">Main residence / moving home</option>
+              <option value="ftb">First-time buyer</option>
+              <option value="additional">Additional property / buy-to-let</option>
+            </select>
           </div>
         </div>
 
-        <h3 class="text-lg font-extrabold text-slate-900 mb-6 flex items-center gap-2 border-b border-slate-100 pb-4 mt-10" id="section-mortgage">
-          2. Mortgage Details
-        </h3>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-          <div>
-            <label id="label-term" class="form-label">Term (Years)</label>
-            <input type="number" id="input-term" value="25" min="1" max="40" class="form-input">
+        <div class="field-grid">
+          <div class="field">
+            <label for="termYears">Mortgage term (years)</label>
+            <input class="input" id="termYears" type="number" min="1" max="40" step="1" value="25">
           </div>
-          <div>
-            <label id="label-rate" class="form-label">Interest Rate (%)</label>
-            <input type="number" id="input-rate" value="4.5" step="0.01" class="form-input">
+          <div class="field">
+            <label for="interestRate">Interest rate (%)</label>
+            <input class="input" id="interestRate" type="number" min="0" step="0.01" value="4.5">
           </div>
         </div>
 
-        <div class="mb-10">
-          <label id="label-type" class="form-label">Repayment Type</label>
-          <select id="input-type" class="form-input form-select cursor-pointer">
-            <option value="repayment" id="opt-repayment">Repayment (Capital + Interest)</option>
-            <option value="interestOnly" id="opt-interest">Interest Only</option>
-          </select>
-        </div>
-
-        <button id="btn-calc" onclick="calculateMortgage()" class="w-full py-5 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl shadow-xl shadow-emerald-500/20 transition-all active:scale-95 text-lg uppercase tracking-wide">
-          Calculate Payments
-        </button>
-      </div>
-
-      <div id="result-area" class="lg:col-span-5 result-card p-8 md:p-10 rounded-3xl shadow-2xl flex flex-col justify-between opacity-50 transition-opacity duration-500 h-fit sticky top-28">
-        <div>
-          <p id="res-label-monthly" class="text-emerald-100 font-bold text-sm uppercase tracking-widest mb-2">Estimated Monthly Payment</p>
-          <h2 id="val-monthly" class="text-5xl lg:text-6xl font-black text-white mb-6 tracking-tight">£0.00</h2>
-          
-          <div class="bg-black/10 rounded-xl p-4 mb-8 border border-white/10">
-            <p id="res-label-stress" class="text-xs text-emerald-100 font-bold uppercase tracking-widest mb-3">Rate Stress Test (Monthly)</p>
-            <div class="grid grid-cols-3 gap-2 text-center">
-                <div><span class="block text-emerald-200 text-xs mb-1">+1% Rate</span><span id="val-stress-1" class="font-bold text-white text-sm">£0</span></div>
-                <div class="border-l border-white/20"><span class="block text-emerald-200 text-xs mb-1">+2% Rate</span><span id="val-stress-2" class="font-bold text-white text-sm">£0</span></div>
-                <div class="border-l border-white/20"><span class="block text-emerald-200 text-xs mb-1">+3% Rate</span><span id="val-stress-3" class="font-bold text-white text-sm">£0</span></div>
-            </div>
+        <div class="field-grid">
+          <div class="field">
+            <label for="repaymentType">Repayment type</label>
+            <select class="select" id="repaymentType">
+              <option value="repayment">Repayment</option>
+              <option value="interestOnly">Interest only</option>
+            </select>
           </div>
-          
-          <div class="space-y-4 text-sm">
-            <div class="flex justify-between items-center bg-white/10 p-3 rounded-xl mb-2 border border-white/10">
-              <span id="res-label-ltv" class="text-white font-bold">LTV Ratio (Loan-to-Value)</span>
-              <span id="val-ltv" class="ltv-badge ltv-good">0%</span>
-            </div>
-
-            <div class="flex justify-between items-center bg-white/10 p-3 rounded-xl mb-4 border border-emerald-300/30">
-              <span id="res-label-sdlt" class="text-white font-bold">Est. Stamp Duty (SDLT)</span>
-              <span id="val-sdlt" class="font-bold text-lg text-yellow-300">£0.00</span>
-            </div>
-            
-            <div class="pt-2">
-                <div class="flex justify-between items-center mb-1">
-                  <span id="res-label-total-repay" class="text-emerald-100 font-medium">Total Amount to Repay</span>
-                  <span id="val-total-repay" class="font-bold text-lg">£0.00</span>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="flex items-center gap-2 text-emerald-100 font-medium">
-                      <span class="w-2 h-2 rounded-full bg-red-300"></span>
-                      <span id="res-label-total-interest">Total Interest Paid</span>
-                  </span>
-                  <span id="val-total-interest" class="font-bold text-lg text-red-200">£0.00</span>
-                </div>
-                <div class="ratio-bar-container">
-                    <div id="bar-capital" class="ratio-bar-capital" style="width: 50%"></div>
-                    <div id="bar-interest" class="ratio-bar-interest" style="width: 50%"></div>
-                </div>
-            </div>
+          <div class="field">
+            <label for="nonResident">Non-UK resident surcharge</label>
+            <select class="select" id="nonResident">
+              <option value="no">No</option>
+              <option value="yes">Yes, add 2%</option>
+            </select>
           </div>
         </div>
 
-        <div class="mt-8 p-4 bg-black/10 rounded-2xl text-xs text-emerald-50 leading-relaxed font-medium">
-          <span id="disclaimer-text">* Disclaimer: SDLT rules are based on 2025/2026 standard UK thresholds. This tool provides estimates for illustrative purposes only. Your actual rate and LTV limits depend entirely on your specific lender's criteria.</span>
-        </div>
+        <button class="calc-btn" id="calcBtn" type="button">Calculate mortgage</button>
       </div>
-    </div>
 
-    <div class="mb-16 bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
-      <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
-        <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center shrink-0 border border-emerald-100">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-        </div>
-        <div class="flex-1 w-full">
-          <h4 id="embed-title" class="text-lg font-extrabold text-slate-900 mb-2">Embed this calculator on your own website</h4>
-          <p id="embed-desc" class="text-sm text-slate-500 mb-4 leading-relaxed font-medium">Are you a property blogger, estate agent, or financial advisor? Copy the code below to embed our lightweight, ad-free calculator directly into your articles for free.</p>
-          <div class="relative group w-full">
-            <textarea readonly class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-600 outline-none resize-none h-20 focus:ring-2 focus:ring-emerald-500 transition-shadow cursor-pointer" onclick="this.select(); document.getElementById('copy-hint').classList.remove('hidden'); setTimeout(()=>document.getElementById('copy-hint').classList.add('hidden'), 2000);">&lt;iframe src="https://mini-tools.uk/embed-mortgage" width="100%" height="450" frameborder="0" scrolling="no" style="border-radius:12px; max-width: 400px; margin: 0 auto; display: block;"&gt;&lt;/iframe&gt;</textarea>
-            <span id="copy-hint" class="hidden absolute top-3 right-3 bg-slate-800 text-white text-[10px] font-bold px-2 py-1 rounded shadow-md">Copied!</span>
-          </div>
-        </div>
-      </div>
-    </div>
+      <aside class="card result-card" id="resultCard">
+        <div class="summary-kicker">Estimated monthly payment</div>
+        <div class="monthly" id="monthlyPayment">£0.00</div>
 
-    <div id="seo-container" class="prose-content">
-      <h2>How to Calculate Your Home Loan & Repayments?</h2>
-      <p>Buying a home in the UK is a significant financial commitment. Whether you are a First-Time Buyer stepping onto the property ladder, or a homeowner looking to remortgage, understanding your potential monthly outgoings is crucial. Our <strong>UK Mortgage Calculator</strong> uses exact financial formulas to help you <strong>calculate home loan</strong> metrics instantly, adapting to different Bank of England base rates and terms.</p>
-      <h3>What is LTV (Loan-to-Value)?</h3>
-      <p><strong>LTV (Loan-to-Value)</strong> is a critical metric. It represents the ratio of the loan amount compared to the total value of the property. For example, if you buy a £300,000 house and put down a deposit of £60,000, you need a mortgage of £240,000. Your LTV is calculated as: <code>(£240,000 / £300,000) * 100 = 80%</code>. A lower LTV grants you access to cheaper, more competitive interest rates.</p>
-      <h2>Frequently Asked Questions (FAQ)</h2>
-      <div class="faq-box">
-        <h4>How much will my mortgage cost?</h4>
-        <p class="mb-0">The total cost of your mortgage depends on the property value, your deposit, the interest rate, and the loan term. Our calculator shows you not just the monthly payment, but also the <strong>Total Interest Paid</strong> over the lifetime of the loan, giving you the true cost of borrowing.</p>
-      </div>
-      <div class="faq-box">
-        <h4>How much will my mortgage go up?</h4>
-        <p class="mb-0">If Bank of England base rates increase, or your fixed-rate deal ends and you move to a Standard Variable Rate (SVR), your payments can rise significantly. You can use this calculator to test different, higher interest rates to see exactly <strong>how much your mortgage will go up</strong> under various financial stress scenarios.</p>
-      </div>
-      <div class="faq-box">
-        <h4>What would my mortgage payment be?</h4>
-        <p class="mb-0">To find out exactly <strong>what your mortgage payment would be</strong>, simply enter your property value, deposit amount, interest rate, and term length above. The tool will instantly calculate your estimated monthly repayment.</p>
-      </div>
-      <div class="faq-box">
-        <h4>How to calculate mortgage home loan payments?</h4>
-        <p class="mb-0">Calculating a home loan manually requires a complex amortization formula. Fortunately, our free online <strong>mortgage repayment calculator UK</strong> automates this entirely. Just plug in your numbers to calculate your mortgage repayment instantly without the math headache.</p>
-      </div>
-    </div>
+        <div class="stress">
+          <div><span>+1% rate</span><strong id="stress1">£0</strong></div>
+          <div><span>+2% rate</span><strong id="stress2">£0</strong></div>
+          <div><span>+3% rate</span><strong id="stress3">£0</strong></div>
+        </div>
 
+        <div class="stat">
+          <span>LTV ratio</span>
+          <strong><span id="ltvBadge" class="badge good">0.0%</span></strong>
+        </div>
+        <div class="stat">
+          <span>Estimated SDLT</span>
+          <strong id="sdltValue">£0.00</strong>
+        </div>
+        <div class="stat">
+          <span>Total amount repaid</span>
+          <strong id="totalRepay">£0.00</strong>
+        </div>
+        <div class="stat">
+          <span>Total interest paid</span>
+          <strong id="totalInterest">£0.00</strong>
+        </div>
+        <div class="bar" aria-hidden="true">
+          <div class="bar-capital" id="barCapital" style="width: 50%"></div>
+          <div class="bar-interest" id="barInterest" style="width: 50%"></div>
+        </div>
+
+        <div class="fineprint">This is a planning estimate. Mortgage offers, lender affordability checks, fees, insurance, and exact SDLT treatment can vary by situation. SDLT here is for residential purchases in England and Northern Ireland only.</div>
+      </aside>
+    </section>
+
+    <section class="content">
+      <h2>How this mortgage calculator works</h2>
+      <p>This page estimates monthly repayments using a standard amortisation formula for repayment mortgages, or monthly interest for interest-only mortgages. It also shows the total interest over the full term and calculates loan-to-value, which is the mortgage amount divided by the property value.</p>
+
+      <h3>What LTV means</h3>
+      <p>LTV stands for loan-to-value. A mortgage of £240,000 on a property worth £300,000 gives an 80% LTV. Lower LTVs often unlock better rates, while higher LTVs can mean fewer products and higher costs.</p>
+
+      <div class="faq">
+        <h3>Does this calculator include Stamp Duty?</h3>
+        <p>Yes. It includes an estimate of residential SDLT for England and Northern Ireland. It supports main residence purchases, first-time buyer relief, the higher rates for additional properties, and the optional 2% non-UK resident surcharge.</p>
+      </div>
+
+      <div class="faq">
+        <h3>What is the difference between repayment and interest-only?</h3>
+        <p>Repayment mortgages gradually pay down the balance as well as the interest, so the loan reaches zero by the end of the term if payments are made as planned. Interest-only mortgages estimate the monthly interest charge, but the original loan balance still needs repaying separately at the end.</p>
+      </div>
+
+      <div class="faq">
+        <h3>Why test higher rates?</h3>
+        <p>Rate stress testing gives a quick view of what your budget might look like if your fixed deal ends or rates move higher. It is not a lender affordability check, but it is useful for planning.</p>
+      </div>
+
+      <h2>Related tools</h2>
+      <div class="related">
+        <a href="/stamp-duty">Stamp Duty calculator<small>Residential SDLT for England and Northern Ireland</small></a>
+        <a href="/tax">UK tax calculator<small>Estimate PAYE, NI and take-home pay</small></a>
+        <a href="/vat">VAT calculator<small>Add or remove VAT quickly</small></a>
+      </div>
+    </section>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-12 w-full">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <div class="flex justify-center gap-6 mb-4 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <a href="/" class="hover:text-emerald-600 transition-colors transition-transform active:scale-95 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
-        </a>
-        <a href="/about" id="footer-about" class="hover:text-emerald-600 transition-colors">About Us</a>
-        <a href="/blog" id="footer-blog" class="hover:text-emerald-600 transition-colors">Blog</a>
-        <a href="/privacy" id="footer-privacy" class="hover:text-emerald-600 transition-colors">Privacy Policy</a>
-        <a href="/contact" id="footer-contact" class="hover:text-emerald-600 transition-colors">Contact Us</a>
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/blog">Blog</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/contact">Contact</a>
       </div>
-      <p class="text-[10px] text-slate-300 font-bold uppercase tracking-widest">
-        © 2026 MINI-TOOLS.UK — PRECISION MORTGAGE UTILITIES
-      </p>
+      <div class="footer-copy">© 2026 Mini-Tools.uk — UK finance planning tools</div>
     </div>
   </footer>
 
   <script>
-    // 🌟 核心优化 4：整合所有语言的 Meta (带长尾 Keywords) 和富文本到字典中
-    const i18n = {
-      en: {
-        metaTitle: "Free UK Mortgage Calculator | Calculate Home Loan & Repayments",
-        metaDesc: "Calculate your home loan instantly. Use our free UK mortgage repayment calculator to find out how much your mortgage will cost, go up, and what your monthly payment would be.",
-        metaKeywords: "UK Mortgage Calculator 2026, calculate home loan, mortgage repayment calculator uk, monthly mortgage payments, how much will my mortgage cost, LTV calculator UK, stamp duty calculator",
-        update: "Bank of England Rate Ready: 2026",
-        title: "UK Mortgage Calculator", 
-        desc: "Estimate your monthly mortgage payments, total interest costs, and LTV ratio instantly. Smart syncing between property value, deposit, and loan amount.",
-        secFinance: "1. Financial Details", secMortgage: "2. Mortgage Details",
-        labelBuyer: "Buyer Type (For Stamp Duty)",
-        optFtb: "First-Time Buyer (No SDLT up to £425k)", optMover: "Moving Home / Next Time Buyer", optSecond: "Additional Property (+3% Surcharge)",
-        labelProp: "Property Value (£)", labelAmt: "Loan Amount (£)", labelDep: "Deposit (£)",
-        labelTerm: "Term (Years)", labelRate: "Interest Rate (%)", labelType: "Repayment Type",
-        optRepay: "Repayment (Capital + Interest)", optInterest: "Interest Only",
-        btnCalc: "Calculate Payments",
-        resMonthly: "Estimated Monthly Payment", 
-        resStress: "Rate Stress Test (Monthly)",
-        resLTV: "LTV Ratio (Loan-to-Value)", 
-        resSDLT: "Est. Stamp Duty (SDLT)",
-        resTotalRepay: "Total Amount to Repay", resTotalInt: "Total Interest Paid",
-        disclaimer: "* Disclaimer: SDLT rules are based on standard UK thresholds. This tool provides estimates for illustrative purposes only. Your actual rate and LTV limits depend entirely on your specific lender's criteria.",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us", footerBlog: "Blog",
-        embedTitle: "Embed this calculator on your own website", embedDesc: "Are you a property blogger, estate agent, or financial advisor? Copy the code below to embed our lightweight, ad-free calculator directly into your articles for free.",
-        seoHtml: `
-          <h2>How to Calculate Your Home Loan & Repayments?</h2>
-          <p>Buying a home in the UK is a significant financial commitment. Whether you are a First-Time Buyer stepping onto the property ladder, or a homeowner looking to remortgage, understanding your potential monthly outgoings is crucial. Our <strong>UK Mortgage Calculator</strong> uses exact financial formulas to help you <strong>calculate home loan</strong> metrics instantly, adapting to different Bank of England base rates and terms.</p>
-          <h3>What is LTV (Loan-to-Value)?</h3>
-          <p><strong>LTV (Loan-to-Value)</strong> is a critical metric. It represents the ratio of the loan amount compared to the total value of the property. For example, if you buy a £300,000 house and put down a deposit of £60,000, you need a mortgage of £240,000. Your LTV is calculated as: <code>(£240,000 / £300,000) * 100 = 80%</code>. A lower LTV grants you access to cheaper, more competitive interest rates.</p>
-          <h2>Frequently Asked Questions (FAQ)</h2>
-          <div class="faq-box">
-            <h4>How much will my mortgage cost?</h4>
-            <p class="mb-0">The total cost of your mortgage depends on the property value, your deposit, the interest rate, and the loan term. Our calculator shows you not just the monthly payment, but also the <strong>Total Interest Paid</strong> over the lifetime of the loan, giving you the true cost of borrowing.</p>
-          </div>
-          <div class="faq-box">
-            <h4>How much will my mortgage go up?</h4>
-            <p class="mb-0">If Bank of England base rates increase, or your fixed-rate deal ends and you move to a Standard Variable Rate (SVR), your payments can rise significantly. You can use this calculator to test different, higher interest rates to see exactly <strong>how much your mortgage will go up</strong> under various financial stress scenarios.</p>
-          </div>
-          <div class="faq-box">
-            <h4>What would my mortgage payment be?</h4>
-            <p class="mb-0">To find out exactly <strong>what your mortgage payment would be</strong>, simply enter your property value, deposit amount, interest rate, and term length above. The tool will instantly calculate your estimated monthly repayment.</p>
-          </div>
-          <div class="faq-box">
-            <h4>How to calculate mortgage home loan payments?</h4>
-            <p class="mb-0">Calculating a home loan manually requires a complex amortization formula. Fortunately, our free online <strong>mortgage repayment calculator UK</strong> automates this entirely. Just plug in your numbers to calculate your mortgage repayment instantly without the math headache.</p>
-          </div>`
-      },
-      zh: {
-        metaTitle: "英国房贷计算器 2026 | 月供、首付 LTV 与印花税估算",
-        metaDesc: "精准的英国房贷计算器。自动反算首付与贷款额，智能评估 LTV 健康度与加息压力测试。支持本息同还及仅还利息模式。",
-        metaKeywords: "英国房贷计算器, 英国购房印花税计算, LTV贷款成数怎么算, 英国房贷加息压力测试, 2026英国买房税费估算, 英国房贷月供计算",
-        update: "已同步 2026 年英国基准利率规则",
-        title: "英国房贷计算器", 
-        desc: "快速估算您的每月还款额、利息总额以及 LTV 贷款成数。独家首付、总价与贷款额智能联动计算。",
-        secFinance: "1. 房屋资金明细", secMortgage: "2. 贷款条件设定",
-        labelBuyer: "买家身份 (用于估算印花税)",
-        optFtb: "首次购房者 (42万5千镑内免税)", optMover: "非首次购房/置换买家", optSecond: "购买二套房/投资房 (+3% 附加税)",
-        labelProp: "房产估值 / 总价 (£)", labelAmt: "实际贷款额 (£)", labelDep: "首付金额 (£)",
-        labelTerm: "贷款期限 (年)", labelRate: "年利率 (%)", labelType: "还款方式",
-        optRepay: "本息同还 (Repayment)", optInterest: "仅还利息 (Interest Only)",
-        btnCalc: "立即计算详细账单",
-        resMonthly: "预计每月还款 (月供)", 
-        resStress: "加息压力测试 (月供)",
-        resLTV: "LTV (贷款占房价比例)", 
-        resSDLT: "预计印花税 (SDLT)",
-        resTotalRepay: "预计总还款额", resTotalInt: "预计利息总支出",
-        disclaimer: "* 免责声明：印花税基于当前英国标准税率。本计算器仅供参考估算。您实际能获批的利率和最高贷款额取决于贷款机构对您个人信用的严格审查。",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们", footerBlog: "官方博客",
-        embedTitle: "将此计算器嵌入到您自己的网站或博客", embedDesc: "您是房产博主、中介或财务顾问吗？复制下方代码，即可将我们轻量、无广告的计算器免费嵌入到您的文章中。",
-        seoHtml: `
-          <h2>2026 英国购房：房贷计算与购房财务指南</h2>
-          <p>在英国购房是一项重大的财务承诺。无论您是首次购房者还是准备重新抵押贷款 (Remortgage)，清晰掌握每月的还款压力都至关重要。我们的<strong>英国房贷计算器</strong>采用标准的银行摊销公式，帮助您精准评估不同的基准利率和贷款期限对您财务预算的影响。</p>
-          <h3>核心概念：英国 LTV 贷款成数怎么算？</h3>
-          <p><strong>LTV (Loan-to-Value) 贷款成数</strong> 是评估贷款风险的最重要指标。例如，如果您购买一套价值 £300,000 的房产，首付了 £60,000，那么您需要贷款 £240,000。您的 LTV 就是 80%。通常情况下，LTV 越低，您能申请到的利率就越低。我们的工具内置了 LTV 健康度指示器，帮您瞬间判断购房资金结构是否安全。</p>
-          <h2>英国买房常见问题解答 (FAQ)</h2>
-          <div class="faq-box">
-            <h4>如何应对英国房贷加息压力测试？</h4>
-            <p class="mb-0">当您的固定利率 (Fixed-rate) 到期，或者央行加息时，月供可能会急剧上升。您可以在本计算器自带的<strong>加息压力测试</strong>模块中，立刻看到在基准利率上涨 1%、2% 或 3% 的情况下，您的月供和总利息会增加多少，从而提前做好资金储备。</p>
-          </div>
-          <div class="faq-box">
-            <h4>这个计算结果包含英国购房印花税 (SDLT) 计算吗？</h4>
-            <p class="mb-0">是的，本工具能够自动为您进行<strong>英国购房印花税计算</strong>。只需选择您的购房者身份（首次购房者、换房者或购买二套房），系统会自动结合最新税率门槛计算出您需要准备的印花税 (SDLT) 预估额。</p>
-          </div>`
-      },
-      es: {
-        metaTitle: "Calculadora de Hipotecas UK 2026 | Pagos Mensuales y LTV",
-        metaDesc: "Calculadora de hipotecas del Reino Unido. Calcule pagos mensuales, intereses totales y LTV.",
-        metaKeywords: "Calculadora de Hipotecas, hipoteca UK, calcular prestamo, LTV, impuestos",
-        update: "Tasas Listas para 2026",
-        title: "Calculadora de Hipotecas UK", 
-        desc: "Estime sus pagos hipotecarios mensuales, costos de interés y LTV al instante.",
-        secFinance: "1. Detalles Financieros", secMortgage: "2. Detalles de la Hipoteca",
-        labelBuyer: "Tipo de Comprador", optFtb: "Primer Comprador", optMover: "Mudanza", optSecond: "Segunda Vivienda",
-        labelProp: "Valor Propiedad (£)", labelAmt: "Monto del Préstamo (£)", labelDep: "Depósito Inicial (£)",
-        labelTerm: "Plazo (Años)", labelRate: "Tasa de Interés (%)", labelType: "Tipo de Reembolso",
-        optRepay: "Capital + Intereses", optInterest: "Solo Intereses",
-        btnCalc: "Calcular Pagos",
-        resMonthly: "Pago Mensual Estimado", resStress: "Prueba de Estrés", resLTV: "Ratio LTV", resSDLT: "Impuesto Estimado (SDLT)", resTotalRepay: "Total a Pagar", resTotalInt: "Total Intereses",
-        disclaimer: "* Aviso: Esta herramienta proporciona estimaciones. Su tasa real depende del prestamista.",
-        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto", footerBlog: "Blog",
-        embedTitle: "Incruste esta calculadora en su propio sitio web", embedDesc: "¿Es usted un bloguero inmobiliario o asesor financiero? Copie el código a continuación para incrustar nuestra calculadora directamente en sus artículos de forma gratuita.",
-        seoHtml: `
-          <h2>Cómo Usar la Calculadora de Hipotecas UK</h2>
-          <p>Comprar una casa en el Reino Unido es un gran compromiso financiero. Nuestra <strong>Calculadora de Hipotecas</strong> le ayuda a comprender el impacto de diferentes tasas de interés y plazos en su presupuesto mensual. Está diseñada con las reglas de préstamos estándar del Reino Unido.</p>
-          <h3>¿Qué es el LTV (Loan-to-Value)?</h3>
-          <p>El <strong>LTV</strong> es la proporción del préstamo en comparación con el valor de la propiedad. Por ejemplo, si compra una casa de £300,000 y da un depósito de £60,000, necesita un préstamo de £240,000. Su LTV es del 80%. Generalmente, un LTV más bajo le permite acceder a mejores tasas de interés en bancos del Reino Unido.</p>
-          <h2>Preguntas Frecuentes (FAQ)</h2>
-          <div class="faq-box">
-            <h4>¿Cuánto costará mi hipoteca en total?</h4>
-            <p class="mb-0">Nuestra calculadora le muestra no solo el pago mensual, sino también el "Total de Intereses Pagados", dándole una visión real del costo de su préstamo.</p>
-          </div>
-          <div class="faq-box">
-            <h4>¿Cuánto subiría mi hipoteca si cambian las tasas?</h4>
-            <p class="mb-0">Puede usar esta herramienta para probar diferentes tasas de interés y ver exactamente cuánto aumentaría su pago mensual en diferentes escenarios financieros.</p>
-          </div>`
-      },
-      fr: {
-        metaTitle: "Calculatrice de Prêt Immobilier UK 2026",
-        metaDesc: "Estimez vos mensualités de prêt immobilier au Royaume-Uni, les intérêts totaux et le ratio LTV.",
-        metaKeywords: "Calculatrice de Prêt Immobilier, prêt UK, LTV, mensualités, intérêts",
-        update: "Prêt pour les taux 2026",
-        title: "Calculatrice de Prêt UK", 
-        desc: "Estimez instantanément vos mensualités, le coût total des intérêts et le ratio LTV.",
-        secFinance: "1. Détails Financiers", secMortgage: "2. Détails du Prêt",
-        labelBuyer: "Type d'Acheteur", optFtb: "Premier Achat", optMover: "Déménagement", optSecond: "Résidence Secondaire",
-        labelProp: "Valeur du Bien (£)", labelAmt: "Montant du Prêt (£)", labelDep: "Apport (£)",
-        labelTerm: "Durée (Années)", labelRate: "Taux d'Intérêt (%)", labelType: "Type de Remboursement",
-        optRepay: "Capital + Intérêts", optInterest: "Intérêts Seuls",
-        btnCalc: "Calculer les Mensualités",
-        resMonthly: "Mensualité Estimée", resStress: "Test de Résistance", resLTV: "Ratio LTV", resSDLT: "Frais de Timbre (SDLT)", resTotalRepay: "Montant Total à Rembourser", resTotalInt: "Total des Intérêts",
-        disclaimer: "* Avertissement : Les résultats sont des estimations. Votre taux dépend des critères de la banque.",
-        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact", footerBlog: "Blog",
-        embedTitle: "Intégrez cette calculatrice sur votre propre site web", embedDesc: "Êtes-vous un blogueur immobilier ou un conseiller financier ? Copiez le code ci-dessous pour intégrer notre calculatrice directement dans vos articles gratuitement.",
-        seoHtml: `
-          <h2>Calculatrice de Prêt Immobilier UK</h2>
-          <p>Acheter une maison au Royaume-Uni est un engagement majeur. Notre <strong>Calculatrice de Prêt Immobilier</strong> vous aide à comprendre l'impact des taux d'intérêt et de la durée sur vos mensualités.</p>
-          <h3>Qu'est-ce que le LTV (Loan-to-Value) ?</h3>
-          <p>Le <strong>LTV</strong> est le ratio entre le montant du prêt et la valeur du bien. Si vous achetez une maison de 300 000 £ avec un apport de 60 000 £, votre prêt est de 240 000 £, soit un LTV de 80 %. Un LTV plus faible permet d'obtenir de meilleurs taux auprès des banques britanniques.</p>
-          <h2>Foire Aux Questions (FAQ)</h2>
-          <div class="faq-box">
-            <h4>Combien coûtera mon prêt au total ?</h4>
-            <p class="mb-0">Notre outil vous montre non seulement la mensualité, mais aussi le "Total des Intérêts Payés" sur toute la durée du prêt.</p>
-          </div>
-          <div class="faq-box">
-            <h4>De combien ma mensualité augmentera-t-elle si les taux changent ?</h4>
-            <p class="mb-0">Vous pouvez utiliser cette calculatrice pour tester différents taux d'intérêt et voir exactement de combien votre mensualité augmenterait.</p>
-          </div>`
-      },
-      de: {
-        metaTitle: "UK Hypothekenrechner 2026 | Monatliche Raten & LTV",
-        metaDesc: "Kostenloser Hypothekenrechner für Großbritannien. Berechnen Sie Raten, Zinsen und LTV.",
-        metaKeywords: "UK Hypothekenrechner, Immobilienkredit berechnen, LTV, monatliche Raten",
-        update: "Bereit für Zinsen 2026",
-        title: "UK Hypothekenrechner", 
-        desc: "Schätzen Sie Ihre monatlichen Raten, Zinskosten und das LTV-Verhältnis sofort.",
-        secFinance: "1. Finanzielle Details", secMortgage: "2. Hypothekendetails",
-        labelBuyer: "Käufertyp", optFtb: "Erstkäufer", optMover: "Umzug", optSecond: "Zweitwohnsitz",
-        labelProp: "Immobilienwert (£)", labelAmt: "Kreditbetrag (£)", labelDep: "Anzahlung (£)",
-        labelTerm: "Laufzeit (Jahre)", labelRate: "Zinssatz (%)", labelType: "Rückzahlungsart",
-        optRepay: "Tilgung + Zinsen", optInterest: "Nur Zinsen",
-        btnCalc: "Zahlungen Berechnen",
-        resMonthly: "Geschätzte Rate", resStress: "Stresstest (Zinsen)", resLTV: "LTV-Verhältnis", resSDLT: "Geschätzte Steuer (SDLT)", resTotalRepay: "Gesamtrückzahlung", resTotalInt: "Gezahlte Zinsen",
-        disclaimer: "* Haftungsausschluss: Diese Schätzungen dienen nur zur Veranschaulichung. Der tatsächliche Zinssatz hängt vom Kreditgeber ab.",
-        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt", footerBlog: "Blog",
-        embedTitle: "Binden Sie diesen Rechner auf Ihrer eigenen Website ein", embedDesc: "Sind Sie ein Immobilien-Blogger oder Finanzberater? Kopieren Sie den folgenden Code, um unseren Rechner kostenlos in Ihre Artikel einzubinden.",
-        seoHtml: `
-          <h2>UK Hypothekenrechner (2026)</h2>
-          <p>Der Kauf eines Hauses in Großbritannien ist eine große finanzielle Verpflichtung. Unser <strong>Hypothekenrechner</strong> hilft Ihnen, die Auswirkungen verschiedener Zinssätze und Laufzeiten auf Ihr monatliches Budget zu verstehen.</p>
-          <h3>Was ist der LTV (Loan-to-Value)?</h3>
-          <p>Der <strong>LTV</strong> ist das Verhältnis des Kreditbetrags zum Immobilienwert. Bei einem Haus für £300.000 und einer Anzahlung von £60.000 benötigen Sie eine Hypothek von £240.000. Ihr LTV beträgt 80%. Ein niedrigerer LTV ermöglicht Ihnen in der Regel bessere Zinssätze.</p>
-          <h2>Häufig Gestellte Fragen (FAQ)</h2>
-          <div class="faq-box">
-            <h4>Wie viel wird meine Hypothek insgesamt kosten?</h4>
-            <p class="mb-0">Unser Rechner zeigt Ihnen nicht nur die monatliche Rate, sondern auch die "Gezahlten Gesamtzinsen", damit Sie die wahren Kosten Ihres Darlehens kennen.</p>
-          </div>
-          <div class="faq-box">
-            <h4>Wie stark könnte meine Hypothek steigen?</h4>
-            <p class="mb-0">Sie können dieses Tool verwenden, um verschiedene Zinssätze zu testen und genau zu sehen, um wie viel Ihre Hypothek bei steigenden Zinsen steigen würde.</p>
-          </div>`
-      }
-    };
+    const propertyPrice = document.getElementById('propertyPrice');
+    const mortgageAmount = document.getElementById('mortgageAmount');
+    const depositAmount = document.getElementById('depositAmount');
+    const depositPercent = document.getElementById('depositPercent');
+    const termYears = document.getElementById('termYears');
+    const interestRate = document.getElementById('interestRate');
+    const repaymentType = document.getElementById('repaymentType');
+    const buyerType = document.getElementById('buyerType');
+    const nonResident = document.getElementById('nonResident');
+    const calcBtn = document.getElementById('calcBtn');
 
-    const inProp = document.getElementById('input-property');
-    const inAmt = document.getElementById('input-amount');
-    const inDep = document.getElementById('input-deposit');
-    const inBuyer = document.getElementById('input-buyer');
-    const depDisplay = document.getElementById('deposit-percent-display');
+    const monthlyPayment = document.getElementById('monthlyPayment');
+    const stress1 = document.getElementById('stress1');
+    const stress2 = document.getElementById('stress2');
+    const stress3 = document.getElementById('stress3');
+    const ltvBadge = document.getElementById('ltvBadge');
+    const sdltValue = document.getElementById('sdltValue');
+    const totalRepay = document.getElementById('totalRepay');
+    const totalInterest = document.getElementById('totalInterest');
+    const barCapital = document.getElementById('barCapital');
+    const barInterest = document.getElementById('barInterest');
 
-    function updateFromPropertyOrDeposit() {
-      const p = parseFloat(inProp.value) || 0;
-      const d = parseFloat(inDep.value) || 0;
-      if (p > 0 && d >= 0 && d <= p) {
-        const amt = p - d;
-        inAmt.value = amt.toFixed(0);
-        const percent = (d / p) * 100;
-        depDisplay.innerText = percent.toFixed(1) + "%";
+    function formatGBP(value) {
+      return new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value || 0);
+    }
+
+    function syncFromDeposit() {
+      const price = parseFloat(propertyPrice.value) || 0;
+      const deposit = parseFloat(depositAmount.value) || 0;
+      if (price > 0 && deposit >= 0) {
+        const amount = Math.max(price - deposit, 0);
+        mortgageAmount.value = Math.round(amount);
+        depositPercent.textContent = `${((deposit / price) * 100 || 0).toFixed(1)}%`;
       } else {
-        depDisplay.innerText = "0%";
+        depositPercent.textContent = '0.0%';
       }
     }
 
-    function updateFromAmount() {
-      const p = parseFloat(inProp.value) || 0;
-      const a = parseFloat(inAmt.value) || 0;
-      if (p > 0 && a > 0 && a <= p) {
-        const d = p - a;
-        inDep.value = d.toFixed(0);
-        const percent = (d / p) * 100;
-        depDisplay.innerText = percent.toFixed(1) + "%";
-      } else if (p === 0 && a > 0) {
-        inDep.value = "0";
-        depDisplay.innerText = "0%";
+    function syncFromMortgage() {
+      const price = parseFloat(propertyPrice.value) || 0;
+      const amount = parseFloat(mortgageAmount.value) || 0;
+      if (price > 0 && amount >= 0) {
+        const deposit = Math.max(price - amount, 0);
+        depositAmount.value = Math.round(deposit);
+        depositPercent.textContent = `${((deposit / price) * 100 || 0).toFixed(1)}%`;
+      } else {
+        depositPercent.textContent = '0.0%';
       }
     }
 
-    inProp.addEventListener('input', updateFromPropertyOrDeposit);
-    inDep.addEventListener('input', updateFromPropertyOrDeposit);
-    inAmt.addEventListener('input', updateFromAmount);
-
-    function updateLanguage() {
-      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
-      const data = i18n[lang] || i18n['en'];
-
-      document.documentElement.lang = lang;
-      
-      // 🌟 动态接管 Meta 数据：Title, Description 和核心长尾 Keywords
-      document.title = data.metaTitle;
-      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
-      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
-      
-      document.getElementById('update-status').innerHTML = `<span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> ${data.update}`;
-      document.getElementById('page-title').innerText = data.title;
-      document.getElementById('page-desc').innerText = data.desc;
-      
-      document.getElementById('section-finance').innerHTML = data.secFinance;
-      document.getElementById('section-mortgage').innerHTML = data.secMortgage;
-      
-      document.getElementById('label-buyer').innerText = data.labelBuyer;
-      document.getElementById('opt-ftb').innerText = data.optFtb;
-      document.getElementById('opt-mover').innerText = data.optMover;
-      document.getElementById('opt-second').innerText = data.optSecond;
-
-      document.getElementById('label-property').innerText = data.labelProp;
-      document.getElementById('label-amount').innerText = data.labelAmt;
-      const currentPercent = document.getElementById('deposit-percent-display').innerText;
-      document.getElementById('label-deposit').innerHTML = `<span>${data.labelDep}</span><span id="deposit-percent-display" class="text-emerald-600">${currentPercent}</span>`;
-      
-      document.getElementById('label-term').innerText = data.labelTerm;
-      document.getElementById('label-rate').innerText = data.labelRate;
-      document.getElementById('label-type').innerText = data.labelType;
-      
-      document.getElementById('opt-repayment').innerText = data.optRepay;
-      document.getElementById('opt-interest').innerText = data.optInterest;
-      document.getElementById('btn-calc').innerText = data.btnCalc;
-      
-      document.getElementById('res-label-monthly').innerText = data.resMonthly;
-      document.getElementById('res-label-stress').innerText = data.resStress;
-      document.getElementById('res-label-ltv').innerText = data.resLTV;
-      document.getElementById('res-label-sdlt').innerText = data.resSDLT;
-      document.getElementById('res-label-total-repay').innerText = data.resTotalRepay;
-      document.getElementById('res-label-total-interest').innerText = data.resTotalInt;
-      document.getElementById('disclaimer-text').innerText = data.disclaimer;
-      
-      document.getElementById('footer-about').innerText = data.footerAbout;
-      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
-      document.getElementById('footer-contact').innerText = data.footerContact;
-      const footerBlog = document.getElementById('footer-blog');
-      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
-      
-      document.getElementById('embed-title').innerText = data.embedTitle;
-      document.getElementById('embed-desc').innerText = data.embedDesc;
-
-      // 🌟 动态注入纯净的 SEO 长文内容，消灭多语言混杂代码
-      const seoContainer = document.getElementById('seo-container');
-      if (data.seoHtml) {
-          seoContainer.style.opacity = 0;
-          setTimeout(() => {
-              seoContainer.innerHTML = data.seoHtml;
-              seoContainer.style.opacity = 1;
-          }, 150);
-      }
-
-      document.getElementById('lang-select').value = lang;
-      
-      // 去除内链的 .html 后缀
-      document.querySelectorAll('a').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
-          try {
-            const url = new URL(href, window.location.origin);
-            url.searchParams.set('lang', lang);
-            link.href = url.pathname + url.search;
-          } catch(e) {}
-        }
-      });
+    function paymentEstimate(amount, annualRate, years, type) {
+      const n = years * 12;
+      if (n <= 0) return 0;
+      if (annualRate === 0) return type === 'repayment' ? amount / n : 0;
+      const r = annualRate / 100 / 12;
+      if (type === 'interestOnly') return amount * r;
+      const x = Math.pow(1 + r, n);
+      return amount * r * x / (x - 1);
     }
 
-    function calculateSDLT(propertyValue, buyerType) {
-        let tax = 0;
-        
-        if (buyerType === 'ftb' && propertyValue <= 625000) {
-            if (propertyValue > 425000) {
-                tax = (propertyValue - 425000) * 0.05;
-            }
-            return tax;
-        }
+    function residentialSdlt(price, buyer, nonUkResident) {
+      if (price <= 0) return 0;
+      const baseBandsMain = [
+        [125000, 0.00],
+        [250000, 0.02],
+        [925000, 0.05],
+        [1500000, 0.10],
+        [Infinity, 0.12]
+      ];
 
-        let bands = [
-            { limit: 250000, rate: 0.00 },
-            { limit: 925000, rate: 0.05 },
-            { limit: 1500000, rate: 0.10 },
-            { limit: Infinity, rate: 0.12 }
+      let tax = 0;
+
+      if (buyer === 'ftb' && price <= 500000) {
+        const bands = [
+          [300000, 0.00],
+          [500000, 0.05]
         ];
-
-        let previousLimit = 0;
-        for (let band of bands) {
-            if (propertyValue > previousLimit) {
-                let taxableInThisBand = Math.min(propertyValue, band.limit) - previousLimit;
-                tax += taxableInThisBand * band.rate;
-            }
-            previousLimit = band.limit;
+        let prev = 0;
+        for (const [limit, rate] of bands) {
+          if (price > prev) {
+            const taxable = Math.min(price, limit) - prev;
+            tax += taxable * rate;
+          }
+          prev = limit;
         }
-
-        if (buyerType === 'second') {
-            tax += propertyValue * 0.03;
+      } else {
+        let prev = 0;
+        const addOn = buyer === 'additional' ? 0.05 : 0;
+        const nonResAdd = nonUkResident ? 0.02 : 0;
+        for (const [limit, rate] of baseBandsMain) {
+          if (price > prev) {
+            const taxable = Math.min(price, limit) - prev;
+            tax += taxable * (rate + addOn + nonResAdd);
+          }
+          prev = limit;
         }
-
         return tax;
-    }
-
-    function calculateMonthlyInstallment(amt, annualRate, years, type) {
-        if(annualRate === 0) return amt / (years * 12);
-        const monthlyRate = (annualRate / 100) / 12;
-        const numberOfPayments = years * 12;
-        if (type === 'repayment') {
-            const x = Math.pow(1 + monthlyRate, numberOfPayments);
-            return (amt * x * monthlyRate) / (x - 1);
-        } else {
-            return amt * monthlyRate;
-        }
-    }
-
-    function calculateMortgage() {
-      const property = parseFloat(inProp.value) || 0;
-      const amount = parseFloat(inAmt.value);
-      const term = parseFloat(document.getElementById('input-term').value);
-      const annualRate = parseFloat(document.getElementById('input-rate').value);
-      const type = document.getElementById('input-type').value;
-      const buyerType = document.getElementById('input-buyer').value;
-
-      if (!amount || amount <= 0 || !term || term <= 0 || !annualRate) return;
-
-      const monthlyPayment = calculateMonthlyInstallment(amount, annualRate, term, type);
-      const totalRepayment = type === 'repayment' ? (monthlyPayment * (term * 12)) : (monthlyPayment * (term * 12)) + amount;
-      const totalInterest = totalRepayment - amount;
-      
-      const sdltAmount = calculateSDLT(property, buyerType);
-      
-      const stress1 = calculateMonthlyInstallment(amount, annualRate + 1, term, type);
-      const stress2 = calculateMonthlyInstallment(amount, annualRate + 2, term, type);
-      const stress3 = calculateMonthlyInstallment(amount, annualRate + 3, term, type);
-
-      let ltv = 0;
-      let ltvClass = "ltv-good";
-      if (property > 0) {
-        ltv = (amount / property) * 100;
-        if(ltv > 90) ltvClass = "ltv-risk";
-        else if(ltv > 75) ltvClass = "ltv-ok";
       }
 
-      const resArea = document.getElementById('result-area');
-      resArea.style.display = 'flex';
-      setTimeout(() => resArea.style.opacity = '1', 50);
-
-      document.getElementById('val-monthly').innerText = "£" + monthlyPayment.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      
-      document.getElementById('val-stress-1').innerText = "£" + stress1.toLocaleString('en-GB', {maximumFractionDigits: 0});
-      document.getElementById('val-stress-2').innerText = "£" + stress2.toLocaleString('en-GB', {maximumFractionDigits: 0});
-      document.getElementById('val-stress-3').innerText = "£" + stress3.toLocaleString('en-GB', {maximumFractionDigits: 0});
-
-      document.getElementById('val-total-repay').innerText = "£" + totalRepayment.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('val-total-interest').innerText = "£" + totalInterest.toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('val-sdlt').innerText = "£" + sdltAmount.toLocaleString('en-GB', {maximumFractionDigits: 0});
-      
-      const interestRatio = (totalInterest / totalRepayment) * 100;
-      const capitalRatio = 100 - interestRatio;
-      document.getElementById('bar-capital').style.width = capitalRatio + "%";
-      document.getElementById('bar-interest').style.width = interestRatio + "%";
-
-      const ltvBadge = document.getElementById('val-ltv');
-      ltvBadge.innerText = ltv.toFixed(1) + "%";
-      ltvBadge.className = `ltv-badge ${ltvClass}`;
-      
-      setTimeout(() => {
-        resArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 100);
+      if (nonUkResident) {
+        tax += price * 0.02;
+      }
+      return tax;
     }
 
-    document.querySelectorAll('input').forEach(input => {
-        input.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') calculateMortgage();
-        });
-    });
+    function updateLtvBadge(ltv) {
+      ltvBadge.textContent = `${ltv.toFixed(1)}%`;
+      ltvBadge.className = 'badge ' + (ltv <= 75 ? 'good' : ltv <= 90 ? 'ok' : 'risk');
+    }
 
-    document.getElementById('lang-select').addEventListener('change', (e) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', e.target.value);
-      window.location.href = url.href;
-    });
+    function calculate() {
+      const price = parseFloat(propertyPrice.value) || 0;
+      const amount = parseFloat(mortgageAmount.value) || 0;
+      const years = parseFloat(termYears.value) || 0;
+      const rate = parseFloat(interestRate.value) || 0;
+      const buyer = buyerType.value;
+      const nonUk = nonResident.value === 'yes';
+      const type = repaymentType.value;
 
-    window.onload = () => {
-      inProp.value = "300000";
-      inDep.value = "60000";
-      updateFromPropertyOrDeposit();
-      updateLanguage();
-    };
+      if (!(price > 0 && amount > 0 && years > 0)) return;
+
+      const monthly = paymentEstimate(amount, rate, years, type);
+      const total = type === 'repayment' ? monthly * years * 12 : (monthly * years * 12) + amount;
+      const interest = Math.max(total - amount, 0);
+      const sdlt = residentialSdlt(price, buyer, nonUk);
+      const ltv = (amount / price) * 100;
+
+      monthlyPayment.textContent = formatGBP(monthly);
+      stress1.textContent = formatGBP(paymentEstimate(amount, rate + 1, years, type));
+      stress2.textContent = formatGBP(paymentEstimate(amount, rate + 2, years, type));
+      stress3.textContent = formatGBP(paymentEstimate(amount, rate + 3, years, type));
+      sdltValue.textContent = formatGBP(sdlt);
+      totalRepay.textContent = formatGBP(total);
+      totalInterest.textContent = formatGBP(interest);
+      updateLtvBadge(ltv);
+
+      const interestPct = total > 0 ? (interest / total) * 100 : 0;
+      const capitalPct = 100 - interestPct;
+      barCapital.style.width = `${Math.max(capitalPct, 0)}%`;
+      barInterest.style.width = `${Math.max(interestPct, 0)}%`;
+    }
+
+    propertyPrice.addEventListener('input', () => { syncFromDeposit(); calculate(); });
+    depositAmount.addEventListener('input', () => { syncFromDeposit(); calculate(); });
+    mortgageAmount.addEventListener('input', () => { syncFromMortgage(); calculate(); });
+    termYears.addEventListener('input', calculate);
+    interestRate.addEventListener('input', calculate);
+    repaymentType.addEventListener('change', calculate);
+    buyerType.addEventListener('change', calculate);
+    nonResident.addEventListener('change', calculate);
+    calcBtn.addEventListener('click', calculate);
+
+    syncFromDeposit();
+    calculate();
   </script>
 </body>
 </html>
