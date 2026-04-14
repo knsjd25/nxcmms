@@ -3,18 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  
-  <title id="meta-title">Free QR Code Generator | Create Custom QR Codes Online — Mini-Tools</title>
-  <meta name="description" id="meta-desc" content="Generate high-quality QR codes for URLs, Wi-Fi, vCard, and text instantly. 100% private, client-side generation, no registration required. High-resolution PNG downloads." />
-  <meta name="keywords" content="QR code generator, free QR code maker, custom QR codes, Wi-Fi QR code, vCard QR code generator, high resolution QR, privacy-first QR generator" />
-  
+
+  <title>QR Code Generator | Mini-Tools</title>
+  <meta name="description" content="Generate QR codes for URLs, Wi-Fi, email, and contact details directly in your browser. Download a high-resolution PNG with adjustable error correction." />
+  <meta name="keywords" content="qr code generator, wifi qr code, vcard qr code, email qr code, static qr code, qr png download" />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://mini-tools.uk/qr" />
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/qr?lang=en" />
-  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/qr?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/qr?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/qr?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/qr?lang=de" />
-  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/qr" />
+
+  <meta property="og:title" content="QR Code Generator | Mini-Tools" />
+  <meta property="og:description" content="Create QR codes for URLs, Wi-Fi, email, and contact details directly in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mini-tools.uk/qr" />
 
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
@@ -31,695 +30,565 @@
   </script>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Mini-Tools QR Code Generator",
-    "operatingSystem": "Web",
-    "applicationCategory": "UtilitiesApplication",
-    "description": "A high-speed, privacy-focused QR code generator that works offline and keeps your data secure.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"SoftwareApplication",
+        "name":"Mini-Tools QR Code Generator",
+        "applicationCategory":"UtilitiesApplication",
+        "operatingSystem":"Web",
+        "description":"Generate QR codes for links, Wi-Fi, email, and contact details locally in your browser.",
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
+      },
+      {
+        "@type":"FAQPage",
+        "mainEntity":[
+          {
+            "@type":"Question",
+            "name":"Is this QR code generator private?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Yes. QR code content is processed locally in your browser and is not sent to our servers."
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"Will the QR code expire?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"The QR image itself does not expire. It continues to work as long as the encoded destination or content remains valid."
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"Can I make Wi-Fi and contact QR codes?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Yes. This page supports URL or text, Wi-Fi, email, and simple vCard contact QR codes."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
 
-  <script async src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
-    .updated-badge { background: #f1f5f9; color: #475569; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
-    
-    /* Input Styling */
-    .form-input { width: 100%; padding: 1rem 1.25rem; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; font-size: 1rem; font-weight: 600; color: #0f172a; transition: all 0.2s; outline: none; }
-    .form-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); background-color: #ffffff; }
-    .form-select { appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"); background-position: right 1rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; }
-    .form-label { display: block; font-size: 0.875rem; font-weight: 800; color: #475569; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    :root{
+      --bg:#f8fafc;
+      --panel:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --line:#e2e8f0;
+      --brand:#2563eb;
+      --brand-soft:#dbeafe;
+      --shadow:0 10px 25px -5px rgba(15,23,42,0.08);
+      --radius:22px;
+      --sans:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    }
 
-    /* Template Tabs */
-    .tab-btn { padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.875rem; font-weight: 700; color: #64748b; background: transparent; transition: all 0.2s; border: 2px solid transparent; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-    .tab-btn:hover { background: #f1f5f9; color: #0f172a; }
-    .tab-btn.active { background: #eff6ff; color: #2563eb; border-color: #bfdbfe; }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans)}
+    body{min-height:100vh;display:flex;flex-direction:column}
+    a{text-decoration:none;color:inherit}
+    button,input,textarea,select{font:inherit}
 
-    /* QR Code Display Area */
-    .qr-box { background: white; border: 2px dashed #cbd5e1; transition: all 0.3s ease; position: relative; }
-    .qr-box::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899); z-index: -1; filter: blur(20px); opacity: 0; transition: opacity 0.3s; }
-    .qr-box.loaded { border-color: transparent; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); }
-    .qr-box.loaded::before { opacity: 0.15; }
-    
-    /* Make the generated QR code crisp */
-    #qrcode img { margin: 0 auto; border: 16px solid white; border-radius: 12px; image-rendering: pixelated; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); width: 100%; max-width: 280px; height: auto; }
-    #qrcode canvas { display: none; }
+    .container{width:min(1180px,calc(100% - 32px));margin:0 auto}
 
-    /* SEO Content Typography */
-    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
-    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
-    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
-    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
-    .prose-content strong { color: #0f172a; font-weight: 700; }
-    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
-    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
-    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
-    .faq-box h4 { font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .site-header{
+      position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);
+      backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+    }
+    .site-header-inner{
+      min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;object-fit:contain;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    .brand-title{font-weight:900;font-size:1.15rem;letter-spacing:-.02em}
+    .brand-title span{color:var(--brand)}
+
+    .nav{display:flex;align-items:center;gap:8px;position:relative}
+    .nav-link,.nav-button{
+      padding:10px 14px;border-radius:12px;font-size:.95rem;font-weight:800;color:#334155;
+      transition:background .2s,color .2s;display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;
+    }
+    .nav-link:hover,.nav-button:hover{background:#f1f5f9;color:#0f172a}
+    .dropdown{position:relative}
+    .dropdown-bridge{position:absolute;left:0;right:0;height:14px;top:100%}
+    .dropdown-menu{
+      position:absolute;top:calc(100% + 10px);left:0;min-width:240px;background:#fff;border:1px solid var(--line);
+      border-radius:16px;padding:10px;box-shadow:0 20px 40px rgba(15,23,42,.12);
+      opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s;
+    }
+    .dropdown.open .dropdown-menu,
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+    .dropdown-item{display:block;padding:11px 12px;border-radius:12px;font-weight:700;color:#334155}
+    .dropdown-item:hover{background:#f8fafc;color:#0f172a}
+
+    .page-intro{padding:38px 0 20px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;
+      border:1px solid #e2e8f0;background:#f8fafc;color:#475569;
+      font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+    }
+    h1{margin:14px 0 10px;font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;letter-spacing:-.04em}
+    .intro-text{max-width:760px;color:var(--muted);font-size:1.06rem;line-height:1.75}
+
+    .workspace{
+      display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;align-items:start;margin-top:8px
+    }
+    .panel{
+      background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:0 20px 40px rgba(15,23,42,.08)
+    }
+    .left-panel{padding:28px}
+    .right-panel{padding:28px;position:sticky;top:94px}
+
+    .section + .section{margin-top:26px}
+    .section-label{
+      display:block;margin-bottom:12px;font-size:.76rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:#475569
+    }
+
+    .tab-grid{
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:8px;border-radius:20px;border:1px solid var(--line);background:#f8fafc
+    }
+    .tab-btn{
+      border:2px solid transparent;background:transparent;color:#64748b;padding:12px 10px;border-radius:14px;
+      font-size:.85rem;font-weight:800;cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center;gap:8px;text-align:center
+    }
+    .tab-btn:hover{background:#f1f5f9;color:#0f172a}
+    .tab-btn.active{background:#eff6ff;color:#2563eb;border-color:#bfdbfe}
+
+    .field + .field{margin-top:16px}
+    .field label{
+      display:block;margin-bottom:8px;font-size:.74rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#475569
+    }
+    .form-input,.form-select{
+      width:100%;padding:15px 16px;background:#f8fafc;border:1px solid var(--line);border-radius:16px;color:#0f172a;
+      font-size:.96rem;font-weight:700;outline:none;transition:border-color .18s, box-shadow .18s
+    }
+    .form-input:focus,.form-select:focus{border-color:#93c5fd;box-shadow:0 0 0 4px rgba(37,99,235,.1);background:#fff}
+    textarea.form-input{resize:vertical;min-height:110px}
+    .dual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .controls-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding-top:8px;border-top:1px solid #eef2f7}
+
+    .qr-box{
+      background:#fff;border:2px dashed #cbd5e1;border-radius:28px;padding:26px;min-height:368px;
+      display:flex;align-items:center;justify-content:center;position:relative;transition:.2s
+    }
+    .qr-box.loaded{border-color:transparent;box-shadow:0 18px 36px rgba(15,23,42,.08)}
+    .qr-box.loaded::before{
+      content:"";position:absolute;inset:-2px;border-radius:28px;background:linear-gradient(45deg,#3b82f6,#8b5cf6,#ec4899);
+      z-index:-1;filter:blur(18px);opacity:.14
+    }
+    .qr-placeholder{text-align:center;color:#94a3b8}
+    .qr-placeholder svg{display:block;margin:0 auto 12px;opacity:.55}
+    .qr-placeholder p{margin:0;font-size:.8rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
+    #qrcode{display:none}
+    #qrcode img{
+      display:block;margin:0 auto;border:16px solid #fff;border-radius:14px;image-rendering:pixelated;
+      box-shadow:0 12px 28px rgba(15,23,42,.12);width:100%;max-width:280px;height:auto
+    }
+    #qrcode canvas{display:none}
+
+    .action-area{
+      margin-top:18px;opacity:0;pointer-events:none;transition:opacity .25s
+    }
+    .action-area.show{opacity:1;pointer-events:auto}
+    .main-btn{
+      width:100%;border:none;border-radius:18px;background:#2563eb;color:#fff;padding:16px 18px;font-size:.96rem;font-weight:900;
+      letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:.18s;box-shadow:0 18px 30px rgba(37,99,235,.22)
+    }
+    .main-btn:hover{background:#1d4ed8}
+    .hint{
+      text-align:center;margin-top:10px;color:#94a3b8;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase
+    }
+
+    .section-card{
+      margin:30px 0 0;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:28px
+    }
+    .section-card h2{margin:0 0 12px;font-size:1.8rem;letter-spacing:-.03em}
+    .section-card p{color:var(--muted);line-height:1.75}
+    .faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
+    .faq-item{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:18px}
+    .faq-item h3{margin:0 0 8px;font-size:1.05rem}
+    .faq-item p{margin:0;font-size:.98rem}
+
+    .site-footer{
+      margin-top:40px;padding:28px 0;background:#fff;border-top:1px solid var(--line)
+    }
+    .footer-links{
+      display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-bottom:12px;font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#64748b
+    }
+    .footer-links a:hover{color:var(--brand)}
+    .footer-note{text-align:center;font-size:.72rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#cbd5e1}
+
+    @media (max-width: 980px){
+      .workspace{grid-template-columns:1fr}
+      .right-panel{position:static}
+      .faq-grid{grid-template-columns:1fr}
+      .site-header-inner{flex-wrap:wrap;padding:10px 0}
+      .nav{width:100%;overflow:auto;padding-bottom:4px}
+    }
+    @media (max-width: 640px){
+      .container{width:min(100% - 20px,1180px)}
+      .left-panel,.right-panel{padding:18px}
+      .tab-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .dual-grid,.controls-grid{grid-template-columns:1fr}
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="brand" href="/">
+        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools logo" />
+        <div class="brand-title">Mini-Tools<span>.uk</span></div>
+      </a>
 
-  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
-        </a>
-        <div class="flex flex-col -mt-1 hidden sm:flex">
-          <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
+      <nav class="nav" aria-label="Main navigation">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/#all-tools">All Tools</a>
+
+        <div class="dropdown" id="categoriesDropdown">
+          <button class="nav-button" type="button" aria-expanded="false" aria-controls="categoriesMenu">
+            Categories
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="dropdown-bridge" aria-hidden="true"></div>
+          <div class="dropdown-menu" id="categoriesMenu" role="menu">
+            <a class="dropdown-item" href="/#uk-finance">UK Finance</a>
+            <a class="dropdown-item" href="/#developer-tools">Developer Tools</a>
+            <a class="dropdown-item" href="/#image-tools">Image & PDF</a>
+            <a class="dropdown-item" href="/#text-conversion">Text & Conversion</a>
+            <a class="dropdown-item" href="/#privacy-security">Security & Privacy</a>
+          </div>
         </div>
-      </div>
-      <div class="flex items-center gap-4 sm:gap-6">
-        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
-          <span id="nav-blog-text">Blog & Guides</span>
-        </a>
-        <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
-          <option value="en">🇬🇧 English</option>
-          <option value="zh">🇨🇳 简体中文</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="de">🇩🇪 Deutsch</option>
-        </select>
-      </div>
+
+        <a class="nav-link" href="/blog">Blog</a>
+        <a class="nav-link" href="/about">About</a>
+      </nav>
     </div>
-  </nav>
+  </header>
 
-  <main class="max-w-5xl mx-auto px-6 py-12 flex-1 w-full">
-    <header class="mb-10 text-center lg:text-left">
-      <div class="mb-4">
-        <span id="update-status" class="updated-badge">
-          ✅ Privacy Verified: 100% Client-Side
-        </span>
-      </div>
-      <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight leading-tight">
-        QR Code Generator
-      </h1>
-      <p id="page-desc" class="text-lg text-slate-500 max-w-2xl">
-        Create professional, custom QR codes for URLs, Wi-Fi, or Contact Info instantly. High-resolution output, zero tracking.
+  <main class="container">
+    <section class="page-intro">
+      <div class="eyebrow">QR Tool • Local Generation</div>
+      <h1>QR Code Generator</h1>
+      <p class="intro-text">
+        Create QR codes for links, Wi-Fi credentials, email actions, or contact details directly in your browser.
+        Download a high-resolution PNG when the preview looks right.
       </p>
-    </header>
+    </section>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16">
-      
-      <div class="lg:col-span-7 bg-white p-8 rounded-3xl border border-slate-100 shadow-sm space-y-8">
-        
-        <div>
-          <label class="form-label mb-3" id="label-type">QR Code Type</label>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-200">
-            <button onclick="setTemplate('text')" id="tab-text" class="tab-btn active">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-              URL/Text
-            </button>
-            <button onclick="setTemplate('wifi')" id="tab-wifi" class="tab-btn">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path></svg>
-              Wi-Fi
-            </button>
-            <button onclick="setTemplate('email')" id="tab-email" class="tab-btn">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-              Email
-            </button>
-            <button onclick="setTemplate('vcard')" id="tab-vcard" class="tab-btn">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path></svg>
-              vCard
-            </button>
+    <section class="workspace">
+      <div class="panel left-panel">
+        <div class="section">
+          <label class="section-label">QR code type</label>
+          <div class="tab-grid">
+            <button class="tab-btn active" data-template="text">URL/Text</button>
+            <button class="tab-btn" data-template="wifi">Wi‑Fi</button>
+            <button class="tab-btn" data-template="email">Email</button>
+            <button class="tab-btn" data-template="vcard">vCard</button>
           </div>
         </div>
 
-        <div id="form-text" class="space-y-4">
-          <label id="label-content" class="form-label">Content or URL</label>
-          <textarea id="input-text" rows="3" placeholder="https://mini-tools.uk" class="form-input resize-none" oninput="autoGenerate()"></textarea>
+        <div class="section" id="form-text">
+          <div class="field">
+            <label for="input-text">Content or URL</label>
+            <textarea id="input-text" class="form-input" placeholder="https://mini-tools.uk"></textarea>
+          </div>
         </div>
 
-        <div id="form-wifi" class="space-y-4 hidden">
-          <div>
-            <label id="label-wifi-ssid" class="form-label">Network Name (SSID)</label>
-            <input type="text" id="input-wifi-ssid" placeholder="MyHomeNetwork" class="form-input" oninput="autoGenerate()">
+        <div class="section" id="form-wifi" hidden>
+          <div class="field">
+            <label for="input-wifi-ssid">Network name (SSID)</label>
+            <input id="input-wifi-ssid" type="text" class="form-input" placeholder="MyHomeNetwork" />
           </div>
-          <div>
-            <label id="label-wifi-pass" class="form-label">Password</label>
-            <input type="text" id="input-wifi-pass" placeholder="Network Password" class="form-input" oninput="autoGenerate()">
+          <div class="field">
+            <label for="input-wifi-pass">Password</label>
+            <input id="input-wifi-pass" type="text" class="form-input" placeholder="Network password" />
           </div>
-          <div>
-            <label id="label-wifi-type" class="form-label">Encryption Type</label>
-            <select id="input-wifi-type" class="form-input form-select" onchange="autoGenerate()">
+          <div class="field">
+            <label for="input-wifi-type">Encryption type</label>
+            <select id="input-wifi-type" class="form-select">
               <option value="WPA">WPA / WPA2 / WPA3</option>
               <option value="WEP">WEP</option>
-              <option value="nopass">No Password (Open)</option>
+              <option value="nopass">No password (open)</option>
             </select>
           </div>
         </div>
 
-        <div id="form-email" class="space-y-4 hidden">
-          <div>
-            <label id="label-email-to" class="form-label">Email Address</label>
-            <input type="email" id="input-email-to" placeholder="hello@example.com" class="form-input" oninput="autoGenerate()">
+        <div class="section" id="form-email" hidden>
+          <div class="field">
+            <label for="input-email-to">Email address</label>
+            <input id="input-email-to" type="email" class="form-input" placeholder="hello@example.com" />
           </div>
-          <div>
-            <label id="label-email-sub" class="form-label">Subject</label>
-            <input type="text" id="input-email-sub" placeholder="Inquiry from Website" class="form-input" oninput="autoGenerate()">
-          </div>
-        </div>
-
-        <div id="form-vcard" class="space-y-4 hidden grid grid-cols-2 gap-4">
-          <div class="col-span-2 sm:col-span-1">
-            <label id="label-vc-first" class="form-label">First Name</label>
-            <input type="text" id="input-vc-first" placeholder="John" class="form-input" oninput="autoGenerate()">
-          </div>
-          <div class="col-span-2 sm:col-span-1">
-            <label id="label-vc-last" class="form-label">Last Name</label>
-            <input type="text" id="input-vc-last" placeholder="Doe" class="form-input" oninput="autoGenerate()">
-          </div>
-          <div class="col-span-2">
-            <label id="label-vc-phone" class="form-label">Phone Number</label>
-            <input type="tel" id="input-vc-phone" placeholder="+44 7700 900077" class="form-input" oninput="autoGenerate()">
-          </div>
-          <div class="col-span-2">
-            <label id="label-vc-email" class="form-label">Email</label>
-            <input type="email" id="input-vc-email" placeholder="john@example.com" class="form-input" oninput="autoGenerate()">
+          <div class="field">
+            <label for="input-email-sub">Subject</label>
+            <input id="input-email-sub" type="text" class="form-input" placeholder="Quick question" />
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
-          <div>
-            <label id="label-size" class="form-label">Export Size</label>
-            <select id="qr-size" class="form-input form-select bg-white" onchange="autoGenerate(true)">
-              <option value="256">256x256 (Web)</option>
-              <option value="512">512x512 (Standard)</option>
-              <option value="1024" selected>1024x1024 (HD Print)</option>
+        <div class="section" id="form-vcard" hidden>
+          <div class="dual-grid">
+            <div class="field">
+              <label for="input-vc-first">First name</label>
+              <input id="input-vc-first" type="text" class="form-input" placeholder="John" />
+            </div>
+            <div class="field">
+              <label for="input-vc-last">Last name</label>
+              <input id="input-vc-last" type="text" class="form-input" placeholder="Doe" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="input-vc-phone">Phone number</label>
+            <input id="input-vc-phone" type="tel" class="form-input" placeholder="+44 7700 900077" />
+          </div>
+          <div class="field">
+            <label for="input-vc-email">Email</label>
+            <input id="input-vc-email" type="email" class="form-input" placeholder="john@example.com" />
+          </div>
+        </div>
+
+        <div class="section controls-grid">
+          <div class="field">
+            <label for="qr-size">Export size</label>
+            <select id="qr-size" class="form-select">
+              <option value="256">256 × 256</option>
+              <option value="512">512 × 512</option>
+              <option value="1024" selected>1024 × 1024</option>
             </select>
           </div>
-          <div>
-            <label id="label-level" class="form-label">Error Correction</label>
-            <select id="qr-level" class="form-input form-select bg-white" onchange="autoGenerate()">
-              <option value="L">L - 7% Recovery</option>
-              <option value="M">M - 15% Recovery</option>
-              <option value="Q" selected>Q - 25% Recovery</option>
-              <option value="H">H - 30% Recovery</option>
+          <div class="field">
+            <label for="qr-level">Error correction</label>
+            <select id="qr-level" class="form-select">
+              <option value="L">L — 7%</option>
+              <option value="M">M — 15%</option>
+              <option value="Q" selected>Q — 25%</option>
+              <option value="H">H — 30%</option>
             </select>
           </div>
         </div>
       </div>
 
-      <div class="lg:col-span-5 flex flex-col items-center sticky top-28">
-        <div class="qr-box p-8 md:p-10 rounded-3xl mb-8 w-full max-w-sm" id="qr-container">
-          <div id="qr-placeholder" class="text-center text-slate-400 py-10">
-            <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
-            <p class="font-bold text-sm uppercase tracking-widest" id="placeholder-text">Live Preview</p>
+      <aside class="panel right-panel">
+        <div class="qr-box" id="qr-container">
+          <div class="qr-placeholder" id="qr-placeholder">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 4H10V10H4V4ZM14 4H20V10H14V4ZM4 14H10V20H4V14ZM14 14H16V16H14V14ZM16 16H18V18H16V16ZM18 14H20V20H18V14ZM14 18H16V20H14V18Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p>Live Preview</p>
           </div>
           <div id="qrcode"></div>
         </div>
-        
-        <div id="action-area" class="w-full max-w-sm space-y-4 opacity-0 transition-opacity duration-300 pointer-events-none">
-          <button id="btn-download" onclick="downloadQR()" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl shadow-xl shadow-blue-500/20 transition-all active:scale-95 flex items-center justify-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-            <span id="btn-down-text">Download High-Res PNG</span>
-          </button>
-          <p id="qr-hint" class="text-center text-xs font-bold text-slate-400 uppercase tracking-widest">
-            Scan to test before printing
-          </p>
+
+        <div class="action-area" id="action-area">
+          <button class="main-btn" id="download-btn" type="button">Download High-Res PNG</button>
+          <div class="hint">Scan to test before printing</div>
         </div>
-      </div>
-    </div>
+      </aside>
+    </section>
 
-    <div id="seo-container" class="prose-content">
-      <h2>What are the different types of QR Codes?</h2>
-      <p>A QR Code (Quick Response Code) is a two-dimensional matrix barcode that can store significantly more data than a standard UPC barcode. Our <strong>free online QR generator</strong> is optimized to create highly functional "Smart Codes" for various scenarios:</p>
-      <ul>
-        <li><strong>URL / Web Links:</strong> The most common type. Instantly redirects the user's smartphone to your website or an online PDF menu.</li>
-        <li><strong>Wi-Fi Access:</strong> Stop forcing guests to type complex passwords. A Wi-Fi QR code automatically authenticates and connects the scanning device to your local network.</li>
-        <li><strong>vCard (Digital Business Card):</strong> Encodes your name, phone number, and email. When scanned, the smartphone automatically prompts the user to save you as a new contact.</li>
-      </ul>
-      <h3>Understanding QR Error Correction (ECC)</h3>
-      <p>Have you ever wondered why some QR codes still work perfectly even when they are dirty, scratched, or have a logo placed in the middle? This is due to the Reed-Solomon <strong>Error Correction Algorithm</strong>. On our tool, you can manually select from 4 recovery levels:</p>
-      <ul>
-        <li><strong>Level M (Medium - 15%):</strong> The standard default for most general purposes.</li>
-        <li><strong>Level H (High - 30%):</strong> Creates a very dense pattern but allows nearly a third of the code to be obscured. Absolutely essential for codes printed on physical goods, outdoor posters, or if you plan to digitally edit a logo into the center.</li>
-      </ul>
-      <h2>Frequently Asked Questions (FAQ)</h2>
-      <div class="faq-box">
-        <h4>Is it safe to generate Wi-Fi or Contact QR codes here?</h4>
-        <p class="mb-0">Yes, it is <strong>100% secure</strong>. Unlike cloud-based generators that send your personal phone number to a remote server for processing, Mini-Tools.uk utilizes <strong>Client-Side Generation</strong>. We never see, track, or save the data you input.</p>
-      </div>
-      <div class="faq-box">
-        <h4>Will my QR Code ever expire?</h4>
-        <p class="mb-0">No. The QR codes generated on this platform are <strong>Static QR Codes</strong>. The destination URL or text is permanently hard-coded into the black and white pattern itself. As long as the link you provided remains active, the QR code will work forever.</p>
-      </div>
-    </div>
+    <section class="section-card">
+      <h2>How this QR generator helps</h2>
+      <p>
+        A QR code is a quick way to move from paper or screen into an action on a phone. This page supports the most
+        common use cases: website links, Wi‑Fi access, email actions, and a simple contact card. Everything is generated
+        locally in your browser, so the entered data does not need to be sent away for processing.
+      </p>
 
+      <div class="faq-grid">
+        <article class="faq-item">
+          <h3>Is it private?</h3>
+          <p>Yes. QR code generation happens locally in your browser and the input is not sent to our servers.</p>
+        </article>
+        <article class="faq-item">
+          <h3>Will the QR code expire?</h3>
+          <p>The image itself does not expire. It keeps working as long as the encoded destination or content remains valid.</p>
+        </article>
+        <article class="faq-item">
+          <h3>What does error correction do?</h3>
+          <p>Higher levels make the QR code more resilient to damage or obstruction, but they also increase visual density.</p>
+        </article>
+        <article class="faq-item">
+          <h3>Can I use it for Wi‑Fi and contact info?</h3>
+          <p>Yes. The built-in templates make it easier to format Wi‑Fi, email, and vCard-style contact QR codes correctly.</p>
+        </article>
+      </div>
+    </section>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-10 w-full">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
-        </a>
-        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
-        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/about">About</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/contact">Contact</a>
       </div>
-      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
-        © 2026 MINI-TOOLS.UK — SECURE & LOCAL QR GENERATION
-      </p>
+      <div class="footer-note">© 2026 Mini-Tools.uk — local qr generation without server upload</div>
     </div>
   </footer>
 
   <script>
-    // 🌟 核心优化 4：整合所有语言的 Meta (带长尾 Keywords) 和富文本到字典中
-    const i18n = {
-      en: {
-        metaTitle: "Free QR Code Generator 2026 | No Registration, High-Res PNG",
-        metaDesc: "Create custom QR codes instantly. Support for URLs, Wi-Fi, vCard, and text. 100% private, browser-based generation. Free high-resolution downloads.",
-        metaKeywords: "QR code generator, free QR code maker, custom QR codes, Wi-Fi QR code, vCard QR code generator, high resolution QR, privacy-first QR generator",
-        update: "✅ Privacy Verified: 100% Client-Side",
-        title: "QR Code Generator", 
-        desc: "Create professional, custom QR codes for URLs, Wi-Fi, or Contact Info instantly. High-resolution output, zero tracking.",
-        labelType: "QR Code Type", tabText: "URL/Text", tabWifi: "Wi-Fi", tabEmail: "Email", tabVcard: "vCard",
-        labelContent: "Content or URL",
-        labelWifiSsid: "Network Name (SSID)", labelWifiPass: "Password", labelWifiType: "Encryption Type",
-        labelEmailTo: "Email Address", labelEmailSub: "Subject",
-        labelVcFirst: "First Name", labelVcLast: "Last Name", labelVcPhone: "Phone Number", labelVcEmail: "Email",
-        labelSize: "Export Size", opt256: "256x256 (Web)", opt512: "512x512 (Standard)", opt1024: "1024x1024 (HD Print)",
-        labelLevel: "Error Correction", optL: "L - 7% Recovery", optM: "M - 15% Recovery", optQ: "Q - 25% Recovery", optH: "H - 30% Recovery",
-        labelPreview: "Live Preview",
-        btnDown: "Download High-Res PNG", hint: "Scan to test before printing",
-        navBlog: "Blog & Guides", footerBlog: "Blog",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
-        seoHtml: `
-          <h2>What are the different types of QR Codes?</h2>
-          <p>A QR Code (Quick Response Code) is a two-dimensional matrix barcode that can store significantly more data than a standard UPC barcode. Our <strong>free online QR generator</strong> is optimized to create highly functional "Smart Codes" for various scenarios:</p>
-          <ul>
-            <li><strong>URL / Web Links:</strong> The most common type. Instantly redirects the user's smartphone to your website or an online PDF menu.</li>
-            <li><strong>Wi-Fi Access:</strong> Stop forcing guests to type complex passwords. A Wi-Fi QR code automatically authenticates and connects the scanning device to your local network.</li>
-            <li><strong>vCard (Digital Business Card):</strong> Encodes your name, phone number, and email. When scanned, the smartphone automatically prompts the user to save you as a new contact.</li>
-          </ul>
-          <h3>Understanding QR Error Correction (ECC)</h3>
-          <p>Have you ever wondered why some QR codes still work perfectly even when they are dirty, scratched, or have a logo placed in the middle? This is due to the Reed-Solomon <strong>Error Correction Algorithm</strong>. On our tool, you can manually select from 4 recovery levels:</p>
-          <ul>
-            <li><strong>Level M (Medium - 15%):</strong> The standard default for most general purposes.</li>
-            <li><strong>Level H (High - 30%):</strong> Creates a very dense pattern but allows nearly a third of the code to be obscured. Absolutely essential for codes printed on physical goods, outdoor posters, or if you plan to digitally edit a logo into the center.</li>
-          </ul>
-          <h2>Frequently Asked Questions (FAQ)</h2>
-          <div class="faq-box">
-            <h4>Is it safe to generate Wi-Fi or Contact QR codes here?</h4>
-            <p class="mb-0">Yes, it is <strong>100% secure</strong>. Unlike cloud-based generators that send your personal phone number to a remote server for processing, Mini-Tools.uk utilizes <strong>Client-Side Generation</strong>. We never see, track, or save the data you input.</p>
-          </div>
-          <div class="faq-box">
-            <h4>Will my QR Code ever expire?</h4>
-            <p class="mb-0">No. The QR codes generated on this platform are <strong>Static QR Codes</strong>. The destination URL or text is permanently hard-coded into the black and white pattern itself. As long as the link you provided remains active, the QR code will work forever.</p>
-          </div>`
-      },
-      zh: {
-        metaTitle: "免费二维码生成器 2026 | 无需注册，支持高清下载",
-        metaDesc: "快速生成自定义二维码。内置网址、Wi-Fi、电子名片模板。100% 隐私保护，浏览器本地纯前端生成。支持高清图片下载。",
-        metaKeywords: "免费二维码生成器, 无广告二维码工具, Wi-Fi二维码生成, 电子名片二维码, 网址转二维码, 高清二维码下载, 本地二维码生成器",
-        update: "✅ 隐私保障：100% 浏览器本地生成",
-        title: "二维码生成器", 
-        desc: "为网址、Wi-Fi 密码或电子名片快速创建专业的二维码。支持高清打印尺寸导出，绝无数据追踪。",
-        labelType: "二维码内容类型", tabText: "网址/文本", tabWifi: "Wi-Fi 密码", tabEmail: "发送邮件", tabVcard: "电子名片",
-        labelContent: "具体内容或链接",
-        labelWifiSsid: "Wi-Fi 名称 (SSID)", labelWifiPass: "Wi-Fi 密码", labelWifiType: "加密类型",
-        labelEmailTo: "收件人邮箱", labelEmailSub: "邮件主题",
-        labelVcFirst: "名字 (First Name)", labelVcLast: "姓氏 (Last Name)", labelVcPhone: "电话号码", labelVcEmail: "电子邮箱",
-        labelSize: "导出清晰度 (尺寸)", opt256: "256x256 (仅限屏幕显示)", opt512: "512x512 (标准尺寸)", opt1024: "1024x1024 (高清印刷级)",
-        labelLevel: "抗破损等级 (容错率)", optL: "L - 7% 抗损 (图码最简洁)", optM: "M - 15% 抗损 (默认推荐)", optQ: "Q - 25% 抗损", optH: "H - 30% 抗损 (适合中间加Logo)",
-        labelPreview: "实时预览",
-        btnDown: "下载高清 PNG 图像", hint: "请使用手机扫码测试无误后再进行印刷",
-        navBlog: "官方博客与教程", footerBlog: "官方博客",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
-        seoHtml: `
-          <h2>深入了解二维码 (QR Code) 及其应用场景</h2>
-          <p>二维码是一种二维矩阵条码，其数据存储能力远超传统的条形码。我们的<strong>免费在线二维码生成器</strong>针对多种实际应用场景提供了专门的“智能模板”：</p>
-          <ul>
-            <li><strong>URL 网址链接：</strong> 最常见的类型。扫描后立即将用户的手机重定向至您的网站、微信公众号文章或在线菜单。</li>
-            <li><strong>Wi-Fi 一键连接：</strong> 别再让客人费力输入复杂的路由器密码了。Wi-Fi 二维码能让手机扫描后直接进行身份验证并自动连入您的网络。</li>
-            <li><strong>vCard (电子名片)：</strong> 可以在方寸之间编码您的姓名、电话和邮箱。扫描后，手机通讯录会自动弹出“新建联系人”的提示。</li>
-          </ul>
-          <h3>为什么有的二维码损坏了还能扫？解析“容错率”</h3>
-          <p>这归功于二维码内置的 Reed-Solomon <strong>纠错算法 (Error Correction)</strong>。在本工具中，您可以手动指定 4 个容错等级：</p>
-          <ul>
-            <li><strong>等级 M (15% 恢复)：</strong> 日常使用的标准默认值。</li>
-            <li><strong>等级 H (30% 恢复)：</strong> 允许高达 30% 的面积被遮挡。如果您打算把二维码印在容易磨损的户外海报、商品外包装上，或者打算在二维码正中间 P 上您公司的 Logo，<strong>必须选择此等级</strong>。</li>
-          </ul>
-          <h2>常见问题解答 (FAQ)</h2>
-          <div class="faq-box">
-            <h4>在这里生成 Wi-Fi 密码或私人名片的二维码安全吗？</h4>
-            <p class="mb-0"><strong>100% 绝对安全。</strong> 很多劣质的在线工具会将您的 Wi-Fi 密码上传到他们的服务器来生成图片。而 Mini-Tools.uk 坚持“纯前端计算 (Client-Side)”。二维码图片是您的浏览器利用本地设备的算力直接绘制的。我们绝不会接收、追踪或留存您输入的任何敏感字符。</p>
-          </div>
-          <div class="faq-box">
-            <h4>我生成的二维码会过期吗？有扫描次数限制吗？</h4>
-            <p class="mb-0"><strong>永远不会过期，且无任何扫描限制。</strong> 本站生成的是“静态二维码 (Static QR)”。您输入的网址或文本已被永久地物理编码成黑白相间的图案。只要您自己填写的网址没有失效，这个二维码就能永久使用，我们没有任何隐藏的订阅陷阱。</p>
-          </div>`
-      },
-      es: {
-        metaTitle: "Generador de Códigos QR Gratis 2026 | Descarga Alta Resolución",
-        metaDesc: "Cree códigos QR personalizados. Soporte para URLs, Wi-Fi, vCard. Generación 100% privada basada en el navegador.",
-        metaKeywords: "Generador de códigos QR, QR gratis, QR Wi-Fi, crear vCard QR, sin registro",
-        update: "✅ Privacidad Verificada: Client-Side",
-        title: "Generador de Códigos QR", 
-        desc: "Cree códigos QR profesionales para URLs, Wi-Fi o Contactos. Salida de alta resolución, cero rastreo.",
-        labelType: "Tipo de Código QR", tabText: "URL/Texto", tabWifi: "Wi-Fi", tabEmail: "Email", tabVcard: "vCard",
-        labelContent: "Contenido o URL",
-        labelWifiSsid: "Nombre de Red (SSID)", labelWifiPass: "Contraseña", labelWifiType: "Tipo de Encriptación",
-        labelEmailTo: "Dirección de Correo", labelEmailSub: "Asunto",
-        labelVcFirst: "Nombre", labelVcLast: "Apellido", labelVcPhone: "Teléfono", labelVcEmail: "Email",
-        labelSize: "Tamaño de Exportación", opt256: "256x256 (Web)", opt512: "512x512 (Estándar)", opt1024: "1024x1024 (Impresión HD)",
-        labelLevel: "Corrección de Errores", optL: "L - 7% Recuperación", optM: "M - 15%", optQ: "Q - 25%", optH: "H - 30% Recuperación",
-        labelPreview: "Vista Previa en Vivo",
-        btnDown: "Descargar PNG en Alta Resolución", hint: "Escanee para probar antes de imprimir",
-        navBlog: "Blog y Guías", footerBlog: "Blog",
-        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
-        seoHtml: `
-          <h2>Tipos de Códigos QR y su Uso</h2>
-          <p>Nuestro <strong>generador de códigos QR gratuito</strong> está optimizado para crear "Códigos Inteligentes" altamente funcionales:</p>
-          <ul>
-            <li><strong>URL / Enlaces Web:</strong> Redirige instantáneamente el smartphone del usuario a su sitio web.</li>
-            <li><strong>Acceso Wi-Fi:</strong> Un código QR Wi-Fi autentica y conecta automáticamente el dispositivo a su red local sin escribir contraseñas.</li>
-            <li><strong>vCard (Tarjeta de Presentación):</strong> Codifica su información de contacto.</li>
-          </ul>
-          <h3>Comprendiendo la Corrección de Errores (ECC)</h3>
-          <ul>
-            <li><strong>Nivel M (15%):</strong> El estándar para usos generales.</li>
-            <li><strong>Nivel H (30%):</strong> Esencial para códigos impresos en bienes físicos que podrían rayarse, o si planea agregar un logotipo en el centro.</li>
-          </ul>
-          <h2>Preguntas Frecuentes (FAQ)</h2>
-          <div class="faq-box">
-            <h4>¿Es seguro generar códigos QR de Wi-Fi o Contactos aquí?</h4>
-            <p class="mb-0">Sí, es <strong>100% seguro</strong>. Mini-Tools.uk utiliza Generación del Lado del Cliente (Client-Side). Nunca vemos, rastreamos ni guardamos los datos que ingresa.</p>
-          </div>
-          <div class="faq-box">
-            <h4>¿Mi código QR caducará alguna vez?</h4>
-            <p class="mb-0">No. Generamos Códigos QR Estáticos. La URL o el texto están codificados permanentemente en el patrón. Mientras su enlace siga activo, el código QR funcionará para siempre.</p>
-          </div>`
-      },
-      fr: {
-        metaTitle: "Générateur de Code QR Gratuit 2026 | Haute Résolution",
-        metaDesc: "Créez des codes QR personnalisés instantanément. URLs, Wi-Fi, vCard. 100% privé, génération dans le navigateur.",
-        metaKeywords: "Générateur de code QR, QR gratuit, QR Wi-Fi, créer vCard QR, sans inscription",
-        update: "✅ Confidentialité Vérifiée : 100% Local",
-        title: "Générateur de Code QR", 
-        desc: "Créez des codes QR professionnels pour URLs, Wi-Fi ou Contacts. Sortie haute résolution, aucun suivi.",
-        labelType: "Type de Code QR", tabText: "URL/Texte", tabWifi: "Wi-Fi", tabEmail: "Email", tabVcard: "vCard",
-        labelContent: "Contenu ou URL",
-        labelWifiSsid: "Nom du Réseau (SSID)", labelWifiPass: "Mot de passe", labelWifiType: "Type de Cryptage",
-        labelEmailTo: "Adresse E-mail", labelEmailSub: "Sujet",
-        labelVcFirst: "Prénom", labelVcLast: "Nom", labelVcPhone: "Numéro de Téléphone", labelVcEmail: "E-mail",
-        labelSize: "Taille d'Exportation", opt256: "256x256 (Web)", opt512: "512x512 (Standard)", opt1024: "1024x1024 (Impression HD)",
-        labelLevel: "Correction d'Erreur", optL: "L - 7% Récupération", optM: "M - 15%", optQ: "Q - 25%", optH: "H - 30% Récupération",
-        labelPreview: "Aperçu en Direct",
-        btnDown: "Télécharger PNG Haute Résolution", hint: "Scannez pour tester avant d'imprimer",
-        navBlog: "Blog et Guides", footerBlog: "Blog",
-        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
-        seoHtml: `
-          <h2>Les Différents Types de Codes QR</h2>
-          <p>Notre <strong>générateur de QR gratuit</strong> est optimisé pour créer des codes fonctionnels pour divers scénarios :</p>
-          <ul>
-            <li><strong>URL / Liens Web :</strong> Redirige instantanément vers votre site web ou votre menu en ligne.</li>
-            <li><strong>Accès Wi-Fi :</strong> Un code QR Wi-Fi authentifie et connecte automatiquement l'appareil au réseau sans saisir de mot de passe.</li>
-            <li><strong>vCard :</strong> Encode vos coordonnées. Lorsqu'il est scanné, le téléphone propose de vous enregistrer comme contact.</li>
-          </ul>
-          <h3>Correction d'Erreur QR (ECC)</h3>
-          <ul>
-            <li><strong>Niveau M (15%) :</strong> Le standard pour l'usage général.</li>
-            <li><strong>Niveau H (30%) :</strong> Permet de masquer près d'un tiers du code. Indispensable pour ajouter un logo au centre.</li>
-          </ul>
-          <h2>Foire Aux Questions (FAQ)</h2>
-          <div class="faq-box">
-            <h4>Est-il sûr de générer un code Wi-Fi ici ?</h4>
-            <p class="mb-0">Oui, c'est <strong>100% sécurisé</strong>. Le code QR est généré localement dans votre navigateur via JavaScript. Vos données ne sont jamais transmises à nos serveurs.</p>
-          </div>
-          <div class="faq-box">
-            <h4>Mon Code QR va-t-il expirer ?</h4>
-            <p class="mb-0">Non. Ce sont des codes QR Statiques. L'URL est codée en dur dans le motif. Tant que votre lien reste actif, le code fonctionnera pour toujours.</p>
-          </div>`
-      },
-      de: {
-        metaTitle: "Kostenloser QR-Code Generator 2026 | Hochauflösend",
-        metaDesc: "Erstellen Sie sofort benutzerdefinierte QR-Codes. URLs, Wi-Fi, vCard. 100% privat, browserbasiert.",
-        metaKeywords: "QR-Code Generator, QR Code erstellen, WLAN QR, vCard QR, ohne Anmeldung",
-        update: "✅ Datenschutz Geprüft: Client-Side",
-        title: "QR-Code Generator", 
-        desc: "Erstellen Sie professionelle QR-Codes für URLs, WLAN oder Kontakte. Hochauflösende Ausgabe, kein Tracking.",
-        labelType: "QR-Code Typ", tabText: "URL/Text", tabWifi: "WLAN", tabEmail: "E-Mail", tabVcard: "vCard",
-        labelContent: "Inhalt oder URL",
-        labelWifiSsid: "Netzwerkname (SSID)", labelWifiPass: "Passwort", labelWifiType: "Verschlüsselungstyp",
-        labelEmailTo: "E-Mail-Adresse", labelEmailSub: "Betreff",
-        labelVcFirst: "Vorname", labelVcLast: "Nachname", labelVcPhone: "Telefonnummer", labelVcEmail: "E-Mail",
-        labelSize: "Exportgröße", opt256: "256x256 (Web)", opt512: "512x512 (Standard)", opt1024: "1024x1024 (HD Druck)",
-        labelLevel: "Fehlerkorrektur", optL: "L - 7% Wiederherstellung", optM: "M - 15%", optQ: "Q - 25%", optH: "H - 30% Wiederherstellung",
-        labelPreview: "Live-Vorschau",
-        btnDown: "Hochauflösendes PNG Herunterladen", hint: "Vor dem Drucken scannen und testen",
-        navBlog: "Blog & Anleitungen", footerBlog: "Blog",
-        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
-        seoHtml: `
-          <h2>Arten von QR-Codes</h2>
-          <p>Unser <strong>kostenloser QR-Generator</strong> ist für verschiedene intelligente Szenarien optimiert:</p>
-          <ul>
-            <li><strong>URL / Web-Links:</strong> Leitet das Smartphone direkt auf Ihre Website oder Speisekarte weiter.</li>
-            <li><strong>WLAN-Zugang:</strong> Ein WLAN-QR-Code verbindet das Gerät automatisch mit Ihrem Netzwerk, ohne dass ein Passwort abgetippt werden muss.</li>
-            <li><strong>vCard (Digitale Visitenkarte):</strong> Kodiert Ihre Kontaktdaten. Beim Scannen bietet das Smartphone an, den Kontakt direkt zu speichern.</li>
-          </ul>
-          <h3>QR-Fehlerkorrektur (ECC) Verstehen</h3>
-          <ul>
-            <li><strong>Stufe M (15%):</strong> Standard für die meisten Zwecke.</li>
-            <li><strong>Stufe H (30%):</strong> Unerlässlich für Codes auf gedruckten Materialien im Außenbereich oder wenn Sie ein Logo in der Mitte platzieren möchten.</li>
-          </ul>
-          <h2>Häufig Gestellte Fragen (FAQ)</h2>
-          <div class="faq-box">
-            <h4>Ist es sicher, hier WLAN- oder Kontakt-QR-Codes zu generieren?</h4>
-            <p class="mb-0">Ja, es ist <strong>100% sicher</strong>. Mini-Tools.uk generiert das Bild lokal in Ihrem Browser. Wir sehen, verfolgen oder speichern die von Ihnen eingegebenen sensiblen Daten niemals.</p>
-          </div>
-          <div class="faq-box">
-            <h4>Wird mein QR-Code jemals ablaufen?</h4>
-            <p class="mb-0">Nein. Wir generieren Statische QR-Codes. Die Daten sind fest im Muster verankert. Solange Ihr bereitgestellter Link aktiv bleibt, funktioniert der QR-Code für immer.</p>
-          </div>`
-      }
+    let currentTemplate = "text";
+    let qrInstance = null;
+    let autoGenTimer = null;
+
+    const forms = {
+      text: document.getElementById("form-text"),
+      wifi: document.getElementById("form-wifi"),
+      email: document.getElementById("form-email"),
+      vcard: document.getElementById("form-vcard")
     };
 
-    let qrInstance = null;
-    let currentTemplate = 'text';
-    let autoGenTimer;
-
-    function updateLanguage() {
-      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
-      const data = i18n[lang] || i18n['en'];
-
-      document.documentElement.lang = lang;
-      
-      // 🌟 动态接管 Meta 数据：Title, Description 和核心长尾 Keywords
-      document.title = data.metaTitle;
-      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
-      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
-
-      document.getElementById('update-status').innerText = data.update;
-      document.getElementById('page-title').innerText = data.title;
-      document.getElementById('page-desc').innerText = data.desc;
-      
-      document.getElementById('label-type').innerText = data.labelType;
-      document.getElementById('tab-text').lastChild.textContent = ' ' + data.tabText;
-      document.getElementById('tab-wifi').lastChild.textContent = ' ' + data.tabWifi;
-      document.getElementById('tab-email').lastChild.textContent = ' ' + data.tabEmail;
-      document.getElementById('tab-vcard').lastChild.textContent = ' ' + data.tabVcard;
-
-      document.getElementById('label-content').innerText = data.labelContent;
-      
-      document.getElementById('label-wifi-ssid').innerText = data.labelWifiSsid;
-      document.getElementById('label-wifi-pass').innerText = data.labelWifiPass;
-      document.getElementById('label-wifi-type').innerText = data.labelWifiType;
-
-      document.getElementById('label-email-to').innerText = data.labelEmailTo;
-      document.getElementById('label-email-sub').innerText = data.labelEmailSub;
-
-      document.getElementById('label-vc-first').innerText = data.labelVcFirst;
-      document.getElementById('label-vc-last').innerText = data.labelVcLast;
-      document.getElementById('label-vc-phone').innerText = data.labelVcPhone;
-      document.getElementById('label-vc-email').innerText = data.labelVcEmail;
-
-      document.getElementById('label-size').innerText = data.labelSize;
-      document.querySelector('#qr-size option[value="256"]').innerText = data.opt256;
-      document.querySelector('#qr-size option[value="512"]').innerText = data.opt512;
-      document.querySelector('#qr-size option[value="1024"]').innerText = data.opt1024;
-
-      document.getElementById('label-level').innerText = data.labelLevel;
-      document.querySelector('#qr-level option[value="L"]').innerText = data.optL;
-      document.querySelector('#qr-level option[value="M"]').innerText = data.optM;
-      document.querySelector('#qr-level option[value="Q"]').innerText = data.optQ;
-      document.querySelector('#qr-level option[value="H"]').innerText = data.optH;
-
-      document.getElementById('placeholder-text').innerText = data.labelPreview;
-      document.getElementById('btn-down-text').innerText = data.btnDown;
-      document.getElementById('qr-hint').innerText = data.hint;
-      
-      document.getElementById('footer-about').innerText = data.footerAbout;
-      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
-      document.getElementById('footer-contact').innerText = data.footerContact;
-
-      // Update Nav & Footer Blog Links
-      const navBlogText = document.getElementById('nav-blog-text');
-      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
-      const footerBlog = document.getElementById('footer-blog');
-      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
-      
-      // 🌟 动态注入纯净的 SEO 长文内容，消灭多语言混杂代码
-      const seoContainer = document.getElementById('seo-container');
-      if (data.seoHtml) {
-          seoContainer.style.opacity = 0;
-          setTimeout(() => {
-              seoContainer.innerHTML = data.seoHtml;
-              seoContainer.style.opacity = 1;
-          }, 150);
-      }
-
-      document.getElementById('lang-select').value = lang;
-      
-      // 修复：确保内链跳转时不丢失原有的路径名
-      document.querySelectorAll('a').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
-          try {
-            const url = new URL(href, window.location.origin);
-            url.searchParams.set('lang', lang);
-            link.href = url.pathname + url.search;
-          } catch(e) {}
-        }
-      });
-    }
+    const tabButtons = Array.from(document.querySelectorAll("[data-template]"));
+    const qrContainer = document.getElementById("qr-container");
+    const qrPlaceholder = document.getElementById("qr-placeholder");
+    const actionArea = document.getElementById("action-area");
+    const qrcodeEl = document.getElementById("qrcode");
+    const sizeSelect = document.getElementById("qr-size");
+    const levelSelect = document.getElementById("qr-level");
+    const downloadBtn = document.getElementById("download-btn");
 
     function setTemplate(template) {
       currentTemplate = template;
-      
-      // Update Tab Visuals
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById(`tab-${template}`).classList.add('active');
-
-      // Update Input Forms Visibility
-      const forms = ['text', 'wifi', 'email', 'vcard'];
-      forms.forEach(f => {
-        const el = document.getElementById(`form-${f}`);
-        if(f === template) {
-            el.classList.remove('hidden');
-        } else {
-            el.classList.add('hidden');
-        }
+      tabButtons.forEach(btn => btn.classList.toggle("active", btn.dataset.template === template));
+      Object.entries(forms).forEach(([key, el]) => {
+        el.hidden = key !== template;
       });
-
-      autoGenerate(); // Generate immediately when switching tabs
+      autoGenerate();
     }
 
     function getFormattedContent() {
-      let content = "";
-      if (currentTemplate === 'text') {
-        content = document.getElementById('input-text').value;
-      } 
-      else if (currentTemplate === 'wifi') {
-        const ssid = document.getElementById('input-wifi-ssid').value;
-        const pass = document.getElementById('input-wifi-pass').value;
-        const type = document.getElementById('input-wifi-type').value;
-        if(ssid) {
-          content = `WIFI:T:${type};S:${ssid};P:${pass};;`;
-        }
+      if (currentTemplate === "text") {
+        return document.getElementById("input-text").value.trim();
       }
-      else if (currentTemplate === 'email') {
-        const to = document.getElementById('input-email-to').value;
-        const sub = document.getElementById('input-email-sub').value;
-        if(to) {
-          content = `mailto:${to}?subject=${encodeURIComponent(sub)}`;
-        }
+
+      if (currentTemplate === "wifi") {
+        const ssid = document.getElementById("input-wifi-ssid").value.trim();
+        const pass = document.getElementById("input-wifi-pass").value;
+        const type = document.getElementById("input-wifi-type").value;
+        if (!ssid) return "";
+        return `WIFI:T:${type};S:${ssid};P:${pass};;`;
       }
-      else if (currentTemplate === 'vcard') {
-        const fn = document.getElementById('input-vc-first').value;
-        const ln = document.getElementById('input-vc-last').value;
-        const tel = document.getElementById('input-vc-phone').value;
-        const em = document.getElementById('input-vc-email').value;
-        if(fn || ln) {
-          content = `BEGIN:VCARD\nVERSION:3.0\nN:${ln};${fn}\nFN:${fn} ${ln}\nTEL:${tel}\nEMAIL:${em}\nEND:VCARD`;
-        }
+
+      if (currentTemplate === "email") {
+        const to = document.getElementById("input-email-to").value.trim();
+        const sub = document.getElementById("input-email-sub").value.trim();
+        if (!to) return "";
+        return `mailto:${to}?subject=${encodeURIComponent(sub)}`;
       }
-      return content;
+
+      if (currentTemplate === "vcard") {
+        const first = document.getElementById("input-vc-first").value.trim();
+        const last = document.getElementById("input-vc-last").value.trim();
+        const phone = document.getElementById("input-vc-phone").value.trim();
+        const email = document.getElementById("input-vc-email").value.trim();
+        if (!first && !last && !phone && !email) return "";
+        return [
+          "BEGIN:VCARD",
+          "VERSION:3.0",
+          `N:${last};${first}`,
+          `FN:${[first, last].filter(Boolean).join(" ")}`,
+          phone ? `TEL:${phone}` : "",
+          email ? `EMAIL:${email}` : "",
+          "END:VCARD"
+        ].filter(Boolean).join("\n");
+      }
+
+      return "";
     }
 
-    // Debounced Live Generation Engine
-    function autoGenerate(forceRefresh = false) {
+    function clearQrState() {
+      qrcodeEl.innerHTML = "";
+      qrcodeEl.style.display = "none";
+      qrPlaceholder.style.display = "block";
+      qrContainer.classList.remove("loaded");
+      actionArea.classList.remove("show");
+    }
+
+    function buildQr() {
+      const content = getFormattedContent();
+      if (!content) {
+        clearQrState();
+        return;
+      }
+
+      const size = parseInt(sizeSelect.value, 10);
+      const level = levelSelect.value;
+
+      qrcodeEl.innerHTML = "";
+      qrcodeEl.style.display = "block";
+
+      qrInstance = new QRCode(qrcodeEl, {
+        text: content,
+        width: size,
+        height: size,
+        colorDark: "#0f172a",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel[level]
+      });
+
+      qrPlaceholder.style.display = "none";
+      qrContainer.classList.add("loaded");
+      actionArea.classList.add("show");
+    }
+
+    function autoGenerate(force = false) {
       clearTimeout(autoGenTimer);
-      
-      const delay = forceRefresh ? 10 : 300;
-      
-      autoGenTimer = setTimeout(() => {
-        const content = getFormattedContent();
-        
-        if (!content || content.trim() === "") {
-          document.getElementById('qr-placeholder').style.display = 'block';
-          document.getElementById('qrcode').style.display = 'none';
-          document.getElementById('qr-container').classList.remove('loaded');
-          
-          const actionArea = document.getElementById('action-area');
-          actionArea.classList.remove('opacity-100', 'pointer-events-auto');
-          actionArea.classList.add('opacity-0', 'pointer-events-none');
-          return;
-        }
-
-        const size = parseInt(document.getElementById('qr-size').value);
-        const level = document.getElementById('qr-level').value;
-
-        const container = document.getElementById("qrcode");
-        container.innerHTML = ""; 
-
-        // Generate new QR
-        qrInstance = new QRCode(container, {
-          text: content,
-          width: size,
-          height: size,
-          colorDark: "#0f172a", 
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel[level]
-        });
-
-        document.getElementById('qr-placeholder').style.display = 'none';
-        container.style.display = 'block';
-        document.getElementById('qr-container').classList.add('loaded');
-        
-        const actionArea = document.getElementById('action-area');
-        actionArea.classList.remove('opacity-0', 'pointer-events-none');
-        actionArea.classList.add('opacity-100', 'pointer-events-auto');
-      }, delay);
+      autoGenTimer = setTimeout(buildQr, force ? 10 : 220);
     }
 
-    function downloadQR() {
-      const img = document.querySelector('#qrcode img');
+    function downloadQr() {
+      const img = qrcodeEl.querySelector("img");
       if (!img || !img.src) return;
-      
-      const link = document.createElement('a');
-      link.download = `QR-${currentTemplate}-${Date.now()}.png`;
+      const link = document.createElement("a");
       link.href = img.src;
+      link.download = `qr-${currentTemplate}-${Date.now()}.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
 
-    document.getElementById('lang-select').addEventListener('change', (e) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', e.target.value);
-      window.location.href = url.href;
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => setTemplate(btn.dataset.template));
     });
 
-    window.onload = () => {
-      updateLanguage();
-    };
+    document.querySelectorAll("input, textarea, select").forEach(el => {
+      if (el.id === "qr-size" || el.id === "qr-level") return;
+      el.addEventListener("input", () => autoGenerate());
+      el.addEventListener("change", () => autoGenerate());
+    });
+
+    sizeSelect.addEventListener("change", () => autoGenerate(true));
+    levelSelect.addEventListener("change", () => autoGenerate());
+
+    downloadBtn.addEventListener("click", downloadQr);
+
+    const dropdown = document.getElementById("categoriesDropdown");
+    const trigger = dropdown.querySelector(".nav-button");
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      const open = dropdown.classList.toggle("open");
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.addEventListener("click", (e) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove("open");
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    setTemplate("text");
   </script>
 </body>
 </html>
