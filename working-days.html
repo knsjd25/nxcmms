@@ -2,36 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  
-  <title id="meta-title">UK Working Days Calculator 2026 | Exclude Bank Holidays — Mini-Tools</title>
-  <meta name="description" id="meta-desc" content="Free UK working days calculator. Instantly calculate business days between two dates, automatically excluding weekends and regional Bank Holidays." />
-  <meta name="keywords" id="meta-keywords" content="working days calculator, business days calculator, uk bank holidays 2026, working days between two dates, exclude weekends and holidays" />
-  <meta name="robots" content="index, follow" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UK Working Days Calculator | Business Days & Bank Holidays</title>
+  <meta name="description" content="Calculate UK working days between two dates. Exclude weekends and official bank holidays for England & Wales, Scotland, or Northern Ireland." />
+  <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://mini-tools.uk/working-days" />
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/working-days?lang=en" />
-  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/working-days?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/working-days?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/working-days?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/working-days?lang=de" />
-  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/working-days" />
-
-  <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
-  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DR6V84JEZW');
-  </script>
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
 
   <script type="application/ld+json">
   {
@@ -39,38 +16,24 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "name": "Mini-Tools Working Days Calculator",
-        "operatingSystem": "Web",
+        "name": "Mini-Tools UK Working Days Calculator",
         "applicationCategory": "BusinessApplication",
-        "description": "Calculate exact working days between two dates in the UK, excluding regional Bank Holidays and weekends.",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+        "operatingSystem": "Web",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "GBP"},
+        "description": "Calculate working days between two dates for England & Wales, Scotland, or Northern Ireland, with optional bank holiday exclusion."
       },
       {
         "@type": "FAQPage",
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "How are UK working days calculated?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Working days (or business days) are calculated by counting the total calendar days between a start and end date, and then subtracting all weekends (Saturdays and Sundays) and official regional Bank Holidays."
-            }
+            "name": "Does this calculator exclude weekends?",
+            "acceptedAnswer": {"@type": "Answer", "text": "Yes. Saturdays and Sundays are excluded from the working day count."}
           },
           {
             "@type": "Question",
-            "name": "Are Bank Holidays different across the UK?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. England & Wales, Scotland, and Northern Ireland have different statutory Bank Holidays. For example, Scotland celebrates St Andrew's Day, and Northern Ireland observes St Patrick's Day, which are not bank holidays in England."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does this tool store my dates?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. The Mini-Tools Working Days Calculator processes all calendar math strictly via client-side JavaScript. Your dates are never uploaded to any server."
-            }
+            "name": "Can I exclude UK bank holidays?",
+            "acceptedAnswer": {"@type": "Answer", "text": "Yes. You can choose England & Wales, Scotland, or Northern Ireland and exclude the official bank holidays for that region."}
           }
         ]
       }
@@ -78,515 +41,503 @@
   }
   </script>
 
-  <script async src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-  
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
-    
-    .input-group { background: #ffffff; border: 2px solid #e2e8f0; transition: all 0.3s; border-radius: 1rem; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between; }
-    .input-group:focus-within { border-color: #10b981; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
-    .input-group input, .input-group select { width: 100%; outline: none; font-size: 1.15rem; font-weight: 800; color: #0f172a; background: transparent; border: none; cursor: pointer; }
-    .input-group span { font-weight: 800; color: #94a3b8; margin-right: 0.5rem; font-size: 1.25rem; user-select: none; }
-    
-    .calc-card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); overflow: hidden; transition: transform 0.3s ease; padding: 2rem; }
-    .calc-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
-    
-    .result-bg { background: linear-gradient(135deg, #065f46 0%, #022c22 100%); border-color: #047857; color: white; }
-    
-    /* Custom Toggle Switch */
-    .toggle-checkbox:checked { right: 0; border-color: #10b981; }
-    .toggle-checkbox:checked + .toggle-label { background-color: #10b981; }
-    .toggle-checkbox { right: 0; z-index: 1; border-color: #e2e8f0; transition: all 0.3s; }
-    .toggle-label { background-color: #cbd5e1; transition: all 0.3s; }
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --green: #059669;
+      --green-dark: #064e3b;
+      --green-soft: #ecfdf5;
+      --blue: #2563eb;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      --radius: 22px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
 
-    /* SEO Content Typography */
-    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
-    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
-    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
-    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
-    .prose-content strong { color: #0f172a; font-weight: 700; }
-    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
-    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
-    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
-    .faq-box h3 { margin-top: 0; margin-bottom: 0.5rem; font-size: 1.25rem; }
+    .container { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      min-height: 74px; gap: 18px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; }
+    .brand img { width: 40px; height: 40px; border-radius: 12px; }
+    .brand-text { font-size: 1.1rem; letter-spacing: -0.02em; }
+    .brand-text span { color: var(--blue); }
+
+    .nav-links { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .nav-link, .nav-button {
+      padding: 10px 14px; border-radius: 12px; font-weight: 700; font-size: 0.95rem; color: #334155;
+      transition: background .2s ease, color .2s ease;
+    }
+    .nav-link:hover, .nav-button:hover { background: #f1f5f9; }
+    .nav-link.active { color: var(--blue); background: #eff6ff; }
+
+    .menu-wrap { position: relative; }
+    .menu-trigger { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: 0; background: transparent; }
+    .menu-wrap::after {
+      content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 14px;
+    }
+    .menu {
+      position: absolute; top: calc(100% + 10px); left: 0; min-width: 250px; padding: 10px;
+      border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,0.98);
+      box-shadow: var(--shadow); opacity: 0; visibility: hidden; transform: translateY(4px);
+      transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+    }
+    .menu-wrap:hover .menu,
+    .menu-wrap:focus-within .menu,
+    .menu-wrap.open .menu {
+      opacity: 1; visibility: visible; transform: translateY(0);
+    }
+    .menu a {
+      display: block; padding: 11px 12px; border-radius: 12px; font-weight: 600; color: #334155;
+    }
+    .menu a:hover { background: #f8fafc; }
+    .menu .group-title {
+      padding: 8px 12px 4px; font-size: .72rem; font-weight: 800; letter-spacing: .08em; color: #94a3b8; text-transform: uppercase;
+    }
+
+    .hero { padding: 42px 0 16px; text-align: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px;
+      background: var(--green-soft); color: var(--green); border: 1px solid #bbf7d0; font-size: .78rem; font-weight: 800;
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+    h1 {
+      margin: 18px auto 12px; max-width: 900px; font-size: clamp(2rem, 4vw, 3.3rem); line-height: 1.05; letter-spacing: -0.04em;
+    }
+    .hero p { margin: 0 auto; max-width: 760px; color: var(--muted); font-size: 1.05rem; }
+
+    .layout {
+      display: grid; grid-template-columns: 1.02fr .98fr; gap: 26px; align-items: start; margin-top: 34px;
+    }
+    .card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 26px;
+    }
+    .card h2 { margin: 0 0 18px; font-size: 1.22rem; letter-spacing: -0.02em; }
+    .section-title { display: flex; align-items: center; gap: 10px; padding-bottom: 14px; border-bottom: 1px solid #f1f5f9; }
+
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { margin-top: 16px; }
+    .field label { display: block; margin-bottom: 8px; font-size: .78rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: .07em; }
+    .control {
+      display: flex; align-items: center; gap: 10px; min-height: 56px;
+      padding: 0 16px; border: 2px solid var(--line); border-radius: 16px; background: #fff;
+    }
+    .control:focus-within { border-color: #10b981; box-shadow: 0 0 0 4px rgba(16,185,129,.1); }
+    .control input, .control select {
+      width: 100%; border: 0; outline: 0; background: transparent; color: var(--text); font-size: 1rem; font-weight: 700;
+    }
+    .control input[type="date"] { min-height: 52px; }
+    .hint { margin-top: 14px; color: var(--muted); font-size: .94rem; }
+
+    .toggle-row {
+      margin-top: 18px; padding-top: 18px; border-top: 1px solid #f1f5f9;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .toggle-row strong { display: block; font-size: .98rem; }
+    .toggle-row span { color: var(--muted); font-size: .9rem; }
+    .switch { position: relative; width: 54px; height: 30px; flex: 0 0 auto; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; inset: 0; cursor: pointer; background: #cbd5e1; border-radius: 999px; transition: .2s ease;
+    }
+    .slider::before {
+      content: ""; position: absolute; width: 22px; height: 22px; left: 4px; top: 4px; background: white; border-radius: 50%; transition: .2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,.12);
+    }
+    .switch input:checked + .slider { background: #10b981; }
+    .switch input:checked + .slider::before { transform: translateX(24px); }
+
+    .results {
+      background: linear-gradient(135deg, #065f46 0%, #022c22 100%); color: white; border-color: #047857;
+    }
+    .metric { text-align: center; margin: 10px 0 28px; }
+    .metric .big { font-size: clamp(3.1rem, 8vw, 5rem); font-weight: 900; letter-spacing: -0.05em; line-height: 1; }
+    .metric .sub { margin-top: 10px; color: #a7f3d0; font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .stats {
+      display: grid; grid-template-columns: 1fr; gap: 10px;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1); border-radius: 18px; padding: 18px;
+    }
+    .stat-row { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .stat-row:last-child { border-bottom: 0; }
+    .stat-row span:first-child { color: #d1fae5; font-weight: 700; }
+    .stat-row span:last-child { font-weight: 900; }
+    .holiday-list {
+      margin-top: 18px; background: rgba(255,255,255,.08); border-radius: 18px; padding: 18px; border: 1px solid rgba(255,255,255,.1);
+    }
+    .holiday-list h3 { margin: 0 0 10px; font-size: .95rem; color: #d1fae5; }
+    .holiday-items { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      display: inline-flex; align-items: center; padding: 7px 10px; border-radius: 999px; background: rgba(255,255,255,.12); color: #fff; font-size: .82rem; font-weight: 700;
+    }
+
+    .prose {
+      margin-top: 42px; padding-top: 36px; border-top: 2px solid #e2e8f0;
+    }
+    .prose h2 { font-size: 1.8rem; margin: 0 0 16px; letter-spacing: -0.03em; }
+    .prose h3 { font-size: 1.2rem; margin: 28px 0 10px; }
+    .prose p, .prose li { color: #475569; font-size: 1rem; line-height: 1.75; }
+    .faq {
+      margin-top: 16px; padding: 20px; border-radius: 18px; border: 1px solid var(--line); background: #fff;
+    }
+
+    .related {
+      margin-top: 36px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px;
+    }
+    .related a {
+      display: block; padding: 16px; background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); font-weight: 700; color: #1e293b;
+    }
+    .related small { display: block; margin-top: 6px; color: var(--muted); font-weight: 600; }
+
+    footer { margin-top: 46px; border-top: 1px solid var(--line); background: #fff; }
+    .footer-inner { padding: 30px 0 40px; text-align: center; }
+    .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 18px; margin-bottom: 14px; }
+    .footer-links a { font-size: .85rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: .08em; }
+    .footer-note { color: #94a3b8; font-size: .77rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .related { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .container { width: min(var(--max), calc(100% - 20px)); }
+      .nav { min-height: 68px; }
+      .nav-links { gap: 4px; }
+      .hide-mobile { display: none; }
+      .field-grid { grid-template-columns: 1fr; }
+      .related { grid-template-columns: 1fr; }
+      .card { padding: 20px; }
+      .hero { padding-top: 26px; }
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
-
-  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-    <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
-        </a>
-        <div class="flex flex-col -mt-1 hidden sm:flex">
-          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/">
+        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools logo" />
+        <div class="brand-text">Mini-Tools<span>.uk</span></div>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/all-tools">All Tools</a>
+        <div class="menu-wrap" id="categoryMenu">
+          <button class="nav-button menu-trigger" type="button" aria-expanded="false" aria-controls="categoryDropdown">
+            Categories
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="menu" id="categoryDropdown">
+            <div class="group-title">UK Finance</div>
+            <a href="/tax">Tax Calculator</a>
+            <a href="/vat">VAT Calculator</a>
+            <a href="/stamp-duty">Stamp Duty</a>
+            <a href="/dividend">Salary vs Dividend</a>
+            <a href="/ir35">IR35</a>
+            <a href="/fuel">Fuel Cost</a>
+            <a class="active" href="/working-days">Working Days</a>
+            <div class="group-title">Utilities</div>
+            <a href="/weight">Stones to Kg</a>
+          </div>
         </div>
-      </div>
-      <div class="flex items-center gap-4 sm:gap-6">
-        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
-          <span id="nav-blog-text">Blog & Guides</span>
-        </a>
-        <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500 transition-colors hover:bg-slate-100">
-          <option value="en">🇬🇧 English</option>
-          <option value="zh">🇨🇳 简体中文</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="de">🇩🇪 Deutsch</option>
-        </select>
-      </div>
+        <a class="nav-link hide-mobile" href="/blog">Blog</a>
+        <a class="nav-link hide-mobile" href="/about">About</a>
+      </nav>
     </div>
-  </nav>
+  </header>
 
-  <main class="max-w-6xl mx-auto px-6 py-12 flex-1 w-full">
-    <header class="mb-12 text-center">
-      <div class="mb-4">
-        <span id="update-status" class="bg-emerald-50 text-emerald-600 px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-widest border border-emerald-100">
-          🇬🇧 Integrated UK Bank Holidays (2026/27)
-        </span>
-      </div>
-      <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
-        Working Days Calculator
-      </h1>
-      <p id="page-desc" class="text-lg text-slate-500 max-w-2xl mx-auto">
-        Instantly calculate the exact business days between two dates. Automatically excludes weekends and regional UK Bank Holidays.
-      </p>
-    </header>
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">🇬🇧 UK business-day calculator</div>
+      <h1>Working Days Calculator for the UK</h1>
+      <p>Calculate business days between two dates, optionally excluding official bank holidays for England &amp; Wales, Scotland, or Northern Ireland.</p>
+    </section>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
-      
-      <div class="lg:col-span-6 calc-card space-y-6 border-t-4 border-t-emerald-500">
-        <div class="flex items-center gap-3 mb-2 border-b border-slate-100 pb-4">
-          <span class="text-2xl">📅</span>
-          <h2 id="lbl-input-title" class="text-xl font-extrabold text-slate-900">Date Range</h2>
-        </div>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <label id="lbl-start" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Start Date</label>
-              <div class="input-group">
-                <input type="date" id="input-start" onchange="calcDays()">
-              </div>
-            </div>
-            <div>
-              <label id="lbl-end" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">End Date</label>
-              <div class="input-group">
-                <input type="date" id="input-end" onchange="calcDays()">
-              </div>
-            </div>
+    <section class="layout">
+      <div class="card">
+        <div class="section-title">
+          <div style="font-size:1.6rem">📅</div>
+          <h2>Date range</h2>
         </div>
 
-        <div class="pt-2">
-          <label id="lbl-region" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">UK Region (For Bank Holidays)</label>
-          <div class="input-group bg-slate-50">
-            <select id="input-region" onchange="calcDays()" class="bg-transparent">
-              <option value="ew" id="opt-ew">England & Wales</option>
-              <option value="sc" id="opt-sc">Scotland</option>
-              <option value="ni" id="opt-ni">Northern Ireland</option>
+        <div class="field-grid">
+          <div class="field">
+            <label for="startDate">Start date</label>
+            <div class="control">
+              <input id="startDate" type="date" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="endDate">End date</label>
+            <div class="control">
+              <input id="endDate" type="date" />
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="region">UK region</label>
+          <div class="control">
+            <select id="region">
+              <option value="ew">England &amp; Wales</option>
+              <option value="sc">Scotland</option>
+              <option value="ni">Northern Ireland</option>
             </select>
           </div>
         </div>
-        
-        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-          <span id="lbl-toggle" class="text-sm font-bold text-slate-700">Exclude Bank Holidays</span>
-          <div class="relative inline-block w-12 mr-2 align-middle select-none">
-            <input type="checkbox" id="toggle-bh" checked onchange="calcDays()" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
-            <label for="toggle-bh" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+
+        <div class="toggle-row">
+          <div>
+            <strong>Exclude bank holidays</strong>
+            <span>Turn this off if you only want weekends excluded.</span>
+          </div>
+          <label class="switch" aria-label="Exclude bank holidays">
+            <input id="excludeBH" type="checkbox" checked />
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <p class="hint">This calculator counts both the start date and end date. If the end date is earlier than the start date, the dates are swapped automatically.</p>
+      </div>
+
+      <div class="card results">
+        <div class="section-title" style="border-bottom-color: rgba(255,255,255,.1)">
+          <div style="font-size:1.6rem">💼</div>
+          <h2 style="color:#fff;margin:0">Business days</h2>
+        </div>
+
+        <div class="metric">
+          <div class="big" id="workingDays">0</div>
+          <div class="sub">total working days</div>
+        </div>
+
+        <div class="stats">
+          <div class="stat-row"><span>Calendar days</span><span id="calendarDays">0</span></div>
+          <div class="stat-row"><span>Weekends excluded</span><span id="weekendsExcluded">0</span></div>
+          <div class="stat-row"><span>Bank holidays excluded</span><span id="bankHolidaysExcluded">0</span></div>
+          <div class="stat-row"><span>Selected region</span><span id="selectedRegion">England &amp; Wales</span></div>
+        </div>
+
+        <div class="holiday-list">
+          <h3>Excluded bank holidays in range</h3>
+          <div class="holiday-items" id="holidayItems">
+            <span class="pill">None</span>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="lg:col-span-6 calc-card result-bg flex flex-col h-full shadow-2xl shadow-emerald-900/20">
-        <div class="flex items-center justify-between mb-8">
-          <h2 id="lbl-result-title" class="text-xl font-extrabold text-white">Business Days</h2>
-          <span class="text-3xl">💼</span>
-        </div>
-        
-        <div class="text-center mb-10">
-          <span id="val-working" class="text-7xl font-black text-white tracking-tight">0</span>
-          <span id="lbl-working-sub" class="block text-xs font-black text-emerald-300 uppercase tracking-widest mt-3">Total Working Days</span>
-        </div>
+    <section class="prose">
+      <h2>How this calculator works</h2>
+      <p>This tool counts every day between your start date and end date, then removes Saturdays and Sundays. When bank holiday exclusion is turned on, it also removes the official bank holidays for your chosen UK region.</p>
+      <p>England &amp; Wales, Scotland, and Northern Ireland do not always share the same holiday calendar, so region matters. For example, Scotland has its own holiday pattern, while Northern Ireland includes St Patrick’s Day and the Battle of the Boyne. The official GOV.UK bank holiday listings also note that employers do not automatically have to give paid leave on bank holidays. citeturn902401search0turn417092search0</p>
 
-        <div class="bg-white/10 rounded-2xl p-5 border border-white/10 backdrop-blur-sm mt-auto space-y-3">
-          <div class="flex justify-between items-center text-sm font-bold text-emerald-100 border-b border-emerald-800/50 pb-2">
-            <span id="lbl-cal-days">Total Calendar Days</span>
-            <span id="val-cal-days" class="text-white">0</span>
-          </div>
-          <div class="flex justify-between items-center text-sm font-bold text-emerald-100 border-b border-emerald-800/50 pb-2">
-            <span id="lbl-weekends">Weekends Excluded</span>
-            <span id="val-weekends" class="text-white">0</span>
-          </div>
-          <div class="flex justify-between items-center text-sm font-bold text-emerald-100">
-            <span id="lbl-holidays">Bank Holidays Excluded</span>
-            <span id="val-holidays" class="text-white">0</span>
-          </div>
-        </div>
+      <div class="faq">
+        <h3>What counts as a working day?</h3>
+        <p>In this calculator, a working day is any weekday that is not excluded as an official bank holiday for the region you selected.</p>
       </div>
 
-    </div>
-
-    <div id="seo-container" class="prose-content">
+      <div class="faq">
+        <h3>Are the holiday dates official?</h3>
+        <p>Yes. The built-in dates for 2026 and 2027 come from the official GOV.UK bank holiday listings for England &amp; Wales, Scotland, and Northern Ireland. citeturn902401search0turn417092search0</p>
       </div>
 
+      <div class="faq">
+        <h3>Does the page upload my dates?</h3>
+        <p>No. The calculation runs entirely in your browser with local JavaScript.</p>
+      </div>
+    </section>
+
+    <section class="related" aria-label="Related tools">
+      <a href="/tax">UK Tax Calculator<small>Estimate salary tax and take-home pay</small></a>
+      <a href="/vat">VAT Calculator<small>Add or remove UK VAT quickly</small></a>
+      <a href="/stamp-duty">Stamp Duty<small>Estimate SDLT for residential purchases</small></a>
+      <a href="/fuel">Fuel Cost<small>Calculate UK journey fuel costs</small></a>
+    </section>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-10 w-full">
-    <div class="max-w-[1400px] mx-auto px-6 text-center">
-      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
-        </a>
-        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
-        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-links">
+        <a href="/about">About</a>
+        <a href="/blog">Blog</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/contact">Contact</a>
       </div>
-      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
-        © 2026 MINI-TOOLS.UK — SECURE CLIENT-SIDE WEB UTILITIES
-      </p>
-      <p id="last-updated-text" class="text-center text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-2"></p>
+      <div class="footer-note">© 2026 MINI-TOOLS.UK — UK calculators & privacy-first web tools</div>
     </div>
   </footer>
 
   <script>
-    // --- 📅 Hardcoded UK Bank Holidays 2026 & 2027 ---
     const bankHolidays = {
-        'ew': [ // England & Wales
-            '2026-01-01', '2026-04-03', '2026-04-06', '2026-05-04', '2026-05-25', '2026-08-31', '2026-12-25', '2026-12-28',
-            '2027-01-01', '2027-03-26', '2027-03-29', '2027-05-03', '2027-05-31', '2027-08-30', '2027-12-27', '2027-12-28'
-        ],
-        'sc': [ // Scotland
-            '2026-01-01', '2026-01-02', '2026-04-03', '2026-05-04', '2026-05-25', '2026-08-03', '2026-11-30', '2026-12-25', '2026-12-28',
-            '2027-01-01', '2027-01-04', '2027-03-26', '2027-05-03', '2027-05-31', '2027-08-02', '2027-11-30', '2027-12-27', '2027-12-28'
-        ],
-        'ni': [ // Northern Ireland
-            '2026-01-01', '2026-03-17', '2026-04-03', '2026-04-06', '2026-05-04', '2026-05-25', '2026-07-13', '2026-08-31', '2026-12-25', '2026-12-28',
-            '2027-01-01', '2027-03-17', '2027-03-26', '2027-03-29', '2027-05-03', '2027-05-31', '2027-07-12', '2027-08-30', '2027-12-27', '2027-12-28'
-        ]
+      ew: new Set([
+        '2026-01-01','2026-04-03','2026-04-06','2026-05-04','2026-05-25','2026-08-31','2026-12-25','2026-12-28',
+        '2027-01-01','2027-03-26','2027-03-29','2027-05-03','2027-05-31','2027-08-30','2027-12-27','2027-12-28'
+      ]),
+      sc: new Set([
+        '2026-01-01','2026-01-02','2026-04-03','2026-05-04','2026-05-25','2026-06-15','2026-08-03','2026-11-30','2026-12-25','2026-12-28',
+        '2027-01-01','2027-01-04','2027-03-26','2027-05-03','2027-05-31','2027-08-02','2027-11-30','2027-12-27','2027-12-28'
+      ]),
+      ni: new Set([
+        '2026-01-01','2026-03-17','2026-04-03','2026-04-06','2026-05-04','2026-05-25','2026-07-13','2026-08-31','2026-12-25','2026-12-28',
+        '2027-01-01','2027-03-17','2027-03-26','2027-03-29','2027-05-03','2027-05-31','2027-07-12','2027-08-30','2027-12-27','2027-12-28'
+      ])
     };
 
-    function formatDateForInput(date) {
-        const d = new Date(date);
-        let month = '' + (d.getMonth() + 1);
-        let day = '' + d.getDate();
-        const year = d.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-        return [year, month, day].join('-');
+    const regionNames = {
+      ew: 'England & Wales',
+      sc: 'Scotland',
+      ni: 'Northern Ireland'
+    };
+
+    const els = {
+      start: document.getElementById('startDate'),
+      end: document.getElementById('endDate'),
+      region: document.getElementById('region'),
+      excludeBH: document.getElementById('excludeBH'),
+      workingDays: document.getElementById('workingDays'),
+      calendarDays: document.getElementById('calendarDays'),
+      weekendsExcluded: document.getElementById('weekendsExcluded'),
+      bankHolidaysExcluded: document.getElementById('bankHolidaysExcluded'),
+      selectedRegion: document.getElementById('selectedRegion'),
+      holidayItems: document.getElementById('holidayItems')
+    };
+
+    function formatDateInput(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
     }
 
-    // 🌟 SEO 杀招 1：动态路由与 URL 共享
-    function updateURLParams(start, end, region, exclBH, workingDays) {
+    function friendlyDate(iso) {
+      const [y, m, d] = iso.split('-').map(Number);
+      const date = new Date(Date.UTC(y, m - 1, d));
+      return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+    }
+
+    function updateUrl(start, end, region, excludeBH) {
       const url = new URL(window.location.href);
-      
-      if (start && end) {
-        url.searchParams.set('start', start);
-        url.searchParams.set('end', end);
-        url.searchParams.set('region', region);
-        url.searchParams.set('bh', exclBH);
-        
-        // 🌟 SEO 杀招 2：动态重写网页标题
-        const i18nTitle = i18n[document.documentElement.lang || 'en'].dynTitle;
-        document.title = `${workingDays} Days | ${i18nTitle} | Mini-Tools.uk`;
-      }
-      window.history.replaceState({}, '', url);
+      url.searchParams.set('start', start);
+      url.searchParams.set('end', end);
+      url.searchParams.set('region', region);
+      url.searchParams.set('bh', excludeBH ? '1' : '0');
+      history.replaceState({}, '', url);
     }
 
-    function calcDays() {
-      const startStr = document.getElementById('input-start').value;
-      const endStr = document.getElementById('input-end').value;
-      const region = document.getElementById('input-region').value;
-      const exclBH = document.getElementById('toggle-bh').checked;
+    function countWorkingDays() {
+      if (!els.start.value || !els.end.value) return;
 
-      if (!startStr || !endStr) return;
+      let start = new Date(`${els.start.value}T00:00:00`);
+      let end = new Date(`${els.end.value}T00:00:00`);
+      if (end < start) [start, end] = [end, start];
 
-      const startDate = new Date(startStr);
-      const endDate = new Date(endStr);
-      
-      // Swap if end is before start
-      let start = startDate <= endDate ? startDate : endDate;
-      let end = startDate <= endDate ? endDate : startDate;
+      const region = els.region.value;
+      const excludeBH = els.excludeBH.checked;
+      const bhSet = bankHolidays[region] || new Set();
 
-      let totalDays = 0;
+      let calendarDays = 0;
       let weekends = 0;
       let holidays = 0;
-      let workingDays = 0;
+      let working = 0;
+      const excludedHolidayDates = [];
 
-      const regionHolidays = bankHolidays[region];
+      for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+        calendarDays += 1;
+        const day = d.getDay();
+        const iso = formatDateInput(d);
+        const isWeekend = day === 0 || day === 6;
+        const isHoliday = excludeBH && bhSet.has(iso);
 
-      // Loop through dates (inclusive of both start and end)
-      let current = new Date(start);
-      while (current <= end) {
-          totalDays++;
-          const dayOfWeek = current.getDay();
-          const dateStr = formatDateForInput(current);
-          
-          let isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
-          let isHoliday = exclBH && regionHolidays.includes(dateStr);
-
-          if (isWeekend) {
-              weekends++;
-          } else if (isHoliday) {
-              holidays++;
-          } else {
-              workingDays++;
-          }
-          
-          current.setDate(current.getDate() + 1);
+        if (isWeekend) {
+          weekends += 1;
+        } else if (isHoliday) {
+          holidays += 1;
+          excludedHolidayDates.push(iso);
+        } else {
+          working += 1;
+        }
       }
 
-      // Update DOM
-      document.getElementById('val-working').innerText = workingDays;
-      document.getElementById('val-cal-days').innerText = totalDays;
-      document.getElementById('val-weekends').innerText = weekends;
-      document.getElementById('val-holidays').innerText = holidays;
+      els.workingDays.textContent = String(working);
+      els.calendarDays.textContent = String(calendarDays);
+      els.weekendsExcluded.textContent = String(weekends);
+      els.bankHolidaysExcluded.textContent = String(holidays);
+      els.selectedRegion.textContent = regionNames[region];
 
-      updateURLParams(startStr, endStr, region, exclBH, workingDays);
+      els.holidayItems.innerHTML = '';
+      if (excludedHolidayDates.length === 0) {
+        const none = document.createElement('span');
+        none.className = 'pill';
+        none.textContent = 'None';
+        els.holidayItems.appendChild(none);
+      } else {
+        excludedHolidayDates.forEach(iso => {
+          const item = document.createElement('span');
+          item.className = 'pill';
+          item.textContent = friendlyDate(iso);
+          els.holidayItems.appendChild(item);
+        });
+      }
+
+      updateUrl(formatDateInput(start), formatDateInput(end), region, excludeBH);
+      document.title = `${working} working days | UK Working Days Calculator`;
     }
 
-    function initDefaults() {
+    function init() {
       const params = new URLSearchParams(window.location.search);
-      let hasParams = false;
+      const today = new Date();
+      const inMonth = new Date();
+      inMonth.setMonth(inMonth.getMonth() + 1);
 
-      if (params.has('start')) { document.getElementById('input-start').value = params.get('start'); hasParams = true; }
-      if (params.has('end')) { document.getElementById('input-end').value = params.get('end'); hasParams = true; }
-      if (params.has('region')) { document.getElementById('input-region').value = params.get('region'); hasParams = true; }
-      if (params.has('bh')) { document.getElementById('toggle-bh').checked = params.get('bh') === 'true'; hasParams = true; }
-      
-      if (!hasParams) {
-          const today = new Date();
-          const nextMonth = new Date();
-          nextMonth.setMonth(today.getMonth() + 1);
-          
-          document.getElementById('input-start').value = formatDateForInput(today);
-          document.getElementById('input-end').value = formatDateForInput(nextMonth);
-      }
-      
-      calcDays();
-    }
+      els.start.value = params.get('start') || formatDateInput(today);
+      els.end.value = params.get('end') || formatDateInput(inMonth);
+      els.region.value = params.get('region') || 'ew';
+      els.excludeBH.checked = (params.get('bh') ?? '1') !== '0';
 
-    // 🌟 Multi-language Engine & SEO 🌟
-    const i18n = {
-      en: {
-        metaTitle: "UK Working Days Calculator 2026 | Exclude Bank Holidays — Mini-Tools",
-        metaDesc: "Free UK working days calculator. Instantly calculate business days between two dates, automatically excluding weekends and regional Bank Holidays.",
-        metaKeywords: "working days calculator, business days calculator, uk bank holidays 2026, working days between two dates, exclude weekends and holidays",
-        title: "Working Days Calculator", desc: "Instantly calculate the exact business days between two dates. Automatically excludes weekends and regional UK Bank Holidays.",
-        update: "🇬🇧 Integrated UK Bank Holidays (2026/27)",
-        dynTitle: "Working Days Calculator",
-        
-        lblInpTitle: "Date Range", lblResTitle: "Business Days",
-        lblStart: "Start Date", lblEnd: "End Date", lblRegion: "UK Region (For Bank Holidays)",
-        lblToggle: "Exclude Bank Holidays",
-        
-        optEw: "England & Wales", optSc: "Scotland", optNi: "Northern Ireland",
-        
-        lblWorkingSub: "Total Working Days", lblCalDays: "Total Calendar Days",
-        lblWeekends: "Weekends Excluded", lblHolidays: "Bank Holidays Excluded",
-        
-        navBlog: "Blog & Guides", footerBlog: "Blog",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
-        lastUpdated: "LAST UPDATED: ",
-        
-        seoHtml: `
-          <h2>How to Calculate UK Working Days</h2>
-          <p>Calculating the exact number of business days (working days) between two dates is crucial for project planning, HR payroll, and delivery estimates. Our calculator automates this by counting the total calendar days and automatically stripping out weekends (Saturdays and Sundays).</p>
-          
-          <div class="faq-box">
-            <h3>Are Bank Holidays different across the UK?</h3>
-            <p>Yes. This is why standard global date calculators often get UK dates wrong. <strong>England & Wales</strong>, <strong>Scotland</strong>, and <strong>Northern Ireland</strong> have different statutory bank holidays. For example, Scotland celebrates St Andrew's Day, and Northern Ireland observes St Patrick's Day and the Battle of the Boyne. Our calculator has these regional nuances hardcoded for absolute precision.</p>
-          </div>
-          
-          <div class="faq-box">
-            <h3>Does this tool store my dates?</h3>
-            <p>No. Your HR and project planning dates are sensitive. The Mini-Tools Working Days Calculator processes all calendar mathematics strictly via local JavaScript in your browser. We never track or upload the dates you are calculating.</p>
-          </div>
+      [els.start, els.end, els.region, els.excludeBH].forEach(el => {
+        el.addEventListener('change', countWorkingDays);
+        el.addEventListener('input', countWorkingDays);
+      });
 
-          <h2>Dynamic Sharing for Project Managers</h2>
-          <p>When you select a date range and region, the URL in your browser updates dynamically. This means you can copy the web address and send it to your team or clients to show them exactly how many billable working days exist in a specific project sprint, without needing to type out the math.</p>`
-      },
-      zh: {
-        metaTitle: "英国工作日计算器 (Working Days) 2026 — Mini-Tools",
-        metaDesc: "免费的英国工作日计算器。极速计算两个日期之间的有效工作日，自动扣除周末及英国各地特有的法定银行假 (Bank Holidays)。",
-        metaKeywords: "工作日计算器, 英国工作日, Bank Holidays 2026, 计算两个日期之间的天数, 排除周末和节假日",
-        title: "工作日计算器 (UK版)", desc: "精准计算两个日期之间的有效工作日（Business Days）。自动排除周末，并内置了英国各地特有的法定银行假。",
-        update: "🇬🇧 内置英国 2026/27 银行假数据",
-        dynTitle: "工作日计算",
-        
-        lblInpTitle: "日期范围", lblResTitle: "有效工作日",
-        lblStart: "开始日期", lblEnd: "结束日期", lblRegion: "选择地区 (用于匹配专属节假日)",
-        lblToggle: "排除法定银行假 (Bank Holidays)",
-        
-        optEw: "英格兰 & 威尔士 (England & Wales)", optSc: "苏格兰 (Scotland)", optNi: "北爱尔兰 (Northern Ireland)",
-        
-        lblWorkingSub: "总计工作天数", lblCalDays: "日历总天数",
-        lblWeekends: "已扣除周末天数", lblHolidays: "已扣除银行假天数",
-        
-        navBlog: "官方博客与教程", footerBlog: "官方博客",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
-        lastUpdated: "最后更新：",
-        
-        seoHtml: `
-          <h2>如何精准计算英国的有效工作日？</h2>
-          <p>计算两个日期之间的准确营业日（工作日）对项目规划、HR 薪资计算和物流预估至关重要。我们的计算器会自动统计日历总天数，并剔除所有的周末（周六和周日）。</p>
-          
-          <div class="faq-box">
-            <h3>英国各地的银行假 (Bank Holidays) 都不一样吗？</h3>
-            <p>是的，这就是为什么普通的国际日期计算器在算英国时间时经常出错。<strong>英格兰与威尔士</strong>、<strong>苏格兰</strong>和<strong>北爱尔兰</strong>拥有不同的法定假日。例如，苏格兰有“圣安德鲁日”，而北爱尔兰有“圣帕特里克节”。我们的计算器在底层硬编码了这些区域差异，确保结果绝对精准。</p>
-          </div>
-          
-          <div class="faq-box">
-            <h3>这个工具会保存我输入的日期吗？</h3>
-            <p>绝对不会。您用于 HR 算薪或项目规划的日期属于敏感数据。我们的计算器采用纯前端架构，所有日历推算都在您的浏览器内存中完成，绝不会上传至任何服务器。</p>
-          </div>
-
-          <h2>为项目经理打造的动态分享功能</h2>
-          <p>当您选择完日期和地区后，地址栏的网址会动态更新。您可以直接复制这个带有参数的链接发送给团队或客户，向他们清晰地展示某个项目冲刺周期内到底有多少个“可计费的工作日”，彻底免去口头解释的麻烦。</p>`
-      },
-      es: {
-        metaTitle: "Calculadora de Días Laborables UK 2026 | Mini-Tools",
-        metaDesc: "Calculadora gratuita de días laborables en UK. Excluye automáticamente fines de semana y festivos regionales.",
-        metaKeywords: "dias laborables, calcular dias habiles uk, festivos uk 2026",
-        title: "Calculadora de Días Laborables", desc: "Calcule los días hábiles exactos entre dos fechas. Excluye automáticamente fines de semana y festivos bancarios del Reino Unido.",
-        update: "🇬🇧 Festivos Bancarios UK Integrados",
-        dynTitle: "Días Laborables",
-        lblInpTitle: "Rango de Fechas", lblResTitle: "Días Hábiles",
-        lblStart: "Fecha de Inicio", lblEnd: "Fecha de Fin", lblRegion: "Región (Para Festivos)", lblToggle: "Excluir Festivos (Bank Holidays)",
-        optEw: "Inglaterra y Gales", optSc: "Escocia", optNi: "Irlanda del Norte",
-        lblWorkingSub: "Días Laborables Totales", lblCalDays: "Días Naturales", lblWeekends: "Fines de Semana Excluidos", lblHolidays: "Festivos Excluidos",
-        navBlog: "Blog y Guías", footerBlog: "Blog", footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
-        lastUpdated: "ÚLTIMA ACTUALIZACIÓN: ",
-        seoHtml: `<h2>Cálculo de Días Hábiles en UK</h2><p>Calcular los días hábiles es crucial para proyectos y nóminas. Nuestra herramienta excluye fines de semana y festivos regionales (Bank Holidays).</p>`
-      },
-      fr: {
-        metaTitle: "Calculateur de Jours Ouvrables UK 2026 | Mini-Tools",
-        metaDesc: "Calculateur gratuit de jours ouvrables. Exclut automatiquement les week-ends et les jours fériés régionaux du Royaume-Uni.",
-        metaKeywords: "jours ouvrables uk, calculateur jours ouvres, bank holidays 2026",
-        title: "Calculateur de Jours Ouvrables", desc: "Calculez les jours ouvrables exacts entre deux dates. Exclut automatiquement les week-ends et les jours fériés du Royaume-Uni.",
-        update: "🇬🇧 Jours Fériés UK Intégrés",
-        dynTitle: "Jours Ouvrables",
-        lblInpTitle: "Période", lblResTitle: "Jours Ouvrables",
-        lblStart: "Date de Début", lblEnd: "Date de Fin", lblRegion: "Région UK (Jours Fériés)", lblToggle: "Exclure les Jours Fériés",
-        optEw: "Angleterre et Galles", optSc: "Écosse", optNi: "Irlande du Nord",
-        lblWorkingSub: "Total des Jours Ouvrables", lblCalDays: "Jours Calendaires", lblWeekends: "Week-ends Exclus", lblHolidays: "Jours Fériés Exclus",
-        navBlog: "Blog et Guides", footerBlog: "Blog", footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
-        lastUpdated: "DERNIÈRE MISE À JOUR : ",
-        seoHtml: `<h2>Calcul des Jours Ouvrables au Royaume-Uni</h2><p>Notre calculateur automatise le comptage en excluant les week-ends et les Bank Holidays spécifiques à chaque région (Angleterre, Écosse, Irlande du Nord).</p>`
-      },
-      de: {
-        metaTitle: "Arbeitstage-Rechner UK 2026 | Mini-Tools",
-        metaDesc: "Kostenloser Rechner für Arbeitstage in Großbritannien. Schließt Wochenenden und regionale Feiertage automatisch aus.",
-        metaKeywords: "arbeitstage rechner uk, werktage berechnen, bank holidays 2026",
-        title: "Arbeitstage-Rechner", desc: "Berechnen Sie die genauen Arbeitstage zwischen zwei Daten. Schließt automatisch Wochenenden und britische Feiertage aus.",
-        update: "🇬🇧 Integrierte UK Feiertage",
-        dynTitle: "Arbeitstage",
-        lblInpTitle: "Datumsbereich", lblResTitle: "Werktage",
-        lblStart: "Startdatum", lblEnd: "Enddatum", lblRegion: "UK Region (Für Feiertage)", lblToggle: "Feiertage Ausschließen",
-        optEw: "England & Wales", optSc: "Schottland", optNi: "Nordirland",
-        lblWorkingSub: "Gesamte Arbeitstage", lblCalDays: "Kalendertage Gesamt", lblWeekends: "Wochenenden Ausgeschlossen", lblHolidays: "Feiertage Ausgeschlossen",
-        navBlog: "Blog & Anleitungen", footerBlog: "Blog", footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
-        lastUpdated: "ZULETZT AKTUALISIERT: ",
-        seoHtml: `<h2>Berechnung von Arbeitstagen in UK</h2><p>Die genaue Anzahl der Arbeitstage ist entscheidend für die Projektplanung. Unser Rechner schließt Wochenenden und die regional unterschiedlichen Bank Holidays automatisch aus.</p>`
-      }
-    };
-
-    function updateLanguage() {
-      const params = new URLSearchParams(window.location.search);
-      const lang = params.get('lang') || 'en';
-      const data = i18n[lang] || i18n['en'];
-
-      document.documentElement.lang = lang;
-      
-      // Update Meta
-      if (!params.has('start') && !params.has('end')) {
-          document.title = data.metaTitle;
-      }
-      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
-      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
-
-      // Update UI Text
-      document.getElementById('update-status').innerText = data.update;
-      document.getElementById('page-title').innerText = data.title;
-      document.getElementById('page-desc').innerText = data.desc;
-      
-      document.getElementById('lbl-input-title').innerText = data.lblInpTitle;
-      document.getElementById('lbl-result-title').innerText = data.lblResTitle;
-      
-      document.getElementById('lbl-start').innerText = data.lblStart;
-      document.getElementById('lbl-end').innerText = data.lblEnd;
-      document.getElementById('lbl-region').innerText = data.lblRegion;
-      document.getElementById('lbl-toggle').innerText = data.lblToggle;
-      
-      document.getElementById('opt-ew').innerText = data.optEw;
-      document.getElementById('opt-sc').innerText = data.optSc;
-      document.getElementById('opt-ni').innerText = data.optNi;
-      
-      document.getElementById('lbl-working-sub').innerText = data.lblWorkingSub;
-      document.getElementById('lbl-cal-days').innerText = data.lblCalDays;
-      document.getElementById('lbl-weekends').innerText = data.lblWeekends;
-      document.getElementById('lbl-holidays').innerText = data.lblHolidays;
-
-      // Nav & Footer
-      const navBlogText = document.getElementById('nav-blog-text');
-      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
-      const footerBlog = document.getElementById('footer-blog');
-      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
-      
-      document.getElementById('footer-about').innerText = data.footerAbout;
-      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
-      document.getElementById('footer-contact').innerText = data.footerContact;
-
-      // SEO Html
-      const seoContainer = document.getElementById('seo-container');
-      if (data.seoHtml) {
-          seoContainer.style.opacity = 0;
-          setTimeout(() => {
-              seoContainer.innerHTML = data.seoHtml;
-              seoContainer.style.opacity = 1;
-          }, 150);
-      }
-
-      // QDF
-      const updateSpan = document.getElementById('last-updated-text');
-      if (updateSpan && data.lastUpdated) {
-          const now = new Date();
-          now.setDate(now.getDate() - 1);
-          let locale = 'en-GB';
-          if(lang === 'zh') locale = 'zh-CN';
-          if(lang === 'es') locale = 'es-ES';
-          if(lang === 'fr') locale = 'fr-FR';
-          if(lang === 'de') locale = 'de-DE';
-          const options = { year: 'numeric', month: 'long', day: 'numeric' };
-          updateSpan.innerText = data.lastUpdated + now.toLocaleDateString(locale, options);
-      }
-
-      document.getElementById('lang-select').value = lang;
-      
-      // Clean URLs
-      document.querySelectorAll('a').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
-          try {
-            const url = new URL(href, window.location.origin);
-            url.searchParams.set('lang', lang);
-            link.href = url.pathname + url.search;
-          } catch(e) {}
+      const menuWrap = document.getElementById('categoryMenu');
+      const trigger = menuWrap.querySelector('.menu-trigger');
+      trigger.addEventListener('click', () => {
+        const open = menuWrap.classList.toggle('open');
+        trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.addEventListener('click', (e) => {
+        if (!menuWrap.contains(e.target)) {
+          menuWrap.classList.remove('open');
+          trigger.setAttribute('aria-expanded', 'false');
         }
       });
+
+      countWorkingDays();
     }
 
-    document.getElementById('lang-select').addEventListener('change', (e) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', e.target.value);
-      window.location.href = url.href;
-    });
-
-    window.onload = () => {
-      updateLanguage();
-      initDefaults();
-    };
+    init();
   </script>
 </body>
 </html>
