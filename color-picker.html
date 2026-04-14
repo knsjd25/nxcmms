@@ -6,6 +6,11 @@
   
   <title id="meta-title">Image Colour Picker & Cropper | Extract HEX, RGB, HSL Locally</title>
   <meta name="description" id="meta-desc" content="Free offline image colour picker and screenshot cropping tool. Extract precise HEX, RGB, and HSL codes. Build colour palettes locally. Zero server uploads." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Image Colour Picker & Cropper | Extract HEX, RGB, HSL Locally" />
+  <meta property="og:description" content="Free offline image colour picker and screenshot cropping tool. Extract precise HEX, RGB, and HSL codes. Build colour palettes locally. Zero server uploads." />
+  <meta property="og:url" content="https://mini-tools.uk/color-picker" />
   <meta name="keywords" content="Image colour picker, Screenshot tool, Crop image online, HEX colour finder, RGB picker, HSL extractor, Colour palette generator, Offline image tool" />
   
   <link rel="canonical" href="https://mini-tools.uk/color-picker" />
@@ -26,6 +31,52 @@
   </script>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Mini-Tools Image Colour Picker & Cropper",
+        "operatingSystem": "Web",
+        "applicationCategory": "DesignApplication",
+        "description": "Client-side image colour picker and crop tool for extracting HEX, RGB, and HSL values locally.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Are my images uploaded to a server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Images are processed locally in your browser using canvas, so they are not uploaded to our servers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I crop a screenshot without losing quality?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The crop tool maps your selection back to the original image pixels before exporting the result."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which colour formats does this tool export?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The picker shows HEX, RGB, and HSL values for the selected pixel."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <script async src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
@@ -209,7 +260,7 @@
       <div class="mb-4">
         <span class="updated-badge">
           <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
-          <span id="update-text">Advanced Palette Mode Added</span>
+          <span id="update-text">Client-Side Image Utility</span>
         </span>
       </div>
       <h1 id="page-title" class="text-4xl lg:text-4xl font-extrabold text-slate-900 mb-3 tracking-tight leading-tight">
@@ -350,7 +401,7 @@
         metaDesc: "Free offline image colour picker and screenshot cropping tool. Extract precise HEX, RGB, and HSL codes. Build colour palettes locally. Zero server uploads.",
         title: "Image Colour Picker & Cropper",
         desc: "Extract exact HEX, RGB, and HSL colours from any image. Build a palette or crop screenshots entirely locally in your browser.",
-        updateText: "Advanced Palette Mode Added",
+        updateText: "Client-Side Image Utility",
         labelUpload: "Open Image", labelPick: "Colour Picker", labelCrop: "Screenshot",
         dropText: "Click or Drag & Drop to upload an image",
         statusText: "100% Local processing. Your images never leave your device.",
@@ -386,7 +437,7 @@
         metaDesc: "免费离线图片取色与截图裁剪工具。精准提取 HEX、RGB 和 HSL 代码。本地生成调色板，绝无服务器上传。",
         title: "高级图片取色与截图工具",
         desc: "精准提取任何图片的 HEX、RGB 和 HSL 颜色代码。生成调色板历史记录，或进行局部高清截图。纯本地运行，保护隐私。",
-        updateText: "全新加入调色板历史功能",
+        updateText: "纯本地图像处理",
         labelUpload: "打开图片", labelPick: "提取颜色", labelCrop: "局部截图",
         dropText: "点击或拖拽图片到此处上传",
         statusText: "100% 纯本地处理。您的图片绝不会上传至服务器。",
@@ -420,7 +471,7 @@
         metaDesc: "Selector de color de imagen sin conexión y herramienta de recorte. Extraiga códigos HEX, RGB y HSL. Construya paletas localmente sin subir al servidor.",
         title: "Selector de Color y Recortador",
         desc: "Extraiga colores exactos HEX, RGB y HSL de cualquier imagen. Construya una paleta o recorte capturas localmente.",
-        updateText: "Modo Paleta Avanzado Añadido",
+        updateText: "Utilidad de Imagen Local",
         labelUpload: "Abrir Imagen", labelPick: "Selector de Color", labelCrop: "Recortar",
         dropText: "Haga clic o arrastre para subir una imagen",
         statusText: "Procesamiento 100% local. Sus imágenes nunca salen de su dispositivo.",
@@ -448,7 +499,7 @@
         metaDesc: "Sélecteur de couleur d'image hors ligne et outil de recadrage. Extrayez les codes HEX, RGB et HSL. Zéro téléchargement sur serveur.",
         title: "Sélecteur de Couleur & Recadrage",
         desc: "Extrayez les couleurs HEX, RGB et HSL exactes. Construisez une palette ou recadrez des captures d'écran localement.",
-        updateText: "Mode Palette Avancé Ajouté",
+        updateText: "Outil d'Image Local",
         labelUpload: "Ouvrir l'image", labelPick: "Sélecteur Couleur", labelCrop: "Recadrer",
         dropText: "Cliquez ou glissez-déposez une image",
         statusText: "Traitement 100% local. Vos images ne quittent jamais votre appareil.",
@@ -476,7 +527,7 @@
         metaDesc: "Kostenloser Offline-Farbpipette und Screenshot-Zuschneidetool. Extrahieren Sie genaue HEX-, RGB- und HSL-Codes. Keine Server-Uploads.",
         title: "Farbpipette & Bildzuschneider",
         desc: "Extrahieren Sie genaue HEX-, RGB- und HSL-Farben. Erstellen Sie eine Palette oder schneiden Sie Screenshots lokal zu.",
-        updateText: "Erweiterter Palettenmodus Hinzugefügt",
+        updateText: "Lokales Bildwerkzeug",
         labelUpload: "Bild öffnen", labelPick: "Farbpipette", labelCrop: "Zuschneiden",
         dropText: "Klicken oder ziehen, um ein Bild hochzuladen",
         statusText: "100% lokale Verarbeitung. Ihre Bilder verlassen niemals Ihr Gerät.",
