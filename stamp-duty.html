@@ -1,556 +1,639 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  
-  <title id="meta-title">Stamp Duty Calculator (SDLT) 2026 | UK Property Tax — Mini-Tools</title>
-  <meta name="description" id="meta-desc" content="Free UK Stamp Duty Land Tax (SDLT) calculator. Instantly calculate property tax for first-time buyers, home movers, and second homes." />
-  <meta name="keywords" id="meta-keywords" content="stamp duty calculator, sdlt calculator, uk property tax, first time buyer stamp duty, second home tax uk, buy to let stamp duty" />
-  <meta name="robots" content="index, follow" />
-
+  <title>Stamp Duty Calculator (SDLT) 2026 | England & Northern Ireland | Mini-Tools.uk</title>
+  <meta name="description" content="Estimate residential Stamp Duty Land Tax for England and Northern Ireland. Includes first-time buyers, replacing your main home, additional properties and the optional 2% non-UK resident surcharge." />
+  <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://mini-tools.uk/stamp-duty" />
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/stamp-duty?lang=en" />
-  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/stamp-duty?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/stamp-duty?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/stamp-duty?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/stamp-duty?lang=de" />
-  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/stamp-duty" />
-
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
-  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DR6V84JEZW');
-  </script>
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+  <meta property="og:title" content="Stamp Duty Calculator (SDLT) 2026" />
+  <meta property="og:description" content="Estimate SDLT for first-time buyers, home movers and additional properties in England and Northern Ireland." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mini-tools.uk/stamp-duty" />
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@graph": [
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"Stamp Duty Calculator (SDLT) 2026",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"Web",
+    "url":"https://mini-tools.uk/stamp-duty",
+    "description":"Estimate residential Stamp Duty Land Tax for England and Northern Ireland, including first-time buyer relief, additional property rates and the optional non-UK resident surcharge.",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"},
+    "featureList":[
+      "Standard residential SDLT bands",
+      "First-time buyer relief estimate",
+      "Additional dwelling higher rates estimate",
+      "Optional 2% non-UK resident surcharge",
+      "Band-by-band SDLT breakdown"
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
       {
-        "@type": "SoftwareApplication",
-        "name": "Mini-Tools Stamp Duty Calculator",
-        "operatingSystem": "Web",
-        "applicationCategory": "FinanceApplication",
-        "description": "Calculate UK Stamp Duty Land Tax (SDLT) instantly for different buyer types completely offline.",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+        "@type":"Question",
+        "name":"Does first-time buyer relief still apply in England and Northern Ireland?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Yes. For current residential SDLT rules, first-time buyers pay no SDLT up to £300,000 and 5% on the portion from £300,001 to £500,000. If the price is over £500,000, standard residential rates apply instead."
+        }
       },
       {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Do first-time buyers pay stamp duty in the UK?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "First-time buyers in England and Northern Ireland currently pay no Stamp Duty on properties up to £425,000. For properties priced between £425,001 and £625,000, they pay 5% SDLT on the portion above £425,000. If the property price is over £625,000, standard SDLT rates apply to the entire price."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is the stamp duty surcharge for a second home?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "If you are buying an additional residential property (like a second home or buy-to-let) in England or Northern Ireland, you must pay an extra 3% surcharge on top of the standard Stamp Duty rates across all price bands."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "When do I have to pay stamp duty?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "You must submit an SDLT return and pay the tax due to HMRC within 14 days of completing the purchase of your property. Usually, your solicitor or conveyancer will handle this on your behalf."
-            }
-          }
-        ]
+        "@type":"Question",
+        "name":"What is the higher rate for additional residential properties?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"For purchases completing on or after 1 April 2025, the higher rates for additional residential properties are 5%, 7%, 10%, 15% and 17% across the main SDLT bands in England and Northern Ireland."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Does this page cover Wales and Scotland?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"No. This calculator is for residential SDLT in England and Northern Ireland only. Scotland uses Land and Buildings Transaction Tax and Wales uses Land Transaction Tax."
+        }
       }
     ]
   }
   </script>
 
-  <script async src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-  
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
-    
-    .input-group { background: #ffffff; border: 2px solid #e2e8f0; transition: all 0.3s; border-radius: 1rem; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between; }
-    .input-group:focus-within { border-color: #0ea5e9; box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1); }
-    .input-group input, .input-group select { width: 100%; outline: none; font-size: 1.25rem; font-weight: 800; color: #0f172a; background: transparent; border: none; cursor: pointer; }
-    .input-group span { font-weight: 800; color: #94a3b8; margin-right: 0.5rem; font-size: 1.25rem; user-select: none; }
-    
-    .calc-card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); overflow: hidden; transition: transform 0.3s ease; padding: 2rem; }
-    .calc-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
-    
-    .result-bg { background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%); border-color: #0369a1; color: white; }
+    :root{
+      --bg:#f8fafc;
+      --card:#ffffff;
+      --ink:#0f172a;
+      --muted:#475569;
+      --line:#e2e8f0;
+      --brand:#0284c7;
+      --brand-dark:#075985;
+      --brand-soft:#e0f2fe;
+      --soft:#f1f5f9;
+      --shadow:0 20px 40px rgba(15,23,42,.08);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none}
+    .skip-link{position:absolute;left:12px;top:-44px;background:#111827;color:#fff;padding:10px 14px;border-radius:12px;z-index:100}
+    .skip-link:focus{top:12px}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
 
-    /* SEO Content Typography */
-    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
-    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
-    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
-    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
-    .prose-content strong { color: #0f172a; font-weight: 700; }
-    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
-    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
-    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
-    .faq-box h3 { margin-top: 0; margin-bottom: 0.5rem; font-size: 1.25rem; }
-  </style>
+    .nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .brand img{width:44px;height:44px;border-radius:14px;background:#fff;box-shadow:0 4px 14px rgba(15,23,42,.08);padding:6px}
+    .brand-title{font-weight:800;letter-spacing:-.03em;font-size:1.15rem}
+    .brand-subtitle{font-size:.86rem;color:#64748b;margin-top:2px}
+    .nav-links{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+    .nav-links a,.nav-trigger{font-size:.95rem;font-weight:600;color:var(--muted);padding:10px 12px;border-radius:12px;border:1px solid transparent;background:transparent;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+    .nav-links a:hover,.nav-links a:focus-visible,.nav-trigger:hover,.nav-trigger:focus-visible,.nav-group:hover .nav-trigger{background:#fff;color:var(--ink);outline:none}
+    .nav-group{position:relative;padding-bottom:14px;margin-bottom:-14px}
+    .nav-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}
+    .nav-trigger svg{width:14px;height:14px;transition:transform .2s ease}
+    .nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg{transform:rotate(180deg)}
+    .dropdown{position:absolute;top:calc(100% + 2px);left:0;min-width:240px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 22px 44px rgba(15,23,42,.12);padding:10px;display:none}
+    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown{display:block}
+    .dropdown a{display:block;padding:10px 12px;border-radius:12px;color:var(--muted);font-size:.93rem;font-weight:600}
+    .dropdown a small{display:block;margin-top:2px;color:#64748b;font-size:.78rem;font-weight:500}
+    .dropdown a:hover,.dropdown a:focus-visible{background:var(--soft);color:var(--ink);outline:none}
+
+    .hero{padding:46px 0 24px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:var(--brand-soft);color:var(--brand-dark);font-weight:800;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em}
+    h1{margin:16px 0 14px;font-size:clamp(2.1rem,5vw,3.8rem);line-height:1.03;letter-spacing:-.045em}
+    .hero p{margin:0;max-width:820px;color:var(--muted);font-size:1.08rem}
+    .hero-points{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+    .point{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 8px 20px rgba(15,23,42,.04)}
+    .point strong{display:block;margin-bottom:6px;font-size:.96rem}
+    .point span{color:var(--muted);font-size:.92rem}
+
+    .calc-grid{display:grid;grid-template-columns:minmax(0,550px) minmax(0,530px);gap:24px;margin:28px auto 40px;max-width:1120px;align-items:start;justify-content:center}
+    .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .panel.left{padding:26px}
+    .panel.right{padding:28px;background:linear-gradient(135deg,#082f49 0%,#0f172a 100%);color:#fff}
+    .section-title{margin:0 0 16px;font-size:1rem;font-weight:800;letter-spacing:.02em}
+    .field{margin-bottom:18px}
+    .label{display:block;margin-bottom:8px;font-size:.9rem;font-weight:800;color:#334155}
+    input[type="number"],select{width:100%;appearance:none;border:1px solid var(--line);background:#f8fafc;border-radius:16px;padding:14px 15px;font-size:1rem;font-weight:700;color:var(--ink);outline:none}
+    input[type="number"]:focus,select:focus{border-color:#7dd3fc;box-shadow:0 0 0 4px rgba(56,189,248,.12);background:#fff}
+    .money-row{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:12px}
+    .currency{display:inline-flex;align-items:center;justify-content:center;min-width:52px;min-height:52px;border-radius:16px;background:#e0f2fe;color:var(--brand-dark);font-weight:900}
+    .checkbox{display:flex;gap:12px;align-items:flex-start;background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:14px 16px}
+    .checkbox input{margin-top:3px;accent-color:#0284c7}
+    .checkbox strong{display:block;font-size:.95rem}
+    .checkbox span{display:block;color:#64748b;font-size:.87rem;margin-top:4px}
+    .button{width:100%;border:none;cursor:pointer;background:linear-gradient(180deg,#0284c7,#0369a1);color:#fff;font-weight:900;font-size:1rem;padding:16px 18px;border-radius:18px;letter-spacing:.02em;box-shadow:0 14px 28px rgba(2,132,199,.24)}
+    .subtle{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:16px;color:#475569;font-size:.92rem}
+
+    .result-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+    .result-top .eyebrow-dark{font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:#7dd3fc;font-weight:800}
+    .big-result{margin:8px 0 0;font-size:clamp(2.2rem,4vw,4rem);line-height:1;font-weight:900;letter-spacing:-.04em}
+    .assumption{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:8px 10px;border-radius:999px;font-size:.8rem;font-weight:800;color:#dbeafe}
+    .breakdown{margin-top:20px;border-top:1px solid rgba(255,255,255,.12);padding-top:16px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:11px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.95rem}
+    th{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:#93c5fd;text-align:right}
+    th:first-child,td:first-child{text-align:left}
+    td{font-weight:700}
+    .total-row td{font-size:1.02rem;color:#fff;border-bottom:none;padding-top:16px}
+    .muted-on-dark{color:#cbd5e1}
+    .note-card{margin-top:18px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#cbd5e1;font-size:.9rem}
+    .band-list{display:grid;gap:10px;margin-top:18px}
+    .band-item{display:flex;justify-content:space-between;gap:14px;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+    .band-item span{display:block}
+    .band-item small{display:block;color:#bfdbfe;margin-top:2px}
+
+    .related{margin:44px auto 16px;max-width:1120px}
+    .related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .tool-link{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 8px 20px rgba(15,23,42,.04)}
+    .tool-link strong{display:block;margin-bottom:6px}
+    .tool-link span{color:var(--muted);font-size:.92rem}
+
+    .content{margin:34px auto 64px;max-width:1120px}
+    .content-grid{display:grid;grid-template-columns:minmax(0,780px) 300px;gap:24px;align-items:start;justify-content:center}
+    .article{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:32px}
+    .article h2{font-size:1.75rem;line-height:1.2;letter-spacing:-.03em;margin:0 0 16px}
+    .article h3{font-size:1.18rem;margin:26px 0 10px}
+    .article p{color:var(--muted);margin:0 0 16px}
+    .article ul{margin:0 0 20px 18px;color:var(--muted)}
+    .article li{margin-bottom:10px}
+    .info-box,.faq{background:#f8fafc;border:1px solid var(--line);border-radius:20px;padding:18px 18px 4px;margin:20px 0}
+    .rates-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:18px 0}
+    .rates-table th,.rates-table td{padding:14px;border-bottom:1px solid var(--line);font-size:.94rem;text-align:left;color:#334155}
+    .rates-table th{background:#f8fafc;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:#475569}
+    .rates-table tr:last-child td{border-bottom:none}
+    .aside{display:grid;gap:18px}
+    .aside-card{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:22px}
+    .aside-card h2{margin:0 0 12px;font-size:1.08rem}
+    .aside-card p,.aside-card li{color:var(--muted);font-size:.93rem}
+    .aside-card ul{margin:0 0 0 18px;padding:0}
+
+    footer{border-top:1px solid var(--line);background:#fff;padding:28px 0 40px;color:#64748b}
+    .footer-links{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;font-weight:700;font-size:.92rem}
+    .footer-links a:hover{color:#0f172a}
+    .copyright{margin-top:16px;text-align:center;font-size:.82rem}
+
+    @media (max-width: 980px){
+      .hero-points,.related-grid,.calc-grid,.content-grid{grid-template-columns:1fr}
+      .nav-inner{align-items:flex-start;padding:14px 0}
+      .nav-links{justify-content:flex-start}
+    }
+    @media (max-width: 680px){
+      .wrap{padding:0 16px}
+      .brand-subtitle{display:none}
+      .nav-links{gap:8px}
+      .nav-links a,.nav-trigger{font-size:.9rem;padding:9px 10px}
+      .panel.left,.panel.right,.article,.aside-card{padding:22px}
+      h1{font-size:2.2rem}
+      .big-result{font-size:2.5rem}
+    }
+    </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
-  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-    <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
-        </a>
-        <div class="flex flex-col -mt-1 hidden sm:flex">
-          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
-        </div>
-      </div>
-      <div class="flex items-center gap-4 sm:gap-6">
-        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
-          <span id="nav-blog-text">Blog & Guides</span>
-        </a>
-        <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500 transition-colors hover:bg-slate-100">
-          <option value="en">🇬🇧 English</option>
-          <option value="zh">🇨🇳 简体中文</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="de">🇩🇪 Deutsch</option>
-        </select>
-      </div>
-    </div>
-  </nav>
-
-  <main class="max-w-6xl mx-auto px-6 py-12 flex-1 w-full">
-    <header class="mb-12 text-center">
-      <div class="mb-4">
-        <span id="update-status" class="bg-sky-50 text-sky-600 px-4 py-1.5 rounded-full font-black text-[11px] uppercase tracking-widest border border-sky-100">
-          🇬🇧 Valid for England & Northern Ireland
-        </span>
-      </div>
-      <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
-        Stamp Duty Calculator (SDLT)
-      </h1>
-      <p id="page-desc" class="text-lg text-slate-500 max-w-2xl mx-auto">
-        Instantly calculate your property tax. Select your buyer type to see the exact Stamp Duty Land Tax breakdown.
-      </p>
-    </header>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
-      
-      <div class="lg:col-span-6 calc-card space-y-6 border-t-4 border-t-sky-500">
-        <div class="flex items-center gap-3 mb-2 border-b border-slate-100 pb-4">
-          <span class="text-2xl">🏡</span>
-          <h2 id="lbl-input-title" class="text-xl font-extrabold text-slate-900">Property Details</h2>
-        </div>
-        
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="/" aria-label="Mini-Tools.uk home">
+        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" width="44" height="44" />
         <div>
-          <label id="lbl-price" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Property Purchase Price</label>
-          <div class="input-group">
-            <span>£</span>
-            <input type="number" id="input-price" value="350000" min="0" step="1000" oninput="calcSDLT()">
+          <div class="brand-title">Mini-Tools.uk</div>
+          <div class="brand-subtitle">Practical online tools with clearer explanations</div>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a href="/#featured-tools">All Tools</a>
+        <div class="nav-group">
+          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">Categories
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="dropdown" role="menu">
+            <a href="/#uk-calculators">UK Finance<small>Tax, VAT, mortgage and workday tools</small></a>
+            <a href="/#developer-tools">Developer Tools<small>JSON, diff and writing helpers</small></a>
+            <a href="/#image-tools">Image &amp; PDF<small>Compression, conversion and media tools</small></a>
+            <a href="/password">Security &amp; Privacy<small>Password and privacy-first helpers</small></a>
           </div>
         </div>
-
-        <div>
-          <label id="lbl-type" class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Buyer Type</label>
-          <div class="input-group bg-slate-50">
-            <select id="input-type" onchange="calcSDLT()" class="bg-transparent">
-              <option value="ftb" id="opt-ftb">First-time buyer</option>
-              <option value="mover" id="opt-mover">Moving to next home</option>
-              <option value="additional" id="opt-additional">Additional property (Second home / Buy-to-let)</option>
-            </select>
-          </div>
-        </div>
-        
-        <div class="pt-4 border-t border-slate-100 text-sm text-slate-500 font-medium">
-          <p id="lbl-hint">💡 <strong>Note:</strong> Rules apply to properties in England and Northern Ireland. Scotland and Wales use different tax systems.</p>
-        </div>
-      </div>
-
-      <div class="lg:col-span-6 calc-card result-bg flex flex-col h-full shadow-2xl shadow-sky-900/20">
-        <div class="flex items-center justify-between mb-8">
-          <h2 id="lbl-result-title" class="text-xl font-extrabold text-white">Stamp Duty to Pay</h2>
-          <span class="text-3xl">📜</span>
-        </div>
-        
-        <div class="text-center mb-10">
-          <span id="val-tax" class="text-6xl md:text-7xl font-black text-white tracking-tight">£0</span>
-          <span id="lbl-tax-sub" class="block text-xs font-black text-sky-300 uppercase tracking-widest mt-3">Total SDLT Due</span>
-        </div>
-
-        <div class="bg-white/10 rounded-2xl p-5 md:p-6 mt-auto border border-white/10 backdrop-blur-sm">
-          <div class="flex justify-between items-center text-lg text-white font-bold mb-4">
-            <span id="lbl-effective">Effective Tax Rate:</span>
-            <span id="val-effective" class="text-sky-300 text-2xl font-black">0.0%</span>
-          </div>
-          <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
-            <div id="bar-effective" class="bg-sky-400 h-2.5 rounded-full" style="width: 0%"></div>
-          </div>
-        </div>
-      </div>
-
+        <a href="/blog">Blog</a>
+        <a href="/about">About</a>
+      </nav>
     </div>
+  </header>
 
-    <div id="seo-container" class="prose-content">
+  <main id="main-content">
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">Residential SDLT for England and Northern Ireland</div>
+        <h1>Stamp Duty calculator with current residential rates and a clearer band-by-band breakdown</h1>
+        <p>This page estimates residential Stamp Duty Land Tax for England and Northern Ireland using the rates in force after 1 April 2025. It covers first-time buyers, people replacing their main home, additional properties, and an optional 2% non-UK resident surcharge for planning scenarios.</p>
+
+        <div class="hero-points" aria-label="What this calculator includes">
+          <div class="point">
+            <strong>Current residential thresholds</strong>
+            <span>Uses the lower nil-rate band and first-time buyer relief now in force, rather than the older temporary thresholds that expired.</span>
+          </div>
+          <div class="point">
+            <strong>More useful than a single total</strong>
+            <span>Shows the effective tax rate and each SDLT band that contributes to the final amount.</span>
+          </div>
+          <div class="point">
+            <strong>Clearer limits</strong>
+            <span>Explains what is not included, such as Wales, Scotland, corporate body rules, shared ownership rent elements and mixed-use cases.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap calc-grid" aria-label="Stamp duty calculator">
+      <div class="panel left">
+        <h2 class="section-title">Property details</h2>
+
+        <div class="field">
+          <label class="label" for="price">Property price</label>
+          <div class="money-row">
+            <div class="currency">£</div>
+            <input id="price" type="number" min="0" step="1000" value="350000" inputmode="decimal" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="buyerType">Buyer type</label>
+          <select id="buyerType">
+            <option value="ftb">First-time buyer</option>
+            <option value="main">Replacing your main home</option>
+            <option value="additional">Additional property / buy-to-let</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="checkbox" for="nonResident">
+            <input id="nonResident" type="checkbox" />
+            <div>
+              <strong>Add 2% non-UK resident surcharge</strong>
+              <span>Useful for quick planning. This applies on top of the residential rates when the SDLT non-resident conditions are met.</span>
+            </div>
+          </label>
+        </div>
+
+        <button class="button" id="calculateButton" type="button">Calculate SDLT</button>
+
+        <div class="subtle" style="margin-top:18px">
+          <strong>Important:</strong> this page is for residential SDLT in England and Northern Ireland. It does not cover Scotland, Wales, mixed-use purchases, the special 17% corporate-body rate on certain purchases over £500,000, lease rent calculations, shared ownership specifics, or every relief and exemption.
+        </div>
       </div>
 
+      <div class="panel right" aria-live="polite">
+        <div class="result-top">
+          <div>
+            <div class="eyebrow-dark">Estimated SDLT</div>
+            <div class="big-result" id="totalTax">£0</div>
+          </div>
+          <div class="assumption" id="scenarioPill">Standard residential</div>
+        </div>
+
+        <div class="breakdown">
+          <table>
+            <thead>
+              <tr>
+                <th>Summary</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="muted-on-dark">Property price</td>
+                <td id="summaryPrice">£0</td>
+              </tr>
+              <tr>
+                <td class="muted-on-dark">Effective tax rate</td>
+                <td id="effectiveRate">0.00%</td>
+              </tr>
+              <tr>
+                <td class="muted-on-dark">Higher-rate / surcharge elements</td>
+                <td id="surchargeSummary">None</td>
+              </tr>
+              <tr class="total-row">
+                <td>Total SDLT due</td>
+                <td id="tableTotal">£0</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="band-list" id="bandList"></div>
+          <div class="note-card" id="resultNote">This is a residential SDLT estimate for England and Northern Ireland only.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap related" aria-label="Related UK finance tools">
+      <h2 class="section-title">Related UK finance tools</h2>
+      <div class="related-grid">
+        <a class="tool-link" href="/tax">
+          <strong>UK salary tax calculator</strong>
+          <span>Estimate PAYE, National Insurance, pension and loan deductions.</span>
+        </a>
+        <a class="tool-link" href="/ir35">
+          <strong>IR35 calculator</strong>
+          <span>Compare inside and outside IR35 take-home pay for contractor scenarios.</span>
+        </a>
+        <a class="tool-link" href="/dividend">
+          <strong>Salary vs dividend</strong>
+          <span>Plan a limited-company salary and dividend mix with clearer assumptions.</span>
+        </a>
+        <a class="tool-link" href="/vat">
+          <strong>UK VAT calculator</strong>
+          <span>Add VAT, remove VAT and get a quick invoice-style breakdown.</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="wrap content">
+      <div class="content-grid">
+        <article class="article">
+          <h2>How residential SDLT works after 1 April 2025</h2>
+          <p>For residential property in England and Northern Ireland, standard SDLT starts at <strong>£125,000</strong>. The main bands are 0% up to £125,000, 2% on the next £125,000, 5% on the portion from £250,001 to £925,000, 10% on the portion from £925,001 to £1.5 million and 12% above that. This page uses those current residential rates rather than the temporary thresholds that ended on 31 March 2025.</p>
+          <p>If you are a <strong>first-time buyer</strong>, relief currently applies only if the property price is <strong>£500,000 or less</strong>. In that case, there is no SDLT up to <strong>£300,000</strong>, and 5% applies on the portion from £300,001 to £500,000. If the price is above £500,000, the first-time buyer relief does not apply and the standard residential bands are used instead.</p>
+
+          <table class="rates-table" aria-label="Current residential SDLT rates">
+            <thead>
+              <tr>
+                <th>Scenario</th>
+                <th>Current key threshold or rate</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Standard residential purchase</td>
+                <td>0% to £125,000, then 2%, 5%, 10%, 12%</td>
+                <td>England and Northern Ireland only</td>
+              </tr>
+              <tr>
+                <td>First-time buyer relief</td>
+                <td>0% to £300,000, then 5% to £500,000</td>
+                <td>No relief if the property price is over £500,000</td>
+              </tr>
+              <tr>
+                <td>Additional property</td>
+                <td>5%, 7%, 10%, 15%, 17%</td>
+                <td>Higher residential rates from 1 April 2025</td>
+              </tr>
+              <tr>
+                <td>Non-UK resident surcharge</td>
+                <td>+2 percentage points</td>
+                <td>Applied on top of the relevant residential rates when the conditions are met</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Additional properties now use higher rates than before</h3>
+          <p>One of the biggest reasons older stamp duty pages become misleading is that the additional dwelling surcharge changed. For purchases completing on or after 1 April 2025, the higher residential rates for additional properties are now <strong>5%, 7%, 10%, 15% and 17%</strong>. That means a simple “plus 3%” shortcut is no longer correct for current transactions.</p>
+
+          <div class="info-box">
+            <h3>What this page is good for</h3>
+            <p>This calculator is useful when you want a fast planning estimate for a normal residential purchase in England or Northern Ireland. It is especially helpful for comparing buyer types, checking whether first-time buyer relief still helps at a given price, and seeing roughly how much the higher rates add for a second home or buy-to-let purchase.</p>
+          </div>
+
+          <h3>When this page is only a rough guide</h3>
+          <p>Property tax is full of exceptions. You should treat this result as a planning estimate if you are dealing with trusts, company purchases, leases with rental SDLT, shared ownership, mixed-use property, multiple dwellings, replacement main residence refunds, or any transaction where reliefs and ownership history are complicated.</p>
+
+          <div class="faq">
+            <h3>Do first-time buyers still get a stamp duty discount?</h3>
+            <p>Yes, but the current relief is narrower than the temporary rules many people still remember. At the moment there is no SDLT up to £300,000, then 5% on the portion from £300,001 to £500,000, and no first-time buyer relief at all above £500,000.</p>
+          </div>
+
+          <div class="faq">
+            <h3>Do I pay stamp duty on an additional property?</h3>
+            <p>Usually yes, if buying the new property means you will own more than one residential property at the end of the day of completion and no exception applies. From 1 April 2025 the higher rates are 5%, 7%, 10%, 15% and 17% across the main residential bands.</p>
+          </div>
+
+          <div class="faq">
+            <h3>When does SDLT have to be filed and paid?</h3>
+            <p>You must send an SDLT return to HMRC and pay the tax within 14 days of completion. In many cases your solicitor or conveyancer will do this for you and collect the amount as part of completion funds.</p>
+          </div>
+        </article>
+
+        <aside class="aside">
+          <div class="aside-card">
+            <h2>What this page includes</h2>
+            <ul>
+              <li>Current residential SDLT bands for England and Northern Ireland</li>
+              <li>Current first-time buyer relief limits</li>
+              <li>Current higher rates for additional properties</li>
+              <li>Optional 2% non-UK resident surcharge</li>
+              <li>Band-by-band SDLT breakdown instead of a single total</li>
+            </ul>
+          </div>
+
+          <div class="aside-card">
+            <h2>What this page does not include</h2>
+            <ul>
+              <li>Scotland LBTT or Wales LTT</li>
+              <li>Corporate-body 17% special rate cases</li>
+              <li>Shared ownership rent calculations</li>
+              <li>Leasehold rent net present value rules</li>
+              <li>Every possible SDLT relief, exemption or refund route</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-10 w-full">
-    <div class="max-w-[1400px] mx-auto px-6 text-center">
-      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
-        </a>
-        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
-        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+  <footer>
+    <div class="wrap">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/about">About</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/contact">Contact</a>
       </div>
-      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
-        © 2026 MINI-TOOLS.UK — SECURE CLIENT-SIDE WEB UTILITIES
-      </p>
-      <p id="last-updated-text" class="text-center text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-2"></p>
+      <div class="copyright">© 2026 Mini-Tools.uk — clearer online tools and more realistic estimates.</div>
     </div>
   </footer>
 
   <script>
-    // --- 🏡 UK SDLT Logic (England & NI, Approximated current valid thresholds) ---
-    const gbp = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
-
-    // 🌟 SEO 杀招 1：动态路由与 URL 共享
-    function updateURLParams(price, type, tax) {
-      const url = new URL(window.location.href);
-      
-      if (price > 0) {
-        url.searchParams.set('price', price);
-        url.searchParams.set('type', type);
-        
-        // 🌟 SEO 杀招 2：动态重写网页标题
-        const i18nTitle = i18n[document.documentElement.lang || 'en'].dynTitle;
-        document.title = `${gbp.format(tax)} Tax on ${gbp.format(price)} | ${i18nTitle} | Mini-Tools.uk`;
-      } else {
-        url.searchParams.delete('price');
-        url.searchParams.delete('type');
-        document.title = i18n[document.documentElement.lang || 'en'].metaTitle;
-      }
-      window.history.replaceState({}, '', url);
-    }
-
-    function calcSDLT() {
-      const priceStr = document.getElementById('input-price').value;
-      const type = document.getElementById('input-type').value;
-
-      const price = parseFloat(priceStr) || 0;
-      let tax = 0;
-
-      if (price <= 0) {
-          document.getElementById('val-tax').innerText = '£0';
-          document.getElementById('val-effective').innerText = '0.0%';
-          document.getElementById('bar-effective').style.width = '0%';
-          updateURLParams(0, type, 0);
-          return;
-      }
-
-      // SDLT Logic
-      if (type === 'ftb' && price <= 625000) {
-        // First Time Buyer
-        if (price > 425000) {
-            tax = (price - 425000) * 0.05;
-        }
-      } else {
-        // Standard & Additional
-        const surcharge = (type === 'additional') ? 0.03 : 0;
-        
-        // Bands: 
-        // 0 - 250k: 0% (+3%)
-        // 250k - 925k: 5% (+3%)
-        // 925k - 1.5m: 10% (+3%)
-        // Over 1.5m: 12% (+3%)
-        
-        const b1 = 250000, b2 = 925000, b3 = 1500000;
-        const r1 = 0 + surcharge, r2 = 0.05 + surcharge, r3 = 0.10 + surcharge, r4 = 0.12 + surcharge;
-
-        if (price > b3) {
-            tax += (price - b3) * r4;
-            tax += (b3 - b2) * r3;
-            tax += (b2 - b1) * r2;
-            tax += b1 * r1;
-        } else if (price > b2) {
-            tax += (price - b2) * r3;
-            tax += (b2 - b1) * r2;
-            tax += b1 * r1;
-        } else if (price > b1) {
-            tax += (price - b1) * r2;
-            tax += b1 * r1;
-        } else {
-            tax += price * r1;
-        }
-      }
-
-      // Calculate Effective Rate
-      const effectiveRate = (tax / price) * 100;
-
-      // Update DOM
-      document.getElementById('val-tax').innerText = gbp.format(tax);
-      document.getElementById('val-effective').innerText = `${effectiveRate.toFixed(1)}%`;
-      document.getElementById('bar-effective').style.width = `${Math.min(effectiveRate, 100)}%`;
-
-      updateURLParams(price, type, tax);
-    }
-
-    function initFromURL() {
-      const params = new URLSearchParams(window.location.search);
-      let hasParams = false;
-
-      if (params.has('price')) { document.getElementById('input-price').value = params.get('price'); hasParams = true; }
-      if (params.has('type')) { 
-          const validTypes = ['ftb', 'mover', 'additional'];
-          const type = params.get('type');
-          if (validTypes.includes(type)) {
-              document.getElementById('input-type').value = type;
-          }
-          hasParams = true; 
-      }
-      
-      calcSDLT(); // Always calculate on load
-    }
-
-    // 🌟 Multi-language Engine & SEO 🌟
-    const i18n = {
-      en: {
-        metaTitle: "Stamp Duty Calculator (SDLT) 2026 | UK Property Tax — Mini-Tools",
-        metaDesc: "Free UK Stamp Duty Land Tax (SDLT) calculator. Instantly calculate property tax for first-time buyers, home movers, and second homes.",
-        metaKeywords: "stamp duty calculator, sdlt calculator, uk property tax, first time buyer stamp duty, second home tax uk, buy to let stamp duty",
-        title: "Stamp Duty Calculator (SDLT)", desc: "Instantly calculate your property tax. Select your buyer type to see the exact Stamp Duty Land Tax breakdown.",
-        update: "🇬🇧 Valid for England & Northern Ireland",
-        dynTitle: "Stamp Duty Calculator",
-        
-        lblInpTitle: "Property Details", lblResTitle: "Stamp Duty to Pay",
-        lblPrice: "Property Purchase Price", lblType: "Buyer Type",
-        lblHint: "💡 <strong>Note:</strong> Rules apply to properties in England and Northern Ireland. Scotland and Wales use different tax systems.",
-        
-        optFtb: "First-time buyer", optMover: "Moving to next home", optAdditional: "Additional property (Second home / Buy-to-let)",
-        
-        lblTaxSub: "Total SDLT Due", lblEffective: "Effective Tax Rate:",
-        
-        navBlog: "Blog & Guides", footerBlog: "Blog",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
-        lastUpdated: "LAST UPDATED: ",
-        
-        seoHtml: `
-          <h2>Understanding Stamp Duty Land Tax (SDLT)</h2>
-          <p>If you are buying a property or land over a certain price in England and Northern Ireland, you must pay Stamp Duty Land Tax (SDLT). The amount you pay depends on the purchase price of the property and your status as a buyer.</p>
-          
-          <div class="faq-box">
-            <h3>Do first-time buyers pay stamp duty?</h3>
-            <p>To help people get onto the property ladder, first-time buyers enjoy a significant discount. Currently, you pay <strong>no Stamp Duty on properties priced up to £425,000</strong>. For properties priced between £425,001 and £625,000, you pay 5% SDLT solely on the portion above £425,000. However, if the property is over £625,000, you lose this relief and standard rates apply.</p>
-          </div>
-          
-          <div class="faq-box">
-            <h3>What is the stamp duty surcharge for a second home?</h3>
-            <p>If you are purchasing an additional residential property—such as a second home, a holiday home, or a buy-to-let investment—you must pay a <strong>3% surcharge</strong> on top of the standard Stamp Duty rates across all price bands. This means even the lowest band (up to £250k) incurs a 3% tax.</p>
-          </div>
-
-          <h2>100% Privacy & Dynamic Sharing</h2>
-          <p>Buying a home involves highly sensitive financial data. Our <strong>Mini-Tools SDLT Calculator</strong> processes your property price strictly via local JavaScript in your browser. We never log or track your property searches. When you calculate a tax, our engine generates a dynamic URL so you can easily copy and paste the exact tax breakdown link to your mortgage broker or partner without sending data to our servers.</p>`
-      },
-      zh: {
-        metaTitle: "英国印花税计算器 (SDLT) 2026 | 购房税务估算 — Mini-Tools",
-        metaDesc: "免费的英国购房印花税计算器。一键计算首套房、置换房及第二套房/投资房 (BTL) 的应缴税款及实际税率。",
-        metaKeywords: "英国印花税计算器, SDLT计算器, 首套房免税, 英国买房税, 英国投资房印花税",
-        title: "英国购房印花税计算器", desc: "瞬间算出买房需要缴纳多少税。支持首套房、普通置换及二套房/投资房的精准阶梯税率计算。",
-        update: "🇬🇧 适用于英格兰与北爱尔兰",
-        dynTitle: "印花税计算",
-        
-        lblInpTitle: "房产详情", lblResTitle: "应缴印花税金额",
-        lblPrice: "房产购买价格", lblType: "买家身份类型",
-        lblHint: "💡 <strong>注意：</strong> 本计算标准适用于英格兰和北爱尔兰。苏格兰与威尔士采用不同的房产税法系统。",
-        
-        optFtb: "首套房买家 (First-time buyer)", optMover: "普通置换买家 (Moving home)", optAdditional: "二套房或投资房 (Buy-to-let / Second home)",
-        
-        lblTaxSub: "SDLT 总计金额", lblEffective: "实际有效税率 (占总价比例):",
-        
-        navBlog: "官方博客与教程", footerBlog: "官方博客",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
-        lastUpdated: "最后更新：",
-        
-        seoHtml: `
-          <h2>读懂英国的购房印花税 (SDLT)</h2>
-          <p>在英格兰和北爱尔兰购买超过特定价格的房产或土地时，您必须缴纳印花税（Stamp Duty Land Tax）。您需要缴纳的具体金额取决于房产的购买价格以及您的买家身份。</p>
-          
-          <div class="faq-box">
-            <h3>首套房买家需要交印花税吗？</h3>
-            <p>为了帮助刚需人群买房，英国政府为首套房买家提供了大幅减免。目前，对于价格在 <strong>£425,000 以内</strong> 的房产，首套房买家<strong>完全免交印花税</strong>。对于价格在 £425,001 至 £625,000 之间的房产，仅针对超出 £425,000 的部分征收 5% 的税。但如果房产总价超过 £625,000，该减免将完全失效，需按普通置换的标准税率全额计税。</p>
-          </div>
-          
-          <div class="faq-box">
-            <h3>第二套房或投资房 (Buy-to-let) 的附加税是多少？</h3>
-            <p>如果您购买的是额外的住宅房产（例如度假房、二套房或用于出租的投资房），您必须在所有标准税率阶梯的基础上，额外缴纳 <strong>3% 的附加税 (Surcharge)</strong>。这意味着即便是最低的起征区间（£250,000 及以下），您也必须缴纳 3% 的印花税。</p>
-          </div>
-
-          <h2>纯前端计算，保障您的财务隐私</h2>
-          <p>买房涉及高度敏感的个人财务数据。我们的 <strong>Mini-Tools 印花税计算器</strong> 采用纯前端架构，您输入的房产价格只在您的浏览器内存中进行计算，我们绝不会记录您的购房预算。此外，工具会实时生成带有参数的动态链接，方便您直接将计算结果发送给您的贷款经纪人或合伙人。</p>`
-      },
-      es: {
-        metaTitle: "Calculadora de Impuesto de Timbre (SDLT) UK",
-        metaDesc: "Calculadora gratuita del impuesto de propiedad (Stamp Duty) del Reino Unido.",
-        metaKeywords: "impuesto de timbre uk, sdlt calculadora, comprar casa uk",
-        title: "Calculadora de Impuesto (SDLT)", desc: "Calcule al instante el impuesto de su propiedad. Seleccione su tipo de comprador para ver el desglose exacto.",
-        update: "🇬🇧 Válido para Inglaterra e Irlanda del Norte",
-        dynTitle: "Impuesto de Propiedad",
-        lblInpTitle: "Detalles de la Propiedad", lblResTitle: "Impuesto a Pagar",
-        lblPrice: "Precio de Compra", lblType: "Tipo de Comprador",
-        lblHint: "💡 <strong>Nota:</strong> Estas reglas aplican en Inglaterra e Irlanda del Norte. Escocia y Gales tienen sistemas diferentes.",
-        optFtb: "Comprador por primera vez", optMover: "Mudanza a otra casa", optAdditional: "Propiedad adicional (Segunda casa / Inversión)",
-        lblTaxSub: "Total a Pagar", lblEffective: "Tasa Efectiva:",
-        navBlog: "Blog y Guías", footerBlog: "Blog", footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
-        lastUpdated: "ÚLTIMA ACTUALIZACIÓN: ",
-        seoHtml: `<h2>Entendiendo el Impuesto de Timbre (SDLT)</h2><p>Al comprar una propiedad en Inglaterra, debe pagar el Stamp Duty. La cantidad depende del precio y su estado como comprador.</p>
-        <div class="faq-box"><h3>¿Los compradores por primera vez pagan?</h3><p>Actualmente, no pagan impuestos por propiedades de hasta £425,000.</p></div>`
-      },
-      fr: {
-        metaTitle: "Calculateur de Droit de Timbre (SDLT) UK",
-        metaDesc: "Calculateur gratuit de taxe foncière (Stamp Duty) au Royaume-Uni.",
-        metaKeywords: "droit de timbre uk, taxe fonciere uk, achat immobilier angleterre",
-        title: "Calculateur de Taxe (SDLT)", desc: "Calculez instantanément votre taxe foncière. Sélectionnez votre type d'acheteur pour voir le montant exact.",
-        update: "🇬🇧 Valide pour l'Angleterre et l'Irlande du Nord",
-        dynTitle: "Taxe Foncière",
-        lblInpTitle: "Détails de la Propriété", lblResTitle: "Taxe à Payer",
-        lblPrice: "Prix d'Achat", lblType: "Type d'Acheteur",
-        lblHint: "💡 <strong>Note :</strong> Ces règles s'appliquent en Angleterre. L'Écosse et le Pays de Galles ont des systèmes différents.",
-        optFtb: "Premier achat", optMover: "Déménagement", optAdditional: "Propriété supplémentaire (Résidence secondaire / Investissement)",
-        lblTaxSub: "Total à Payer", lblEffective: "Taux Effectif :",
-        navBlog: "Blog et Guides", footerBlog: "Blog", footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
-        lastUpdated: "DERNIÈRE MISE À JOUR : ",
-        seoHtml: `<h2>Comprendre le Droit de Timbre (SDLT)</h2><p>Le montant que vous payez dépend du prix d'achat et de votre profil d'acheteur.</p>
-        <div class="faq-box"><h3>Les primo-accédants paient-ils la taxe ?</h3><p>Actuellement, aucune taxe n'est due sur les propriétés jusqu'à 425 000 £.</p></div>`
-      },
-      de: {
-        metaTitle: "Stempelsteuer-Rechner (SDLT) UK",
-        metaDesc: "Kostenloser Rechner für die britische Grunderwerbsteuer (Stamp Duty).",
-        metaKeywords: "stempelsteuer uk, sdlt rechner, immobilien steuer uk",
-        title: "Stempelsteuer-Rechner", desc: "Berechnen Sie sofort Ihre Immobiliensteuer. Wählen Sie Ihren Käufertyp, um die genaue Aufschlüsselung zu sehen.",
-        update: "🇬🇧 Gültig für England und Nordirland",
-        dynTitle: "Immobiliensteuer",
-        lblInpTitle: "Immobiliendetails", lblResTitle: "Zu zahlende Steuer",
-        lblPrice: "Kaufpreis", lblType: "Käufertyp",
-        lblHint: "💡 <strong>Hinweis:</strong> Diese Regeln gelten für England. Schottland und Wales haben unterschiedliche Systeme.",
-        optFtb: "Erstkäufer", optMover: "Umzug (Standard)", optAdditional: "Zusätzliche Immobilie (Zweitwohnsitz / Kapitalanlage)",
-        lblTaxSub: "Gesamtbetrag", lblEffective: "Effektiver Steuersatz:",
-        navBlog: "Blog & Anleitungen", footerBlog: "Blog", footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
-        lastUpdated: "ZULETZT AKTUALISIERT: ",
-        seoHtml: `<h2>Stempelsteuer (SDLT) verstehen</h2><p>Die Höhe der Steuer hängt vom Kaufpreis und Ihrem Käuferstatus ab.</p>
-        <div class="faq-box"><h3>Zahlen Erstkäufer Steuern?</h3><p>Derzeit zahlen Erstkäufer keine Steuern auf Immobilien bis zu £425.000.</p></div>`
-      }
-    };
-
-    function updateLanguage() {
-      const params = new URLSearchParams(window.location.search);
-      const lang = params.get('lang') || 'en';
-      const data = i18n[lang] || i18n['en'];
-
-      document.documentElement.lang = lang;
-      
-      // Update Meta
-      if (!params.has('price')) {
-          document.title = data.metaTitle;
-      }
-      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
-      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
-
-      // Update UI Text
-      document.getElementById('update-status').innerText = data.update;
-      document.getElementById('page-title').innerText = data.title;
-      document.getElementById('page-desc').innerText = data.desc;
-      
-      document.getElementById('lbl-input-title').innerText = data.lblInpTitle;
-      document.getElementById('lbl-result-title').innerText = data.lblResTitle;
-      
-      document.getElementById('lbl-price').innerText = data.lblPrice;
-      document.getElementById('lbl-type').innerText = data.lblType;
-      document.getElementById('lbl-hint').innerHTML = data.lblHint;
-      
-      document.getElementById('opt-ftb').innerText = data.optFtb;
-      document.getElementById('opt-mover').innerText = data.optMover;
-      document.getElementById('opt-additional').innerText = data.optAdditional;
-      
-      document.getElementById('lbl-tax-sub').innerText = data.lblTaxSub;
-      document.getElementById('lbl-effective').innerText = data.lblEffective;
-
-      // Nav & Footer
-      const navBlogText = document.getElementById('nav-blog-text');
-      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
-      const footerBlog = document.getElementById('footer-blog');
-      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
-      
-      document.getElementById('footer-about').innerText = data.footerAbout;
-      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
-      document.getElementById('footer-contact').innerText = data.footerContact;
-
-      // SEO Html
-      const seoContainer = document.getElementById('seo-container');
-      if (data.seoHtml) {
-          seoContainer.style.opacity = 0;
-          setTimeout(() => {
-              seoContainer.innerHTML = data.seoHtml;
-              seoContainer.style.opacity = 1;
-          }, 150);
-      }
-
-      // QDF
-      const updateSpan = document.getElementById('last-updated-text');
-      if (updateSpan && data.lastUpdated) {
-          const now = new Date();
-          now.setDate(now.getDate() - 1);
-          let locale = 'en-GB';
-          if(lang === 'zh') locale = 'zh-CN';
-          if(lang === 'es') locale = 'es-ES';
-          if(lang === 'fr') locale = 'fr-FR';
-          if(lang === 'de') locale = 'de-DE';
-          const options = { year: 'numeric', month: 'long', day: 'numeric' };
-          updateSpan.innerText = data.lastUpdated + now.toLocaleDateString(locale, options);
-      }
-
-      document.getElementById('lang-select').value = lang;
-      
-      // Clean URLs
-      document.querySelectorAll('a').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
-          try {
-            const url = new URL(href, window.location.origin);
-            url.searchParams.set('lang', lang);
-            link.href = url.pathname + url.search;
-          } catch(e) {}
-        }
-      });
-    }
-
-    document.getElementById('lang-select').addEventListener('change', (e) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', e.target.value);
-      window.location.href = url.href;
+    const currency = new Intl.NumberFormat('en-GB', {
+      style: 'currency',
+      currency: 'GBP',
+      maximumFractionDigits: 0
     });
 
-    window.onload = () => {
-      updateLanguage();
-      initFromURL();
-    };
+    const standardBands = [
+      { limit: 125000, rate: 0 },
+      { limit: 250000, rate: 0.02 },
+      { limit: 925000, rate: 0.05 },
+      { limit: 1500000, rate: 0.10 },
+      { limit: Infinity, rate: 0.12 }
+    ];
+
+    const additionalBands = [
+      { limit: 125000, rate: 0.05 },
+      { limit: 250000, rate: 0.07 },
+      { limit: 925000, rate: 0.10 },
+      { limit: 1500000, rate: 0.15 },
+      { limit: Infinity, rate: 0.17 }
+    ];
+
+    function formatMoney(value) {
+      return currency.format(Math.max(0, Math.round(value)));
+    }
+
+    function taxByBands(price, bands) {
+      let tax = 0;
+      let previousLimit = 0;
+      const rows = [];
+
+      for (const band of bands) {
+        if (price <= previousLimit) break;
+        const upper = band.limit;
+        const taxable = Math.min(price, upper) - previousLimit;
+        if (taxable > 0) {
+          const amount = taxable * band.rate;
+          tax += amount;
+          rows.push({
+            from: previousLimit + 1,
+            to: upper === Infinity ? 'and above' : upper,
+            taxable,
+            rate: band.rate,
+            tax: amount
+          });
+        }
+        previousLimit = upper;
+      }
+      return { tax, rows };
+    }
+
+    function calculateFTB(price) {
+      if (price > 500000) {
+        return {
+          mode: 'First-time buyer relief not available above £500,000',
+          ...taxByBands(price, standardBands)
+        };
+      }
+      let tax = 0;
+      const rows = [];
+      if (price > 300000) {
+        const taxable = Math.min(price, 500000) - 300000;
+        if (taxable > 0) {
+          tax = taxable * 0.05;
+          rows.push({ from: 300001, to: Math.min(price, 500000), taxable, rate: 0.05, tax });
+        }
+      }
+      return { tax, rows, mode: 'First-time buyer relief' };
+    }
+
+    function buildBandMarkup(rows, extraRate, price) {
+      if (!rows.length) {
+        return '<div class="band-item"><div><span>No SDLT due</span><small>The purchase price falls within a nil-rate band.</small></div><strong>£0</strong></div>';
+      }
+      return rows.map((row, index) => {
+        const labelTo = row.to === 'and above' ? 'and above' : formatMoney(row.to);
+        const labelFrom = formatMoney(index === 0 && row.from === 1 ? 0 : row.from);
+        const surchargeText = extraRate > 0 ? ` including optional +${(extraRate * 100).toFixed(0)}% non-UK surcharge` : '';
+        return `<div class="band-item">
+          <div>
+            <span>${(row.rate * 100).toFixed(0)}% on ${labelFrom} to ${labelTo}</span>
+            <small>Taxable slice: ${formatMoney(row.taxable)}${surchargeText}</small>
+          </div>
+          <strong>${formatMoney(row.tax)}</strong>
+        </div>`;
+      }).join('');
+    }
+
+    function calculate() {
+      const price = parseFloat(document.getElementById('price').value) || 0;
+      const buyerType = document.getElementById('buyerType').value;
+      const nonResident = document.getElementById('nonResident').checked;
+      const extraRate = nonResident ? 0.02 : 0;
+
+      let result;
+      let bandsUsed;
+      let scenarioText;
+      let note;
+
+      if (buyerType === 'ftb') {
+        result = calculateFTB(price);
+        scenarioText = result.mode;
+        note = price > 500000
+          ? 'The price is above £500,000, so first-time buyer relief does not apply and the standard residential bands are used.'
+          : 'This estimate applies the current first-time buyer relief for England and Northern Ireland.';
+        bandsUsed = result.rows;
+      } else if (buyerType === 'additional') {
+        const adjusted = additionalBands.map(b => ({ ...b, rate: b.rate + extraRate }));
+        result = taxByBands(price, adjusted);
+        bandsUsed = result.rows;
+        scenarioText = nonResident ? 'Additional property + non-UK resident surcharge' : 'Additional property higher rates';
+        note = 'This uses the higher residential rates for additional properties from 1 April 2025. It is a planning estimate only and does not decide whether an exception or refund may apply.';
+      } else {
+        const adjusted = standardBands.map(b => ({ ...b, rate: b.rate + extraRate }));
+        result = taxByBands(price, adjusted);
+        bandsUsed = result.rows;
+        scenarioText = nonResident ? 'Standard residential + non-UK resident surcharge' : 'Standard residential';
+        note = 'This assumes you are buying a residential property in England or Northern Ireland and replacing your main home if relevant.';
+      }
+
+      if (buyerType === 'ftb' && nonResident) {
+        if (price <= 300000) {
+          const surchargeTax = price * extraRate;
+          result.tax += surchargeTax;
+          bandsUsed = [{ from: 1, to: price, taxable: price, rate: extraRate, tax: surchargeTax }].concat(result.rows);
+        } else if (price <= 500000) {
+          bandsUsed = [
+            { from: 1, to: 300000, taxable: 300000, rate: extraRate, tax: 300000 * extraRate },
+            { from: 300001, to: price, taxable: price - 300000, rate: 0.05 + extraRate, tax: (price - 300000) * (0.05 + extraRate) }
+          ];
+          result.tax = 300000 * extraRate + (price - 300000) * (0.05 + extraRate);
+          scenarioText = 'First-time buyer relief + non-UK resident surcharge';
+          note = 'This applies first-time buyer relief and then adds the 2% non-UK resident surcharge on top of the relevant residential rates.';
+        } else {
+          scenarioText = 'First-time buyer relief not available above £500,000';
+        }
+      }
+
+      const totalTax = price > 0 ? result.tax : 0;
+      const effective = price > 0 ? (totalTax / price) * 100 : 0;
+      const surchargeLabel = [
+        buyerType === 'additional' ? 'Higher additional-property rates included' : 'Standard residential rates',
+        nonResident ? '+ 2% non-UK resident surcharge applied' : null
+      ].filter(Boolean).join(' · ');
+
+      document.getElementById('totalTax').textContent = formatMoney(totalTax);
+      document.getElementById('tableTotal').textContent = formatMoney(totalTax);
+      document.getElementById('summaryPrice').textContent = formatMoney(price);
+      document.getElementById('effectiveRate').textContent = `${effective.toFixed(2)}%`;
+      document.getElementById('surchargeSummary').textContent = surchargeLabel;
+      document.getElementById('scenarioPill').textContent = scenarioText;
+      document.getElementById('bandList').innerHTML = buildBandMarkup(bandsUsed, extraRate, price);
+      document.getElementById('resultNote').textContent = note;
+    }
+
+    document.getElementById('calculateButton').addEventListener('click', calculate);
+    document.getElementById('price').addEventListener('input', calculate);
+    document.getElementById('buyerType').addEventListener('change', calculate);
+    document.getElementById('nonResident').addEventListener('change', calculate);
+
+    calculate();
   </script>
 </body>
 </html>
