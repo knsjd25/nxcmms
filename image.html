@@ -3,18 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  
-  <title id="meta-title">Free Image Resizer & Compressor 2026 | Crop JPG, PNG, WebP — Mini-Tools</title>
-  <meta name="description" id="meta-desc" content="Resize, crop, and compress images instantly. Support for 16:9, 4:3, 1:1 aspect ratios. 100% private: no server uploads. Professional image tool for free." />
-  <meta name="keywords" content="image resizer, image compressor, crop image online, 16:9 image cropper, convert to webp, resize photo online, private image tool" />
-  
+
+  <title>Image Resizer & Compressor | Mini-Tools</title>
+  <meta name="description" content="Resize, crop, and compress images in your browser. Adjust dimensions, aspect ratios, quality, and export format without uploading files to a server." />
+  <meta name="keywords" content="image resizer, image compressor, crop image, webp converter, image optimizer, resize photo online, private image tool" />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://mini-tools.uk/image" />
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/image?lang=en" />
-  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/image?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/image?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/image?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/image?lang=de" />
-  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/image" />
+
+  <meta property="og:title" content="Image Resizer & Compressor | Mini-Tools" />
+  <meta property="og:description" content="Resize, crop, and compress images locally in your browser with JPG and WebP export." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mini-tools.uk/image" />
 
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
@@ -34,652 +33,711 @@
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Mini-Tools Image Resizer & Optimizer",
-    "operatingSystem": "Web",
-    "applicationCategory": "MultimediaApplication",
-    "description": "Adjust image dimensions, crop ratios, and compress file size without losing quality. Works entirely in your browser using modern WebP/JPG compression.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"SoftwareApplication",
+        "name":"Mini-Tools Image Resizer & Compressor",
+        "applicationCategory":"MultimediaApplication",
+        "operatingSystem":"Web",
+        "description":"Resize, crop, and compress images locally in your browser with adjustable quality and export format.",
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
+      },
+      {
+        "@type":"FAQPage",
+        "mainEntity":[
+          {
+            "@type":"Question",
+            "name":"Is this image tool private?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Yes. Images are processed locally in your browser and are not uploaded to our servers."
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"Can I crop to common aspect ratios?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Yes. You can switch between original, 1:1, 4:3, 16:9, and 9:16 aspect ratios."
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"Can I export as JPG or WebP?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Yes. The tool supports JPG and WebP export, along with adjustable quality settings."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
 
-  <script async src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-  
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
-    .drop-zone { border: 3px dashed #e2e8f0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    .drop-zone.active { border-color: #2563eb; background-color: #eff6ff; transform: scale(1.01); }
-    
-    input[type=range] { -webkit-appearance: none; background: #e2e8f0; height: 8px; border-radius: 999px; width: 100%; outline: none;}
-    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; background: #2563eb; border-radius: 50%; cursor: pointer; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: transform 0.1s;}
-    input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
-    
-    .active-fmt { background-color: #2563eb !important; color: white !important; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); border-color: #2563eb !important; }
-    
-    .preview-wrapper { width: 100%; height: 400px; display: flex; align-items: center; justify-content: center; border-radius: 1.5rem; background-color: #e2e8f0; position: relative; padding: 1rem; }
-    .preview-img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
-    .preview-badge { position: absolute; bottom: 16px; right: 16px; padding: 4px 12px; border-radius: 8px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; backdrop-filter: blur(4px); background: rgba(37,99,235,0.9); color: white; z-index: 30;}
+    :root{
+      --bg:#f8fafc;
+      --panel:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --line:#e2e8f0;
+      --brand:#2563eb;
+      --brand-soft:#dbeafe;
+      --shadow:0 10px 25px -5px rgba(15,23,42,0.08);
+      --radius:22px;
+      --sans:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    }
 
-    canvas { display: none; }
-    
-    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
-    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
-    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
-    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
-    .prose-content strong { color: #0f172a; font-weight: 700; }
-    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
-    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
-    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
-    .faq-box h4 { font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans)}
+    body{min-height:100vh;display:flex;flex-direction:column}
+    a{text-decoration:none;color:inherit}
+    button,input,textarea,select{font:inherit}
+
+    .container{width:min(1420px,calc(100% - 32px));margin:0 auto}
+
+    .site-header{
+      position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);
+      backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+    }
+    .site-header-inner{
+      min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;object-fit:contain;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    .brand-title{font-weight:900;font-size:1.15rem;letter-spacing:-.02em}
+    .brand-title span{color:var(--brand)}
+
+    .nav{display:flex;align-items:center;gap:8px;position:relative}
+    .nav-link,.nav-button{
+      padding:10px 14px;border-radius:12px;font-size:.95rem;font-weight:800;color:#334155;
+      transition:background .2s,color .2s;display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;
+    }
+    .nav-link:hover,.nav-button:hover{background:#f1f5f9;color:#0f172a}
+    .dropdown{position:relative}
+    .dropdown-bridge{position:absolute;left:0;right:0;height:14px;top:100%}
+    .dropdown-menu{
+      position:absolute;top:calc(100% + 10px);left:0;min-width:240px;background:#fff;border:1px solid var(--line);
+      border-radius:16px;padding:10px;box-shadow:0 20px 40px rgba(15,23,42,.12);
+      opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s;
+    }
+    .dropdown.open .dropdown-menu,
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+    .dropdown-item{display:block;padding:11px 12px;border-radius:12px;font-weight:700;color:#334155}
+    .dropdown-item:hover{background:#f8fafc;color:#0f172a}
+
+    .page-intro{padding:36px 0 20px;text-align:center}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;border:1px solid #bfdbfe;
+      background:#eff6ff;color:#1d4ed8;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+    }
+    h1{margin:14px 0 10px;font-size:clamp(2rem,4vw,3.3rem);line-height:1.05;letter-spacing:-.04em}
+    .intro-text{max-width:780px;margin:0 auto;color:var(--muted);font-size:1.08rem;line-height:1.75}
+
+    .workspace{
+      display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:24px;margin:14px 0 18px;align-items:start
+    }
+    .panel{
+      background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:0 20px 40px rgba(15,23,42,.08);
+      overflow:hidden;
+    }
+    .drop-zone{
+      border:3px dashed #dbe4ef;border-radius:28px;background:#fff;min-height:470px;padding:18px;cursor:pointer;
+      transition:border-color .2s,background .2s,transform .15s;position:relative
+    }
+    .drop-zone.active{border-color:#2563eb;background:#eff6ff;transform:scale(1.005)}
+    .drop-inner{
+      min-height:430px;border-radius:22px;background:#f8fafc;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden
+    }
+    .placeholder{
+      text-align:center;padding:28px;color:#64748b
+    }
+    .placeholder-icon{
+      width:92px;height:92px;border-radius:28px;background:#dbeafe;color:#2563eb;display:flex;align-items:center;justify-content:center;
+      margin:0 auto 18px;box-shadow:inset 0 0 0 1px rgba(37,99,235,.08)
+    }
+    .placeholder h3{margin:0;font-size:1.6rem;letter-spacing:-.03em;color:#0f172a}
+    .placeholder p{margin:10px 0 0;font-size:.86rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8}
+
+    .preview-wrap{
+      width:100%;height:100%;display:none;align-items:center;justify-content:center;background:#e2e8f0;border-radius:22px;padding:18px;position:relative
+    }
+    .preview-img{max-width:100%;max-height:100%;object-fit:contain;border-radius:16px;box-shadow:0 12px 28px rgba(15,23,42,.12)}
+    .preview-badge{
+      position:absolute;right:16px;bottom:16px;padding:6px 12px;border-radius:10px;background:rgba(37,99,235,.92);
+      color:#fff;font-size:.72rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase
+    }
+
+    .stats{
+      margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:20px;
+      display:none
+    }
+    .slider-head{
+      display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:12px
+    }
+    .slider-label{font-size:.84rem;font-weight:900;letter-spacing:.04em;color:#334155}
+    .quality-pill{background:#eff6ff;color:#1d4ed8;border-radius:14px;padding:8px 14px;font-size:1rem;font-weight:900}
+    input[type=range]{
+      -webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:999px;background:#e2e8f0;outline:none
+    }
+    input[type=range]::-webkit-slider-thumb{
+      -webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:#2563eb;border:4px solid #fff;
+      box-shadow:0 4px 10px rgba(0,0,0,.15);cursor:pointer
+    }
+    input[type=range]::-moz-range-thumb{
+      width:26px;height:26px;border-radius:50%;background:#2563eb;border:4px solid #fff;cursor:pointer
+    }
+
+    .size-row{
+      margin-top:16px;background:#f8fafc;border:1px solid #eef2f7;border-radius:20px;padding:16px;
+      display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px
+    }
+    .size-group{
+      display:flex;align-items:center;gap:14px;font-size:.88rem;font-weight:900;color:#475569
+    }
+    .size-box span{display:block;font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+    .save-badge{
+      padding:10px 14px;border-radius:14px;font-size:.9rem;font-weight:900;display:inline-flex;align-items:center;gap:8px
+    }
+    .save-badge.good{background:#dcfce7;color:#166534}
+    .save-badge.bad{background:#fee2e2;color:#991b1b}
+
+    .side{
+      position:sticky;top:96px;padding:22px
+    }
+    .section + .section{margin-top:24px}
+    .section-title{
+      display:flex;align-items:center;gap:10px;padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid #eef2f7;
+      font-size:.76rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#0f172a
+    }
+    .dot{width:8px;height:8px;border-radius:50%}
+    .dot.blue{background:#2563eb}
+    .dot.gray{background:#94a3b8}
+
+    .ratio-grid,.fmt-grid{display:grid;gap:10px}
+    .ratio-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+    .fmt-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .chip{
+      border:1px solid var(--line);background:#f8fafc;color:#475569;border-radius:14px;padding:12px 10px;text-align:center;
+      font-size:.82rem;font-weight:900;cursor:pointer;transition:.18s
+    }
+    .chip:hover{background:#f1f5f9}
+    .chip.active{background:#2563eb;color:#fff;border-color:#2563eb;box-shadow:0 10px 22px rgba(37,99,235,.18)}
+
+    .field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .field label{
+      display:block;margin-bottom:8px;font-size:.68rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:#94a3b8
+    }
+    .field input{
+      width:100%;padding:14px 14px;border:1px solid var(--line);border-radius:14px;background:#f8fafc;color:#0f172a;font-weight:800;outline:none
+    }
+    .field input:focus{border-color:#93c5fd;box-shadow:0 0 0 4px rgba(37,99,235,.1)}
+    .toggle{
+      display:flex;align-items:center;gap:10px;margin-top:12px;font-size:.88rem;font-weight:800;color:#475569
+    }
+    .toggle input{width:18px;height:18px;accent-color:#2563eb}
+
+    .main-btn{
+      width:100%;margin-top:18px;border:none;border-radius:18px;background:#2563eb;color:#fff;padding:18px 20px;
+      font-size:.96rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:.18s;
+      box-shadow:0 18px 30px rgba(37,99,235,.22)
+    }
+    .main-btn:hover{background:#1d4ed8}
+
+    .section-card{
+      margin:28px 0 0;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:28px
+    }
+    .section-card h2{margin:0 0 12px;font-size:1.8rem;letter-spacing:-.03em}
+    .section-card p{color:var(--muted);line-height:1.75}
+    .faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
+    .faq-item{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:18px}
+    .faq-item h3{margin:0 0 8px;font-size:1.05rem}
+    .faq-item p{margin:0;font-size:.98rem}
+
+    .site-footer{
+      margin-top:40px;padding:28px 0;background:#fff;border-top:1px solid var(--line)
+    }
+    .footer-links{
+      display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-bottom:12px;font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#64748b
+    }
+    .footer-links a:hover{color:var(--brand)}
+    .footer-note{text-align:center;font-size:.72rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#cbd5e1}
+
+    canvas{display:none}
+
+    @media (max-width:1100px){
+      .workspace{grid-template-columns:1fr}
+      .side{position:static}
+      .faq-grid{grid-template-columns:1fr}
+      .site-header-inner{flex-wrap:wrap;padding:10px 0}
+      .nav{width:100%;overflow:auto;padding-bottom:4px}
+    }
+    @media (max-width:640px){
+      .container{width:min(100% - 20px,1420px)}
+      .ratio-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .field-grid{grid-template-columns:1fr}
+      .drop-zone{min-height:380px}
+      .drop-inner{min-height:340px}
+      .size-row{align-items:flex-start}
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="brand" href="/">
+        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools logo" />
+        <div class="brand-title">Mini-Tools<span>.uk</span></div>
+      </a>
 
-  <nav class="bg-white border-b border-slate-200 shrink-0 sticky top-0 z-50 backdrop-blur-md bg-white/90">
-    <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
-        </a>
-        <div class="flex flex-col -mt-1 hidden sm:flex">
-          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
-        </div>
-      </div>
-      <div class="flex items-center gap-4 sm:gap-6">
-        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
-          <span id="nav-blog-text">Blog & Guides</span>
-        </a>
-        <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500">
-          <option value="en">🇬🇧 English</option>
-          <option value="zh">🇨🇳 简体中文</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="de">🇩🇪 Deutsch</option>
-        </select>
-      </div>
-    </div>
-  </nav>
+      <nav class="nav" aria-label="Main navigation">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/#all-tools">All Tools</a>
 
-  <main class="max-w-[1400px] mx-auto px-6 py-8 flex-1 w-full">
-    <header class="mb-10 text-center">
-      <div class="mb-4">
-        <span class="bg-blue-50 text-blue-600 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-sm border border-blue-100" id="badge-privacy">
-          ⚡ 100% Client-Side • Privacy Protected
-        </span>
-      </div>
-      <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
-        Image Resizer & Compressor
-      </h1>
-      <p id="page-desc" class="text-lg text-slate-500 max-w-2xl mx-auto">
-        Adjust dimensions, crop ratios, and reduce file size without losing clarity. Fast, secure, and professional.
-      </p>
-    </header>
-
-    <div class="grid grid-cols-1 lg:grid-cols-[1fr,420px] gap-8 mb-20">
-      
-      <div class="space-y-6">
-        <div id="drop-area" class="drop-zone bg-white rounded-3xl p-8 text-center cursor-pointer shadow-sm min-h-[450px] flex flex-col items-center justify-center relative overflow-hidden">
-          <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" class="hidden">
-          
-          <div id="upload-placeholder" class="animate-in fade-in zoom-in duration-300 pointer-events-none">
-            <div class="w-24 h-24 bg-blue-50 rounded-[2rem] flex items-center justify-center mb-6 text-blue-600 mx-auto shadow-inner">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h3 id="label-upload" class="text-2xl font-black text-slate-900">Select or Drag Image</h3>
-            <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-3" id="label-formats">High-quality JPG, PNG, or WebP</p>
+        <div class="dropdown" id="categoriesDropdown">
+          <button class="nav-button" type="button" aria-expanded="false" aria-controls="categoriesMenu">
+            Categories
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="dropdown-bridge" aria-hidden="true"></div>
+          <div class="dropdown-menu" id="categoriesMenu" role="menu">
+            <a class="dropdown-item" href="/#uk-finance">UK Finance</a>
+            <a class="dropdown-item" href="/#developer-tools">Developer Tools</a>
+            <a class="dropdown-item" href="/#image-tools">Image & PDF</a>
+            <a class="dropdown-item" href="/#text-conversion">Text & Conversion</a>
+            <a class="dropdown-item" href="/#privacy-security">Security & Privacy</a>
           </div>
+        </div>
 
-          <div id="preview-container" class="hidden w-full h-full absolute inset-0 animate-in fade-in p-4">
-            <div class="preview-wrapper">
-              <img id="img-preview" class="preview-img" alt="Optimized Preview">
+        <a class="nav-link" href="/blog">Blog</a>
+        <a class="nav-link" href="/about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-intro">
+      <div class="eyebrow">Image Tool • Local Processing</div>
+      <h1>Image Resizer & Compressor</h1>
+      <p class="intro-text">
+        Resize, crop, and compress images locally in your browser. Adjust dimensions, switch aspect ratios,
+        tune export quality, and download the optimized result.
+      </p>
+    </section>
+
+    <section class="workspace">
+      <div>
+        <div class="drop-zone panel" id="dropArea">
+          <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" hidden />
+          <div class="drop-inner">
+            <div class="placeholder" id="placeholder">
+              <div class="placeholder-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 16L8.58579 11.4142C9.36684 10.6332 10.6332 10.6332 11.4142 11.4142L16 16M14 14L15.5858 12.4142C16.3668 11.6332 17.6332 11.6332 18.4142 12.4142L20 14M14 6H14.01M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3>Select or Drag Image</h3>
+              <p>JPG, PNG, or WebP</p>
+            </div>
+
+            <div class="preview-wrap" id="previewWrap">
+              <img id="previewImage" class="preview-img" alt="Optimized preview" />
               <div class="preview-badge">Live Preview</div>
             </div>
           </div>
         </div>
-        
-        <div id="stats-bar" class="hidden bg-white p-6 rounded-[2rem] border border-slate-200 shadow-xl shadow-slate-200/50 flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4">
-            
-            <div>
-                <div class="flex justify-between mb-3 items-center">
-                  <label id="label-quality" class="text-sm font-black text-slate-800 uppercase tracking-widest flex items-center gap-2">
-                     <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                     Image Quality (Slide to Compress)
-                  </label>
-                  <span id="quality-val" class="text-white font-black text-sm bg-blue-600 px-3 py-1 rounded-xl shadow-md">80%</span>
-                </div>
-                <input type="range" id="input-quality" min="5" max="100" value="80" oninput="updateSettings()">
+
+        <div class="stats" id="statsCard">
+          <div class="slider-head">
+            <div class="slider-label">Image quality</div>
+            <div class="quality-pill" id="qualityValue">80%</div>
+          </div>
+
+          <input type="range" id="qualityInput" min="5" max="100" value="80" />
+
+          <div class="size-row">
+            <div class="size-group">
+              <div class="size-box">
+                <span>Original</span>
+                <strong id="originalSize">0 KB</strong>
+              </div>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="color:#cbd5e1">
+                <path d="M14 5L21 12L14 19M21 12H3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div class="size-box">
+                <span>Optimized</span>
+                <strong id="optimizedSize">0 KB</strong>
+              </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                <div class="flex items-center gap-4 text-sm font-black w-full sm:w-auto">
-                    <div class="px-2 py-1 text-slate-500 flex-1 sm:flex-none text-center">
-                        <span class="uppercase tracking-widest text-[10px] block mb-1">Original</span>
-                        <span id="size-orig">0 KB</span>
-                    </div>
-                    <svg class="w-5 h-5 text-slate-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    <div class="px-2 py-1 text-blue-600 flex-1 sm:flex-none text-center">
-                        <span class="uppercase tracking-widest text-[10px] block mb-1">Optimized</span>
-                        <span id="size-new">0 KB</span>
-                    </div>
-                </div>
-                <div class="bg-green-100 text-green-700 px-4 py-2.5 rounded-xl font-black text-sm flex items-center gap-2 w-full sm:w-auto justify-center shadow-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                    Saved <span id="size-saved">0%</span>
-                </div>
+            <div class="save-badge good" id="savingBadge">
+              <span>Saved</span>
+              <strong id="savedPercent">0%</strong>
             </div>
+          </div>
         </div>
-
       </div>
 
-      <div class="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/50 space-y-8 h-fit sticky top-28">
-        
-        <div>
-          <div class="flex items-center gap-2 border-b border-slate-100 pb-3 mb-4">
-              <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-              <h4 id="label-ratio-title" class="text-xs font-black text-slate-900 uppercase tracking-widest">Aspect Ratio</h4>
-          </div>
-          <div class="grid grid-cols-5 gap-2">
-            <button onclick="applyRatio('original', this)" class="ratio-btn active-fmt px-1 py-2.5 rounded-lg bg-blue-600 text-white font-black text-[11px] border border-blue-600 transition-all" id="btn-ratio-orig">Orig</button>
-            <button onclick="applyRatio('1:1', this)" class="ratio-btn px-1 py-2.5 rounded-lg bg-slate-50 text-slate-600 font-black text-[11px] border border-slate-200 transition-all hover:bg-slate-100">1:1</button>
-            <button onclick="applyRatio('4:3', this)" class="ratio-btn px-1 py-2.5 rounded-lg bg-slate-50 text-slate-600 font-black text-[11px] border border-slate-200 transition-all hover:bg-slate-100">4:3</button>
-            <button onclick="applyRatio('16:9', this)" class="ratio-btn px-1 py-2.5 rounded-lg bg-slate-50 text-slate-600 font-black text-[11px] border border-slate-200 transition-all hover:bg-slate-100">16:9</button>
-            <button onclick="applyRatio('9:16', this)" class="ratio-btn px-1 py-2.5 rounded-lg bg-slate-50 text-slate-600 font-black text-[11px] border border-slate-200 transition-all hover:bg-slate-100">9:16</button>
+      <aside class="panel side">
+        <div class="section">
+          <div class="section-title"><span class="dot blue"></span> Aspect ratio</div>
+          <div class="ratio-grid">
+            <button class="chip active" data-ratio="original">Orig</button>
+            <button class="chip" data-ratio="1:1">1:1</button>
+            <button class="chip" data-ratio="4:3">4:3</button>
+            <button class="chip" data-ratio="16:9">16:9</button>
+            <button class="chip" data-ratio="9:16">9:16</button>
           </div>
         </div>
 
-        <div class="space-y-4">
-          <div class="flex items-center gap-2 border-b border-slate-100 pb-3">
-              <div class="w-2 h-2 bg-slate-400 rounded-full"></div>
-              <h4 id="label-settings" class="text-xs font-black text-slate-900 uppercase tracking-widest">Dimensions</h4>
-          </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label class="text-[10px] font-black text-slate-400 uppercase mb-2 block tracking-widest" id="label-w">Width (px)</label>
-              <input type="number" id="input-w" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+        <div class="section">
+          <div class="section-title"><span class="dot gray"></span> Dimensions</div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="widthInput">Width (px)</label>
+              <input type="number" id="widthInput" />
             </div>
-            <div>
-              <label class="text-[10px] font-black text-slate-400 uppercase mb-2 block tracking-widest" id="label-h">Height (px)</label>
-              <input type="number" id="input-h" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+            <div class="field">
+              <label for="heightInput">Height (px)</label>
+              <input type="number" id="heightInput" />
             </div>
           </div>
-          <label class="flex items-center gap-3 cursor-pointer group pt-2">
-            <div class="relative">
-                <input type="checkbox" id="chk-ratio" checked class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
-            </div>
-            <span id="label-ratio-lock" class="text-xs font-bold text-slate-600 group-hover:text-blue-600 transition-colors">Lock Aspect Ratio</span>
+
+          <label class="toggle">
+            <input type="checkbox" id="lockRatioInput" checked />
+            <span>Lock aspect ratio</span>
           </label>
         </div>
 
-        <div>
-          <label id="label-format" class="text-[10px] font-black text-slate-400 uppercase mb-3 block tracking-widest">Export Format</label>
-          <div class="grid grid-cols-2 gap-2">
-            <button onclick="setFormat('image/jpeg', this)" class="fmt-btn px-2 py-3 rounded-xl bg-slate-50 text-slate-600 font-black text-[11px] border border-slate-200 transition-all hover:bg-slate-100">JPG</button>
-            <button onclick="setFormat('image/webp', this)" class="fmt-btn active-fmt px-2 py-3 rounded-xl bg-blue-600 text-white font-black text-[11px] border border-blue-600 transition-all">WEBP</button>
+        <div class="section">
+          <div class="section-title"><span class="dot gray"></span> Export format</div>
+          <div class="fmt-grid">
+            <button class="chip" data-format="image/jpeg">JPG</button>
+            <button class="chip active" data-format="image/webp">WEBP</button>
           </div>
         </div>
 
-        <button id="btn-download" onclick="downloadImage()" class="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl shadow-xl shadow-blue-500/30 transition-all active:scale-95 flex items-center justify-center gap-2 text-sm uppercase tracking-widest mt-4">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/></svg>
-          <span id="label-btn-down">Download Optimized</span>
-        </button>
+        <button class="main-btn" id="downloadBtn" type="button">Download Optimized</button>
+      </aside>
+    </section>
+
+    <section class="section-card">
+      <h2>Why this image tool is useful</h2>
+      <p>
+        Unoptimized images are one of the fastest ways to slow down a website or increase upload size. This page lets
+        you resize images, switch aspect ratios, lower file size, and export to a more efficient format without
+        sending files to a remote server. It is a simple local workflow for content publishing, design prep, and
+        general image cleanup.
+      </p>
+
+      <div class="faq-grid">
+        <article class="faq-item">
+          <h3>Is it private?</h3>
+          <p>Yes. The image is processed locally in your browser and is not uploaded to our servers.</p>
+        </article>
+        <article class="faq-item">
+          <h3>Can I crop to social media ratios?</h3>
+          <p>Yes. You can switch between original, 1:1, 4:3, 16:9, and 9:16 aspect ratios.</p>
+        </article>
+        <article class="faq-item">
+          <h3>Should I use JPG or WebP?</h3>
+          <p>WebP is often smaller at similar quality, while JPG remains a widely compatible option.</p>
+        </article>
+        <article class="faq-item">
+          <h3>Will it keep the image sharp?</h3>
+          <p>It aims to preserve clarity while reducing size, but the final result depends on the original image and your quality setting.</p>
+        </article>
       </div>
-    </div>
-
-    <div id="seo-container" class="prose-content max-w-4xl mx-auto w-full">
-      <h2>Professional Image Compression & Cropping</h2>
-      <p>Large, unoptimized images are the primary cause of slow website performance. Our <strong>online image resizer and compressor</strong> utilizes advanced HTML5 Canvas rendering to reduce file size and crop photos to perfect social media ratios without sacrificing visual clarity.</p>
-      <h3>Smart Aspect Ratio Cropping</h3>
-      <p>We've introduced one-click aspect ratio cropping. Need a perfectly square image for an Instagram post? Just click <strong>1:1</strong>. Need a YouTube thumbnail? Click <strong>16:9</strong>. The engine will automatically center-crop your image ensuring no distortion or stretching occurs.</p>
-      <h3>Why we highly recommend the WebP format</h3>
-      <p>While JPG and PNG have been the internet standards for decades, <strong>WebP</strong> (developed by Google) provides vastly superior compression. Our tool allows you to convert any image into WebP with a single click, instantly boosting your website's loading speed.</p>
-      <h3>The Privacy Guarantee</h3>
-      <p>We process everything on the <strong>client-side</strong> using JavaScript directly inside your browser. Your photos never leave your device, making this the most secure way to handle private documents.</p>
-    </div>
-
+    </section>
   </main>
 
-  <canvas id="main-canvas"></canvas>
+  <canvas id="workCanvas"></canvas>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-10 w-full">
-    <div class="max-w-[1400px] mx-auto px-6 text-center">
-      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
-        </a>
-        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
-        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/about">About</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/contact">Contact</a>
       </div>
-      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
-        © 2026 MINI-TOOLS.UK — SECURE CLIENT-SIDE IMAGE TUNING
-      </p>
+      <div class="footer-note">© 2026 Mini-Tools.uk — secure local image utilities</div>
     </div>
   </footer>
 
   <script>
-    const i18n = {
-      en: {
-        metaTitle: "Free Image Resizer & Compressor 2026 | Crop JPG, PNG, WebP — Mini-Tools",
-        metaDesc: "Resize, crop, and compress images instantly. Support for 16:9, 4:3, 1:1 aspect ratios. 100% private: no server uploads. Professional image tool for free.",
-        metaKeywords: "image resizer, image compressor, crop image online, 16:9 image cropper, convert to webp, resize photo online, private image tool",
-        badge: "⚡ 100% Client-Side • Privacy Protected",
-        title: "Image Resizer & Compressor", 
-        desc: "Adjust dimensions, crop to specific ratios (like 16:9 or 1:1), and compress file size without losing clarity.",
-        upload: "Select or Drag Image", formats: "High-quality JPG, PNG, or WebP",
-        ratioTitle: "Aspect Ratio", ratioOrig: "Orig",
-        settings: "Dimensions",
-        labelW: "Width (px)", labelH: "Height (px)",
-        ratioLock: "Lock Aspect Ratio", quality: "Image Quality (Slide to Compress)", format: "Export Format",
-        btnDown: "Download Optimized",
-        navBlog: "Blog & Guides", footerBlog: "Blog",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
-        seoHtml: `
-          <h2>Professional Image Compression & Cropping</h2>
-          <p>Large, unoptimized images are the primary cause of slow website performance. Our <strong>online image resizer and compressor</strong> utilizes advanced HTML5 Canvas rendering to reduce file size and crop photos to perfect social media ratios without sacrificing visual clarity.</p>
-          <h3>Smart Aspect Ratio Cropping</h3>
-          <p>We've introduced one-click aspect ratio cropping. Need a perfectly square image for an Instagram post? Just click <strong>1:1</strong>. Need a YouTube thumbnail? Click <strong>16:9</strong>. The engine will automatically center-crop your image ensuring no distortion or stretching occurs.</p>
-          <h3>Why we highly recommend the WebP format</h3>
-          <p>While JPG and PNG have been the internet standards for decades, <strong>WebP</strong> (developed by Google) provides vastly superior compression. Our tool allows you to convert any image into WebP with a single click, instantly boosting your website's loading speed.</p>
-          <h3>The Privacy Guarantee</h3>
-          <p>We process everything on the <strong>client-side</strong> using JavaScript directly inside your browser. Your photos never leave your device, making this the most secure way to handle private documents.</p>`
-      },
-      zh: {
-        metaTitle: "免费在线图片压缩与尺寸调整 | 一键裁剪 16:9 / 1:1 — Mini-Tools",
-        metaDesc: "即时修改图片尺寸、按比例居中裁剪与无损压缩体积。100% 本地处理保障隐私，不上传文件。支持导出为现代 WebP 格式。",
-        metaKeywords: "图片压缩工具, 在线图片调整大小, 裁剪图片比例, 16:9裁剪, 1:1方形裁剪, JPG转WebP, 纯本地无损压缩, 批量图片瘦身",
-        badge: "⚡ 纯浏览器端渲染 • 绝对隐私保护",
-        title: "图片压缩与尺寸调整", 
-        desc: "轻松调整图片分辨率、按社媒比例（如 16:9、1:1）居中裁剪，在保持清晰度的同时极速减小体积。",
-        upload: "选择或拖拽图片至此", formats: "支持高清 JPG, PNG, 或 WebP 格式",
-        ratioTitle: "预设裁剪比例", ratioOrig: "原图",
-        settings: "具体尺寸",
-        labelW: "宽度 (像素)", labelH: "高度 (像素)",
-        ratioLock: "锁定等比例缩放", quality: "画质调节 (滑动压缩体积)", format: "最终导出格式",
-        btnDown: "立即下载压缩图片",
-        navBlog: "官方博客与教程", footerBlog: "官方博客",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
-        seoHtml: `
-          <h2>为什么选择 Mini-Tools 进行图片压缩与调整？</h2>
-          <p>过大的图片是拖慢网页加载速度、消耗移动端流量的核心元凶。无论是用于跨境电商的商品图，还是用于自媒体的文章配图，修改尺寸和压缩体积都是必修课。我们的工具采用业界先进的纯前端渲染技术，在不妥协画质的前提下帮您极速“瘦身”。</p>
-          <h3>智能防变形“居中裁剪”</h3>
-          <p>需要把长图发到微信朋友圈或小红书？只需一键点击右侧的 <strong>1:1 (正方形)</strong> 或 <strong>9:16 (竖屏)</strong>。底层的 Canvas 引擎会自动采用 Center-Crop（居中裁剪）算法，完美截取画面中心区域，彻底告别强行拉伸导致的图片变形。</p>
-          <h3>核心优势：全面拥抱 WebP 与极致隐私</h3>
-          <ul>
-            <li><strong>格式降维打击</strong>：强烈建议您使用本工具一键将 JPG/PNG 转换为 Google 主推的 <strong>WebP 格式</strong>。在同等肉眼画质下，WebP 能比传统格式再缩小至少 30% 的体积。</li>
-            <li><strong>零信任架构 (绝对隐私)</strong>：处理敏感资料时，绝不能使用会上传数据的在线压缩网。我们的工具 100% 在您的本地浏览器内存中计算，绝无任何网络请求，保护您的隐私绝对安全。</li>
-          </ul>`
-      },
-      es: {
-        metaTitle: "Compresor y Redimensionador de Imágenes 2026 | Recortar JPG, WebP",
-        metaDesc: "Comprima y recorte imágenes al instante. Soporte para ratios 16:9, 4:3, 1:1. 100% privado, procesamiento Client-Side.",
-        metaKeywords: "redimensionar imagen, compresor de imágenes, recortar imagen online, convertidor webp, herramienta imagen privada",
-        badge: "⚡ 100% Privado • Procesamiento Local",
-        title: "Compresor de Imágenes", 
-        desc: "Ajuste dimensiones, recorte a proporciones específicas (como 16:9 o 1:1) y reduzca el peso del archivo sin perder claridad.",
-        upload: "Seleccione o Arrastre la Imagen", formats: "Soporta JPG, PNG o WebP",
-        ratioTitle: "Proporción", ratioOrig: "Orig",
-        settings: "Dimensiones",
-        labelW: "Ancho (px)", labelH: "Alto (px)",
-        ratioLock: "Bloquear Proporción", quality: "Calidad de Imagen (Deslizar para comprimir)", format: "Formato de Exportación",
-        btnDown: "Descargar Optimizada",
-        navBlog: "Blog y Guías", footerBlog: "Blog",
-        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
-        seoHtml: `
-          <h2>Compresión y Recorte de Imágenes 100% Privado</h2>
-          <p>Las imágenes pesadas son la causa principal de sitios web lentos. Nuestro <strong>compresor de imágenes</strong> utiliza renderizado HTML5 avanzado para reducir el tamaño y recortar fotos sin perder claridad visual.</p>
-          <h3>Recorte Inteligente</h3>
-          <p>Hemos introducido el recorte con un clic. ¿Necesita una imagen cuadrada para Instagram? Haga clic en <strong>1:1</strong>. El motor recortará automáticamente el centro asegurando que no haya distorsión.</p>
-          <h3>¿Por qué recomendamos el formato WebP?</h3>
-          <p>Mientras que JPG y PNG son estándares, <strong>WebP</strong> (creado por Google) ofrece una compresión muy superior. Nuestra herramienta convierte sus fotos a WebP con un clic.</p>`
-      },
-      fr: {
-        metaTitle: "Compresseur d'Image en Ligne 2026 | Recadrer JPG, PNG, WebP",
-        metaDesc: "Compressez et recadrez vos images instantanément. 100% privé, traitement dans le navigateur. Ajustez la qualité pour le SEO.",
-        metaKeywords: "redimensionner image, compresseur image, recadrer image, convertir webp, outil image privé",
-        badge: "⚡ 100% Local • Confidentialité Protégée",
-        title: "Compresseur d'Images", 
-        desc: "Réduisez la taille de vos fichiers et recadrez aux formats standards (16:9, 1:1) sans perdre en clarté.",
-        upload: "Sélectionnez ou Glissez l'Image", formats: "Haute qualité JPG, PNG ou WebP",
-        ratioTitle: "Proportion", ratioOrig: "Orig",
-        settings: "Dimensions",
-        labelW: "Largeur (px)", labelH: "Hauteur (px)",
-        ratioLock: "Verrouiller les Proportions", quality: "Qualité d'Image (Glisser pour compresser)", format: "Format d'Exportation",
-        btnDown: "Télécharger l'Image",
-        navBlog: "Blog et Guides", footerBlog: "Blog",
-        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
-        seoHtml: `
-          <h2>Compression et Recadrage d'Images</h2>
-          <p>Les images non optimisées ralentissent considérablement les sites web. Notre outil utilise le rendu HTML5 pour réduire la taille des fichiers et recadrer intelligemment les photos. Le tout fonctionne à 100% sur votre appareil.</p>
-          <h3>Recadrage Intelligent</h3>
-          <p>Besoin d'une image carrée pour Instagram ? Cliquez sur <strong>1:1</strong>. Le moteur recadrera automatiquement le centre sans déformer l'image.</p>
-          <h3>Pourquoi choisir le format WebP ?</h3>
-          <p>Développé par Google, le <strong>WebP</strong> offre une compression largement supérieure au JPG ou PNG (environ 30% plus léger). C'est le format idéal pour améliorer le SEO.</p>`
-      },
-      de: {
-        metaTitle: "Bildkomprimierer & Zuschneider 2026 | JPG, PNG, WebP",
-        metaDesc: "Bilder sofort komprimieren und zuschneiden (16:9, 1:1). 100% privat, Client-Side-Verarbeitung. Qualität für SEO anpassen.",
-        metaKeywords: "bild komprimieren, bildgröße ändern, bild zuschneiden, webp konverter, privates bild tool",
-        badge: "⚡ 100% Lokal • Datenschutz Geschützt",
-        title: "Bildkomprimierer & Zuschneider", 
-        desc: "Dateigröße reduzieren und Bilder auf bestimmte Seitenverhältnisse zuschneiden (wie 16:9 oder 1:1) ohne Qualitätsverlust.",
-        upload: "Bild auswählen oder ziehen", formats: "Hochwertige JPG, PNG oder WebP",
-        ratioTitle: "Seitenverhältnis", ratioOrig: "Orig",
-        settings: "Abmessungen",
-        labelW: "Breite (px)", labelH: "Höhe (px)",
-        ratioLock: "Seitenverhältnis Sperren", quality: "Bildqualität (Schieben zum Komprimieren)", format: "Exportformat",
-        btnDown: "Optimiert Herunterladen",
-        navBlog: "Blog & Anleitungen", footerBlog: "Blog",
-        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
-        seoHtml: `
-          <h2>Professionelle Bildkomprimierung & Zuschnitt</h2>
-          <p>Große, unoptimierte Bilder sind die Hauptursache für langsame Websites. Unser Tool reduziert die Dateigröße und schneidet Fotos auf perfekte Social-Media-Verhältnisse zu, und das 100% lokal in Ihrem Browser.</p>
-          <h3>Intelligenter Zuschnitt</h3>
-          <p>Wir haben einen Ein-Klick-Zuschnitt eingeführt. Benötigen Sie ein quadratisches Bild für Instagram? Klicken Sie einfach auf <strong>1:1</strong>. Die Engine schneidet das Bild automatisch in der Mitte ab, um Verzerrungen zu vermeiden.</p>
-          <h3>Warum WebP das Format der Zukunft ist</h3>
-          <p>Während JPG und PNG seit Jahrzehnten Standard sind, bietet <strong>WebP</strong> (von Google) eine deutlich überlegene Komprimierung. Ideal für SEO und Ladezeiten.</p>`
-      }
-    };
+    const fileInput = document.getElementById("fileInput");
+    const dropArea = document.getElementById("dropArea");
+    const placeholder = document.getElementById("placeholder");
+    const previewWrap = document.getElementById("previewWrap");
+    const previewImage = document.getElementById("previewImage");
+    const statsCard = document.getElementById("statsCard");
+    const qualityInput = document.getElementById("qualityInput");
+    const qualityValue = document.getElementById("qualityValue");
+    const originalSize = document.getElementById("originalSize");
+    const optimizedSize = document.getElementById("optimizedSize");
+    const savedPercent = document.getElementById("savedPercent");
+    const savingBadge = document.getElementById("savingBadge");
+    const widthInput = document.getElementById("widthInput");
+    const heightInput = document.getElementById("heightInput");
+    const lockRatioInput = document.getElementById("lockRatioInput");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const ratioButtons = Array.from(document.querySelectorAll("[data-ratio]"));
+    const formatButtons = Array.from(document.querySelectorAll("[data-format]"));
 
-    let originalImg = null;
-    let exportFormat = 'image/webp'; 
-    let aspectRatio = 1;
-    let currentRatioSelection = 'original'; 
-    let originalFileSize = 0;
+    const canvas = document.getElementById("workCanvas");
+    const ctx = canvas.getContext("2d");
 
-    const canvas = document.getElementById('main-canvas');
-    const ctx = canvas.getContext('2d');
-    let autoUpdateTimer;
+    let sourceImage = null;
+    let originalFileBytes = 0;
+    let exportFormat = "image/webp";
+    let currentAspectRatio = 1;
+    let currentRatioMode = "original";
+    let previewUrl = null;
+    let updateTimer = null;
 
-    function getLang() { return new URLSearchParams(window.location.search).get('lang') || 'en'; }
-
-    function updateLanguage() {
-      const lang = getLang();
-      const data = i18n[lang] || i18n['en'];
-      
-      document.documentElement.lang = lang;
-      
-      // 🌟 动态接管 Meta 数据：Title, Description 和核心长尾 Keywords
-      document.title = data.metaTitle;
-      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
-      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
-
-      document.getElementById('badge-privacy').innerHTML = data.badge;
-      document.getElementById('page-title').innerText = data.title;
-      document.getElementById('page-desc').innerText = data.desc;
-      
-      document.getElementById('label-upload').innerText = data.upload;
-      document.getElementById('label-formats').innerText = data.formats;
-      
-      document.getElementById('label-ratio-title').innerText = data.ratioTitle;
-      document.getElementById('btn-ratio-orig').innerText = data.ratioOrig;
-
-      document.getElementById('label-settings').innerText = data.settings;
-      document.getElementById('label-w').innerText = data.labelW;
-      document.getElementById('label-h').innerText = data.labelH;
-      document.getElementById('label-ratio-lock').innerText = data.ratioLock;
-      document.getElementById('label-quality').innerHTML = `<svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg> ${data.quality}`;
-      document.getElementById('label-format').innerText = data.format;
-      document.getElementById('label-btn-down').innerText = data.btnDown;
-      
-      document.getElementById('footer-about').innerText = data.footerAbout;
-      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
-      document.getElementById('footer-contact').innerText = data.footerContact;
-
-      // Update Nav & Footer Blog Links
-      const navBlogText = document.getElementById('nav-blog-text');
-      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
-      
-      const footerBlog = document.getElementById('footer-blog');
-      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
-      
-      // 🌟 动态注入纯净的 SEO 长文内容，消灭多语言混杂代码
-      const seoContainer = document.getElementById('seo-container');
-      if (data.seoHtml) {
-          seoContainer.style.opacity = 0;
-          setTimeout(() => {
-              seoContainer.innerHTML = data.seoHtml;
-              seoContainer.style.opacity = 1;
-          }, 150);
-      }
-
-      document.getElementById('lang-select').value = lang;
-      
-      // 修复：确保内链跳转时不丢失原有的路径名
-      document.querySelectorAll('a').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
-          try {
-            const url = new URL(href, window.location.origin);
-            url.searchParams.set('lang', lang);
-            link.href = url.pathname + url.search;
-          } catch(e) {}
-        }
-      });
+    function formatBytes(bytes) {
+      if (!bytes) return "0 KB";
+      const units = ["Bytes", "KB", "MB"];
+      const i = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
+      const value = bytes / Math.pow(1024, i);
+      return (i === 0 ? value.toFixed(0) : value.toFixed(2)) + " " + units[i];
     }
 
-    const dropArea = document.getElementById('drop-area');
-    const fileInput = document.getElementById('file-input');
-    
-    dropArea.onclick = (e) => {
-        if (e.target.closest('#preview-container')) return;
-        fileInput.click();
-    };
-    dropArea.ondragover = (e) => { e.preventDefault(); dropArea.classList.add('active'); };
-    dropArea.ondragleave = () => dropArea.classList.remove('active');
-    dropArea.ondrop = (e) => {
-      e.preventDefault();
-      dropArea.classList.remove('active');
-      handleFile(e.dataTransfer.files[0]);
-    };
-    fileInput.onchange = (e) => {
-        handleFile(e.target.files[0]);
-        fileInput.value = ''; 
-    };
+    function setChipActive(buttons, activeButton) {
+      buttons.forEach(btn => btn.classList.remove("active"));
+      activeButton.classList.add("active");
+    }
 
-    function handleFile(file) {
-      if (!file || !file.type.startsWith('image/')) return;
-      
-      originalFileSize = file.size;
-      document.getElementById('size-orig').innerText = formatSize(file.size);
-      
+    function applyRatioMode(mode) {
+      if (!sourceImage) return;
+
+      currentRatioMode = mode;
+      if (mode === "original") {
+        currentAspectRatio = sourceImage.width / sourceImage.height;
+      } else {
+        const [w, h] = mode.split(":").map(Number);
+        currentAspectRatio = w / h;
+      }
+
+      const width = parseInt(widthInput.value || sourceImage.width, 10);
+      heightInput.value = Math.max(1, Math.round(width / currentAspectRatio));
+      lockRatioInput.checked = true;
+      scheduleUpdate();
+    }
+
+    function scheduleUpdate() {
+      clearTimeout(updateTimer);
+      updateTimer = setTimeout(updatePreview, 90);
+    }
+
+    function updatePreview() {
+      if (!sourceImage) return;
+
+      let width = parseInt(widthInput.value, 10);
+      let height = parseInt(heightInput.value, 10);
+
+      if (!width || width < 1) width = 1;
+      if (!height || height < 1) height = 1;
+
+      canvas.width = width;
+      canvas.height = height;
+
+      const srcRatio = sourceImage.width / sourceImage.height;
+      const dstRatio = width / height;
+
+      let srcX = 0, srcY = 0, srcW = sourceImage.width, srcH = sourceImage.height;
+
+      if (Math.abs(srcRatio - dstRatio) > 0.0001) {
+        if (srcRatio > dstRatio) {
+          srcW = sourceImage.height * dstRatio;
+          srcX = (sourceImage.width - srcW) / 2;
+        } else {
+          srcH = sourceImage.width / dstRatio;
+          srcY = (sourceImage.height - srcH) / 2;
+        }
+      }
+
+      ctx.clearRect(0, 0, width, height);
+      ctx.drawImage(sourceImage, srcX, srcY, srcW, srcH, 0, 0, width, height);
+
+      const quality = parseInt(qualityInput.value, 10) / 100;
+      qualityValue.textContent = Math.round(quality * 100) + "%";
+
+      canvas.toBlob(blob => {
+        if (!blob) return;
+
+        optimizedSize.textContent = formatBytes(blob.size);
+
+        if (originalFileBytes > 0) {
+          const saved = ((originalFileBytes - blob.size) / originalFileBytes) * 100;
+          if (saved >= 0) {
+            savedPercent.textContent = saved.toFixed(1) + "%";
+            savingBadge.className = "save-badge good";
+            savingBadge.querySelector("span").textContent = "Saved";
+          } else {
+            savedPercent.textContent = "Heavier";
+            savingBadge.className = "save-badge bad";
+            savingBadge.querySelector("span").textContent = "Result";
+          }
+        }
+
+        if (previewUrl) URL.revokeObjectURL(previewUrl);
+        previewUrl = URL.createObjectURL(blob);
+        previewImage.src = previewUrl;
+      }, exportFormat, quality);
+    }
+
+    function loadFile(file) {
+      if (!file || !file.type.startsWith("image/")) return;
+
+      originalFileBytes = file.size;
+      originalSize.textContent = formatBytes(file.size);
+
       const reader = new FileReader();
-      reader.onload = (e) => {
-        
-        originalImg = new Image();
-        originalImg.onload = () => {
-          aspectRatio = originalImg.width / originalImg.height;
-          document.getElementById('input-w').value = originalImg.width;
-          document.getElementById('input-h').value = originalImg.height;
-          
-          document.getElementById('upload-placeholder').classList.add('hidden');
-          document.getElementById('preview-container').classList.remove('hidden');
-          document.getElementById('stats-bar').classList.remove('hidden');
-          document.getElementById('stats-bar').classList.add('flex');
-          
-          applyRatio('original', document.getElementById('btn-ratio-orig'));
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          sourceImage = img;
+          currentAspectRatio = img.width / img.height;
+          currentRatioMode = "original";
+
+          widthInput.value = img.width;
+          heightInput.value = img.height;
+
+          placeholder.style.display = "none";
+          previewWrap.style.display = "flex";
+          statsCard.style.display = "block";
+
+          ratioButtons.forEach(btn => {
+            if (btn.dataset.ratio === "original") btn.classList.add("active");
+            else btn.classList.remove("active");
+          });
+
+          scheduleUpdate();
         };
-        originalImg.src = e.target.result;
+        img.src = reader.result;
       };
       reader.readAsDataURL(file);
     }
 
-    function setFormat(fmt, btn) {
-      exportFormat = fmt;
-      document.querySelectorAll('.fmt-btn').forEach(b => b.classList.remove('active-fmt', 'bg-blue-600', 'text-white', 'border-blue-600'));
-      document.querySelectorAll('.fmt-btn').forEach(b => b.classList.add('bg-slate-50', 'text-slate-600', 'border-slate-200'));
-      
-      btn.classList.remove('bg-slate-50', 'text-slate-600', 'border-slate-200');
-      btn.classList.add('active-fmt', 'bg-blue-600', 'text-white', 'border-blue-600');
-      updateSettings();
-    }
-
-    function applyRatio(ratioType, btn) {
-        currentRatioSelection = ratioType;
-        
-        document.querySelectorAll('.ratio-btn').forEach(b => {
-            b.classList.remove('active-fmt', 'bg-blue-600', 'text-white', 'border-blue-600');
-            b.classList.add('bg-slate-50', 'text-slate-600', 'border-slate-200');
-        });
-        btn.classList.remove('bg-slate-50', 'text-slate-600', 'border-slate-200');
-        btn.classList.add('active-fmt', 'bg-blue-600', 'text-white', 'border-blue-600');
-
-        if (!originalImg) return;
-
-        let w = parseInt(document.getElementById('input-w').value) || originalImg.width;
-        let h = parseInt(document.getElementById('input-h').value) || originalImg.height;
-
-        if (ratioType === 'original') {
-            aspectRatio = originalImg.width / originalImg.height;
-        } else {
-            const parts = ratioType.split(':');
-            aspectRatio = parseInt(parts[0]) / parseInt(parts[1]);
-        }
-
-        document.getElementById('input-h').value = Math.round(w / Math.max(0.001, aspectRatio));
-        document.getElementById('chk-ratio').checked = true;
-
-        updateSettings();
-    }
-
-    function updateSettings() {
-      if (!originalImg) return;
-      clearTimeout(autoUpdateTimer);
-      
-      autoUpdateTimer = setTimeout(() => {
-          let w = parseInt(document.getElementById('input-w').value);
-          let h = parseInt(document.getElementById('input-h').value);
-          // Protect against NaN or zero
-          if (isNaN(w) || w <= 0) w = 1;
-          if (isNaN(h) || h <= 0) h = 1;
-          
-          const quality = parseInt(document.getElementById('input-quality').value) / 100;
-          document.getElementById('quality-val').innerText = Math.round(quality * 100) + "%";
-
-          canvas.width = w;
-          canvas.height = h;
-          
-          const srcRatio = originalImg.width / originalImg.height;
-          const dstRatio = w / h;
-          let srcX = 0, srcY = 0, srcW = originalImg.width, srcH = originalImg.height;
-
-          if (Math.abs(srcRatio - dstRatio) > 0.01) {
-              if (srcRatio > dstRatio) {
-                  srcW = originalImg.height * dstRatio;
-                  srcX = (originalImg.width - srcW) / 2;
-              } else {
-                  srcH = originalImg.width / dstRatio;
-                  srcY = (originalImg.height - srcH) / 2;
-              }
-          }
-
-          ctx.drawImage(originalImg, srcX, srcY, srcW, srcH, 0, 0, w, h);
-          
-          canvas.toBlob((blob) => {
-              if(!blob) return;
-              
-              const newSize = blob.size;
-              document.getElementById('size-new').innerText = formatSize(newSize);
-              
-              let savings = 0;
-              if(originalFileSize > 0) {
-                  savings = ((originalFileSize - newSize) / originalFileSize) * 100;
-              }
-              const savingsSpan = document.getElementById('size-saved');
-              if (savings > 0) {
-                  savingsSpan.innerText = savings.toFixed(1) + "%";
-                  savingsSpan.className = "text-green-700 font-black";
-                  savingsSpan.parentElement.className = "bg-green-100 text-green-700 px-4 py-2.5 rounded-xl font-black text-sm flex items-center gap-2 w-full sm:w-auto justify-center shadow-sm";
-              } else {
-                  savingsSpan.innerText = "Heavier";
-                  savingsSpan.className = "text-red-700 font-black";
-                  savingsSpan.parentElement.className = "bg-red-100 text-red-700 px-4 py-2.5 rounded-xl font-black text-sm flex items-center gap-2 w-full sm:w-auto justify-center shadow-sm";
-              }
-
-              const newUrl = URL.createObjectURL(blob);
-              document.getElementById('img-preview').src = newUrl;
-
-          }, exportFormat, quality);
-      }, 100); 
-    }
-
-    document.getElementById('input-w').oninput = (e) => {
-      let w = parseInt(e.target.value);
-      if (isNaN(w) || w <= 0) return;
-      if (document.getElementById('chk-ratio').checked && originalImg) {
-        document.getElementById('input-h').value = Math.round(w / Math.max(0.001, aspectRatio));
-      } else {
-        const h = parseInt(document.getElementById('input-h').value);
-        if (h > 0) {
-           aspectRatio = w / h;
-           resetRatioButtons();
-        }
-      }
-      updateSettings();
-    };
-    
-    document.getElementById('input-h').oninput = (e) => {
-      let h = parseInt(e.target.value);
-      if (isNaN(h) || h <= 0) return;
-      if (document.getElementById('chk-ratio').checked && originalImg) {
-        document.getElementById('input-w').value = Math.round(h * Math.max(0.001, aspectRatio));
-      } else {
-        const w = parseInt(document.getElementById('input-w').value);
-        if (w > 0) {
-           aspectRatio = w / h;
-           resetRatioButtons();
-        }
-      }
-      updateSettings();
-    };
-
-    function resetRatioButtons() {
-        document.querySelectorAll('.ratio-btn').forEach(b => {
-            b.classList.remove('active-fmt', 'bg-blue-600', 'text-white', 'border-blue-600');
-            b.classList.add('bg-slate-50', 'text-slate-600', 'border-slate-200');
-        });
-        currentRatioSelection = 'custom';
-    }
-
-    function downloadImage() {
-      if (!originalImg) return;
-      const quality = parseInt(document.getElementById('input-quality').value) / 100;
-      
-      canvas.toBlob((blob) => {
-          if(!blob) return;
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          const ext = exportFormat.split('/')[1] === 'jpeg' ? 'jpg' : exportFormat.split('/')[1];
-          const prefix = currentRatioSelection === 'original' ? 'optimized' : 'cropped';
-          link.download = `${prefix}-minitools-${Date.now()}.${ext}`;
-          link.href = url;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          URL.revokeObjectURL(url);
-      }, exportFormat, quality);
-    }
-
-    function formatSize(bytes) {
-      if (bytes === 0) return '0 KB';
-      const k = 1024, sizes = ['Bytes', 'KB', 'MB'];
-      const i = Math.floor(Math.log(bytes) / Math.log(k));
-      if (i === 0) return bytes + ' ' + sizes[i];
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    }
-
-    document.getElementById('lang-select').addEventListener('change', (e) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', e.target.value);
-      window.location.href = url.href;
+    dropArea.addEventListener("click", (e) => {
+      if (!e.target.closest("#previewWrap")) fileInput.click();
     });
 
-    window.onload = updateLanguage;
+    dropArea.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropArea.classList.add("active");
+    });
+
+    dropArea.addEventListener("dragleave", () => {
+      dropArea.classList.remove("active");
+    });
+
+    dropArea.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropArea.classList.remove("active");
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        loadFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener("change", (e) => {
+      if (e.target.files && e.target.files[0]) {
+        loadFile(e.target.files[0]);
+      }
+      fileInput.value = "";
+    });
+
+    qualityInput.addEventListener("input", scheduleUpdate);
+
+    widthInput.addEventListener("input", () => {
+      const width = parseInt(widthInput.value, 10);
+      if (!width || width < 1) return;
+
+      if (lockRatioInput.checked) {
+        heightInput.value = Math.max(1, Math.round(width / currentAspectRatio));
+      } else {
+        const height = parseInt(heightInput.value, 10);
+        if (height && height > 0) {
+          currentAspectRatio = width / height;
+          ratioButtons.forEach(btn => btn.classList.remove("active"));
+          currentRatioMode = "custom";
+        }
+      }
+      scheduleUpdate();
+    });
+
+    heightInput.addEventListener("input", () => {
+      const height = parseInt(heightInput.value, 10);
+      if (!height || height < 1) return;
+
+      if (lockRatioInput.checked) {
+        widthInput.value = Math.max(1, Math.round(height * currentAspectRatio));
+      } else {
+        const width = parseInt(widthInput.value, 10);
+        if (width && width > 0) {
+          currentAspectRatio = width / height;
+          ratioButtons.forEach(btn => btn.classList.remove("active"));
+          currentRatioMode = "custom";
+        }
+      }
+      scheduleUpdate();
+    });
+
+    ratioButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        setChipActive(ratioButtons, btn);
+        applyRatioMode(btn.dataset.ratio);
+      });
+    });
+
+    formatButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        setChipActive(formatButtons, btn);
+        exportFormat = btn.dataset.format;
+        scheduleUpdate();
+      });
+    });
+
+    downloadBtn.addEventListener("click", () => {
+      if (!sourceImage) return;
+
+      const quality = parseInt(qualityInput.value, 10) / 100;
+      canvas.toBlob(blob => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        const ext = exportFormat === "image/jpeg" ? "jpg" : "webp";
+        const prefix = currentRatioMode === "original" ? "optimized" : "cropped";
+        link.href = url;
+        link.download = `${prefix}-minitools-${Date.now()}.${ext}`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, exportFormat, quality);
+    });
+
+    const dropdown = document.getElementById("categoriesDropdown");
+    const trigger = dropdown.querySelector(".nav-button");
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      const open = dropdown.classList.toggle("open");
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.addEventListener("click", (e) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove("open");
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
   </script>
 </body>
 </html>
