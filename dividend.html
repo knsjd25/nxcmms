@@ -155,7 +155,7 @@
     .pos{color:#a7f3d0}
     .note-card{margin-top:18px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#e9d5ff;font-size:.9rem}
 
-    .section-block{background:#fff;border:1px solid var(--line);border-radius:26px;padding:26px;box-shadow:var(--shadow);margin-bottom:22px}
+    .section-block{background:#fff;border:1px solid var(--line);border-radius:26px;padding:26px;box-shadow:var(--shadow);margin:0 auto 22px;max-width:1120px}
     .section-block h2{margin:0 0 14px;font-size:1.5rem;letter-spacing:-.02em}
     .section-block h3{margin:24px 0 10px;font-size:1.08rem}
     .section-block p,.section-block li{color:#475569}
@@ -163,7 +163,7 @@
     .faq{display:grid;gap:16px}
     .faq-item{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:18px}
     .faq-item h3{margin:0 0 8px;font-size:1rem}
-    .related{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .related{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1120px;margin:0 auto}
     .related a{display:block;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 8px 20px rgba(15,23,42,.04)}
     .related a strong{display:block;margin-bottom:6px}
     .related a span{color:#64748b;font-size:.92rem}
@@ -176,6 +176,10 @@
       .calculator-grid,.mini-grid,.related{grid-template-columns:1fr}
       .nav-inner{align-items:flex-start;padding:12px 0}
       .nav-links{gap:8px}
+    }
+  
+    @media (max-width: 980px){
+      .mini-grid,.hero-grid,.calculator-grid,.calc-grid,.content,.content-grid,.related,.related-grid{max-width:none !important;grid-template-columns:1fr !important;}
     }
   </style>
 </head>
