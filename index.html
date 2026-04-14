@@ -1,27 +1,32 @@
+
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mini-Tools.uk | Privacy-First Online Calculators, Developer Tools & Image Utilities</title>
-  <meta name="description" content="Mini-Tools.uk brings together practical UK calculators, developer utilities, image tools and everyday online helpers with clear descriptions, fast performance and straightforward privacy notes." />
+
+  <title>Mini-Tools.uk | Online Calculators, Developer Utilities, Image & PDF Tools</title>
+  <meta name="description" content="Mini-Tools.uk brings together practical UK finance calculators, developer utilities, image and PDF tools, security helpers, and everyday web utilities with clearer structure and stronger trust signals." />
+  <meta name="keywords" content="online calculators, developer tools, image tools, pdf tools, qr generator, tax calculator, json formatter, password generator, mortgage calculator" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#0f172a" />
 
   <link rel="canonical" href="https://mini-tools.uk/" />
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Mini-Tools.uk" />
-  <meta property="og:title" content="Mini-Tools.uk | Privacy-First Online Calculators, Developer Tools & Image Utilities" />
-  <meta property="og:description" content="Practical UK calculators, developer utilities, image tools and everyday helpers with clearer explanations and cleaner page structure." />
+  <meta property="og:title" content="Mini-Tools.uk | Online Calculators, Developer Utilities, Image & PDF Tools" />
+  <meta property="og:description" content="Practical UK finance calculators, developer utilities, image and PDF helpers, and everyday tools with clearer structure and stronger trust signals." />
   <meta property="og:url" content="https://mini-tools.uk/" />
   <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Mini-Tools.uk | Privacy-First Online Calculators, Developer Tools & Image Utilities" />
-  <meta name="twitter:description" content="Practical UK calculators, developer utilities, image tools and everyday helpers with clearer explanations and cleaner page structure." />
+  <meta name="twitter:title" content="Mini-Tools.uk | Online Calculators, Developer Utilities, Image & PDF Tools" />
+  <meta name="twitter:description" content="Practical UK finance calculators, developer utilities, image and PDF helpers, and everyday tools with clearer structure and stronger trust signals." />
   <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
@@ -32,6 +37,8 @@
     gtag('config', 'G-DR6V84JEZW');
   </script>
 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -41,7 +48,7 @@
         "name": "Mini-Tools.uk",
         "url": "https://mini-tools.uk/",
         "logo": "https://assets.mini-tools.uk/image/icon-512x512.png",
-        "description": "A website offering practical online calculators, developer utilities, image tools and everyday helpers."
+        "description": "A website offering practical online calculators, developer tools, image and PDF helpers, and everyday utilities."
       },
       {
         "@type": "WebSite",
@@ -57,660 +64,337 @@
   </script>
 
   <style>
-    :root {
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --surface-soft: #f1f5f9;
-      --line: #e2e8f0;
-      --line-strong: #cbd5e1;
-      --text: #0f172a;
-      --muted: #475569;
-      --muted-2: #64748b;
-      --brand: #2563eb;
-      --brand-dark: #1d4ed8;
-      --brand-soft: #dbeafe;
-      --success-soft: #dcfce7;
-      --warning-soft: #fef3c7;
-      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-      --radius: 22px;
-      --max: 1200px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.65;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-
-    .skip-link {
-      position: absolute;
-      left: 12px;
-      top: -48px;
-      background: var(--text);
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 12px;
-      z-index: 100;
-    }
-    .skip-link:focus { top: 12px; }
-
-    .container {
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(14px);
-      background: rgba(248, 250, 252, 0.92);
-      border-bottom: 1px solid rgba(203, 213, 225, 0.75);
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 16px 0;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
-
-    .brand-logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      background: #fff;
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
-      padding: 6px;
-    }
-
-    .brand-title {
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      font-size: 1.15rem;
-    }
-
-    .brand-subtitle {
-      font-size: 0.86rem;
-      color: var(--muted-2);
-      margin-top: 2px;
-    }
-
-    .main-nav {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .main-nav a,
-    .nav-trigger {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--muted);
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      background: transparent;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-    }
-
-    .main-nav a:hover,
-    .main-nav a:focus-visible,
-    .nav-trigger:hover,
-    .nav-trigger:focus-visible,
-    .nav-group:hover .nav-trigger {
-      background: #fff;
-      color: var(--text);
-      outline: none;
+    :root{
+      --bg:#f8fafc;
+      --surface:#ffffff;
+      --surface-soft:#f1f5f9;
+      --line:#e2e8f0;
+      --line-strong:#cbd5e1;
+      --text:#0f172a;
+      --muted:#475569;
+      --muted-2:#64748b;
+      --brand:#2563eb;
+      --brand-dark:#1d4ed8;
+      --brand-soft:#dbeafe;
+      --success-soft:#dcfce7;
+      --warning-soft:#fef3c7;
+      --shadow:0 10px 30px rgba(15,23,42,.08);
+      --radius:22px;
+      --max:1200px;
     }
 
-    .nav-group {
-      position: relative;
-      padding-bottom: 14px;
-      margin-bottom: -14px;
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;background:var(--bg);color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.65;
     }
 
-    .nav-trigger svg {
-      width: 14px;
-      height: 14px;
-      transition: transform 0.2s ease;
-    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
 
-    .nav-group::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 100%;
-      height: 14px;
+    .skip-link{
+      position:absolute;left:12px;top:-48px;background:var(--text);color:#fff;padding:10px 14px;border-radius:12px;z-index:100;
     }
+    .skip-link:focus{top:12px}
 
-    .nav-group:hover .nav-trigger svg,
-    .nav-group:focus-within .nav-trigger svg {
-      transform: rotate(180deg);
+    .container{
+      width:min(var(--max),calc(100% - 32px));
+      margin:0 auto;
     }
 
-    .dropdown {
-      position: absolute;
-      top: calc(100% + 2px);
-      left: 0;
-      min-width: 240px;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: 0 22px 44px rgba(15, 23, 42, 0.12);
-      padding: 10px;
-      display: none;
-      z-index: 30;
+    .site-header{
+      position:sticky;top:0;z-index:20;
+      backdrop-filter:blur(14px);
+      background:rgba(248,250,252,.92);
+      border-bottom:1px solid rgba(203,213,225,.75);
     }
 
-    .nav-group:hover .dropdown,
-    .nav-group:focus-within .dropdown {
-      display: block;
-    }
-
-    .dropdown a {
-      display: block;
-      padding: 10px 12px;
-      border-radius: 12px;
-      color: var(--muted);
-      font-size: 0.93rem;
-      font-weight: 600;
+    .header-inner{
+      display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 0;
     }
 
-    .dropdown a small {
-      display: block;
-      margin-top: 2px;
-      color: var(--muted-2);
-      font-size: 0.78rem;
-      font-weight: 500;
+    .brand{
+      display:inline-flex;align-items:center;gap:12px;min-width:0;
     }
 
-    .dropdown a:hover,
-    .dropdown a:focus-visible {
-      background: var(--surface-soft);
-      color: var(--text);
-      outline: none;
+    .brand-logo{
+      width:44px;height:44px;border-radius:14px;background:#fff;box-shadow:0 4px 14px rgba(15,23,42,.08);padding:6px;
     }
 
-    .hero {
-      padding: 42px 0 24px;
+    .brand-title{
+      font-weight:800;letter-spacing:-.03em;font-size:1.15rem;
     }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
-      gap: 28px;
-      align-items: stretch;
+    .brand-subtitle{
+      font-size:.86rem;color:var(--muted-2);margin-top:2px;
     }
 
-    .hero-copy,
-    .hero-panel {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-copy {
-      padding: 34px;
+    .main-nav{
+      display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end;
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: var(--brand-soft);
-      color: var(--brand-dark);
-      font-weight: 700;
-      font-size: 0.84rem;
-      margin-bottom: 16px;
+    .main-nav a,.nav-trigger{
+      font-size:.95rem;font-weight:600;color:var(--muted);padding:10px 12px;border-radius:12px;border:1px solid transparent;background:transparent;
+      display:inline-flex;align-items:center;gap:8px;cursor:pointer;
     }
 
-    h1 {
-      font-size: clamp(2.2rem, 5vw, 4rem);
-      line-height: 1.05;
-      letter-spacing: -0.045em;
-      margin: 0 0 18px;
+    .main-nav a:hover,.main-nav a:focus-visible,.nav-trigger:hover,.nav-trigger:focus-visible,.nav-group:hover .nav-trigger{
+      background:#fff;color:var(--text);outline:none;
     }
 
-    .hero-copy p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 1.08rem;
+    .nav-group{
+      position:relative;padding-bottom:14px;margin-bottom:-14px;
     }
 
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 28px;
+    .nav-trigger svg{
+      width:14px;height:14px;transition:transform .2s ease;
     }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 48px;
-      padding: 0 18px;
-      border-radius: 14px;
-      font-weight: 700;
-      border: 1px solid transparent;
-      transition: transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+    .nav-group::after{
+      content:"";position:absolute;left:0;right:0;top:100%;height:14px;
     }
-
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary { background: var(--brand); color: #fff; }
-    .btn-primary:hover { background: var(--brand-dark); }
-    .btn-secondary { background: var(--surface-soft); border-color: var(--line); color: var(--text); }
-    .btn-secondary:hover { background: #fff; }
-
-    .hero-points {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 26px;
+    .nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg{
+      transform:rotate(180deg);
     }
 
-    .point {
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: linear-gradient(180deg, #fff, #f8fafc);
+    .dropdown{
+      position:absolute;top:calc(100% + 2px);left:0;min-width:250px;background:#fff;border:1px solid var(--line);border-radius:18px;
+      box-shadow:0 22px 44px rgba(15,23,42,.12);padding:10px;display:none;z-index:30;
     }
-
-    .point strong {
-      display: block;
-      font-size: 1.05rem;
-      margin-bottom: 6px;
+    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown{
+      display:block;
     }
-
-    .point span {
-      display: block;
-      font-size: 0.92rem;
-      color: var(--muted-2);
-      line-height: 1.5;
+    .dropdown a{
+      display:block;padding:10px 12px;border-radius:12px;color:var(--muted);font-size:.93rem;font-weight:600;
     }
-
-    .hero-panel {
-      padding: 28px;
-      background: linear-gradient(180deg, #0f172a, #111827);
-      color: #fff;
-      overflow: hidden;
-      position: relative;
+    .dropdown a small{
+      display:block;margin-top:2px;color:var(--muted-2);font-size:.78rem;font-weight:500;
     }
-
-    .hero-panel::after {
-      content: "";
-      position: absolute;
-      inset: auto -40px -60px auto;
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle, rgba(37,99,235,0.35), rgba(37,99,235,0));
-      pointer-events: none;
+    .dropdown a:hover,.dropdown a:focus-visible{
+      background:var(--surface-soft);color:var(--text);outline:none;
     }
 
-    .hero-panel h2 {
-      margin: 0 0 14px;
-      font-size: 1.45rem;
-      letter-spacing: -0.03em;
+    .hero{
+      padding:42px 0 24px;
     }
 
-    .hero-panel p {
-      margin: 0 0 18px;
-      color: rgba(255,255,255,0.78);
-      font-size: 0.98rem;
+    .hero-grid{
+      display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:28px;align-items:stretch;
     }
 
-    .mini-list {
-      display: grid;
-      gap: 12px;
-      margin: 18px 0 0;
-      padding: 0;
-      list-style: none;
+    .hero-copy,.hero-panel{
+      background:var(--surface);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);
     }
 
-    .mini-list li {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
+    .hero-copy{padding:34px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:var(--brand-soft);color:var(--brand-dark);
+      font-weight:700;font-size:.84rem;margin-bottom:16px;
     }
 
-    .mini-list strong {
-      display: block;
-      margin-bottom: 3px;
-      font-size: 0.98rem;
+    h1{
+      font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;letter-spacing:-.045em;margin:0 0 18px;
     }
 
-    .mini-list span {
-      color: rgba(255,255,255,0.76);
-      font-size: 0.9rem;
-      line-height: 1.45;
+    .hero-copy p{
+      margin:0;color:var(--muted);font-size:1.08rem;
     }
 
-    main section {
-      padding: 22px 0;
+    .hero-actions{
+      display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;
     }
 
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 20px;
-      margin-bottom: 18px;
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 18px;border-radius:14px;font-weight:700;border:1px solid transparent;
+      transition:transform .18s ease, background-color .18s ease, border-color .18s ease;
     }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:var(--brand);color:#fff}
+    .btn-primary:hover{background:var(--brand-dark)}
+    .btn-secondary{background:var(--surface-soft);border-color:var(--line);color:var(--text)}
+    .btn-secondary:hover{background:#fff}
 
-    .section-header h2 {
-      margin: 0;
-      font-size: clamp(1.6rem, 2.2vw, 2.2rem);
-      letter-spacing: -0.04em;
+    .hero-points{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px;
     }
 
-    .section-header p {
-      margin: 8px 0 0;
-      max-width: 760px;
-      color: var(--muted);
+    .point{
+      padding:14px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#fff,#f8fafc);
     }
-
-    .chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
+    .point strong{
+      display:block;font-size:1.05rem;margin-bottom:6px;
     }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: #fff;
-      border: 1px solid var(--line);
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 0.92rem;
+    .point span{
+      display:block;font-size:.92rem;color:var(--muted-2);line-height:1.5;
     }
 
-    .grid-4,
-    .grid-3,
-    .grid-2 {
-      display: grid;
-      gap: 18px;
+    .hero-panel{
+      padding:28px;background:linear-gradient(180deg,#0f172a,#111827);color:#fff;overflow:hidden;position:relative;
+    }
+    .hero-panel::after{
+      content:"";position:absolute;inset:auto -40px -60px auto;width:220px;height:220px;background:radial-gradient(circle,rgba(37,99,235,.35),rgba(37,99,235,0));
+      pointer-events:none;
+    }
+    .hero-panel h2{
+      margin:0 0 14px;font-size:1.45rem;letter-spacing:-.03em;
     }
+    .hero-panel p{
+      margin:0 0 18px;color:rgba(255,255,255,.78);font-size:.98rem;
+    }
+    .mini-list{
+      display:grid;gap:12px;margin:18px 0 0;padding:0;list-style:none;
+    }
+    .mini-list li{
+      display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);
+    }
+    .mini-list strong{
+      display:block;margin-bottom:3px;font-size:.98rem;
+    }
+    .mini-list span{
+      color:rgba(255,255,255,.76);font-size:.9rem;line-height:1.45;
+    }
 
-    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    main section{padding:22px 0}
 
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
-      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    .section-header{
+      display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px;
     }
-
-    .card:hover,
-    .card:focus-within {
-      transform: translateY(-3px);
-      border-color: #bfd3ff;
-      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.11);
+    .section-header h2{
+      margin:0;font-size:clamp(1.6rem,2.2vw,2.2rem);letter-spacing:-.04em;
     }
-
-    .tool-card {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
+    .section-header p{
+      margin:8px 0 0;max-width:760px;color:var(--muted);
     }
 
-    .tool-icon {
-      width: 54px;
-      height: 54px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 18px;
-      background: var(--surface-soft);
-      font-size: 1.65rem;
-      margin-bottom: 14px;
+    .chip-row{
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;
     }
-
-    .tool-card h3,
-    .category-card h3,
-    .info-card h3,
-    .faq-card h3 {
-      margin: 0 0 10px;
-      font-size: 1.1rem;
-      letter-spacing: -0.02em;
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--muted);font-weight:600;font-size:.92rem;
     }
 
-    .tool-card p,
-    .category-card p,
-    .info-card p,
-    .faq-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.96rem;
+    .grid-4,.grid-3,.grid-2{
+      display:grid;gap:18px;
     }
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
 
-    .tool-meta {
-      margin-top: auto;
-      padding-top: 16px;
-      font-size: 0.88rem;
-      color: var(--brand-dark);
-      font-weight: 700;
+    .card{
+      background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);
+      transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
     }
-
-    .category-card ul {
-      list-style: none;
-      padding: 0;
-      margin: 16px 0 0;
-      display: grid;
-      gap: 10px;
+    .card:hover,.card:focus-within{
+      transform:translateY(-3px);border-color:#bfd3ff;box-shadow:0 18px 36px rgba(15,23,42,.11);
     }
 
-    .category-card li a {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: var(--surface-soft);
-      color: var(--text);
-      font-weight: 600;
+    .tool-card{
+      height:100%;display:flex;flex-direction:column;
     }
-
-    .category-card li a span {
-      color: var(--muted-2);
-      font-weight: 500;
-      font-size: 0.88rem;
+    .tool-icon{
+      width:54px;height:54px;display:inline-flex;align-items:center;justify-content:center;border-radius:18px;background:var(--surface-soft);font-size:1.65rem;margin-bottom:14px;
     }
-
-    .intro-panel {
-      background: linear-gradient(180deg, #ffffff, #f8fbff);
-      border: 1px solid #dbeafe;
-      border-radius: 26px;
-      padding: 26px;
-      box-shadow: var(--shadow);
+    .tool-card h3,.category-card h3,.info-card h3,.faq-card h3{
+      margin:0 0 10px;font-size:1.1rem;letter-spacing:-.02em;
     }
+    .tool-card p,.category-card p,.info-card p,.faq-card p{
+      margin:0;color:var(--muted);font-size:.96rem;
+    }
+    .tool-meta{
+      margin-top:auto;padding-top:16px;font-size:.88rem;color:var(--brand-dark);font-weight:700;
+    }
 
-    .intro-panel p {
-      margin: 0 0 16px;
-      color: var(--muted);
+    .category-card ul{
+      list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px;
+    }
+    .category-card li a{
+      display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--surface-soft);color:var(--text);font-weight:600;
     }
+    .category-card li a span{
+      color:var(--muted-2);font-weight:500;font-size:.88rem;
+    }
 
-    .intro-panel p:last-child { margin-bottom: 0; }
+    .intro-panel{
+      background:linear-gradient(180deg,#ffffff,#f8fbff);border:1px solid #dbeafe;border-radius:26px;padding:26px;box-shadow:var(--shadow);
+    }
+    .intro-panel p{margin:0 0 16px;color:var(--muted)}
+    .intro-panel p:last-child{margin-bottom:0}
 
-    .trust-grid .card:nth-child(1) { background: linear-gradient(180deg, #ffffff, #f8fbff); }
-    .trust-grid .card:nth-child(2) { background: linear-gradient(180deg, #ffffff, #fbfbf5); }
-    .trust-grid .card:nth-child(3) { background: linear-gradient(180deg, #ffffff, #f7fbf8); }
+    .trust-grid .card:nth-child(1){background:linear-gradient(180deg,#ffffff,#f8fbff)}
+    .trust-grid .card:nth-child(2){background:linear-gradient(180deg,#ffffff,#fbfbf5)}
+    .trust-grid .card:nth-child(3){background:linear-gradient(180deg,#ffffff,#f7fbf8)}
 
-    .notice {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      margin-top: 10px;
-      background: var(--warning-soft);
-      color: #92400e;
-      font-size: 0.88rem;
-      font-weight: 700;
+    .notice{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;margin-top:10px;background:var(--warning-soft);color:#92400e;font-size:.88rem;font-weight:700;
     }
 
-    .faq-list {
-      display: grid;
-      gap: 14px;
+    .faq-list{
+      display:grid;gap:14px;
     }
-
-    .faq-card {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow: var(--shadow);
+    .faq-card{
+      background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);
     }
 
-    .guide-banner {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) auto;
-      align-items: center;
-      gap: 18px;
-      background: linear-gradient(135deg, #1d4ed8, #0f172a);
-      border-radius: 28px;
-      color: #fff;
-      padding: 28px;
-      box-shadow: 0 22px 44px rgba(29, 78, 216, 0.2);
+    .guide-banner{
+      display:grid;grid-template-columns:minmax(0,1.15fr) auto;align-items:center;gap:20px;background:linear-gradient(135deg,#0f172a,#1e3a8a);color:#fff;border-radius:28px;padding:28px;border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);
     }
-
-    .guide-banner p {
-      margin: 10px 0 0;
-      color: rgba(255,255,255,0.85);
-      max-width: 720px;
+    .guide-banner h2{
+      margin:0;font-size:1.6rem;letter-spacing:-.03em;
     }
-
-    .guide-banner .btn-secondary {
-      background: rgba(255,255,255,0.12);
-      color: #fff;
-      border-color: rgba(255,255,255,0.16);
+    .guide-banner p{
+      margin:10px 0 0;color:rgba(255,255,255,.85);max-width:720px;
     }
-
-    .guide-banner .btn-secondary:hover { background: rgba(255,255,255,0.18); }
-
-    .site-footer {
-      margin-top: 30px;
-      background: #fff;
-      border-top: 1px solid var(--line);
+    .guide-banner .btn-secondary{
+      background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.16);
     }
+    .guide-banner .btn-secondary:hover{background:rgba(255,255,255,.18)}
 
-    .footer-inner {
-      padding: 32px 0 42px;
-      display: grid;
-      gap: 22px;
+    .site-footer{
+      margin-top:30px;background:#fff;border-top:1px solid var(--line);
     }
-
-    .footer-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: flex-start;
-      flex-wrap: wrap;
+    .footer-inner{
+      padding:32px 0 42px;display:grid;gap:22px;
     }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+    .footer-top{
+      display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap;
     }
-
-    .footer-links a {
-      color: var(--muted);
-      font-weight: 600;
-      padding: 8px 10px;
-      border-radius: 10px;
+    .footer-links{
+      display:flex;flex-wrap:wrap;gap:12px;
     }
-
-    .footer-links a:hover { background: var(--surface-soft); color: var(--text); }
-
-    .footer-note {
-      color: var(--muted-2);
-      font-size: 0.92rem;
-      max-width: 860px;
+    .footer-links a{
+      color:var(--muted);font-weight:600;padding:8px 10px;border-radius:10px;
     }
-
-    .footer-small {
-      color: var(--muted-2);
-      font-size: 0.88rem;
+    .footer-links a:hover{background:var(--surface-soft);color:var(--text)}
+    .footer-note{
+      color:var(--muted-2);font-size:.92rem;max-width:860px;
+    }
+    .footer-small{
+      color:var(--muted-2);font-size:.88rem;
     }
 
-    @media (max-width: 1080px) {
-      .hero-grid,
-      .grid-4,
-      .grid-3,
-      .grid-2,
-      .guide-banner {
-        grid-template-columns: 1fr;
+    @media (max-width: 1080px){
+      .hero-grid,.grid-4,.grid-3,.grid-2,.guide-banner{
+        grid-template-columns:1fr;
       }
-
-      .hero-points {
-        grid-template-columns: 1fr;
+      .hero-points{
+        grid-template-columns:1fr;
       }
     }
 
-    @media (max-width: 780px) {
-      .header-inner,
-      .section-header,
-      .footer-top {
-        align-items: flex-start;
+    @media (max-width: 780px){
+      .header-inner,.section-header,.footer-top{
+        align-items:flex-start;
       }
-
-      .header-inner {
-        flex-direction: column;
+      .header-inner{
+        flex-direction:column;
       }
-
-      .main-nav {
-        width: 100%;
-        justify-content: flex-start;
+      .main-nav{
+        width:100%;justify-content:flex-start;
       }
-
-      .hero-copy,
-      .hero-panel,
-      .intro-panel,
-      .guide-banner,
-      .card,
-      .faq-card { padding: 20px; }
-
-      h1 { font-size: 2.35rem; }
+      .hero-copy,.hero-panel,.intro-panel,.guide-banner,.card,.faq-card{
+        padding:20px;
+      }
+      h1{font-size:2.35rem}
     }
   </style>
 </head>
@@ -723,26 +407,26 @@
         <img class="brand-logo" src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" width="44" height="44" />
         <div>
           <div class="brand-title">Mini-Tools.uk</div>
-          <div class="brand-subtitle">Practical online tools with clearer explanations</div>
+          <div class="brand-subtitle">Practical online tools with clearer structure</div>
         </div>
       </a>
 
       <nav class="main-nav" aria-label="Primary navigation">
-        <a href="/">Home</a>
         <a href="#featured-tools">All Tools</a>
         <div class="nav-group">
           <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">Categories
             <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div class="dropdown" role="menu">
-            <a href="#uk-calculators">UK Finance<small>Tax, VAT, mortgage and workday tools</small></a>
-            <a href="#developer-tools">Developer Tools<small>JSON, diff and writing helpers</small></a>
-            <a href="#image-tools">Image & PDF<small>Compression, conversion and media tools</small></a>
-            <a href="/password">Security & Privacy<small>Password and privacy-first helpers</small></a>
+            <a href="#uk-finance">UK Finance<small>Tax, VAT, mortgage and contractor tools</small></a>
+            <a href="#developer-tools">Developer Tools<small>JSON, diff and AI token estimation</small></a>
+            <a href="#image-tools">Image & PDF<small>Compression, conversion, colour and QR helpers</small></a>
+            <a href="#other-tools">More Tools<small>Less-used but still useful utilities</small></a>
           </div>
         </div>
         <a href="/blog">Blog</a>
         <a href="/about">About</a>
+        <a href="/contact" class="nav-cta">Contact</a>
       </nav>
     </div>
   </header>
@@ -751,9 +435,12 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <div class="eyebrow">Built for clearer tools, cleaner pages and stronger trust signals</div>
-          <h1>Useful online tools that are easier to understand and easier to trust</h1>
-          <p>Mini-Tools.uk is a growing collection of UK calculators, developer utilities, image helpers and everyday online tools. The goal is simple: make each tool easier to discover, easier to use, and clearer about what it does, how it works and when the result is only an estimate.</p>
+          <div class="eyebrow">Practical tools, clearer pages and stronger trust signals</div>
+          <h1>Useful online tools that are easier to browse, easier to understand and easier to trust.</h1>
+          <p>
+            Mini-Tools.uk brings together UK finance calculators, developer utilities, image and PDF helpers, security tools and practical everyday pages.
+            The homepage now keeps the strongest tools near the top, removes weaker homepage clutter, and pushes the less-used utilities lower without hiding them.
+          </p>
 
           <div class="hero-actions">
             <a class="btn btn-primary" href="#featured-tools">Browse featured tools</a>
@@ -762,43 +449,45 @@
 
           <div class="hero-points" aria-label="Site highlights">
             <div class="point">
-              <strong>20+ focused tools</strong>
-              <span>Practical calculators, text utilities, file helpers and quick converters in one place.</span>
+              <strong>Popular tools first</strong>
+              <span>Higher-intent calculators and widely useful utilities are easier to find from the first screen.</span>
             </div>
             <div class="point">
-              <strong>Clearer page intent</strong>
-              <span>Homepage copy now explains who the tools are for instead of acting like a thin card directory.</span>
+              <strong>All current tools still linked</strong>
+              <span>The homepage still includes the rest of the working tools instead of burying them completely.</span>
             </div>
             <div class="point">
-              <strong>Trust before hype</strong>
-              <span>More realistic wording, fewer blanket claims, and better links to About, Privacy and Contact pages.</span>
+              <strong>Trust pages are visible</strong>
+              <span>About, Contact and Privacy stay easy to reach so the site feels more complete and review-ready.</span>
             </div>
           </div>
         </div>
 
-        <aside class="hero-panel" aria-label="Why this homepage is being rebuilt">
-          <h2>What this homepage now tries to do better</h2>
-          <p>For SEO and AdSense review, the homepage needs to show real purpose, useful context and genuine editorial intent instead of looking like a generic tool dump.</p>
+        <aside class="hero-panel" aria-label="How this homepage is now structured">
+          <h2>What changed on this version</h2>
+          <p>
+            The homepage is now organised around demand and usefulness rather than simply listing every tool at the same weight.
+          </p>
           <ul class="mini-list">
             <li>
               <div aria-hidden="true">✓</div>
               <div>
-                <strong>Remove weak signals</strong>
-                <span>No fake "last updated" automation, no unsupported search schema and no over-promising privacy claims.</span>
+                <strong>Removed low-value homepage entries</strong>
+                <span>Real-time currency, universal unit conversion, word count and AI prompt helper are no longer surfaced on the homepage.</span>
               </div>
             </li>
             <li>
               <div aria-hidden="true">✓</div>
               <div>
-                <strong>Strengthen internal linking</strong>
-                <span>Featured categories and descriptive anchor text make it easier for users and crawlers to understand the site.</span>
+                <strong>Kept the rest of the site connected</strong>
+                <span>Finance, developer, image, PDF, upload and security tools are still grouped with clearer descriptions and links.</span>
               </div>
             </li>
             <li>
               <div aria-hidden="true">✓</div>
               <div>
-                <strong>Add meaningful copy</strong>
-                <span>Visible homepage text now explains the tools, the audience, the limits and the overall site purpose.</span>
+                <strong>Less-used tools are lower down</strong>
+                <span>Fuel, weight and working-days still exist, but they no longer compete with stronger homepage entry points.</span>
               </div>
             </li>
           </ul>
@@ -811,7 +500,7 @@
         <div class="section-header">
           <div>
             <h2>Featured tools people can start using right away</h2>
-            <p>These are the strongest entry points for the site because their purpose is easy to understand from the link text alone. Keeping prominent tools highly relevant helps both usability and crawl clarity.</p>
+            <p>These are the clearest homepage entry points because the use case is easy to understand without extra explanation.</p>
           </div>
         </div>
 
@@ -819,121 +508,159 @@
           <a class="card tool-card" href="/tax">
             <div class="tool-icon" aria-hidden="true">💷</div>
             <h3>UK Tax Calculator</h3>
-            <p>Estimate take-home pay with clearer wording around salary, National Insurance and pension assumptions.</p>
-            <div class="tool-meta">Open calculator →</div>
+            <p>Estimate take-home pay with Income Tax, National Insurance, pension and student loan options.</p>
+            <div class="tool-meta">Estimate salary tax →</div>
           </a>
 
           <a class="card tool-card" href="/vat">
-            <div class="tool-icon" aria-hidden="true">🛒</div>
-            <h3>UK VAT Calculator</h3>
-            <p>Add or remove VAT quickly for invoices, pricing checks and day-to-day business calculations.</p>
-            <div class="tool-meta">Open calculator →</div>
+            <div class="tool-icon" aria-hidden="true">🧾</div>
+            <h3>VAT Calculator</h3>
+            <p>Add VAT to a net amount or remove it from a gross amount with a clear invoice-style breakdown.</p>
+            <div class="tool-meta">Calculate VAT →</div>
           </a>
 
           <a class="card tool-card" href="/mortgage">
             <div class="tool-icon" aria-hidden="true">🏠</div>
             <h3>Mortgage Calculator</h3>
-            <p>Estimate monthly repayments and compare different deposit, rate and term combinations.</p>
-            <div class="tool-meta">Open calculator →</div>
-          </a>
-
-          <a class="card tool-card" href="/working-days">
-            <div class="tool-icon" aria-hidden="true">📅</div>
-            <h3>Working Days Calculator</h3>
-            <p>Count business days between dates and make planning easier for payroll, projects and deadlines.</p>
-            <div class="tool-meta">Open calculator →</div>
-          </a>
-
-          <a class="card tool-card" href="/json">
-            <div class="tool-icon" aria-hidden="true">💻</div>
-            <h3>JSON Formatter</h3>
-            <p>Format and validate JSON for debugging, quick checks and cleaner sharing with teammates or clients.</p>
-            <div class="tool-meta">Open tool →</div>
-          </a>
-
-          <a class="card tool-card" href="/diff">
-            <div class="tool-icon" aria-hidden="true">⚖️</div>
-            <h3>Text Diff Checker</h3>
-            <p>Compare drafts, snippets or code blocks side by side and spot differences faster.</p>
-            <div class="tool-meta">Open tool →</div>
+            <p>Estimate monthly repayments, interest totals, loan-to-value and a simple stress test.</p>
+            <div class="tool-meta">Plan repayments →</div>
           </a>
 
           <a class="card tool-card" href="/image">
             <div class="tool-icon" aria-hidden="true">🖼️</div>
             <h3>Image Compressor</h3>
-            <p>Resize and compress images for websites, blog posts and product pages without extra clutter.</p>
-            <div class="tool-meta">Open tool →</div>
+            <p>Resize, crop and compress images for web publishing with local preview and downloadable output.</p>
+            <div class="tool-meta">Compress images →</div>
+          </a>
+
+          <a class="card tool-card" href="/pdf2img">
+            <div class="tool-icon" aria-hidden="true">📄</div>
+            <h3>PDF to Image</h3>
+            <p>Render PDF pages into high-resolution PNG images and download them one by one or as a ZIP.</p>
+            <div class="tool-meta">Convert PDF →</div>
+          </a>
+
+          <a class="card tool-card" href="/json">
+            <div class="tool-icon" aria-hidden="true">🧩</div>
+            <h3>JSON Formatter</h3>
+            <p>Beautify, minify and inspect JSON in a collapsible tree view without uploading your payloads.</p>
+            <div class="tool-meta">Format JSON →</div>
+          </a>
+
+          <a class="card tool-card" href="/qr">
+            <div class="tool-icon" aria-hidden="true">📱</div>
+            <h3>QR Generator</h3>
+            <p>Create QR codes for URLs, Wi-Fi, email and simple contact details, then export a PNG.</p>
+            <div class="tool-meta">Create QR →</div>
           </a>
 
           <a class="card tool-card" href="/password">
             <div class="tool-icon" aria-hidden="true">🔐</div>
             <h3>Password Generator</h3>
-            <p>Create stronger passwords quickly when setting up accounts, devices or internal access credentials.</p>
-            <div class="tool-meta">Open tool →</div>
+            <p>Generate stronger passwords locally with configurable length, symbols and strength feedback.</p>
+            <div class="tool-meta">Generate password →</div>
           </a>
         </div>
       </div>
     </section>
 
     <section>
-      <div class="container intro-panel">
-        <h2 style="margin-top:0; margin-bottom:14px; letter-spacing:-0.04em;">A homepage that looks more like a real product site and less like a keyword wall</h2>
-        <p>One of the easiest ways for a tools site to look low-value is to show a long list of cards with very little context. That may work for direct users, but it is weak as a homepage strategy because it does not explain the site's focus, standards or intended audience. This revised homepage adds more visible copy, stronger categories and clearer pathways into core tools.</p>
-        <p>Another important change is tone. The old version used broad claims such as every tool being ad-free, fully local and constantly updated. That kind of wording can backfire when even one tool behaves differently or when the page shows obviously automated freshness signals. This version is more careful and more believable, which is usually better for trust and approval.</p>
-        <p>For financial pages, the intent is also made clearer. Tools like UK Tax Calculator, VAT Calculator, Mortgage Calculator, IR35 Calculator and Salary vs Dividend are useful entry points, but they should be presented as practical estimation tools rather than official advice. That kind of framing is healthier for users and safer for site quality.</p>
-      </div>
-    </section>
-
-    <section id="uk-calculators">
       <div class="container">
         <div class="section-header">
           <div>
-            <h2>UK calculators</h2>
-            <p>These pages are the most commercially useful part of the site, so they should also become the most trustworthy part of the site. The homepage now groups them together with clearer descriptions and less generic marketing language.</p>
+            <h2>Browse the site by category</h2>
+            <p>These category panels help people and search engines understand what the site actually contains.</p>
           </div>
         </div>
 
         <div class="grid-3">
-          <div class="card category-card">
-            <h3>Income, tax and contractor tools</h3>
-            <p>Useful for employees, contractors, company directors and anyone comparing take-home scenarios.</p>
+          <article class="card category-card">
+            <h3>UK finance tools</h3>
+            <p>Tax, VAT, contractor, property and payout tools aimed at practical UK money calculations.</p>
             <ul>
-              <li><a href="/tax">UK Tax Calculator <span>PAYE and take-home estimate</span></a></li>
-              <li><a href="/ir35">IR35 Calculator <span>Inside vs outside comparison</span></a></li>
-              <li><a href="/dividend">Salary vs Dividend <span>Director pay planning</span></a></li>
-              <li><a href="/vat">UK VAT Calculator <span>Add or remove VAT</span></a></li>
+              <li><a href="/tax">Salary tax calculator <span>Take-home pay</span></a></li>
+              <li><a href="/vat">VAT calculator <span>Add or remove VAT</span></a></li>
+              <li><a href="/ir35">IR35 calculator <span>Inside vs outside</span></a></li>
+              <li><a href="/mortgage">Mortgage calculator <span>Repayment planning</span></a></li>
             </ul>
-          </div>
+          </article>
 
-          <div class="card category-card">
-            <h3>Home, property and everyday cost tools</h3>
-            <p>Designed for quick household or planning calculations where a clean estimate is more useful than a cluttered page.</p>
+          <article class="card category-card">
+            <h3>Developer and text tools</h3>
+            <p>Formatting, comparison and estimation helpers for common developer and AI-adjacent tasks.</p>
             <ul>
-              <li><a href="/mortgage">Mortgage Calculator <span>Monthly repayment estimate</span></a></li>
-              <li><a href="/stamp-duty">Stamp Duty Calculator <span>SDLT estimate</span></a></li>
-              <li><a href="/fuel">Fuel Cost &amp; MPG <span>Trip and running cost check</span></a></li>
-              <li><a href="/working-days">Working Days Calculator <span>Business day counting</span></a></li>
+              <li><a href="/json">JSON formatter <span>Beautify and validate</span></a></li>
+              <li><a href="/diff">Text diff checker <span>Compare versions</span></a></li>
+              <li><a href="/token">AI token calculator <span>Estimate model usage</span></a></li>
+              <li><a href="/blog">Guides and blog <span>Site updates and notes</span></a></li>
             </ul>
-          </div>
+          </article>
 
-          <div class="card category-card">
-            <h3>Simple conversions and utilities</h3>
-            <p>Fast tools for quick answers without navigating through a complex interface or irrelevant extras.</p>
+          <article class="card category-card">
+            <h3>Image, PDF and sharing tools</h3>
+            <p>Compression, conversion, colour, QR and upload pages for practical publishing and sharing tasks.</p>
             <ul>
-              <li><a href="/weight">Stones to Kg Converter <span>UK weight conversion</span></a></li>
-              <li><a href="/currency">Currency Converter <span>Exchange comparison</span></a></li>
-              <li><a href="/unit">Unit Converter <span>Metric and imperial</span></a></li>
-              <li><a href="/word">Word Counter <span>Length and reading time</span></a></li>
+              <li><a href="/image">Image compressor <span>Resize and compress</span></a></li>
+              <li><a href="/pdf2img">PDF to image <span>Page extraction</span></a></li>
+              <li><a href="/color-picker">Color picker <span>HEX and RGB</span></a></li>
+              <li><a href="/upload">Temporary image upload <span>Hosted share link</span></a></li>
             </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="uk-finance">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2>UK finance tools</h2>
+            <p>These tools serve the strongest money-related intent on the site, so they stay in a dedicated section with clearer labels.</p>
           </div>
         </div>
 
-        <div class="chip-row" aria-label="UK calculator topics">
-          <span class="chip">UK take-home pay</span>
-          <span class="chip">VAT estimate</span>
-          <span class="chip">Mortgage repayment</span>
-          <span class="chip">IR35 comparison</span>
-          <span class="chip">Working day count</span>
+        <div class="grid-3">
+          <a class="card tool-card" href="/tax">
+            <div class="tool-icon" aria-hidden="true">💷</div>
+            <h3>UK Tax Calculator</h3>
+            <p>Estimate salary take-home pay with pension and loan options.</p>
+            <div class="tool-meta">Open tax calculator →</div>
+          </a>
+
+          <a class="card tool-card" href="/vat">
+            <div class="tool-icon" aria-hidden="true">🧾</div>
+            <h3>VAT Calculator</h3>
+            <p>Add VAT, remove VAT, and copy an invoice-style split.</p>
+            <div class="tool-meta">Open VAT calculator →</div>
+          </a>
+
+          <a class="card tool-card" href="/ir35">
+            <div class="tool-icon" aria-hidden="true">📑</div>
+            <h3>IR35 Calculator</h3>
+            <p>Compare simplified inside and outside IR35 pay outcomes.</p>
+            <div class="tool-meta">Open IR35 tool →</div>
+          </a>
+
+          <a class="card tool-card" href="/dividend">
+            <div class="tool-icon" aria-hidden="true">📈</div>
+            <h3>Dividend Tax Calculator</h3>
+            <p>Estimate salary-plus-dividend outcomes with clearer assumptions.</p>
+            <div class="tool-meta">Open dividend tool →</div>
+          </a>
+
+          <a class="card tool-card" href="/stamp-duty">
+            <div class="tool-icon" aria-hidden="true">🏷️</div>
+            <h3>Stamp Duty Calculator</h3>
+            <p>Estimate residential SDLT with first-time buyer and higher-rate options.</p>
+            <div class="tool-meta">Open stamp duty tool →</div>
+          </a>
+
+          <a class="card tool-card" href="/mortgage">
+            <div class="tool-icon" aria-hidden="true">🏠</div>
+            <h3>Mortgage Calculator</h3>
+            <p>Monthly repayments, total interest, LTV and basic planning output.</p>
+            <div class="tool-meta">Open mortgage tool →</div>
+          </a>
         </div>
       </div>
     </section>
@@ -942,38 +669,31 @@
       <div class="container">
         <div class="section-header">
           <div>
-            <h2>Developer and writing tools</h2>
-            <p>The homepage should not treat developer tools as a random second bucket. These links are now grouped around actual user jobs: formatting data, comparing content, checking length and improving prompts.</p>
+            <h2>Developer and AI cost tools</h2>
+            <p>These pages are more niche than the finance tools above, but they still have solid intent and practical value.</p>
           </div>
         </div>
 
-        <div class="grid-4">
+        <div class="grid-3">
           <a class="card tool-card" href="/json">
-            <div class="tool-icon" aria-hidden="true">{ }</div>
+            <div class="tool-icon" aria-hidden="true">🧩</div>
             <h3>JSON Formatter</h3>
-            <p>Format, validate and inspect JSON more quickly when debugging APIs or checking copied payloads.</p>
-            <div class="tool-meta">Format JSON →</div>
+            <p>Validate, minify and inspect JSON with a collapsible tree viewer.</p>
+            <div class="tool-meta">Open JSON tool →</div>
           </a>
 
           <a class="card tool-card" href="/diff">
-            <div class="tool-icon" aria-hidden="true">≠</div>
+            <div class="tool-icon" aria-hidden="true">🔍</div>
             <h3>Text Diff Checker</h3>
-            <p>Useful for comparing prompts, code snippets, articles, contracts or changed paragraphs.</p>
-            <div class="tool-meta">Compare text →</div>
+            <p>Compare two versions of text or code in inline or split view.</p>
+            <div class="tool-meta">Open diff tool →</div>
           </a>
 
           <a class="card tool-card" href="/token">
             <div class="tool-icon" aria-hidden="true">🤖</div>
             <h3>AI Token Calculator</h3>
-            <p>Estimate token counts and model usage costs when planning prompts or API budgets.</p>
-            <div class="tool-meta">Estimate tokens →</div>
-          </a>
-
-          <a class="card tool-card" href="/prompt">
-            <div class="tool-icon" aria-hidden="true">✨</div>
-            <h3>AI Prompt Helper</h3>
-            <p>Turn rough prompt ideas into clearer structures for ChatGPT, Claude and similar tools.</p>
-            <div class="tool-meta">Open helper →</div>
+            <p>Estimate token size and model cost for prompts and API usage.</p>
+            <div class="tool-meta">Open token tool →</div>
           </a>
         </div>
       </div>
@@ -983,8 +703,8 @@
       <div class="container">
         <div class="section-header">
           <div>
-            <h2>Image and file tools</h2>
-            <p>These tools often attract traffic from practical search intent, so the homepage should explain them in plain language instead of only naming the feature.</p>
+            <h2>Image, PDF and media tools</h2>
+            <p>These pages often attract practical search traffic, so the homepage explains the job each one does instead of only listing names.</p>
           </div>
         </div>
 
@@ -992,29 +712,36 @@
           <a class="card tool-card" href="/image">
             <div class="tool-icon" aria-hidden="true">🖼️</div>
             <h3>Image Compressor</h3>
-            <p>Compress images for blogs, ecommerce pages, social posts and general web publishing.</p>
+            <p>Resize, crop and compress images for web publishing.</p>
             <div class="tool-meta">Compress images →</div>
           </a>
 
           <a class="card tool-card" href="/pdf2img">
             <div class="tool-icon" aria-hidden="true">📄</div>
             <h3>PDF to Image</h3>
-            <p>Turn PDF pages into images when sharing previews, thumbnails or selected pages.</p>
+            <p>Turn PDF pages into images for previews, exports and sharing.</p>
             <div class="tool-meta">Convert PDF →</div>
           </a>
 
           <a class="card tool-card" href="/color-picker">
             <div class="tool-icon" aria-hidden="true">🎨</div>
             <h3>Color Picker</h3>
-            <p>Extract HEX and RGB values from uploaded images for design work and quick reference.</p>
+            <p>Extract HEX and RGB values from uploaded images.</p>
             <div class="tool-meta">Pick colours →</div>
           </a>
 
           <a class="card tool-card" href="/qr">
             <div class="tool-icon" aria-hidden="true">📱</div>
             <h3>QR Generator</h3>
-            <p>Create QR codes for URLs, Wi-Fi access and simple sharing without extra steps.</p>
+            <p>Create QR codes for URLs, Wi-Fi access, email and contacts.</p>
             <div class="tool-meta">Create QR →</div>
+          </a>
+
+          <a class="card tool-card" href="/upload">
+            <div class="tool-icon" aria-hidden="true">☁️</div>
+            <h3>Temporary Image Upload</h3>
+            <p>Upload an image and create a shareable hosted link with a retention setting.</p>
+            <div class="tool-meta">Upload image →</div>
           </a>
         </div>
       </div>
@@ -1022,28 +749,14 @@
 
     <section>
       <div class="container">
-        <div class="section-header">
+        <div class="guide-banner">
           <div>
-            <h2>Why this direction is better for SEO and review</h2>
-            <p>Homepage quality is not only about visuals. It is also about whether the page makes the site feel useful, focused and accountable.</p>
+            <h2>Important notes before using the tools</h2>
+            <p>
+              Some pages provide estimates, some run fully in the browser, and some rely on remote services. That should be explained on each tool page, not hidden behind one vague sitewide promise.
+            </p>
           </div>
-        </div>
-
-        <div class="grid-3 trust-grid">
-          <div class="card info-card">
-            <h3>More visible intent</h3>
-            <p>The page now explains what kinds of tools are here, who might use them and why certain categories matter. That gives the homepage more standalone value instead of acting only as a jump page.</p>
-          </div>
-
-          <div class="card info-card">
-            <h3>More believable trust language</h3>
-            <p>Overstated claims were reduced. Not every tool should promise the same processing model, the same privacy model or the same freshness. Credible language is usually stronger than aggressive marketing copy.</p>
-          </div>
-
-          <div class="card info-card">
-            <h3>Better crawl paths</h3>
-            <p>Core tool links are now grouped under meaningful headings with descriptive anchor text. This makes it easier for search engines to understand the structure of the site and the relationship between pages.</p>
-          </div>
+          <a class="btn btn-secondary" href="/privacy">Read privacy notes</a>
         </div>
       </div>
     </section>
@@ -1052,23 +765,76 @@
       <div class="container">
         <div class="section-header">
           <div>
-            <h2>Important notes for users</h2>
-            <p>Some tools provide estimates, some process data locally, and some may involve temporary storage depending on how the underlying feature works. That should be explained on each tool page instead of buried in vague sitewide promises.</p>
+            <h2>Why this homepage is stronger for SEO and review</h2>
+            <p>Homepage quality is not only visual. It is also about whether the page makes the site feel useful, focused and accountable.</p>
           </div>
         </div>
 
-        <div class="grid-2">
+        <div class="grid-3 trust-grid">
           <div class="card info-card">
-            <h3>Calculator results are guidance, not formal advice</h3>
-            <p>Tax, mortgage, VAT and contractor tools can help users estimate outcomes faster, but they should not be presented as legal, tax or regulated financial advice. The cleaner this distinction is, the better for trust.</p>
-            <div class="notice">Useful estimates should still show assumptions and limits</div>
+            <h3>Clearer intent</h3>
+            <p>The homepage now explains what kinds of tools are here, who they are for and why certain sections matter. That gives the page standalone value instead of acting like a thin link dump.</p>
           </div>
 
           <div class="card info-card">
-            <h3>Privacy wording should match each tool</h3>
-            <p>If a tool runs fully in the browser, say so clearly on that tool page. If a feature stores files temporarily or relies on server-side processing, say that clearly too. Consistency matters more than big claims.</p>
-            <div class="notice">Specific privacy notes are stronger than sitewide slogans</div>
+            <h3>Cleaner homepage selection</h3>
+            <p>Tools that are weak, generic or less useful as entry points have been removed from the homepage. The remaining entries are more aligned with practical search intent.</p>
           </div>
+
+          <div class="card info-card">
+            <h3>Better internal paths</h3>
+            <p>Tools are grouped under clearer headings with stronger anchor text, which makes it easier for people and crawlers to understand the site structure.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="other-tools">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2>Less-used tools still available on the site</h2>
+            <p>These pages are still linked and supported, but they sit lower on the homepage because they are usually not the strongest first-click entry points.</p>
+          </div>
+        </div>
+
+        <div class="grid-4">
+          <a class="card tool-card" href="/working-days">
+            <div class="tool-icon" aria-hidden="true">📅</div>
+            <h3>Working Days Calculator</h3>
+            <p>Count working days across a date range with UK bank holiday handling.</p>
+            <div class="tool-meta">Calculate workdays →</div>
+          </a>
+
+          <a class="card tool-card" href="/fuel">
+            <div class="tool-icon" aria-hidden="true">⛽</div>
+            <h3>Fuel Cost Calculator</h3>
+            <p>Estimate trip fuel cost using distance, MPG and price per litre.</p>
+            <div class="tool-meta">Calculate fuel →</div>
+          </a>
+
+          <a class="card tool-card" href="/weight">
+            <div class="tool-icon" aria-hidden="true">⚖️</div>
+            <h3>Weight Converter</h3>
+            <p>Convert stones, pounds and kilograms quickly in either direction.</p>
+            <div class="tool-meta">Convert weight →</div>
+          </a>
+
+          <a class="card tool-card" href="/password">
+            <div class="tool-icon" aria-hidden="true">🔐</div>
+            <h3>Password Generator</h3>
+            <p>Generate strong passwords locally with adjustable rules and length.</p>
+            <div class="tool-meta">Generate password →</div>
+          </a>
+        </div>
+
+        <div class="chip-row" aria-label="Also available">
+          <span class="chip">Also available: IR35 calculator</span>
+          <span class="chip">Dividend tax calculator</span>
+          <span class="chip">Stamp duty calculator</span>
+          <span class="chip">Temporary image upload</span>
+          <span class="chip">Color picker</span>
+          <span class="chip">AI token calculator</span>
         </div>
       </div>
     </section>
@@ -1078,41 +844,26 @@
         <div class="section-header">
           <div>
             <h2>Frequently asked questions</h2>
-            <p>These visible answers help users understand the site and add real content to the homepage without relying on filler text.</p>
+            <p>These visible answers add useful homepage content without relying on filler text.</p>
           </div>
         </div>
 
         <div class="faq-list">
           <article class="faq-card">
             <h3>What kinds of tools are available on Mini-Tools.uk?</h3>
-            <p>The site currently focuses on four broad areas: UK calculators, developer utilities, image and file tools, and quick everyday helpers such as converters and counters. This gives the site a practical focus while still leaving room for future expansion.</p>
+            <p>The site currently focuses on UK finance calculators, developer utilities, image and PDF helpers, security tools and practical everyday web utilities.</p>
           </article>
 
           <article class="faq-card">
-            <h3>Are the financial calculators official?</h3>
-            <p>No. They should be treated as estimation tools. They are useful for planning and checking scenarios, but users should still confirm important decisions against official sources or professional advice where needed.</p>
+            <h3>Do all tools work the same way?</h3>
+            <p>No. Some tools run fully in the browser, while some features such as hosted uploads may rely on a remote service. The relevant page should explain which model it uses.</p>
           </article>
 
           <article class="faq-card">
-            <h3>Do I need an account to use the site?</h3>
-            <p>Most tools are designed to be quick to access and simple to use. For a tools site, low friction is important both for users and for perceived page quality.</p>
-          </article>
-
-          <article class="faq-card">
-            <h3>Why is the homepage longer than before?</h3>
-            <p>A better homepage should do more than list links. It should explain the site, guide visitors, improve internal linking and give search engines enough useful context to understand what makes the site worth indexing.</p>
+            <h3>Are the calculator pages formal advice?</h3>
+            <p>No. Pages such as tax, mortgage, IR35, VAT and stamp duty tools are designed for estimates and quick planning, not legal, regulated or personalised professional advice.</p>
           </article>
         </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container guide-banner">
-        <div>
-          <h2 style="margin:0; font-size: clamp(1.6rem, 2.5vw, 2.3rem); letter-spacing:-0.04em;">Pair tools with guides, not just link lists</h2>
-          <p>To improve approval chances further, the next step is to strengthen individual tool pages and connect them to genuinely useful articles. The blog should explain assumptions, use-cases, examples and limitations instead of publishing thin template content.</p>
-        </div>
-        <a class="btn btn-secondary" href="/blog">Visit the blog</a>
       </div>
     </section>
   </main>
@@ -1121,18 +872,20 @@
     <div class="container footer-inner">
       <div class="footer-top">
         <div>
-          <div class="brand-title" style="font-size:1rem;">Mini-Tools.uk</div>
-          <p class="footer-note">Practical online calculators, developer utilities, image tools and everyday helpers. The site is being rebuilt with a stronger focus on clarity, trust signals, cleaner indexing and better user experience.</p>
+          <div class="brand-title">Mini-Tools.uk</div>
+          <p class="footer-note">A growing collection of practical calculators, developer utilities, image helpers and everyday online tools with clearer structure and better trust signals.</p>
         </div>
-        <div class="footer-links" aria-label="Footer links">
-          <a href="/about">About</a>
+
+        <div class="footer-links">
+          <a href="/">Home</a>
           <a href="/blog">Blog</a>
-          <a href="/privacy">Privacy Policy</a>
+          <a href="/about">About</a>
           <a href="/contact">Contact</a>
+          <a href="/privacy">Privacy Policy</a>
         </div>
       </div>
 
-      <div class="footer-small">© 2026 Mini-Tools.uk. For calculators that affect important financial decisions, please verify assumptions and official thresholds before relying on the result.</div>
+      <div class="footer-small">© 2026 Mini-Tools.uk — useful web tools with clearer categories and cleaner homepage priorities.</div>
     </div>
   </footer>
 </body>
