@@ -1,20 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  
-  <title id="meta-title">JSON Formatter & Validator | Format, Beautify, and Parse JSON Online</title>
-  <meta name="description" id="meta-desc" content="Free online JSON formatter and validator. Beautify, parse, and debug JSON code instantly. Features syntax highlighting and collapsible tree views. 100% client-side privacy." />
-  <meta name="keywords" content="JSON formatter, JSON validator, JSON beautifier, parse JSON online, JSON viewer, collapsible JSON, offline JSON tool" />
-  
+
+  <title>JSON Formatter & Validator | Mini-Tools</title>
+  <meta name="description" content="Free JSON formatter and validator. Beautify, minify, validate, and inspect JSON in a collapsible tree view. 100% client-side with no server uploads." />
+  <meta name="keywords" content="JSON formatter, JSON validator, JSON beautifier, JSON minifier, JSON tree viewer, JSON parser, developer tools" />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://mini-tools.uk/json" />
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/json?lang=en" />
-  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/json?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/json?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/json?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/json?lang=de" />
-  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/json" />
 
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
@@ -32,727 +27,748 @@
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/renderjson@1.4.0/renderjson.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Mini-Tools JSON Formatter & Validator",
-    "operatingSystem": "Web",
-    "applicationCategory": "DeveloperApplication",
-    "description": "An advanced client-side tool to beautify, format, validate, and collapse JSON data with syntax highlighting.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"SoftwareApplication",
+        "name":"Mini-Tools JSON Formatter & Validator",
+        "applicationCategory":"DeveloperApplication",
+        "operatingSystem":"Web",
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+        "description":"Client-side JSON formatter, minifier, validator, and tree viewer."
+      },
+      {
+        "@type":"FAQPage",
+        "mainEntity":[
+          {
+            "@type":"Question",
+            "name":"Is this JSON formatter private?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Yes. Formatting, parsing, and validation run entirely in your browser. Your JSON is not uploaded to our servers."
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"Can this tool validate broken JSON?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Yes. The validator shows parse errors and keeps the raw input available so you can fix malformed JSON."
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"Can I view large nested JSON objects?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Yes. The tree viewer supports collapse and expand controls so large arrays and nested objects are easier to inspect."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
 
-  <script async src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  
-  <script src="https://cdn.jsdelivr.net/npm/renderjson@1.4.0/renderjson.min.js"></script>
-
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
-    .updated-badge { background: #e0f2fe; color: #0369a1; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; display: inline-flex; align-items: center; gap: 4px; }
-    
-    /* Code Editor Styling */
-    .code-area { font-family: 'JetBrains Mono', 'Monaco', monospace; font-size: 0.875rem; line-height: 1.6; }
-    
-    #input-json { resize: none; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #cbd5e1 transparent; height: 100%; position: absolute; top: 0; left: 0; right: 0; bottom: 0; padding: 1.5rem; }
-    #input-json:focus { outline: none; }
-    
-    .renderjson-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow-y: auto; padding: 1.5rem; background: #0f172a; }
-    
-    /* Custom Styling for renderjson (Dark Theme) */
-    .renderjson { margin: 0; }
-    .renderjson a { text-decoration: none; color: #64748b; font-weight: 800; display: inline-block; padding: 0 4px; }
-    .renderjson a:hover { color: #f8fafc; background: #334155; border-radius: 4px; }
-    .renderjson .disclosure { color: #ef4444; font-size: 1rem; font-weight: bold; }
-    .renderjson .syntax { color: #94a3b8; } 
-    .renderjson .string { color: #a7f3d0; } 
-    .renderjson .number { color: #fde047; } 
-    .renderjson .boolean { color: #c084fc; font-weight: bold; } 
-    .renderjson .key { color: #60a5fa; font-weight: 700; } 
-    .renderjson .keyword { color: #f472b6; font-weight: bold; } 
-    .renderjson .object.syntax { color: #cbd5e1; }
-    .renderjson .array.syntax { color: #cbd5e1; }
-
-    ::-webkit-scrollbar { width: 10px; height: 10px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-    
-    .renderjson-container::-webkit-scrollbar-track { background: #0f172a; }
-    .renderjson-container::-webkit-scrollbar-thumb { background: #334155; }
-    .renderjson-container::-webkit-scrollbar-thumb:hover { background: #475569; }
-
-    /* SEO Content Typography */
-    .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
-    .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
-    .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
-    .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
-    .prose-content strong { color: #0f172a; font-weight: 700; }
-    .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
-    .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
-    .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
-    .faq-box h4 { font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; font-size: 1.1rem; }
-
-    /* Custom Styles for html2canvas (Beautiful Card Export) */
-    .capture-canvas {
-        padding: 40px;
-        border-radius: 16px;
-        background: linear-gradient(135deg, #10192e 0%, #1e293b 100%); 
-        width: auto;
-        font-family: 'JetBrains Mono', 'Monaco', monospace;
-        display: flex;
-        flex-direction: column;
+    :root{
+      --bg:#f8fafc;
+      --panel:#ffffff;
+      --panel-dark:#0f172a;
+      --panel-dark-2:#111827;
+      --text:#0f172a;
+      --muted:#64748b;
+      --line:#e2e8f0;
+      --line-dark:#1e293b;
+      --brand:#2563eb;
+      --brand-soft:#dbeafe;
+      --success:#16a34a;
+      --danger:#dc2626;
+      --warning:#d97706;
+      --shadow:0 10px 25px -5px rgba(15,23,42,0.08);
+      --radius:22px;
+      --mono:"JetBrains Mono","SFMono-Regular",Consolas,Monaco,monospace;
+      --sans:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
     }
-    .capture-mac-window {
-        background-color: #020617; 
-        border-radius: 10px;
-        border: 1px solid #1e293b; 
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
-        overflow: hidden;
-    }
-    .capture-mac-dots {
-        display: flex;
-        gap: 6px;
-        padding: 12px;
-        border-bottom: 1px solid #1e293b;
-    }
-    .capture-mac-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .capture-content {
-        padding: 24px;
-        color: #cbd5e1;
-        font-size: 14px;
-        line-height: 1.6;
-        word-break: break-all;
-        white-space: pre-wrap;
-    }
-    .capture-content .disclosure { color: #ef4444 !important; font-weight: bold; font-family: sans-serif; }
-    .capture-content .syntax { color: #94a3b8 !important; }
-    .capture-content .string { color: #a7f3d0 !important; }
-    .capture-content .number { color: #fde047 !important; }
-    .capture-content .boolean { color: #c084fc !important; font-weight: bold; }
-    .capture-content .key { color: #60a5fa !important; font-weight: 700; }
-    .capture-content .keyword { color: #f472b6 !important; font-weight: bold; }
 
-    .capture-watermark {
-        position: absolute;
-        bottom: 10px;
-        right: 15px;
-        color: #475569; 
-        font-size: 10px;
-        opacity: 0.8;
-        font-family: 'Plus Jakarta Sans', sans-serif;
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans)}
+    body{min-height:100vh;display:flex;flex-direction:column}
+    a{text-decoration:none;color:inherit}
+    button,input,textarea,select{font:inherit}
+
+    .container{width:min(1440px,calc(100% - 32px));margin:0 auto}
+
+    .site-header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,255,255,.9);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .site-header-inner{
+      min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;object-fit:contain;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    .brand-title{font-weight:900;font-size:1.15rem;letter-spacing:-.02em}
+    .brand-title span{color:var(--brand)}
+
+    .nav{display:flex;align-items:center;gap:8px;position:relative}
+    .nav-link,.nav-button{
+      padding:10px 14px;border-radius:12px;font-size:.95rem;font-weight:800;color:#334155;
+      transition:background .2s,color .2s,transform .15s;
+      display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;
+    }
+    .nav-link:hover,.nav-button:hover{background:#f1f5f9;color:#0f172a}
+    .nav-link.active{background:#eff6ff;color:var(--brand)}
+
+    .dropdown{position:relative}
+    .dropdown-bridge{
+      position:absolute;left:0;right:0;height:14px;top:100%;
+    }
+    .dropdown-menu{
+      position:absolute;top:calc(100% + 10px);left:0;min-width:240px;
+      background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px;
+      box-shadow:0 20px 40px rgba(15,23,42,.12);
+      opacity:0;visibility:hidden;transform:translateY(6px);
+      transition:opacity .18s,transform .18s,visibility .18s;
+    }
+    .dropdown.open .dropdown-menu,
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu{
+      opacity:1;visibility:visible;transform:translateY(0);
+    }
+    .dropdown-item{
+      display:block;padding:11px 12px;border-radius:12px;font-weight:700;color:#334155;
+    }
+    .dropdown-item:hover{background:#f8fafc;color:#0f172a}
+
+    .page-intro{padding:38px 0 20px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 12px;border-radius:999px;border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;
+      font-size:.72rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;
+    }
+    h1{
+      margin:14px 0 10px;font-size:clamp(2rem,4vw,3.35rem);line-height:1.05;letter-spacing:-.04em
+    }
+    .intro-text{max-width:760px;color:var(--muted);font-size:1.08rem;line-height:1.75}
+
+    .workspace{
+      display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;
+      min-height:680px;margin:24px 0 22px;
+    }
+
+    .card{
+      background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+      box-shadow:var(--shadow);overflow:hidden;
+    }
+    .card.dark{
+      background:linear-gradient(180deg,#0b1220 0%, #0f172a 100%);
+      border-color:#0f172a;
+    }
+    .card-head{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      padding:16px 18px;border-bottom:1px solid var(--line);background:#fff;
+    }
+    .card.dark .card-head{background:rgba(15,23,42,.75);border-bottom:1px solid var(--line-dark)}
+    .card-title{
+      font-size:.78rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#64748b
+    }
+    .card.dark .card-title{color:#94a3b8}
+    .head-actions{display:flex;flex-wrap:wrap;gap:8px}
+    .mini-btn{
+      border:1px solid var(--line);background:#fff;color:#334155;border-radius:12px;
+      padding:9px 12px;font-size:.84rem;font-weight:800;cursor:pointer;transition:.2s;
+    }
+    .mini-btn:hover{background:#f8fafc;color:#0f172a}
+    .mini-btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+    .mini-btn.primary:hover{background:#1d4ed8}
+    .mini-btn.dark{
+      background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:#cbd5e1
+    }
+    .mini-btn.dark:hover{background:rgba(255,255,255,.12);color:#fff}
+    .mini-btn.ghost-danger{color:#dc2626}
+    .mini-btn.ghost-danger:hover{background:#fef2f2;border-color:#fecaca}
+
+    .editor-wrap{position:relative;min-height:540px}
+    .editor{
+      width:100%;height:100%;min-height:540px;border:none;outline:none;resize:vertical;
+      padding:18px 18px 56px;background:#fff;color:#0f172a;font-family:var(--mono);font-size:14px;line-height:1.65;
+    }
+    .stats{
+      position:absolute;left:16px;right:16px;bottom:14px;display:flex;justify-content:space-between;gap:12px;
+      color:#64748b;font-size:.75rem;font-weight:800;pointer-events:none;
+    }
+
+    .viewer{
+      min-height:540px;position:relative;background:#0f172a;color:#e2e8f0;
+    }
+    .viewer-scroll{
+      position:absolute;inset:0;overflow:auto;padding:20px;
+      font-family:var(--mono);font-size:14px;line-height:1.6;
+    }
+    .placeholder{
+      min-height:500px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      color:#64748b;text-align:center;padding:24px
+    }
+    .placeholder strong{display:block;color:#94a3b8;margin-top:8px;font-size:1rem}
+    .status-row{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;
+      border-top:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)
+    }
+    .status-pill{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+      font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase
+    }
+    .status-pill.ready{background:rgba(59,130,246,.14);color:#93c5fd}
+    .status-pill.valid{background:rgba(34,197,94,.14);color:#86efac}
+    .status-pill.invalid{background:rgba(239,68,68,.14);color:#fca5a5}
+    .status-meta{font-size:.82rem;color:#94a3b8;font-weight:700}
+
+    .error-box{
+      margin:16px 18px 0;padding:14px 16px;border-radius:16px;background:#7f1d1d;color:#fee2e2;
+      border:1px solid #991b1b;font-family:var(--mono);font-size:.9rem;line-height:1.55;display:none;
+      white-space:pre-wrap;word-break:break-word
+    }
+    .error-box.show{display:block}
+
+    .toolbar{
+      display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0
+    }
+    .toolbar .mini-btn{padding:11px 14px}
+
+    .section-card{
+      margin:28px 0 0;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);
+      padding:28px;
+    }
+    .section-card h2{margin:0 0 12px;font-size:1.8rem;letter-spacing:-.03em}
+    .section-card p{color:var(--muted);line-height:1.75}
+    .faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
+    .faq-item{
+      background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:18px;
+    }
+    .faq-item h3{margin:0 0 8px;font-size:1.05rem}
+    .faq-item p{margin:0;font-size:.98rem}
+
+    .related{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px
+    }
+    .related a{
+      display:block;padding:18px;border-radius:18px;border:1px solid var(--line);background:#fff;transition:.2s
+    }
+    .related a:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+    .related strong{display:block;font-size:1rem;margin-bottom:6px}
+    .related span{display:block;color:var(--muted);font-size:.92rem;line-height:1.55}
+
+    .site-footer{
+      margin-top:40px;padding:28px 0;background:#fff;border-top:1px solid var(--line)
+    }
+    .footer-links{
+      display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-bottom:12px;
+      font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#64748b
+    }
+    .footer-links a:hover{color:var(--brand)}
+    .footer-note{
+      text-align:center;font-size:.72rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#cbd5e1
+    }
+
+    /* renderjson theme */
+    .renderjson a{color:#64748b;text-decoration:none;font-weight:900;padding:0 4px;border-radius:6px}
+    .renderjson a:hover{background:#1e293b;color:#e2e8f0}
+    .renderjson .disclosure{color:#f87171}
+    .renderjson .syntax{color:#94a3b8}
+    .renderjson .string{color:#86efac}
+    .renderjson .number{color:#fde68a}
+    .renderjson .boolean{color:#c4b5fd;font-weight:800}
+    .renderjson .key{color:#60a5fa;font-weight:800}
+    .renderjson .keyword{color:#f9a8d4;font-weight:800}
+
+    .capture-wrap{
+      position:absolute;left:-99999px;top:0;padding:34px;border-radius:24px;
+      background:linear-gradient(135deg,#0b1220 0%,#1e293b 100%);
+    }
+    .capture-window{
+      width:960px;max-width:960px;background:#020617;border-radius:18px;border:1px solid #1e293b;overflow:hidden;
+      box-shadow:0 24px 60px rgba(0,0,0,.45)
+    }
+    .capture-bar{
+      display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid #1e293b;background:#0f172a
+    }
+    .capture-dot{width:12px;height:12px;border-radius:50%}
+    .capture-content{
+      padding:24px;color:#cbd5e1;font-family:var(--mono);font-size:14px;line-height:1.6;word-break:break-word
+    }
+    .capture-watermark{
+      margin-top:12px;text-align:right;color:#64748b;font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase
+    }
+
+    @media (max-width: 1080px){
+      .workspace{grid-template-columns:1fr;min-height:auto}
+      .editor,.viewer,.viewer-scroll{min-height:420px}
+      .faq-grid,.related{grid-template-columns:1fr}
+      .site-header-inner{flex-wrap:wrap;padding:10px 0}
+      .nav{width:100%;overflow:auto;padding-bottom:4px}
+    }
+
+    @media (max-width: 640px){
+      .container{width:min(100% - 20px,1440px)}
+      .page-intro{padding-top:26px}
+      .card-head{flex-direction:column;align-items:flex-start}
+      .head-actions{width:100%}
+      .head-actions .mini-btn{flex:1}
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="brand" href="/">
+        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools logo" />
+        <div class="brand-title">Mini-Tools<span>.uk</span></div>
+      </a>
 
-  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-    <div class="w-full max-w-[1920px] mx-auto px-4 sm:px-8 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
+      <nav class="nav" aria-label="Main navigation">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/#all-tools">All Tools</a>
+
+        <div class="dropdown" id="categoriesDropdown">
+          <button class="nav-button" type="button" aria-expanded="false" aria-controls="categoriesMenu">
+            Categories
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="dropdown-bridge" aria-hidden="true"></div>
+          <div class="dropdown-menu" id="categoriesMenu" role="menu">
+            <a class="dropdown-item" href="/#uk-finance">UK Finance</a>
+            <a class="dropdown-item" href="/#developer-tools">Developer Tools</a>
+            <a class="dropdown-item" href="/#image-tools">Image & PDF</a>
+            <a class="dropdown-item" href="/#text-conversion">Text & Conversion</a>
+            <a class="dropdown-item" href="/#privacy-security">Security & Privacy</a>
+          </div>
+        </div>
+
+        <a class="nav-link" href="/blog">Blog</a>
+        <a class="nav-link" href="/about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-intro">
+      <div class="eyebrow">Developer Tool • Local Processing</div>
+      <h1>JSON Formatter & Validator</h1>
+      <p class="intro-text">
+        Paste raw JSON to format, validate, minify, and inspect it in a collapsible tree view.
+        Everything runs in your browser, so your payloads stay on your device.
+      </p>
+    </section>
+
+    <section class="workspace" aria-label="JSON formatter workspace">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Input raw JSON</div>
+          <div class="head-actions">
+            <button class="mini-btn primary" type="button" id="formatBtn">Beautify</button>
+            <button class="mini-btn" type="button" id="minifyBtn">Minify</button>
+            <button class="mini-btn" type="button" id="exampleBtn">Load Example</button>
+            <button class="mini-btn ghost-danger" type="button" id="clearBtn">Clear</button>
+          </div>
+        </div>
+
+        <div class="editor-wrap">
+          <textarea
+            id="jsonInput"
+            class="editor"
+            spellcheck="false"
+            placeholder='Paste JSON here, for example:
+{"user":{"id":1,"name":"Mini-Tools","roles":["admin","developer"],"active":true}}'
+          ></textarea>
+          <div class="stats">
+            <span id="inputStats">0 lines • 0 chars</span>
+            <span id="tokenHint">Auto-validate after typing</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card dark">
+        <div class="card-head">
+          <div class="card-title">Formatted tree viewer</div>
+          <div class="head-actions">
+            <button class="mini-btn dark" type="button" id="expandBtn">Expand all</button>
+            <button class="mini-btn dark" type="button" id="collapseBtn">Collapse all</button>
+            <button class="mini-btn dark" type="button" id="copyBtn">Copy JSON</button>
+            <button class="mini-btn dark" type="button" id="exportBtn">Export PNG</button>
+          </div>
+        </div>
+
+        <div class="error-box" id="errorBox"></div>
+
+        <div class="viewer">
+          <div class="viewer-scroll" id="jsonOutput">
+            <div class="placeholder" id="placeholder">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path d="M10 20L14 4M18 8L22 12L18 16M6 8L2 12L6 16" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <strong>Awaiting valid JSON…</strong>
+              <span>Paste code on the left to start formatting and validation.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="status-row">
+          <div class="status-pill ready" id="statusPill">Ready</div>
+          <div class="status-meta" id="statusMeta">No JSON parsed yet</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2>Why this JSON tool is worth keeping open</h2>
+      <p>
+        API responses are often minified into one unreadable line. This page turns that raw payload
+        into a readable structure with syntax highlighting, collapsible objects, and validation
+        feedback. It is designed for debugging, inspecting nested data, and cleaning JSON before you
+        paste it into logs, docs, or code samples.
+      </p>
+
+      <div class="faq-grid">
+        <article class="faq-item">
+          <h3>Is it private?</h3>
+          <p>
+            Yes. Parsing and formatting happen entirely in your browser. Your JSON is not uploaded or
+            stored on our servers.
+          </p>
+        </article>
+        <article class="faq-item">
+          <h3>Can it validate broken JSON?</h3>
+          <p>
+            Yes. If parsing fails, the page shows the error message while keeping your original input
+            intact so you can fix it quickly.
+          </p>
+        </article>
+        <article class="faq-item">
+          <h3>What about very large numbers?</h3>
+          <p>
+            The formatter protects long integer strings during parsing so large IDs are less likely to
+            lose readability in the viewer.
+          </p>
+        </article>
+        <article class="faq-item">
+          <h3>Can I share or reuse the result?</h3>
+          <p>
+            You can copy formatted JSON directly, or export the tree viewer as a PNG card for docs,
+            tickets, or screenshots.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2>Related tools</h2>
+      <div class="related">
+        <a href="/token">
+          <strong>AI Token Calculator</strong>
+          <span>Estimate prompt size and API cost for major LLMs.</span>
         </a>
-        <div class="flex flex-col -mt-1 hidden sm:flex">
-          <span class="text-xl font-extrabold text-slate-900 leading-none">Mini-Tools<span class="text-blue-600">.uk</span></span>
-        </div>
-      </div>
-      <div class="flex items-center gap-4 sm:gap-6">
-        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
-          <span id="nav-blog-text">Blog & Guides</span>
+        <a href="/working-days">
+          <strong>Working Days Calculator</strong>
+          <span>Calculate business days between dates with UK holiday logic.</span>
         </a>
-        <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
-          <option value="en">🇬🇧 English</option>
-          <option value="zh">🇨🇳 简体中文</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="de">🇩🇪 Deutsch</option>
-        </select>
+        <a href="/#developer-tools">
+          <strong>All Developer Tools</strong>
+          <span>Browse the rest of your formatting, conversion, and utility pages.</span>
+        </a>
       </div>
-    </div>
-  </nav>
-
-  <main class="w-full max-w-[1920px] mx-auto px-4 sm:px-8 py-8 flex-1 flex flex-col">
-    
-    <header class="mb-6 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-      <div>
-        <div class="flex items-center gap-3 mb-1">
-          <h1 id="page-title" class="text-3xl font-extrabold text-slate-900 tracking-tight">JSON Formatter & Validator</h1>
-          <span class="bg-green-100 text-green-700 text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-widest hidden sm:block">Auto-Detect</span>
-        </div>
-        <p id="page-desc" class="text-sm text-slate-500">Beautify, parse, and collapse your JSON data locally. Zero server uploads.</p>
-      </div>
-      <div class="flex gap-2 w-full lg:w-auto">
-        <button onclick="formatJSON(false)" id="btn-format" class="flex-1 lg:flex-none px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-blue-500/20 active:scale-95 flex items-center justify-center gap-2" title="Beautify code in the left panel">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-          Beautify Left Panel
-        </button>
-        <button onclick="clearAll()" id="btn-clear" class="flex-1 lg:flex-none px-8 py-3 bg-white border border-slate-200 hover:bg-red-50 text-red-500 text-sm font-bold rounded-xl transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-          Clear
-        </button>
-      </div>
-    </header>
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-[85vh] mb-8">
-      
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col overflow-hidden relative group">
-        <div class="bg-slate-50 px-5 py-4 border-b border-slate-200 flex justify-between items-center z-10">
-          <span class="text-xs font-black text-slate-500 uppercase tracking-widest" id="label-input">Input Raw JSON</span>
-          <button onclick="pasteExample()" class="text-xs font-bold text-blue-600 hover:underline" id="btn-example">Load Example</button>
-        </div>
-        <div class="relative flex-1 bg-white">
-          <textarea id="input-json" oninput="handleInput()" class="code-area text-slate-700 bg-transparent border-none focus:ring-inset focus:ring-2 focus:ring-blue-50/50" placeholder='Paste your raw or minified JSON here...&#10;&#10;Auto-detection is active. The tree on the right will generate instantly.&#10;&#10;Example:&#10;{"user":{"id":1,"name":"Mini-Tools","active":true,"tags":["developer","utilities"]}}'></textarea>
-        </div>
-      </div>
-
-      <div class="bg-slate-900 rounded-2xl border border-slate-800 shadow-xl flex flex-col overflow-hidden relative">
-        <div class="bg-slate-800 px-5 py-4 border-b border-slate-700 flex justify-between items-center z-10 shadow-sm">
-          <span class="text-xs font-black text-slate-400 uppercase tracking-widest" id="label-output">Formatted Tree Viewer</span>
-          <div class="flex items-center gap-3">
-            <div class="flex gap-4">
-              <button onclick="expandAll()" class="text-xs font-bold text-slate-300 hover:text-white" id="btn-expand">Expand All</button>
-              <span class="text-slate-600">|</span>
-              <button onclick="collapseAll()" class="text-xs font-bold text-slate-300 hover:text-white" id="btn-collapse">Collapse All</button>
-            </div>
-            <div class="w-px h-4 bg-slate-700 mx-1"></div>
-            <div class="flex gap-4">
-              <button onclick="copyJSON()" class="text-xs font-bold text-blue-400 hover:text-blue-300" id="btn-copy">Copy JSON</button>
-              <span class="text-slate-600">|</span>
-              <button onclick="exportJSONToImage()" class="flex items-center gap-1.5 text-xs font-bold text-red-400 hover:text-red-300" id="btn-export-img" title="Export this JSON as a Carbon-style beautiful PNG card">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                Export Image
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        <div class="relative flex-1 code-area bg-slate-900 overflow-hidden">
-          <div id="output-json" class="renderjson-container">
-            <div id="output-placeholder" class="h-full flex flex-col items-center justify-center text-slate-600">
-              <svg class="w-16 h-16 mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-              <span class="font-bold text-sm" id="msg-waiting">Awaiting valid JSON...</span>
-            </div>
-          </div>
-        </div>
-        
-        <div id="error-overlay" class="hidden absolute inset-x-0 bottom-0 bg-red-900/95 backdrop-blur border-t border-red-700 p-6 transform transition-transform z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.3)]">
-          <div class="flex items-start gap-4 text-red-200">
-            <svg class="w-6 h-6 text-red-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-            <div class="w-full">
-              <h4 class="text-base font-bold text-white mb-2" id="msg-invalid">Invalid JSON Syntax</h4>
-              <p id="error-message" class="text-sm font-mono text-red-300 break-all leading-relaxed w-full"></p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div id="seo-container" class="prose-content max-w-5xl mx-auto w-full">
-      <h2>Why developers need a robust JSON Formatter</h2>
-      <p>JSON (JavaScript Object Notation) is the undisputed standard for data exchange on the web. However, to save bandwidth, servers usually output JSON in a single, minified line of text. While perfect for machines, this is completely unreadable for human developers debugging an API response. Our <strong>online JSON Formatter and Validator</strong> acts as your essential decoding layer, transforming unreadable text into a beautifully structured, color-coded, and navigable data tree.</p>
-      <h3>Beyond Simple Beautification: The Interactive Tree Viewer</h3>
-      <p>Unlike basic formatters that just add line breaks and indents, our tool incorporates a powerful <strong>Collapsible Tree Viewer</strong> with an ultra-wide, immersive workspace. When you paste complex, deeply nested JSON objects or massive arrays, you don't have to scroll endlessly. Our interface allows you to:</p>
-      <ul>
-        <li><strong>Auto-Detection & Parsing:</strong> No need to click buttons. As soon as you paste your code, the engine instantly validates and renders the tree on the right.</li>
-        <li><strong>Collapse and Expand:</strong> Click the <code>⊕</code> or <code>⊖</code> icons next to any Object <code>{}</code> or Array <code>[]</code> to fold away data you don't currently need to see.</li>
-        <li><strong>Syntax Highlighting:</strong> We use an IDE-grade dark theme color palette. Keys are distinctly colored from values, and strings, numbers, and booleans (true/false) all have specific colors so you can spot data type errors at a glance.</li>
-        <li><strong>Real-time Validation:</strong> If your JSON is broken, our tool displays a prominent error message specifying exactly why the parsing failed, helping you debug your code instantly.</li>
-      </ul>
-      <h2>Frequently Asked Questions (FAQ)</h2>
-      <div class="faq-box">
-        <h4>Is it safe to paste confidential API responses here?</h4>
-        <p class="mb-0">Yes. The most critical feature of our JSON Formatter is its <strong>Zero-Trust Client-Side Architecture</strong>. The parsing, validation, and rendering algorithms are executed entirely by JavaScript within your browser's local memory. Your sensitive payloads, API keys, or customer data never leave your device and are never sent to our servers.</p>
-      </div>
-    </div>
-
+    </section>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 w-full mt-auto">
-    <div class="w-full max-w-[1920px] mx-auto px-6 text-center">
-      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
-        </a>
-        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
-        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/about">About</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/contact">Contact</a>
       </div>
-      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
-        © 2026 MINI-TOOLS.UK — SECURE LOCAL DEVELOPER UTILITIES
-      </p>
+      <div class="footer-note">© 2026 Mini-Tools.uk — secure local developer utilities</div>
     </div>
   </footer>
 
   <script>
-    const BIGINT_PREFIX = "MINITOOLS_BIGINT_";
+    const BIGINT_PREFIX = "__MT_BIGINT__";
+    const inputEl = document.getElementById("jsonInput");
+    const outputEl = document.getElementById("jsonOutput");
+    const placeholderEl = document.getElementById("placeholder");
+    const errorBox = document.getElementById("errorBox");
+    const statusPill = document.getElementById("statusPill");
+    const statusMeta = document.getElementById("statusMeta");
+    const inputStats = document.getElementById("inputStats");
+    const formatBtn = document.getElementById("formatBtn");
+    const minifyBtn = document.getElementById("minifyBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const exampleBtn = document.getElementById("exampleBtn");
+    const expandBtn = document.getElementById("expandBtn");
+    const collapseBtn = document.getElementById("collapseBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const exportBtn = document.getElementById("exportBtn");
 
-    // 🌟 核心优化 4：整合所有语言的 Meta (带长尾 Keywords) 和富文本到字典中
-    const i18n = {
-      en: {
-        metaTitle: "JSON Formatter & Validator | Format, Beautify, and Parse JSON Online",
-        metaDesc: "Free online JSON formatter and validator. Beautify, parse, and debug JSON code instantly. Features syntax highlighting and collapsible tree views. 100% client-side privacy.",
-        metaKeywords: "JSON formatter, JSON validator, JSON beautifier, parse JSON online, JSON viewer, collapsible JSON, offline JSON tool, format JSON to image",
-        title: "JSON Formatter & Validator", 
-        desc: "Beautify, parse, and collapse your JSON data locally. Zero server uploads.",
-        btnFormat: "Beautify Left Panel", btnClear: "Clear", btnExample: "Load Example",
-        labelInput: "Input Raw JSON", labelOutput: "Formatted Tree Viewer",
-        btnExpand: "Expand All", btnCollapse: "Collapse All", btnCopy: "Copy JSON",
-        btnExportImg: "Export Image",
-        msgWaiting: "Awaiting valid JSON...", msgInvalid: "Invalid JSON Syntax",
-        footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us", footerBlog: "Blog", navBlog: "Blog & Guides",
-        seoHtml: `
-          <h2>Why developers need a robust JSON Formatter</h2>
-          <p>JSON (JavaScript Object Notation) is the undisputed standard for data exchange on the web. However, to save bandwidth, servers usually output JSON in a single, minified line of text. While perfect for machines, this is completely unreadable for human developers debugging an API response. Our <strong>online JSON Formatter and Validator</strong> acts as your essential decoding layer, transforming unreadable text into a beautifully structured, color-coded, and navigable data tree.</p>
-          <h3>Beyond Simple Beautification: The Interactive Tree Viewer</h3>
-          <p>Unlike basic formatters that just add line breaks and indents, our tool incorporates a powerful <strong>Collapsible Tree Viewer</strong> with an ultra-wide, immersive workspace. When you paste complex, deeply nested JSON objects or massive arrays, you don't have to scroll endlessly. Our interface allows you to:</p>
-          <ul>
-            <li><strong>Auto-Detection & Parsing:</strong> No need to click buttons. As soon as you paste your code, the engine instantly validates and renders the tree on the right.</li>
-            <li><strong>Collapse and Expand:</strong> Click the <code>⊕</code> or <code>⊖</code> icons next to any Object <code>{}</code> or Array <code>[]</code> to fold away data you don't currently need to see.</li>
-            <li><strong>Syntax Highlighting:</strong> We use an IDE-grade dark theme color palette. Keys are distinctly colored from values, and strings, numbers, and booleans (true/false) all have specific colors so you can spot data type errors at a glance.</li>
-            <li><strong>Real-time Validation:</strong> If your JSON is broken, our tool displays a prominent error message specifying exactly why the parsing failed, helping you debug your code instantly.</li>
-          </ul>
-          <h2>Frequently Asked Questions (FAQ)</h2>
-          <div class="faq-box">
-            <h4>Is it safe to paste confidential API responses here?</h4>
-            <p class="mb-0">Yes. The most critical feature of our JSON Formatter is its <strong>Zero-Trust Client-Side Architecture</strong>. The parsing, validation, and rendering algorithms are executed entirely by JavaScript within your browser's local memory. Your sensitive payloads, API keys, or customer data never leave your device and are never sent to our servers.</p>
-          </div>`
-      },
-      zh: {
-        metaTitle: "在线 JSON 格式化与校验工具 | 高亮、折叠、美化 — Mini-Tools",
-        metaDesc: "免费纯前端 JSON 格式化工具。支持一键美化、折叠树状视图和语法高亮。实时错误诊断，绝不上传您的 API 数据，保护商业隐私。",
-        metaKeywords: "JSON美化, 前端JSON校验, JSON树状折叠, 在线解析JSON, json在线工具, JSON大整数处理, 将JSON导出为图片",
-        title: "JSON 格式化与校验工具", 
-        desc: "将杂乱的 JSON 压缩文本转换为极客级的彩色可折叠数据树。100% 纯本地运行。",
-        btnFormat: "美化左侧代码", btnClear: "清空", btnExample: "加载示例",
-        labelInput: "在此粘贴原始 JSON", labelOutput: "交互式数据树视图",
-        btnExpand: "全部展开", btnCollapse: "全部折叠", btnCopy: "复制树状数据",
-        btnExportImg: "导出美化卡片",
-        msgWaiting: "等待输入有效的 JSON...", msgInvalid: "JSON 语法解析错误",
-        footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们", footerBlog: "官方博客", navBlog: "官方博客与教程",
-        seoHtml: `
-          <h2>开发者为什么需要专业的 JSON 格式化工具？</h2>
-          <p>JSON (JavaScript Object Notation) 是目前互联网数据交互的绝对标准。为了节省带宽，后端 API 接口返回的 JSON 通常是经过压缩的单行文本。这对于机器来说很高效，但对于需要排查 Bug 的前端开发者来说根本无法阅读。我们的<strong>在线 JSON 格式化与校验工具</strong>能瞬间将这一团乱码转化为结构清晰、色彩分明且支持交互的数据树。</p>
-          <h3>超越简单的换行：超大屏交互式可折叠数据树</h3>
-          <p>市面上普通的格式化工具仅仅是加入了回车和缩进。一旦遇到嵌套极深或包含成千上万条数据的数组，用户只能绝望地滑动滚轮。而本工具引入了强大的 <strong>树状视图 (Tree Viewer)</strong>，并适配了超宽屏幕，让您的体验直逼专业的 IDE：</p>
-          <ul>
-            <li><strong>无感自动解析：</strong> 告别繁琐的点击！当您在左侧粘贴或修改代码时，右侧会自动瞬间渲染出可视化的树状图。</li>
-            <li><strong>一键折叠/展开：</strong> 您可以点击任何对象 <code>{}</code> 或数组 <code>[]</code> 旁边的 <code>⊕</code> 图标，将不关心的层级折叠起来，从而专注于核心数据结构。上方甚至提供了“全部展开”和“全部折叠”的快捷键。</li>
-            <li><strong>独立丝滑滚动：</strong> 左右两侧的输入和输出面板均支持独立的纵向与横向滚动，处理几十兆的超大 JSON 文件依然流畅。</li>
-            <li><strong>智能错误诊断：</strong> 哪怕只是少写了一个逗号，普通的工具通常会直接白屏死机。而我们的验证器会弹出醒目的红色终端警告，并精准抛出解析失败的原因，极大提升 Debug 效率。</li>
-          </ul>
-          <h2>常见问题解答 (FAQ)</h2>
-          <div class="faq-box">
-            <h4>在这里粘贴包含机密用户数据的 API 返回值安全吗？</h4>
-            <p class="mb-0"><strong>绝对安全。</strong> 我们的 JSON 工具坚持“纯前端本地计算”原则。所有的格式化、着色和校验代码均在您自己的电脑浏览器内存中执行。您的敏感数据、API Key 或生产环境的 Payload 绝不会被上传到任何外部服务器，保护您的商业机密。</p>
-          </div>`
-      },
-      es: {
-        metaTitle: "Formateador y Validador JSON | Visor de Árbol en Línea",
-        metaDesc: "Formateador JSON gratuito. Embellezca y depure código JSON al instante con resaltado de sintaxis y vistas plegables. Privacidad total.",
-        metaKeywords: "Formateador JSON, JSON online, validar JSON, visor de árbol JSON, JSON a imagen",
-        title: "Formateador y Validador JSON", 
-        desc: "Embellezca, analice y pliegue sus datos JSON localmente. Cero subidas al servidor.",
-        btnFormat: "Embellecer Panel Izquierdo", btnClear: "Borrar", btnExample: "Cargar Ejemplo",
-        labelInput: "Ingresar JSON Bruto", labelOutput: "Visor de Árbol Formateado",
-        btnExpand: "Expandir Todo", btnCollapse: "Plegar Todo", btnCopy: "Copiar JSON",
-        btnExportImg: "Exportar Imagen",
-        msgWaiting: "Esperando JSON válido...", msgInvalid: "Sintaxis JSON Inválida",
-        footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto", footerBlog: "Blog", navBlog: "Blog y Guías",
-        seoHtml: `
-          <h2>El Formateador JSON Definitivo para Desarrolladores</h2>
-          <p>Las respuestas de las APIs suelen estar comprimidas en una sola línea, haciéndolas ilegibles para los humanos. Nuestro <strong>Formateador y Validador JSON online</strong> transforma esa masa de texto en un árbol de datos estructurado y con colores, ideal para depurar (debugging).</p>
-          <h3>Detección Automática y Visor de Árbol Plegable</h3>
-          <p>A diferencia de herramientas básicas, nuestra interfaz amplia le permite:</p>
-          <ul>
-            <li><strong>Auto-Formateo:</strong> Simplemente pegue su código y el árbol se generará instantáneamente sin hacer clic en nada.</li>
-            <li><strong>Plegar y Desplegar:</strong> Oculte objetos <code>{}</code> o arrays <code>[]</code> gigantes haciendo clic en los iconos junto a ellos.</li>
-            <li><strong>Resaltado de Sintaxis:</strong> Colores distintos para claves, cadenas, números y booleanos, facilitando la detección de errores.</li>
-            <li><strong>Validación Inteligente:</strong> Si falta una coma o hay un error de sintaxis, le mostraremos exactamente dónde falló el análisis en un panel rojo destacado.</li>
-          </ul>
-          <h2>Preguntas Frecuentes (FAQ)</h2>
-          <div class="faq-box">
-            <h4>¿Es seguro pegar datos de producción confidenciales aquí?</h4>
-            <p class="mb-0">Sí. El procesamiento se realiza 100% en la memoria de su navegador (Client-Side). Sus datos nunca viajan por internet ni se guardan en nuestros servidores, garantizando privacidad absoluta para sus APIs.</p>
-          </div>`
-      },
-      fr: {
-        metaTitle: "Formateur et Validateur JSON | Embellir et Analyser en Ligne",
-        metaDesc: "Formateur JSON en ligne gratuit. Embellissez et déboguez le code instantanément. Vues en arbre et coloration syntaxique.",
-        metaKeywords: "Formateur JSON, valider JSON, embellir JSON, arbre JSON, JSON en image",
-        title: "Formateur et Validateur JSON", 
-        desc: "Embellissez et pliez vos données JSON localement. Aucun téléchargement sur serveur.",
-        btnFormat: "Embellir le panneau gauche", btnClear: "Effacer", btnExample: "Charger Exemple",
-        labelInput: "JSON Brut", labelOutput: "Arbre de Données",
-        btnExpand: "Tout Déplier", btnCollapse: "Tout Plier", btnCopy: "Copier JSON",
-        btnExportImg: "Exporter Image",
-        msgWaiting: "En attente de JSON valide...", msgInvalid: "Syntaxe JSON Invalide",
-        footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact", footerBlog: "Blog", navBlog: "Blog et Guides",
-        seoHtml: `
-          <h2>Le Formateur JSON Essentiel pour les Développeurs</h2>
-          <p>Les API renvoient généralement le JSON sur une seule ligne minifiée. Notre <strong>Formateur et Validateur JSON en ligne</strong> transforme ce texte illisible en un arbre de données structuré et coloré, indispensable pour le débogage.</p>
-          <h3>Détection Automatique et Visualiseur d'Arbre</h3>
-          <p>Notre outil va bien au-delà d'un simple ajout d'espaces :</p>
-          <ul>
-            <li><strong>Détection Instantanée :</strong> Collez votre code et l'arbre se génère de lui-même.</li>
-            <li><strong>Plier et Déplier :</strong> Masquez les objets <code>{}</code> ou les grands tableaux <code>[]</code> en un clic pour vous concentrer sur l'essentiel.</li>
-            <li><strong>Coloration Syntaxique :</strong> Les clés, chaînes, nombres et booléens ont des couleurs spécifiques pour repérer les erreurs d'un coup d'œil.</li>
-            <li><strong>Validation en Temps Réel :</strong> En cas d'erreur de syntaxe, un message d'erreur clair vous aide à corriger le problème immédiatement.</li>
-          </ul>
-          <h2>Foire Aux Questions (FAQ)</h2>
-          <div class="faq-box">
-            <h4>Mes données d'API sont-elles en sécurité ici ?</h4>
-            <p class="mb-0">Absolument. Tout le traitement (formatage, coloration) est effectué localement dans votre navigateur (Côté Client). Vos clés d'API ne sont jamais envoyées sur nos serveurs.</p>
-          </div>`
-      },
-      de: {
-        metaTitle: "JSON Formatierer & Validator | JSON Online Verschönern",
-        metaDesc: "Kostenloser JSON-Formatierer. Code verschönern und debuggen. Syntax-Hervorhebung und ausklappbare Baumansichten. 100% lokal.",
-        metaKeywords: "JSON Formatierer, JSON Validator, JSON verschönern, JSON zu Bild, JSON offline tool",
-        title: "JSON Formatierer & Validator", 
-        desc: "JSON-Daten lokal verschönern, analysen und reduzieren. Keine Server-Uploads.",
-        btnFormat: "Linkes Panel verschönern", btnClear: "Löschen", btnExample: "Beispiel Laden",
-        labelInput: "Roh-JSON Eingeben", labelOutput: "Strukturierter Datenbaum",
-        btnExpand: "Alle Ausklappen", btnCollapse: "Alle Reduzieren", btnCopy: "JSON Kopieren",
-        btnExportImg: "Bild exportieren",
-        msgWaiting: "Warte auf gültiges JSON...", msgInvalid: "Ungültige JSON-Syntax",
-        footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt", footerBlog: "Blog", navBlog: "Blog & Anleitungen",
-        seoHtml: `
-          <h2>Der Ultimative JSON-Formatierer für Entwickler</h2>
-          <p>APIs liefern JSON meist als komprimierte, einzeilige Zeichenfolge, die für Menschen unlesbar ist. Unser <strong>Online-JSON-Formatierer und Validator</strong> verwandelt diesen Text in einen strukturierten, farbcodierten Datenbaum, ideal zum Debuggen von Schnittstellen.</p>
-          <h3>Automatische Erkennung & Interaktiver Datenbaum</h3>
-          <p>Im Gegensatz zu einfachen Tools bietet unsere breite Schnittstelle:</p>
-          <ul>
-            <li><strong>Auto-Parse:</strong> Fügen Sie Ihren Code ein und der strukturierte Baum erscheint sofort, ohne dass Sie auf einen Button klicken müssen.</li>
-            <li><strong>Ausklappen und Reduzieren:</strong> Verbergen Sie riesige Objekte <code>{}</code> oder Arrays <code>[]</code> mit einem Klick auf das <code>⊖</code> Symbol.</li>
-            <li><strong>Syntax-Hervorhebung:</strong> Unterschiedliche Farben für Schlüssel, Strings, Zahlen und Booleans erleichtern das Erkennen von Datentypfehlern.</li>
-            <li><strong>Intelligente Validierung:</strong> Fehlt ein Komma? Unser Tool zeigt in einem roten Warnfeld sofort an, warum das Parsen fehlgeschlagen ist.</li>
-          </ul>
-          <h2>Häufig Gestellte Fragen (FAQ)</h2>
-          <div class="faq-box">
-            <h4>Ist es sicher, vertrauliche API-Daten hier einzufügen?</h4>
-            <p class="mb-0">Ja. Die gesamte Verarbeitung findet zu 100% im Arbeitsspeicher Ihres Browsers statt (Client-Side Architektur). Ihre Payloads verlassen niemals Ihr Gerät.</p>
-          </div>`
-      }
-    };
+    let parsedData = null;
+    let debounceTimer = null;
 
-    let rawJsonString = "";
-    let parsedJsonObject = null;
-    let autoFormatTimer;
+    renderjson.set_icons("⊕", "⊖");
+    renderjson.set_show_to_level(2);
 
-    // Configure renderjson library settings
-    renderjson.set_icons('⊕', '⊖');
-    renderjson.set_show_to_level(2); // Expand up to level 2 by default
-
-    function getLang() {
-      return new URLSearchParams(window.location.search).get('lang') || 'en';
+    function setStatus(type, text, meta) {
+      statusPill.className = "status-pill " + type;
+      statusPill.textContent = text;
+      statusMeta.textContent = meta || "";
     }
 
-    function updateLanguage() {
-      const lang = getLang();
-      const data = i18n[lang] || i18n['en'];
-
-      document.documentElement.lang = lang;
-      
-      // 🌟 动态接管 Meta 数据：Title, Description 和核心长尾 Keywords
-      document.title = data.metaTitle;
-      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
-      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
-
-      document.getElementById('page-title').innerText = data.title;
-      document.getElementById('page-desc').innerText = data.desc;
-      
-      const btnFormat = document.getElementById('btn-format');
-      btnFormat.lastChild.textContent = " " + data.btnFormat;
-      
-      const btnClear = document.getElementById('btn-clear');
-      btnClear.lastChild.textContent = " " + data.btnClear;
-      
-      document.getElementById('btn-example').innerText = data.btnExample;
-      document.getElementById('label-input').innerText = data.labelInput;
-      document.getElementById('label-output').innerText = data.labelOutput;
-      document.getElementById('btn-expand').innerText = data.btnExpand;
-      document.getElementById('btn-collapse').innerText = data.btnCollapse;
-      document.getElementById('btn-copy').innerText = data.btnCopy;
-      
-      const btnExport = document.getElementById('btn-export-img');
-      btnExport.lastChild.textContent = " " + data.btnExportImg;
-      
-      document.getElementById('msg-waiting').innerText = data.msgWaiting;
-      document.getElementById('msg-invalid').innerText = data.msgInvalid;
-      
-      document.getElementById('footer-about').innerText = data.footerAbout;
-      document.getElementById('footer-privacy').innerText = data.footerPrivacy;
-      document.getElementById('footer-contact').innerText = data.footerContact;
-
-      // Update Nav Blog Links
-      const navBlogText = document.getElementById('nav-blog-text');
-      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
-      
-      // 🌟 同步更新底部的 Blog 链接文字
-      const footerBlog = document.getElementById('footer-blog');
-      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
-      
-      // 🌟 动态注入纯净的 SEO 长文内容，消灭多语言混杂代码
-      const seoContainer = document.getElementById('seo-container');
-      if (data.seoHtml) {
-          seoContainer.style.opacity = 0;
-          setTimeout(() => {
-              seoContainer.innerHTML = data.seoHtml;
-              seoContainer.style.opacity = 1;
-          }, 150);
-      }
-
-      document.getElementById('lang-select').value = lang;
-      
-      // 去除内链的 .html 后缀
-      document.querySelectorAll('a').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
-          try {
-            const url = new URL(href, window.location.origin);
-            url.searchParams.set('lang', lang);
-            link.href = url.pathname + url.search;
-          } catch(e) {}
-        }
-      });
+    function updateStats() {
+      const value = inputEl.value;
+      const lines = value ? value.split(/\r?\n/).length : 0;
+      inputStats.textContent = `${lines} lines • ${value.length} chars`;
     }
 
-    function handleInput() {
-      clearTimeout(autoFormatTimer);
-      autoFormatTimer = setTimeout(() => {
-        formatJSON(true); 
-      }, 400); 
+    function protectBigInts(text) {
+      return text.replace(/(:\s*)(-?\d{16,})(?=\s*[,}\]])/g, '$1"' + BIGINT_PREFIX + '$2"');
     }
 
-    function escapeHtml(str) {
-      return String(str).replace(/[&<>'"]/g, tag => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
-      }[tag]));
+    function restoreBigIntsInString(jsonString) {
+      return jsonString.replace(new RegExp('"' + BIGINT_PREFIX + '(-?\\d+)"', 'g'), '$1');
     }
 
-    // Helper to render to a specific DOM element and restore BigInt precision
-    function renderToElement(targetEl, dataObj, expandLevel = 2) {
-        targetEl.innerHTML = '';
-        renderjson.set_show_to_level(expandLevel);
-        targetEl.appendChild(renderjson(dataObj));
-
-        // 🛡️ BigInt Shield Restoration
-        const stringNodes = targetEl.querySelectorAll('.string');
-        stringNodes.forEach(node => {
-            if(node.innerText.includes(BIGINT_PREFIX)) {
-                const actualNumber = node.innerText.replace(BIGINT_PREFIX, '').replace(/"/g, '');
-                node.innerText = actualNumber;
-                node.classList.remove('string');
-                node.classList.add('number');
-            }
-        });
+    function clearOutput() {
+      outputEl.innerHTML = "";
+      outputEl.appendChild(placeholderEl);
+      parsedData = null;
+      errorBox.classList.remove("show");
+      errorBox.textContent = "";
+      setStatus("ready", "Ready", "No JSON parsed yet");
     }
 
-    function renderAndRestore() {
-      const outputContainer = document.getElementById('output-json');
-      renderToElement(outputContainer, parsedJsonObject, 2);
-    }
-
-    function formatJSON(isAuto = false) {
-      const inputEl = document.getElementById('input-json');
-      const errorOverlay = document.getElementById('error-overlay');
-      const errorMsg = document.getElementById('error-message');
-      
-      rawJsonString = inputEl.value.trim();
-
-      if (rawJsonString === "") {
-        const outputContainer = document.getElementById('output-json');
-        outputContainer.innerHTML = '';
-        const placeholder = document.getElementById('output-placeholder');
-        if(placeholder) outputContainer.appendChild(placeholder);
-        errorOverlay.classList.add('hidden');
-        parsedJsonObject = null;
+    function renderTree(level = 2) {
+      if (!parsedData) {
+        clearOutput();
         return;
       }
 
-      const protectedText = rawJsonString.replace(/(:\s*)([-+]?\d{16,})\s*(?=[,\]}])/g, `$1"${BIGINT_PREFIX}$2"`);
+      outputEl.innerHTML = "";
+      renderjson.set_show_to_level(level);
+      outputEl.appendChild(renderjson(parsedData));
+
+      const stringNodes = outputEl.querySelectorAll(".string");
+      stringNodes.forEach(node => {
+        const raw = node.textContent || "";
+        if (raw.includes(BIGINT_PREFIX)) {
+          const cleaned = raw.replace(BIGINT_PREFIX, "").replace(/^"|"$/g, "");
+          node.textContent = cleaned;
+          node.classList.remove("string");
+          node.classList.add("number");
+        }
+      });
+    }
+
+    function parseJson(showErrors = true) {
+      const raw = inputEl.value.trim();
+      if (!raw) {
+        clearOutput();
+        return null;
+      }
 
       try {
-        parsedJsonObject = JSON.parse(protectedText);
-        errorOverlay.classList.add('hidden');
-        
-        renderAndRestore();
-
-        if (!isAuto) {
-           const beautifulStr = JSON.stringify(parsedJsonObject, null, 2);
-           inputEl.value = beautifulStr.replace(new RegExp(`"${BIGINT_PREFIX}([-+]?\\d+)"`, 'g'), '$1');
+        const protectedJson = protectBigInts(raw);
+        parsedData = JSON.parse(protectedJson);
+        errorBox.classList.remove("show");
+        errorBox.textContent = "";
+        renderTree(2);
+        setStatus("valid", "Valid JSON", "Tree view ready");
+        return parsedData;
+      } catch (error) {
+        parsedData = null;
+        outputEl.innerHTML = "";
+        outputEl.appendChild(placeholderEl);
+        if (showErrors) {
+          errorBox.textContent = error.message;
+          errorBox.classList.add("show");
         }
-
-      } catch (err) {
-        parsedJsonObject = null;
-        
-        let errorText = err.message;
-        const errLower = errorText.toLowerCase();
-        
-        if (errLower.includes("']'") || errLower.includes("'}'") || errLower.includes("unexpected token ]") || errLower.includes("unexpected token }") || errLower.includes("after array element")) {
-            errorText += `<div class="mt-4 p-3 bg-yellow-900/40 border border-yellow-600/50 rounded-lg text-yellow-300 text-xs font-bold leading-relaxed tracking-wide shadow-sm">💡 智能诊断：JSON 语法严禁在最后一个元素后添加逗号 (Trailing comma)，请检查上方代码，极有可能是你在 ']' 或 '}' 前面多写了一个 "<span class="text-white text-sm">,</span>" 符号。</div>`;
-        } else if (errLower.includes("double-quoted property") || errLower.includes("expected property name") || errLower.includes("unexpected string")) {
-            errorText += `<div class="mt-4 p-3 bg-yellow-900/40 border border-yellow-600/50 rounded-lg text-yellow-300 text-xs font-bold leading-relaxed tracking-wide shadow-sm">💡 智能诊断：JSON 的键名必须用双引号 ("") 严格包裹；或者是您在前面多写/漏写了逗号导致结构断裂。</div>`;
-        }
-        
-        errorMsg.innerHTML = errorText; 
-        errorOverlay.classList.remove('hidden');
+        setStatus("invalid", "Invalid JSON", error.message);
+        return null;
       }
     }
 
-    /* =============================================================
-       Core Logic: Export Beautiful Card (html2canvas)
-       100% Client-Side. High-Resolution. BigInt Protected.
-    ============================================================= */
-    function exportJSONToImage() {
-      if (!parsedJsonObject) return;
+    function beautifyJson() {
+      const data = parseJson(true);
+      if (!data) return;
+      const pretty = JSON.stringify(data, null, 2);
+      inputEl.value = restoreBigIntsInString(pretty);
+      updateStats();
+      renderTree(2);
+      setStatus("valid", "Beautified", "Formatted with 2-space indentation");
+    }
 
-      const btn = document.getElementById('btn-export-img');
-      const originalText = btn.lastChild.textContent;
-      
-      btn.lastChild.textContent = " Processing...";
-      btn.classList.add('opacity-50', 'pointer-events-none');
+    function minifyJson() {
+      const data = parseJson(true);
+      if (!data) return;
+      const minified = JSON.stringify(data);
+      inputEl.value = restoreBigIntsInString(minified);
+      updateStats();
+      renderTree(2);
+      setStatus("valid", "Minified", "Whitespace removed");
+    }
 
-      const captureContainer = document.createElement('div');
-      captureContainer.id = 'temp-capture-container';
-      captureContainer.style.position = 'absolute';
-      captureContainer.style.left = '-9999px'; 
-      captureContainer.style.top = '0';
-      captureContainer.style.width = 'auto'; 
-      document.body.appendChild(captureContainer);
-
-      captureContainer.innerHTML = `
-        <div class="capture-canvas relative">
-            <div class="capture-mac-window">
-                <div class="capture-mac-dots shrink-0">
-                    <div class="capture-mac-dot" style="background-color: #ef4444;"></div>
-                    <div class="capture-mac-dot" style="background-color: #fde047;"></div>
-                    <div class="capture-mac-dot" style="background-color: #10b981;"></div>
-                </div>
-                <div id="temp-json-render" class="capture-content code-area relative">
-                    </div>
-            </div>
-            <div class="capture-watermark font-bold uppercase tracking-widest arcade-font">
-                mini-tools.uk
-            </div>
-        </div>
-      `;
-
-      const tempRender = document.getElementById('temp-json-render');
-      renderToElement(tempRender, parsedJsonObject, "all");
-
-      renderjson.set_show_to_level(2);
-
-      const captureDOM = captureContainer.querySelector('.capture-canvas');
-
-      html2canvas(captureDOM, {
-        backgroundColor: null, 
-        scale: 2, 
-        useCORS: true, 
-        logging: false, 
-        windowWidth: captureDOM.scrollWidth + 80, 
-        windowHeight: captureDOM.scrollHeight + 80
-      }).then(canvas => {
-        const imgData = canvas.toDataURL("image/png");
-        const link = document.createElement('a');
-        link.href = imgData;
-        link.download = 'mini-tools.uk_beautiful_json_' + new Date().toISOString().slice(0, 10) + '.png';
-        link.click();
-
-        btn.lastChild.textContent = originalText;
-        btn.classList.remove('opacity-50', 'pointer-events-none');
-        btn.classList.add('text-green-400'); 
-        btn.classList.remove('text-red-400');
-        setTimeout(() => {
-            btn.classList.remove('text-green-400');
-            btn.classList.add('text-red-400');
-        }, 1500);
-
-        document.body.removeChild(captureContainer);
-      }).catch(err => {
-        console.error("Beautiful Card Export Failed:", err);
-        btn.lastChild.textContent = originalText;
-        btn.classList.remove('opacity-50', 'pointer-events-none');
-        alert("Sorry, could not generate image. Check browser console for details.");
-        if(document.getElementById('temp-capture-container')) {
-            document.body.removeChild(captureContainer);
-        }
+    function copyJson() {
+      if (!parsedData) return;
+      const text = restoreBigIntsInString(JSON.stringify(parsedData, null, 2));
+      navigator.clipboard.writeText(text).then(() => {
+        const old = copyBtn.textContent;
+        copyBtn.textContent = "Copied";
+        setTimeout(() => copyBtn.textContent = old, 1200);
       });
     }
 
-    function expandAll() {
-      if(parsedJsonObject) {
-        renderjson.set_show_to_level("all");
-        renderAndRestore();
-      }
-    }
-
-    function collapseAll() {
-      if(parsedJsonObject) {
-        renderjson.set_show_to_level(0);
-        renderAndRestore();
-      }
-    }
-
-    function copyJSON() {
-      if(!parsedJsonObject) return;
-      
-      const formattedString = JSON.stringify(parsedJsonObject, null, 2).replace(new RegExp(`"${BIGINT_PREFIX}([-+]?\\d+)"`, 'g'), '$1');
-      navigator.clipboard.writeText(formattedString).then(() => {
-        const btn = document.getElementById('btn-copy');
-        const originalText = btn.innerText;
-        btn.innerText = "✓ Copied!";
-        btn.classList.add('text-green-400');
-        btn.classList.remove('text-blue-400');
-        
-        setTimeout(() => {
-          btn.innerText = originalText;
-          btn.classList.remove('text-green-400');
-          btn.classList.add('text-blue-400');
-        }, 2000);
-      });
+    function loadExample() {
+      const example = {
+        status: "success",
+        generated_at: "2026-04-13T12:00:00Z",
+        user: {
+          id: 1234567890123456789,
+          name: "Mini-Tools",
+          roles: ["developer", "admin"],
+          active: true
+        },
+        metrics: {
+          requests: 128,
+          latency_ms: 42.7,
+          cached: false
+        },
+        items: [
+          { sku: "A-100", price: 19.99, stock: 12 },
+          { sku: "B-200", price: 8.5, stock: 0, note: null }
+        ]
+      };
+      inputEl.value = JSON.stringify(example);
+      updateStats();
+      parseJson(true);
     }
 
     function clearAll() {
-      document.getElementById('input-json').value = "";
-      formatJSON(true); 
+      inputEl.value = "";
+      updateStats();
+      clearOutput();
     }
 
-    function pasteExample() {
-      const example = {
-        "status": "success",
-        "timestamp": 1711200000,
-        "metadata": {
-            "version": "1.0",
-            "active": true
-        },
-        "results": [
-            { "id": 1234567890123456789, "name": "BigInt Precision Test", "tags": ["protected", "data"] },
-            { "id": 102, "name": "Bread", "price": 2.50, "tags": ["bakery"] },
-            { "id": 103, "name": "Milk", "price": null, "error": "Out of stock" }
-        ],
-        "nested_test": { "level_1": { "level_2": { "secret_key": "x8f9d0" } } }
-      };
-      document.getElementById('input-json').value = JSON.stringify(example);
-      formatJSON(true); 
+    function expandAll() {
+      if (!parsedData) return;
+      renderTree("all");
+      setStatus("valid", "Expanded", "All nodes expanded");
     }
 
-    document.getElementById('lang-select').addEventListener('change', (e) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', e.target.value);
-      window.location.href = url.href;
+    function collapseAll() {
+      if (!parsedData) return;
+      renderTree(0);
+      setStatus("valid", "Collapsed", "Top level only");
+    }
+
+    function exportPng() {
+      if (!parsedData) return;
+
+      const wrap = document.createElement("div");
+      wrap.className = "capture-wrap";
+      wrap.innerHTML = `
+        <div class="capture-window">
+          <div class="capture-bar">
+            <div class="capture-dot" style="background:#ef4444"></div>
+            <div class="capture-dot" style="background:#fde047"></div>
+            <div class="capture-dot" style="background:#22c55e"></div>
+          </div>
+          <div class="capture-content" id="captureContent"></div>
+        </div>
+        <div class="capture-watermark">mini-tools.uk</div>
+      `;
+      document.body.appendChild(wrap);
+
+      const captureContent = wrap.querySelector("#captureContent");
+      renderjson.set_show_to_level("all");
+      captureContent.appendChild(renderjson(parsedData));
+
+      const stringNodes = captureContent.querySelectorAll(".string");
+      stringNodes.forEach(node => {
+        const raw = node.textContent || "";
+        if (raw.includes(BIGINT_PREFIX)) {
+          const cleaned = raw.replace(BIGINT_PREFIX, "").replace(/^"|"$/g, "");
+          node.textContent = cleaned;
+          node.classList.remove("string");
+          node.classList.add("number");
+        }
+      });
+
+      html2canvas(wrap, {backgroundColor: null, scale: 2, useCORS: true, logging: false}).then(canvas => {
+        const link = document.createElement("a");
+        link.href = canvas.toDataURL("image/png");
+        link.download = "mini-tools-json.png";
+        link.click();
+        document.body.removeChild(wrap);
+        renderjson.set_show_to_level(2);
+        if (parsedData) renderTree(2);
+      }).catch(() => {
+        document.body.removeChild(wrap);
+        renderjson.set_show_to_level(2);
+        if (parsedData) renderTree(2);
+      });
+    }
+
+    inputEl.addEventListener("input", () => {
+      updateStats();
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => parseJson(true), 300);
     });
 
-    window.onload = () => {
-      updateLanguage();
-    };
+    formatBtn.addEventListener("click", beautifyJson);
+    minifyBtn.addEventListener("click", minifyJson);
+    clearBtn.addEventListener("click", clearAll);
+    exampleBtn.addEventListener("click", loadExample);
+    expandBtn.addEventListener("click", expandAll);
+    collapseBtn.addEventListener("click", collapseAll);
+    copyBtn.addEventListener("click", copyJson);
+    exportBtn.addEventListener("click", exportPng);
+
+    document.addEventListener("keydown", (event) => {
+      const mod = event.ctrlKey || event.metaKey;
+      if (mod && event.key.toLowerCase() === "s") {
+        event.preventDefault();
+        beautifyJson();
+      }
+      if (mod && event.key.toLowerCase() === "m") {
+        event.preventDefault();
+        minifyJson();
+      }
+    });
+
+    const dropdown = document.getElementById("categoriesDropdown");
+    const trigger = dropdown.querySelector(".nav-button");
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      const open = dropdown.classList.toggle("open");
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.addEventListener("click", (e) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove("open");
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    updateStats();
+    clearOutput();
   </script>
 </body>
 </html>
