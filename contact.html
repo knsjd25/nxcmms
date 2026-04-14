@@ -3,22 +3,29 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  
-  <title id="meta-title">Contact Us | Mini-Tools.uk — Secure Web Utilities</title>
-  <meta name="description" id="meta-desc" content="Get in touch with the team behind Mini-Tools.uk. We welcome feature requests, bug reports, and technical discussions." />
-  <meta name="keywords" id="meta-keywords" content="contact mini-tools, support, feedback, secure tools, developer contact" />
-  
+
+  <title>Contact Mini-Tools | Support, Feedback and Site Questions</title>
+  <meta name="description" content="Contact Mini-Tools for support, feedback, bug reports, feature suggestions, or general site questions." />
+  <meta name="keywords" content="contact mini-tools, support, feedback, bug report, feature request, site contact" />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://mini-tools.uk/contact" />
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/contact?lang=en" />
-  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/contact?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/contact?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/contact?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/contact?lang=de" />
-  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/contact" />
+
+  <meta property="og:title" content="Contact Mini-Tools | Support, Feedback and Site Questions" />
+  <meta property="og:description" content="Get in touch about support, feedback, bug reports, feature suggestions, or general site questions." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mini-tools.uk/contact" />
+  <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-192x192.png" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Contact Mini-Tools" />
+  <meta name="twitter:description" content="Get in touch about support, feedback, bug reports, feature suggestions, or general site questions." />
+  <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-192x192.png" />
 
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -28,354 +35,318 @@
     gtag('config', 'G-DR6V84JEZW');
   </script>
 
-  <script async src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-  
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"ContactPage",
+        "name":"Contact Mini-Tools",
+        "url":"https://mini-tools.uk/contact",
+        "description":"Contact page for Mini-Tools support, feedback, and general site questions."
+      },
+      {
+        "@type":"Organization",
+        "name":"Mini-Tools",
+        "url":"https://mini-tools.uk",
+        "logo":"https://assets.mini-tools.uk/image/icon-192x192.png"
+      }
+    ]
+  }
+  </script>
+
   <style>
-    body { font-family: 'Plus Jakarta Sans', ui-sans-serif, sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
-    
-    .hero-pattern { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 24px 24px; }
-    
-    .contact-card { 
-      background: white; 
-      border: 1px solid #e2e8f0; 
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-      border-radius: 1.5rem;
-      padding: 3rem 2rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+    :root{
+      --bg:#f8fafc;
+      --panel:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --line:#e2e8f0;
+      --brand:#2563eb;
+      --brand-soft:#dbeafe;
+      --shadow:0 10px 25px -5px rgba(15,23,42,0.08);
+      --radius:22px;
+      --sans:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
     }
-    .contact-card:hover { 
-      transform: translateY(-4px); 
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); 
-      border-color: #bfdbfe; 
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans)}
+    body{min-height:100vh;display:flex;flex-direction:column}
+    a{text-decoration:none;color:inherit}
+
+    .container{width:min(1180px,calc(100% - 32px));margin:0 auto}
+
+    .site-header{
+      position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);
+      backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
     }
-    .icon-box { 
-      width: 4rem; height: 4rem; 
-      margin: 0 auto 1.5rem auto; 
-      border-radius: 1rem; 
-      display: flex; align-items: center; justify-content: center; 
-      font-size: 1.75rem; 
-      transition: transform 0.3s; 
+    .site-header-inner{
+      min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;
     }
-    .contact-card:hover .icon-box { transform: scale(1.1) rotate(5deg); }
-    
-    /* Anti-Spam Mailto Link */
-    .secure-mail { 
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 0.75rem 1.5rem;
-      background: #f1f5f9;
-      color: #3b82f6;
-      font-weight: 800;
-      border-radius: 0.75rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: 1px dashed #cbd5e1;
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;object-fit:contain;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    .brand-title{font-weight:900;font-size:1.15rem;letter-spacing:-.02em}
+    .brand-title span{color:var(--brand)}
+
+    .nav{display:flex;align-items:center;gap:8px;position:relative}
+    .nav-link,.nav-button{
+      padding:10px 14px;border-radius:12px;font-size:.95rem;font-weight:800;color:#334155;
+      transition:background .2s,color .2s;display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;
     }
-    .secure-mail:hover {
-      background: #eff6ff;
-      border-color: #60a5fa;
-      color: #2563eb;
+    .nav-link:hover,.nav-button:hover{background:#f1f5f9;color:#0f172a}
+    .nav-link.active{background:#eff6ff;color:var(--brand)}
+
+    .dropdown{position:relative}
+    .dropdown-bridge{position:absolute;left:0;right:0;height:14px;top:100%}
+    .dropdown-menu{
+      position:absolute;top:calc(100% + 10px);left:0;min-width:240px;background:#fff;border:1px solid var(--line);
+      border-radius:16px;padding:10px;box-shadow:0 20px 40px rgba(15,23,42,.12);
+      opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s;
+    }
+    .dropdown.open .dropdown-menu,
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+    .dropdown-item{display:block;padding:11px 12px;border-radius:12px;font-weight:700;color:#334155}
+    .dropdown-item:hover{background:#f8fafc;color:#0f172a}
+
+    .hero{
+      position:relative;overflow:hidden;background:linear-gradient(180deg,#ffffff 0%, #f8fbff 100%);
+      border-bottom:1px solid var(--line);
+    }
+    .hero::before{
+      content:"";position:absolute;inset:0;
+      background-image:radial-gradient(#dbe4ef 1px, transparent 1px);
+      background-size:24px 24px;opacity:.55;
+    }
+    .hero-inner{
+      position:relative;z-index:1;padding:84px 0 74px;text-align:center;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;
+      font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+    }
+    h1{
+      margin:18px auto 14px;max-width:900px;font-size:clamp(2.3rem,5vw,4.2rem);line-height:1.02;letter-spacing:-.05em
+    }
+    .hero-text{
+      max-width:820px;margin:0 auto;color:var(--muted);font-size:1.14rem;line-height:1.8
+    }
+
+    .content-wrap{
+      width:min(1080px,calc(100% - 32px));margin:-34px auto 0;position:relative;z-index:2;
+    }
+    .content-card{
+      background:#fff;border:1px solid var(--line);border-radius:32px;box-shadow:0 24px 60px rgba(15,23,42,.06);
+      padding:32px 28px 34px;
+    }
+
+    .intro{
+      color:#475569;font-size:1.04rem;line-height:1.8;margin:0 0 24px
+    }
+
+    .cards{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:10px 0 24px
+    }
+    .contact-card{
+      background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px 22px;box-shadow:var(--shadow);
+      transition:transform .18s, box-shadow .18s, border-color .18s
+    }
+    .contact-card:hover{
+      transform:translateY(-3px);box-shadow:0 20px 40px rgba(15,23,42,.09);border-color:#bfdbfe
+    }
+    .icon-box{
+      width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;
+      font-size:1.55rem;margin-bottom:16px
+    }
+    .icon-box.blue{background:#eff6ff;color:#2563eb}
+    .icon-box.purple{background:#f5f3ff;color:#7c3aed}
+    .contact-card h2{
+      margin:0 0 10px;font-size:1.45rem;line-height:1.2;letter-spacing:-.03em
+    }
+    .contact-card p{
+      margin:0 0 16px;color:#64748b;line-height:1.75;font-size:1rem
+    }
+    .mail-link{
+      display:inline-block;padding:12px 16px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:14px;color:#2563eb;
+      font-weight:900;transition:.18s
+    }
+    .mail-link:hover{background:#eff6ff;border-color:#60a5fa;color:#1d4ed8}
+
+    .section{
+      margin-top:28px
+    }
+    .section h3{
+      margin:0 0 12px;font-size:1.5rem;letter-spacing:-.03em
+    }
+    .section p{
+      margin:0 0 14px;color:#475569;line-height:1.8;font-size:1.03rem
+    }
+    .section ul{
+      margin:0;padding:20px 22px 18px 44px;background:#f8fafc;border:1px solid var(--line);border-radius:20px
+    }
+    .section li{
+      color:#334155;line-height:1.8;margin:0 0 10px
+    }
+    .section li:last-child{margin-bottom:0}
+    .note{
+      margin-top:14px;padding:16px 18px;border-radius:16px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;
+      font-size:.95rem;font-weight:700;line-height:1.7
+    }
+
+    .site-footer{
+      margin-top:42px;padding:28px 0;background:#fff;border-top:1px solid var(--line)
+    }
+    .footer-links{
+      display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-bottom:12px;
+      font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#64748b
+    }
+    .footer-links a:hover{color:var(--brand)}
+    .footer-note{
+      text-align:center;font-size:.72rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#cbd5e1
+    }
+
+    @media (max-width: 900px){
+      .site-header-inner{flex-wrap:wrap;padding:10px 0}
+      .nav{width:100%;overflow:auto;padding-bottom:4px}
+      .cards{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      .container,.content-wrap{width:min(100% - 20px,1180px)}
+      .content-card{padding:22px 18px 24px}
+      .hero-inner{padding:62px 0 64px}
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="brand" href="/">
+        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools logo" />
+        <div class="brand-title">Mini-Tools<span>.uk</span></div>
+      </a>
 
-  <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-    <div class="max-w-[1400px] mx-auto px-6 py-4 flex flex-wrap gap-4 justify-between items-center">
-      <div class="flex items-center gap-3">
-        <a href="/" class="transition-transform active:scale-90 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
-        </a>
-        <div class="flex flex-col -mt-1">
-          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+      <nav class="nav" aria-label="Main navigation">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/#all-tools">All Tools</a>
+
+        <div class="dropdown" id="categoriesDropdown">
+          <button class="nav-button" type="button" aria-expanded="false" aria-controls="categoriesMenu">
+            Categories
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="dropdown-bridge" aria-hidden="true"></div>
+          <div class="dropdown-menu" id="categoriesMenu" role="menu">
+            <a class="dropdown-item" href="/#uk-finance">UK Finance</a>
+            <a class="dropdown-item" href="/#developer-tools">Developer Tools</a>
+            <a class="dropdown-item" href="/#image-tools">Image & PDF</a>
+            <a class="dropdown-item" href="/#text-conversion">Text & Conversion</a>
+            <a class="dropdown-item" href="/#privacy-security">Security & Privacy</a>
+          </div>
         </div>
-      </div>
-      
-      <div class="flex items-center gap-4 sm:gap-6">
-        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
-          <span id="nav-blog-text">Blog & Guides</span>
-        </a>
 
-        <select id="lang-select" class="bg-slate-100 px-3 py-2 rounded-lg text-sm font-bold text-slate-700 outline-none cursor-pointer border-none hover:bg-slate-200 transition-colors">
-          <option value="en">🇬🇧 English</option>
-          <option value="zh">🇨🇳 简体中文</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="de">🇩🇪 Deutsch</option>
-        </select>
-      </div>
-    </div>
-  </nav>
-
-  <header class="bg-white border-b border-slate-200 relative overflow-hidden hero-pattern">
-    <div class="absolute inset-0 bg-gradient-to-b from-white/40 to-white/90"></div>
-    <div class="max-w-4xl mx-auto pt-24 pb-20 px-6 text-center relative z-10">
-      <div class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-xs font-bold mb-6 uppercase tracking-widest border border-blue-100" id="hero-tag">Get in Touch</div>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 leading-tight tracking-tight" id="hero-title">
-        Contact Us
-      </h1>
-      <p class="text-xl text-slate-600 font-medium max-w-2xl mx-auto" id="hero-sub">
-        We build tools for you. Whether you found a bug or want a new feature, we are always listening.
-      </p>
+        <a class="nav-link" href="/blog">Blog</a>
+        <a class="nav-link" href="/about">About</a>
+        <a class="nav-link active" href="/contact">Contact</a>
+      </nav>
     </div>
   </header>
 
-  <main class="max-w-5xl mx-auto px-6 py-16 flex-1 w-full relative z-20 mb-10 -mt-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="cards-container">
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="eyebrow">Contact Mini-Tools</div>
+      <h1>Questions, bug reports, and site feedback are all welcome.</h1>
+      <p class="hero-text">
+        Mini-Tools is still evolving. If something feels broken, confusing, incomplete, or worth improving,
+        getting a clear note from a real user helps more than silence.
+      </p>
+    </div>
+  </section>
+
+  <main class="content-wrap">
+    <article class="content-card">
+      <p class="intro">
+        This page is here for practical contact, not filler. You can use it to report bugs, suggest new tools, ask
+        questions about how a page works, or raise issues related to the site and its policies.
+      </p>
+
+      <div class="cards">
+        <section class="contact-card">
+          <div class="icon-box blue">💻</div>
+          <h2>Support and feedback</h2>
+          <p>
+            Use this contact for bug reports, confusing tool behavior, broken layouts, incorrect calculations, feature
+            suggestions, or general site feedback.
+          </p>
+          <a class="mail-link" href="mailto:yuyananuu@gmail.com">yuyananuu (at) gmail.com</a>
+        </section>
+
+        <section class="contact-card">
+          <div class="icon-box purple">🤝</div>
+          <h2>Business and policy questions</h2>
+          <p>
+            Use this address for business inquiries, policy questions, or requests related to site administration and
+            hosted content handling.
+          </p>
+          <a class="mail-link" href="mailto:admin@mini-tools.uk">admin (at) mini-tools.uk</a>
+        </section>
+      </div>
+
+      <section class="section">
+        <h3>What to include in a helpful message</h3>
+        <p>
+          The clearer the message, the easier it is to act on it. If you are reporting a problem, details are more useful
+          than urgency.
+        </p>
+        <ul>
+          <li><strong>The page name or URL.</strong> This helps narrow the issue quickly.</li>
+          <li><strong>What you expected and what actually happened.</strong> A short comparison saves time.</li>
+          <li><strong>Your device or browser if relevant.</strong> Some issues only appear in certain environments.</li>
+          <li><strong>A screenshot if it helps explain the problem.</strong> Visual context is often the fastest way to understand a bug.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h3>Before sending sensitive material</h3>
+        <p>
+          Some pages on the site are local-only tools, while others may rely on remote services. Email is not the right
+          place for secrets, passwords, or highly sensitive personal data unless you have a good reason and understand the risk.
+        </p>
+        <div class="note">
+          Keep contact messages focused on the issue itself. Do not send credentials, payment details, or anything you would not want sitting in plain email.
         </div>
+      </section>
+    </article>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-auto w-full">
-    <div class="max-w-[1400px] mx-auto px-6 text-center">
-      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
-        </a>
-        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
-        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/blog">Blog</a>
       </div>
-      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
-        © 2026 MINI-TOOLS.UK — SECURE CLIENT-SIDE WEB UTILITIES
-      </p>
-      <p id="last-updated-text" class="text-center text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-2"></p>
+      <div class="footer-note">© 2026 Mini-Tools.uk — site contact for feedback, support, and policy questions</div>
     </div>
   </footer>
 
   <script>
-    // 🌟 防爬虫邮箱点击解密器
-    function safeMailto(user, domain) {
-      window.location.href = 'mailto:' + user + '@' + domain;
-    }
-
-    const i18n = {
-      en: {
-        metaTitle: "Contact Us | Mini-Tools.uk — Secure Web Utilities",
-        metaDesc: "Get in touch with the team behind Mini-Tools.uk. We welcome feature requests, bug reports, and technical discussions.",
-        metaKeywords: "contact mini-tools, support, feedback, secure tools, developer contact",
-        navBlog: "Blog & Guides",
-        footerAbout: "About Us", footerBlog: "Blog", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
-        lastUpdated: "LAST UPDATED: ",
-        heroTag: "Get in Touch",
-        heroTitle: "Contact Us",
-        heroSub: "We build tools for you. Whether you found a bug or want a new feature, we are always listening.",
-        cardsHtml: `
-          <div class="contact-card">
-            <div class="icon-box bg-blue-50 text-blue-600 shadow-inner">💻</div>
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Technical Support</h3>
-            <p class="text-slate-500 mb-4 leading-relaxed">Found a bug? Have a feature request? Or just want to discuss front-end architecture? The developer is always happy to chat.</p>
-            <div class="secure-mail" onclick="safeMailto('yuyananuu', 'gmail.com')">
-              yuyananuu (at) gmail.com
-            </div>
-          </div>
-          <div class="contact-card">
-            <div class="icon-box bg-purple-50 text-purple-600 shadow-inner">🤝</div>
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Business & Legal</h3>
-            <p class="text-slate-500 mb-4 leading-relaxed">For business inquiries, advertising partnerships, or GDPR/Privacy related requests (e.g., Image Deletion requests).</p>
-            <div class="secure-mail" onclick="safeMailto('admin', 'mini-tools.uk')">
-              admin (at) mini-tools.uk
-            </div>
-          </div>
-        `
-      },
-      zh: {
-        metaTitle: "联系我们 | Mini-Tools.uk",
-        metaDesc: "与 Mini-Tools 开发团队取得联系。欢迎提交功能建议、Bug 反馈或技术交流。",
-        metaKeywords: "联系Mini-Tools, 技术支持, 反馈, 开发者邮箱",
-        navBlog: "官方博客与教程",
-        footerAbout: "关于我们", footerBlog: "官方博客", footerPrivacy: "隐私政策", footerContact: "联系我们",
-        lastUpdated: "最后更新：",
-        heroTag: "保持联系",
-        heroTitle: "联系我们",
-        heroSub: "所有的工具都是为您打造的。无论您是发现了 Bug 还是想要新功能，我们都在认真倾听。",
-        cardsHtml: `
-          <div class="contact-card">
-            <div class="icon-box bg-blue-50 text-blue-600 shadow-inner">💻</div>
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-3">技术交流与反馈</h3>
-            <p class="text-slate-500 mb-4 leading-relaxed">发现了 Bug？需要增加新的在线工具？或者只是单纯想聊聊纯前端技术架构？开发者随时欢迎您的邮件。</p>
-            <div class="secure-mail" onclick="safeMailto('yuyananuu', 'gmail.com')">
-              yuyananuu (at) gmail.com
-            </div>
-          </div>
-          <div class="contact-card">
-            <div class="icon-box bg-purple-50 text-purple-600 shadow-inner">🤝</div>
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-3">商务与法务合规</h3>
-            <p class="text-slate-500 mb-4 leading-relaxed">适用于商务合作探讨、广告投放咨询，或任何涉及 GDPR 隐私法案的请求（例如：申请强制销毁安全图床中的特定图片）。</p>
-            <div class="secure-mail" onclick="safeMailto('admin', 'mini-tools.uk')">
-              admin (at) mini-tools.uk
-            </div>
-          </div>
-        `
-      },
-      es: {
-        metaTitle: "Contáctenos | Mini-Tools.uk",
-        metaDesc: "Póngase en contacto con el equipo detrás de Mini-Tools.uk.",
-        metaKeywords: "contacto mini-tools, soporte, comentarios",
-        navBlog: "Blog y Guías",
-        footerAbout: "Sobre Nosotros", footerBlog: "Blog", footerPrivacy: "Privacidad", footerContact: "Contacto",
-        lastUpdated: "ÚLTIMA ACTUALIZACIÓN: ",
-        heroTag: "Póngase en Contacto",
-        heroTitle: "Contáctenos",
-        heroSub: "Construimos herramientas para usted. Si encontró un error o quiere una nueva función, siempre estamos escuchando.",
-        cardsHtml: `
-          <div class="contact-card">
-            <div class="icon-box bg-blue-50 text-blue-600 shadow-inner">💻</div>
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Soporte Técnico</h3>
-            <p class="text-slate-500 mb-4 leading-relaxed">¿Encontró un error? ¿Tiene una sugerencia? El desarrollador siempre está feliz de conversar.</p>
-            <div class="secure-mail" onclick="safeMailto('yuyananuu', 'gmail.com')">
-              yuyananuu (at) gmail.com
-            </div>
-          </div>
-          <div class="contact-card">
-            <div class="icon-box bg-purple-50 text-purple-600 shadow-inner">🤝</div>
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Negocios y Privacidad</h3>
-            <p class="text-slate-500 mb-4 leading-relaxed">Para consultas comerciales o solicitudes relacionadas con el RGPD (ej. eliminación de imágenes).</p>
-            <div class="secure-mail" onclick="safeMailto('admin', 'mini-tools.uk')">
-              admin (at) mini-tools.uk
-            </div>
-          </div>
-        `
-      },
-      fr: {
-        metaTitle: "Nous Contacter | Mini-Tools.uk",
-        metaDesc: "Contactez l'équipe derrière Mini-Tools.uk.",
-        metaKeywords: "contact mini-tools, support, commentaires",
-        navBlog: "Blog et Guides",
-        footerAbout: "À Propos", footerBlog: "Blog", footerPrivacy: "Confidentialité", footerContact: "Contact",
-        lastUpdated: "DERNIÈRE MISE À JOUR : ",
-        heroTag: "Restons en Contact",
-        heroTitle: "Nous Contacter",
-        heroSub: "Que vous ayez trouvé un bug ou souhaitiez une nouvelle fonctionnalité, nous sommes à votre écoute.",
-        cardsHtml: `
-          <div class="contact-card">
-            <div class="icon-box bg-blue-50 text-blue-600 shadow-inner">💻</div>
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Support Technique</h3>
-            <p class="text-slate-500 mb-4 leading-relaxed">Vous avez trouvé un bug ? Une suggestion ? Le développeur est toujours heureux d'en discuter.</p>
-            <div class="secure-mail" onclick="safeMailto('yuyananuu', 'gmail.com')">
-              yuyananuu (at) gmail.com
-            </div>
-          </div>
-          <div class="contact-card">
-            <div class="icon-box bg-purple-50 text-purple-600 shadow-inner">🤝</div>
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Affaires et Légal</h3>
-            <p class="text-slate-500 mb-4 leading-relaxed">Pour les demandes commerciales ou liées au RGPD (ex. suppression d'image).</p>
-            <div class="secure-mail" onclick="safeMailto('admin', 'mini-tools.uk')">
-              admin (at) mini-tools.uk
-            </div>
-          </div>
-        `
-      },
-      de: {
-        metaTitle: "Kontaktieren Sie Uns | Mini-Tools.uk",
-        metaDesc: "Nehmen Sie Kontakt mit dem Team hinter Mini-Tools.uk auf.",
-        metaKeywords: "kontakt mini-tools, support, feedback",
-        navBlog: "Blog & Anleitungen",
-        footerAbout: "Über Uns", footerBlog: "Blog", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
-        lastUpdated: "ZULETZT AKTUALISIERT: ",
-        heroTag: "Nehmen Sie Kontakt auf",
-        heroTitle: "Kontakt",
-        heroSub: "Egal, ob Sie einen Fehler gefunden haben oder eine neue Funktion wünschen, wir hören immer zu.",
-        cardsHtml: `
-          <div class="contact-card">
-            <div class="icon-box bg-blue-50 text-blue-600 shadow-inner">💻</div>
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Technischer Support</h3>
-            <p class="text-slate-500 mb-4 leading-relaxed">Fehler gefunden? Funktionsanfrage? Der Entwickler freut sich immer über einen Austausch.</p>
-            <div class="secure-mail" onclick="safeMailto('yuyananuu', 'gmail.com')">
-              yuyananuu (at) gmail.com
-            </div>
-          </div>
-          <div class="contact-card">
-            <div class="icon-box bg-purple-50 text-purple-600 shadow-inner">🤝</div>
-            <h3 class="text-2xl font-extrabold text-slate-900 mb-3">Geschäft & Recht</h3>
-            <p class="text-slate-500 mb-4 leading-relaxed">Für geschäftliche Anfragen oder DSGVO-bezogene Anträge (z.B. Bildlöschung).</p>
-            <div class="secure-mail" onclick="safeMailto('admin', 'mini-tools.uk')">
-              admin (at) mini-tools.uk
-            </div>
-          </div>
-        `
-      }
-    };
-
-    function updateLanguage() {
-      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
-      const data = i18n[lang] || i18n['en'];
-      
-      document.documentElement.lang = lang;
-      
-      // Update Meta
-      document.title = data.metaTitle;
-      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
-      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
-
-      // Update Navigation
-      if (document.getElementById('nav-blog-text')) document.getElementById('nav-blog-text').innerText = data.navBlog;
-
-      // Update Hero Section
-      document.getElementById('hero-tag').innerText = data.heroTag;
-      document.getElementById('hero-title').innerText = data.heroTitle;
-      document.getElementById('hero-sub').innerText = data.heroSub;
-      
-      // Update Footer
-      if (document.getElementById('footer-about')) document.getElementById('footer-about').innerText = data.footerAbout;
-      if (document.getElementById('footer-blog')) document.getElementById('footer-blog').innerText = data.footerBlog;
-      if (document.getElementById('footer-privacy')) document.getElementById('footer-privacy').innerText = data.footerPrivacy;
-      if (document.getElementById('footer-contact')) document.getElementById('footer-contact').innerText = data.footerContact;
-      
-      // QDF 永动更新护城河
-      const updateSpan = document.getElementById('last-updated-text');
-      if (updateSpan && data.lastUpdated) {
-          const now = new Date();
-          now.setDate(now.getDate() - 1); 
-          
-          let locale = 'en-GB';
-          if(lang === 'zh') locale = 'zh-CN';
-          if(lang === 'es') locale = 'es-ES';
-          if(lang === 'fr') locale = 'fr-FR';
-          if(lang === 'de') locale = 'de-DE';
-          
-          const options = { year: 'numeric', month: 'long', day: 'numeric' };
-          const formattedDate = now.toLocaleDateString(locale, options);
-          updateSpan.innerText = data.lastUpdated + formattedDate;
-      }
-      
-      // Inject Cards
-      const container = document.getElementById('cards-container');
-      if (data.cardsHtml) {
-          container.style.opacity = 0;
-          setTimeout(() => {
-              container.innerHTML = data.cardsHtml;
-              container.style.opacity = 1;
-          }, 150);
-      }
-
-      document.getElementById('lang-select').value = lang;
-      
-      // Clean URLs for internal links
-      document.querySelectorAll('a').forEach(link => {
-        const href = link.getAttribute('href');
-        // Ignore external HTTP links
-        if (href && !href.startsWith('http') && !href.startsWith('mailto') && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
-          try {
-            const url = new URL(href, window.location.origin);
-            url.searchParams.set('lang', lang);
-            link.href = url.pathname + url.search;
-          } catch(e) {}
-        }
-      });
-    }
-
-    document.getElementById('lang-select').addEventListener('change', (e) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', e.target.value);
-      window.location.href = url.href;
+    const dropdown = document.getElementById("categoriesDropdown");
+    const trigger = dropdown.querySelector(".nav-button");
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      const open = dropdown.classList.toggle("open");
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
     });
-
-    window.onload = updateLanguage;
+    document.addEventListener("click", (e) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove("open");
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
   </script>
 </body>
 </html>
