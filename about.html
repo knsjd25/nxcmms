@@ -3,18 +3,29 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  
-  <title id="meta-title">About Us | Mini-Tools.uk — The Privacy-First Utility Platform</title>
-  <meta name="description" id="meta-desc" content="Learn about the mission, technology, and team behind Mini-Tools.uk. We build high-performance, privacy-focused online utilities for professionals worldwide." />
-  <meta name="keywords" id="meta-keywords" content="about mini-tools, privacy-first web tools, client-side utilities, secure developer tools, zero trust architecture" />
-  
+
+  <title>About Mini-Tools | Privacy-Focused Browser Utilities</title>
+  <meta name="description" content="Learn what Mini-Tools is, why it was built, and how the site approaches privacy, browser-based processing, and simple everyday utility pages." />
+  <meta name="keywords" content="about mini-tools, browser utilities, privacy focused tools, client-side tools, web utility platform" />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://mini-tools.uk/about" />
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/about?lang=en" />
-  <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/about?lang=zh" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/about?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/about?lang=fr" />
-  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/about?lang=de" />
-  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/about" />
+
+  <meta property="og:title" content="About Mini-Tools | Privacy-Focused Browser Utilities" />
+  <meta property="og:description" content="Learn what Mini-Tools is, why it was built, and how the site approaches privacy and browser-based utilities." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mini-tools.uk/about" />
+  <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-192x192.png" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="About Mini-Tools" />
+  <meta name="twitter:description" content="Learn what Mini-Tools is and how the site approaches privacy and browser-based utilities." />
+  <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-192x192.png" />
+
+  <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -24,317 +35,331 @@
     gtag('config', 'G-DR6V84JEZW');
   </script>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
-
-  <meta property="og:title" content="About Us | Mini-Tools.uk — The Privacy-First Utility Platform">
-  <meta property="og:description" content="We build high-performance, privacy-focused online utilities for professionals worldwide.">
-  <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-192x192.png">
-  <meta property="og:url" content="https://mini-tools.uk/about">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="About Us | Mini-Tools.uk">
-  <meta name="twitter:description" content="We build high-performance, privacy-focused online utilities for professionals worldwide.">
-  <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-192x192.png">
-
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "AboutPage",
-    "mainEntity": {
-      "@type": "Organization",
-      "name": "Mini-Tools.uk",
-      "url": "https://mini-tools.uk",
-      "logo": "https://assets.mini-tools.uk/image/icon-192x192.png",
-      "description": "We build high-performance, privacy-focused online utilities for professionals worldwide.",
-      "knowsAbout": ["Web Utilities", "Client-Side Processing", "Privacy-First Tools", "PDF Processing", "Image Hosting"]
-    }
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"AboutPage",
+        "name":"About Mini-Tools",
+        "url":"https://mini-tools.uk/about",
+        "description":"Information about Mini-Tools and its browser-based utility pages."
+      },
+      {
+        "@type":"Organization",
+        "name":"Mini-Tools",
+        "url":"https://mini-tools.uk",
+        "logo":"https://assets.mini-tools.uk/image/icon-192x192.png",
+        "description":"Mini-Tools publishes browser-based utility pages for everyday web tasks."
+      }
+    ]
   }
   </script>
 
-  <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
-  <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
-
-  <script async src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-  
   <style>
-    body { font-family: 'Plus Jakarta Sans', ui-sans-serif, sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
+    :root{
+      --bg:#f8fafc;
+      --panel:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --line:#e2e8f0;
+      --brand:#2563eb;
+      --brand-soft:#dbeafe;
+      --shadow:0 10px 25px -5px rgba(15,23,42,0.08);
+      --radius:22px;
+      --sans:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    }
 
-    /* Typography for About Content (Optimized for Deep Reading & SEO) */
-    .prose-content { transition: opacity 0.3s ease-out; }
-    .prose-content p { font-size: 1.125rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
-    .prose-content h2 { font-size: 2.25rem; font-weight: 800; color: #0f172a; margin-top: 4rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.75rem; }
-    .prose-content h3 { font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-top: 2.5rem; margin-bottom: 1rem; }
-    .prose-content strong { color: #0f172a; font-weight: 700; }
-    .prose-content ul { margin-bottom: 2rem; background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; }
-    .prose-content li { font-size: 1.125rem; line-height: 1.7; color: #334155; margin-bottom: 1.25rem; position: relative; padding-left: 2rem; }
-    .prose-content li:last-child { margin-bottom: 0; }
-    .prose-content li::before { content: "✓"; color: #2563eb; font-weight: 900; position: absolute; left: 0; font-size: 1.25rem; top: -2px; }
-    .prose-content blockquote { border-left: 4px solid #3b82f6; background: #eff6ff; padding: 1.5rem 2rem; margin: 2rem 0; border-radius: 0 1rem 1rem 0; font-style: italic; color: #1e3a8a; font-weight: 600; }
-    
-    .hero-pattern { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 24px 24px; }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans)}
+    body{min-height:100vh;display:flex;flex-direction:column}
+    a{text-decoration:none;color:inherit}
+
+    .container{width:min(1180px,calc(100% - 32px));margin:0 auto}
+
+    .site-header{
+      position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);
+      backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+    }
+    .site-header-inner{
+      min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;object-fit:contain;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    .brand-title{font-weight:900;font-size:1.15rem;letter-spacing:-.02em}
+    .brand-title span{color:var(--brand)}
+
+    .nav{display:flex;align-items:center;gap:8px;position:relative}
+    .nav-link,.nav-button{
+      padding:10px 14px;border-radius:12px;font-size:.95rem;font-weight:800;color:#334155;
+      transition:background .2s,color .2s;display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;
+    }
+    .nav-link:hover,.nav-button:hover{background:#f1f5f9;color:#0f172a}
+    .nav-link.active{background:#eff6ff;color:var(--brand)}
+
+    .dropdown{position:relative}
+    .dropdown-bridge{position:absolute;left:0;right:0;height:14px;top:100%}
+    .dropdown-menu{
+      position:absolute;top:calc(100% + 10px);left:0;min-width:240px;background:#fff;border:1px solid var(--line);
+      border-radius:16px;padding:10px;box-shadow:0 20px 40px rgba(15,23,42,.12);
+      opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s;
+    }
+    .dropdown.open .dropdown-menu,
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+    .dropdown-item{display:block;padding:11px 12px;border-radius:12px;font-weight:700;color:#334155}
+    .dropdown-item:hover{background:#f8fafc;color:#0f172a}
+
+    .hero{
+      position:relative;overflow:hidden;background:linear-gradient(180deg,#ffffff 0%, #f8fbff 100%);
+      border-bottom:1px solid var(--line);
+    }
+    .hero::before{
+      content:"";position:absolute;inset:0;
+      background-image:radial-gradient(#dbe4ef 1px, transparent 1px);
+      background-size:24px 24px;opacity:.55;
+    }
+    .hero-inner{
+      position:relative;z-index:1;padding:86px 0 84px;text-align:center;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;
+      font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+    }
+    h1{
+      margin:18px auto 14px;max-width:900px;font-size:clamp(2.3rem,5vw,4.4rem);line-height:1.02;letter-spacing:-.05em
+    }
+    .hero-text{
+      max-width:820px;margin:0 auto;color:var(--muted);font-size:1.14rem;line-height:1.8
+    }
+
+    .content-wrap{
+      width:min(980px,calc(100% - 32px));margin:-34px auto 0;position:relative;z-index:2;
+    }
+    .content-card{
+      background:#fff;border:1px solid var(--line);border-radius:32px;box-shadow:0 24px 60px rgba(15,23,42,.06);
+      padding:34px 30px 36px;
+    }
+
+    .content-card p{
+      font-size:1.06rem;line-height:1.85;color:#475569;margin:0 0 18px
+    }
+    .content-card h2{
+      font-size:2rem;line-height:1.15;letter-spacing:-.03em;margin:36px 0 14px;color:#0f172a;padding-bottom:12px;border-bottom:2px solid #eef2f7
+    }
+    .content-card h3{
+      font-size:1.28rem;line-height:1.25;letter-spacing:-.02em;margin:24px 0 10px;color:#1e293b
+    }
+    .content-card strong{color:#0f172a}
+    .content-card ul{
+      margin:0 0 18px;padding:22px 22px 18px 48px;background:#f8fafc;border:1px solid var(--line);border-radius:20px
+    }
+    .content-card li{
+      color:#334155;line-height:1.8;margin:0 0 12px
+    }
+    .content-card li:last-child{margin-bottom:0}
+    .quote{
+      margin:22px 0;padding:18px 20px;border-left:4px solid #3b82f6;background:#eff6ff;border-radius:0 18px 18px 0;
+      color:#1e3a8a;font-weight:700;line-height:1.75
+    }
+    .info-grid{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:26px
+    }
+    .info-card{
+      background:#f8fafc;border:1px solid var(--line);border-radius:20px;padding:18px
+    }
+    .info-card span{
+      display:block;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;margin-bottom:8px
+    }
+    .info-card strong{
+      display:block;font-size:1.02rem;line-height:1.45;color:#0f172a
+    }
+
+    .site-footer{
+      margin-top:42px;padding:28px 0;background:#fff;border-top:1px solid var(--line)
+    }
+    .footer-links{
+      display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-bottom:12px;
+      font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#64748b
+    }
+    .footer-links a:hover{color:var(--brand)}
+    .footer-note{
+      text-align:center;font-size:.72rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#cbd5e1
+    }
+
+    @media (max-width: 900px){
+      .site-header-inner{flex-wrap:wrap;padding:10px 0}
+      .nav{width:100%;overflow:auto;padding-bottom:4px}
+      .info-grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      .container,.content-wrap{width:min(100% - 20px,1180px)}
+      .content-card{padding:22px 18px 24px}
+      .hero-inner{padding:62px 0 68px}
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="brand" href="/">
+        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools logo" />
+        <div class="brand-title">Mini-Tools<span>.uk</span></div>
+      </a>
 
-  <nav class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-    <div class="max-w-[1400px] mx-auto px-6 py-4 flex flex-wrap gap-4 justify-between items-center">
-      <div class="flex items-center gap-3">
-        <a href="/" id="nav-logo-link" class="transition-transform active:scale-90 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
-        </a>
-        <div class="flex flex-col -mt-1">
-          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+      <nav class="nav" aria-label="Main navigation">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/#all-tools">All Tools</a>
+
+        <div class="dropdown" id="categoriesDropdown">
+          <button class="nav-button" type="button" aria-expanded="false" aria-controls="categoriesMenu">
+            Categories
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="dropdown-bridge" aria-hidden="true"></div>
+          <div class="dropdown-menu" id="categoriesMenu" role="menu">
+            <a class="dropdown-item" href="/#uk-finance">UK Finance</a>
+            <a class="dropdown-item" href="/#developer-tools">Developer Tools</a>
+            <a class="dropdown-item" href="/#image-tools">Image & PDF</a>
+            <a class="dropdown-item" href="/#text-conversion">Text & Conversion</a>
+            <a class="dropdown-item" href="/#privacy-security">Security & Privacy</a>
+          </div>
         </div>
-      </div>
-      
-      <div class="flex items-center gap-4 sm:gap-6">
-        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
-          <span id="nav-blog-text">Blog & Guides</span>
-        </a>
 
-        <select id="lang-select" class="bg-slate-100 px-3 py-2 rounded-lg text-sm font-bold text-slate-700 outline-none cursor-pointer border-none hover:bg-slate-200 transition-colors">
-          <option value="en">🇬🇧 English</option>
-          <option value="zh">🇨🇳 简体中文</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="de">🇩🇪 Deutsch</option>
-        </select>
-      </div>
-    </div>
-  </nav>
-
-  <header class="bg-white border-b border-slate-200 relative overflow-hidden hero-pattern">
-    <div class="absolute inset-0 bg-gradient-to-b from-white/40 to-white/90"></div>
-    <div class="max-w-4xl mx-auto pt-24 pb-24 px-6 text-center relative z-10">
-      <div class="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-xs font-bold mb-6 uppercase tracking-widest border border-blue-100" id="hero-tag">Our Story & Mission</div>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 leading-tight tracking-tight" id="hero-title">
-        Engineering the Future of Secure Web Utilities.
-      </h1>
-      <p class="text-xl text-slate-600 font-medium max-w-2xl mx-auto" id="hero-sub">
-        Discover why thousands of professionals trust our zero-server, privacy-first toolset for their daily digital workflows.
-      </p>
+        <a class="nav-link" href="/blog">Blog</a>
+        <a class="nav-link active" href="/about">About</a>
+      </nav>
     </div>
   </header>
 
-  <main class="max-w-4xl mx-auto px-6 py-16 flex-1 w-full bg-white -mt-12 rounded-[2.5rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-slate-100 relative z-20 mb-20 prose-content">
-    <div id="seo-container">
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="eyebrow">About Mini-Tools</div>
+      <h1>Simple browser tools, built to be more useful and less noisy.</h1>
+      <p class="hero-text">
+        Mini-Tools is a growing collection of utility pages for everyday tasks like formatting text, converting files,
+        generating QR codes, and handling quick calculations. The goal is straightforward: make these tools easy to use,
+        fast to load, and clear about what happens to your data.
+      </p>
+    </div>
+  </section>
+
+  <main class="content-wrap">
+    <article class="content-card">
+      <p>
+        Mini-Tools started from a common frustration: too many small web tools are cluttered, confusing, or vague about
+        what they actually do. Some pages feel unfinished. Others bury the useful part under popups, dark patterns, or
+        unnecessary friction.
+      </p>
+
+      <p>
+        This site takes the opposite approach. Each page is meant to solve one practical task clearly. When a tool can
+        run entirely in the browser, it should say so. When a page needs to upload a file to a remote service, it should
+        say that too. Clear expectations matter.
+      </p>
+
+      <div class="quote">
+        A useful tool page should feel predictable: open it, understand it quickly, do the task, and leave with the result.
+      </div>
+
+      <h2>What the site is trying to do</h2>
+      <p>
+        Mini-Tools is being shaped around a few simple principles. They are not marketing slogans. They are practical
+        rules for how each page should be designed and explained.
+      </p>
+
+      <ul>
+        <li><strong>Keep the purpose obvious.</strong> A visitor should understand what a page does within a few seconds.</li>
+        <li><strong>Use the browser where possible.</strong> Many formatting, conversion, and generation tasks can run locally without sending inputs elsewhere.</li>
+        <li><strong>Be honest about limitations.</strong> Tools should explain what they cover, what they do not cover, and when a result is only an estimate.</li>
+        <li><strong>Reduce visual clutter.</strong> The interface should support the task instead of competing with it.</li>
+        <li><strong>Build trust page by page.</strong> About, Contact, and Privacy pages should read like real site information, not filler.</li>
+      </ul>
+
+      <h2>How Mini-Tools approaches privacy</h2>
+      <p>
+        Privacy on the web is not one single setting. It depends on what a page actually does. Some tools on the site
+        work entirely in the browser. Others may need a remote service to create a hosted file or shared link.
+      </p>
+
+      <p>
+        Because of that, Mini-Tools aims to describe privacy in a practical way instead of treating every page the same.
+        A local QR generator and a remote upload page should not pretend to have identical behavior. The site works best
+        when those differences are explained in plain language.
+      </p>
+
+      <h3>In practice, that means:</h3>
+      <ul>
+        <li>Local-only pages should say that processing happens in the browser.</li>
+        <li>Upload pages should say that files are sent to a service so a hosted result can be created.</li>
+        <li>Informational pages should explain the site clearly without exaggerated claims.</li>
+      </ul>
+
+      <h2>What kinds of tools you will find here</h2>
+      <p>
+        The site currently spans several categories, including UK finance utilities, developer and text tools, image and
+        PDF utilities, and a few sharing or convenience pages. Over time, pages are being rewritten so that navigation,
+        layout, wording, and trust signals feel more consistent across the site.
+      </p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <span>Focus</span>
+          <strong>Useful single-purpose tools for everyday web tasks</strong>
         </div>
+        <div class="info-card">
+          <span>Approach</span>
+          <strong>Prefer browser-based processing when the task allows it</strong>
+        </div>
+        <div class="info-card">
+          <span>Direction</span>
+          <strong>Improve clarity, consistency, and trust across the whole site</strong>
+        </div>
+      </div>
+
+      <h2>Contact and feedback</h2>
+      <p>
+        Mini-Tools is still evolving. Pages get adjusted, rewritten, or expanded as the site grows. Feedback helps with
+        that process, especially when it points out confusing wording, broken flows, missing explanations, or pages that
+        do not feel trustworthy enough yet.
+      </p>
+
+      <p>
+        For general contact, product questions, or site feedback, you can reach out at
+        <strong>yuyananuu (at) gmail.com</strong>.
+      </p>
+    </article>
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-auto w-full">
-    <div class="max-w-[1400px] mx-auto px-6 text-center">
-      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
-        </a>
-        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
-        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/blog">Blog</a>
       </div>
-      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
-        © 2026 MINI-TOOLS.UK — SECURE CLIENT-SIDE WEB UTILITIES
-      </p>
-      <p id="last-updated-text" class="text-center text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-2"></p>
+      <div class="footer-note">© 2026 Mini-Tools.uk — browser utilities with clearer trust signals</div>
     </div>
   </footer>
 
   <script>
-    // 🌟 核心优化 4：整合所有语言的 Meta (带长尾 Keywords) 和富文本到字典中
-    const i18n = {
-      en: {
-        metaTitle: "About Us | Mini-Tools.uk — The Privacy-First Utility Platform",
-        metaDesc: "Learn about the mission, technology, and team behind Mini-Tools.uk. We build high-performance, privacy-focused online utilities for professionals worldwide.",
-        metaKeywords: "about mini-tools, privacy-first web tools, client-side utilities, secure developer tools, zero trust architecture",
-        navBlog: "Blog & Guides",
-        footerAbout: "About Us", footerBlog: "Blog", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
-        lastUpdated: "LAST UPDATED: ",
-        heroTag: "Our Story & Mission",
-        heroTitle: "Engineering the Future of Secure Web Utilities.",
-        heroSub: "Discover why thousands of professionals trust our zero-server, privacy-first toolset for their daily digital workflows.",
-        seoHtml: `
-          <h2>The Developer's Story</h2>
-          <p>As a developer, I spend my days dealing with JSON formatting, parsing PDFs, and debugging complex API payloads. I got entirely fed up with the ecosystem of "free" online tools—websites cluttered with aggressive pop-up ads that secretly upload my confidential code and corporate documents to unknown remote servers.</p>
-          <p>So, I decided to build <strong>Mini-Tools.uk</strong>. My vision was simple: create a suite of high-performance utilities where <strong>every single tool runs 100% locally in your browser</strong>. Your data never leaves your device. I built these tools for myself to ensure absolute privacy, and now I am opening them up for everyone to use for free.</p>
-          <h2>Our "Zero-Trust" Architecture</h2>
-          <p>We engineered a completely different architectural approach, leveraging the immense processing power of modern web browsers:</p>
-          <ul>
-            <li><strong>Absolute Data Sovereignty:</strong> We use advanced HTML5 Canvas and Web Crypto APIs. We literally do not have the server infrastructure to receive, store, or analyze your personal inputs.</li>
-            <li><strong>Zero Latency & Instant Response:</strong> By eliminating the need to wait for a remote server, our tools achieve sub-millisecond response times. Everything calculates instantly on your CPU.</li>
-          </ul>
-          <h2>Contact & Support</h2>
-          <p>This platform is actively maintained and continually expanding. Whether you have a feature request, found a bug, or just want to discuss front-end architecture, my inbox is open. Feel free to reach out directly at <strong>yuyananuu (at) gmail.com</strong>.</p>
-          <p>Thank you for trusting <strong>Mini-Tools.uk</strong>.</p>`
-      },
-      zh: {
-        metaTitle: "关于我们 | Mini-Tools.uk — 隐私优先的在线工具平台",
-        metaDesc: "了解 Mini-Tools 背后的团队、使命与核心技术。我们致力于为全球数字工作者打造极致性能且坚守隐私安全的纯前端工具箱。",
-        metaKeywords: "关于Mini-Tools, 纯前端在线工具, 隐私保护工具, 开发者工具集合, 安全在线工具, 零信任架构",
-        navBlog: "官方博客与教程",
-        footerAbout: "关于我们", footerBlog: "官方博客", footerPrivacy: "隐私政策", footerContact: "联系我们",
-        lastUpdated: "最后更新：",
-        heroTag: "我们的故事与使命",
-        heroTitle: "构建安全在线工具的未来。",
-        heroSub: "了解为什么成千上万的专业人士在日常工作流中信任我们这款“零服务器、隐私优先”的极客工具集。",
-        seoHtml: `
-          <h2>一个开发者的初衷</h2>
-          <p>作为一名开发者，我每天都要处理各种 JSON、PDF 和复杂的 API 数据。我彻底受够了市面上那些所谓的“免费”在线工具——它们不仅充斥着弹窗广告，还会偷偷把我机密的代码和文档上传到未知的远程服务器。</p>
-          <p>所以我决定自己动手，打造了 <strong>Mini-Tools.uk</strong>。我的愿景很简单：构建一套高性能的工具集，并且<strong>所有的工具都必须 100% 在你的浏览器本地运行</strong>。你的数据永远不会离开你的设备。这原本是我为了保护自己的隐私而写的自用工具，现在我决定将它们免费开放给所有人。</p>
-          <h2>我们的“零信任”架构</h2>
-          <p>我们采用了一种完全颠覆传统架构的方法，充分利用现代浏览器的强大算力：</p>
-          <ul>
-            <li><strong>绝对的数据主权：</strong> 我们采用了先进的 HTML5 Canvas 和 Web Crypto API。事实上，我们根本没有部署用于接收、存储或分析您输入数据的后端服务器。</li>
-            <li><strong>零延迟极速体验：</strong> 无需等待服务器响应。一切都在您的个人 CPU 上瞬间计算完成，带来媲美原生桌面软件的丝滑体验。</li>
-          </ul>
-          <h2>联系与支持</h2>
-          <p>本平台处于活跃的开发和维护中。无论您是有新功能建议、发现了 Bug，还是想单纯地探讨前端技术架构，我都非常欢迎。请随时通过 <strong>yuyananuu (at) gmail.com</strong> 与我直接联系。</p>
-          <p>感谢您信任并选择 <strong>Mini-Tools.uk</strong>。</p>`
-      },
-      es: {
-        metaTitle: "Sobre Nosotros | Mini-Tools.uk — Plataforma de Utilidades Privadas",
-        metaDesc: "Conozca la misión y la tecnología detrás de Mini-Tools.uk. Herramientas web de alto rendimiento orientadas a la privacidad del usuario.",
-        metaKeywords: "sobre mini-tools, herramientas privacidad, procesamiento local, utilidades web seguras",
-        navBlog: "Blog y Guías",
-        footerAbout: "Sobre Nosotros", footerBlog: "Blog", footerPrivacy: "Privacidad", footerContact: "Contacto",
-        lastUpdated: "ÚLTIMA ACTUALIZACIÓN: ",
-        heroTag: "Nuestra Historia",
-        heroTitle: "Ingeniería del Futuro de Utilidades Web Seguras.",
-        heroSub: "Descubra por qué miles de profesionales confían en nuestro conjunto de herramientas sin servidor para sus flujos de trabajo diarios.",
-        seoHtml: `
-          <h2>La Historia del Desarrollador</h2>
-          <p>Como desarrollador, paso mis días lidiando con JSON, archivos PDF y cargas útiles de API. Me cansé de las herramientas en línea llenas de anuncios que suben en secreto mi código confidencial a servidores desconocidos.</p>
-          <p>Por eso, decidí construir <strong>Mini-Tools.uk</strong>. Mi visión era simple: crear un conjunto de utilidades donde <strong>cada herramienta se ejecute 100% localmente en su navegador</strong>. Sus datos nunca salen de su dispositivo.</p>
-          <h2>Nuestra Arquitectura "Zero-Trust"</h2>
-          <ul>
-            <li><strong>Soberanía Absoluta de Datos:</strong> No tenemos la infraestructura del servidor para recibir o almacenar sus entradas personales.</li>
-            <li><strong>Cero Latencia:</strong> Todo se calcula al instante en su CPU local.</li>
-          </ul>
-          <h2>Contacto</h2>
-          <p>Si tiene alguna sugerencia, encontró un error o desea discutir sobre la arquitectura frontend, no dude en comunicarse en <strong>yuyananuu (at) gmail.com</strong>.</p>`
-      },
-      fr: {
-        metaTitle: "À Propos | Mini-Tools.uk — Plateforme d'Utilitaires Privés",
-        metaDesc: "Découvrez la mission et l'équipe derrière Mini-Tools.uk. Des outils en ligne performants et respectueux de la vie privée pour les professionnels.",
-        metaKeywords: "à propos mini-tools, outils web privés, traitement côté client, utilitaires sécurisés",
-        navBlog: "Blog et Guides",
-        footerAbout: "À Propos", footerBlog: "Blog", footerPrivacy: "Confidentialité", footerContact: "Contact",
-        lastUpdated: "DERNIÈRE MISE À JOUR : ",
-        heroTag: "Notre Histoire",
-        heroTitle: "Ingénierie de l'Avenir des Utilitaires Web Sécurisés.",
-        heroSub: "Découvrez pourquoi des milliers de professionnels font confiance à nos outils sans serveur pour leurs flux de travail quotidiens.",
-        seoHtml: `
-          <h2>L'Histoire du Développeur</h2>
-          <p>En tant que développeur, je passe mes journées à manipuler du JSON et des PDF. J'en ai eu assez des outils en ligne infestés de publicités qui téléchargent secrètement mon code confidentiel sur des serveurs distants.</p>
-          <p>J'ai donc décidé de créer <strong>Mini-Tools.uk</strong>. Ma vision était simple : créer une suite d'utilitaires performants où <strong>chaque outil s'exécute 100 % localement dans votre navigateur</strong>. Vos données ne quittent jamais votre appareil.</p>
-          <h2>Notre Architecture "Zero-Trust"</h2>
-          <ul>
-            <li><strong>Souveraineté des Données :</strong> Nous n'avons aucun serveur pour recevoir ou stocker vos données personnelles.</li>
-            <li><strong>Zéro Latence :</strong> Tout est calculé instantanément sur votre processeur.</li>
-          </ul>
-          <h2>Contact</h2>
-          <p>Si vous avez des suggestions ou avez trouvé un bug, n'hésitez pas à me contacter directement à <strong>yuyananuu (at) gmail.com</strong>.</p>`
-      },
-      de: {
-        metaTitle: "Über Uns | Mini-Tools.uk — Die datenschutzfreundliche Utility-Plattform",
-        metaDesc: "Erfahren Sie mehr über die Mission und das Team hinter Mini-Tools.uk. Hochleistungsfähige, datenschutzorientierte Online-Tools.",
-        metaKeywords: "über mini-tools, private web tools, client-side verarbeitung, sichere entwickler tools",
-        navBlog: "Blog & Anleitungen",
-        footerAbout: "Über Uns", footerBlog: "Blog", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
-        lastUpdated: "ZULETZT AKTUALISIERT: ",
-        heroTag: "Unsere Geschichte",
-        heroTitle: "Die Zukunft Sicherer Web-Dienstprogramme.",
-        heroSub: "Entdecken Sie, warum Tausende von Profis für ihre täglichen Workflows auf unsere serverlosen Tools vertrauen.",
-        seoHtml: `
-          <h2>Die Geschichte des Entwicklers</h2>
-          <p>Als Entwickler verbringe ich meine Tage mit JSON und PDFs. Ich hatte genug von werbeüberladenen Online-Tools, die heimlich meinen vertraulichen Code auf unbekannte Server hochladen.</p>
-          <p>Deshalb habe ich beschlossen, <strong>Mini-Tools.uk</strong> zu entwickeln. Meine Vision war einfach: eine Suite von Dienstprogrammen zu erstellen, bei der <strong>jedes Tool zu 100 % lokal in Ihrem Browser ausgeführt wird</strong>. Ihre Daten verlassen niemals Ihr Gerät.</p>
-          <h2>Unsere "Zero-Trust" Architektur</h2>
-          <ul>
-            <li><strong>Absolute Datensouveränität:</strong> Wir haben keine Server, um Ihre persönlichen Eingaben zu empfangen oder zu speichern.</li>
-            <li><strong>Null Latenz:</strong> Alles wird sofort auf Ihrer eigenen CPU berechnet.</li>
-          </ul>
-          <h2>Kontakt</h2>
-          <p>Egal, ob Sie einen Fehler gefunden haben oder einfach nur über Front-End-Architektur diskutieren möchten, mein Posteingang ist offen: <strong>yuyananuu (at) gmail.com</strong>.</p>`
-      }
-    };
-
-    function updateLanguage() {
-      const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
-      const data = i18n[lang] || i18n['en'];
-      
-      document.documentElement.lang = lang;
-      
-      // 🌟 动态接管 Meta 数据：Title, Description 和核心长尾 Keywords
-      document.title = data.metaTitle;
-      document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
-      document.querySelector('meta[name="keywords"]').setAttribute("content", data.metaKeywords);
-
-      // Update Navigation
-      if (document.getElementById('nav-blog-text')) document.getElementById('nav-blog-text').innerText = data.navBlog;
-
-      // Update Hero Section
-      document.getElementById('hero-tag').innerText = data.heroTag;
-      document.getElementById('hero-title').innerText = data.heroTitle;
-      document.getElementById('hero-sub').innerText = data.heroSub;
-      
-      // Update Footer
-      if (document.getElementById('footer-about')) document.getElementById('footer-about').innerText = data.footerAbout;
-      if (document.getElementById('footer-blog')) document.getElementById('footer-blog').innerText = data.footerBlog;
-      if (document.getElementById('footer-privacy')) document.getElementById('footer-privacy').innerText = data.footerPrivacy;
-      if (document.getElementById('footer-contact')) document.getElementById('footer-contact').innerText = data.footerContact;
-      
-      // 🌟 QDF 永动更新护城河 (自动推算为昨天)
-      const updateSpan = document.getElementById('last-updated-text');
-      if (updateSpan && data.lastUpdated) {
-          const now = new Date();
-          now.setDate(now.getDate() - 1); // 往前推一天
-          
-          let locale = 'en-GB';
-          if(lang === 'zh') locale = 'zh-CN';
-          if(lang === 'es') locale = 'es-ES';
-          if(lang === 'fr') locale = 'fr-FR';
-          if(lang === 'de') locale = 'de-DE';
-          
-          const options = { year: 'numeric', month: 'long', day: 'numeric' };
-          const formattedDate = now.toLocaleDateString(locale, options);
-          updateSpan.innerText = data.lastUpdated + formattedDate;
-      }
-      
-      // 🌟 动态注入 E-E-A-T 开发者故事，消灭多语言混杂
-      const seoContainer = document.getElementById('seo-container');
-      if (data.seoHtml) {
-          seoContainer.style.opacity = 0;
-          setTimeout(() => {
-              seoContainer.innerHTML = data.seoHtml;
-              seoContainer.style.opacity = 1;
-          }, 150);
-      }
-
-      document.getElementById('lang-select').value = lang;
-      
-      // 去除跳转链接的 .html 后缀并保留 lang
-      document.querySelectorAll('a').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
-          try {
-            const url = new URL(href, window.location.origin);
-            url.searchParams.set('lang', lang);
-            link.href = url.pathname + url.search;
-          } catch(e) {}
-        }
-      });
-    }
-
-    document.getElementById('lang-select').addEventListener('change', (e) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', e.target.value);
-      window.location.href = url.href;
+    const dropdown = document.getElementById("categoriesDropdown");
+    const trigger = dropdown.querySelector(".nav-button");
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      const open = dropdown.classList.toggle("open");
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
     });
-
-    window.onload = updateLanguage;
+    document.addEventListener("click", (e) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove("open");
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
   </script>
 </body>
 </html>
