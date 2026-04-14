@@ -1,533 +1,576 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title id="meta-title">Secure Temporary Image Hosting | Auto-Destruct & VIP Storage — Mini-Tools</title>
-    <meta name="description" id="meta-desc" content="Free secure image hosting with auto-destruction capabilities. Upload screenshots privately and securely. Supports VIP permanent cloud storage.">
-    <meta name="keywords" content="free image hosting, secure image upload, temporary image, auto destruct image, secure screenshot sharing, Mini-Tools, VIP image hosting">
-    
-    <link rel="canonical" href="https://mini-tools.uk/upload" />
-    <link rel="alternate" hreflang="en" href="https://mini-tools.uk/upload?lang=en" />
-    <link rel="alternate" hreflang="zh" href="https://mini-tools.uk/upload?lang=zh" />
-    <link rel="alternate" hreflang="es" href="https://mini-tools.uk/upload?lang=es" />
-    <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/upload?lang=fr" />
-    <link rel="alternate" hreflang="de" href="https://mini-tools.uk/upload?lang=de" />
-    <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/upload" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
-    <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
-    <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
+  <title>Temporary Image Upload | Mini-Tools</title>
+  <meta name="description" content="Upload an image and get a shareable link with a chosen retention period. Preview before upload, optional long-term storage code, and anti-bot verification included." />
+  <meta name="keywords" content="temporary image upload, image hosting, expiring image link, upload screenshot, share image link, secure image upload" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://mini-tools.uk/upload" />
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-DR6V84JEZW');
-    </script>
+  <meta property="og:title" content="Temporary Image Upload | Mini-Tools" />
+  <meta property="og:description" content="Upload an image and create a shareable link with selectable retention settings." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mini-tools.uk/upload" />
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+  <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
-    <meta property="og:title" content="Secure Temporary Image Hosting - Mini-Tools">
-    <meta property="og:description" content="Secure image hosting with auto-destruction and VIP permanent storage.">
-    <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-64x64.png">
-    <meta property="og:url" content="https://mini-tools.uk/upload">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Secure Image Hosting | Mini-Tools">
-    <meta name="twitter:description" content="Secure image upload with auto-destruction.">
-    <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-64x64.png">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; scroll-behavior: smooth; }
-        
-        /* Terminal Log Scrollbar */
-        #upload-log::-webkit-scrollbar { width: 8px; }
-        #upload-log::-webkit-scrollbar-track { background: #1f2937; border-radius: 4px; }
-        #upload-log::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
-        #upload-log::-webkit-scrollbar-thumb:hover { background: #6b7280; }
-        
-        #preview-container { transition: all 0.3s ease; }
-        #preview-container:hover { border-color: #3b82f6; background-color: #eff6ff; }
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DR6V84JEZW');
+  </script>
 
-        /* SEO Content Typography */
-        .prose-content { margin-top: 5rem; padding-top: 4rem; border-top: 2px solid #e2e8f0; transition: opacity 0.3s ease-out; }
-        .prose-content p { font-size: 1.05rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem; }
-        .prose-content h2 { font-size: 2rem; font-weight: 800; color: #0f172a; margin-top: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.025em; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.75rem; }
-        .prose-content h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
-        .prose-content strong { color: #0f172a; font-weight: 700; }
-        .prose-content ul { margin-bottom: 2rem; padding-left: 1.5rem; list-style-type: disc; color: #475569; }
-        .prose-content li { margin-bottom: 0.75rem; line-height: 1.6; }
-        .faq-box { background: #f8fafc; padding: 2rem; border-radius: 1rem; border: 1px solid #e2e8f0; margin-bottom: 1.5rem; }
-        .faq-box h4 { font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; font-size: 1.1rem; }
-    </style>
-</head>
-<body class="min-h-screen flex flex-col">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
-    <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 shadow-sm">
-      <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-          <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
-            <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
-          </a>
-          <div class="flex flex-col -mt-1 hidden sm:flex">
-            <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
-          </div>
-        </div>
-        <div class="flex items-center gap-4 sm:gap-6">
-          <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
-            <span id="nav-blog-text">Blog & Guides</span>
-          </a>
-          <select id="lang-select" class="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer focus:ring-2 focus:ring-blue-500">
-            <option value="en">🇬🇧 English</option>
-            <option value="zh">🇨🇳 简体中文</option>
-            <option value="es">🇪🇸 Español</option>
-            <option value="fr">🇫🇷 Français</option>
-            <option value="de">🇩🇪 Deutsch</option>
-          </select>
-        </div>
-      </div>
-    </nav>
-
-    <main class="flex-grow max-w-[1400px] mx-auto w-full px-6 py-12 flex flex-col gap-8">
-        
-        <header class="mb-6 text-center lg:text-left">
-          <div class="mb-4">
-            <span class="bg-blue-50 text-blue-600 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-sm border border-blue-100" id="badge-privacy">
-              ⚡ Encrypted • Temporary Storage
-            </span>
-          </div>
-          <h1 id="page-title" class="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
-            Secure Image Hosting
-          </h1>
-          <p id="page-desc" class="text-lg text-slate-500 max-w-2xl">
-            Upload images securely with our auto-destruct feature. Perfect for sharing sensitive screenshots safely.
-          </p>
-        </header>
-
-        <div class="bg-white border border-slate-200 rounded-[2rem] shadow-xl shadow-slate-200/50 overflow-hidden mt-4">
-            
-            <div class="p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-2 gap-12">
-                
-                <div class="space-y-8">
-                    <div>
-                        <label class="block text-sm font-black text-slate-800 uppercase tracking-widest mb-3">
-                            <span id="label-step1">1. Expiration Time</span>
-                        </label>
-                        <select id="duration-select" class="w-full p-4 bg-slate-50 border border-slate-200 text-slate-900 font-bold text-sm rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition cursor-pointer shadow-sm">
-                            <option value="1-day" id="opt-1">Auto-destruct in 1 Day (Safest)</option>
-                            <option value="7-day" id="opt-7">Auto-destruct in 7 Days</option>
-                            <option value="30-day" id="opt-30">Auto-destruct in 30 Days</option>
-                        </select>
-                    </div>
-
-                    <div class="p-6 bg-gradient-to-br from-amber-50 to-orange-50/30 border border-amber-200 rounded-2xl relative overflow-hidden shadow-sm">
-                        <div class="absolute -right-4 -top-4 text-amber-100/50 pointer-events-none">
-                            <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"></path></svg>
-                        </div>
-                        <label class="block text-sm font-black text-amber-900 mb-1 relative z-10 flex items-center gap-2 uppercase tracking-wide" id="label-vip">
-                            👑 VIP Channel (Leave blank if guest)
-                        </label>
-                        <p class="text-xs text-amber-600/80 font-bold mb-4 relative z-10" id="label-hint">(💡 Contact yuyananuu[at]gmail.com for permanent storage code)</p>
-                        <input type="text" id="vip-id" placeholder="Enter VIP code for permanent storage" class="w-full p-4 bg-white/80 border border-amber-300 rounded-xl text-sm font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition relative z-10 shadow-inner placeholder-slate-400">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-black text-slate-800 uppercase tracking-widest mb-3" id="label-step2">2. Select Image (Max 5MB)</label>
-                        
-                        <input type="file" id="file-input" accept="image/png, image/jpeg, image/gif, image/webp" class="hidden">
-                        
-                        <label for="file-input" class="flex items-center w-full text-sm text-slate-700 border-2 border-slate-200 rounded-2xl cursor-pointer bg-white hover:border-blue-400 transition-all overflow-hidden shadow-sm group">
-                            <div class="bg-slate-50 text-slate-600 group-hover:bg-blue-50 group-hover:text-blue-700 border-r-2 border-slate-200 px-6 py-4 font-black transition-colors uppercase tracking-widest text-[11px]" id="label-choose">Choose File</div>
-                            <div class="px-5 text-slate-400 font-bold truncate flex-grow" id="custom-file-name">No file chosen</div>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-6">
-                    <div id="preview-container" class="flex-grow border-2 border-dashed border-slate-300 rounded-2xl flex items-center justify-center bg-slate-50 overflow-hidden min-h-[240px] relative">
-                        <img id="preview-img" class="max-w-full max-h-[320px] object-contain hidden z-10 shadow-sm rounded-xl">
-                        <div id="preview-placeholder" class="text-slate-400 text-sm font-medium flex flex-col items-center gap-4 absolute">
-                            <div class="p-4 bg-white rounded-full shadow-sm border border-slate-100">
-                                <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            </div>
-                            <span id="label-preview" class="font-bold text-slate-500">Image Preview Area</span>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex flex-col items-center shadow-inner">
-                        <label class="block text-[11px] font-black text-slate-500 mb-3 w-full text-left uppercase tracking-widest" id="label-step3">3. Anti-Bot Verification</label>
-                        <div class="cf-turnstile" data-sitekey="0x4AAAAAACu0xC_kU_xOZpH4"></div>
-                    </div>
-
-                    <button id="upload-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 px-6 rounded-2xl transition-all shadow-xl shadow-blue-500/20 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100 flex items-center justify-center gap-3 text-lg uppercase tracking-wider">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        <span id="btn-upload">Encrypt & Upload</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="bg-slate-900 border-t border-slate-800">
-                <div class="flex items-center px-6 py-3 bg-slate-800 border-b border-slate-700">
-                    <div class="flex gap-2">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                    </div>
-                    <span class="ml-4 text-xs font-mono font-bold text-slate-400 tracking-wider">Upload_Terminal // Status: Online</span>
-                </div>
-                <div id="upload-log" class="p-6 font-mono text-sm text-green-400 h-48 overflow-y-auto whitespace-pre-wrap leading-relaxed font-bold">Ready: Waiting for image selection...</div>
-            </div>
-        </div>
-
-        <div id="seo-container" class="prose-content">
-            <h2>Free Secure & Temporary Image Hosting</h2>
-            <p>Mini-Tools provides a specialized free image hosting service built entirely for your privacy. Unlike standard image hosting websites that permanently store and analyze your metadata, our "Auto-Destruct" mechanism ensures that your shared files are physically erased from our global Cloudflare R2 storage nodes after your chosen duration (1 to 30 days).</p>
-            <h3>How our Secure Upload works?</h3>
-            <p>We utilize edge computing architecture to handle your files. When you click upload, your image is securely transmitted via TLS encryption to the nearest edge node. If you have a VIP ID, your files are routed to a dedicated permanent storage zone; otherwise, the automated lifecycle policy takes over, ensuring the file is purged once its time expires. This makes it the perfect tool for sharing sensitive debugging screenshots, temporary social media assets, or forum images.</p>
-            <h2>Frequently Asked Questions (FAQ)</h2>
-            <div class="faq-box">
-                <h4>What is the VIP Channel?</h4>
-                <p class="mb-0">The VIP Channel is designed for frequent users who need permanent storage capabilities, such as embedding images in long-term blog posts or README files. By entering a valid VIP code, the auto-destruct timer is bypassed entirely. To obtain a VIP code, you can reach out via our contact email.</p>
-            </div>
-        </div>
-
-    </main>
-
-    <footer class="bg-white border-t border-slate-100 py-12 mt-auto w-full">
-      <div class="max-w-[1400px] mx-auto px-6 text-center">
-        <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
-          <a href="/" class="hover:text-blue-600 transition-colors transition-transform active:scale-95 shrink-0">
-            <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-6 h-6 rounded object-contain bg-white" />
-          </a>
-          <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-          <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
-          <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-          <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
-        </div>
-        <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
-          © 2026 MINI-TOOLS.UK — SECURE IMAGE HOSTING. ZERO TRACKING.
-        </p>
-      </div>
-    </footer>
-
-<script>
-    const i18n = {
-        en: { 
-            metaTitle: "Secure Temporary Image Hosting | Auto-Destruct & VIP Storage — Mini-Tools",
-            metaDesc: "Free secure image hosting with auto-destruction capabilities. Upload screenshots privately and securely. Supports VIP permanent cloud storage.",
-            title: "Secure Image Hosting",
-            desc: "Upload images securely with our auto-destruct feature. Perfect for sharing sensitive screenshots safely.",
-            badge: "⚡ Encrypted • Temporary Storage",
-            step1: "1. Expiration Time", hint: "(💡 Contact yuyananuu[at]gmail.com for permanent storage code)", 
-            opt1: "Auto-destruct in 1 Day (Safest)", opt7: "Auto-destruct in 7 Days", opt30: "Auto-destruct in 30 Days", 
-            vipLabel: "👑 VIP Channel (Leave blank if guest)", vipPlaceholder: "Enter VIP code for permanent storage", 
-            step2: "2. Select Image (Max 5MB)", chooseFile: "Choose File", noFile: "No file chosen", 
-            step3: "3. Anti-Bot Verification", btnUpload: "Encrypt & Upload", 
-            logReady: "Ready: Waiting for image selection...", preview: "Image Preview Area",
-            navBlog: "Blog & Guides", footerBlog: "Blog",
-            footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
-            seoHtml: `
-              <h2>Free Secure & Temporary Image Hosting</h2>
-              <p>Mini-Tools provides a specialized free image hosting service built entirely for your privacy. Unlike standard image hosting websites that permanently store and analyze your metadata, our "Auto-Destruct" mechanism ensures that your shared files are physically erased from our global Cloudflare R2 storage nodes after your chosen duration (1 to 30 days).</p>
-              <h3>How our Secure Upload works?</h3>
-              <p>We utilize edge computing architecture to handle your files. When you click upload, your image is securely transmitted via TLS encryption to the nearest edge node. If you have a VIP ID, your files are routed to a dedicated permanent storage zone; otherwise, the automated lifecycle policy takes over, ensuring the file is purged once its time expires. This makes it the perfect tool for sharing sensitive debugging screenshots, temporary social media assets, or forum images.</p>
-              <h2>Frequently Asked Questions (FAQ)</h2>
-              <div class="faq-box">
-                  <h4>What is the VIP Channel?</h4>
-                  <p class="mb-0">The VIP Channel is designed for frequent users who need permanent storage capabilities, such as embedding images in long-term blog posts or README files. By entering a valid VIP code, the auto-destruct timer is bypassed entirely. To obtain a VIP code, you can reach out via our contact email.</p>
-              </div>`
-        },
-        zh: { 
-            metaTitle: "免费安全图床 | 阅后即焚与永久云端存储 — Mini-Tools",
-            metaDesc: "提供免费的安全图床托管服务。支持限时（1-30天）阅后即焚，自动销毁，保护您的截图与照片隐私。凭 VIP 码可解锁永久存储。",
-            title: "免费安全图床",
-            desc: "提供阅后即焚的图片托管服务。非常适合在论坛或工单中安全地分享临时截图。",
-            badge: "⚡ 边缘节点加密 • 阅后即焚",
-            step1: "1. 选择销毁时间", hint: "(💡 永久保存请联系邮箱: yuyananuu[at]gmail.com)", 
-            opt1: "1 天后自动销毁 (最安全)", opt7: "7 天后自动销毁", opt30: "30 天后自动销毁", 
-            vipLabel: "👑 VIP 专属通道 (普通用户请留空)", vipPlaceholder: "输入 VIP 专属码，解锁无限制永久保存", 
-            step2: "2. 选择图片 (最大支持 5MB)", chooseFile: "选择文件", noFile: "未选择任何文件", 
-            step3: "3. 人机安全验证", btnUpload: "安全加密并上传", 
-            logReady: "就绪：等待选择图片...", preview: "图片预览区域",
-            navBlog: "官方博客与教程", footerBlog: "官方博客",
-            footerAbout: "关于我们", footerPrivacy: "隐私政策", footerContact: "联系我们",
-            seoHtml: `
-              <h2>免费的高级安全图床与临时托管</h2>
-              <p>Mini-Tools 为您提供专为隐私和安全设计的免费图像托管服务。与市面上那些会永久保存并分析您元数据的普通图床不同，我们的“阅后即焚”机制可确保您分享的文件在指定时间（1至30天）后，从我们全球分布的 Cloudflare R2 存储节点中被物理彻底擦除，无法恢复。</p>
-              <h3>阅后即焚与 VIP 永久存储如何工作？</h3>
-              <p>我们采用边缘计算架构来处理您的文件。绝无任何第三方追踪器或广告 SDK，这是全网最干净的高清临时图床。如果您在上传时输入了管理员专属授权码 (VIP ID)，您的图片将被直接存入永久安全区，跳过自动销毁机制；而普通用户的文件将自动进入销毁序列。这非常适合在 Github Issue、技术论坛中分享临时截图或敏感工作素材。</p>
-              <h2>常见问题解答 (FAQ)</h2>
-              <div class="faq-box">
-                  <h4>VIP 专属通道是做什么的？</h4>
-                  <p class="mb-0">VIP 通道专为需要将图片嵌入到长篇博客文章、文档或开源项目 README 中的高频用户设计。通过输入有效的 VIP 授权码，该图片将豁免被自动删除。获取 VIP 资格的方法请通过我们的官方联系邮箱进行申请。</p>
-              </div>`
-        },
-        es: { 
-            metaTitle: "Alojamiento de Imágenes Seguro | Autodestrucción — Mini-Tools",
-            metaDesc: "Alojamiento de imágenes seguro y temporal. Elimine automáticamente sus capturas de pantalla después de compartirlas. Soporte VIP.",
-            title: "Hosting de Imágenes Seguro",
-            desc: "Suba imágenes de forma segura con nuestra función de autodestrucción. Ideal para compartir capturas temporales.",
-            badge: "⚡ Encriptado • Almacenamiento Temporal",
-            step1: "1. Elegir Caducidad", hint: "(💡 Contacte a yuyananuu[at]gmail.com para VIP)", 
-            opt1: "Autodestrucción en 1 Día", opt7: "Autodestrucción en 7 Días", opt30: "Autodestrucción en 30 Días", 
-            vipLabel: "👑 Canal VIP (Dejar en blanco si invitado)", vipPlaceholder: "Introduce código VIP para almacenamiento permanente", 
-            step2: "2. Seleccionar Imagen (Max 5MB)", chooseFile: "Elegir Archivo", noFile: "Ningún archivo", 
-            step3: "3. Verificación Anti-Bot", btnUpload: "Encriptar y Subir", 
-            logReady: "Listo: Esperando imagen...", preview: "Área de vista previa",
-            navBlog: "Blog y Guías", footerBlog: "Blog",
-            footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
-            seoHtml: `
-              <h2>Alojamiento de Imágenes Seguro, Gratis y Privado</h2>
-              <p>Mini-Tools proporciona un servicio gratuito de alojamiento de imágenes especializado y diseñado para la privacidad. Nuestro mecanismo de "Autodestrucción" asegura que sus archivos compartidos se borren físicamente después de la duración elegida.</p>
-              <h3>Autodestrucción y Almacenamiento VIP</h3>
-              <p>Elimine automáticamente sus imágenes después de 1, 7 o 30 días. Los usuarios con un código VIP pueden saltar el protocolo de autodestrucción y guardar imágenes permanentemente, ideal para blogs.</p>`
-        },
-        fr: { 
-            metaTitle: "Hébergement d'Images Sécurisé | Auto-destruction — Mini-Tools",
-            metaDesc: "Hébergement d'images gratuit et sécurisé. Suppression automatique de vos captures d'écran. Stockage VIP disponible.",
-            title: "Hébergement Sécurisé",
-            desc: "Uploadez des images en toute sécurité avec notre fonction d'auto-destruction. Parfait pour les captures d'écran temporaires.",
-            badge: "⚡ Chiffré • Stockage Temporaire",
-            step1: "1. Choisir l'Expiration", hint: "(💡 Contactez yuyananuu[at]gmail.com pour VIP)", 
-            opt1: "Auto-destruction en 1 Jour", opt7: "Auto-destruction en 7 Jours", opt30: "Auto-destruction en 30 Jours", 
-            vipLabel: "👑 Canal VIP (Laisser vide si invité)", vipPlaceholder: "Entrez le code VIP pour un stockage permanent", 
-            step2: "2. Sélectionner Image (Max 5MB)", chooseFile: "Choisir Fichier", noFile: "Aucun fichier", 
-            step3: "3. Vérification Anti-Bot", btnUpload: "Chiffrer & Uploader", 
-            logReady: "Prêt : En attente de l'image...", preview: "Zone d'aperçu",
-            navBlog: "Blog et Guides", footerBlog: "Blog",
-            footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
-            seoHtml: `
-              <h2>Hébergement d'Images Gratuit, Privé et Sécurisé</h2>
-              <p>Bienvenue sur notre service d'hébergement d'images ultra-sécurisé. Conçu pour partager des captures d'écran temporaires sans laisser d'empreinte numérique permanente sur nos serveurs.</p>
-              <h3>Auto-destruction et Stockage VIP</h3>
-              <p>Suppression automatique de vos images après 1, 7 ou 30 jours. Les utilisateurs avec un code VIP peuvent contourner l'auto-destruction pour un stockage permanent.</p>`
-        },
-        de: { 
-            metaTitle: "Sicheres Bildhosting | Selbstzerstörung — Mini-Tools",
-            metaDesc: "Kostenloses und sicheres Bildhosting. Laden Sie Screenshots privat hoch. Mit VIP-Speicheroption.",
-            title: "Sicheres Bildhosting",
-            desc: "Laden Sie Bilder sicher mit unserer Selbstzerstörungsfunktion hoch. Perfekt zum Teilen sensibler Screenshots.",
-            badge: "⚡ Verschlüsselt • Temporärer Speicher",
-            step1: "1. Ablaufzeit wählen", hint: "(💡 Kontaktieren yuyananuu[at]gmail.com für VIP)", 
-            opt1: "Zerstörung in 1 Tag", opt7: "Zerstörung in 7 Tagen", opt30: "Zerstörung in 30 Tagen", 
-            vipLabel: "👑 VIP-Kanal (Als Gast leer lassen)", vipPlaceholder: "VIP-Code für dauerhaften Speicher", 
-            step2: "2. Bild wählen (Max 5MB)", chooseFile: "Datei wählen", noFile: "Keine Datei", 
-            step3: "3. Anti-Bot-Überprüfung", btnUpload: "Verschlüsseln & Hochladen", 
-            logReady: "Bereit: Warte auf Bild...", preview: "Vorschaubereich",
-            navBlog: "Blog & Anleitungen", footerBlog: "Blog",
-            footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
-            seoHtml: `
-              <h2>Kostenloses und Sicheres Bildhosting</h2>
-              <p>Willkommen beim sichersten Bildhosting-Dienst. Entwickelt für das Teilen von Screenshots und Dateien, ohne dauerhafte digitale Spuren auf unseren Servern zu hinterlassen.</p>
-              <h3>Selbstzerstörung & VIP-Speicher</h3>
-              <p>Lassen Sie Bilder nach 1, 7 oder 30 Tagen automatisch physisch löschen. Nutzer mit einem VIP-Code können die Selbstzerstörung umgehen und Bilder dauerhaft speichern.</p>`
-        }
-    };
-
-    const langSelector = document.getElementById('lang-select');
-    const customFileName = document.getElementById('custom-file-name');
-    
-    function setLanguage() {
-        const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
-        const data = i18n[lang] || i18n['en'];
-        
-        document.documentElement.lang = lang;
-        
-        // 🌟 动态接管 Meta 数据：Title, Description
-        document.title = data.metaTitle;
-        document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
-
-        document.getElementById('badge-privacy').innerText = data.badge;
-        document.getElementById('page-title').innerText = data.title;
-        document.getElementById('page-desc').innerText = data.desc;
-        
-        document.getElementById('label-step1').innerText = data.step1;
-        document.getElementById('opt-1').innerText = data.opt1;
-        document.getElementById('opt-7').innerText = data.opt7;
-        document.getElementById('opt-30').innerText = data.opt30;
-        
-        document.getElementById('label-vip').innerHTML = data.vipLabel;
-        document.getElementById('label-hint').innerText = data.hint;
-        document.getElementById('vip-id').placeholder = data.vipPlaceholder;
-        
-        document.getElementById('label-step2').innerText = data.step2;
-        document.getElementById('label-choose').innerText = data.chooseFile;
-        if(!document.getElementById('file-input').files[0]) {
-            customFileName.innerText = data.noFile;
-        }
-        
-        document.getElementById('label-preview').innerText = data.preview;
-        document.getElementById('label-step3').innerText = data.step3;
-        document.getElementById('btn-upload').innerText = data.btnUpload;
-        
-        // Only set logReady if it hasn't been used for other messages
-        const logDiv = document.getElementById('upload-log');
-        if(logDiv.innerText.includes("Ready:") || logDiv.innerText.includes("就绪：")) {
-            logDiv.innerText = data.logReady;
-        }
-
-        document.getElementById('footer-about').innerText = data.footerAbout;
-        document.getElementById('footer-privacy').innerText = data.footerPrivacy;
-        document.getElementById('footer-contact').innerText = data.footerContact;
-
-        const navBlogText = document.getElementById('nav-blog-text');
-        if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
-        const footerBlog = document.getElementById('footer-blog');
-        if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
-        
-        // 🌟 动态注入纯净的 SEO 长文内容，消灭隐藏的 DOM 结构
-        const seoContainer = document.getElementById('seo-container');
-        if (data.seoHtml) {
-            seoContainer.style.opacity = 0;
-            setTimeout(() => {
-                seoContainer.innerHTML = data.seoHtml;
-                seoContainer.style.opacity = 1;
-            }, 150);
-        }
-
-        langSelector.value = lang;
-        
-        // 修复：确保内链跳转时不丢失原有的路径名
-        document.querySelectorAll('a').forEach(link => {
-          const href = link.getAttribute('href');
-          if (href && (href.startsWith('/') || (!href.includes(':') && !href.startsWith('#')))) {
-            try {
-              const url = new URL(href, window.location.origin);
-              url.searchParams.set('lang', lang);
-              link.href = url.pathname + url.search;
-            } catch(e) {}
-          }
-        });
-    }
-
-    langSelector.addEventListener('change', (e) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', e.target.value);
-      window.location.href = url.href;
-    });
-
-    window.onload = setLanguage;
-
-    const WORKER_URL = "https://api.mini-tools.uk";
-    
-    const fileInput = document.getElementById('file-input');
-    const durationSelect = document.getElementById('duration-select');
-    const vipIdInput = document.getElementById('vip-id');
-    const uploadBtn = document.getElementById('upload-btn');
-    const logDiv = document.getElementById('upload-log');
-    const previewImg = document.getElementById('preview-img');
-    const placeholder = document.getElementById('preview-placeholder');
-
-    function log(msg, type = 'normal') {
-        const span = document.createElement('span');
-        span.className = type === 'error' ? 'text-red-500 font-bold block mb-1' : (type === 'success' ? 'text-green-400 block mb-1' : 'text-slate-400 block mb-1');
-        span.innerText = `> ${msg}`;
-        logDiv.appendChild(span);
-        logDiv.scrollTop = logDiv.scrollHeight;
-    }
-
-    fileInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
-        
-        if (!file) {
-            customFileName.innerText = i18n[lang]['noFile'];
-            return;
-        }
-        
-        if (file.size > 5242880) {
-            log(lang === 'zh' ? "❌ 安全拦截：文件大小超过 5MB 限制，请重新选择。" : "❌ Error: File exceeds the 5MB security limit.", "error");
-            fileInput.value = ""; 
-            customFileName.innerText = i18n[lang]['noFile'];
-            previewImg.style.display = 'none';
-            placeholder.classList.remove('hidden');
-            return;
-        }
-        
-        customFileName.innerText = file.name;
-        customFileName.classList.remove('text-slate-400');
-        customFileName.classList.add('text-slate-700', 'font-bold');
-
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            previewImg.src = event.target.result;
-            previewImg.classList.remove('hidden');
-            placeholder.classList.add('hidden');
-        };
-        reader.readAsDataURL(file);
-    });
-
-    uploadBtn.addEventListener('click', async () => {
-        const file = fileInput.files[0];
-        const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
-        
-        if (!file) return log(lang === 'zh' ? "⚠️ 操作无效：请先选择要上传的图片。" : "⚠️ Please select an image first.", "error");
-        
-        const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]').value;
-        if (!turnstileResponse) return log(lang === 'zh' ? "⚠️ 安全拦截：请先完成人机验证以证明您不是机器人。" : "⚠️ Please complete the Anti-Bot verification.", "error");
-
-        uploadBtn.disabled = true;
-        logDiv.innerHTML = ""; 
-        log(lang === 'zh' ? `⏳ 正在建立安全加密通道...\n⏳ 正在向边缘节点传输文件 [${file.name}]...` : `⏳ Establishing secure connection...\n⏳ Encrypting & Uploading [${file.name}]...`);
-
-        try {
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('duration', durationSelect.value);
-            formData.append('cf-turnstile-response', turnstileResponse);
-            formData.append('vip_id', vipIdInput.value.trim());
-
-            const response = await fetch(WORKER_URL, {
-                method: 'POST',
-                body: formData
-            });
-
-            const result = await response.json();
-
-            if (response.ok && result.success) {
-                const isZh = lang === 'zh';
-                const successMsg = result.isVip 
-                    ? (isZh ? "🎉 尊贵的 VIP 身份验证成功！该图片已被转移至永久安全存储区。" : "🎉 VIP Auth Validated! Image has been transferred to permanent storage.") 
-                    : (isZh ? `🎉 上传成功！该图片将在 ${durationSelect.options[durationSelect.selectedIndex].text}。` : "🎉 Upload complete! Auto-destruct timer started.");
-                
-                log(successMsg, "success");
-                log(isZh ? `🌍 您的专属加密直链：\n${result.url}` : `🌍 Secure Image Link:\n${result.url}`, "success");
-                
-                const link = document.createElement('a');
-                link.href = result.url;
-                link.target = '_blank';
-                link.innerText = isZh ? "👉 点击此处在新标签页查看图片" : "👉 Click here to view image in a new tab";
-                link.className = "text-blue-400 font-bold underline mt-2 inline-block hover:text-blue-300 transition-colors";
-                logDiv.appendChild(link);
-                
-                fileInput.value = "";
-                customFileName.innerText = i18n[lang]['noFile'];
-                customFileName.classList.remove('text-slate-700', 'font-bold');
-                customFileName.classList.add('text-slate-400');
-                previewImg.style.display = 'none';
-                placeholder.classList.remove('hidden');
-                if(typeof turnstile !== 'undefined') turnstile.reset();
-            } else {
-                log(`❌ Server rejected the upload: ${result.error}`, "error");
-                if(typeof turnstile !== 'undefined') turnstile.reset();
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"SoftwareApplication",
+        "name":"Mini-Tools Temporary Image Upload",
+        "applicationCategory":"UtilitiesApplication",
+        "operatingSystem":"Web",
+        "description":"Upload an image, choose a retention period, and generate a shareable link.",
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
+      },
+      {
+        "@type":"FAQPage",
+        "mainEntity":[
+          {
+            "@type":"Question",
+            "name":"Does this page upload my file to a server?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Yes. Unlike local-only tools on the site, this page sends the selected image to the Mini-Tools upload service so a shareable link can be created."
             }
-        } catch (error) {
-            log(`❌ Fatal Network Error: ${error.message}`, "error");
-            if(typeof turnstile !== 'undefined') turnstile.reset();
-        } finally {
-            uploadBtn.disabled = false;
+          },
+          {
+            "@type":"Question",
+            "name":"Can I choose how long the image is kept?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Yes. You can select an expiration option before upload. Long-term storage is available only if you have a valid access code."
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"Is there a file size limit?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Yes. The upload form currently accepts image files up to 5 MB."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#f8fafc;
+      --panel:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --line:#e2e8f0;
+      --brand:#2563eb;
+      --brand-soft:#dbeafe;
+      --shadow:0 10px 25px -5px rgba(15,23,42,0.08);
+      --radius:22px;
+      --sans:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      --mono:"JetBrains Mono","SFMono-Regular",Consolas,Monaco,monospace;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans)}
+    body{min-height:100vh;display:flex;flex-direction:column}
+    a{text-decoration:none;color:inherit}
+    button,input,textarea,select{font:inherit}
+
+    .container{width:min(1400px,calc(100% - 32px));margin:0 auto}
+
+    .site-header{
+      position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);
+      backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+    }
+    .site-header-inner{
+      min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;object-fit:contain;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    .brand-title{font-weight:900;font-size:1.15rem;letter-spacing:-.02em}
+    .brand-title span{color:var(--brand)}
+
+    .nav{display:flex;align-items:center;gap:8px;position:relative}
+    .nav-link,.nav-button{
+      padding:10px 14px;border-radius:12px;font-size:.95rem;font-weight:800;color:#334155;
+      transition:background .2s,color .2s;display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;
+    }
+    .nav-link:hover,.nav-button:hover{background:#f1f5f9;color:#0f172a}
+    .dropdown{position:relative}
+    .dropdown-bridge{position:absolute;left:0;right:0;height:14px;top:100%}
+    .dropdown-menu{
+      position:absolute;top:calc(100% + 10px);left:0;min-width:240px;background:#fff;border:1px solid var(--line);
+      border-radius:16px;padding:10px;box-shadow:0 20px 40px rgba(15,23,42,.12);
+      opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s;
+    }
+    .dropdown.open .dropdown-menu,
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+    .dropdown-item{display:block;padding:11px 12px;border-radius:12px;font-weight:700;color:#334155}
+    .dropdown-item:hover{background:#f8fafc;color:#0f172a}
+
+    .page-intro{padding:38px 0 18px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;
+      border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;
+      font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+    }
+    h1{margin:14px 0 10px;font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;letter-spacing:-.04em}
+    .intro-text{max-width:820px;color:var(--muted);font-size:1.06rem;line-height:1.75}
+    .notice{
+      margin-top:14px;max-width:860px;padding:14px 16px;border-radius:16px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;
+      font-size:.92rem;font-weight:700;line-height:1.6
+    }
+
+    .main-card{
+      background:#fff;border:1px solid var(--line);border-radius:32px;box-shadow:0 20px 40px rgba(15,23,42,.08);overflow:hidden;margin-top:18px
+    }
+    .main-grid{
+      display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:0
+    }
+    .left-col,.right-col{padding:28px}
+    .left-col{border-right:1px solid #eef2f7}
+
+    .field + .field{margin-top:24px}
+    .field-label{
+      display:block;margin-bottom:10px;font-size:.76rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:#0f172a
+    }
+    select,input[type=text]{
+      width:100%;padding:15px 16px;border:1px solid var(--line);border-radius:16px;background:#f8fafc;color:#0f172a;
+      font-size:.95rem;font-weight:800;outline:none;transition:border-color .18s, box-shadow .18s
+    }
+    select:focus,input[type=text]:focus{border-color:#93c5fd;box-shadow:0 0 0 4px rgba(37,99,235,.1)}
+
+    .tip-card{
+      margin-top:14px;padding:18px;border-radius:20px;background:linear-gradient(180deg,#fff7ed 0%, #fff 100%);
+      border:1px solid #fed7aa;position:relative;overflow:hidden
+    }
+    .tip-card strong{display:block;margin-bottom:6px}
+    .tip-card p{margin:0;color:#7c2d12;font-size:.9rem;line-height:1.65;font-weight:700}
+
+    .file-box{
+      display:flex;align-items:center;width:100%;border:2px solid var(--line);border-radius:20px;background:#fff;overflow:hidden;
+      cursor:pointer;transition:border-color .18s, box-shadow .18s
+    }
+    .file-box:hover{border-color:#93c5fd;box-shadow:0 0 0 4px rgba(37,99,235,.08)}
+    .file-trigger{
+      padding:16px 18px;border-right:2px solid var(--line);background:#f8fafc;color:#334155;font-size:.76rem;font-weight:900;
+      letter-spacing:.09em;text-transform:uppercase;white-space:nowrap
+    }
+    .file-name{
+      padding:0 16px;color:#94a3b8;font-size:.95rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+    }
+
+    .preview-shell{
+      min-height:264px;border:2px dashed #cbd5e1;border-radius:24px;background:#f8fafc;display:flex;align-items:center;justify-content:center;
+      position:relative;overflow:hidden;transition:border-color .18s, background .18s
+    }
+    .preview-shell:hover{border-color:#93c5fd;background:#eff6ff}
+    .preview-img{
+      max-width:100%;max-height:320px;object-fit:contain;border-radius:18px;box-shadow:0 12px 28px rgba(15,23,42,.12);display:none
+    }
+    .preview-placeholder{text-align:center;color:#64748b;padding:18px}
+    .preview-placeholder .icon{
+      width:66px;height:66px;border-radius:18px;background:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;
+      box-shadow:0 8px 18px rgba(15,23,42,.06);border:1px solid #eef2f7
+    }
+    .preview-placeholder strong{display:block;color:#334155;margin-bottom:4px}
+
+    .captcha-box{
+      margin-top:18px;padding:16px;border-radius:20px;background:#f8fafc;border:1px solid #eef2f7
+    }
+    .upload-btn{
+      width:100%;margin-top:18px;border:none;border-radius:20px;background:#2563eb;color:#fff;padding:18px 20px;
+      font-size:1rem;font-weight:900;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:.18s;
+      box-shadow:0 18px 30px rgba(37,99,235,.22)
+    }
+    .upload-btn:hover{background:#1d4ed8}
+    .upload-btn:disabled{opacity:.6;cursor:not-allowed;box-shadow:none}
+
+    .log-head{
+      display:flex;align-items:center;gap:10px;padding:14px 18px;background:#1f2937;border-top:1px solid #0f172a;border-bottom:1px solid #374151
+    }
+    .log-dots{display:flex;gap:6px}
+    .log-dots span{width:11px;height:11px;border-radius:50%}
+    .log-title{font-size:.76rem;font-weight:900;letter-spacing:.08em;color:#94a3b8;text-transform:uppercase}
+    .log-body{
+      background:#0f172a;color:#cbd5e1;padding:18px 18px 20px;font-family:var(--mono);font-size:.88rem;line-height:1.7;height:220px;overflow:auto
+    }
+    .log-body::-webkit-scrollbar{width:8px}
+    .log-body::-webkit-scrollbar-track{background:#1f2937;border-radius:4px}
+    .log-body::-webkit-scrollbar-thumb{background:#4b5563;border-radius:4px}
+    .log-line{display:block;margin-bottom:6px}
+    .log-line.normal{color:#94a3b8}
+    .log-line.success{color:#4ade80}
+    .log-line.error{color:#f87171}
+    .result-link{
+      display:inline-block;margin-top:6px;color:#60a5fa;text-decoration:underline;font-weight:800
+    }
+
+    .section-card{
+      margin:28px 0 0;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:28px
+    }
+    .section-card h2{margin:0 0 12px;font-size:1.8rem;letter-spacing:-.03em}
+    .section-card p{color:var(--muted);line-height:1.75}
+    .faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
+    .faq-item{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:18px}
+    .faq-item h3{margin:0 0 8px;font-size:1.05rem}
+    .faq-item p{margin:0;font-size:.98rem}
+
+    .site-footer{
+      margin-top:40px;padding:28px 0;background:#fff;border-top:1px solid var(--line)
+    }
+    .footer-links{
+      display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-bottom:12px;font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#64748b
+    }
+    .footer-links a:hover{color:var(--brand)}
+    .footer-note{text-align:center;font-size:.72rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#cbd5e1}
+
+    @media (max-width: 980px){
+      .main-grid{grid-template-columns:1fr}
+      .left-col{border-right:none;border-bottom:1px solid #eef2f7}
+      .faq-grid{grid-template-columns:1fr}
+      .site-header-inner{flex-wrap:wrap;padding:10px 0}
+      .nav{width:100%;overflow:auto;padding-bottom:4px}
+    }
+    @media (max-width: 640px){
+      .container{width:min(100% - 20px,1400px)}
+      .left-col,.right-col{padding:18px}
+      .file-box{align-items:stretch}
+      .file-trigger{display:flex;align-items:center}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a class="brand" href="/">
+        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools logo" />
+        <div class="brand-title">Mini-Tools<span>.uk</span></div>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/#all-tools">All Tools</a>
+
+        <div class="dropdown" id="categoriesDropdown">
+          <button class="nav-button" type="button" aria-expanded="false" aria-controls="categoriesMenu">
+            Categories
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="dropdown-bridge" aria-hidden="true"></div>
+          <div class="dropdown-menu" id="categoriesMenu" role="menu">
+            <a class="dropdown-item" href="/#uk-finance">UK Finance</a>
+            <a class="dropdown-item" href="/#developer-tools">Developer Tools</a>
+            <a class="dropdown-item" href="/#image-tools">Image & PDF</a>
+            <a class="dropdown-item" href="/#text-conversion">Text & Conversion</a>
+            <a class="dropdown-item" href="/#privacy-security">Security & Privacy</a>
+          </div>
+        </div>
+
+        <a class="nav-link" href="/blog">Blog</a>
+        <a class="nav-link" href="/about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-intro">
+      <div class="eyebrow">Upload Tool • Remote Storage</div>
+      <h1>Temporary Image Upload</h1>
+      <p class="intro-text">
+        Upload an image, choose how long it should be kept, and get a shareable link. This page sends files to the Mini-Tools upload service, so it is not a local-only tool.
+      </p>
+      <div class="notice">
+        Use this page only for images you are comfortable uploading to the service. Turnstile verification helps reduce abuse, and a storage code can be used for approved long-term uploads.
+      </div>
+    </section>
+
+    <section class="main-card">
+      <div class="main-grid">
+        <div class="left-col">
+          <div class="field">
+            <label class="field-label" for="durationSelect">1. Retention period</label>
+            <select id="durationSelect">
+              <option value="1-day">Delete after 1 day</option>
+              <option value="7-day">Delete after 7 days</option>
+              <option value="30-day">Delete after 30 days</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <div class="tip-card">
+              <strong>Optional long-term storage code</strong>
+              <p>
+                Leave this blank for normal temporary uploads. If you have an approved storage code, enter it here to request long-term retention.
+              </p>
+            </div>
+            <input type="text" id="storageCodeInput" placeholder="Enter storage code (optional)" style="margin-top:14px" />
+          </div>
+
+          <div class="field">
+            <label class="field-label">2. Select image (max 5 MB)</label>
+            <input type="file" id="fileInput" accept="image/png, image/jpeg, image/gif, image/webp" hidden />
+            <label class="file-box" for="fileInput">
+              <div class="file-trigger">Choose File</div>
+              <div class="file-name" id="fileName">No file chosen</div>
+            </label>
+          </div>
+        </div>
+
+        <div class="right-col">
+          <div class="preview-shell" id="previewShell">
+            <img id="previewImage" class="preview-img" alt="Selected image preview" />
+            <div class="preview-placeholder" id="previewPlaceholder">
+              <div class="icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 16L8.58579 11.4142C9.36684 10.6332 10.6332 10.6332 11.4142 11.4142L16 16M14 14L15.5858 12.4142C16.3668 11.6332 17.6332 11.6332 18.4142 12.4142L20 14M14 6H14.01M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <strong>Image Preview Area</strong>
+              <span>Choose a file to preview it before upload.</span>
+            </div>
+          </div>
+
+          <div class="captcha-box">
+            <label class="field-label" style="margin-bottom:12px">3. Anti-bot verification</label>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAACu0xC_kU_xOZpH4"></div>
+          </div>
+
+          <button class="upload-btn" id="uploadBtn" type="button">Upload Image</button>
+        </div>
+      </div>
+
+      <div class="log-head">
+        <div class="log-dots">
+          <span style="background:#ef4444"></span>
+          <span style="background:#f59e0b"></span>
+          <span style="background:#22c55e"></span>
+        </div>
+        <div class="log-title">Upload terminal</div>
+      </div>
+      <div class="log-body" id="uploadLog"></div>
+    </section>
+
+    <section class="section-card">
+      <h2>What this upload page does</h2>
+      <p>
+        This is a server-backed upload page for sharing images by link. Unlike local utilities such as the JSON, diff,
+        or image resize tools, this page sends the selected file to the Mini-Tools upload endpoint so that a hosted URL can be created.
+        That makes the feature useful for temporary sharing, but it also means the page should explain retention and storage honestly.
+      </p>
+
+      <div class="faq-grid">
+        <article class="faq-item">
+          <h3>Is this local-only?</h3>
+          <p>No. This page uploads the file to a remote service so that a shareable image URL can be created.</p>
+        </article>
+        <article class="faq-item">
+          <h3>What does the retention setting do?</h3>
+          <p>It tells the upload service how long the image should be kept before deletion is scheduled.</p>
+        </article>
+        <article class="faq-item">
+          <h3>What is the storage code for?</h3>
+          <p>It is an optional access code for approved long-term storage. Normal uploads can leave it blank.</p>
+        </article>
+        <article class="faq-item">
+          <h3>Why is there anti-bot verification?</h3>
+          <p>It helps reduce spam and automated abuse before the upload request is sent to the service.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/about">About</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="footer-note">© 2026 Mini-Tools.uk — upload links with configurable retention</div>
+    </div>
+  </footer>
+
+  <script>
+    const WORKER_URL = "https://api.mini-tools.uk";
+
+    const fileInput = document.getElementById("fileInput");
+    const fileName = document.getElementById("fileName");
+    const durationSelect = document.getElementById("durationSelect");
+    const storageCodeInput = document.getElementById("storageCodeInput");
+    const previewImage = document.getElementById("previewImage");
+    const previewPlaceholder = document.getElementById("previewPlaceholder");
+    const uploadBtn = document.getElementById("uploadBtn");
+    const uploadLog = document.getElementById("uploadLog");
+
+    function appendLog(message, type = "normal") {
+      const line = document.createElement("span");
+      line.className = "log-line " + type;
+      line.textContent = "> " + message;
+      uploadLog.appendChild(line);
+      uploadLog.scrollTop = uploadLog.scrollHeight;
+    }
+
+    function resetLog() {
+      uploadLog.innerHTML = "";
+      appendLog("Ready: waiting for image selection.");
+    }
+
+    function resetPreview() {
+      previewImage.style.display = "none";
+      previewImage.removeAttribute("src");
+      previewPlaceholder.style.display = "block";
+    }
+
+    function setSelectedFile(file) {
+      if (!file) {
+        fileName.textContent = "No file chosen";
+        fileName.style.color = "#94a3b8";
+        resetPreview();
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        appendLog("Error: file exceeds the 5 MB limit.", "error");
+        fileInput.value = "";
+        fileName.textContent = "No file chosen";
+        fileName.style.color = "#94a3b8";
+        resetPreview();
+        return;
+      }
+
+      fileName.textContent = file.name;
+      fileName.style.color = "#334155";
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        previewImage.src = event.target.result;
+        previewImage.style.display = "block";
+        previewPlaceholder.style.display = "none";
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function uploadFile() {
+      const file = fileInput.files[0];
+      if (!file) {
+        appendLog("Please choose an image before uploading.", "error");
+        return;
+      }
+
+      const tokenField = document.querySelector('[name="cf-turnstile-response"]');
+      const turnstileResponse = tokenField ? tokenField.value : "";
+      if (!turnstileResponse) {
+        appendLog("Please complete the anti-bot verification first.", "error");
+        return;
+      }
+
+      uploadBtn.disabled = true;
+      uploadBtn.textContent = "Uploading…";
+      uploadLog.innerHTML = "";
+      appendLog("Preparing upload request…");
+      appendLog(`Selected file: ${file.name}`);
+      appendLog(`Retention: ${durationSelect.value}`);
+
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("duration", durationSelect.value);
+        formData.append("cf-turnstile-response", turnstileResponse);
+        formData.append("vip_id", storageCodeInput.value.trim());
+
+        const response = await fetch(WORKER_URL, {
+          method: "POST",
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          appendLog(result.isVip ? "Upload complete with approved long-term storage." : "Upload complete with selected retention setting.", "success");
+          appendLog("Shareable link created:", "success");
+
+          const link = document.createElement("a");
+          link.href = result.url;
+          link.target = "_blank";
+          link.className = "result-link";
+          link.textContent = result.url;
+          uploadLog.appendChild(link);
+
+          fileInput.value = "";
+          fileName.textContent = "No file chosen";
+          fileName.style.color = "#94a3b8";
+          storageCodeInput.value = "";
+          resetPreview();
+
+          if (typeof turnstile !== "undefined") {
+            turnstile.reset();
+          }
+        } else {
+          appendLog(`Upload rejected: ${result.error || "Unknown error."}`, "error");
+          if (typeof turnstile !== "undefined") {
+            turnstile.reset();
+          }
         }
+      } catch (error) {
+        appendLog(`Network error: ${error.message}`, "error");
+        if (typeof turnstile !== "undefined") {
+          turnstile.reset();
+        }
+      } finally {
+        uploadBtn.disabled = false;
+        uploadBtn.textContent = "Upload Image";
+      }
+    }
+
+    fileInput.addEventListener("change", (e) => {
+      setSelectedFile(e.target.files[0]);
     });
-</script>
+
+    uploadBtn.addEventListener("click", uploadFile);
+
+    const dropdown = document.getElementById("categoriesDropdown");
+    const trigger = dropdown.querySelector(".nav-button");
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      const open = dropdown.classList.toggle("open");
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.addEventListener("click", (e) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove("open");
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    resetLog();
+  </script>
 </body>
 </html>
