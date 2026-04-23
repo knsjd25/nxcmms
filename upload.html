@@ -351,7 +351,7 @@
                 Need a storage code? Contact: <a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a>
               </p>
             </div>
-            <input type="text" id="storageCodeInput" placeholder="Enter storage code (optional)" style="margin-top:14px" />
+            <input type="text" id="storageCodeInput" placeholder="Enter storage code (optional)" data-i18n-placeholder="storageCodePlaceholder" style="margin-top:14px" />
           </div>
 
           <div class="field">
@@ -1027,7 +1027,157 @@
       languageSelect.value = currentLang;
       updateSchema(langPack);
       localStorage.setItem("miniToolsUploadLang", currentLang);
-      resetLog();
+  
+    const i18n = {
+      en: {
+        uploadBtn: "Upload Image",
+        noFileChosen: "No file chosen",
+        logReady: "Ready: waiting for image selection.",
+        errFileTooLarge: "Error: file exceeds the 5 MB limit.",
+        errChooseImage: "Please choose an image before uploading.",
+        errTurnstile: "Please complete the anti-bot verification first.",
+        errPermanentNeedsCode: "Permanent storage requires a valid long-term storage code.",
+        errPermanentKeyInvalid: "The long-term storage code is invalid or not approved for permanent storage.",
+        logPreparing: "Preparing upload request…",
+        logSelectedFile: "Selected file: {name}",
+        logRetention: "Retention: {value}",
+        successVip: "Upload complete with approved long-term storage.",
+        successNormal: "Upload complete with selected retention setting.",
+        successLink: "Shareable link created:",
+        errRejected: "Upload rejected: {error}",
+        errUnknown: "Unknown error.",
+        errNetwork: "Network error: {message}",
+        retentionNames: {
+          "1-day": "1 day",
+          "7-day": "7 days",
+          "30-day": "30 days",
+          "permanent": "Permanent"
+        }
+      },
+      zh: {
+        uploadBtn: "上传图片",
+        noFileChosen: "未选择文件",
+        logReady: "就绪：等待选择图片。",
+        errFileTooLarge: "错误：文件超过 5 MB 限制。",
+        errChooseImage: "请先选择图片再上传。",
+        errTurnstile: "请先完成防机器人验证。",
+        errPermanentNeedsCode: "选择永久保存时，必须填写长期存储码。",
+        errPermanentKeyInvalid: "长期存储码无效，或尚未获得永久存储权限。",
+        logPreparing: "正在准备上传请求…",
+        logSelectedFile: "已选择文件：{name}",
+        logRetention: "保存时长：{value}",
+        successVip: "上传完成，已使用审核通过的长期存储。",
+        successNormal: "上传完成，已使用所选保存时长。",
+        successLink: "已生成可分享链接：",
+        errRejected: "上传被拒绝：{error}",
+        errUnknown: "未知错误。",
+        errNetwork: "网络错误：{message}",
+        retentionNames: {
+          "1-day": "1天",
+          "7-day": "7天",
+          "30-day": "30天",
+          "permanent": "永久"
+        }
+      },
+      de: {
+        uploadBtn: "Bild hochladen",
+        noFileChosen: "Keine Datei ausgewählt",
+        logReady: "Bereit: Warte auf Bildauswahl.",
+        errFileTooLarge: "Fehler: Die Datei überschreitet das Limit von 5 MB.",
+        errChooseImage: "Bitte wähle vor dem Hochladen ein Bild aus.",
+        errTurnstile: "Bitte schließe zuerst die Anti-Bot-Verifizierung ab.",
+        errPermanentNeedsCode: "Für permanente Speicherung ist ein gültiger Langzeitspeicher-Code erforderlich.",
+        errPermanentKeyInvalid: "Der Langzeitspeicher-Code ist ungültig oder nicht für permanente Speicherung freigegeben.",
+        logPreparing: "Upload-Anfrage wird vorbereitet…",
+        logSelectedFile: "Ausgewählte Datei: {name}",
+        logRetention: "Aufbewahrung: {value}",
+        successVip: "Upload abgeschlossen mit genehmigter Langzeitspeicherung.",
+        successNormal: "Upload abgeschlossen mit der gewählten Aufbewahrungsdauer.",
+        successLink: "Freigabelink erstellt:",
+        errRejected: "Upload abgelehnt: {error}",
+        errUnknown: "Unbekannter Fehler.",
+        errNetwork: "Netzwerkfehler: {message}",
+        retentionNames: {
+          "1-day": "1 Tag",
+          "7-day": "7 Tage",
+          "30-day": "30 Tage",
+          "permanent": "Permanent"
+        }
+      },
+      fr: {
+        uploadBtn: "Téléverser l’image",
+        noFileChosen: "Aucun fichier sélectionné",
+        logReady: "Prêt : en attente de la sélection d’une image.",
+        errFileTooLarge: "Erreur : le fichier dépasse la limite de 5 Mo.",
+        errChooseImage: "Veuillez choisir une image avant de la téléverser.",
+        errTurnstile: "Veuillez d’abord terminer la vérification anti-bot.",
+        errPermanentNeedsCode: "Le stockage permanent nécessite un code de stockage longue durée valide.",
+        errPermanentKeyInvalid: "Le code de stockage longue durée est invalide ou non autorisé pour le stockage permanent.",
+        logPreparing: "Préparation de la requête d’envoi…",
+        logSelectedFile: "Fichier sélectionné : {name}",
+        logRetention: "Durée de conservation : {value}",
+        successVip: "Téléversement terminé avec stockage longue durée approuvé.",
+        successNormal: "Téléversement terminé avec la durée sélectionnée.",
+        successLink: "Lien partageable créé :",
+        errRejected: "Téléversement refusé : {error}",
+        errUnknown: "Erreur inconnue.",
+        errNetwork: "Erreur réseau : {message}",
+        retentionNames: {
+          "1-day": "1 jour",
+          "7-day": "7 jours",
+          "30-day": "30 jours",
+          "permanent": "Permanent"
+        }
+      },
+      es: {
+        uploadBtn: "Subir imagen",
+        noFileChosen: "Ningún archivo seleccionado",
+        logReady: "Listo: esperando la selección de una imagen.",
+        errFileTooLarge: "Error: el archivo supera el límite de 5 MB.",
+        errChooseImage: "Por favor, elige una imagen antes de subirla.",
+        errTurnstile: "Primero completa la verificación anti-bot.",
+        errPermanentNeedsCode: "El almacenamiento permanente requiere un código válido de almacenamiento a largo plazo.",
+        errPermanentKeyInvalid: "El código de almacenamiento a largo plazo no es válido o no está autorizado para almacenamiento permanente.",
+        logPreparing: "Preparando la solicitud de subida…",
+        logSelectedFile: "Archivo seleccionado: {name}",
+        logRetention: "Retención: {value}",
+        successVip: "Subida completada con almacenamiento a largo plazo aprobado.",
+        successNormal: "Subida completada con la retención seleccionada.",
+        successLink: "Enlace compartible creado:",
+        errRejected: "Subida rechazada: {error}",
+        errUnknown: "Error desconocido.",
+        errNetwork: "Error de red: {message}",
+        retentionNames: {
+          "1-day": "1 día",
+          "7-day": "7 días",
+          "30-day": "30 días",
+          "permanent": "Permanente"
+        }
+      }
+    };
+
+    function getCurrentLang() {
+      return document.documentElement.lang || "en";
+    }
+
+    function t(key, vars = {}) {
+      const lang = getCurrentLang();
+      const dict = i18n[lang] || i18n.en;
+      let text = dict[key] ?? i18n.en[key] ?? key;
+      for (const [k, v] of Object.entries(vars)) {
+        text = String(text).replaceAll(`{${k}}`, v);
+      }
+      return text;
+    }
+
+    function retentionLabel(value) {
+      const lang = getCurrentLang();
+      const dict = i18n[lang] || i18n.en;
+      return (dict.retentionNames && dict.retentionNames[value]) || value;
+    }
+
+    uploadBtn.textContent = t("uploadBtn");
+    resetLog();
     }
 
     async function uploadFile() {
@@ -1056,7 +1206,7 @@
         formData.append("file", file);
         formData.append("duration", durationSelect.value);
         formData.append("cf-turnstile-response", turnstileResponse);
-        formData.append("vip_id", storageCodeInput.value.trim());
+        formData.append("vip_id", storageCode);
 
         const response = await fetch(WORKER_URL, {
           method: "POST",
