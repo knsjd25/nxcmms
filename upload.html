@@ -513,6 +513,7 @@
         logChooseImage: "Please choose an image before uploading.",
         logCompleteVerification: "Please complete the anti-bot verification first.",
         logPermanentCodeRequired: "Permanent storage requires a valid long-term storage code.",
+        logPermanentCodeInvalid: "The storage code is invalid or not approved for permanent storage.",
         logPreparing: "Preparing upload request…",
         logSelectedFile: "Selected file: {name}",
         logRetention: "Retention: {value}",
@@ -605,6 +606,7 @@
         logChooseImage: "请先选择图片再上传。",
         logCompleteVerification: "请先完成防机器人验证。",
         logPermanentCodeRequired: "选择永久保存时，必须填写有效的长期存储码。",
+        logPermanentCodeInvalid: "长期存储码无效，或尚未获得永久存储权限。",
         logPreparing: "正在准备上传请求…",
         logSelectedFile: "已选择文件：{name}",
         logRetention: "保留时长：{value}",
@@ -697,6 +699,7 @@
         logChooseImage: "Bitte wähle vor dem Hochladen ein Bild aus.",
         logCompleteVerification: "Bitte schließe zuerst die Anti-Bot-Verifizierung ab.",
         logPermanentCodeRequired: "Für permanente Speicherung ist ein gültiger Langzeitspeicher-Code erforderlich.",
+        logPermanentCodeInvalid: "Der Speicher-Code ist ungültig oder nicht für permanente Speicherung freigegeben.",
         logPreparing: "Upload-Anfrage wird vorbereitet…",
         logSelectedFile: "Ausgewählte Datei: {name}",
         logRetention: "Aufbewahrung: {value}",
@@ -789,6 +792,7 @@
         logChooseImage: "Veuillez choisir une image avant de la téléverser.",
         logCompleteVerification: "Veuillez d’abord terminer la vérification anti-bot.",
         logPermanentCodeRequired: "Le stockage permanent nécessite un code valide de stockage longue durée.",
+        logPermanentCodeInvalid: "Le code de stockage est invalide ou non approuvé pour le stockage permanent.",
         logPreparing: "Préparation de la requête d’envoi…",
         logSelectedFile: "Fichier sélectionné : {name}",
         logRetention: "Conservation : {value}",
@@ -881,6 +885,7 @@
         logChooseImage: "Por favor, elige una imagen antes de subirla.",
         logCompleteVerification: "Primero completa la verificación anti-bot.",
         logPermanentCodeRequired: "El almacenamiento permanente requiere un código válido de almacenamiento prolongado.",
+        logPermanentCodeInvalid: "El código de almacenamiento no es válido o no está aprobado para almacenamiento permanente.",
         logPreparing: "Preparando la solicitud de subida…",
         logSelectedFile: "Archivo seleccionado: {name}",
         logRetention: "Retención: {value}",
@@ -1071,13 +1076,15 @@
     async function uploadFile() {
       const texts = t();
       const file = fileInput.files[0];
+      const wantsPermanent = durationSelect.value === "permanent";
+      const vipCode = storageCodeInput.value.trim();
 
       if (!file) {
         appendLog(texts.logChooseImage, "error");
         return;
       }
 
-      if (durationSelect.value === "permanent" && !storageCodeInput.value.trim()) {
+      if (wantsPermanent && !vipCode) {
         updatePermanentNotice();
         appendLog(texts.logPermanentCodeRequired, "error");
         storageCodeInput.focus();
@@ -1103,7 +1110,7 @@
         formData.append("file", file);
         formData.append("duration", durationSelect.value);
         formData.append("cf-turnstile-response", turnstileResponse);
-        formData.append("vip_id", storageCodeInput.value.trim());
+        formData.append("vip_id", vipCode);
 
         const response = await fetch(WORKER_URL, {
           method: "POST",
@@ -1118,6 +1125,14 @@
         }
 
         if (response.ok && result.success) {
+          if (wantsPermanent && !result.isVip) {
+            appendLog(texts.logPermanentCodeInvalid, "error");
+            if (typeof turnstile !== "undefined") {
+              turnstile.reset();
+            }
+            return;
+          }
+
           appendLog(result.isVip ? texts.logSuccessVip : texts.logSuccessNormal, "success");
           appendLog(texts.logLinkCreated, "success");
 
