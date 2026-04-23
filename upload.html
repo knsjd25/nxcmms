@@ -32,7 +32,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
-  <script type="application/ld+json">
+  <script type="application/ld+json" id="appSchema">
   {
     "@context":"https://schema.org",
     "@graph":[
@@ -112,12 +112,19 @@
     .brand-title{font-weight:900;font-size:1.15rem;letter-spacing:-.02em}
     .brand-title span{color:var(--brand)}
 
-    .nav{display:flex;align-items:center;gap:8px;position:relative}
-    .nav-link,.nav-button{
+    .nav{display:flex;align-items:center;gap:8px;position:relative;flex-wrap:nowrap;justify-content:flex-end}
+    .nav-link,.nav-button,.lang-select{
       padding:10px 14px;border-radius:12px;font-size:.95rem;font-weight:800;color:#334155;
-      transition:background .2s,color .2s;display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;
+      transition:background .2s,color .2s,border-color .2s;display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;
     }
     .nav-link:hover,.nav-button:hover{background:#f1f5f9;color:#0f172a}
+    .lang-select{
+      width:auto;min-width:132px;flex:0 0 auto;
+      border:1px solid var(--line);background:#fff;appearance:none;padding-right:40px;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 20 20"><path d="M5 7.5L10 12.5L15 7.5" stroke="%23334155" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+      background-repeat:no-repeat;background-position:right 12px center;
+    }
+    .lang-select:hover,.lang-select:focus{background-color:#f8fafc;border-color:#93c5fd;outline:none}
     .dropdown{position:relative}
     .dropdown-bridge{position:absolute;left:0;right:0;height:14px;top:100%}
     .dropdown-menu{
@@ -169,6 +176,8 @@
     }
     .tip-card strong{display:block;margin-bottom:6px}
     .tip-card p{margin:0;color:#7c2d12;font-size:.9rem;line-height:1.65;font-weight:700}
+    .tip-card p + p{margin-top:10px}
+    .tip-mail a{color:#9a3412;text-decoration:underline;font-weight:900}
 
     .file-box{
       display:flex;align-items:center;width:100%;border:2px solid var(--line);border-radius:20px;background:#fff;overflow:hidden;
@@ -253,13 +262,14 @@
       .left-col{border-right:none;border-bottom:1px solid #eef2f7}
       .faq-grid{grid-template-columns:1fr}
       .site-header-inner{flex-wrap:wrap;padding:10px 0}
-      .nav{width:100%;overflow:auto;padding-bottom:4px}
+      .nav{width:100%;overflow:auto;padding-bottom:4px;justify-content:flex-start}
     }
     @media (max-width: 640px){
       .container{width:min(100% - 20px,1400px)}
       .left-col,.right-col{padding:18px}
       .file-box{align-items:stretch}
       .file-trigger{display:flex;align-items:center}
+      .lang-select{min-width:120px}
     }
   </style>
 </head>
@@ -272,11 +282,11 @@
       </a>
 
       <nav class="nav" aria-label="Main navigation">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/#all-tools">All Tools</a>
+        <a class="nav-link" href="/" id="navHome">Home</a>
+        <a class="nav-link" href="/#all-tools" id="navAllTools">All Tools</a>
 
         <div class="dropdown" id="categoriesDropdown">
-          <button class="nav-button" type="button" aria-expanded="false" aria-controls="categoriesMenu">
+          <button class="nav-button" type="button" aria-expanded="false" aria-controls="categoriesMenu" id="categoriesButton">
             Categories
             <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -284,28 +294,36 @@
           </button>
           <div class="dropdown-bridge" aria-hidden="true"></div>
           <div class="dropdown-menu" id="categoriesMenu" role="menu">
-            <a class="dropdown-item" href="/#uk-finance">UK Finance</a>
-            <a class="dropdown-item" href="/#developer-tools">Developer Tools</a>
-            <a class="dropdown-item" href="/#image-tools">Image & PDF</a>
-            <a class="dropdown-item" href="/#text-conversion">Text & Conversion</a>
-            <a class="dropdown-item" href="/#privacy-security">Security & Privacy</a>
+            <a class="dropdown-item" href="/#uk-finance" id="dropdownFinance">UK Finance</a>
+            <a class="dropdown-item" href="/#developer-tools" id="dropdownDeveloper">Developer Tools</a>
+            <a class="dropdown-item" href="/#image-tools" id="dropdownImage">Image & PDF</a>
+            <a class="dropdown-item" href="/#text-conversion" id="dropdownText">Text & Conversion</a>
+            <a class="dropdown-item" href="/#privacy-security" id="dropdownSecurity">Security & Privacy</a>
           </div>
         </div>
 
-        <a class="nav-link" href="/blog">Blog</a>
-        <a class="nav-link" href="/about">About</a>
+        <a class="nav-link" href="/blog" id="navBlog">Blog</a>
+        <a class="nav-link" href="/about" id="navAbout">About</a>
+
+        <select class="lang-select" id="languageSelect" aria-label="Language selector">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+          <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="es">Español</option>
+        </select>
       </nav>
     </div>
   </header>
 
   <main class="container">
     <section class="page-intro">
-      <div class="eyebrow">Upload Tool • Remote Storage</div>
-      <h1>Temporary Image Upload</h1>
-      <p class="intro-text">
+      <div class="eyebrow" id="eyebrowText">Upload Tool • Remote Storage</div>
+      <h1 id="pageTitle">Temporary Image Upload</h1>
+      <p class="intro-text" id="introText">
         Upload an image, choose how long it should be kept, and get a shareable link. This page sends files to the Mini-Tools upload service, so it is not a local-only tool.
       </p>
-      <div class="notice">
+      <div class="notice" id="noticeText">
         Use this page only for images you are comfortable uploading to the service. Turnstile verification helps reduce abuse, and a storage code can be used for approved long-term uploads.
       </div>
     </section>
@@ -314,29 +332,33 @@
       <div class="main-grid">
         <div class="left-col">
           <div class="field">
-            <label class="field-label" for="durationSelect">1. Retention period</label>
+            <label class="field-label" for="durationSelect" id="durationLabel">1. Retention period</label>
             <select id="durationSelect">
-              <option value="1-day">Delete after 1 day</option>
-              <option value="7-day">Delete after 7 days</option>
-              <option value="30-day">Delete after 30 days</option>
+              <option value="1-day" id="option1Day">Delete after 1 day</option>
+              <option value="7-day" id="option7Day">Delete after 7 days</option>
+              <option value="30-day" id="option30Day">Delete after 30 days</option>
+              <option value="permanent" id="optionPermanent">Permanent</option>
             </select>
           </div>
 
           <div class="field">
             <div class="tip-card">
-              <strong>Optional long-term storage code</strong>
-              <p>
+              <strong id="storageCodeTitle">Optional long-term storage code</strong>
+              <p id="storageCodeText">
                 Leave this blank for normal temporary uploads. If you have an approved storage code, enter it here to request long-term retention.
+              </p>
+              <p class="tip-mail" id="storageCodeEmailText">
+                Need a storage code? Contact: <a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a>
               </p>
             </div>
             <input type="text" id="storageCodeInput" placeholder="Enter storage code (optional)" style="margin-top:14px" />
           </div>
 
           <div class="field">
-            <label class="field-label">2. Select image (max 5 MB)</label>
+            <label class="field-label" id="fileLabel">2. Select image (max 5 MB)</label>
             <input type="file" id="fileInput" accept="image/png, image/jpeg, image/gif, image/webp" hidden />
             <label class="file-box" for="fileInput">
-              <div class="file-trigger">Choose File</div>
+              <div class="file-trigger" id="chooseFileText">Choose File</div>
               <div class="file-name" id="fileName">No file chosen</div>
             </label>
           </div>
@@ -351,13 +373,13 @@
                   <path d="M4 16L8.58579 11.4142C9.36684 10.6332 10.6332 10.6332 11.4142 11.4142L16 16M14 14L15.5858 12.4142C16.3668 11.6332 17.6332 11.6332 18.4142 12.4142L20 14M14 6H14.01M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              <strong>Image Preview Area</strong>
-              <span>Choose a file to preview it before upload.</span>
+              <strong id="previewTitle">Image Preview Area</strong>
+              <span id="previewText">Choose a file to preview it before upload.</span>
             </div>
           </div>
 
           <div class="captcha-box">
-            <label class="field-label" style="margin-bottom:12px">3. Anti-bot verification</label>
+            <label class="field-label" style="margin-bottom:12px" id="captchaLabel">3. Anti-bot verification</label>
             <div class="cf-turnstile" data-sitekey="0x4AAAAAACu0xC_kU_xOZpH4"></div>
           </div>
 
@@ -371,14 +393,14 @@
           <span style="background:#f59e0b"></span>
           <span style="background:#22c55e"></span>
         </div>
-        <div class="log-title">Upload terminal</div>
+        <div class="log-title" id="logTitle">Upload terminal</div>
       </div>
       <div class="log-body" id="uploadLog"></div>
     </section>
 
     <section class="section-card">
-      <h2>What this upload page does</h2>
-      <p>
+      <h2 id="sectionTitle">What this upload page does</h2>
+      <p id="sectionIntro">
         This is a server-backed upload page for sharing images by link. Unlike local utilities such as the JSON, diff,
         or image resize tools, this page sends the selected file to the Mini-Tools upload endpoint so that a hosted URL can be created.
         That makes the feature useful for temporary sharing, but it also means the page should explain retention and storage honestly.
@@ -386,20 +408,20 @@
 
       <div class="faq-grid">
         <article class="faq-item">
-          <h3>Is this local-only?</h3>
-          <p>No. This page uploads the file to a remote service so that a shareable image URL can be created.</p>
+          <h3 id="faq1Title">Is this local-only?</h3>
+          <p id="faq1Text">No. This page uploads the file to a remote service so that a shareable image URL can be created.</p>
         </article>
         <article class="faq-item">
-          <h3>What does the retention setting do?</h3>
-          <p>It tells the upload service how long the image should be kept before deletion is scheduled.</p>
+          <h3 id="faq2Title">What does the retention setting do?</h3>
+          <p id="faq2Text">It tells the upload service how long the image should be kept before deletion is scheduled.</p>
         </article>
         <article class="faq-item">
-          <h3>What is the storage code for?</h3>
-          <p>It is an optional access code for approved long-term storage. Normal uploads can leave it blank.</p>
+          <h3 id="faq3Title">What is the storage code for?</h3>
+          <p id="faq3Text">It is an optional access code for approved long-term storage. Normal uploads can leave it blank.</p>
         </article>
         <article class="faq-item">
-          <h3>Why is there anti-bot verification?</h3>
-          <p>It helps reduce spam and automated abuse before the upload request is sent to the service.</p>
+          <h3 id="faq4Title">Why is there anti-bot verification?</h3>
+          <p id="faq4Text">It helps reduce spam and automated abuse before the upload request is sent to the service.</p>
         </article>
       </div>
     </section>
@@ -408,18 +430,471 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-links">
-        <a href="/">Home</a>
-        <a href="/blog">Blog</a>
-        <a href="/about">About</a>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/contact">Contact</a>
+        <a href="/" id="footerHome">Home</a>
+        <a href="/blog" id="footerBlog">Blog</a>
+        <a href="/about" id="footerAbout">About</a>
+        <a href="/privacy" id="footerPrivacy">Privacy Policy</a>
+        <a href="/contact" id="footerContact">Contact</a>
       </div>
-      <div class="footer-note">© 2026 Mini-Tools.uk — upload links with configurable retention</div>
+      <div class="footer-note" id="footerNote">© 2026 Mini-Tools.uk — upload links with configurable retention</div>
     </div>
   </footer>
 
   <script>
     const WORKER_URL = "https://api.mini-tools.uk";
+
+    const translations = {
+      en: {
+        lang: "en",
+        label: "English",
+        seoTitle: "Temporary Image Upload | Mini-Tools",
+        seoDescription: "Upload an image and get a shareable link with a chosen retention period. Preview before upload, optional long-term storage code, and anti-bot verification included.",
+        seoKeywords: "temporary image upload, image hosting, expiring image link, upload screenshot, share image link, secure image upload",
+        ogTitle: "Temporary Image Upload | Mini-Tools",
+        ogDescription: "Upload an image and create a shareable link with selectable retention settings.",
+        schemaDescription: "Upload an image, choose a retention period, and generate a shareable link.",
+        faqSchema: [
+          {
+            q: "Does this page upload my file to a server?",
+            a: "Yes. Unlike local-only tools on the site, this page sends the selected image to the Mini-Tools upload service so a shareable link can be created."
+          },
+          {
+            q: "Can I choose how long the image is kept?",
+            a: "Yes. You can select an expiration option before upload. Long-term storage is available only if you have a valid access code."
+          },
+          {
+            q: "Is there a file size limit?",
+            a: "Yes. The upload form currently accepts image files up to 5 MB."
+          }
+        ],
+        texts: {
+          navHome: "Home",
+          navAllTools: "All Tools",
+          categoriesButton: "Categories",
+          dropdownFinance: "UK Finance",
+          dropdownDeveloper: "Developer Tools",
+          dropdownImage: "Image & PDF",
+          dropdownText: "Text & Conversion",
+          dropdownSecurity: "Security & Privacy",
+          navBlog: "Blog",
+          navAbout: "About",
+          eyebrowText: "Upload Tool • Remote Storage",
+          pageTitle: "Temporary Image Upload",
+          introText: "Upload an image, choose how long it should be kept, and get a shareable link. This page sends files to the Mini-Tools upload service, so it is not a local-only tool.",
+          noticeText: "Use this page only for images you are comfortable uploading to the service. Turnstile verification helps reduce abuse, and a storage code can be used for approved long-term uploads.",
+          durationLabel: "1. Retention period",
+          option1Day: "Delete after 1 day",
+          option7Day: "Delete after 7 days",
+          option30Day: "Delete after 30 days",
+          optionPermanent: "Permanent",
+          storageCodeTitle: "Optional long-term storage code",
+          storageCodeText: "Leave this blank for normal temporary uploads. If you have an approved storage code, enter it here to request long-term retention.",
+          storageCodeEmailText: 'Need a storage code? Contact: <a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a>',
+          storageCodePlaceholder: "Enter storage code (optional)",
+          fileLabel: "2. Select image (max 5 MB)",
+          chooseFileText: "Choose File",
+          noFileChosen: "No file chosen",
+          previewTitle: "Image Preview Area",
+          previewText: "Choose a file to preview it before upload.",
+          previewAlt: "Selected image preview",
+          captchaLabel: "3. Anti-bot verification",
+          uploadBtn: "Upload Image",
+          uploadingBtn: "Uploading…",
+          logTitle: "Upload terminal",
+          sectionTitle: "What this upload page does",
+          sectionIntro: "This is a server-backed upload page for sharing images by link. Unlike local utilities such as the JSON, diff, or image resize tools, this page sends the selected file to the Mini-Tools upload endpoint so that a hosted URL can be created. That makes the feature useful for temporary sharing, but it also means the page should explain retention and storage honestly.",
+          faq1Title: "Is this local-only?",
+          faq1Text: "No. This page uploads the file to a remote service so that a shareable image URL can be created.",
+          faq2Title: "What does the retention setting do?",
+          faq2Text: "It tells the upload service how long the image should be kept before deletion is scheduled.",
+          faq3Title: "What is the storage code for?",
+          faq3Text: "It is an optional access code for approved long-term storage. Normal uploads can leave it blank.",
+          faq4Title: "Why is there anti-bot verification?",
+          faq4Text: "It helps reduce spam and automated abuse before the upload request is sent to the service.",
+          footerHome: "Home",
+          footerBlog: "Blog",
+          footerAbout: "About",
+          footerPrivacy: "Privacy Policy",
+          footerContact: "Contact",
+          footerNote: "© 2026 Mini-Tools.uk — upload links with configurable retention"
+        },
+        logs: {
+          ready: "Ready: waiting for image selection.",
+          tooLarge: "Error: file exceeds the 5 MB limit.",
+          chooseImage: "Please choose an image before uploading.",
+          completeVerification: "Please complete the anti-bot verification first.",
+          preparing: "Preparing upload request…",
+          selectedFile: "Selected file:",
+          retention: "Retention:",
+          successVip: "Upload complete with approved long-term storage.",
+          successNormal: "Upload complete with selected retention setting.",
+          shareableLink: "Shareable link created:",
+          rejected: "Upload rejected:",
+          unknownError: "Unknown error.",
+          networkError: "Network error:"
+        }
+      },
+      zh: {
+        lang: "zh-CN",
+        label: "中文",
+        seoTitle: "临时图床上传 | Mini-Tools",
+        seoDescription: "上传图片并获取可分享链接，可选择保留时长。支持上传前预览、可选长期存储码以及防机器人验证。",
+        seoKeywords: "临时图床, 图片上传, 图片外链, 图片托管, 截图上传, 分享图片链接, 安全图床",
+        ogTitle: "临时图床上传 | Mini-Tools",
+        ogDescription: "上传图片并创建可分享链接，可选择不同的保留时长。",
+        schemaDescription: "上传图片、选择保留时间，并生成可分享链接。",
+        faqSchema: [
+          {
+            q: "这个页面会把文件上传到服务器吗？",
+            a: "会。与站内本地处理工具不同，这个页面会将你选择的图片发送到 Mini-Tools 上传服务，以便生成可分享链接。"
+          },
+          {
+            q: "我可以选择图片保存多久吗？",
+            a: "可以。上传前可选择过期时间。长期存储仅对持有有效访问码的用户开放。"
+          },
+          {
+            q: "文件大小有限制吗？",
+            a: "有。当前上传表单仅接受不超过 5 MB 的图片文件。"
+          }
+        ],
+        texts: {
+          navHome: "首页",
+          navAllTools: "全部工具",
+          categoriesButton: "分类",
+          dropdownFinance: "英国财务",
+          dropdownDeveloper: "开发者工具",
+          dropdownImage: "图片与 PDF",
+          dropdownText: "文本与转换",
+          dropdownSecurity: "安全与隐私",
+          navBlog: "博客",
+          navAbout: "关于",
+          eyebrowText: "上传工具 • 远程存储",
+          pageTitle: "临时图床上传",
+          introText: "上传一张图片，选择保留时长，并获得可分享链接。此页面会将文件发送到 Mini-Tools 上传服务，因此它不是本地离线工具。",
+          noticeText: "请仅上传你愿意保存到服务端的图片。Turnstile 验证用于减少滥用，长期存储码可用于已获批准的长期上传。",
+          durationLabel: "1. 保留时长",
+          option1Day: "1天后删除",
+          option7Day: "7天后删除",
+          option30Day: "30天后删除",
+          optionPermanent: "永久",
+          storageCodeTitle: "可选长期存储码",
+          storageCodeText: "普通临时上传可留空。如你有已批准的存储码，请在此输入以申请长期保留。",
+          storageCodeEmailText: '需要存储码？请联系：<a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a>',
+          storageCodePlaceholder: "输入存储码（可选）",
+          fileLabel: "2. 选择图片（最大 5 MB）",
+          chooseFileText: "选择文件",
+          noFileChosen: "未选择文件",
+          previewTitle: "图片预览区域",
+          previewText: "选择文件后可在上传前预览。",
+          previewAlt: "已选图片预览",
+          captchaLabel: "3. 防机器人验证",
+          uploadBtn: "上传图片",
+          uploadingBtn: "上传中…",
+          logTitle: "上传终端",
+          sectionTitle: "这个上传页面能做什么",
+          sectionIntro: "这是一个基于服务器的图片外链上传页面。与 JSON、文本对比或图片压缩等本地工具不同，这个页面会将所选文件发送到 Mini-Tools 上传接口，以便生成可访问的托管链接。它很适合临时分享，但也意味着页面需要清楚说明保留时长和存储方式。",
+          faq1Title: "这是本地处理吗？",
+          faq1Text: "不是。此页面会把文件上传到远程服务，以便生成可分享的图片链接。",
+          faq2Title: "保留时长设置有什么作用？",
+          faq2Text: "它会告诉上传服务在安排删除前应保存图片多久。",
+          faq3Title: "存储码是做什么用的？",
+          faq3Text: "它是用于已批准长期存储的可选访问码。普通上传可以留空。",
+          faq4Title: "为什么要有防机器人验证？",
+          faq4Text: "它可以在上传请求发送到服务端之前减少垃圾请求和自动化滥用。",
+          footerHome: "首页",
+          footerBlog: "博客",
+          footerAbout: "关于",
+          footerPrivacy: "隐私政策",
+          footerContact: "联系",
+          footerNote: "© 2026 Mini-Tools.uk — 支持自定义保留时长的图片外链上传"
+        },
+        logs: {
+          ready: "已就绪：等待选择图片。",
+          tooLarge: "错误：文件超过 5 MB 限制。",
+          chooseImage: "请先选择一张图片再上传。",
+          completeVerification: "请先完成防机器人验证。",
+          preparing: "正在准备上传请求…",
+          selectedFile: "已选文件：",
+          retention: "保留时长：",
+          successVip: "上传完成，已使用批准的长期存储。",
+          successNormal: "上传完成，已使用所选保留时长。",
+          shareableLink: "已生成可分享链接：",
+          rejected: "上传被拒绝：",
+          unknownError: "未知错误。",
+          networkError: "网络错误："
+        }
+      },
+      de: {
+        lang: "de",
+        label: "Deutsch",
+        seoTitle: "Temporärer Bild-Upload | Mini-Tools",
+        seoDescription: "Lade ein Bild hoch und erhalte einen teilbaren Link mit wählbarer Aufbewahrungsdauer. Vorschau vor dem Upload, optionaler Langzeitspeichercode und Bot-Schutz inklusive.",
+        seoKeywords: "temporärer bildupload, bildhosting, ablaufender bildlink, screenshot hochladen, bildlink teilen, sicherer bildupload",
+        ogTitle: "Temporärer Bild-Upload | Mini-Tools",
+        ogDescription: "Lade ein Bild hoch und erstelle einen teilbaren Link mit auswählbarer Speicherdauer.",
+        schemaDescription: "Ein Bild hochladen, Aufbewahrungszeit wählen und einen teilbaren Link erzeugen.",
+        faqSchema: [
+          {
+            q: "Wird meine Datei auf einen Server hochgeladen?",
+            a: "Ja. Anders als lokale Tools auf der Website sendet diese Seite das ausgewählte Bild an den Mini-Tools-Uploaddienst, damit ein teilbarer Link erstellt werden kann."
+          },
+          {
+            q: "Kann ich auswählen, wie lange das Bild gespeichert wird?",
+            a: "Ja. Vor dem Upload kannst du eine Ablaufoption auswählen. Langzeitspeicherung ist nur mit einem gültigen Zugriffscode verfügbar."
+          },
+          {
+            q: "Gibt es eine Dateigrößenbegrenzung?",
+            a: "Ja. Das Upload-Formular akzeptiert derzeit Bilddateien bis zu 5 MB."
+          }
+        ],
+        texts: {
+          navHome: "Startseite",
+          navAllTools: "Alle Tools",
+          categoriesButton: "Kategorien",
+          dropdownFinance: "UK-Finanzen",
+          dropdownDeveloper: "Entwickler-Tools",
+          dropdownImage: "Bild & PDF",
+          dropdownText: "Text & Konvertierung",
+          dropdownSecurity: "Sicherheit & Datenschutz",
+          navBlog: "Blog",
+          navAbout: "Über uns",
+          eyebrowText: "Upload-Tool • Remote-Speicher",
+          pageTitle: "Temporärer Bild-Upload",
+          introText: "Lade ein Bild hoch, wähle die Aufbewahrungsdauer und erhalte einen teilbaren Link. Diese Seite sendet Dateien an den Mini-Tools-Uploaddienst und ist daher kein reines Lokal-Tool.",
+          noticeText: "Nutze diese Seite nur für Bilder, die du bewusst auf den Dienst hochladen möchtest. Die Turnstile-Prüfung hilft gegen Missbrauch, und ein Speichercode kann für genehmigte Langzeit-Uploads verwendet werden.",
+          durationLabel: "1. Aufbewahrungsdauer",
+          option1Day: "Nach 1 Tag löschen",
+          option7Day: "Nach 7 Tagen löschen",
+          option30Day: "Nach 30 Tagen löschen",
+          optionPermanent: "Dauerhaft",
+          storageCodeTitle: "Optionaler Langzeitspeichercode",
+          storageCodeText: "Lass dieses Feld für normale temporäre Uploads leer. Wenn du einen genehmigten Speichercode hast, gib ihn hier ein, um eine langfristige Aufbewahrung anzufordern.",
+          storageCodeEmailText: 'Benötigst du einen Speichercode? Kontakt: <a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a>',
+          storageCodePlaceholder: "Speichercode eingeben (optional)",
+          fileLabel: "2. Bild auswählen (max. 5 MB)",
+          chooseFileText: "Datei wählen",
+          noFileChosen: "Keine Datei ausgewählt",
+          previewTitle: "Bildvorschau",
+          previewText: "Wähle eine Datei aus, um sie vor dem Upload anzuzeigen.",
+          previewAlt: "Vorschau des ausgewählten Bildes",
+          captchaLabel: "3. Bot-Schutzprüfung",
+          uploadBtn: "Bild hochladen",
+          uploadingBtn: "Wird hochgeladen…",
+          logTitle: "Upload-Terminal",
+          sectionTitle: "Was diese Upload-Seite macht",
+          sectionIntro: "Dies ist eine servergestützte Upload-Seite zum Teilen von Bildern per Link. Anders als lokale Hilfstools wie JSON, Diff oder Bildgrößenänderung sendet diese Seite die ausgewählte Datei an den Mini-Tools-Upload-Endpunkt, damit eine gehostete URL erstellt werden kann. Das ist praktisch für temporäres Teilen, bedeutet aber auch, dass Aufbewahrung und Speicherung transparent erklärt werden sollten.",
+          faq1Title: "Ist das nur lokal?",
+          faq1Text: "Nein. Diese Seite lädt die Datei auf einen Remote-Dienst hoch, damit eine teilbare Bild-URL erstellt werden kann.",
+          faq2Title: "Was bewirkt die Aufbewahrungseinstellung?",
+          faq2Text: "Sie teilt dem Upload-Dienst mit, wie lange das Bild gespeichert werden soll, bevor die Löschung geplant wird.",
+          faq3Title: "Wofür ist der Speichercode?",
+          faq3Text: "Er ist ein optionaler Zugriffscode für genehmigte Langzeitspeicherung. Normale Uploads können ihn leer lassen.",
+          faq4Title: "Warum gibt es eine Bot-Schutzprüfung?",
+          faq4Text: "Sie hilft, Spam und automatisierten Missbrauch zu reduzieren, bevor die Upload-Anfrage an den Dienst gesendet wird.",
+          footerHome: "Startseite",
+          footerBlog: "Blog",
+          footerAbout: "Über uns",
+          footerPrivacy: "Datenschutz",
+          footerContact: "Kontakt",
+          footerNote: "© 2026 Mini-Tools.uk — Upload-Links mit konfigurierbarer Aufbewahrungsdauer"
+        },
+        logs: {
+          ready: "Bereit: Warte auf die Bildauswahl.",
+          tooLarge: "Fehler: Datei überschreitet das 5-MB-Limit.",
+          chooseImage: "Bitte wähle vor dem Hochladen ein Bild aus.",
+          completeVerification: "Bitte schließe zuerst die Bot-Schutzprüfung ab.",
+          preparing: "Upload-Anfrage wird vorbereitet…",
+          selectedFile: "Ausgewählte Datei:",
+          retention: "Aufbewahrung:",
+          successVip: "Upload abgeschlossen mit genehmigter Langzeitspeicherung.",
+          successNormal: "Upload abgeschlossen mit gewählter Aufbewahrungsdauer.",
+          shareableLink: "Teilbarer Link erstellt:",
+          rejected: "Upload abgelehnt:",
+          unknownError: "Unbekannter Fehler.",
+          networkError: "Netzwerkfehler:"
+        }
+      },
+      fr: {
+        lang: "fr",
+        label: "Français",
+        seoTitle: "Hébergement d’image temporaire | Mini-Tools",
+        seoDescription: "Téléversez une image et obtenez un lien partageable avec une durée de conservation au choix. Aperçu avant envoi, code de stockage longue durée facultatif et vérification anti-bot inclus.",
+        seoKeywords: "hébergement image temporaire, upload image, lien image expirant, téléverser capture d'écran, partager lien image, hébergement image sécurisé",
+        ogTitle: "Hébergement d’image temporaire | Mini-Tools",
+        ogDescription: "Téléversez une image et créez un lien partageable avec une durée de conservation sélectionnable.",
+        schemaDescription: "Téléverser une image, choisir une durée de conservation et générer un lien partageable.",
+        faqSchema: [
+          {
+            q: "Cette page envoie-t-elle mon fichier sur un serveur ?",
+            a: "Oui. Contrairement aux outils uniquement locaux du site, cette page envoie l’image sélectionnée au service d’envoi Mini-Tools afin de créer un lien partageable."
+          },
+          {
+            q: "Puis-je choisir combien de temps l’image est conservée ?",
+            a: "Oui. Vous pouvez sélectionner une durée d’expiration avant l’envoi. Le stockage longue durée n’est disponible qu’avec un code d’accès valide."
+          },
+          {
+            q: "Y a-t-il une limite de taille de fichier ?",
+            a: "Oui. Le formulaire d’envoi accepte actuellement des fichiers image jusqu’à 5 Mo."
+          }
+        ],
+        texts: {
+          navHome: "Accueil",
+          navAllTools: "Tous les outils",
+          categoriesButton: "Catégories",
+          dropdownFinance: "Finance UK",
+          dropdownDeveloper: "Outils développeur",
+          dropdownImage: "Image & PDF",
+          dropdownText: "Texte & conversion",
+          dropdownSecurity: "Sécurité & confidentialité",
+          navBlog: "Blog",
+          navAbout: "À propos",
+          eyebrowText: "Outil d’envoi • Stockage distant",
+          pageTitle: "Hébergement d’image temporaire",
+          introText: "Téléversez une image, choisissez la durée de conservation et obtenez un lien partageable. Cette page envoie les fichiers au service d’envoi Mini-Tools, ce n’est donc pas un outil purement local.",
+          noticeText: "Utilisez cette page uniquement pour les images que vous acceptez d’envoyer au service. La vérification Turnstile aide à limiter les abus, et un code de stockage peut être utilisé pour les envois longue durée approuvés.",
+          durationLabel: "1. Durée de conservation",
+          option1Day: "Supprimer après 1 jour",
+          option7Day: "Supprimer après 7 jours",
+          option30Day: "Supprimer après 30 jours",
+          optionPermanent: "Permanent",
+          storageCodeTitle: "Code de stockage longue durée facultatif",
+          storageCodeText: "Laissez ce champ vide pour un envoi temporaire normal. Si vous avez un code de stockage approuvé, saisissez-le ici pour demander une conservation longue durée.",
+          storageCodeEmailText: 'Besoin d’un code de stockage ? Contact : <a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a>',
+          storageCodePlaceholder: "Saisir le code de stockage (facultatif)",
+          fileLabel: "2. Sélectionner une image (max. 5 Mo)",
+          chooseFileText: "Choisir un fichier",
+          noFileChosen: "Aucun fichier sélectionné",
+          previewTitle: "Zone d’aperçu de l’image",
+          previewText: "Choisissez un fichier pour le prévisualiser avant l’envoi.",
+          previewAlt: "Aperçu de l’image sélectionnée",
+          captchaLabel: "3. Vérification anti-bot",
+          uploadBtn: "Téléverser l’image",
+          uploadingBtn: "Téléversement…",
+          logTitle: "Terminal d’envoi",
+          sectionTitle: "Ce que fait cette page d’envoi",
+          sectionIntro: "Il s’agit d’une page d’envoi avec stockage côté serveur pour partager des images par lien. Contrairement aux utilitaires locaux comme JSON, diff ou redimensionnement d’image, cette page envoie le fichier sélectionné au point d’envoi Mini-Tools afin de créer une URL hébergée. C’est pratique pour le partage temporaire, mais cela signifie aussi que la durée de conservation et le stockage doivent être expliqués clairement.",
+          faq1Title: "Est-ce uniquement local ?",
+          faq1Text: "Non. Cette page téléverse le fichier vers un service distant afin de créer une URL d’image partageable.",
+          faq2Title: "À quoi sert le réglage de conservation ?",
+          faq2Text: "Il indique au service d’envoi combien de temps l’image doit être conservée avant que sa suppression soit programmée.",
+          faq3Title: "À quoi sert le code de stockage ?",
+          faq3Text: "C’est un code d’accès facultatif pour le stockage longue durée approuvé. Les envois normaux peuvent le laisser vide.",
+          faq4Title: "Pourquoi une vérification anti-bot ?",
+          faq4Text: "Elle aide à réduire le spam et les abus automatisés avant l’envoi de la requête au service.",
+          footerHome: "Accueil",
+          footerBlog: "Blog",
+          footerAbout: "À propos",
+          footerPrivacy: "Politique de confidentialité",
+          footerContact: "Contact",
+          footerNote: "© 2026 Mini-Tools.uk — liens d’image avec durée de conservation configurable"
+        },
+        logs: {
+          ready: "Prêt : en attente de la sélection d’une image.",
+          tooLarge: "Erreur : le fichier dépasse la limite de 5 Mo.",
+          chooseImage: "Veuillez choisir une image avant de la téléverser.",
+          completeVerification: "Veuillez d’abord terminer la vérification anti-bot.",
+          preparing: "Préparation de la requête d’envoi…",
+          selectedFile: "Fichier sélectionné :",
+          retention: "Conservation :",
+          successVip: "Téléversement terminé avec stockage longue durée approuvé.",
+          successNormal: "Téléversement terminé avec la durée de conservation sélectionnée.",
+          shareableLink: "Lien partageable créé :",
+          rejected: "Téléversement refusé :",
+          unknownError: "Erreur inconnue.",
+          networkError: "Erreur réseau :"
+        }
+      },
+      es: {
+        lang: "es",
+        label: "Español",
+        seoTitle: "Subida temporal de imágenes | Mini-Tools",
+        seoDescription: "Sube una imagen y obtén un enlace para compartir con el tiempo de conservación que elijas. Incluye vista previa, código opcional de almacenamiento prolongado y verificación anti-bot.",
+        seoKeywords: "subida temporal de imágenes, alojamiento de imágenes, enlace de imagen que expira, subir captura de pantalla, compartir enlace de imagen, subida segura de imágenes",
+        ogTitle: "Subida temporal de imágenes | Mini-Tools",
+        ogDescription: "Sube una imagen y crea un enlace compartible con opciones de conservación seleccionables.",
+        schemaDescription: "Subir una imagen, elegir un periodo de conservación y generar un enlace compartible.",
+        faqSchema: [
+          {
+            q: "¿Esta página sube mi archivo a un servidor?",
+            a: "Sí. A diferencia de las herramientas solo locales del sitio, esta página envía la imagen seleccionada al servicio de subida de Mini-Tools para crear un enlace compartible."
+          },
+          {
+            q: "¿Puedo elegir cuánto tiempo se guarda la imagen?",
+            a: "Sí. Puedes seleccionar una opción de caducidad antes de subirla. El almacenamiento prolongado solo está disponible con un código de acceso válido."
+          },
+          {
+            q: "¿Hay un límite de tamaño de archivo?",
+            a: "Sí. Actualmente, el formulario de subida acepta archivos de imagen de hasta 5 MB."
+          }
+        ],
+        texts: {
+          navHome: "Inicio",
+          navAllTools: "Todas las herramientas",
+          categoriesButton: "Categorías",
+          dropdownFinance: "Finanzas UK",
+          dropdownDeveloper: "Herramientas para desarrolladores",
+          dropdownImage: "Imagen y PDF",
+          dropdownText: "Texto y conversión",
+          dropdownSecurity: "Seguridad y privacidad",
+          navBlog: "Blog",
+          navAbout: "Acerca de",
+          eyebrowText: "Herramienta de subida • Almacenamiento remoto",
+          pageTitle: "Subida temporal de imágenes",
+          introText: "Sube una imagen, elige cuánto tiempo debe conservarse y obtén un enlace para compartir. Esta página envía los archivos al servicio de subida de Mini-Tools, por lo que no es una herramienta solo local.",
+          noticeText: "Usa esta página solo para imágenes que estés cómodo subiendo al servicio. La verificación Turnstile ayuda a reducir abusos y se puede usar un código de almacenamiento para subidas prolongadas aprobadas.",
+          durationLabel: "1. Periodo de conservación",
+          option1Day: "Eliminar después de 1 día",
+          option7Day: "Eliminar después de 7 días",
+          option30Day: "Eliminar después de 30 días",
+          optionPermanent: "Permanente",
+          storageCodeTitle: "Código opcional de almacenamiento prolongado",
+          storageCodeText: "Déjalo en blanco para subidas temporales normales. Si tienes un código de almacenamiento aprobado, introdúcelo aquí para solicitar conservación prolongada.",
+          storageCodeEmailText: '¿Necesitas un código de almacenamiento? Contacto: <a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a>',
+          storageCodePlaceholder: "Introduce el código de almacenamiento (opcional)",
+          fileLabel: "2. Seleccionar imagen (máx. 5 MB)",
+          chooseFileText: "Elegir archivo",
+          noFileChosen: "Ningún archivo seleccionado",
+          previewTitle: "Área de vista previa",
+          previewText: "Elige un archivo para previsualizarlo antes de subirlo.",
+          previewAlt: "Vista previa de la imagen seleccionada",
+          captchaLabel: "3. Verificación anti-bot",
+          uploadBtn: "Subir imagen",
+          uploadingBtn: "Subiendo…",
+          logTitle: "Terminal de subida",
+          sectionTitle: "Qué hace esta página de subida",
+          sectionIntro: "Esta es una página de subida respaldada por servidor para compartir imágenes mediante enlace. A diferencia de utilidades locales como JSON, diff o redimensionado de imágenes, esta página envía el archivo seleccionado al endpoint de subida de Mini-Tools para crear una URL alojada. Eso la hace útil para compartir temporalmente, pero también significa que la conservación y el almacenamiento deben explicarse con claridad.",
+          faq1Title: "¿Funciona solo localmente?",
+          faq1Text: "No. Esta página sube el archivo a un servicio remoto para crear una URL de imagen compartible.",
+          faq2Title: "¿Qué hace el ajuste de conservación?",
+          faq2Text: "Le indica al servicio de subida cuánto tiempo debe mantenerse la imagen antes de programar su eliminación.",
+          faq3Title: "¿Para qué sirve el código de almacenamiento?",
+          faq3Text: "Es un código de acceso opcional para almacenamiento prolongado aprobado. Las subidas normales pueden dejarlo vacío.",
+          faq4Title: "¿Por qué hay verificación anti-bot?",
+          faq4Text: "Ayuda a reducir el spam y el abuso automatizado antes de enviar la solicitud de subida al servicio.",
+          footerHome: "Inicio",
+          footerBlog: "Blog",
+          footerAbout: "Acerca de",
+          footerPrivacy: "Política de privacidad",
+          footerContact: "Contacto",
+          footerNote: "© 2026 Mini-Tools.uk — enlaces de imagen con conservación configurable"
+        },
+        logs: {
+          ready: "Listo: esperando la selección de una imagen.",
+          tooLarge: "Error: el archivo supera el límite de 5 MB.",
+          chooseImage: "Elige una imagen antes de subirla.",
+          completeVerification: "Completa primero la verificación anti-bot.",
+          preparing: "Preparando la solicitud de subida…",
+          selectedFile: "Archivo seleccionado:",
+          retention: "Conservación:",
+          successVip: "Subida completada con almacenamiento prolongado aprobado.",
+          successNormal: "Subida completada con el periodo de conservación seleccionado.",
+          shareableLink: "Enlace compartible creado:",
+          rejected: "Subida rechazada:",
+          unknownError: "Error desconocido.",
+          networkError: "Error de red:"
+        }
+      }
+    };
 
     const fileInput = document.getElementById("fileInput");
     const fileName = document.getElementById("fileName");
@@ -429,6 +904,13 @@
     const previewPlaceholder = document.getElementById("previewPlaceholder");
     const uploadBtn = document.getElementById("uploadBtn");
     const uploadLog = document.getElementById("uploadLog");
+    const languageSelect = document.getElementById("languageSelect");
+
+    let currentLang = "en";
+
+    function t() {
+      return translations[currentLang];
+    }
 
     function appendLog(message, type = "normal") {
       const line = document.createElement("span");
@@ -440,7 +922,7 @@
 
     function resetLog() {
       uploadLog.innerHTML = "";
-      appendLog("Ready: waiting for image selection.");
+      appendLog(t().logs.ready);
     }
 
     function resetPreview() {
@@ -451,16 +933,16 @@
 
     function setSelectedFile(file) {
       if (!file) {
-        fileName.textContent = "No file chosen";
+        fileName.textContent = t().texts.noFileChosen;
         fileName.style.color = "#94a3b8";
         resetPreview();
         return;
       }
 
       if (file.size > 5 * 1024 * 1024) {
-        appendLog("Error: file exceeds the 5 MB limit.", "error");
+        appendLog(t().logs.tooLarge, "error");
         fileInput.value = "";
-        fileName.textContent = "No file chosen";
+        fileName.textContent = t().texts.noFileChosen;
         fileName.style.color = "#94a3b8";
         resetPreview();
         return;
@@ -478,26 +960,96 @@
       reader.readAsDataURL(file);
     }
 
+    function updateSchema(langPack) {
+      const schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "name": langPack.ogTitle,
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Web",
+            "description": langPack.schemaDescription,
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": langPack.faqSchema.map(item => ({
+              "@type": "Question",
+              "name": item.q,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.a
+              }
+            }))
+          }
+        ]
+      };
+      document.getElementById("appSchema").textContent = JSON.stringify(schema, null, 2);
+    }
+
+    function applyLanguage(lang) {
+      currentLang = translations[lang] ? lang : "en";
+      const langPack = translations[currentLang];
+      const texts = langPack.texts;
+
+      document.documentElement.lang = langPack.lang;
+      document.title = langPack.seoTitle;
+
+      const metaDescription = document.querySelector('meta[name="description"]');
+      const metaKeywords = document.querySelector('meta[name="keywords"]');
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      const ogDescription = document.querySelector('meta[property="og:description"]');
+
+      if (metaDescription) metaDescription.setAttribute("content", langPack.seoDescription);
+      if (metaKeywords) metaKeywords.setAttribute("content", langPack.seoKeywords);
+      if (ogTitle) ogTitle.setAttribute("content", langPack.ogTitle);
+      if (ogDescription) ogDescription.setAttribute("content", langPack.ogDescription);
+
+      Object.keys(texts).forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (id === "storageCodePlaceholder") {
+          storageCodeInput.placeholder = texts[id];
+        } else if (id === "storageCodeEmailText") {
+          el.innerHTML = texts[id];
+        } else {
+          el.textContent = texts[id];
+        }
+      });
+
+      previewImage.alt = texts.previewAlt;
+      if (!fileInput.files[0]) {
+        fileName.textContent = texts.noFileChosen;
+        fileName.style.color = "#94a3b8";
+      }
+      uploadBtn.textContent = uploadBtn.disabled ? texts.uploadingBtn : texts.uploadBtn;
+      languageSelect.value = currentLang;
+      updateSchema(langPack);
+      localStorage.setItem("miniToolsUploadLang", currentLang);
+      resetLog();
+    }
+
     async function uploadFile() {
       const file = fileInput.files[0];
       if (!file) {
-        appendLog("Please choose an image before uploading.", "error");
+        appendLog(t().logs.chooseImage, "error");
         return;
       }
 
       const tokenField = document.querySelector('[name="cf-turnstile-response"]');
       const turnstileResponse = tokenField ? tokenField.value : "";
       if (!turnstileResponse) {
-        appendLog("Please complete the anti-bot verification first.", "error");
+        appendLog(t().logs.completeVerification, "error");
         return;
       }
 
       uploadBtn.disabled = true;
-      uploadBtn.textContent = "Uploading…";
+      uploadBtn.textContent = t().texts.uploadingBtn;
       uploadLog.innerHTML = "";
-      appendLog("Preparing upload request…");
-      appendLog(`Selected file: ${file.name}`);
-      appendLog(`Retention: ${durationSelect.value}`);
+      appendLog(t().logs.preparing);
+      appendLog(`${t().logs.selectedFile} ${file.name}`);
+      appendLog(`${t().logs.retention} ${durationSelect.options[durationSelect.selectedIndex].text}`);
 
       try {
         const formData = new FormData();
@@ -514,8 +1066,8 @@
         const result = await response.json();
 
         if (response.ok && result.success) {
-          appendLog(result.isVip ? "Upload complete with approved long-term storage." : "Upload complete with selected retention setting.", "success");
-          appendLog("Shareable link created:", "success");
+          appendLog(result.isVip ? t().logs.successVip : t().logs.successNormal, "success");
+          appendLog(t().logs.shareableLink, "success");
 
           const link = document.createElement("a");
           link.href = result.url;
@@ -525,7 +1077,7 @@
           uploadLog.appendChild(link);
 
           fileInput.value = "";
-          fileName.textContent = "No file chosen";
+          fileName.textContent = t().texts.noFileChosen;
           fileName.style.color = "#94a3b8";
           storageCodeInput.value = "";
           resetPreview();
@@ -534,20 +1086,32 @@
             turnstile.reset();
           }
         } else {
-          appendLog(`Upload rejected: ${result.error || "Unknown error."}`, "error");
+          appendLog(`${t().logs.rejected} ${result.error || t().logs.unknownError}`, "error");
           if (typeof turnstile !== "undefined") {
             turnstile.reset();
           }
         }
       } catch (error) {
-        appendLog(`Network error: ${error.message}`, "error");
+        appendLog(`${t().logs.networkError} ${error.message}`, "error");
         if (typeof turnstile !== "undefined") {
           turnstile.reset();
         }
       } finally {
         uploadBtn.disabled = false;
-        uploadBtn.textContent = "Upload Image";
+        uploadBtn.textContent = t().texts.uploadBtn;
       }
+    }
+
+    function getInitialLanguage() {
+      const saved = localStorage.getItem("miniToolsUploadLang");
+      if (saved && translations[saved]) return saved;
+
+      const browserLang = (navigator.language || "").toLowerCase();
+      if (browserLang.startsWith("zh")) return "zh";
+      if (browserLang.startsWith("de")) return "de";
+      if (browserLang.startsWith("fr")) return "fr";
+      if (browserLang.startsWith("es")) return "es";
+      return "en";
     }
 
     fileInput.addEventListener("change", (e) => {
@@ -555,6 +1119,10 @@
     });
 
     uploadBtn.addEventListener("click", uploadFile);
+
+    languageSelect.addEventListener("change", (e) => {
+      applyLanguage(e.target.value);
+    });
 
     const dropdown = document.getElementById("categoriesDropdown");
     const trigger = dropdown.querySelector(".nav-button");
@@ -570,7 +1138,7 @@
       }
     });
 
-    resetLog();
+    applyLanguage(getInitialLanguage());
   </script>
 </body>
 </html>
