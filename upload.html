@@ -30,7 +30,7 @@
   </script>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
-  
+
   <script type="application/ld+json" id="appSchema">
   {
     "@context":"https://schema.org",
@@ -222,6 +222,7 @@
       font-size:1.1rem;font-weight:900;cursor:pointer
     }
     .math-refresh:hover{background:#cbd5e1}
+
     .upload-btn{
       width:100%;margin-top:18px;border:none;border-radius:20px;background:var(--brand);color:#fff;padding:18px 20px;
       font-size:1rem;font-weight:900;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:.18s;
@@ -333,7 +334,7 @@
         Upload an image, choose how long it should stay online, and get a shareable image link. This free image hosting page is useful for screenshots, blog images, product images and quick online sharing.
       </p>
       <div class="notice" id="noticeText">
-        Use this free image hosting page only for images you are comfortable uploading to the service. Turnstile verification helps reduce abuse, and approved storage codes can be used for long-term image hosting.
+        Use this free image hosting page only for images you are comfortable uploading to the service. Simple math verification helps reduce abuse, and approved storage codes can be used for long-term image hosting.
       </div>
     </section>
 
@@ -388,7 +389,7 @@
             <label class="field-label" style="margin-bottom:12px" id="captchaLabel">3. Anti-bot verification</label>
             <div class="math-captcha">
               <div class="math-row">
-                <span class="math-question" id="mathQuestion">7 + 5 = ?</span>
+                <span class="math-question" id="mathQuestion">...</span>
                 <button class="math-refresh" id="refreshCaptchaBtn" type="button" aria-label="Refresh verification question">↻</button>
               </div>
               <input class="text-input" type="text" id="captchaAnswerInput" inputmode="numeric" autocomplete="off" placeholder="Enter the result" />
@@ -483,7 +484,7 @@
         eyebrowText: "Free Image Hosting • Remote Storage",
         pageTitle: "Free Image Hosting",
         introText: "Upload an image, choose how long it should stay online, and get a shareable image link. This free image hosting page is useful for screenshots, blog images, product images and quick online sharing.",
-        noticeText: "Use this free image hosting page only for images you are comfortable uploading to the service. Turnstile verification helps reduce abuse, and approved storage codes can be used for long-term image hosting.",
+        noticeText: "Use this free image hosting page only for images you are comfortable uploading to the service. Simple math verification helps reduce abuse, and approved storage codes can be used for long-term image hosting.",
 
         retentionLabel: "1. Retention period",
         option1Day: "Delete after 1 day",
@@ -529,9 +530,7 @@
         logFileTooLarge: "Error: file exceeds the 5 MB limit.",
         logChooseImage: "Please choose an image before uploading.",
         logCompleteVerification: "Please complete the anti-bot verification first.",
-        logWrongCaptcha: "Incorrect verification result. Please solve the math question again.",
         logPermanentCodeRequired: "Permanent storage requires a valid long-term storage code.",
-        logPermanentCodeInvalid: "The storage code is invalid or not approved for permanent storage.",
         logPreparing: "Preparing upload request…",
         logSelectedFile: "Selected file: {name}",
         logRetention: "Retention: {value}",
@@ -541,6 +540,7 @@
         logRejected: "Upload rejected: {error}",
         logUnknown: "Unknown error.",
         logNetwork: "Network error: {message}",
+        logLoadCaptchaFailed: "Failed to load verification question. Please refresh and try again.",
         retentionNames: {
           "1-day": "1 day",
           "7-day": "7 days",
@@ -552,7 +552,7 @@
       zh: {
         htmlLang: "zh-CN",
         seoTitle: "免费图床 | Mini-Tools",
-        seoDescription: "免费图床支持上传图片并生成可分享外链，可自定义保留时长，支持上传前预览、长期存储码和防机器人验证。",
+        seoDescription: "免费图床支持上传图片并生成可分享外链，可自定义保留时长，支持上传前预览、长期存储码和简单计算验证。",
         seoKeywords: "免费图床, 图床, 图片外链, 图片托管, 图片上传, 截图图床, 分享图片链接, 在线图床, 图片直链",
         ogTitle: "免费图床 | Mini-Tools",
         ogDescription: "免费图床支持生成可分享图片外链，可选择 1 天、7 天、30 天或永久保存。",
@@ -578,7 +578,7 @@
         eyebrowText: "免费图床 • 远程存储",
         pageTitle: "免费图床",
         introText: "上传图片，选择保留时长，并生成可分享图片外链。这个免费图床适合截图、博客配图、商品图片、工单反馈和日常在线分享。",
-        noticeText: "请仅上传你愿意保存到服务端的图片。Turnstile 验证用于减少滥用，已批准的长期存储码可用于长期图片托管。",
+        noticeText: "请仅上传你愿意保存到服务端的图片。简单计算验证用于减少滥用，已批准的长期存储码可用于长期图片托管。",
 
         retentionLabel: "1. 保留时长",
         option1Day: "1天后删除",
@@ -624,9 +624,7 @@
         logFileTooLarge: "错误：文件超过 5 MB 限制。",
         logChooseImage: "请先选择图片再上传。",
         logCompleteVerification: "请先完成防机器人验证。",
-        logWrongCaptcha: "验证结果错误，请重新计算这道题。",
         logPermanentCodeRequired: "选择永久保存时，必须填写有效的长期存储码。",
-        logPermanentCodeInvalid: "长期存储码无效，或尚未获得永久存储权限。",
         logPreparing: "正在准备上传请求…",
         logSelectedFile: "已选择文件：{name}",
         logRetention: "保留时长：{value}",
@@ -636,6 +634,7 @@
         logRejected: "上传被拒绝：{error}",
         logUnknown: "未知错误。",
         logNetwork: "网络错误：{message}",
+        logLoadCaptchaFailed: "验证码加载失败，请刷新页面后重试。",
         retentionNames: {
           "1-day": "1天",
           "7-day": "7天",
@@ -673,7 +672,7 @@
         eyebrowText: "Kostenloses Bild-Hosting • Remote-Speicher",
         pageTitle: "Kostenloses Bild-Hosting",
         introText: "Lade ein Bild hoch, wähle die gewünschte Aufbewahrungsdauer und erhalte einen teilbaren Bildlink. Dieses kostenlose Bild-Hosting ist ideal für Screenshots, Blogbilder, Produktbilder und schnelles Online-Teilen.",
-        noticeText: "Nutze diese Seite nur für Bilder, die du auf den Server hochladen möchtest. Die Turnstile-Verifizierung hilft gegen Missbrauch, und genehmigte Speicher-Codes können für Langzeitspeicherung verwendet werden.",
+        noticeText: "Nutze diese Seite nur für Bilder, die du auf den Server hochladen möchtest. Eine einfache Rechenaufgabe hilft gegen Missbrauch, und genehmigte Speicher-Codes können für Langzeitspeicherung verwendet werden.",
 
         retentionLabel: "1. Aufbewahrungsdauer",
         option1Day: "Nach 1 Tag löschen",
@@ -719,9 +718,7 @@
         logFileTooLarge: "Fehler: Die Datei überschreitet das Limit von 5 MB.",
         logChooseImage: "Bitte wähle vor dem Hochladen ein Bild aus.",
         logCompleteVerification: "Bitte schließe zuerst die Anti-Bot-Verifizierung ab.",
-        logWrongCaptcha: "Falsches Ergebnis. Bitte löse die Rechenaufgabe erneut.",
         logPermanentCodeRequired: "Für permanente Speicherung ist ein gültiger Langzeitspeicher-Code erforderlich.",
-        logPermanentCodeInvalid: "Der Speicher-Code ist ungültig oder nicht für permanente Speicherung freigegeben.",
         logPreparing: "Upload-Anfrage wird vorbereitet…",
         logSelectedFile: "Ausgewählte Datei: {name}",
         logRetention: "Aufbewahrung: {value}",
@@ -731,6 +728,7 @@
         logRejected: "Upload abgelehnt: {error}",
         logUnknown: "Unbekannter Fehler.",
         logNetwork: "Netzwerkfehler: {message}",
+        logLoadCaptchaFailed: "Die Rechenaufgabe konnte nicht geladen werden. Bitte aktualisiere die Seite und versuche es erneut.",
         retentionNames: {
           "1-day": "1 Tag",
           "7-day": "7 Tage",
@@ -768,7 +766,7 @@
         eyebrowText: "Hébergement d’images gratuit • Stockage distant",
         pageTitle: "Hébergement d’images gratuit",
         introText: "Téléversez une image, choisissez combien de temps elle reste en ligne et obtenez un lien image partageable. Cette page est utile pour les captures d’écran, les images de blog, les photos produits et le partage rapide.",
-        noticeText: "Utilisez cette page uniquement pour les images que vous acceptez d’envoyer au service. La vérification Turnstile aide à réduire les abus, et des codes approuvés peuvent être utilisés pour le stockage longue durée.",
+        noticeText: "Utilisez cette page uniquement pour les images que vous acceptez d’envoyer au service. Une simple opération aide à réduire les abus, et des codes approuvés peuvent être utilisés pour le stockage longue durée.",
 
         retentionLabel: "1. Durée de conservation",
         option1Day: "Supprimer après 1 jour",
@@ -814,9 +812,7 @@
         logFileTooLarge: "Erreur : le fichier dépasse la limite de 5 Mo.",
         logChooseImage: "Veuillez choisir une image avant de la téléverser.",
         logCompleteVerification: "Veuillez d’abord terminer la vérification anti-bot.",
-        logWrongCaptcha: "Résultat incorrect. Veuillez résoudre à nouveau l’opération.",
         logPermanentCodeRequired: "Le stockage permanent nécessite un code valide de stockage longue durée.",
-        logPermanentCodeInvalid: "Le code de stockage est invalide ou non approuvé pour le stockage permanent.",
         logPreparing: "Préparation de la requête d’envoi…",
         logSelectedFile: "Fichier sélectionné : {name}",
         logRetention: "Conservation : {value}",
@@ -826,6 +822,7 @@
         logRejected: "Téléversement refusé : {error}",
         logUnknown: "Erreur inconnue.",
         logNetwork: "Erreur réseau : {message}",
+        logLoadCaptchaFailed: "Impossible de charger l’opération. Veuillez actualiser la page et réessayer.",
         retentionNames: {
           "1-day": "1 jour",
           "7-day": "7 jours",
@@ -863,7 +860,7 @@
         eyebrowText: "Alojamiento gratuito de imágenes • Almacenamiento remoto",
         pageTitle: "Alojamiento gratuito de imágenes",
         introText: "Sube una imagen, elige cuánto tiempo debe permanecer en línea y obtén un enlace compartible. Esta página es útil para capturas de pantalla, imágenes de blog, fotos de productos y compartición rápida.",
-        noticeText: "Usa esta página solo para imágenes que aceptes subir al servicio. La verificación Turnstile ayuda a reducir abusos, y los códigos aprobados pueden utilizarse para almacenamiento prolongado.",
+        noticeText: "Usa esta página solo para imágenes que aceptes subir al servicio. Una operación matemática sencilla ayuda a reducir abusos, y los códigos aprobados pueden utilizarse para almacenamiento prolongado.",
 
         retentionLabel: "1. Tiempo de retención",
         option1Day: "Eliminar después de 1 día",
@@ -909,9 +906,7 @@
         logFileTooLarge: "Error: el archivo supera el límite de 5 MB.",
         logChooseImage: "Por favor, elige una imagen antes de subirla.",
         logCompleteVerification: "Primero completa la verificación anti-bot.",
-        logWrongCaptcha: "Resultado incorrecto. Resuelve de nuevo la operación.",
         logPermanentCodeRequired: "El almacenamiento permanente requiere un código válido de almacenamiento prolongado.",
-        logPermanentCodeInvalid: "El código de almacenamiento no es válido o no está aprobado para almacenamiento permanente.",
         logPreparing: "Preparando la solicitud de subida…",
         logSelectedFile: "Archivo seleccionado: {name}",
         logRetention: "Retención: {value}",
@@ -921,6 +916,7 @@
         logRejected: "Subida rechazada: {error}",
         logUnknown: "Error desconocido.",
         logNetwork: "Error de red: {message}",
+        logLoadCaptchaFailed: "No se pudo cargar la operación. Actualiza la página e inténtalo de nuevo.",
         retentionNames: {
           "1-day": "1 día",
           "7-day": "7 días",
@@ -944,7 +940,7 @@
     const mathQuestion = document.getElementById("mathQuestion");
     const refreshCaptchaBtn = document.getElementById("refreshCaptchaBtn");
 
-    let captchaExpectedAnswer = null;
+    let captchaId = "";
 
     function getLang() {
       return localStorage.getItem("miniToolsUploadLang") || "en";
@@ -1013,6 +1009,25 @@
       document.getElementById("appSchema").textContent = JSON.stringify(schema, null, 2);
     }
 
+    async function fetchCaptcha() {
+      const texts = t();
+      const response = await fetch(`${WORKER_URL}?action=captcha`);
+      let result = {};
+      try {
+        result = await response.json();
+      } catch (e) {
+        result = {};
+      }
+
+      if (!response.ok || !result.success || !result.captcha_id || !result.question) {
+        throw new Error(result.error || texts.logLoadCaptchaFailed);
+      }
+
+      captchaId = result.captcha_id;
+      mathQuestion.textContent = result.question;
+      captchaAnswerInput.value = "";
+    }
+
     function applyLanguage(lang) {
       setLang(lang);
       const texts = t();
@@ -1076,18 +1091,6 @@
       permanentNotice.classList.toggle("show", durationSelect.value === "permanent");
     }
 
-    function generateMathCaptcha() {
-      const a = Math.floor(Math.random() * 9) + 1;
-      const b = Math.floor(Math.random() * 9) + 1;
-      captchaExpectedAnswer = a + b;
-      mathQuestion.textContent = `${a} + ${b} = ?`;
-      captchaAnswerInput.value = "";
-    }
-
-    function isMathCaptchaValid() {
-      return captchaAnswerInput.value.trim() !== "" && Number(captchaAnswerInput.value.trim()) === captchaExpectedAnswer;
-    }
-
     function setSelectedFile(file) {
       if (!file) {
         fileName.textContent = t().noFileChosen;
@@ -1135,15 +1138,8 @@
         return;
       }
 
-      if (captchaAnswerInput.value.trim() === "") {
+      if (!captchaId || captchaAnswerInput.value.trim() === "") {
         appendLog(texts.logCompleteVerification, "error");
-        return;
-      }
-
-      if (!isMathCaptchaValid()) {
-        appendLog(texts.logWrongCaptcha, "error");
-        generateMathCaptcha();
-        captchaAnswerInput.focus();
         return;
       }
 
@@ -1159,6 +1155,8 @@
         formData.append("file", file);
         formData.append("duration", durationSelect.value);
         formData.append("vip_id", vipCode);
+        formData.append("captcha_id", captchaId);
+        formData.append("captcha_answer", captchaAnswerInput.value.trim());
 
         const response = await fetch(WORKER_URL, {
           method: "POST",
@@ -1173,14 +1171,6 @@
         }
 
         if (response.ok && result.success) {
-          if (wantsPermanent && !result.isVip) {
-            appendLog(texts.logPermanentCodeInvalid, "error");
-            if (typeof turnstile !== "undefined") {
-              turnstile.reset();
-            }
-            return;
-          }
-
           appendLog(result.isVip ? texts.logSuccessVip : texts.logSuccessNormal, "success");
           appendLog(texts.logLinkCreated, "success");
 
@@ -1200,15 +1190,17 @@
           durationSelect.value = "1-day";
           updatePermanentNotice();
 
-          generateMathCaptcha();
+          await fetchCaptcha();
         } else {
           appendLog(interpolate(texts.logRejected, { error: result.error || texts.logUnknown }), "error");
-          generateMathCaptcha();
+          await fetchCaptcha();
         }
       } catch (error) {
         appendLog(interpolate(texts.logNetwork, { message: error.message }), "error");
-        if (typeof turnstile !== "undefined") {
-          turnstile.reset();
+        try {
+          await fetchCaptcha();
+        } catch (e) {
+          appendLog(e.message, "error");
         }
       } finally {
         uploadBtn.disabled = false;
@@ -1221,8 +1213,17 @@
     });
 
     durationSelect.addEventListener("change", updatePermanentNotice);
-    refreshCaptchaBtn.addEventListener("click", generateMathCaptcha);
+
+    refreshCaptchaBtn.addEventListener("click", async () => {
+      try {
+        await fetchCaptcha();
+      } catch (error) {
+        appendLog(error.message, "error");
+      }
+    });
+
     uploadBtn.addEventListener("click", uploadFile);
+
     captchaAnswerInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
@@ -1249,10 +1250,16 @@
       resetLog();
     });
 
-    applyLanguage(getLang());
-    resetPreview();
-    generateMathCaptcha();
-    resetLog();
+    (async function init() {
+      applyLanguage(getLang());
+      resetPreview();
+      resetLog();
+      try {
+        await fetchCaptcha();
+      } catch (error) {
+        appendLog(error.message, "error");
+      }
+    })();
   </script>
 </body>
 </html>
