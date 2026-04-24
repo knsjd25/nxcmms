@@ -30,8 +30,7 @@
   </script>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
+  
   <script type="application/ld+json" id="appSchema">
   {
     "@context":"https://schema.org",
@@ -212,6 +211,17 @@
     .captcha-box{
       margin-top:18px;padding:16px;border-radius:20px;background:#f8fafc;border:1px solid #eef2f7
     }
+    .math-captcha{display:grid;gap:12px}
+    .math-row{display:flex;align-items:center;gap:10px}
+    .math-question{
+      display:inline-flex;align-items:center;min-height:48px;padding:0 16px;border-radius:14px;
+      background:#fff;border:1px solid var(--line);font-weight:900;color:#0f172a
+    }
+    .math-refresh{
+      width:48px;height:48px;border:none;border-radius:14px;background:#e2e8f0;color:#0f172a;
+      font-size:1.1rem;font-weight:900;cursor:pointer
+    }
+    .math-refresh:hover{background:#cbd5e1}
     .upload-btn{
       width:100%;margin-top:18px;border:none;border-radius:20px;background:var(--brand);color:#fff;padding:18px 20px;
       font-size:1rem;font-weight:900;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:.18s;
@@ -376,7 +386,13 @@
 
           <div class="captcha-box">
             <label class="field-label" style="margin-bottom:12px" id="captchaLabel">3. Anti-bot verification</label>
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAACu0xC_kU_xOZpH4"></div>
+            <div class="math-captcha">
+              <div class="math-row">
+                <span class="math-question" id="mathQuestion">7 + 5 = ?</span>
+                <button class="math-refresh" id="refreshCaptchaBtn" type="button" aria-label="Refresh verification question">↻</button>
+              </div>
+              <input class="text-input" type="text" id="captchaAnswerInput" inputmode="numeric" autocomplete="off" placeholder="Enter the result" />
+            </div>
           </div>
 
           <button class="upload-btn" id="uploadBtn" type="button">Upload Image</button>
@@ -486,6 +502,7 @@
         previewText: "Choose a file to preview it before upload.",
         previewAlt: "Selected image preview",
         captchaLabel: "3. Anti-bot verification",
+        captchaPlaceholder: "Enter the result",
         uploadBtn: "Upload Image",
         uploadingBtn: "Uploading…",
         logTitle: "Upload terminal",
@@ -512,6 +529,7 @@
         logFileTooLarge: "Error: file exceeds the 5 MB limit.",
         logChooseImage: "Please choose an image before uploading.",
         logCompleteVerification: "Please complete the anti-bot verification first.",
+        logWrongCaptcha: "Incorrect verification result. Please solve the math question again.",
         logPermanentCodeRequired: "Permanent storage requires a valid long-term storage code.",
         logPermanentCodeInvalid: "The storage code is invalid or not approved for permanent storage.",
         logPreparing: "Preparing upload request…",
@@ -579,6 +597,7 @@
         previewText: "选择图片后可在上传前预览。",
         previewAlt: "已选择图片预览",
         captchaLabel: "3. 防机器人验证",
+        captchaPlaceholder: "请输入计算结果",
         uploadBtn: "上传图片",
         uploadingBtn: "上传中…",
         logTitle: "上传终端",
@@ -605,6 +624,7 @@
         logFileTooLarge: "错误：文件超过 5 MB 限制。",
         logChooseImage: "请先选择图片再上传。",
         logCompleteVerification: "请先完成防机器人验证。",
+        logWrongCaptcha: "验证结果错误，请重新计算这道题。",
         logPermanentCodeRequired: "选择永久保存时，必须填写有效的长期存储码。",
         logPermanentCodeInvalid: "长期存储码无效，或尚未获得永久存储权限。",
         logPreparing: "正在准备上传请求…",
@@ -672,6 +692,7 @@
         previewText: "Wähle eine Datei, um sie vor dem Upload anzuzeigen.",
         previewAlt: "Vorschau des ausgewählten Bildes",
         captchaLabel: "3. Anti-Bot-Verifizierung",
+        captchaPlaceholder: "Ergebnis eingeben",
         uploadBtn: "Bild hochladen",
         uploadingBtn: "Wird hochgeladen…",
         logTitle: "Upload-Terminal",
@@ -698,6 +719,7 @@
         logFileTooLarge: "Fehler: Die Datei überschreitet das Limit von 5 MB.",
         logChooseImage: "Bitte wähle vor dem Hochladen ein Bild aus.",
         logCompleteVerification: "Bitte schließe zuerst die Anti-Bot-Verifizierung ab.",
+        logWrongCaptcha: "Falsches Ergebnis. Bitte löse die Rechenaufgabe erneut.",
         logPermanentCodeRequired: "Für permanente Speicherung ist ein gültiger Langzeitspeicher-Code erforderlich.",
         logPermanentCodeInvalid: "Der Speicher-Code ist ungültig oder nicht für permanente Speicherung freigegeben.",
         logPreparing: "Upload-Anfrage wird vorbereitet…",
@@ -765,6 +787,7 @@
         previewText: "Choisissez un fichier pour l’apercevoir avant l’envoi.",
         previewAlt: "Aperçu de l’image sélectionnée",
         captchaLabel: "3. Vérification anti-bot",
+        captchaPlaceholder: "Entrez le résultat",
         uploadBtn: "Téléverser l’image",
         uploadingBtn: "Téléversement…",
         logTitle: "Terminal d’envoi",
@@ -791,6 +814,7 @@
         logFileTooLarge: "Erreur : le fichier dépasse la limite de 5 Mo.",
         logChooseImage: "Veuillez choisir une image avant de la téléverser.",
         logCompleteVerification: "Veuillez d’abord terminer la vérification anti-bot.",
+        logWrongCaptcha: "Résultat incorrect. Veuillez résoudre à nouveau l’opération.",
         logPermanentCodeRequired: "Le stockage permanent nécessite un code valide de stockage longue durée.",
         logPermanentCodeInvalid: "Le code de stockage est invalide ou non approuvé pour le stockage permanent.",
         logPreparing: "Préparation de la requête d’envoi…",
@@ -858,6 +882,7 @@
         previewText: "Elige un archivo para verlo antes de subirlo.",
         previewAlt: "Vista previa de la imagen seleccionada",
         captchaLabel: "3. Verificación anti-bot",
+        captchaPlaceholder: "Introduce el resultado",
         uploadBtn: "Subir imagen",
         uploadingBtn: "Subiendo…",
         logTitle: "Terminal de subida",
@@ -884,6 +909,7 @@
         logFileTooLarge: "Error: el archivo supera el límite de 5 MB.",
         logChooseImage: "Por favor, elige una imagen antes de subirla.",
         logCompleteVerification: "Primero completa la verificación anti-bot.",
+        logWrongCaptcha: "Resultado incorrecto. Resuelve de nuevo la operación.",
         logPermanentCodeRequired: "El almacenamiento permanente requiere un código válido de almacenamiento prolongado.",
         logPermanentCodeInvalid: "El código de almacenamiento no es válido o no está aprobado para almacenamiento permanente.",
         logPreparing: "Preparando la solicitud de subida…",
@@ -914,6 +940,11 @@
     const uploadLog = document.getElementById("uploadLog");
     const permanentNotice = document.getElementById("permanentNotice");
     const languageSelect = document.getElementById("languageSelect");
+    const captchaAnswerInput = document.getElementById("captchaAnswerInput");
+    const mathQuestion = document.getElementById("mathQuestion");
+    const refreshCaptchaBtn = document.getElementById("refreshCaptchaBtn");
+
+    let captchaExpectedAnswer = null;
 
     function getLang() {
       return localStorage.getItem("miniToolsUploadLang") || "en";
@@ -1012,6 +1043,7 @@
 
       document.getElementById("storageCodeEmailText").innerHTML = texts.storageCodeEmailText;
       storageCodeInput.placeholder = texts.storageCodePlaceholder;
+      captchaAnswerInput.placeholder = texts.captchaPlaceholder;
       previewImage.alt = texts.previewAlt;
       uploadBtn.textContent = texts.uploadBtn;
       updatePermanentNotice();
@@ -1042,6 +1074,18 @@
 
     function updatePermanentNotice() {
       permanentNotice.classList.toggle("show", durationSelect.value === "permanent");
+    }
+
+    function generateMathCaptcha() {
+      const a = Math.floor(Math.random() * 9) + 1;
+      const b = Math.floor(Math.random() * 9) + 1;
+      captchaExpectedAnswer = a + b;
+      mathQuestion.textContent = `${a} + ${b} = ?`;
+      captchaAnswerInput.value = "";
+    }
+
+    function isMathCaptchaValid() {
+      return captchaAnswerInput.value.trim() !== "" && Number(captchaAnswerInput.value.trim()) === captchaExpectedAnswer;
     }
 
     function setSelectedFile(file) {
@@ -1091,10 +1135,15 @@
         return;
       }
 
-      const tokenField = document.querySelector('[name="cf-turnstile-response"]');
-      const turnstileResponse = tokenField ? tokenField.value : "";
-      if (!turnstileResponse) {
+      if (captchaAnswerInput.value.trim() === "") {
         appendLog(texts.logCompleteVerification, "error");
+        return;
+      }
+
+      if (!isMathCaptchaValid()) {
+        appendLog(texts.logWrongCaptcha, "error");
+        generateMathCaptcha();
+        captchaAnswerInput.focus();
         return;
       }
 
@@ -1109,7 +1158,6 @@
         const formData = new FormData();
         formData.append("file", file);
         formData.append("duration", durationSelect.value);
-        formData.append("cf-turnstile-response", turnstileResponse);
         formData.append("vip_id", vipCode);
 
         const response = await fetch(WORKER_URL, {
@@ -1152,14 +1200,10 @@
           durationSelect.value = "1-day";
           updatePermanentNotice();
 
-          if (typeof turnstile !== "undefined") {
-            turnstile.reset();
-          }
+          generateMathCaptcha();
         } else {
           appendLog(interpolate(texts.logRejected, { error: result.error || texts.logUnknown }), "error");
-          if (typeof turnstile !== "undefined") {
-            turnstile.reset();
-          }
+          generateMathCaptcha();
         }
       } catch (error) {
         appendLog(interpolate(texts.logNetwork, { message: error.message }), "error");
@@ -1177,7 +1221,14 @@
     });
 
     durationSelect.addEventListener("change", updatePermanentNotice);
+    refreshCaptchaBtn.addEventListener("click", generateMathCaptcha);
     uploadBtn.addEventListener("click", uploadFile);
+    captchaAnswerInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        uploadFile();
+      }
+    });
 
     const dropdown = document.getElementById("categoriesDropdown");
     const trigger = dropdown.querySelector(".nav-button");
@@ -1200,6 +1251,7 @@
 
     applyLanguage(getLang());
     resetPreview();
+    generateMathCaptcha();
     resetLog();
   </script>
 </body>
