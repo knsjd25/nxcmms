@@ -1,20 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>Text Compare & Diff Checker | Mini-Tools</title>
-  <meta name="description" content="Free online text compare and diff checker. Compare two versions of text or code in inline or split view. 100% client-side with no server uploads." />
-  <meta name="keywords" content="text compare, diff checker, compare two texts, compare code online, inline diff, split diff, private diff tool" />
-  <meta name="robots" content="index, follow" />
+  <title>Text Compare & Diff Checker | Compare Text and Code Locally | Mini-Tools.uk</title>
+  <meta name="description" content="Compare two versions of text or code in your browser. Use inline or split diff view to highlight additions, removals and changed wording without uploading your text." />
+  <meta name="keywords" content="text compare, diff checker, compare two texts, compare code online, inline diff, split diff, text difference checker, code diff tool, 文本对比工具, 代码对比工具" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/diff" />
+
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/diff?lang=en" />
+  <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/diff?lang=zh-CN" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/diff?lang=de" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/diff?lang=fr" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/diff?lang=es" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/diff" />
 
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Text Compare & Diff Checker | Mini-Tools.uk" />
+  <meta property="og:description" content="Compare two versions of text or code locally in your browser with inline and split diff views." />
+  <meta property="og:url" content="https://mini-tools.uk/diff" />
+  <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Text Compare & Diff Checker | Mini-Tools.uk" />
+  <meta name="twitter:description" content="Compare text and code locally with inline and split diff views." />
+  <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -25,10 +43,9 @@
   </script>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.1.0/diff.min.js"></script>
 
-  <script type="application/ld+json">
+  <script type="application/ld+json" id="schema-json">
   {
     "@context":"https://schema.org",
     "@graph":[
@@ -37,8 +54,9 @@
         "name":"Mini-Tools Text Compare & Diff Checker",
         "applicationCategory":"UtilitiesApplication",
         "operatingSystem":"Web",
+        "url":"https://mini-tools.uk/diff",
         "description":"Client-side text and code comparison tool with inline and split diff views.",
-        "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"}
       },
       {
         "@type":"FAQPage",
@@ -48,7 +66,7 @@
             "name":"Is this diff checker private?",
             "acceptedAnswer":{
               "@type":"Answer",
-              "text":"Yes. Text comparison runs entirely in your browser. Your content is not uploaded to our servers."
+              "text":"Text comparison runs in your browser. The text you paste into the panels is not uploaded to Mini-Tools.uk."
             }
           },
           {
@@ -56,7 +74,7 @@
             "name":"Can I compare code as well as plain text?",
             "acceptedAnswer":{
               "@type":"Answer",
-              "text":"Yes. You can paste code, contracts, articles, logs, or any plain text into both panels and compare them."
+              "text":"Yes. You can paste code, contracts, article drafts, logs, prompts or any plain text into both panels and compare them."
             }
           },
           {
@@ -81,6 +99,8 @@
       --muted:#64748b;
       --line:#e2e8f0;
       --brand:#4f46e5;
+      --brand-dark:#4338ca;
+      --soft:#eef2ff;
       --shadow:0 10px 25px -5px rgba(15,23,42,0.08);
       --radius:22px;
       --mono:"JetBrains Mono","SFMono-Regular",Consolas,Monaco,monospace;
@@ -88,26 +108,30 @@
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans)}
+    html{scroll-behavior:smooth}
     body{min-height:100vh;display:flex;flex-direction:column}
     a{text-decoration:none;color:inherit}
     button,input,textarea,select{font:inherit}
     .container{width:min(1500px,calc(100% - 32px));margin:0 auto}
+    .skip-link{position:absolute;left:12px;top:-48px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:12px;z-index:100}
+    .skip-link:focus{top:12px}
 
-    .site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
     .site-header-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
     .brand{display:flex;align-items:center;gap:12px}
     .brand img{width:40px;height:40px;border-radius:12px;background:#fff;object-fit:contain;box-shadow:0 2px 8px rgba(0,0,0,.05)}
     .brand-title{font-weight:900;font-size:1.15rem;letter-spacing:-.02em}
     .brand-title span{color:var(--brand)}
-    .nav{display:flex;align-items:center;gap:8px;position:relative}
-    .nav-link,.nav-button{padding:10px 14px;border-radius:12px;font-size:.95rem;font-weight:800;color:#334155;transition:background .2s,color .2s;display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer}
-    .nav-link:hover,.nav-button:hover{background:#f1f5f9;color:#0f172a}
-    .dropdown{position:relative}
-    .dropdown-bridge{position:absolute;left:0;right:0;height:14px;top:100%}
-    .dropdown-menu{position:absolute;top:calc(100% + 10px);left:0;min-width:240px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px;box-shadow:0 20px 40px rgba(15,23,42,.12);opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s}
-    .dropdown.open .dropdown-menu,.dropdown:hover .dropdown-menu,.dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
-    .dropdown-item{display:block;padding:11px 12px;border-radius:12px;font-weight:700;color:#334155}
-    .dropdown-item:hover{background:#f8fafc;color:#0f172a}
+    .nav{display:flex;align-items:center;gap:8px;position:relative;flex-wrap:wrap;justify-content:flex-end}
+    .nav-link,.nav-button,.lang-trigger{padding:10px 14px;border-radius:12px;font-size:.95rem;font-weight:800;color:#334155;transition:background .2s,color .2s;display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer}
+    .nav-link:hover,.nav-button:hover,.lang-trigger:hover,.dropdown:hover .nav-button,.lang-group:hover .lang-trigger{background:#f1f5f9;color:#0f172a}
+    .dropdown,.lang-group{position:relative;padding-bottom:12px;margin-bottom:-12px}
+    .dropdown::after,.lang-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:12px}
+    .dropdown-menu,.lang-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:230px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px;box-shadow:0 20px 40px rgba(15,23,42,.12);opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s;z-index:60}
+    .dropdown .dropdown-menu{left:0;right:auto}
+    .dropdown.open .dropdown-menu,.dropdown:hover .dropdown-menu,.dropdown:focus-within .dropdown-menu,.lang-group:hover .lang-menu,.lang-group:focus-within .lang-menu{opacity:1;visibility:visible;transform:translateY(0)}
+    .dropdown-item,.lang-menu button{display:block;width:100%;text-align:left;padding:11px 12px;border-radius:12px;font-weight:700;color:#334155;border:0;background:transparent;cursor:pointer}
+    .dropdown-item:hover,.lang-menu button:hover,.lang-menu button.active{background:#f8fafc;color:#0f172a}
 
     .page-intro{padding:34px 0 18px}
     .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;border:1px solid #c7d2fe;background:#eef2ff;color:#4338ca;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
@@ -164,6 +188,7 @@
     .section-card{margin:26px 0 0;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:28px}
     .section-card h2{margin:0 0 12px;font-size:1.8rem;letter-spacing:-.03em}
     .section-card p{color:var(--muted);line-height:1.75}
+    .section-card ul{color:var(--muted);line-height:1.7}
     .faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
     .faq-item{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:18px}
     .faq-item h3{margin:0 0 8px;font-size:1.05rem}
@@ -183,16 +208,19 @@
       .workspace{grid-template-columns:1fr}
       .faq-grid,.related,.split-view.show{grid-template-columns:1fr}
       .site-header-inner{flex-wrap:wrap;padding:10px 0}
-      .nav{width:100%;overflow:auto;padding-bottom:4px}
+      .nav{width:100%;overflow:auto;padding-bottom:4px;justify-content:flex-start}
     }
     @media (max-width:640px){
       .container{width:min(100% - 20px,1500px)}
       .top-actions .btn{flex:1}
       .result-head{align-items:flex-start}
+      .dropdown-menu,.lang-menu{left:0;right:auto}
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
   <header class="site-header">
     <div class="container site-header-inner">
       <a class="brand" href="/">
@@ -201,83 +229,98 @@
       </a>
 
       <nav class="nav" aria-label="Main navigation">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/#all-tools">All Tools</a>
+        <a class="nav-link" href="/" data-i18n="navHome">Home</a>
+        <a class="nav-link" href="/#featured-tools" data-i18n="navTools">All Tools</a>
 
         <div class="dropdown" id="categoriesDropdown">
           <button class="nav-button" type="button" aria-expanded="false" aria-controls="categoriesMenu">
-            Categories
+            <span data-i18n="navCategories">Categories</span>
             <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-          <div class="dropdown-bridge" aria-hidden="true"></div>
           <div class="dropdown-menu" id="categoriesMenu" role="menu">
-            <a class="dropdown-item" href="/#uk-finance">UK Finance</a>
-            <a class="dropdown-item" href="/#developer-tools">Developer Tools</a>
-            <a class="dropdown-item" href="/#image-tools">Image & PDF</a>
-            <a class="dropdown-item" href="/#text-conversion">Text & Conversion</a>
-            <a class="dropdown-item" href="/#privacy-security">Security & Privacy</a>
+            <a class="dropdown-item" href="/#uk-finance" data-i18n="catFinance">UK Finance</a>
+            <a class="dropdown-item" href="/#developer-tools" data-i18n="catDev">Developer Tools</a>
+            <a class="dropdown-item" href="/#image-tools" data-i18n="catImage">Image & PDF</a>
+            <a class="dropdown-item" href="/#text-conversion" data-i18n="catText">Text & Conversion</a>
+            <a class="dropdown-item" href="/#privacy-security" data-i18n="catSecurity">Security & Privacy</a>
           </div>
         </div>
 
-        <a class="nav-link" href="/blog">Blog</a>
-        <a class="nav-link" href="/about">About</a>
+        <a class="nav-link" href="/blog" data-i18n="navBlog">Blog</a>
+        <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
+        <a class="nav-link" href="/contact" data-i18n="navContact">Contact</a>
+
+        <div class="lang-group">
+          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            <span id="currentLangLabel">English</span>
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="lang-menu" role="menu" aria-label="Language">
+            <button type="button" data-lang-btn="en">English</button>
+            <button type="button" data-lang-btn="zh-CN">中文</button>
+            <button type="button" data-lang-btn="de">Deutsch</button>
+            <button type="button" data-lang-btn="fr">Français</button>
+            <button type="button" data-lang-btn="es">Español</button>
+          </div>
+        </div>
       </nav>
     </div>
   </header>
 
-  <main class="container">
+  <main class="container" id="main">
     <section class="page-intro">
-      <div class="eyebrow">Text Tool • Local Processing</div>
-      <h1>Text Compare & Diff Checker</h1>
-      <p class="intro-text">
-        Compare two versions of text or code and highlight exactly what changed. Use inline view for fast reading,
-        or split view for side-by-side review.
+      <div class="eyebrow" data-i18n="eyebrow">Text Tool • Local Processing</div>
+      <h1 data-i18n="heroTitle">Text Compare & Diff Checker</h1>
+      <p class="intro-text" data-i18n="heroText">
+        Compare two versions of text or code and highlight exactly what changed. Use inline view for fast reading, or split view for side-by-side review.
       </p>
 
       <div class="top-actions">
-        <button class="btn soft" type="button" id="sampleBtn">Load Sample</button>
-        <button class="btn white" type="button" id="swapBtn">Swap Sides</button>
-        <button class="btn danger" type="button" id="clearBtn">Clear</button>
+        <button class="btn soft" type="button" id="sampleBtn" data-i18n="sampleBtn">Load Sample</button>
+        <button class="btn white" type="button" id="swapBtn" data-i18n="swapBtn">Swap Sides</button>
+        <button class="btn danger" type="button" id="clearBtn" data-i18n="clearBtn">Clear</button>
       </div>
     </section>
 
     <section class="workspace" aria-label="Text comparison workspace">
       <div class="panel">
         <div class="panel-head">
-          <div class="panel-label">Original text</div>
+          <div class="panel-label" data-i18n="leftLabel">Original text</div>
           <div class="panel-meta" id="leftMeta">0 chars</div>
         </div>
-        <textarea id="textOne" class="editor" spellcheck="false" placeholder="Paste your original text or code here..."></textarea>
+        <textarea id="textOne" class="editor" spellcheck="false" data-i18n-placeholder="leftPlaceholder" placeholder="Paste your original text or code here..."></textarea>
       </div>
 
       <div class="panel">
         <div class="panel-head">
-          <div class="panel-label">Modified text</div>
+          <div class="panel-label" data-i18n="rightLabel">Modified text</div>
           <div class="panel-meta" id="rightMeta">0 chars</div>
         </div>
-        <textarea id="textTwo" class="editor" spellcheck="false" placeholder="Paste the new version here..."></textarea>
+        <textarea id="textTwo" class="editor" spellcheck="false" data-i18n-placeholder="rightPlaceholder" placeholder="Paste the new version here..."></textarea>
       </div>
     </section>
 
     <div class="compare-bar">
-      <button class="compare-btn" type="button" id="compareBtn">Find Differences</button>
+      <button class="compare-btn" type="button" id="compareBtn" data-i18n="compareBtn">Find Differences</button>
     </div>
 
     <section class="result-shell" id="resultShell">
       <div class="result-head">
-        <div class="result-title">Comparison Report</div>
+        <div class="result-title" data-i18n="reportTitle">Comparison Report</div>
 
         <div class="result-controls">
           <div class="segmented" role="tablist" aria-label="View mode">
-            <button class="active" type="button" id="inlineTab">Inline View</button>
-            <button type="button" id="splitTab">Split View</button>
+            <button class="active" type="button" id="inlineTab" data-i18n="inlineTab">Inline View</button>
+            <button type="button" id="splitTab" data-i18n="splitTab">Split View</button>
           </div>
 
           <div class="stats">
-            <span class="add">Added <strong id="addCount">0</strong></span>
-            <span class="remove">Removed <strong id="removeCount">0</strong></span>
+            <span class="add"><span data-i18n="addedLabel">Added</span> <strong id="addCount">0</strong></span>
+            <span class="remove"><span data-i18n="removedLabel">Removed</span> <strong id="removeCount">0</strong></span>
           </div>
         </div>
       </div>
@@ -292,48 +335,58 @@
     </section>
 
     <section class="section-card">
-      <h2>Why this diff tool is useful</h2>
-      <p>
-        A good diff checker should do more than say “these texts are different.” It should make revisions easy
-        to inspect. This page highlights additions and removals at word level, which makes it useful for code,
-        policy drafts, content edits, contracts, prompts, and logs. Everything runs in your browser, so private
-        text stays local.
+      <h2 data-i18n="contentTitle">Why this diff tool is useful</h2>
+      <p data-i18n="contentP1">
+        A good diff checker should do more than say “these texts are different.” It should make revisions easy to inspect. This page highlights additions and removals at word level, which makes it useful for code, policy drafts, content edits, contracts, prompts, and logs.
+      </p>
+      <p data-i18n="contentP2">
+        The comparison runs in your browser with the jsdiff library. For normal use, the text you paste is not uploaded to Mini-Tools.uk, which makes the tool suitable for quick private review before sharing or publishing content.
       </p>
 
       <div class="faq-grid">
         <article class="faq-item">
-          <h3>Is it private?</h3>
-          <p>Yes. Comparison happens entirely in your browser. Your text is not uploaded to our servers.</p>
+          <h3 data-i18n="faq1Q">Is it private?</h3>
+          <p data-i18n="faq1A">Yes. Comparison happens in your browser. Your text is not uploaded to Mini-Tools.uk.</p>
         </article>
         <article class="faq-item">
-          <h3>Can I compare code?</h3>
-          <p>Yes. It works with plain text, code snippets, article drafts, notes, and document revisions.</p>
+          <h3 data-i18n="faq2Q">Can I compare code?</h3>
+          <p data-i18n="faq2A">Yes. It works with plain text, code snippets, article drafts, notes, prompts and document revisions.</p>
         </article>
         <article class="faq-item">
-          <h3>When should I use inline view?</h3>
-          <p>Inline view is best when you want to read a single combined output and quickly spot edits.</p>
+          <h3 data-i18n="faq3Q">When should I use inline view?</h3>
+          <p data-i18n="faq3A">Inline view is best when you want to read one combined output and quickly spot edits.</p>
         </article>
         <article class="faq-item">
-          <h3>When should I use split view?</h3>
-          <p>Split view is better for reviewing two versions side by side, especially for code and long documents.</p>
+          <h3 data-i18n="faq4Q">When should I use split view?</h3>
+          <p data-i18n="faq4A">Split view is better for reviewing two versions side by side, especially for code and longer documents.</p>
         </article>
       </div>
     </section>
 
     <section class="section-card">
-      <h2>Related tools</h2>
+      <h2 data-i18n="useTitle">Common ways to use a text diff checker</h2>
+      <ul>
+        <li data-i18n="use1">Compare two versions of an article, blog post, email or product description before publishing.</li>
+        <li data-i18n="use2">Check code changes when you only have two pasted snippets instead of a full Git workflow.</li>
+        <li data-i18n="use3">Review small policy, contract or terms updates by highlighting changed wording.</li>
+        <li data-i18n="use4">Compare prompts, logs or configuration text to find the exact edit that changed the result.</li>
+      </ul>
+    </section>
+
+    <section class="section-card">
+      <h2 data-i18n="relatedTitle">Related tools</h2>
       <div class="related">
         <a href="/json">
-          <strong>JSON Formatter</strong>
-          <span>Validate, format, and inspect JSON with a tree viewer.</span>
+          <strong data-i18n="relatedJsonTitle">JSON Formatter</strong>
+          <span data-i18n="relatedJsonText">Validate, format, and inspect JSON with a tree viewer.</span>
         </a>
         <a href="/token">
-          <strong>AI Token Calculator</strong>
-          <span>Estimate prompt size and model cost before you call an API.</span>
+          <strong data-i18n="relatedTokenTitle">AI Token Calculator</strong>
+          <span data-i18n="relatedTokenText">Estimate prompt size and model cost before you call an API.</span>
         </a>
         <a href="/#text-conversion">
-          <strong>More text tools</strong>
-          <span>Browse the rest of your text, conversion, and utility pages.</span>
+          <strong data-i18n="relatedMoreTitle">More text tools</strong>
+          <span data-i18n="relatedMoreText">Browse the rest of your text, conversion, and utility pages.</span>
         </a>
       </div>
     </section>
@@ -342,17 +395,335 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-links">
-        <a href="/">Home</a>
-        <a href="/blog">Blog</a>
-        <a href="/about">About</a>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/contact">Contact</a>
+        <a href="/" data-i18n="navHome">Home</a>
+        <a href="/blog" data-i18n="navBlog">Blog</a>
+        <a href="/about" data-i18n="navAbout">About</a>
+        <a href="/privacy" data-i18n="privacy">Privacy Policy</a>
+        <a href="/contact" data-i18n="navContact">Contact</a>
       </div>
-      <div class="footer-note">© 2026 Mini-Tools.uk — secure local text utilities</div>
+      <div class="footer-note" data-i18n="footerNote">© 2026 Mini-Tools.uk — local text utilities for everyday work</div>
     </div>
   </footer>
 
   <script>
+    const translations = {
+      en: {
+        htmlLang:"en-GB",
+        langLabel:"English",
+        title:"Text Compare & Diff Checker | Compare Text and Code Locally | Mini-Tools.uk",
+        description:"Compare two versions of text or code in your browser. Use inline or split diff view to highlight additions, removals and changed wording without uploading your text.",
+        keywords:"text compare, diff checker, compare two texts, compare code online, inline diff, split diff, text difference checker, code diff tool",
+        skip:"Skip to content",
+        navHome:"Home",
+        navTools:"All Tools",
+        navCategories:"Categories",
+        navBlog:"Blog",
+        navAbout:"About",
+        navContact:"Contact",
+        privacy:"Privacy Policy",
+        catFinance:"UK Finance",
+        catDev:"Developer Tools",
+        catImage:"Image & PDF",
+        catText:"Text & Conversion",
+        catSecurity:"Security & Privacy",
+        eyebrow:"Text Tool • Local Processing",
+        heroTitle:"Text Compare & Diff Checker",
+        heroText:"Compare two versions of text or code and highlight exactly what changed. Use inline view for fast reading, or split view for side-by-side review.",
+        sampleBtn:"Load Sample",
+        swapBtn:"Swap Sides",
+        clearBtn:"Clear",
+        leftLabel:"Original text",
+        rightLabel:"Modified text",
+        leftPlaceholder:"Paste your original text or code here...",
+        rightPlaceholder:"Paste the new version here...",
+        compareBtn:"Find Differences",
+        reportTitle:"Comparison Report",
+        inlineTab:"Inline View",
+        splitTab:"Split View",
+        addedLabel:"Added",
+        removedLabel:"Removed",
+        chars:"chars",
+        contentTitle:"Why this diff tool is useful",
+        contentP1:"A good diff checker should do more than say “these texts are different.” It should make revisions easy to inspect. This page highlights additions and removals at word level, which makes it useful for code, policy drafts, content edits, contracts, prompts, and logs.",
+        contentP2:"The comparison runs in your browser with the jsdiff library. For normal use, the text you paste is not uploaded to Mini-Tools.uk, which makes the tool suitable for quick private review before sharing or publishing content.",
+        faq1Q:"Is it private?",
+        faq1A:"Yes. Comparison happens in your browser. Your text is not uploaded to Mini-Tools.uk.",
+        faq2Q:"Can I compare code?",
+        faq2A:"Yes. It works with plain text, code snippets, article drafts, notes, prompts and document revisions.",
+        faq3Q:"When should I use inline view?",
+        faq3A:"Inline view is best when you want to read one combined output and quickly spot edits.",
+        faq4Q:"When should I use split view?",
+        faq4A:"Split view is better for reviewing two versions side by side, especially for code and longer documents.",
+        useTitle:"Common ways to use a text diff checker",
+        use1:"Compare two versions of an article, blog post, email or product description before publishing.",
+        use2:"Check code changes when you only have two pasted snippets instead of a full Git workflow.",
+        use3:"Review small policy, contract or terms updates by highlighting changed wording.",
+        use4:"Compare prompts, logs or configuration text to find the exact edit that changed the result.",
+        relatedTitle:"Related tools",
+        relatedJsonTitle:"JSON Formatter",
+        relatedJsonText:"Validate, format, and inspect JSON with a tree viewer.",
+        relatedTokenTitle:"AI Token Calculator",
+        relatedTokenText:"Estimate prompt size and model cost before you call an API.",
+        relatedMoreTitle:"More text tools",
+        relatedMoreText:"Browse the rest of your text, conversion, and utility pages.",
+        footerNote:"© 2026 Mini-Tools.uk — local text utilities for everyday work",
+        sampleLeft:"The Open Source Initiative (OSI) is a California public benefit corporation, founded in 1998.\n\nIt promotes open-source software and maintains the Open Source Definition.",
+        sampleRight:"The Open Source Initiative (OSI) is an American non-profit corporation, founded in 1998.\n\nIt promotes open-source software development and maintains the Open Source Definition framework."
+      },
+      "zh-CN": {
+        htmlLang:"zh-CN",
+        langLabel:"中文",
+        title:"文本对比工具｜代码差异对比｜Diff Checker｜Mini-Tools.uk",
+        description:"使用 Mini-Tools 文本对比工具在浏览器中比较两段文本或代码，支持 inline 和 split 视图，快速查看新增、删除和修改内容。",
+        keywords:"文本对比工具, 文本差异对比, 代码对比工具, diff checker, 在线文本对比, 文档对比工具, 代码差异检查, 文本比较工具",
+        skip:"跳到正文",
+        navHome:"首页",
+        navTools:"全部工具",
+        navCategories:"分类",
+        navBlog:"博客",
+        navAbout:"关于",
+        navContact:"联系",
+        privacy:"隐私政策",
+        catFinance:"英国财务工具",
+        catDev:"开发者工具",
+        catImage:"图片与 PDF",
+        catText:"文本与转换工具",
+        catSecurity:"安全与隐私工具",
+        eyebrow:"文本工具 • 浏览器本地处理",
+        heroTitle:"文本对比工具与代码差异检查器",
+        heroText:"比较两段文本或代码，快速标出新增、删除和修改内容。Inline 视图适合快速阅读，Split 视图适合左右对照审查。",
+        sampleBtn:"加载示例",
+        swapBtn:"交换左右",
+        clearBtn:"清空",
+        leftLabel:"原始文本",
+        rightLabel:"修改后文本",
+        leftPlaceholder:"在这里粘贴原始文本或代码...",
+        rightPlaceholder:"在这里粘贴新版本...",
+        compareBtn:"查找差异",
+        reportTitle:"对比报告",
+        inlineTab:"合并视图",
+        splitTab:"左右视图",
+        addedLabel:"新增",
+        removedLabel:"删除",
+        chars:"字符",
+        contentTitle:"这个文本对比工具适合做什么",
+        contentP1:"好的 diff 工具不只是告诉你“两段文本不一样”，更重要的是让修改内容清楚可见。本页面按词级别高亮新增和删除内容，适合检查代码片段、文章草稿、产品描述、合同条款、提示词和日志变化。",
+        contentP2:"对比过程在浏览器中通过 jsdiff 库完成。正常使用时，你粘贴的文本不会上传到 Mini-Tools.uk，适合在分享或发布前进行快速的本地检查。",
+        faq1Q:"这个工具隐私安全吗？",
+        faq1A:"对比过程在浏览器中完成。你粘贴的文本不会上传到 Mini-Tools.uk。",
+        faq2Q:"可以对比代码吗？",
+        faq2A:"可以。它适合普通文本、代码片段、文章草稿、笔记、提示词和文档版本对比。",
+        faq3Q:"什么时候用合并视图？",
+        faq3A:"当你想在一个连续输出中快速阅读修改内容时，合并视图更合适。",
+        faq4Q:"什么时候用左右视图？",
+        faq4A:"当你需要并排审查两个版本，特别是代码或较长文档时，左右视图更清楚。",
+        useTitle:"文本差异对比的常见用途",
+        use1:"发布前比较两版文章、博客、邮件或产品描述。",
+        use2:"只有两段代码片段时，快速检查代码变更。",
+        use3:"审查政策、合同、隐私条款或服务条款中的小修改。",
+        use4:"比较提示词、日志或配置文本，找出具体是哪一处改动影响了结果。",
+        relatedTitle:"相关工具",
+        relatedJsonTitle:"JSON 格式化工具",
+        relatedJsonText:"校验、格式化并用树形视图查看 JSON。",
+        relatedTokenTitle:"AI Token 计算器",
+        relatedTokenText:"在调用 API 前估算提示词长度和模型成本。",
+        relatedMoreTitle:"更多文本工具",
+        relatedMoreText:"浏览其他文本、转换和实用工具页面。",
+        footerNote:"© 2026 Mini-Tools.uk — 适合日常工作的本地文本工具",
+        sampleLeft:"Mini-Tools 是一个实用在线工具网站。\n\n它提供 JSON 格式化、图片压缩和文本对比功能。",
+        sampleRight:"Mini-Tools.uk 是一个实用在线工具网站。\n\n它提供 JSON 格式化、图片压缩、AI Token 估算和文本对比功能。"
+      },
+      de: {
+        htmlLang:"de",
+        langLabel:"Deutsch",
+        title:"Text vergleichen & Diff Checker｜Code lokal vergleichen｜Mini-Tools.uk",
+        description:"Vergleichen Sie zwei Text- oder Codeversionen im Browser. Inline- und Split-Ansicht zeigen hinzugefügte, entfernte und geänderte Wörter.",
+        keywords:"Text vergleichen, Diff Checker, Code vergleichen online, Textunterschiede prüfen, Inline Diff, Split Diff, lokales Texttool",
+        skip:"Zum Inhalt springen",
+        navHome:"Startseite",
+        navTools:"Alle Tools",
+        navCategories:"Kategorien",
+        navBlog:"Blog",
+        navAbout:"Über uns",
+        navContact:"Kontakt",
+        privacy:"Datenschutz",
+        catFinance:"UK Finanzen",
+        catDev:"Developer Tools",
+        catImage:"Bild & PDF",
+        catText:"Text & Konvertierung",
+        catSecurity:"Sicherheit & Datenschutz",
+        eyebrow:"Text-Tool • Lokale Verarbeitung",
+        heroTitle:"Text vergleichen & Diff Checker",
+        heroText:"Vergleichen Sie zwei Versionen von Text oder Code und sehen Sie genau, was sich geändert hat. Inline-Ansicht für schnelles Lesen, Split-Ansicht für Vergleich nebeneinander.",
+        sampleBtn:"Beispiel laden",
+        swapBtn:"Seiten tauschen",
+        clearBtn:"Leeren",
+        leftLabel:"Originaltext",
+        rightLabel:"Geänderter Text",
+        leftPlaceholder:"Originaltext oder Code hier einfügen...",
+        rightPlaceholder:"Neue Version hier einfügen...",
+        compareBtn:"Unterschiede finden",
+        reportTitle:"Vergleichsbericht",
+        inlineTab:"Inline-Ansicht",
+        splitTab:"Split-Ansicht",
+        addedLabel:"Hinzugefügt",
+        removedLabel:"Entfernt",
+        chars:"Zeichen",
+        contentTitle:"Wofür dieses Diff-Tool nützlich ist",
+        contentP1:"Ein gutes Diff-Tool sollte Änderungen klar sichtbar machen. Diese Seite hebt hinzugefügte und entfernte Wörter hervor und eignet sich für Code, Entwürfe, Verträge, Prompts und Logs.",
+        contentP2:"Der Vergleich läuft im Browser mit der jsdiff-Bibliothek. Bei normaler Nutzung wird der eingefügte Text nicht an Mini-Tools.uk hochgeladen.",
+        faq1Q:"Ist es privat?",
+        faq1A:"Ja. Der Vergleich erfolgt im Browser. Ihr Text wird nicht an Mini-Tools.uk hochgeladen.",
+        faq2Q:"Kann ich Code vergleichen?",
+        faq2A:"Ja. Es funktioniert mit Text, Code-Snippets, Entwürfen, Notizen, Prompts und Dokumentversionen.",
+        faq3Q:"Wann ist Inline sinnvoll?",
+        faq3A:"Inline ist gut, wenn Sie eine zusammengeführte Ausgabe lesen und Änderungen schnell erkennen möchten.",
+        faq4Q:"Wann ist Split sinnvoll?",
+        faq4A:"Split ist besser, wenn Sie zwei Versionen nebeneinander prüfen möchten.",
+        useTitle:"Häufige Anwendungen",
+        use1:"Artikel, E-Mails oder Produkttexte vor dem Veröffentlichen vergleichen.",
+        use2:"Codeänderungen prüfen, wenn nur zwei Snippets vorliegen.",
+        use3:"Kleine Änderungen in Richtlinien, Verträgen oder Bedingungen überprüfen.",
+        use4:"Prompts, Logs oder Konfigurationen vergleichen.",
+        relatedTitle:"Verwandte Tools",
+        relatedJsonTitle:"JSON Formatierer",
+        relatedJsonText:"JSON prüfen, formatieren und als Baum anzeigen.",
+        relatedTokenTitle:"AI Token Rechner",
+        relatedTokenText:"Promptgröße und Modellkosten vor einem API-Aufruf schätzen.",
+        relatedMoreTitle:"Weitere Texttools",
+        relatedMoreText:"Weitere Text-, Konvertierungs- und Utility-Seiten ansehen.",
+        footerNote:"© 2026 Mini-Tools.uk — lokale Texttools für den Alltag",
+        sampleLeft:"Mini-Tools ist eine Website mit praktischen Online-Tools.\n\nSie bietet JSON-Formatierung, Bildkomprimierung und Textvergleich.",
+        sampleRight:"Mini-Tools.uk ist eine Website mit praktischen Online-Tools.\n\nSie bietet JSON-Formatierung, Bildkomprimierung, AI-Token-Schätzung und Textvergleich."
+      },
+      fr: {
+        htmlLang:"fr",
+        langLabel:"Français",
+        title:"Comparateur de texte & Diff Checker｜Comparer du code localement｜Mini-Tools.uk",
+        description:"Comparez deux versions de texte ou de code dans votre navigateur. Les vues inline et split montrent les ajouts, suppressions et changements.",
+        keywords:"comparateur de texte, diff checker, comparer deux textes, comparer code en ligne, différence texte, outil diff local",
+        skip:"Aller au contenu",
+        navHome:"Accueil",
+        navTools:"Tous les outils",
+        navCategories:"Catégories",
+        navBlog:"Blog",
+        navAbout:"À propos",
+        navContact:"Contact",
+        privacy:"Confidentialité",
+        catFinance:"Finance UK",
+        catDev:"Outils développeur",
+        catImage:"Image & PDF",
+        catText:"Texte & conversion",
+        catSecurity:"Sécurité & confidentialité",
+        eyebrow:"Outil texte • Traitement local",
+        heroTitle:"Comparateur de texte & Diff Checker",
+        heroText:"Comparez deux versions de texte ou de code et voyez exactement ce qui a changé. Utilisez la vue inline pour lire vite, ou la vue split pour comparer côte à côte.",
+        sampleBtn:"Charger un exemple",
+        swapBtn:"Inverser",
+        clearBtn:"Effacer",
+        leftLabel:"Texte original",
+        rightLabel:"Texte modifié",
+        leftPlaceholder:"Collez le texte ou le code original ici...",
+        rightPlaceholder:"Collez la nouvelle version ici...",
+        compareBtn:"Trouver les différences",
+        reportTitle:"Rapport de comparaison",
+        inlineTab:"Vue inline",
+        splitTab:"Vue split",
+        addedLabel:"Ajouté",
+        removedLabel:"Supprimé",
+        chars:"caractères",
+        contentTitle:"Pourquoi cet outil diff est utile",
+        contentP1:"Un bon outil diff rend les révisions faciles à inspecter. Cette page met en évidence les ajouts et suppressions au niveau des mots, utile pour code, brouillons, contrats, prompts et logs.",
+        contentP2:"La comparaison s’exécute dans le navigateur avec la bibliothèque jsdiff. En usage normal, le texte collé n’est pas envoyé à Mini-Tools.uk.",
+        faq1Q:"Est-ce privé ?",
+        faq1A:"Oui. La comparaison se fait dans le navigateur. Votre texte n’est pas envoyé à Mini-Tools.uk.",
+        faq2Q:"Puis-je comparer du code ?",
+        faq2A:"Oui. Cela fonctionne avec texte, code, brouillons, notes, prompts et versions de documents.",
+        faq3Q:"Quand utiliser la vue inline ?",
+        faq3A:"La vue inline est idéale pour lire une sortie combinée et repérer rapidement les modifications.",
+        faq4Q:"Quand utiliser la vue split ?",
+        faq4A:"La vue split est meilleure pour comparer deux versions côte à côte.",
+        useTitle:"Usages fréquents",
+        use1:"Comparer deux versions d’un article, e-mail ou texte produit avant publication.",
+        use2:"Vérifier des changements de code avec seulement deux extraits collés.",
+        use3:"Relire de petites modifications de politiques, contrats ou conditions.",
+        use4:"Comparer prompts, logs ou configurations.",
+        relatedTitle:"Outils liés",
+        relatedJsonTitle:"Formateur JSON",
+        relatedJsonText:"Valider, formater et inspecter JSON avec une vue arbre.",
+        relatedTokenTitle:"Calculateur token IA",
+        relatedTokenText:"Estimer la taille du prompt et le coût avant un appel API.",
+        relatedMoreTitle:"Autres outils texte",
+        relatedMoreText:"Voir les autres pages texte, conversion et utilitaires.",
+        footerNote:"© 2026 Mini-Tools.uk — outils texte locaux pour le quotidien",
+        sampleLeft:"Mini-Tools est un site d’outils en ligne pratiques.\n\nIl propose le formatage JSON, la compression d’image et la comparaison de texte.",
+        sampleRight:"Mini-Tools.uk est un site d’outils en ligne pratiques.\n\nIl propose le formatage JSON, la compression d’image, l’estimation de tokens IA et la comparaison de texte."
+      },
+      es: {
+        htmlLang:"es",
+        langLabel:"Español",
+        title:"Comparador de texto & Diff Checker｜Comparar código localmente｜Mini-Tools.uk",
+        description:"Compara dos versiones de texto o código en tu navegador. Las vistas inline y split muestran añadidos, eliminados y cambios.",
+        keywords:"comparador de texto, diff checker, comparar dos textos, comparar código online, diferencias de texto, herramienta diff local",
+        skip:"Saltar al contenido",
+        navHome:"Inicio",
+        navTools:"Todas las herramientas",
+        navCategories:"Categorías",
+        navBlog:"Blog",
+        navAbout:"Acerca de",
+        navContact:"Contacto",
+        privacy:"Privacidad",
+        catFinance:"Finanzas UK",
+        catDev:"Herramientas developer",
+        catImage:"Imagen y PDF",
+        catText:"Texto y conversión",
+        catSecurity:"Seguridad y privacidad",
+        eyebrow:"Herramienta de texto • Procesamiento local",
+        heroTitle:"Comparador de texto & Diff Checker",
+        heroText:"Compara dos versiones de texto o código y mira exactamente qué cambió. Usa vista inline para lectura rápida o split para revisión lado a lado.",
+        sampleBtn:"Cargar ejemplo",
+        swapBtn:"Intercambiar",
+        clearBtn:"Borrar",
+        leftLabel:"Texto original",
+        rightLabel:"Texto modificado",
+        leftPlaceholder:"Pega aquí el texto o código original...",
+        rightPlaceholder:"Pega aquí la nueva versión...",
+        compareBtn:"Encontrar diferencias",
+        reportTitle:"Informe de comparación",
+        inlineTab:"Vista inline",
+        splitTab:"Vista split",
+        addedLabel:"Añadido",
+        removedLabel:"Eliminado",
+        chars:"caracteres",
+        contentTitle:"Por qué es útil este diff checker",
+        contentP1:"Un buen diff checker facilita revisar cambios. Esta página resalta añadidos y eliminados por palabra, útil para código, borradores, contratos, prompts y logs.",
+        contentP2:"La comparación se ejecuta en el navegador con la biblioteca jsdiff. En uso normal, el texto pegado no se sube a Mini-Tools.uk.",
+        faq1Q:"¿Es privado?",
+        faq1A:"Sí. La comparación ocurre en el navegador. Tu texto no se sube a Mini-Tools.uk.",
+        faq2Q:"¿Puedo comparar código?",
+        faq2A:"Sí. Funciona con texto, código, borradores, notas, prompts y versiones de documentos.",
+        faq3Q:"¿Cuándo usar vista inline?",
+        faq3A:"La vista inline es ideal para leer una salida combinada y detectar cambios rápido.",
+        faq4Q:"¿Cuándo usar vista split?",
+        faq4A:"La vista split es mejor para revisar dos versiones lado a lado.",
+        useTitle:"Usos comunes",
+        use1:"Comparar dos versiones de un artículo, email o descripción antes de publicar.",
+        use2:"Revisar cambios de código cuando solo tienes dos fragmentos pegados.",
+        use3:"Revisar cambios pequeños en políticas, contratos o términos.",
+        use4:"Comparar prompts, logs o configuraciones.",
+        relatedTitle:"Herramientas relacionadas",
+        relatedJsonTitle:"Formateador JSON",
+        relatedJsonText:"Validar, formatear e inspeccionar JSON con vista de árbol.",
+        relatedTokenTitle:"Calculadora tokens IA",
+        relatedTokenText:"Estimar tamaño de prompt y coste antes de una llamada API.",
+        relatedMoreTitle:"Más herramientas de texto",
+        relatedMoreText:"Ver otras páginas de texto, conversión y utilidades.",
+        footerNote:"© 2026 Mini-Tools.uk — herramientas locales de texto para el trabajo diario",
+        sampleLeft:"Mini-Tools es un sitio de herramientas online prácticas.\n\nOfrece formato JSON, compresión de imágenes y comparación de texto.",
+        sampleRight:"Mini-Tools.uk es un sitio de herramientas online prácticas.\n\nOfrece formato JSON, compresión de imágenes, estimación de tokens IA y comparación de texto."
+      }
+    };
+
     const textOne = document.getElementById("textOne");
     const textTwo = document.getElementById("textTwo");
     const leftMeta = document.getElementById("leftMeta");
@@ -371,11 +742,96 @@
     const inlineTab = document.getElementById("inlineTab");
     const splitTab = document.getElementById("splitTab");
 
+    const allowedLangs = ["en","zh-CN","de","fr","es"];
+    let currentLang = "en";
     let currentDiff = null;
 
+    function getDict(){
+      return translations[currentLang] || translations.en;
+    }
+
+    function getInitialLang(){
+      const params = new URLSearchParams(window.location.search);
+      let lang = params.get("lang");
+      if (lang === "zh") lang = "zh-CN";
+      if (allowedLangs.includes(lang)) return lang;
+
+      const saved = localStorage.getItem("miniToolsDiffLang");
+      if (allowedLangs.includes(saved)) return saved;
+
+      const browser = navigator.language || "en";
+      if (browser.startsWith("zh")) return "zh-CN";
+      if (browser.startsWith("de")) return "de";
+      if (browser.startsWith("fr")) return "fr";
+      if (browser.startsWith("es")) return "es";
+      return "en";
+    }
+
+    function setMeta(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setOg(property, content){
+      const tag = document.querySelector(`meta[property="${property}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setTwitter(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function applyLanguage(lang, updateUrl = true){
+      currentLang = allowedLangs.includes(lang) ? lang : "en";
+      const dict = getDict();
+
+      document.documentElement.lang = dict.htmlLang || "en-GB";
+      document.title = dict.title;
+      setMeta("description", dict.description);
+      setMeta("keywords", dict.keywords);
+      setOg("og:title", dict.title);
+      setOg("og:description", dict.description);
+      setTwitter("twitter:title", dict.title);
+      setTwitter("twitter:description", dict.description);
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (dict[key] !== undefined) el.setAttribute("placeholder", dict[key]);
+      });
+
+      const label = document.getElementById("currentLangLabel");
+      if (label) label.textContent = dict.langLabel;
+
+      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
+      });
+
+      localStorage.setItem("miniToolsDiffLang", currentLang);
+
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", currentLang);
+        history.replaceState(null, "", url.toString());
+      }
+
+      updateMetaCounts();
+      if (currentDiff) renderDiff();
+    }
+
+    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
+    });
+
     function updateMetaCounts() {
-      leftMeta.textContent = `${textOne.value.length} chars`;
-      rightMeta.textContent = `${textTwo.value.length} chars`;
+      const dict = getDict();
+      leftMeta.textContent = `${textOne.value.length} ${dict.chars}`;
+      rightMeta.textContent = `${textTwo.value.length} ${dict.chars}`;
     }
 
     function countWords(value) {
@@ -438,6 +894,12 @@
       const modified = textTwo.value;
       if (!original && !modified) return;
 
+      if (!window.Diff || !Diff.diffWords) {
+        inlineOutput.textContent = "Diff library failed to load. Please refresh the page.";
+        resultShell.classList.add("show");
+        return;
+      }
+
       currentDiff = Diff.diffWords(original, modified);
       renderDiff();
       resultShell.classList.add("show");
@@ -452,12 +914,9 @@
     }
 
     function loadSample() {
-      textOne.value = `The Open Source Initiative (OSI) is a California public benefit corporation, founded in 1998.
-
-It promotes open-source software and maintains the Open Source Definition.`;
-      textTwo.value = `The Open Source Initiative (OSI) is an American non-profit corporation, founded in 1998.
-
-It promotes open-source software development and maintains the Open Source Definition framework.`;
+      const dict = getDict();
+      textOne.value = dict.sampleLeft;
+      textTwo.value = dict.sampleRight;
       updateMetaCounts();
       compareTexts();
     }
@@ -525,6 +984,7 @@ It promotes open-source software development and maintains the Open Source Defin
 
     updateMetaCounts();
     setView("inline");
+    applyLanguage(getInitialLang(), false);
   </script>
 </body>
 </html>
