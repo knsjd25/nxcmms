@@ -3,24 +3,42 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>UK Salary Tax Calculator 2026/27 | England, Wales, NI & Scotland | Mini-Tools.uk</title>
-  <meta name="description" content="Estimate 2026/27 take-home pay for employees in England, Wales, Northern Ireland and Scotland. Includes Income Tax, National Insurance, salary sacrifice pension, Student Loan and Postgraduate Loan." />
-  <meta name="robots" content="index,follow" />
+
+  <title>UK Salary Tax Calculator 2026/27 | Income Tax, NI & Take-Home Pay | Mini-Tools.uk</title>
+  <meta name="description" content="Estimate 2026/27 UK take-home pay with Income Tax, National Insurance, salary sacrifice pension, Student Loan and Postgraduate Loan deductions for England, Wales, Northern Ireland and Scotland." />
+  <meta name="keywords" content="UK tax calculator, UK income tax calculator, salary after tax UK, take home pay calculator, National Insurance calculator, PAYE calculator, student loan repayment calculator, 英国个税计算器, 英国个人所得税计算器, 英国税后工资计算器" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#0f172a" />
+
   <link rel="canonical" href="https://mini-tools.uk/tax" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/tax?lang=en" />
+  <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/tax?lang=zh-CN" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/tax?lang=de" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/tax?lang=fr" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/tax?lang=es" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/tax" />
+
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
+
   <meta property="og:title" content="UK Salary Tax Calculator 2026/27" />
-  <meta property="og:description" content="Estimate take-home pay for England, Wales, Northern Ireland and Scotland with salary sacrifice pension and loan deductions." />
+  <meta property="og:description" content="Estimate UK take-home pay with Income Tax, National Insurance, pension and student loan deductions." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mini-tools.uk/tax" />
+  <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="UK Salary Tax Calculator 2026/27" />
+  <meta name="twitter:description" content="Estimate UK take-home pay with Income Tax, National Insurance, pension and student loan deductions." />
+  <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DR6V84JEZW');
+    gtag("js", new Date());
+    gtag("config", "G-DR6V84JEZW");
   </script>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
@@ -33,14 +51,15 @@
     "applicationCategory":"FinanceApplication",
     "operatingSystem":"Web",
     "url":"https://mini-tools.uk/tax",
-    "description":"Estimate 2026/27 take-home pay for employees in England, Wales, Northern Ireland and Scotland. Includes Income Tax, National Insurance, salary sacrifice pension, Student Loan and Postgraduate Loan.",
+    "description":"Estimate 2026/27 UK take-home pay for employees in England, Wales, Northern Ireland and Scotland. Includes Income Tax, National Insurance, salary sacrifice pension, Student Loan and Postgraduate Loan estimates.",
     "offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"},
     "featureList":[
-      "England, Wales and Northern Ireland rates",
-      "Scottish income tax rates",
-      "National Insurance estimate",
+      "England, Wales and Northern Ireland income tax estimate",
+      "Scottish income tax estimate",
+      "Employee National Insurance estimate",
       "Salary sacrifice pension estimate",
-      "Student Loan and Postgraduate Loan estimate"
+      "Student Loan and Postgraduate Loan estimate",
+      "Annual, monthly and weekly take-home pay breakdown"
     ]
   }
   </script>
@@ -52,26 +71,26 @@
     "mainEntity":[
       {
         "@type":"Question",
-        "name":"Does this calculator work for Scotland?",
+        "name":"Does this UK tax calculator work for Scotland?",
         "acceptedAnswer":{
           "@type":"Answer",
-          "text":"Yes. You can switch the region to Scotland and the calculator will use Scottish 2026/27 non-savings income tax bands. England, Wales and Northern Ireland use the rest-of-UK bands."
+          "text":"Yes. You can switch the region to Scotland and the calculator uses Scottish 2026/27 non-savings income tax bands. England, Wales and Northern Ireland use the rest-of-UK bands."
         }
       },
       {
         "@type":"Question",
-        "name":"Does this calculator use payroll-perfect HMRC rounding?",
+        "name":"Is this calculator a payroll replacement?",
         "acceptedAnswer":{
           "@type":"Answer",
-          "text":"No. This page is an annualised estimate designed for planning and comparison. It is useful for take-home pay estimates, but your employer payroll may differ because of tax code changes, pay frequency rounding, benefits, salary exchange rules and other adjustments."
+          "text":"No. This page provides an annualised estimate for salary planning and offer comparison. Employer payroll can differ because of tax codes, benefits, irregular pay, pension scheme rules and rounding."
         }
       },
       {
         "@type":"Question",
-        "name":"What pension method is included?",
+        "name":"Does this calculator include National Insurance and student loans?",
         "acceptedAnswer":{
           "@type":"Answer",
-          "text":"This calculator treats pension as salary sacrifice. That means the pension amount is removed before Income Tax, National Insurance and loan deductions are estimated."
+          "text":"Yes. The calculator estimates employee National Insurance, Student Loan Plans 1, 2, 4 and 5, plus an optional Postgraduate Loan."
         }
       }
     ]
@@ -96,6 +115,7 @@
       --shadow:0 20px 40px rgba(15,23,42,.08);
       --radius:22px;
     }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
@@ -105,74 +125,318 @@
       color:var(--ink);
       line-height:1.55;
     }
+
     a{color:inherit;text-decoration:none}
     .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
 
-    .nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:18px}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:800;min-width:0}
-    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;box-shadow:0 4px 12px rgba(15,23,42,.08)}
-    .brand-copy{display:flex;flex-direction:column;line-height:1.05}
-    .brand-title{font-size:1.06rem;letter-spacing:-.03em}
-    .brand-subtitle{margin-top:4px;color:#64748b;font-size:.79rem;font-weight:600}
-    .nav-links{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    .nav-link,.nav-trigger{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;color:#334155;font-weight:700;font-size:14px;border:1px solid transparent;background:transparent}
-    .nav-link:hover,.nav-trigger:hover,.nav-group:hover .nav-trigger{background:#f8fafc;color:#0f172a}
-    .nav-link.current{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
-    .nav-group{position:relative;padding-bottom:14px;margin-bottom:-14px}
-    .nav-trigger svg{width:14px;height:14px;transition:transform .2s ease}.nav-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}
-    .nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg{transform:rotate(180deg)}
-    .dropdown{position:absolute;top:calc(100% + 2px);left:0;min-width:220px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 22px 44px rgba(15,23,42,.12);padding:10px;display:none}
-    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown{display:block}
-    .dropdown a{display:block;padding:10px 12px;border-radius:12px;color:#334155;font-size:14px;font-weight:700}
-    .dropdown a small{display:block;margin-top:2px;color:#64748b;font-size:12px;font-weight:600}
-    .dropdown a:hover{background:#f8fafc;color:#0f172a}
+    .skip-link{
+      position:absolute;
+      left:14px;
+      top:-48px;
+      background:#0f172a;
+      color:#fff;
+      padding:10px 14px;
+      border-radius:12px;
+      z-index:100;
+    }
+    .skip-link:focus{top:14px}
+
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:30;
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      min-height:74px;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      min-width:0;
+    }
+
+    .brand img{
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      background:#fff;
+      box-shadow:0 4px 12px rgba(15,23,42,.08);
+    }
+
+    .brand-copy{
+      display:flex;
+      flex-direction:column;
+      line-height:1.05;
+    }
+
+    .brand-title{
+      font-size:1.06rem;
+      letter-spacing:-.03em;
+    }
+
+    .brand-subtitle{
+      margin-top:4px;
+      color:#64748b;
+      font-size:.79rem;
+      font-weight:600;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .nav-link,
+    .nav-trigger,
+    .lang-trigger{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 13px;
+      border-radius:12px;
+      color:#334155;
+      font-weight:700;
+      font-size:14px;
+      border:1px solid transparent;
+      background:transparent;
+      cursor:pointer;
+    }
+
+    .nav-link:hover,
+    .nav-trigger:hover,
+    .nav-group:hover .nav-trigger,
+    .lang-trigger:hover,
+    .lang-group:hover .lang-trigger{
+      background:#f8fafc;
+      color:#0f172a;
+    }
+
+    .nav-link.current{
+      background:#eff6ff;
+      color:#1d4ed8;
+      border-color:#bfdbfe;
+    }
+
+    .nav-group,
+    .lang-group{
+      position:relative;
+      padding-bottom:14px;
+      margin-bottom:-14px;
+    }
+
+    .nav-trigger svg,
+    .lang-trigger svg{
+      width:14px;
+      height:14px;
+      transition:transform .2s ease;
+    }
+
+    .nav-group::after,
+    .lang-group::after{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      top:100%;
+      height:14px;
+    }
+
+    .nav-group:hover .nav-trigger svg,
+    .nav-group:focus-within .nav-trigger svg,
+    .lang-group:hover .lang-trigger svg,
+    .lang-group:focus-within .lang-trigger svg{
+      transform:rotate(180deg);
+    }
+
+    .dropdown,
+    .lang-dropdown{
+      position:absolute;
+      top:calc(100% + 2px);
+      right:0;
+      min-width:220px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow:0 22px 44px rgba(15,23,42,.12);
+      padding:10px;
+      display:none;
+      z-index:40;
+    }
+
+    .nav-group .dropdown{
+      left:0;
+      right:auto;
+      min-width:245px;
+    }
+
+    .nav-group:hover .dropdown,
+    .nav-group:focus-within .dropdown,
+    .lang-group:hover .lang-dropdown,
+    .lang-group:focus-within .lang-dropdown{
+      display:block;
+    }
+
+    .dropdown a,
+    .lang-dropdown button{
+      display:block;
+      width:100%;
+      text-align:left;
+      padding:10px 12px;
+      border-radius:12px;
+      color:#334155;
+      font-size:14px;
+      font-weight:700;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+    }
+
+    .dropdown a small{
+      display:block;
+      margin-top:2px;
+      color:#64748b;
+      font-size:12px;
+      font-weight:600;
+    }
+
+    .dropdown a:hover,
+    .lang-dropdown button:hover,
+    .lang-dropdown button.active{
+      background:#f8fafc;
+      color:#0f172a;
+    }
 
     .hero{
       padding:48px 0 24px;
       text-align:center;
     }
+
     .badge{
-      display:inline-flex;align-items:center;gap:8px;
-      background:var(--green-bg);color:var(--green);
-      padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;
-      letter-spacing:.04em;text-transform:uppercase;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:var(--green-bg);
+      color:var(--green);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.04em;
+      text-transform:uppercase;
     }
+
     .hero h1{
-      margin:18px 0 14px;font-size:clamp(2rem,4vw,3.4rem);line-height:1.02;
+      margin:18px 0 14px;
+      font-size:clamp(2rem,4vw,3.4rem);
+      line-height:1.02;
       letter-spacing:-.03em;
     }
+
     .hero p{
-      margin:0 auto;max-width:820px;color:var(--muted);font-size:1.1rem;
+      margin:0 auto;
+      max-width:860px;
+      color:var(--muted);
+      font-size:1.1rem;
     }
+
     .mini-grid{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:26px auto 10px;max-width:1120px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      margin:26px auto 10px;
+      max-width:1120px;
     }
+
     .mini-card{
-      background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
       box-shadow:0 8px 20px rgba(15,23,42,.04);
     }
-    .mini-card strong{display:block;margin-bottom:6px;font-size:.95rem}
-    .mini-card span{color:var(--muted);font-size:.93rem}
-    .calculator-grid{
-      display:grid;grid-template-columns:minmax(0,560px) minmax(0,520px);gap:24px;margin:28px auto 40px;max-width:1120px;
-      justify-content:center;align-items:start;
+
+    .mini-card strong{
+      display:block;
+      margin-bottom:6px;
+      font-size:.95rem;
     }
+
+    .mini-card span{
+      color:var(--muted);
+      font-size:.93rem;
+    }
+
+    .calculator-grid{
+      display:grid;
+      grid-template-columns:minmax(0,560px) minmax(0,520px);
+      gap:24px;
+      margin:28px auto 40px;
+      max-width:1120px;
+      justify-content:center;
+      align-items:start;
+    }
+
     .panel{
-      background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
       box-shadow:var(--shadow);
     }
+
     .panel.left{padding:26px}
-    .panel.right{padding:28px;background:linear-gradient(135deg,#0f172a 0%, #1e293b 100%);color:#fff}
+
+    .panel.right{
+      padding:28px;
+      background:linear-gradient(135deg,#0f172a 0%, #1e293b 100%);
+      color:#fff;
+    }
+
     .section-title{
-      margin:0 0 16px;font-size:1rem;font-weight:800;
+      margin:0 0 16px;
+      font-size:1rem;
+      font-weight:800;
       letter-spacing:.02em;
     }
+
     .field{margin-bottom:18px}
-    .label{display:block;margin-bottom:8px;font-size:.9rem;font-weight:800;color:#334155}
-    .hint{display:block;margin-top:6px;color:#64748b;font-size:.83rem}
-    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    input[type="number"], select{
+
+    .label{
+      display:block;
+      margin-bottom:8px;
+      font-size:.9rem;
+      font-weight:800;
+      color:#334155;
+    }
+
+    .hint{
+      display:block;
+      margin-top:6px;
+      color:#64748b;
+      font-size:.83rem;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    input[type="number"],
+    select{
       width:100%;
       appearance:none;
       border:1px solid var(--line);
@@ -184,226 +448,479 @@
       color:#0f172a;
       outline:none;
     }
-    input[type="number"]:focus, select:focus{
+
+    input[type="number"]:focus,
+    select:focus{
       border-color:#93c5fd;
       box-shadow:0 0 0 4px rgba(59,130,246,.12);
       background:#fff;
     }
-    .salary-row{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+
+    .salary-row{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:12px;
+    }
+
     .button{
-      width:100%;border:none;cursor:pointer;
+      width:100%;
+      border:none;
+      cursor:pointer;
       background:linear-gradient(180deg,var(--blue),var(--blue-2));
-      color:#fff;font-weight:900;font-size:1rem;
-      padding:16px 18px;border-radius:18px;letter-spacing:.02em;
+      color:#fff;
+      font-weight:900;
+      font-size:1rem;
+      padding:16px 18px;
+      border-radius:18px;
+      letter-spacing:.02em;
       box-shadow:0 14px 28px rgba(37,99,235,.25);
     }
+
     .button:hover{transform:translateY(-1px)}
     .button:active{transform:translateY(0)}
+
     .subtle{
-      background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:16px;
-      color:#475569;font-size:.92rem;
+      background:#f8fafc;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+      color:#475569;
+      font-size:.92rem;
     }
-    .right-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+
+    .right-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+    }
+
     .right-top .eyebrow{
-      font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:#93c5fd;font-weight:800;
+      font-size:.8rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:#93c5fd;
+      font-weight:800;
     }
+
     .big-result{
-      margin:8px 0 0;font-size:clamp(2.2rem,4vw,4rem);line-height:1;font-weight:900;letter-spacing:-.03em;
+      margin:8px 0 0;
+      font-size:clamp(2.2rem,4vw,4rem);
+      line-height:1;
+      font-weight:900;
+      letter-spacing:-.03em;
     }
+
     .muted-on-dark{color:#cbd5e1}
+
     .assumption-badge{
-      display:inline-flex;align-items:center;gap:8px;
-      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
-      color:#e2e8f0;padding:8px 10px;border-radius:999px;font-size:.8rem;font-weight:800;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      color:#e2e8f0;
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:.8rem;
+      font-weight:800;
     }
+
     table{
-      width:100%;border-collapse:collapse;margin-top:18px;
+      width:100%;
+      border-collapse:collapse;
+      margin-top:18px;
     }
-    th,td{padding:11px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.95rem}
-    th{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;text-align:right}
-    th:first-child, td:first-child{text-align:left}
+
+    th,
+    td{
+      padding:11px 0;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      font-size:.95rem;
+    }
+
+    th{
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#94a3b8;
+      text-align:right;
+    }
+
+    th:first-child,
+    td:first-child{text-align:left}
+
     td{font-weight:700}
+
     .neg{color:#fca5a5}
     .pos{color:#7dd3fc}
+
     .note-card{
-      margin-top:18px;padding:14px 16px;border-radius:16px;
-      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
-      color:#cbd5e1;font-size:.9rem;
+      margin-top:18px;
+      padding:14px 16px;
+      border-radius:16px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.1);
+      color:#cbd5e1;
+      font-size:.9rem;
     }
+
     .content{
-      margin:18px auto 56px;max-width:1120px;
-      display:grid;grid-template-columns:minmax(0,760px) 320px;gap:24px;justify-content:center;
+      margin:18px auto 56px;
+      max-width:1120px;
+      display:grid;
+      grid-template-columns:minmax(0,760px) 320px;
+      gap:24px;
+      justify-content:center;
     }
+
     .article{
-      background:#fff;border:1px solid var(--line);border-radius:24px;padding:32px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:32px;
       box-shadow:0 12px 30px rgba(15,23,42,.05);
     }
-    .article h2{font-size:1.7rem;line-height:1.15;margin:0 0 14px}
-    .article h3{font-size:1.22rem;margin:30px 0 12px}
-    .article p{color:var(--muted);margin:0 0 14px}
-    .article ul{color:var(--muted);padding-left:20px}
+
+    .article h2{
+      font-size:1.7rem;
+      line-height:1.15;
+      margin:0 0 14px;
+    }
+
+    .article h3{
+      font-size:1.22rem;
+      margin:30px 0 12px;
+    }
+
+    .article p{
+      color:var(--muted);
+      margin:0 0 14px;
+    }
+
+    .article ul{
+      color:var(--muted);
+      padding-left:20px;
+    }
+
     .article li{margin-bottom:10px}
-    .table-wrap{overflow:auto;margin:18px 0}
+
+    .table-wrap{
+      overflow:auto;
+      margin:18px 0;
+    }
+
     .rate-table{
-      width:100%;border-collapse:separate;border-spacing:0;background:#fff;
-      border:1px solid var(--line);border-radius:18px;overflow:hidden;
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
     }
-    .rate-table th,.rate-table td{
-      border-bottom:1px solid var(--line);padding:14px 16px;color:#334155;text-align:left
+
+    .rate-table th,
+    .rate-table td{
+      border-bottom:1px solid var(--line);
+      padding:14px 16px;
+      color:#334155;
+      text-align:left;
     }
-    .rate-table th{background:#f8fafc;color:#0f172a}
+
+    .rate-table th{
+      background:#f8fafc;
+      color:#0f172a;
+    }
+
     .rate-table tr:last-child td{border-bottom:none}
+
     .faq{
-      margin-top:24px;display:grid;gap:14px;
+      margin-top:24px;
+      display:grid;
+      gap:14px;
     }
+
     .faq-item{
-      border:1px solid var(--line);border-radius:18px;background:#f8fafc;padding:18px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#f8fafc;
+      padding:18px;
     }
-    .faq-item h4{margin:0 0 8px;font-size:1.03rem}
-    .faq-item p{margin:0;color:var(--muted)}
+
+    .faq-item h4{
+      margin:0 0 8px;
+      font-size:1.03rem;
+    }
+
+    .faq-item p{
+      margin:0;
+      color:var(--muted);
+    }
+
     .side{
-      display:grid;gap:16px;align-self:start;position:sticky;top:96px;
+      display:grid;
+      gap:16px;
+      align-self:start;
+      position:sticky;
+      top:96px;
     }
+
     .side-card{
-      background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:20px;
       box-shadow:0 12px 24px rgba(15,23,42,.05);
     }
-    .side-card h3{margin:0 0 12px;font-size:1rem}
-    .side-card p,.side-card li{color:var(--muted);font-size:.92rem}
-    .side-card ul{margin:0;padding-left:18px}
-    .chips{display:flex;flex-wrap:wrap;gap:10px}
-    .chip{
-      background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;
-      border-radius:999px;padding:8px 12px;font-size:.82rem;font-weight:800;
+
+    .side-card h3{
+      margin:0 0 12px;
+      font-size:1rem;
     }
-    .related-links{display:grid;gap:10px}
+
+    .side-card p,
+    .side-card li{
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .side-card ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .chip{
+      background:#eff6ff;
+      color:#1d4ed8;
+      border:1px solid #bfdbfe;
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:.82rem;
+      font-weight:800;
+    }
+
+    .related-links{
+      display:grid;
+      gap:10px;
+    }
+
     .related-links a{
-      padding:12px 14px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-weight:800;
+      padding:12px 14px;
+      border-radius:14px;
+      background:#f8fafc;
+      border:1px solid var(--line);
+      font-weight:800;
       color:#1e293b;
     }
-    .related-links a:hover{background:#eff6ff;border-color:#bfdbfe}
+
+    .related-links a:hover{
+      background:#eff6ff;
+      border-color:#bfdbfe;
+    }
+
     .footer{
       border-top:1px solid var(--line);
       background:#fff;
       padding:28px 0 46px;
     }
+
     .footer-inner{
-      display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap;
-      color:#64748b;font-size:.9rem;
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:center;
+      flex-wrap:wrap;
+      color:#64748b;
+      font-size:.9rem;
     }
-    .footer-links{display:flex;gap:14px;flex-wrap:wrap}
+
+    .footer-links{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
     .footer-links a{font-weight:700}
-    @media (max-width: 980px){
-      .calculator-grid,.content{grid-template-columns:1fr}
+
+    @media (max-width:980px){
+      .calculator-grid,
+      .content{grid-template-columns:1fr}
       .side{position:static}
     }
-    @media (max-width: 760px){
-      .mini-grid,.grid-2,.salary-row{grid-template-columns:1fr}
-      .panel.left,.panel.right,.article{padding:22px}
-      .nav-inner{min-height:64px}
+
+    @media (max-width:760px){
+      .nav-inner{
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links{justify-content:flex-start}
+
+      .mini-grid,
+      .grid-2,
+      .salary-row{grid-template-columns:1fr}
+
+      .panel.left,
+      .panel.right,
+      .article{padding:22px}
+
       .brand span{font-size:1rem}
-      th,td{font-size:.88rem}
+
+      th,
+      td{font-size:.88rem}
+
       .right-top{flex-direction:column}
+
+      .dropdown,
+      .lang-dropdown{
+        left:0;
+        right:auto;
+      }
     }
-    </style>
+  </style>
 </head>
 <body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
   <nav class="nav">
     <div class="wrap nav-inner">
       <a class="brand" href="/">
         <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" />
         <span class="brand-copy">
           <span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span>
-          <span class="brand-subtitle">Practical tools, cleaner structure</span>
+          <span class="brand-subtitle" data-i18n="brandSubtitle">Practical calculators and browser tools</span>
         </span>
       </a>
+
       <div class="nav-links">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/#featured-tools">All Tools</a>
+        <a class="nav-link" href="/" data-i18n="navHome">Home</a>
+        <a class="nav-link" href="/#featured-tools" data-i18n="navTools">All Tools</a>
+
         <div class="nav-group">
-          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">Categories
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="navCategories">Categories</span>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
+
           <div class="dropdown" role="menu">
-            <a href="/#uk-calculators">UK Finance<small>Tax, VAT, mortgage and workday tools</small></a>
-            <a href="/#developer-tools">Developer Tools<small>JSON, diff, word and coding helpers</small></a>
-            <a href="/#image-tools">Image & PDF<small>Compression, conversion and media utilities</small></a>
-            <a href="/password">Security & Privacy<small>Password and privacy-first helpers</small></a>
+            <a href="/#uk-finance">
+              <span data-i18n="catFinance">UK Finance</span>
+              <small data-i18n="catFinanceSmall">Tax, VAT, mortgage and contractor tools</small>
+            </a>
+            <a href="/#developer-tools">
+              <span data-i18n="catDev">Developer Tools</span>
+              <small data-i18n="catDevSmall">JSON, diff, image hosting and AI token estimation</small>
+            </a>
+            <a href="/#image-tools">
+              <span data-i18n="catImage">Image & PDF</span>
+              <small data-i18n="catImageSmall">Compression, conversion and media utilities</small>
+            </a>
+            <a href="/password">
+              <span data-i18n="catSecurity">Security</span>
+              <small data-i18n="catSecuritySmall">Password and privacy helpers</small>
+            </a>
           </div>
         </div>
-        <a class="nav-link" href="/blog">Blog</a>
-        <a class="nav-link" href="/about">About</a>
+
+        <a class="nav-link" href="/blog" data-i18n="navBlog">Blog</a>
+        <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
+        <a class="nav-link" href="/contact" data-i18n="navContact">Contact</a>
+
+        <div class="lang-group">
+          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            <span id="currentLangLabel">English</span>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="lang-dropdown" role="menu" aria-label="Language">
+            <button type="button" data-lang-btn="en">English</button>
+            <button type="button" data-lang-btn="zh-CN">中文</button>
+            <button type="button" data-lang-btn="de">Deutsch</button>
+            <button type="button" data-lang-btn="fr">Français</button>
+            <button type="button" data-lang-btn="es">Español</button>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
 
-  <main class="wrap">
+  <main id="main" class="wrap">
     <section class="hero">
-      <span class="badge">Reviewed for 2026/27 tax year</span>
-      <h1>UK salary tax calculator for 2026/27</h1>
-      <p>
-        Estimate take-home pay for employees in England, Wales, Northern Ireland and Scotland.
-        This page includes Income Tax, National Insurance, salary sacrifice pension, Student Loan and Postgraduate Loan deductions.
+      <span class="badge" data-i18n="badge">Updated for 2026/27 tax year</span>
+      <h1 data-i18n="heroTitle">UK salary tax calculator for 2026/27</h1>
+      <p data-i18n="heroText">
+        Estimate take-home pay for employees in England, Wales, Northern Ireland and Scotland. This calculator includes Income Tax, National Insurance, salary sacrifice pension, Student Loan and Postgraduate Loan deductions.
       </p>
 
       <div class="mini-grid">
         <div class="mini-card">
-          <strong>Region-aware tax bands</strong>
-          <span>Choose Scotland or the rest of the UK instead of forcing one generic tax model.</span>
+          <strong data-i18n="mini1Title">Region-aware tax bands</strong>
+          <span data-i18n="mini1Text">Choose Scotland, Wales, England or Northern Ireland instead of using one generic tax model.</span>
         </div>
         <div class="mini-card">
-          <strong>Cleaner assumptions</strong>
-          <span>Marked as an estimate, not a payroll replacement. Better for trust and AdSense review.</span>
+          <strong data-i18n="mini2Title">Clear payslip-style breakdown</strong>
+          <span data-i18n="mini2Text">See gross income, pension, Income Tax, National Insurance, student loans and estimated take-home pay.</span>
         </div>
         <div class="mini-card">
-          <strong>Better internal value</strong>
-          <span>Explains what is included, what is excluded and links to related finance tools.</span>
+          <strong data-i18n="mini3Title">Useful planning estimate</strong>
+          <span data-i18n="mini3Text">Compare job offers, plan a monthly budget or understand how pension and loan deductions affect salary.</span>
         </div>
       </div>
     </section>
 
     <section class="calculator-grid">
       <div class="panel left">
-        <h2 class="section-title">Enter your pay details</h2>
+        <h2 class="section-title" data-i18n="formTitle">Enter your pay details</h2>
 
         <div class="field">
-          <label class="label" for="salaryAmount">Income amount (£)</label>
+          <label class="label" for="salaryAmount" data-i18n="salaryLabel">Income amount (£)</label>
           <div class="salary-row">
             <input id="salaryAmount" type="number" min="0" step="0.01" value="45000" />
             <select id="salaryPeriod">
-              <option value="year">Per year</option>
-              <option value="month">Per month</option>
-              <option value="week">Per week</option>
-              <option value="hour">Per hour</option>
+              <option value="year" data-i18n="periodYear">Per year</option>
+              <option value="month" data-i18n="periodMonth">Per month</option>
+              <option value="week" data-i18n="periodWeek">Per week</option>
+              <option value="hour" data-i18n="periodHour">Per hour</option>
             </select>
           </div>
-          <span class="hint">For hourly pay, the calculator multiplies by hours per week × 52 weeks.</span>
+          <span class="hint" data-i18n="salaryHint">For hourly pay, the calculator multiplies by hours per week × 52 weeks.</span>
         </div>
 
         <div class="grid-2">
           <div class="field">
-            <label class="label" for="hoursPerWeek">Hours per week</label>
+            <label class="label" for="hoursPerWeek" data-i18n="hoursLabel">Hours per week</label>
             <input id="hoursPerWeek" type="number" min="1" step="0.1" value="37.5" />
           </div>
           <div class="field">
-            <label class="label" for="region">Tax region</label>
+            <label class="label" for="region" data-i18n="regionLabel">Tax region</label>
             <select id="region">
-              <option value="rUK">England or Northern Ireland</option>
-              <option value="wales">Wales</option>
-              <option value="scotland">Scotland</option>
+              <option value="rUK" data-i18n="regionRuk">England or Northern Ireland</option>
+              <option value="wales" data-i18n="regionWales">Wales</option>
+              <option value="scotland" data-i18n="regionScotland">Scotland</option>
             </select>
           </div>
         </div>
 
         <div class="grid-2">
           <div class="field">
-            <label class="label" for="pensionPercent">Salary sacrifice pension (%)</label>
+            <label class="label" for="pensionPercent" data-i18n="pensionLabel">Salary sacrifice pension (%)</label>
             <input id="pensionPercent" type="number" min="0" max="100" step="0.1" value="0" />
           </div>
           <div class="field">
-            <label class="label" for="studentPlan">Student Loan plan</label>
+            <label class="label" for="studentPlan" data-i18n="studentLabel">Student Loan plan</label>
             <select id="studentPlan">
-              <option value="none">None</option>
+              <option value="none" data-i18n="none">None</option>
               <option value="plan1">Plan 1</option>
               <option value="plan2">Plan 2</option>
               <option value="plan4">Plan 4</option>
@@ -414,86 +931,88 @@
 
         <div class="grid-2">
           <div class="field">
-            <label class="label" for="pglEnabled">Postgraduate Loan</label>
+            <label class="label" for="pglEnabled" data-i18n="pglLabel">Postgraduate Loan</label>
             <select id="pglEnabled">
-              <option value="no">No</option>
-              <option value="yes">Yes</option>
+              <option value="no" data-i18n="no">No</option>
+              <option value="yes" data-i18n="yes">Yes</option>
             </select>
           </div>
           <div class="field">
-            <label class="label" for="taxCode">Tax code assumption</label>
+            <label class="label" for="taxCode" data-i18n="taxCodeLabel">Tax code assumption</label>
             <select id="taxCode">
-              <option value="1257L">Standard code 1257L</option>
+              <option value="1257L" data-i18n="taxCodeOption">Standard code 1257L</option>
             </select>
-            <span class="hint">This version uses the standard personal allowance only.</span>
+            <span class="hint" data-i18n="taxCodeHint">This version uses the standard personal allowance only.</span>
           </div>
         </div>
 
-        <button class="button" id="calcBtn" type="button">Calculate take-home pay</button>
+        <button class="button" id="calcBtn" type="button" data-i18n="calcButton">Calculate take-home pay</button>
 
         <div class="subtle" style="margin-top:18px">
-          <strong>What this page is for:</strong> quick salary planning, offer comparison and budgeting.<br>
-          <strong>What it is not:</strong> a full payroll engine. Your actual payslip can differ because of tax code changes, benefits in kind, irregular pay, pension scheme rules, payroll rounding and other adjustments.
+          <strong data-i18n="subtleForTitle">What this page is for:</strong>
+          <span data-i18n="subtleForText">quick salary planning, job offer comparison and budgeting.</span><br>
+          <strong data-i18n="subtleNotTitle">What it is not:</strong>
+          <span data-i18n="subtleNotText">a full payroll engine. Your actual payslip can differ because of tax code changes, benefits in kind, irregular pay, pension scheme rules, payroll rounding and other adjustments.</span>
         </div>
       </div>
 
       <div class="panel right" id="resultsPanel">
         <div class="right-top">
           <div>
-            <div class="eyebrow">Estimated monthly take-home</div>
+            <div class="eyebrow" data-i18n="resultEyebrow">Estimated monthly take-home</div>
             <div class="big-result" id="monthlyTakeHome">£0.00</div>
           </div>
-          <div class="assumption-badge" id="regionBadge">England / Wales / NI</div>
+          <div class="assumption-badge" id="regionBadge">England / NI</div>
         </div>
 
         <table>
           <thead>
             <tr>
-              <th>Breakdown</th>
-              <th>Yearly</th>
-              <th>Monthly</th>
-              <th>Weekly</th>
+              <th data-i18n="breakdownHead">Breakdown</th>
+              <th data-i18n="yearlyHead">Yearly</th>
+              <th data-i18n="monthlyHead">Monthly</th>
+              <th data-i18n="weeklyHead">Weekly</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Gross income</td>
+              <td data-i18n="grossIncome">Gross income</td>
               <td id="grossYear">£0.00</td>
               <td id="grossMonth">£0.00</td>
               <td id="grossWeek">£0.00</td>
             </tr>
             <tr id="pensionRow" style="display:none">
-              <td class="neg">Salary sacrifice pension</td>
+              <td class="neg" data-i18n="pensionRowLabel">Salary sacrifice pension</td>
               <td class="neg" id="pensionYear">-£0.00</td>
               <td class="neg" id="pensionMonth">-£0.00</td>
               <td class="neg" id="pensionWeek">-£0.00</td>
             </tr>
             <tr>
-              <td class="neg">Income Tax</td>
+              <td class="neg" data-i18n="taxRowLabel">Income Tax</td>
               <td class="neg" id="taxYear">-£0.00</td>
               <td class="neg" id="taxMonth">-£0.00</td>
               <td class="neg" id="taxWeek">-£0.00</td>
             </tr>
             <tr>
-              <td class="neg">National Insurance</td>
+              <td class="neg" data-i18n="niRowLabel">National Insurance</td>
               <td class="neg" id="niYear">-£0.00</td>
               <td class="neg" id="niMonth">-£0.00</td>
               <td class="neg" id="niWeek">-£0.00</td>
             </tr>
             <tr id="studentRow" style="display:none">
-              <td class="neg">Student Loan</td>
+              <td class="neg" data-i18n="studentRowLabel">Student Loan</td>
               <td class="neg" id="studentYear">-£0.00</td>
               <td class="neg" id="studentMonth">-£0.00</td>
               <td class="neg" id="studentWeek">-£0.00</td>
             </tr>
             <tr id="pglRow" style="display:none">
-              <td class="neg">Postgraduate Loan</td>
+              <td class="neg" data-i18n="pglRowLabel">Postgraduate Loan</td>
               <td class="neg" id="pglYear">-£0.00</td>
               <td class="neg" id="pglMonth">-£0.00</td>
               <td class="neg" id="pglWeek">-£0.00</td>
             </tr>
             <tr>
-              <td class="pos"><strong>Net take-home</strong></td>
+              <td class="pos"><strong data-i18n="netRowLabel">Net take-home</strong></td>
               <td class="pos" id="netYear"><strong>£0.00</strong></td>
               <td class="pos" id="netMonth"><strong>£0.00</strong></td>
               <td class="pos" id="netWeek"><strong>£0.00</strong></td>
@@ -502,120 +1021,144 @@
         </table>
 
         <div class="note-card" id="summaryNote">
-          Uses the standard 1257L personal allowance. Scotland uses Scottish 2026/27 non-savings income tax bands. Wales currently uses the same salary Income Tax bands as England and Northern Ireland.
+          Uses standard 1257L personal allowance.
         </div>
 
         <div class="note-card" id="extraNote">
-          <strong>Estimated employer NI cost:</strong> <span id="employerCost">£0.00 / year</span><br>
-          <span class="muted-on-dark">Shown as extra context only. It is not deducted from your own take-home pay.</span>
+          <strong data-i18n="employerNiTitle">Estimated employer NI cost:</strong> <span id="employerCost">£0.00 / year</span><br>
+          <span class="muted-on-dark" data-i18n="employerNiNote">Shown as extra context only. It is not deducted from your own take-home pay.</span>
         </div>
       </div>
     </section>
 
     <section class="content">
       <article class="article">
-        <h2>What this salary calculator includes</h2>
-        <p>
-          This page is built to be more useful to users and easier for search engines to trust. Instead of pretending to be an exact payroll system,
-          it clearly states its scope: an annualised estimate for employee salary income in the 2026/27 tax year.
+        <h2 data-i18n="articleTitle">What this UK salary tax calculator includes</h2>
+        <p data-i18n="articleP1">
+          This calculator gives an annualised estimate for employee salary income in the 2026/27 tax year. It is designed for salary planning, comparing job offers and understanding how common deductions affect take-home pay.
         </p>
-        <p>
-          The calculator includes the standard personal allowance, Income Tax, employee National Insurance, salary sacrifice pension,
-          Student Loan Plans 1, 2, 4 and 5, plus an optional Postgraduate Loan deduction.
+        <p data-i18n="articleP2">
+          It includes the standard personal allowance, Income Tax, employee National Insurance, salary sacrifice pension, Student Loan Plans 1, 2, 4 and 5, plus an optional Postgraduate Loan deduction.
+        </p>
+        <p data-i18n="articleP3">
+          In Chinese searches, this page is also relevant for users looking for 英国个税计算器, 英国个人所得税计算器, 英国税后工资计算器 or 英国工资税计算器, because the calculator focuses on UK employee salary tax and take-home pay.
         </p>
 
-        <h3>What it does not include</h3>
+        <h3 data-i18n="excludeTitle">What it does not include</h3>
         <ul>
-          <li>Custom tax codes, company benefits or benefits in kind</li>
-          <li>Marriage Allowance, Blind Person’s Allowance or other special reliefs</li>
-          <li>Payroll-specific HMRC rounding and irregular pay treatment</li>
-          <li>Dividend income, self-employed tax, child benefit charge or savings/dividend tax</li>
+          <li data-i18n="exclude1">Custom tax codes, company benefits or benefits in kind</li>
+          <li data-i18n="exclude2">Marriage Allowance, Blind Person’s Allowance or other special reliefs</li>
+          <li data-i18n="exclude3">Payroll-specific HMRC rounding and irregular pay treatment</li>
+          <li data-i18n="exclude4">Dividend income, self-employed tax, child benefit charge or savings/dividend tax</li>
         </ul>
 
-        <h3>2026/27 rates used for England, Wales and Northern Ireland</h3>
+        <h3 data-i18n="rukRatesTitle">2026/27 rates used for England, Wales and Northern Ireland</h3>
         <div class="table-wrap">
           <table class="rate-table">
             <thead>
-              <tr><th>Band</th><th>Total annual income</th><th>Rate</th></tr>
+              <tr>
+                <th data-i18n="bandHead">Band</th>
+                <th data-i18n="incomeHead">Total annual income</th>
+                <th data-i18n="rateHead">Rate</th>
+              </tr>
             </thead>
             <tbody>
-              <tr><td>Personal Allowance</td><td>Up to £12,570</td><td>0%</td></tr>
-              <tr><td>Basic rate</td><td>£12,571 to £50,270</td><td>20%</td></tr>
-              <tr><td>Higher rate</td><td>£50,271 to £125,140</td><td>40%</td></tr>
-              <tr><td>Additional rate</td><td>Over £125,140</td><td>45%</td></tr>
+              <tr><td data-i18n="personalAllowance">Personal Allowance</td><td data-i18n="paRange">Up to £12,570</td><td>0%</td></tr>
+              <tr><td data-i18n="basicRate">Basic rate</td><td>£12,571 to £50,270</td><td>20%</td></tr>
+              <tr><td data-i18n="higherRate">Higher rate</td><td>£50,271 to £125,140</td><td>40%</td></tr>
+              <tr><td data-i18n="additionalRate">Additional rate</td><td data-i18n="over125">Over £125,140</td><td>45%</td></tr>
             </tbody>
           </table>
         </div>
 
-        <h3>2026/27 rates used for Scotland</h3>
+        <h3 data-i18n="scotlandRatesTitle">2026/27 rates used for Scotland</h3>
         <div class="table-wrap">
           <table class="rate-table">
             <thead>
-              <tr><th>Band</th><th>Total annual income</th><th>Rate</th></tr>
+              <tr>
+                <th data-i18n="bandHead">Band</th>
+                <th data-i18n="incomeHead">Total annual income</th>
+                <th data-i18n="rateHead">Rate</th>
+              </tr>
             </thead>
             <tbody>
-              <tr><td>Personal Allowance</td><td>Up to £12,570</td><td>0%</td></tr>
-              <tr><td>Starter rate</td><td>£12,571 to £16,537</td><td>19%</td></tr>
-              <tr><td>Basic rate</td><td>£16,538 to £29,526</td><td>20%</td></tr>
-              <tr><td>Intermediate rate</td><td>£29,527 to £43,662</td><td>21%</td></tr>
-              <tr><td>Higher rate</td><td>£43,663 to £75,000</td><td>42%</td></tr>
-              <tr><td>Advanced rate</td><td>£75,001 to £125,140</td><td>45%</td></tr>
-              <tr><td>Top rate</td><td>Over £125,140</td><td>48%</td></tr>
+              <tr><td data-i18n="personalAllowance">Personal Allowance</td><td data-i18n="paRange">Up to £12,570</td><td>0%</td></tr>
+              <tr><td data-i18n="starterRate">Starter rate</td><td>£12,571 to £16,537</td><td>19%</td></tr>
+              <tr><td data-i18n="basicRate">Basic rate</td><td>£16,538 to £29,526</td><td>20%</td></tr>
+              <tr><td data-i18n="intermediateRate">Intermediate rate</td><td>£29,527 to £43,662</td><td>21%</td></tr>
+              <tr><td data-i18n="higherRate">Higher rate</td><td>£43,663 to £75,000</td><td>42%</td></tr>
+              <tr><td data-i18n="advancedRate">Advanced rate</td><td>£75,001 to £125,140</td><td>45%</td></tr>
+              <tr><td data-i18n="topRate">Top rate</td><td data-i18n="over125">Over £125,140</td><td>48%</td></tr>
             </tbody>
           </table>
         </div>
 
-        <h3>National Insurance and loan assumptions</h3>
-        <p>
-          Employee National Insurance is estimated using the 2026/27 Class 1 employee thresholds and rates.
-          The page also includes Student Loan and Postgraduate Loan planning estimates, which helps the result
-          feel closer to a real payslip than a basic tax-only calculator.
+        <h3 data-i18n="niLoanTitle">National Insurance and loan assumptions</h3>
+        <p data-i18n="niLoanText">
+          Employee National Insurance is estimated using Class 1 employee thresholds and rates for the tax year. Student Loan and Postgraduate Loan calculations are planning estimates based on the selected plan and annual income after salary sacrifice pension.
         </p>
 
         <div class="faq">
           <div class="faq-item">
-            <h4>Does this calculator work for Scotland?</h4>
-            <p>Yes. Switch the region to Scotland and the page uses Scottish 2026/27 non-savings income tax bands. England, Wales and Northern Ireland use the rest-of-UK salary bands.</p>
+            <h4 data-i18n="faq1Q">Does this calculator work for Scotland?</h4>
+            <p data-i18n="faq1A">Yes. Switch the region to Scotland and the page uses Scottish 2026/27 non-savings income tax bands. England, Wales and Northern Ireland use the rest-of-UK salary bands.</p>
           </div>
+
           <div class="faq-item">
-            <h4>Why does the page say estimate instead of exact?</h4>
-            <p>Because that is more honest and more useful. Employer payroll can differ because of tax code changes, pay frequency rounding, benefits, pension setup and other payroll details.</p>
+            <h4 data-i18n="faq2Q">Is this the same as an official payslip?</h4>
+            <p data-i18n="faq2A">No. It is an estimate. Employer payroll can differ because of tax code changes, pay frequency rounding, taxable benefits, pension setup, irregular bonuses and other payroll details.</p>
           </div>
+
           <div class="faq-item">
-            <h4>How is pension handled here?</h4>
-            <p>This version treats pension as salary sacrifice. That means the pension amount is removed before Income Tax, National Insurance and loan deductions are estimated.</p>
+            <h4 data-i18n="faq3Q">Can I use this as a UK income tax calculator?</h4>
+            <p data-i18n="faq3A">Yes. It estimates UK Income Tax and National Insurance for employee salary income. It also shows pension and loan deductions so the result is closer to a take-home pay estimate.</p>
+          </div>
+
+          <div class="faq-item">
+            <h4 data-i18n="faq4Q">How is pension handled here?</h4>
+            <p data-i18n="faq4A">This version treats pension as salary sacrifice. The pension amount is removed before Income Tax, National Insurance and loan deductions are estimated.</p>
           </div>
         </div>
       </article>
 
       <aside class="side">
         <div class="side-card">
-          <h3>Why this version is stronger</h3>
+          <h3 data-i18n="sideUseTitle">Useful for</h3>
           <div class="chips">
-            <span class="chip">Clear scope</span>
-            <span class="chip">Scotland supported</span>
-            <span class="chip">Estimate not hype</span>
-            <span class="chip">FAQ + schema</span>
+            <span class="chip" data-i18n="chip1">Job offer comparison</span>
+            <span class="chip" data-i18n="chip2">Monthly budget planning</span>
+            <span class="chip" data-i18n="chip3">Pension impact</span>
+            <span class="chip" data-i18n="chip4">Student loan estimate</span>
           </div>
         </div>
 
         <div class="side-card">
-          <h3>Assumptions</h3>
+          <h3 data-i18n="sideAssumptionsTitle">Assumptions</h3>
           <ul>
-            <li>Standard personal allowance only</li>
-            <li>Employee salary income only</li>
-            <li>2026/27 tax year only</li>
-            <li>Annualised estimate, not payroll software</li>
+            <li data-i18n="assumption1">Standard personal allowance only</li>
+            <li data-i18n="assumption2">Employee salary income only</li>
+            <li data-i18n="assumption3">2026/27 tax year only</li>
+            <li data-i18n="assumption4">Annualised estimate, not payroll software</li>
           </ul>
         </div>
 
         <div class="side-card">
-          <h3>Related tools</h3>
+          <h3 data-i18n="sideKeywordsTitle">Related searches</h3>
+          <div class="chips">
+            <span class="chip" data-i18n="kw1">UK tax calculator</span>
+            <span class="chip" data-i18n="kw2">Take-home pay calculator</span>
+            <span class="chip" data-i18n="kw3">英国个税计算器</span>
+            <span class="chip" data-i18n="kw4">英国个人所得税计算器</span>
+          </div>
+        </div>
+
+        <div class="side-card">
+          <h3 data-i18n="relatedTitle">Related tools</h3>
           <div class="related-links">
-            <a href="/dividend">Salary vs Dividend calculator</a>
-            <a href="/ir35">IR35 calculator</a>
-            <a href="/vat">VAT calculator</a>
-            <a href="/mortgage">Mortgage calculator</a>
+            <a href="/dividend" data-i18n="relatedDividend">Salary vs Dividend calculator</a>
+            <a href="/ir35" data-i18n="relatedIr35">IR35 calculator</a>
+            <a href="/vat" data-i18n="relatedVat">VAT calculator</a>
+            <a href="/mortgage" data-i18n="relatedMortgage">Mortgage calculator</a>
           </div>
         </div>
       </aside>
@@ -626,15 +1169,791 @@
     <div class="wrap footer-inner">
       <div>© 2026 Mini-Tools.uk</div>
       <div class="footer-links">
-        <a href="/about">About</a>
-        <a href="/blog">Blog</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/contact">Contact</a>
+        <a href="/about" data-i18n="navAbout">About</a>
+        <a href="/blog" data-i18n="navBlog">Blog</a>
+        <a href="/privacy" data-i18n="privacy">Privacy</a>
+        <a href="/contact" data-i18n="navContact">Contact</a>
       </div>
     </div>
   </footer>
 
   <script>
+    const translations = {
+      en: {
+        htmlLang:"en-GB",
+        langLabel:"English",
+        locale:"en-GB",
+        title:"UK Salary Tax Calculator 2026/27 | Income Tax, NI & Take-Home Pay | Mini-Tools.uk",
+        description:"Estimate 2026/27 UK take-home pay with Income Tax, National Insurance, salary sacrifice pension, Student Loan and Postgraduate Loan deductions for England, Wales, Northern Ireland and Scotland.",
+        keywords:"UK tax calculator, UK income tax calculator, salary after tax UK, take home pay calculator, National Insurance calculator, PAYE calculator, student loan repayment calculator",
+        skip:"Skip to content",
+        brandSubtitle:"Practical calculators and browser tools",
+        navHome:"Home",
+        navTools:"All Tools",
+        navCategories:"Categories",
+        navBlog:"Blog",
+        navAbout:"About",
+        navContact:"Contact",
+        privacy:"Privacy",
+        catFinance:"UK Finance",
+        catFinanceSmall:"Tax, VAT, mortgage and contractor tools",
+        catDev:"Developer Tools",
+        catDevSmall:"JSON, diff, image hosting and AI token estimation",
+        catImage:"Image & PDF",
+        catImageSmall:"Compression, conversion and media utilities",
+        catSecurity:"Security",
+        catSecuritySmall:"Password and privacy helpers",
+        badge:"Updated for 2026/27 tax year",
+        heroTitle:"UK salary tax calculator for 2026/27",
+        heroText:"Estimate take-home pay for employees in England, Wales, Northern Ireland and Scotland. This calculator includes Income Tax, National Insurance, salary sacrifice pension, Student Loan and Postgraduate Loan deductions.",
+        mini1Title:"Region-aware tax bands",
+        mini1Text:"Choose Scotland, Wales, England or Northern Ireland instead of using one generic tax model.",
+        mini2Title:"Clear payslip-style breakdown",
+        mini2Text:"See gross income, pension, Income Tax, National Insurance, student loans and estimated take-home pay.",
+        mini3Title:"Useful planning estimate",
+        mini3Text:"Compare job offers, plan a monthly budget or understand how pension and loan deductions affect salary.",
+        formTitle:"Enter your pay details",
+        salaryLabel:"Income amount (£)",
+        periodYear:"Per year",
+        periodMonth:"Per month",
+        periodWeek:"Per week",
+        periodHour:"Per hour",
+        salaryHint:"For hourly pay, the calculator multiplies by hours per week × 52 weeks.",
+        hoursLabel:"Hours per week",
+        regionLabel:"Tax region",
+        regionRuk:"England or Northern Ireland",
+        regionWales:"Wales",
+        regionScotland:"Scotland",
+        pensionLabel:"Salary sacrifice pension (%)",
+        studentLabel:"Student Loan plan",
+        none:"None",
+        pglLabel:"Postgraduate Loan",
+        no:"No",
+        yes:"Yes",
+        taxCodeLabel:"Tax code assumption",
+        taxCodeOption:"Standard code 1257L",
+        taxCodeHint:"This version uses the standard personal allowance only.",
+        calcButton:"Calculate take-home pay",
+        subtleForTitle:"What this page is for:",
+        subtleForText:"quick salary planning, job offer comparison and budgeting.",
+        subtleNotTitle:"What it is not:",
+        subtleNotText:"a full payroll engine. Your actual payslip can differ because of tax code changes, benefits in kind, irregular pay, pension scheme rules, payroll rounding and other adjustments.",
+        resultEyebrow:"Estimated monthly take-home",
+        breakdownHead:"Breakdown",
+        yearlyHead:"Yearly",
+        monthlyHead:"Monthly",
+        weeklyHead:"Weekly",
+        grossIncome:"Gross income",
+        pensionRowLabel:"Salary sacrifice pension",
+        taxRowLabel:"Income Tax",
+        niRowLabel:"National Insurance",
+        studentRowLabel:"Student Loan",
+        pglRowLabel:"Postgraduate Loan",
+        netRowLabel:"Net take-home",
+        employerNiTitle:"Estimated employer NI cost:",
+        employerNiNote:"Shown as extra context only. It is not deducted from your own take-home pay.",
+        perYear:"/ year",
+        articleTitle:"What this UK salary tax calculator includes",
+        articleP1:"This calculator gives an annualised estimate for employee salary income in the 2026/27 tax year. It is designed for salary planning, comparing job offers and understanding how common deductions affect take-home pay.",
+        articleP2:"It includes the standard personal allowance, Income Tax, employee National Insurance, salary sacrifice pension, Student Loan Plans 1, 2, 4 and 5, plus an optional Postgraduate Loan deduction.",
+        articleP3:"In Chinese searches, this page is also relevant for users looking for 英国个税计算器, 英国个人所得税计算器, 英国税后工资计算器 or 英国工资税计算器, because the calculator focuses on UK employee salary tax and take-home pay.",
+        excludeTitle:"What it does not include",
+        exclude1:"Custom tax codes, company benefits or benefits in kind",
+        exclude2:"Marriage Allowance, Blind Person’s Allowance or other special reliefs",
+        exclude3:"Payroll-specific HMRC rounding and irregular pay treatment",
+        exclude4:"Dividend income, self-employed tax, child benefit charge or savings/dividend tax",
+        rukRatesTitle:"2026/27 rates used for England, Wales and Northern Ireland",
+        scotlandRatesTitle:"2026/27 rates used for Scotland",
+        bandHead:"Band",
+        incomeHead:"Total annual income",
+        rateHead:"Rate",
+        personalAllowance:"Personal Allowance",
+        paRange:"Up to £12,570",
+        basicRate:"Basic rate",
+        higherRate:"Higher rate",
+        additionalRate:"Additional rate",
+        over125:"Over £125,140",
+        starterRate:"Starter rate",
+        intermediateRate:"Intermediate rate",
+        advancedRate:"Advanced rate",
+        topRate:"Top rate",
+        niLoanTitle:"National Insurance and loan assumptions",
+        niLoanText:"Employee National Insurance is estimated using Class 1 employee thresholds and rates for the tax year. Student Loan and Postgraduate Loan calculations are planning estimates based on the selected plan and annual income after salary sacrifice pension.",
+        faq1Q:"Does this calculator work for Scotland?",
+        faq1A:"Yes. Switch the region to Scotland and the page uses Scottish 2026/27 non-savings income tax bands. England, Wales and Northern Ireland use the rest-of-UK salary bands.",
+        faq2Q:"Is this the same as an official payslip?",
+        faq2A:"No. It is an estimate. Employer payroll can differ because of tax code changes, pay frequency rounding, taxable benefits, pension setup, irregular bonuses and other payroll details.",
+        faq3Q:"Can I use this as a UK income tax calculator?",
+        faq3A:"Yes. It estimates UK Income Tax and National Insurance for employee salary income. It also shows pension and loan deductions so the result is closer to a take-home pay estimate.",
+        faq4Q:"How is pension handled here?",
+        faq4A:"This version treats pension as salary sacrifice. The pension amount is removed before Income Tax, National Insurance and loan deductions are estimated.",
+        sideUseTitle:"Useful for",
+        chip1:"Job offer comparison",
+        chip2:"Monthly budget planning",
+        chip3:"Pension impact",
+        chip4:"Student loan estimate",
+        sideAssumptionsTitle:"Assumptions",
+        assumption1:"Standard personal allowance only",
+        assumption2:"Employee salary income only",
+        assumption3:"2026/27 tax year only",
+        assumption4:"Annualised estimate, not payroll software",
+        sideKeywordsTitle:"Related searches",
+        kw1:"UK tax calculator",
+        kw2:"Take-home pay calculator",
+        kw3:"英国个税计算器",
+        kw4:"英国个人所得税计算器",
+        relatedTitle:"Related tools",
+        relatedDividend:"Salary vs Dividend calculator",
+        relatedIr35:"IR35 calculator",
+        relatedVat:"VAT calculator",
+        relatedMortgage:"Mortgage calculator",
+        regionBadgeRuk:"England / NI",
+        regionBadgeWales:"Wales",
+        regionBadgeScotland:"Scotland",
+        noPension:"no pension sacrifice",
+        salarySacrificePension:"salary sacrifice pension",
+        noStudentLoan:"no Student Loan",
+        summaryPrefix:"Uses standard 1257L personal allowance,",
+        summaryTaxBands:"tax bands, and",
+        loanAssumption:"Loan assumption:"
+      },
+
+      "zh-CN": {
+        htmlLang:"zh-CN",
+        langLabel:"中文",
+        locale:"zh-CN",
+        title:"英国个税计算器｜英国个人所得税计算器｜英国税后工资计算器｜Mini-Tools.uk",
+        description:"使用 Mini-Tools 英国个税计算器，估算英国个人所得税、National Insurance、养老金、学生贷款和税后工资。适合英国上班族、留学生和求职者快速计算年薪、月薪和到手收入。",
+        keywords:"英国个税计算器, 英国个人所得税计算器, 英国税后工资计算器, 英国工资税计算器, 英国薪资计算器, 英国税前税后工资计算器, 英国年薪税后计算器, 英国月薪税后计算器, UK tax calculator, National Insurance calculator",
+        skip:"跳到正文",
+        brandSubtitle:"实用计算器和浏览器工具",
+        navHome:"首页",
+        navTools:"全部工具",
+        navCategories:"分类",
+        navBlog:"博客",
+        navAbout:"关于",
+        navContact:"联系",
+        privacy:"隐私政策",
+        catFinance:"英国财务工具",
+        catFinanceSmall:"个税、VAT、房贷和承包商收入工具",
+        catDev:"开发者工具",
+        catDevSmall:"JSON、文本对比、图床和 AI Token 估算",
+        catImage:"图片与 PDF",
+        catImageSmall:"压缩、转换和媒体工具",
+        catSecurity:"安全工具",
+        catSecuritySmall:"密码和隐私相关工具",
+        badge:"适用于 2026/27 税年",
+        heroTitle:"英国个税计算器：英国个人所得税、NI 和税后工资计算",
+        heroText:"使用这个英国个人所得税计算器估算英格兰、威尔士、北爱尔兰和苏格兰雇员的税后工资。计算内容包括 Income Tax、National Insurance、工资牺牲养老金、学生贷款和研究生贷款扣款。",
+        mini1Title:"支持不同英国税区",
+        mini1Text:"可选择苏格兰、威尔士、英格兰或北爱尔兰，不再用单一税率模型粗略估算。",
+        mini2Title:"接近工资单的拆分",
+        mini2Text:"查看税前收入、养老金、英国个人所得税、National Insurance、学生贷款和预计到手工资。",
+        mini3Title:"适合工资规划",
+        mini3Text:"适合比较英国工作 offer、规划月度预算，或了解养老金和贷款扣款如何影响到手收入。",
+        formTitle:"输入工资信息",
+        salaryLabel:"收入金额（£）",
+        periodYear:"按年",
+        periodMonth:"按月",
+        periodWeek:"按周",
+        periodHour:"按小时",
+        salaryHint:"如果选择小时工资，计算器会按每周工时 × 52 周换算成年收入。",
+        hoursLabel:"每周工作小时",
+        regionLabel:"英国税区",
+        regionRuk:"英格兰或北爱尔兰",
+        regionWales:"威尔士",
+        regionScotland:"苏格兰",
+        pensionLabel:"工资牺牲养老金（%）",
+        studentLabel:"学生贷款计划",
+        none:"无",
+        pglLabel:"研究生贷款",
+        no:"否",
+        yes:"是",
+        taxCodeLabel:"Tax code 假设",
+        taxCodeOption:"标准税码 1257L",
+        taxCodeHint:"当前版本仅使用标准个人免税额。",
+        calcButton:"计算税后工资",
+        subtleForTitle:"这个页面适合：",
+        subtleForText:"英国工资规划、offer 比较、英国年薪税后和月薪到手收入估算。",
+        subtleNotTitle:"它不适合：",
+        subtleNotText:"替代正式工资单或会计计算。实际 payslip 可能因 tax code、福利、非常规奖金、养老金规则、工资单四舍五入等因素而不同。",
+        resultEyebrow:"预计每月到手工资",
+        breakdownHead:"项目",
+        yearlyHead:"每年",
+        monthlyHead:"每月",
+        weeklyHead:"每周",
+        grossIncome:"税前收入",
+        pensionRowLabel:"工资牺牲养老金",
+        taxRowLabel:"英国个人所得税",
+        niRowLabel:"National Insurance",
+        studentRowLabel:"学生贷款",
+        pglRowLabel:"研究生贷款",
+        netRowLabel:"税后到手工资",
+        employerNiTitle:"预计雇主 NI 成本：",
+        employerNiNote:"仅作为额外参考，不会从你的税后工资中扣除。",
+        perYear:"/ 年",
+        articleTitle:"这个英国个税计算器包含哪些内容",
+        articleP1:"这个英国个人所得税计算器用于估算 2026/27 税年雇员工资收入的税后结果，适合英国工资规划、比较工作 offer，以及理解常见扣款如何影响到手收入。",
+        articleP2:"计算内容包括标准个人免税额、Income Tax、雇员 National Insurance、工资牺牲养老金、Student Loan Plan 1/2/4/5，以及可选的 Postgraduate Loan。",
+        articleP3:"如果你正在搜索“英国个税计算器”“英国个人所得税计算器”“英国税后工资计算器”或“英国工资税计算器”，这个页面的核心用途就是估算英国雇员工资扣税和到手收入。",
+        excludeTitle:"这个计算器不包含什么",
+        exclude1:"自定义 tax code、公司福利或实物福利",
+        exclude2:"婚姻津贴、盲人津贴或其他特殊减免",
+        exclude3:"工资单层面的 HMRC 四舍五入和非常规工资处理",
+        exclude4:"股息收入、自雇税、child benefit charge、储蓄或股息税",
+        rukRatesTitle:"英格兰、威尔士和北爱尔兰使用的 2026/27 税率",
+        scotlandRatesTitle:"苏格兰使用的 2026/27 税率",
+        bandHead:"档位",
+        incomeHead:"年收入范围",
+        rateHead:"税率",
+        personalAllowance:"个人免税额",
+        paRange:"最高 £12,570",
+        basicRate:"基本税率",
+        higherRate:"高税率",
+        additionalRate:"额外税率",
+        over125:"超过 £125,140",
+        starterRate:"起始税率",
+        intermediateRate:"中间税率",
+        advancedRate:"高级税率",
+        topRate:"最高税率",
+        niLoanTitle:"National Insurance 和贷款假设",
+        niLoanText:"雇员 National Insurance 按该税年的 Class 1 employee 阈值和税率估算。学生贷款和研究生贷款根据所选计划，以及扣除工资牺牲养老金后的年收入进行规划估算。",
+        faq1Q:"这个计算器支持苏格兰吗？",
+        faq1A:"支持。选择 Scotland 后，页面会使用苏格兰 2026/27 非储蓄收入税率。英格兰、威尔士和北爱尔兰使用 rest-of-UK 工资税率。",
+        faq2Q:"这个结果和正式工资单一样吗？",
+        faq2A:"不一定。这是估算结果。实际工资单可能因为 tax code、发薪周期四舍五入、应税福利、养老金设置、非常规奖金等因素而不同。",
+        faq3Q:"它可以作为英国个人所得税计算器使用吗？",
+        faq3A:"可以。它会估算雇员工资收入的 UK Income Tax 和 National Insurance，并显示养老金和贷款扣款，更接近税后工资估算。",
+        faq4Q:"养老金是如何处理的？",
+        faq4A:"当前版本按 salary sacrifice pension 处理，也就是先扣除养老金，再估算 Income Tax、National Insurance 和贷款扣款。",
+        sideUseTitle:"适合用于",
+        chip1:"比较英国 offer",
+        chip2:"月度预算规划",
+        chip3:"养老金影响估算",
+        chip4:"学生贷款估算",
+        sideAssumptionsTitle:"计算假设",
+        assumption1:"仅使用标准个人免税额",
+        assumption2:"仅适用于雇员工资收入",
+        assumption3:"仅适用于 2026/27 税年",
+        assumption4:"年度化估算，不是工资单软件",
+        sideKeywordsTitle:"相关搜索词",
+        kw1:"英国税后工资计算器",
+        kw2:"英国工资税计算器",
+        kw3:"英国个税计算器",
+        kw4:"英国个人所得税计算器",
+        relatedTitle:"相关工具",
+        relatedDividend:"工资 vs 股息计算器",
+        relatedIr35:"IR35 计算器",
+        relatedVat:"VAT 计算器",
+        relatedMortgage:"房贷计算器",
+        regionBadgeRuk:"英格兰 / 北爱尔兰",
+        regionBadgeWales:"威尔士",
+        regionBadgeScotland:"苏格兰",
+        noPension:"无工资牺牲养老金",
+        salarySacrificePension:"工资牺牲养老金",
+        noStudentLoan:"无学生贷款",
+        summaryPrefix:"使用标准 1257L 个人免税额，税区为",
+        summaryTaxBands:"，养老金假设为",
+        loanAssumption:"贷款假设："
+      },
+
+      de: {
+        htmlLang:"de",
+        langLabel:"Deutsch",
+        locale:"de-DE",
+        title:"UK Steuerrechner 2026/27 | Einkommensteuer, NI und Nettogehalt | Mini-Tools.uk",
+        description:"Schätzen Sie Ihr UK-Nettogehalt 2026/27 mit Einkommensteuer, National Insurance, Salary-Sacrifice-Pension, Student Loan und Postgraduate Loan.",
+        keywords:"UK Steuerrechner, Einkommensteuer Rechner UK, Nettogehalt Rechner UK, Brutto Netto Rechner UK, National Insurance Rechner, PAYE Rechner UK",
+        skip:"Zum Inhalt springen",
+        brandSubtitle:"Praktische Rechner und Browser-Tools",
+        navHome:"Startseite",
+        navTools:"Alle Tools",
+        navCategories:"Kategorien",
+        navBlog:"Blog",
+        navAbout:"Über uns",
+        navContact:"Kontakt",
+        privacy:"Datenschutz",
+        catFinance:"UK Finanzen",
+        catFinanceSmall:"Steuer, VAT, Hypothek und Contractor-Tools",
+        catDev:"Developer Tools",
+        catDevSmall:"JSON, Diff, Bildhosting und AI-Token-Schätzung",
+        catImage:"Bild & PDF",
+        catImageSmall:"Komprimierung, Konvertierung und Medien",
+        catSecurity:"Sicherheit",
+        catSecuritySmall:"Passwort- und Datenschutzhelfer",
+        badge:"Aktualisiert für Steuerjahr 2026/27",
+        heroTitle:"UK Steuerrechner für Gehalt 2026/27",
+        heroText:"Schätzen Sie das Nettogehalt für Arbeitnehmer in England, Wales, Nordirland und Schottland. Enthalten sind Income Tax, National Insurance, Salary-Sacrifice-Pension, Student Loan und Postgraduate Loan.",
+        mini1Title:"Regionale Steuerbänder",
+        mini1Text:"Wählen Sie Schottland, Wales, England oder Nordirland statt eines allgemeinen Modells.",
+        mini2Title:"Klare Gehaltsaufschlüsselung",
+        mini2Text:"Sehen Sie Bruttoeinkommen, Pension, Einkommensteuer, National Insurance, Student Loan und Nettogehalt.",
+        mini3Title:"Nützliche Planungsschätzung",
+        mini3Text:"Vergleichen Sie Jobangebote, planen Sie ein Monatsbudget oder prüfen Sie den Einfluss von Pension und Darlehen.",
+        formTitle:"Gehaltsdaten eingeben",
+        salaryLabel:"Einkommen (£)",
+        periodYear:"Pro Jahr",
+        periodMonth:"Pro Monat",
+        periodWeek:"Pro Woche",
+        periodHour:"Pro Stunde",
+        salaryHint:"Bei Stundenlohn rechnet der Rechner Stunden pro Woche × 52 Wochen.",
+        hoursLabel:"Stunden pro Woche",
+        regionLabel:"Steuerregion",
+        regionRuk:"England oder Nordirland",
+        regionWales:"Wales",
+        regionScotland:"Schottland",
+        pensionLabel:"Salary-Sacrifice-Pension (%)",
+        studentLabel:"Student-Loan-Plan",
+        none:"Keiner",
+        pglLabel:"Postgraduate Loan",
+        no:"Nein",
+        yes:"Ja",
+        taxCodeLabel:"Tax-Code-Annahme",
+        taxCodeOption:"Standardcode 1257L",
+        taxCodeHint:"Diese Version nutzt nur den Standard-Personal-Allowance.",
+        calcButton:"Nettogehalt berechnen",
+        subtleForTitle:"Diese Seite ist gedacht für:",
+        subtleForText:"schnelle Gehaltsplanung, Angebotsvergleich und Budgetierung.",
+        subtleNotTitle:"Sie ist nicht:",
+        subtleNotText:"eine vollständige Payroll-Software. Die tatsächliche Gehaltsabrechnung kann wegen Tax Codes, Benefits, unregelmäßigem Gehalt, Pensionsregeln und Rundungen abweichen.",
+        resultEyebrow:"Geschätztes monatliches Netto",
+        breakdownHead:"Aufschlüsselung",
+        yearlyHead:"Jährlich",
+        monthlyHead:"Monatlich",
+        weeklyHead:"Wöchentlich",
+        grossIncome:"Bruttoeinkommen",
+        pensionRowLabel:"Salary-Sacrifice-Pension",
+        taxRowLabel:"Income Tax",
+        niRowLabel:"National Insurance",
+        studentRowLabel:"Student Loan",
+        pglRowLabel:"Postgraduate Loan",
+        netRowLabel:"Nettogehalt",
+        employerNiTitle:"Geschätzte Employer-NI-Kosten:",
+        employerNiNote:"Nur als Kontext. Es wird nicht vom Nettogehalt abgezogen.",
+        perYear:"/ Jahr",
+        articleTitle:"Was dieser UK Steuerrechner enthält",
+        articleP1:"Dieser Rechner liefert eine annualisierte Schätzung für Arbeitnehmergehalt im Steuerjahr 2026/27. Er ist für Gehaltsplanung, Angebotsvergleich und Verständnis häufiger Abzüge gedacht.",
+        articleP2:"Enthalten sind Standard Personal Allowance, Income Tax, employee National Insurance, Salary-Sacrifice-Pension, Student Loan Plans 1, 2, 4 und 5 sowie ein optionaler Postgraduate Loan.",
+        articleP3:"Der Rechner eignet sich für Suchanfragen wie UK Steuerrechner, Einkommensteuer Rechner UK, Nettogehalt Rechner UK und Brutto Netto Rechner UK.",
+        excludeTitle:"Was nicht enthalten ist",
+        exclude1:"Individuelle Tax Codes, Firmenleistungen oder Benefits in kind",
+        exclude2:"Marriage Allowance, Blind Person’s Allowance oder andere Reliefs",
+        exclude3:"Payroll-spezifische HMRC-Rundung und unregelmäßige Gehaltsbehandlung",
+        exclude4:"Dividenden, Selbstständigkeit, Child Benefit Charge, Spar- oder Dividendensteuer",
+        rukRatesTitle:"2026/27 Sätze für England, Wales und Nordirland",
+        scotlandRatesTitle:"2026/27 Sätze für Schottland",
+        bandHead:"Band",
+        incomeHead:"Jahreseinkommen",
+        rateHead:"Satz",
+        personalAllowance:"Personal Allowance",
+        paRange:"Bis £12,570",
+        basicRate:"Basic rate",
+        higherRate:"Higher rate",
+        additionalRate:"Additional rate",
+        over125:"Über £125,140",
+        starterRate:"Starter rate",
+        intermediateRate:"Intermediate rate",
+        advancedRate:"Advanced rate",
+        topRate:"Top rate",
+        niLoanTitle:"National Insurance und Loan-Annahmen",
+        niLoanText:"Employee National Insurance wird anhand der Class-1-Arbeitnehmergrenzen und -sätze geschätzt. Student Loan und Postgraduate Loan sind Planungsschätzungen auf Basis des gewählten Plans und des Einkommens nach Salary Sacrifice.",
+        faq1Q:"Funktioniert der Rechner für Schottland?",
+        faq1A:"Ja. Wählen Sie Scotland, dann nutzt die Seite die schottischen 2026/27 Einkommensteuerbänder für nicht sparbezogene Einkünfte.",
+        faq2Q:"Ist das identisch mit einer offiziellen Gehaltsabrechnung?",
+        faq2A:"Nein. Es ist eine Schätzung. Payroll kann wegen Tax Codes, Rundung, Benefits, Pension, Boni und weiteren Details abweichen.",
+        faq3Q:"Kann ich dies als Einkommensteuerrechner nutzen?",
+        faq3A:"Ja. Der Rechner schätzt UK Income Tax und National Insurance für Arbeitnehmergehalt und zeigt auch Pension- und Loan-Abzüge.",
+        faq4Q:"Wie wird Pension behandelt?",
+        faq4A:"Diese Version behandelt Pension als Salary Sacrifice. Der Betrag wird vor Income Tax, National Insurance und Loan-Abzügen abgezogen.",
+        sideUseTitle:"Nützlich für",
+        chip1:"Jobangebot vergleichen",
+        chip2:"Monatsbudget planen",
+        chip3:"Pensionseinfluss",
+        chip4:"Student-Loan-Schätzung",
+        sideAssumptionsTitle:"Annahmen",
+        assumption1:"Nur Standard Personal Allowance",
+        assumption2:"Nur Arbeitnehmergehalt",
+        assumption3:"Nur Steuerjahr 2026/27",
+        assumption4:"Annualisierte Schätzung, keine Payroll-Software",
+        sideKeywordsTitle:"Verwandte Suchanfragen",
+        kw1:"UK Steuerrechner",
+        kw2:"Nettogehalt Rechner UK",
+        kw3:"Einkommensteuer Rechner UK",
+        kw4:"Brutto Netto Rechner UK",
+        relatedTitle:"Verwandte Tools",
+        relatedDividend:"Gehalt vs Dividend Rechner",
+        relatedIr35:"IR35 Rechner",
+        relatedVat:"VAT Rechner",
+        relatedMortgage:"Hypothekenrechner",
+        regionBadgeRuk:"England / Nordirland",
+        regionBadgeWales:"Wales",
+        regionBadgeScotland:"Schottland",
+        noPension:"keine Salary-Sacrifice-Pension",
+        salarySacrificePension:"Salary-Sacrifice-Pension",
+        noStudentLoan:"kein Student Loan",
+        summaryPrefix:"Nutzt Standard 1257L Personal Allowance,",
+        summaryTaxBands:"Steuerbänder und",
+        loanAssumption:"Loan-Annahme:"
+      },
+
+      fr: {
+        htmlLang:"fr",
+        langLabel:"Français",
+        locale:"fr-FR",
+        title:"Calculateur d’impôts UK 2026/27 | Salaire net, Income Tax et National Insurance | Mini-Tools.uk",
+        description:"Estimez le salaire net au Royaume-Uni en 2026/27 avec Income Tax, National Insurance, pension salary sacrifice, Student Loan et Postgraduate Loan.",
+        keywords:"calculateur impôt UK, calculateur salaire net Royaume-Uni, calculateur d’impôts Royaume-Uni, salaire après impôts UK, National Insurance UK, calculateur PAYE Royaume-Uni",
+        skip:"Aller au contenu",
+        brandSubtitle:"Calculateurs pratiques et outils navigateur",
+        navHome:"Accueil",
+        navTools:"Tous les outils",
+        navCategories:"Catégories",
+        navBlog:"Blog",
+        navAbout:"À propos",
+        navContact:"Contact",
+        privacy:"Confidentialité",
+        catFinance:"Finance UK",
+        catFinanceSmall:"Impôt, VAT, prêt immobilier et contractor",
+        catDev:"Outils développeur",
+        catDevSmall:"JSON, diff, hébergement image et estimation tokens IA",
+        catImage:"Image & PDF",
+        catImageSmall:"Compression, conversion et médias",
+        catSecurity:"Sécurité",
+        catSecuritySmall:"Mot de passe et confidentialité",
+        badge:"Mis à jour pour l’année fiscale 2026/27",
+        heroTitle:"Calculateur de salaire et impôts UK 2026/27",
+        heroText:"Estimez le salaire net des employés en Angleterre, au Pays de Galles, en Irlande du Nord et en Écosse. Le calcul inclut Income Tax, National Insurance, pension salary sacrifice, Student Loan et Postgraduate Loan.",
+        mini1Title:"Barèmes selon la région",
+        mini1Text:"Choisissez l’Écosse, le Pays de Galles, l’Angleterre ou l’Irlande du Nord au lieu d’un modèle unique.",
+        mini2Title:"Décomposition type fiche de paie",
+        mini2Text:"Affichez salaire brut, pension, Income Tax, National Insurance, prêts étudiants et salaire net estimé.",
+        mini3Title:"Estimation utile pour planifier",
+        mini3Text:"Comparez des offres d’emploi, planifiez un budget mensuel ou comprenez l’effet des pensions et prêts.",
+        formTitle:"Saisir vos informations de paie",
+        salaryLabel:"Montant du revenu (£)",
+        periodYear:"Par an",
+        periodMonth:"Par mois",
+        periodWeek:"Par semaine",
+        periodHour:"Par heure",
+        salaryHint:"Pour un taux horaire, le calcul utilise heures par semaine × 52 semaines.",
+        hoursLabel:"Heures par semaine",
+        regionLabel:"Région fiscale",
+        regionRuk:"Angleterre ou Irlande du Nord",
+        regionWales:"Pays de Galles",
+        regionScotland:"Écosse",
+        pensionLabel:"Pension salary sacrifice (%)",
+        studentLabel:"Plan Student Loan",
+        none:"Aucun",
+        pglLabel:"Postgraduate Loan",
+        no:"Non",
+        yes:"Oui",
+        taxCodeLabel:"Hypothèse tax code",
+        taxCodeOption:"Code standard 1257L",
+        taxCodeHint:"Cette version utilise uniquement le personal allowance standard.",
+        calcButton:"Calculer le salaire net",
+        subtleForTitle:"Cette page sert à :",
+        subtleForText:"planification salariale, comparaison d’offres et budget.",
+        subtleNotTitle:"Ce n’est pas :",
+        subtleNotText:"un moteur de paie complet. Votre fiche de paie peut différer selon tax code, avantages, paie irrégulière, pension et arrondis.",
+        resultEyebrow:"Salaire net mensuel estimé",
+        breakdownHead:"Détail",
+        yearlyHead:"Annuel",
+        monthlyHead:"Mensuel",
+        weeklyHead:"Hebdo",
+        grossIncome:"Revenu brut",
+        pensionRowLabel:"Pension salary sacrifice",
+        taxRowLabel:"Income Tax",
+        niRowLabel:"National Insurance",
+        studentRowLabel:"Student Loan",
+        pglRowLabel:"Postgraduate Loan",
+        netRowLabel:"Salaire net",
+        employerNiTitle:"Coût employer NI estimé :",
+        employerNiNote:"Affiché seulement comme contexte. Il n’est pas déduit de votre salaire net.",
+        perYear:"/ an",
+        articleTitle:"Ce que contient ce calculateur d’impôts UK",
+        articleP1:"Ce calculateur donne une estimation annualisée du revenu salarial employé pour l’année fiscale 2026/27. Il sert à planifier un salaire, comparer des offres et comprendre les déductions courantes.",
+        articleP2:"Il inclut personal allowance standard, Income Tax, employee National Insurance, pension salary sacrifice, Student Loan Plans 1, 2, 4 et 5, ainsi qu’un Postgraduate Loan optionnel.",
+        articleP3:"Ce calculateur correspond aussi aux recherches comme calculateur impôt UK, calculateur salaire net Royaume-Uni, salaire après impôts UK et calculateur d’impôts Royaume-Uni.",
+        excludeTitle:"Ce qui n’est pas inclus",
+        exclude1:"Tax codes personnalisés, avantages d’entreprise ou benefits in kind",
+        exclude2:"Marriage Allowance, Blind Person’s Allowance ou autres allègements",
+        exclude3:"Arrondis HMRC propres à la paie et traitements irréguliers",
+        exclude4:"Dividendes, auto-entreprise, child benefit charge, intérêts ou dividendes",
+        rukRatesTitle:"Taux 2026/27 pour Angleterre, Pays de Galles et Irlande du Nord",
+        scotlandRatesTitle:"Taux 2026/27 pour l’Écosse",
+        bandHead:"Tranche",
+        incomeHead:"Revenu annuel total",
+        rateHead:"Taux",
+        personalAllowance:"Personal Allowance",
+        paRange:"Jusqu’à £12,570",
+        basicRate:"Basic rate",
+        higherRate:"Higher rate",
+        additionalRate:"Additional rate",
+        over125:"Plus de £125,140",
+        starterRate:"Starter rate",
+        intermediateRate:"Intermediate rate",
+        advancedRate:"Advanced rate",
+        topRate:"Top rate",
+        niLoanTitle:"Hypothèses National Insurance et prêts",
+        niLoanText:"Employee National Insurance est estimée avec les seuils et taux Class 1 employee. Student Loan et Postgraduate Loan sont des estimations basées sur le plan choisi et le revenu après pension salary sacrifice.",
+        faq1Q:"Le calculateur fonctionne-t-il pour l’Écosse ?",
+        faq1A:"Oui. Choisissez Scotland et la page utilise les barèmes écossais 2026/27 pour les revenus non-savings.",
+        faq2Q:"Est-ce identique à une fiche de paie officielle ?",
+        faq2A:"Non. C’est une estimation. La paie réelle peut différer selon tax code, arrondis, avantages, pension, bonus et autres détails.",
+        faq3Q:"Puis-je l’utiliser comme calculateur d’impôt UK ?",
+        faq3A:"Oui. Il estime UK Income Tax et National Insurance pour salaire employé et montre les déductions pension et prêts.",
+        faq4Q:"Comment la pension est-elle traitée ?",
+        faq4A:"Cette version traite la pension comme salary sacrifice, retirée avant Income Tax, National Insurance et prêts.",
+        sideUseTitle:"Utile pour",
+        chip1:"Comparer une offre",
+        chip2:"Budget mensuel",
+        chip3:"Impact pension",
+        chip4:"Estimation Student Loan",
+        sideAssumptionsTitle:"Hypothèses",
+        assumption1:"Personal allowance standard uniquement",
+        assumption2:"Salaire employé uniquement",
+        assumption3:"Année fiscale 2026/27 uniquement",
+        assumption4:"Estimation annualisée, pas logiciel de paie",
+        sideKeywordsTitle:"Recherches liées",
+        kw1:"calculateur impôt UK",
+        kw2:"calculateur salaire net Royaume-Uni",
+        kw3:"salaire après impôts UK",
+        kw4:"calculateur PAYE Royaume-Uni",
+        relatedTitle:"Outils liés",
+        relatedDividend:"Calculateur salaire vs dividende",
+        relatedIr35:"Calculateur IR35",
+        relatedVat:"Calculateur VAT",
+        relatedMortgage:"Calculateur prêt immobilier",
+        regionBadgeRuk:"Angleterre / Irlande du Nord",
+        regionBadgeWales:"Pays de Galles",
+        regionBadgeScotland:"Écosse",
+        noPension:"pas de pension salary sacrifice",
+        salarySacrificePension:"pension salary sacrifice",
+        noStudentLoan:"pas de Student Loan",
+        summaryPrefix:"Utilise personal allowance 1257L standard,",
+        summaryTaxBands:"barèmes fiscaux et",
+        loanAssumption:"Hypothèse prêt :"
+      },
+
+      es: {
+        htmlLang:"es",
+        langLabel:"Español",
+        locale:"es-ES",
+        title:"Calculadora de impuestos UK 2026/27 | Salario neto, Income Tax y National Insurance | Mini-Tools.uk",
+        description:"Estima el salario neto en Reino Unido 2026/27 con Income Tax, National Insurance, pensión salary sacrifice, Student Loan y Postgraduate Loan.",
+        keywords:"calculadora de impuestos UK, calculadora de salario Reino Unido, calculadora sueldo neto Reino Unido, salario después de impuestos UK, National Insurance UK, calculadora PAYE Reino Unido",
+        skip:"Saltar al contenido",
+        brandSubtitle:"Calculadoras prácticas y herramientas web",
+        navHome:"Inicio",
+        navTools:"Todas las herramientas",
+        navCategories:"Categorías",
+        navBlog:"Blog",
+        navAbout:"Acerca de",
+        navContact:"Contacto",
+        privacy:"Privacidad",
+        catFinance:"Finanzas UK",
+        catFinanceSmall:"Impuestos, VAT, hipoteca y contractor",
+        catDev:"Herramientas developer",
+        catDevSmall:"JSON, diff, hosting de imágenes y tokens IA",
+        catImage:"Imagen y PDF",
+        catImageSmall:"Compresión, conversión y medios",
+        catSecurity:"Seguridad",
+        catSecuritySmall:"Contraseñas y privacidad",
+        badge:"Actualizado para el año fiscal 2026/27",
+        heroTitle:"Calculadora de salario e impuestos UK 2026/27",
+        heroText:"Estima el salario neto de empleados en Inglaterra, Gales, Irlanda del Norte y Escocia. Incluye Income Tax, National Insurance, pensión salary sacrifice, Student Loan y Postgraduate Loan.",
+        mini1Title:"Bandas fiscales por región",
+        mini1Text:"Elige Escocia, Gales, Inglaterra o Irlanda del Norte en lugar de un modelo genérico.",
+        mini2Title:"Desglose tipo nómina",
+        mini2Text:"Muestra ingreso bruto, pensión, Income Tax, National Insurance, préstamos estudiantiles y salario neto estimado.",
+        mini3Title:"Estimación útil para planificar",
+        mini3Text:"Compara ofertas, planifica presupuesto mensual o entiende el efecto de pensión y préstamos.",
+        formTitle:"Introduce tus datos salariales",
+        salaryLabel:"Importe de ingresos (£)",
+        periodYear:"Por año",
+        periodMonth:"Por mes",
+        periodWeek:"Por semana",
+        periodHour:"Por hora",
+        salaryHint:"Para pago por hora, se multiplica por horas semanales × 52 semanas.",
+        hoursLabel:"Horas por semana",
+        regionLabel:"Región fiscal",
+        regionRuk:"Inglaterra o Irlanda del Norte",
+        regionWales:"Gales",
+        regionScotland:"Escocia",
+        pensionLabel:"Pensión salary sacrifice (%)",
+        studentLabel:"Plan Student Loan",
+        none:"Ninguno",
+        pglLabel:"Postgraduate Loan",
+        no:"No",
+        yes:"Sí",
+        taxCodeLabel:"Supuesto tax code",
+        taxCodeOption:"Código estándar 1257L",
+        taxCodeHint:"Esta versión usa solo personal allowance estándar.",
+        calcButton:"Calcular salario neto",
+        subtleForTitle:"Esta página sirve para:",
+        subtleForText:"planificar salario, comparar ofertas y presupuestar.",
+        subtleNotTitle:"No es:",
+        subtleNotText:"un motor de nómina completo. Tu payslip real puede variar por tax code, beneficios, pagos irregulares, reglas de pensión y redondeos.",
+        resultEyebrow:"Salario neto mensual estimado",
+        breakdownHead:"Desglose",
+        yearlyHead:"Anual",
+        monthlyHead:"Mensual",
+        weeklyHead:"Semanal",
+        grossIncome:"Ingreso bruto",
+        pensionRowLabel:"Pensión salary sacrifice",
+        taxRowLabel:"Income Tax",
+        niRowLabel:"National Insurance",
+        studentRowLabel:"Student Loan",
+        pglRowLabel:"Postgraduate Loan",
+        netRowLabel:"Salario neto",
+        employerNiTitle:"Coste employer NI estimado:",
+        employerNiNote:"Solo como contexto. No se descuenta de tu salario neto.",
+        perYear:"/ año",
+        articleTitle:"Qué incluye esta calculadora de impuestos UK",
+        articleP1:"Esta calculadora ofrece una estimación anualizada de ingresos salariales de empleados para el año fiscal 2026/27. Sirve para planificar salario, comparar ofertas y entender deducciones comunes.",
+        articleP2:"Incluye personal allowance estándar, Income Tax, employee National Insurance, pensión salary sacrifice, Student Loan Plans 1, 2, 4 y 5, y Postgraduate Loan opcional.",
+        articleP3:"También corresponde a búsquedas como calculadora de impuestos UK, calculadora de salario Reino Unido, calculadora sueldo neto Reino Unido y salario después de impuestos UK.",
+        excludeTitle:"Qué no incluye",
+        exclude1:"Tax codes personalizados, beneficios de empresa o benefits in kind",
+        exclude2:"Marriage Allowance, Blind Person’s Allowance u otros reliefs",
+        exclude3:"Redondeos HMRC de nómina y tratamientos de pagos irregulares",
+        exclude4:"Dividendos, autónomos, child benefit charge, intereses o impuestos sobre dividendos",
+        rukRatesTitle:"Tasas 2026/27 para Inglaterra, Gales e Irlanda del Norte",
+        scotlandRatesTitle:"Tasas 2026/27 para Escocia",
+        bandHead:"Banda",
+        incomeHead:"Ingreso anual total",
+        rateHead:"Tasa",
+        personalAllowance:"Personal Allowance",
+        paRange:"Hasta £12,570",
+        basicRate:"Basic rate",
+        higherRate:"Higher rate",
+        additionalRate:"Additional rate",
+        over125:"Más de £125,140",
+        starterRate:"Starter rate",
+        intermediateRate:"Intermediate rate",
+        advancedRate:"Advanced rate",
+        topRate:"Top rate",
+        niLoanTitle:"Supuestos de National Insurance y préstamos",
+        niLoanText:"Employee National Insurance se estima usando umbrales y tasas Class 1 employee. Student Loan y Postgraduate Loan son estimaciones basadas en el plan elegido e ingresos después de salary sacrifice.",
+        faq1Q:"¿Funciona para Escocia?",
+        faq1A:"Sí. Selecciona Scotland y la página usa las bandas escocesas 2026/27 para ingresos no savings.",
+        faq2Q:"¿Es igual que una nómina oficial?",
+        faq2A:"No. Es una estimación. La nómina real puede variar por tax code, redondeos, beneficios, pensión, bonus y otros detalles.",
+        faq3Q:"¿Puedo usarla como calculadora de Income Tax UK?",
+        faq3A:"Sí. Estima UK Income Tax y National Insurance para salario de empleado y muestra deducciones de pensión y préstamos.",
+        faq4Q:"¿Cómo se trata la pensión?",
+        faq4A:"Esta versión trata la pensión como salary sacrifice, restada antes de Income Tax, National Insurance y préstamos.",
+        sideUseTitle:"Útil para",
+        chip1:"Comparar oferta laboral",
+        chip2:"Plan mensual",
+        chip3:"Impacto pensión",
+        chip4:"Estimación Student Loan",
+        sideAssumptionsTitle:"Supuestos",
+        assumption1:"Personal allowance estándar",
+        assumption2:"Solo salario empleado",
+        assumption3:"Solo año fiscal 2026/27",
+        assumption4:"Estimación anualizada, no software de nómina",
+        sideKeywordsTitle:"Búsquedas relacionadas",
+        kw1:"calculadora de impuestos UK",
+        kw2:"calculadora sueldo neto Reino Unido",
+        kw3:"salario después de impuestos UK",
+        kw4:"calculadora PAYE Reino Unido",
+        relatedTitle:"Herramientas relacionadas",
+        relatedDividend:"Calculadora salario vs dividendo",
+        relatedIr35:"Calculadora IR35",
+        relatedVat:"Calculadora VAT",
+        relatedMortgage:"Calculadora hipoteca",
+        regionBadgeRuk:"Inglaterra / Irlanda del Norte",
+        regionBadgeWales:"Gales",
+        regionBadgeScotland:"Escocia",
+        noPension:"sin pensión salary sacrifice",
+        salarySacrificePension:"pensión salary sacrifice",
+        noStudentLoan:"sin Student Loan",
+        summaryPrefix:"Usa personal allowance estándar 1257L,",
+        summaryTaxBands:"bandas fiscales y",
+        loanAssumption:"Supuesto de préstamo:"
+      }
+    };
+
+    const allowedLangs = ["en", "zh-CN", "de", "fr", "es"];
+    let currentLang = "en";
+
+    function getDict(){
+      return translations[currentLang] || translations.en;
+    }
+
+    function getInitialLang(){
+      const params = new URLSearchParams(window.location.search);
+      const urlLang = params.get("lang");
+      if (allowedLangs.includes(urlLang)) return urlLang;
+
+      const saved = localStorage.getItem("miniToolsTaxLang");
+      if (allowedLangs.includes(saved)) return saved;
+
+      const browser = navigator.language || "en";
+      if (browser.startsWith("zh")) return "zh-CN";
+      if (browser.startsWith("de")) return "de";
+      if (browser.startsWith("fr")) return "fr";
+      if (browser.startsWith("es")) return "es";
+      return "en";
+    }
+
+    function setMeta(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setOg(property, content){
+      const tag = document.querySelector(`meta[property="${property}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setTwitter(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function applyLanguage(lang, updateUrl = true){
+      currentLang = allowedLangs.includes(lang) ? lang : "en";
+      const dict = getDict();
+
+      document.documentElement.lang = dict.htmlLang || "en-GB";
+      document.title = dict.title;
+
+      setMeta("description", dict.description);
+      setMeta("keywords", dict.keywords);
+      setOg("og:title", dict.title);
+      setOg("og:description", dict.description);
+      setTwitter("twitter:title", dict.title);
+      setTwitter("twitter:description", dict.description);
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+
+      const label = document.getElementById("currentLangLabel");
+      if (label) label.textContent = dict.langLabel;
+
+      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
+      });
+
+      localStorage.setItem("miniToolsTaxLang", currentLang);
+
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", currentLang);
+        history.replaceState(null, "", url.toString());
+      }
+
+      calculate();
+    }
+
+    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
+    });
+
     const taxRules = {
       allowanceBase: 12570,
       allowanceTaperStart: 100000,
@@ -647,18 +1966,18 @@
       employerNiRate: 0.15,
       studentLoan: {
         none: null,
-        plan1: { threshold: 26900, rate: 0.09, label: 'Plan 1' },
-        plan2: { threshold: 29385, rate: 0.09, label: 'Plan 2' },
-        plan4: { threshold: 33795, rate: 0.09, label: 'Plan 4' },
-        plan5: { threshold: 25000, rate: 0.09, label: 'Plan 5' }
+        plan1: { threshold: 26900, rate: 0.09, label: "Plan 1" },
+        plan2: { threshold: 29385, rate: 0.09, label: "Plan 2" },
+        plan4: { threshold: 33795, rate: 0.09, label: "Plan 4" },
+        plan5: { threshold: 25000, rate: 0.09, label: "Plan 5" }
       },
       pgl: { threshold: 21000, rate: 0.06 }
     };
 
     function annualFromInput(amount, period, hoursPerWeek){
-      if (period === 'month') return amount * 12;
-      if (period === 'week') return amount * 52;
-      if (period === 'hour') return amount * hoursPerWeek * 52;
+      if (period === "month") return amount * 12;
+      if (period === "week") return amount * 52;
+      if (period === "hour") return amount * hoursPerWeek * 52;
       return amount;
     }
 
@@ -678,6 +1997,7 @@
       if (taxableAfterAllowance <= basicBand) return taxableAfterAllowance * 0.20;
 
       tax += basicBand * 0.20;
+
       if (taxableAfterAllowance <= higherCap) {
         tax += (taxableAfterAllowance - basicBand) * 0.40;
         return tax;
@@ -697,28 +2017,36 @@
         { upper: 125140, rate: 0.45 },
         { upper: Infinity, rate: 0.48 }
       ];
+
       let tax = 0;
       let lower = allowance;
 
       for (const band of bands) {
         const upper = band.upper;
         if (grossAfterSacrifice <= lower) break;
+
         const taxableSlice = Math.min(grossAfterSacrifice, upper) - lower;
         if (taxableSlice > 0) tax += taxableSlice * band.rate;
+
         lower = upper;
       }
+
       return tax;
     }
 
     function nationalInsurance(earningsAfterSacrifice){
       const pt = taxRules.niPrimaryThreshold;
       const uel = taxRules.niUpperEarningsLimit;
+
       if (earningsAfterSacrifice <= pt) return 0;
+
       let ni = Math.min(earningsAfterSacrifice, uel) - pt;
       ni = ni * taxRules.niMainRate;
+
       if (earningsAfterSacrifice > uel) {
         ni += (earningsAfterSacrifice - uel) * taxRules.niUpperRate;
       }
+
       return ni;
     }
 
@@ -734,30 +2062,39 @@
     }
 
     function pglDeduction(earningsAfterSacrifice, enabled){
-      if (enabled !== 'yes') return 0;
+      if (enabled !== "yes") return 0;
       return Math.max(0, (earningsAfterSacrifice - taxRules.pgl.threshold) * taxRules.pgl.rate);
     }
 
     function currency(value){
-      return new Intl.NumberFormat('en-GB', {
-        style: 'currency',
-        currency: 'GBP',
+      return new Intl.NumberFormat(getDict().locale || "en-GB", {
+        style: "currency",
+        currency: "GBP",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-      }).format(value);
+      }).format(value || 0);
     }
 
-    function setValue(id, val){ document.getElementById(id).textContent = currency(val); }
-    function setNegative(id, val){ document.getElementById(id).textContent = '-' + currency(val); }
+    function setValue(id, val){
+      const el = document.getElementById(id);
+      if (el) el.textContent = currency(val);
+    }
+
+    function setNegative(id, val){
+      const el = document.getElementById(id);
+      if (el) el.textContent = "-" + currency(val);
+    }
 
     function calculate(){
-      const amount = parseFloat(document.getElementById('salaryAmount').value);
-      const period = document.getElementById('salaryPeriod').value;
-      const hoursPerWeek = parseFloat(document.getElementById('hoursPerWeek').value) || 37.5;
-      const region = document.getElementById('region').value;
-      const pensionPercent = parseFloat(document.getElementById('pensionPercent').value) || 0;
-      const studentPlan = document.getElementById('studentPlan').value;
-      const pglEnabled = document.getElementById('pglEnabled').value;
+      const dict = getDict();
+
+      const amount = parseFloat(document.getElementById("salaryAmount").value);
+      const period = document.getElementById("salaryPeriod").value;
+      const hoursPerWeek = parseFloat(document.getElementById("hoursPerWeek").value) || 37.5;
+      const region = document.getElementById("region").value;
+      const pensionPercent = parseFloat(document.getElementById("pensionPercent").value) || 0;
+      const studentPlan = document.getElementById("studentPlan").value;
+      const pglEnabled = document.getElementById("pglEnabled").value;
 
       if (!amount || amount <= 0) return;
 
@@ -768,7 +2105,7 @@
       const taxableAfterAllowance = Math.max(0, earningsAfterSacrifice - allowance);
 
       let tax = 0;
-      if (region === 'scotland') {
+      if (region === "scotland") {
         tax = incomeTaxScotland(earningsAfterSacrifice, allowance);
       } else {
         tax = incomeTaxRUK(taxableAfterAllowance);
@@ -780,61 +2117,77 @@
       const employer = employerNI(earningsAfterSacrifice);
       const annualNet = annualGross - pension - tax - ni - studentLoan - pgl;
 
-      setValue('grossYear', annualGross);
-      setValue('grossMonth', annualGross / 12);
-      setValue('grossWeek', annualGross / 52);
+      setValue("grossYear", annualGross);
+      setValue("grossMonth", annualGross / 12);
+      setValue("grossWeek", annualGross / 52);
 
-      document.getElementById('pensionRow').style.display = pension > 0 ? '' : 'none';
+      const pensionRow = document.getElementById("pensionRow");
+      pensionRow.style.display = pension > 0 ? "" : "none";
       if (pension > 0) {
-        setNegative('pensionYear', pension);
-        setNegative('pensionMonth', pension / 12);
-        setNegative('pensionWeek', pension / 52);
+        setNegative("pensionYear", pension);
+        setNegative("pensionMonth", pension / 12);
+        setNegative("pensionWeek", pension / 52);
       }
 
-      setNegative('taxYear', tax);
-      setNegative('taxMonth', tax / 12);
-      setNegative('taxWeek', tax / 52);
+      setNegative("taxYear", tax);
+      setNegative("taxMonth", tax / 12);
+      setNegative("taxWeek", tax / 52);
 
-      setNegative('niYear', ni);
-      setNegative('niMonth', ni / 12);
-      setNegative('niWeek', ni / 52);
+      setNegative("niYear", ni);
+      setNegative("niMonth", ni / 12);
+      setNegative("niWeek", ni / 52);
 
-      document.getElementById('studentRow').style.display = studentLoan > 0 ? '' : 'none';
+      const studentRow = document.getElementById("studentRow");
+      studentRow.style.display = studentLoan > 0 ? "" : "none";
       if (studentLoan > 0) {
-        setNegative('studentYear', studentLoan);
-        setNegative('studentMonth', studentLoan / 12);
-        setNegative('studentWeek', studentLoan / 52);
+        setNegative("studentYear", studentLoan);
+        setNegative("studentMonth", studentLoan / 12);
+        setNegative("studentWeek", studentLoan / 52);
       }
 
-      document.getElementById('pglRow').style.display = pgl > 0 ? '' : 'none';
+      const pglRow = document.getElementById("pglRow");
+      pglRow.style.display = pgl > 0 ? "" : "none";
       if (pgl > 0) {
-        setNegative('pglYear', pgl);
-        setNegative('pglMonth', pgl / 12);
-        setNegative('pglWeek', pgl / 52);
+        setNegative("pglYear", pgl);
+        setNegative("pglMonth", pgl / 12);
+        setNegative("pglWeek", pgl / 52);
       }
 
-      setValue('netYear', annualNet);
-      setValue('netMonth', annualNet / 12);
-      setValue('netWeek', annualNet / 52);
-      document.getElementById('monthlyTakeHome').textContent = currency(annualNet / 12);
-      document.getElementById('employerCost').textContent = currency(employer) + ' / year';
+      setValue("netYear", annualNet);
+      setValue("netMonth", annualNet / 12);
+      setValue("netWeek", annualNet / 52);
 
-      const regionBadge = document.getElementById('regionBadge');
-      if (region === 'scotland') regionBadge.textContent = 'Scotland';
-      else if (region === 'wales') regionBadge.textContent = 'Wales';
-      else regionBadge.textContent = 'England / NI';
+      document.getElementById("monthlyTakeHome").textContent = currency(annualNet / 12);
+      document.getElementById("employerCost").textContent = currency(employer) + " " + dict.perYear;
 
-      const note = document.getElementById('summaryNote');
-      const slLabel = studentPlan === 'none' ? 'no Student Loan' : taxRules.studentLoan[studentPlan].label;
-      const pglLabel = pglEnabled === 'yes' ? ' + Postgraduate Loan' : '';
-      note.innerHTML = 'Uses standard 1257L personal allowance, ' + regionBadge.textContent + ' tax bands, and ' + (pensionPercent > 0 ? 'salary sacrifice pension' : 'no pension sacrifice') + '. Loan assumption: ' + slLabel + pglLabel + '.';
+      const regionBadge = document.getElementById("regionBadge");
+      if (region === "scotland") regionBadge.textContent = dict.regionBadgeScotland;
+      else if (region === "wales") regionBadge.textContent = dict.regionBadgeWales;
+      else regionBadge.textContent = dict.regionBadgeRuk;
+
+      const slLabel = studentPlan === "none" ? dict.noStudentLoan : taxRules.studentLoan[studentPlan].label;
+      const pglLabel = pglEnabled === "yes" ? " + Postgraduate Loan" : "";
+      const pensionLabel = pensionPercent > 0 ? dict.salarySacrificePension : dict.noPension;
+
+      const note = document.getElementById("summaryNote");
+      note.textContent = `${dict.summaryPrefix} ${regionBadge.textContent} ${dict.summaryTaxBands} ${pensionLabel}. ${dict.loanAssumption} ${slLabel}${pglLabel}.`;
     }
 
-    document.getElementById('calcBtn').addEventListener('click', calculate);
-    document.getElementById('salaryAmount').addEventListener('keydown', function(e){
-      if (e.key === 'Enter') calculate();
+    document.getElementById("calcBtn").addEventListener("click", calculate);
+
+    document.getElementById("salaryAmount").addEventListener("keydown", function(e){
+      if (e.key === "Enter") calculate();
     });
-    window.addEventListener('load', calculate);
+
+    ["salaryAmount","salaryPeriod","hoursPerWeek","region","pensionPercent","studentPlan","pglEnabled"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener("change", calculate);
+    });
+
+    window.addEventListener("load", () => {
+      applyLanguage(getInitialLang(), false);
+      calculate();
+    });
   </script>
 </body>
 </html>
