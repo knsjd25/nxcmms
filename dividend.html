@@ -3,10 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <title>Salary vs Dividend Calculator 2026/27 | UK Limited Company Director | Mini-Tools.uk</title>
-  <meta name="description" content="Estimate the 2026/27 tax-efficient mix of salary and dividends for a UK limited company director. Includes Corporation Tax, Employer NI, Income Tax, Employee NI and dividend tax." />
-  <meta name="robots" content="index,follow" />
+  <meta name="description" content="Estimate a 2026/27 salary and dividend mix for a UK limited company director. Includes Corporation Tax, Employer NI, Income Tax, Employee NI and dividend tax assumptions." />
+  <meta name="keywords" content="salary vs dividend calculator, UK dividend tax calculator, limited company director tax calculator, corporation tax calculator UK, contractor dividend calculator, director salary calculator, 英国股息税计算器, 英国有限公司董事税务计算器" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#4c1d95" />
   <link rel="canonical" href="https://mini-tools.uk/dividend" />
+
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/dividend?lang=en" />
+  <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/dividend?lang=zh-CN" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/dividend?lang=de" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/dividend?lang=fr" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/dividend?lang=es" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/dividend" />
+
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
@@ -14,6 +25,11 @@
   <meta property="og:description" content="Estimate salary, dividend tax and Corporation Tax for a UK limited company director in 2026/27." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mini-tools.uk/dividend" />
+  <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Salary vs Dividend Calculator 2026/27" />
+  <meta name="twitter:description" content="Estimate salary, dividend tax and Corporation Tax for a UK limited company director in 2026/27." />
+  <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -23,9 +39,9 @@
     gtag('config', 'G-DR6V84JEZW');
   </script>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
 
-  <script type="application/ld+json">
+  <script type="application/ld+json" id="schema-json">
   {
     "@context":"https://schema.org",
     "@type":"SoftwareApplication",
@@ -55,7 +71,7 @@
         "name":"What salary does this calculator use as the common default?",
         "acceptedAnswer":{
           "@type":"Answer",
-          "text":"The default salary is £12,570 because that matches the standard Personal Allowance for 2026/27. It is a common planning starting point for single-director companies, but it is not the right answer for every case."
+          "text":"The default salary is £12,570 because that matches the standard Personal Allowance for 2026/27. It is a common planning starting point, but it is not the right answer for every case."
         }
       },
       {
@@ -63,7 +79,7 @@
         "name":"Does this calculator use payroll-perfect HMRC calculations?",
         "acceptedAnswer":{
           "@type":"Answer",
-          "text":"No. This page is a planning estimate. It is useful for comparing salary and dividends, but your actual outcome can differ because of other income, benefits, Scottish rates, associated companies, accounting period issues, tax code changes, pension arrangements and accounting adjustments."
+          "text":"No. This page is a planning estimate. Actual outcomes can differ because of other income, benefits, Scottish rates, associated companies, accounting period issues, tax code changes, pension arrangements and accounting adjustments."
         }
       },
       {
@@ -71,7 +87,7 @@
         "name":"What company scenario is assumed?",
         "acceptedAnswer":{
           "@type":"Answer",
-          "text":"This page assumes a simple single UK limited company planning case with one director-shareholder, no associated companies, no other income and profits available before director salary and company taxes."
+          "text":"This page assumes a simple UK limited company planning case with one director-shareholder, no associated companies, no other income and profits available before director salary and company taxes."
         }
       }
     ]
@@ -100,7 +116,10 @@
     html{scroll-behavior:smooth}
     body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
     a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
     .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+    .skip-link{position:absolute;left:12px;top:-48px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:12px;z-index:100}
+    .skip-link:focus{top:12px}
 
     .nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
     .nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:18px}
@@ -109,24 +128,26 @@
     .brand-copy{display:flex;flex-direction:column;line-height:1.05}
     .brand-title{font-size:1.06rem;letter-spacing:-.03em}
     .brand-subtitle{margin-top:4px;color:#64748b;font-size:.79rem;font-weight:600}
-    .nav-links{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    .nav-link,.nav-trigger{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;color:#334155;font-weight:700;font-size:14px;border:1px solid transparent;background:transparent}
-    .nav-link:hover,.nav-trigger:hover,.nav-group:hover .nav-trigger{background:#f8fafc;color:#0f172a}
+    .nav-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .nav-link,.nav-trigger,.lang-trigger{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;color:#334155;font-weight:700;font-size:14px;border:1px solid transparent;background:transparent;cursor:pointer}
+    .nav-link:hover,.nav-trigger:hover,.nav-group:hover .nav-trigger,.lang-trigger:hover,.lang-group:hover .lang-trigger{background:#f8fafc;color:#0f172a}
     .nav-link.current{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
-    .nav-group{position:relative;padding-bottom:14px;margin-bottom:-14px}
-    .nav-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}
-    .nav-trigger svg{width:14px;height:14px;transition:transform .2s ease}
-    .nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg{transform:rotate(180deg)}
-    .dropdown{position:absolute;top:calc(100% + 2px);left:0;min-width:220px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 22px 44px rgba(15,23,42,.12);padding:10px;display:none}
-    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown{display:block}
-    .dropdown a{display:block;padding:10px 12px;border-radius:12px;color:#334155;font-size:14px;font-weight:700}
+    .nav-group,.lang-group{position:relative;padding-bottom:14px;margin-bottom:-14px}
+    .nav-group::after,.lang-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}
+    .nav-trigger svg,.lang-trigger svg{width:14px;height:14px;transition:transform .2s ease}
+    .nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg,.lang-group:hover .lang-trigger svg,.lang-group:focus-within .lang-trigger svg{transform:rotate(180deg)}
+    .dropdown,.lang-dropdown{position:absolute;top:calc(100% + 2px);right:0;min-width:220px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 22px 44px rgba(15,23,42,.12);padding:10px;display:none;z-index:40}
+    .nav-group .dropdown{left:0;right:auto;min-width:245px}
+    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown,.lang-group:hover .lang-dropdown,.lang-group:focus-within .lang-dropdown{display:block}
+    .dropdown a,.lang-dropdown button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:12px;color:#334155;font-size:14px;font-weight:700;border:0;background:transparent;cursor:pointer}
     .dropdown a small{display:block;margin-top:2px;color:#64748b;font-size:12px;font-weight:600}
-    .dropdown a:hover{background:#f8fafc;color:#0f172a}
+    .dropdown a:hover,.lang-dropdown button:hover,.lang-dropdown button.active{background:#f8fafc;color:#0f172a}
 
     .hero{padding:48px 0 20px}
     .badge{display:inline-flex;align-items:center;gap:8px;background:#f3e8ff;color:#6b21a8;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
     .hero h1{margin:18px 0 14px;font-size:clamp(2rem,4vw,3.4rem);line-height:1.02;letter-spacing:-.03em}
     .hero p{margin:0;max-width:840px;color:var(--muted);font-size:1.08rem}
+    .breadcrumb{margin-top:12px;color:#64748b;font-size:.92rem;font-weight:700}
     .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:26px 0 10px}
     .mini-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 8px 20px rgba(15,23,42,.04)}
     .mini-card strong{display:block;margin-bottom:6px;font-size:.95rem}
@@ -143,7 +164,6 @@
     .input-row{display:flex;align-items:center;gap:0}
     .currency{background:#f8fafc;border:1px solid var(--line);border-right:none;padding:14px 14px;border-radius:16px 0 0 16px;font-weight:800;color:#64748b}
     input[type="number"]{width:100%;border:1px solid var(--line);background:#f8fafc;border-radius:0 16px 16px 0;padding:14px 15px;font-size:1rem;font-weight:700;color:#0f172a;outline:none}
-    input.single{border-radius:16px}
     input[type="number"]:focus{border-color:#c4b5fd;box-shadow:0 0 0 4px rgba(139,92,246,.12);background:#fff}
     .actions{display:flex;gap:12px;flex-wrap:wrap}
     .button{border:none;cursor:pointer;background:linear-gradient(180deg,var(--violet),var(--violet-2));color:#fff;font-weight:900;font-size:.96rem;padding:14px 18px;border-radius:16px;letter-spacing:.02em;box-shadow:0 14px 28px rgba(91,33,182,.25)}
@@ -184,168 +204,185 @@
 
     @media (max-width:960px){
       .calculator-grid,.mini-grid,.related{grid-template-columns:1fr}
-      .nav-inner{align-items:flex-start;padding:12px 0}
-      .nav-links{gap:8px}
-    }
-  
-    @media (max-width: 980px){
-      .mini-grid,.hero-grid,.calculator-grid,.calc-grid,.content,.content-grid,.related,.related-grid{max-width:none !important;grid-template-columns:1fr !important;}
+      .nav-inner{align-items:flex-start;padding:12px 0;flex-direction:column}
+      .nav-links{gap:8px;justify-content:flex-start}
+      .dropdown,.lang-dropdown{left:0;right:auto}
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
   <nav class="nav">
     <div class="wrap nav-inner">
       <a class="brand" href="/">
         <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" />
         <span class="brand-copy">
           <span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span>
-          <span class="brand-subtitle">Simple tools, clearer answers</span>
+          <span class="brand-subtitle" data-i18n="brandSubtitle">UK finance tools with clear assumptions</span>
         </span>
       </a>
 
       <div class="nav-links" aria-label="Primary">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/#featured-tools">All Tools</a>
+        <a class="nav-link" href="/" data-i18n="navHome">Home</a>
+        <a class="nav-link" href="/#featured-tools" data-i18n="navTools">All Tools</a>
         <div class="nav-group">
-          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">Categories
+          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="navCategories">Categories</span>
             <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
           </button>
           <div class="dropdown">
-            <a href="/uk-finance"><strong>UK Finance</strong><small>Tax, VAT, IR35, dividends</small></a>
-            <a href="/developer-tools"><strong>Developer Tools</strong><small>JSON, diff, tokens, prompts</small></a>
-            <a href="/image-tools"><strong>Image & PDF</strong><small>Compress, convert and extract</small></a>
-            <a href="/text-tools"><strong>Text & Conversion</strong><small>Word, unit and utility tools</small></a>
-            <a href="/security-tools"><strong>Security & Privacy</strong><small>Password and local-first tools</small></a>
+            <a href="/#uk-finance"><strong data-i18n="catFinance">UK Finance</strong><small data-i18n="catFinanceSmall">Tax, VAT, IR35, dividends</small></a>
+            <a href="/#developer-tools"><strong data-i18n="catDev">Developer Tools</strong><small data-i18n="catDevSmall">JSON, diff, tokens, prompts</small></a>
+            <a href="/#image-tools"><strong data-i18n="catImage">Image & PDF</strong><small data-i18n="catImageSmall">Compress, convert and extract</small></a>
+            <a href="/#text-conversion"><strong data-i18n="catText">Text & Conversion</strong><small data-i18n="catTextSmall">Word, unit and utility tools</small></a>
+            <a href="/#privacy-security"><strong data-i18n="catSecurity">Security & Privacy</strong><small data-i18n="catSecuritySmall">Password and local-first tools</small></a>
           </div>
         </div>
-        <a class="nav-link" href="/blog">Blog</a>
-        <a class="nav-link" href="/about">About</a>
+        <a class="nav-link" href="/blog" data-i18n="navBlog">Blog</a>
+        <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
+        <a class="nav-link" href="/contact" data-i18n="navContact">Contact</a>
+
+        <div class="lang-group">
+          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            <span id="currentLangLabel">English</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+          </button>
+          <div class="lang-dropdown" role="menu" aria-label="Language">
+            <button type="button" data-lang-btn="en">English</button>
+            <button type="button" data-lang-btn="zh-CN">中文</button>
+            <button type="button" data-lang-btn="de">Deutsch</button>
+            <button type="button" data-lang-btn="fr">Français</button>
+            <button type="button" data-lang-btn="es">Español</button>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
 
-  <main class="wrap">
+  <main class="wrap" id="main">
     <section class="hero">
-      <span class="badge">UK limited company planning estimate · 2026/27</span>
-      <h1>Salary vs dividend calculator for UK directors</h1>
-      <p>Estimate how much you might take home from a UK limited company when you mix director salary and dividends. This page is designed for simple planning, not year-end accounting or payroll filing.</p>
-      <p style="margin-top:12px;color:#64748b;font-size:.92rem;font-weight:700">Home · UK Finance · Salary vs Dividend</p>
+      <span class="badge" data-i18n="badge">UK limited company planning estimate · 2026/27</span>
+      <h1 data-i18n="heroTitle">Salary vs dividend calculator for UK directors</h1>
+      <p data-i18n="heroText">Estimate how much you might take home from a UK limited company when you mix director salary and dividends. This page is designed for simple planning, not year-end accounting or payroll filing.</p>
+      <p class="breadcrumb" data-i18n="breadcrumb">Home · UK Finance · Salary vs Dividend</p>
 
       <div class="mini-grid">
         <div class="mini-card">
-          <strong>Best for quick planning</strong>
-          <span>Useful when you want a fast salary-versus-dividend estimate before speaking to an accountant.</span>
+          <strong data-i18n="mini1Title">Best for quick planning</strong>
+          <span data-i18n="mini1Text">Useful when you want a fast salary-versus-dividend estimate before speaking to an accountant.</span>
         </div>
         <div class="mini-card">
-          <strong>Clear assumptions</strong>
-          <span>Single director-shareholder, no other income, no associated companies, full-year 2026/27 rules.</span>
+          <strong data-i18n="mini2Title">Clear assumptions</strong>
+          <span data-i18n="mini2Text">Single director-shareholder, no other income, no associated companies, full-year 2026/27 rules.</span>
         </div>
         <div class="mini-card">
-          <strong>Built for comparison</strong>
-          <span>See Employer NI, Corporation Tax, salary tax, dividend tax and take-home in one view.</span>
+          <strong data-i18n="mini3Title">Built for comparison</strong>
+          <span data-i18n="mini3Text">See Employer NI, Corporation Tax, salary tax, dividend tax and take-home in one view.</span>
         </div>
       </div>
     </section>
 
     <section class="calculator-grid" aria-label="Calculator">
       <div class="panel left">
-        <h2 class="section-title">Company inputs</h2>
+        <h2 class="section-title" data-i18n="formTitle">Company inputs</h2>
 
         <div class="field">
-          <label class="label" for="profit">Company profit before director salary and company taxes</label>
+          <label class="label" for="profit" data-i18n="profitLabel">Company profit before director salary and company taxes</label>
           <div class="input-row">
             <span class="currency">£</span>
             <input id="profit" type="number" value="50000" min="0" step="100" aria-describedby="profit-hint" />
           </div>
-          <span id="profit-hint" class="hint">Enter profits available before director salary, Employer NI and Corporation Tax.</span>
+          <span id="profit-hint" class="hint" data-i18n="profitHint">Enter profits available before director salary, Employer NI and Corporation Tax.</span>
         </div>
 
         <div class="field">
-          <label class="label" for="salary">Director salary for the year</label>
+          <label class="label" for="salary" data-i18n="salaryLabel">Director salary for the year</label>
           <div class="input-row">
             <span class="currency">£</span>
             <input id="salary" type="number" value="12570" min="0" step="10" />
           </div>
-          <span class="hint">A common starting point is £12,570, but the best figure depends on your wider tax situation.</span>
+          <span class="hint" data-i18n="salaryHint">A common starting point is £12,570, but the best figure depends on your wider tax situation.</span>
         </div>
 
         <div class="actions">
-          <button class="button" id="calculate-btn" type="button">Calculate take-home</button>
-          <button class="ghost-btn" id="optimum-btn" type="button">Use £12,570 default</button>
+          <button class="button" id="calculate-btn" type="button" data-i18n="calculateBtn">Calculate take-home</button>
+          <button class="ghost-btn" id="optimum-btn" type="button" data-i18n="defaultBtn">Use £12,570 default</button>
         </div>
 
         <div class="subtle" style="margin-top:18px">
-          <strong>Important:</strong> this is an annual planning estimate. It does not include Scottish non-savings tax bands, pension planning, student loans, director NIC annual earnings method nuances, benefits in kind, associated companies, or bespoke accountant adjustments.
+          <strong data-i18n="importantTitle">Important:</strong>
+          <span data-i18n="importantText">this is an annual planning estimate. It does not include Scottish non-savings tax bands, pension planning, student loans, director NIC annual earnings method nuances, benefits in kind, associated companies, or bespoke accountant adjustments.</span>
         </div>
       </div>
 
       <div class="panel right" aria-live="polite">
         <div class="right-top">
           <div>
-            <div class="eyebrow">Estimated take-home</div>
+            <div class="eyebrow" data-i18n="resultEyebrow">Estimated take-home</div>
             <div class="big-result" id="take-home">£0</div>
             <div class="muted-on-dark" id="monthly-equivalent">Monthly equivalent: £0</div>
           </div>
-          <div class="assumption-badge">Single-director planning case</div>
+          <div class="assumption-badge" data-i18n="assumptionBadge">Single-director planning case</div>
         </div>
 
         <table>
           <thead>
-            <tr><th>Breakdown</th><th>Amount</th></tr>
+            <tr><th data-i18n="breakdownHead">Breakdown</th><th data-i18n="amountHead">Amount</th></tr>
           </thead>
           <tbody>
-            <tr><td>Company profit input</td><td id="gross-profit">£0</td></tr>
-            <tr><td>Director salary</td><td id="salary-paid">£0</td></tr>
-            <tr><td>Employer NI</td><td class="neg" id="employer-ni">-£0</td></tr>
-            <tr><td>Corporation Tax</td><td class="neg" id="corporation-tax">-£0</td></tr>
-            <tr><td>Post-tax dividends available</td><td class="pos" id="dividends-available">£0</td></tr>
-            <tr><td>Income Tax + employee NI on salary</td><td class="neg" id="salary-tax">-£0</td></tr>
-            <tr><td>Dividend tax</td><td class="neg" id="dividend-tax">-£0</td></tr>
-            <tr><td>Total tax paid</td><td class="neg" id="total-tax">£0</td></tr>
+            <tr><td data-i18n="grossProfitRow">Company profit input</td><td id="gross-profit">£0</td></tr>
+            <tr><td data-i18n="salaryRow">Director salary</td><td id="salary-paid">£0</td></tr>
+            <tr><td data-i18n="employerNiRow">Employer NI</td><td class="neg" id="employer-ni">-£0</td></tr>
+            <tr><td data-i18n="corpTaxRow">Corporation Tax</td><td class="neg" id="corporation-tax">-£0</td></tr>
+            <tr><td data-i18n="dividendsAvailableRow">Post-tax dividends available</td><td class="pos" id="dividends-available">£0</td></tr>
+            <tr><td data-i18n="salaryTaxRow">Income Tax + employee NI on salary</td><td class="neg" id="salary-tax">-£0</td></tr>
+            <tr><td data-i18n="dividendTaxRow">Dividend tax</td><td class="neg" id="dividend-tax">-£0</td></tr>
+            <tr><td data-i18n="totalTaxRow">Total tax paid</td><td class="neg" id="total-tax">£0</td></tr>
           </tbody>
         </table>
 
         <div class="note-card">
-          <strong>What this assumes:</strong> dividends are taken after Corporation Tax, the £500 dividend allowance is used, and Corporation Tax uses the 2026 rates with the usual lower and upper thresholds for a company with no associated companies.
+          <strong data-i18n="noteTitle">What this assumes:</strong>
+          <span data-i18n="noteText">dividends are taken after Corporation Tax, the £500 dividend allowance is used, and Corporation Tax uses the 2026 rates with the usual lower and upper thresholds for a company with no associated companies.</span>
         </div>
       </div>
     </section>
 
     <section class="section-block">
-      <h2>How this calculator works</h2>
-      <p>This page starts with company profit before director salary and company taxes. It then deducts the salary you enter and estimates Employer National Insurance. The remaining taxable profit is used to estimate Corporation Tax. What is left after company taxes is treated as distributable dividends for this simple planning example.</p>
-      <p>On the personal side, the calculator estimates salary tax first, then dividend tax. Dividends use any remaining Personal Allowance first, then the dividend allowance, then the 2026/27 dividend tax rates. The result is a planning estimate of what you might keep after both company and personal taxes.</p>
+      <h2 data-i18n="howTitle">How this calculator works</h2>
+      <p data-i18n="howP1">This page starts with company profit before director salary and company taxes. It then deducts the salary you enter and estimates Employer National Insurance. The remaining taxable profit is used to estimate Corporation Tax. What is left after company taxes is treated as distributable dividends for this simple planning example.</p>
+      <p data-i18n="howP2">On the personal side, the calculator estimates salary tax first, then dividend tax. Dividends use any remaining Personal Allowance first, then the dividend allowance, then the 2026/27 dividend tax rates. The result is a planning estimate of what you might keep after both company and personal taxes.</p>
 
-      <h3>Where this is useful</h3>
+      <h3 data-i18n="usefulTitle">Where this is useful</h3>
       <ul>
-        <li>Comparing a low-salary, high-dividend approach with a higher-salary approach.</li>
-        <li>Getting a rough sense of your total tax burden before you talk to your accountant.</li>
-        <li>Understanding how Employer NI and Corporation Tax affect what is actually available to distribute.</li>
+        <li data-i18n="useful1">Comparing a low-salary, high-dividend approach with a higher-salary approach.</li>
+        <li data-i18n="useful2">Getting a rough sense of your total tax burden before you talk to your accountant.</li>
+        <li data-i18n="useful3">Understanding how Employer NI and Corporation Tax affect what is actually available to distribute.</li>
       </ul>
     </section>
 
     <section class="section-block faq">
       <div class="faq-item">
-        <h3>What salary is often used as a starting point?</h3>
-        <p>Many directors start by testing £12,570 because it matches the standard Personal Allowance for 2026/27. That can make sense in simple cases, but it is not automatically the best answer for every company or every person.</p>
+        <h3 data-i18n="faq1Q">What salary is often used as a starting point?</h3>
+        <p data-i18n="faq1A">Many directors start by testing £12,570 because it matches the standard Personal Allowance for 2026/27. That can make sense in simple cases, but it is not automatically the best answer for every company or every person.</p>
       </div>
       <div class="faq-item">
-        <h3>Does this use the exact Corporation Tax marginal relief calculation?</h3>
-        <p>It uses the standard thresholds and relief shape for a simple company with no associated companies and no franked investment income. Real accounts can still differ because the legal computation depends on your accounting period, associated companies, augmented profits and other adjustments.</p>
+        <h3 data-i18n="faq2Q">Does this use the exact Corporation Tax marginal relief calculation?</h3>
+        <p data-i18n="faq2A">It uses the standard thresholds and relief shape for a simple company with no associated companies and no franked investment income. Real accounts can still differ because the legal computation depends on your accounting period, associated companies, augmented profits and other adjustments.</p>
       </div>
       <div class="faq-item">
-        <h3>Why is this page better for planning than for filing?</h3>
-        <p>Because payroll software, director NIC rules, accounting adjustments and your wider personal tax position can all change the final answer. This tool is for comparison and decision support, not filing or advice.</p>
+        <h3 data-i18n="faq3Q">Why is this page better for planning than for filing?</h3>
+        <p data-i18n="faq3A">Because payroll software, director NIC rules, accounting adjustments and your wider personal tax position can all change the final answer. This tool is for comparison and decision support, not filing or advice.</p>
       </div>
     </section>
 
     <section class="section-block">
-      <h2>Related UK finance tools</h2>
+      <h2 data-i18n="relatedTitle">Related UK finance tools</h2>
       <div class="related">
-        <a href="/tax"><strong>UK salary tax calculator</strong><span>Estimate PAYE, NI, pension sacrifice and take-home pay.</span></a>
-        <a href="/ir35"><strong>IR35 calculator</strong><span>Compare inside and outside IR35 contractor scenarios.</span></a>
-        <a href="/vat"><strong>UK VAT calculator</strong><span>Add or remove VAT from invoices and quotes.</span></a>
+        <a href="/tax"><strong data-i18n="relatedTaxTitle">UK salary tax calculator</strong><span data-i18n="relatedTaxText">Estimate PAYE, NI, pension sacrifice and take-home pay.</span></a>
+        <a href="/ir35"><strong data-i18n="relatedIr35Title">IR35 calculator</strong><span data-i18n="relatedIr35Text">Compare inside and outside IR35 contractor scenarios.</span></a>
+        <a href="/vat"><strong data-i18n="relatedVatTitle">UK VAT calculator</strong><span data-i18n="relatedVatText">Add or remove VAT from invoices and quotes.</span></a>
       </div>
     </section>
   </main>
@@ -353,18 +390,513 @@
   <footer class="footer">
     <div class="wrap">
       <div class="footer-links">
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/blog">Blog</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/contact">Contact</a>
+        <a href="/" data-i18n="navHome">Home</a>
+        <a href="/about" data-i18n="navAbout">About</a>
+        <a href="/blog" data-i18n="navBlog">Blog</a>
+        <a href="/privacy" data-i18n="privacy">Privacy</a>
+        <a href="/contact" data-i18n="navContact">Contact</a>
       </div>
-      <div class="copyright">© 2026 MINI-TOOLS.UK · UK FINANCE TOOLS WITH CLEARER ASSUMPTIONS</div>
+      <div class="copyright" data-i18n="copyright">© 2026 MINI-TOOLS.UK · UK FINANCE TOOLS WITH CLEAR ASSUMPTIONS</div>
     </div>
   </footer>
 
   <script>
-    const fmt = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
+    const translations = {
+      en: {
+        htmlLang:"en-GB",
+        langLabel:"English",
+        locale:"en-GB",
+        title:"Salary vs Dividend Calculator 2026/27 | UK Limited Company Director | Mini-Tools.uk",
+        description:"Estimate a 2026/27 salary and dividend mix for a UK limited company director. Includes Corporation Tax, Employer NI, Income Tax, Employee NI and dividend tax assumptions.",
+        keywords:"salary vs dividend calculator, UK dividend tax calculator, limited company director tax calculator, corporation tax calculator UK, contractor dividend calculator, director salary calculator",
+        skip:"Skip to content",
+        brandSubtitle:"UK finance tools with clear assumptions",
+        navHome:"Home",
+        navTools:"All Tools",
+        navCategories:"Categories",
+        navBlog:"Blog",
+        navAbout:"About",
+        navContact:"Contact",
+        privacy:"Privacy",
+        catFinance:"UK Finance",
+        catFinanceSmall:"Tax, VAT, IR35, dividends",
+        catDev:"Developer Tools",
+        catDevSmall:"JSON, diff, tokens, prompts",
+        catImage:"Image & PDF",
+        catImageSmall:"Compress, convert and extract",
+        catText:"Text & Conversion",
+        catTextSmall:"Word, unit and utility tools",
+        catSecurity:"Security & Privacy",
+        catSecuritySmall:"Password and local-first tools",
+        badge:"UK limited company planning estimate · 2026/27",
+        heroTitle:"Salary vs dividend calculator for UK directors",
+        heroText:"Estimate how much you might take home from a UK limited company when you mix director salary and dividends. This page is designed for simple planning, not year-end accounting or payroll filing.",
+        breadcrumb:"Home · UK Finance · Salary vs Dividend",
+        mini1Title:"Best for quick planning",
+        mini1Text:"Useful when you want a fast salary-versus-dividend estimate before speaking to an accountant.",
+        mini2Title:"Clear assumptions",
+        mini2Text:"Single director-shareholder, no other income, no associated companies, full-year 2026/27 rules.",
+        mini3Title:"Built for comparison",
+        mini3Text:"See Employer NI, Corporation Tax, salary tax, dividend tax and take-home in one view.",
+        formTitle:"Company inputs",
+        profitLabel:"Company profit before director salary and company taxes",
+        profitHint:"Enter profits available before director salary, Employer NI and Corporation Tax.",
+        salaryLabel:"Director salary for the year",
+        salaryHint:"A common starting point is £12,570, but the best figure depends on your wider tax situation.",
+        calculateBtn:"Calculate take-home",
+        defaultBtn:"Use £12,570 default",
+        importantTitle:"Important:",
+        importantText:"this is an annual planning estimate. It does not include Scottish non-savings tax bands, pension planning, student loans, director NIC annual earnings method nuances, benefits in kind, associated companies, or bespoke accountant adjustments.",
+        resultEyebrow:"Estimated take-home",
+        monthlyEquivalent:"Monthly equivalent:",
+        assumptionBadge:"Single-director planning case",
+        breakdownHead:"Breakdown",
+        amountHead:"Amount",
+        grossProfitRow:"Company profit input",
+        salaryRow:"Director salary",
+        employerNiRow:"Employer NI",
+        corpTaxRow:"Corporation Tax",
+        dividendsAvailableRow:"Post-tax dividends available",
+        salaryTaxRow:"Income Tax + employee NI on salary",
+        dividendTaxRow:"Dividend tax",
+        totalTaxRow:"Total tax paid",
+        noteTitle:"What this assumes:",
+        noteText:"dividends are taken after Corporation Tax, the £500 dividend allowance is used, and Corporation Tax uses the 2026 rates with the usual lower and upper thresholds for a company with no associated companies.",
+        howTitle:"How this calculator works",
+        howP1:"This page starts with company profit before director salary and company taxes. It then deducts the salary you enter and estimates Employer National Insurance. The remaining taxable profit is used to estimate Corporation Tax. What is left after company taxes is treated as distributable dividends for this simple planning example.",
+        howP2:"On the personal side, the calculator estimates salary tax first, then dividend tax. Dividends use any remaining Personal Allowance first, then the dividend allowance, then the 2026/27 dividend tax rates. The result is a planning estimate of what you might keep after both company and personal taxes.",
+        usefulTitle:"Where this is useful",
+        useful1:"Comparing a low-salary, high-dividend approach with a higher-salary approach.",
+        useful2:"Getting a rough sense of your total tax burden before you talk to your accountant.",
+        useful3:"Understanding how Employer NI and Corporation Tax affect what is actually available to distribute.",
+        faq1Q:"What salary is often used as a starting point?",
+        faq1A:"Many directors start by testing £12,570 because it matches the standard Personal Allowance for 2026/27. That can make sense in simple cases, but it is not automatically the best answer for every company or every person.",
+        faq2Q:"Does this use the exact Corporation Tax marginal relief calculation?",
+        faq2A:"It uses the standard thresholds and relief shape for a simple company with no associated companies and no franked investment income. Real accounts can still differ because the legal computation depends on your accounting period, associated companies, augmented profits and other adjustments.",
+        faq3Q:"Why is this page better for planning than for filing?",
+        faq3A:"Because payroll software, director NIC rules, accounting adjustments and your wider personal tax position can all change the final answer. This tool is for comparison and decision support, not filing or advice.",
+        relatedTitle:"Related UK finance tools",
+        relatedTaxTitle:"UK salary tax calculator",
+        relatedTaxText:"Estimate PAYE, NI, pension sacrifice and take-home pay.",
+        relatedIr35Title:"IR35 calculator",
+        relatedIr35Text:"Compare inside and outside IR35 contractor scenarios.",
+        relatedVatTitle:"UK VAT calculator",
+        relatedVatText:"Add or remove VAT from invoices and quotes.",
+        copyright:"© 2026 MINI-TOOLS.UK · UK FINANCE TOOLS WITH CLEAR ASSUMPTIONS"
+      },
+      "zh-CN": {
+        htmlLang:"zh-CN",
+        langLabel:"中文",
+        locale:"zh-CN",
+        title:"英国工资与股息计算器｜英国有限公司董事税务计算器｜Mini-Tools.uk",
+        description:"使用 Mini-Tools 英国工资与股息计算器，估算英国有限公司董事在 2026/27 税年的工资、股息、公司税、雇主 NI、个人所得税和股息税。",
+        keywords:"英国工资与股息计算器, 英国股息税计算器, 英国有限公司董事税务计算器, 英国公司税计算器, 英国董事工资计算器, 英国承包商股息计算器, salary vs dividend calculator",
+        skip:"跳到正文",
+        brandSubtitle:"英国财务工具，假设清晰",
+        navHome:"首页",
+        navTools:"全部工具",
+        navCategories:"分类",
+        navBlog:"博客",
+        navAbout:"关于",
+        navContact:"联系",
+        privacy:"隐私政策",
+        catFinance:"英国财务工具",
+        catFinanceSmall:"个税、VAT、IR35、股息",
+        catDev:"开发者工具",
+        catDevSmall:"JSON、diff、Token、提示词",
+        catImage:"图片与 PDF",
+        catImageSmall:"压缩、转换和提取",
+        catText:"文本与转换",
+        catTextSmall:"字数、单位和实用工具",
+        catSecurity:"安全与隐私",
+        catSecuritySmall:"密码和本地优先工具",
+        badge:"英国有限公司规划估算 · 2026/27",
+        heroTitle:"英国工资与股息计算器：有限公司董事收入估算",
+        heroText:"估算英国有限公司董事通过工资和股息组合可以获得多少税后收入。这个页面适合快速规划和比较方案，不是年终报税、工资单申报或会计建议。",
+        breadcrumb:"首页 · 英国财务工具 · 工资与股息",
+        mini1Title:"适合快速规划",
+        mini1Text:"在咨询会计前，先快速估算低工资高股息或不同工资方案的税后差异。",
+        mini2Title:"假设清晰",
+        mini2Text:"默认单一董事股东、无其他收入、无关联公司、完整 2026/27 税年。",
+        mini3Title:"便于比较",
+        mini3Text:"在一个结果区查看雇主 NI、公司税、工资税、股息税和最终到手收入。",
+        formTitle:"公司输入",
+        profitLabel:"扣除董事工资和公司税前的公司利润",
+        profitHint:"输入可用于支付董事工资、雇主 NI 和公司税前的利润。",
+        salaryLabel:"董事年度工资",
+        salaryHint:"常见起点是 £12,570，但最佳工资金额取决于你的整体税务情况。",
+        calculateBtn:"计算税后收入",
+        defaultBtn:"使用 £12,570 默认值",
+        importantTitle:"重要说明：",
+        importantText:"这是年度规划估算。它不包含苏格兰非储蓄收入税率、养老金规划、学生贷款、董事 NI 年度计算细节、实物福利、关联公司或会计师个性化调整。",
+        resultEyebrow:"预计税后收入",
+        monthlyEquivalent:"折合每月：",
+        assumptionBadge:"单一董事规划场景",
+        breakdownHead:"项目",
+        amountHead:"金额",
+        grossProfitRow:"公司利润输入",
+        salaryRow:"董事工资",
+        employerNiRow:"雇主 NI",
+        corpTaxRow:"公司税",
+        dividendsAvailableRow:"税后可分配股息",
+        salaryTaxRow:"工资个人所得税 + 雇员 NI",
+        dividendTaxRow:"股息税",
+        totalTaxRow:"总税额",
+        noteTitle:"计算假设：",
+        noteText:"股息在公司税后发放，使用 £500 股息免税额；公司税按 2026 税率和无关联公司情况下的常规上下限估算。",
+        howTitle:"这个计算器如何工作",
+        howP1:"页面从扣除董事工资和公司税前的公司利润开始，先扣除你输入的工资，并估算雇主 National Insurance。剩余的应税利润用于估算 Corporation Tax。公司税后的余额在这个简单规划场景中视为可分配股息。",
+        howP2:"个人层面先估算工资相关税费，再估算股息税。股息会先使用剩余 Personal Allowance，再使用股息免税额，然后按 2026/27 股息税率计算。结果是公司税和个人税之后的规划估算收入。",
+        usefulTitle:"适合哪些场景",
+        useful1:"比较低工资高股息方案和较高工资方案。",
+        useful2:"在咨询会计前，大致了解总体税负。",
+        useful3:"理解雇主 NI 和公司税如何影响真正可分配的股息。",
+        faq1Q:"常见起点工资是多少？",
+        faq1A:"许多董事会先测试 £12,570，因为它对应 2026/27 标准 Personal Allowance。在简单场景中这可能有参考意义，但并不代表每家公司和每个人都应该这样设置。",
+        faq2Q:"这个计算器是否完全等同公司税边际减免的正式计算？",
+        faq2A:"它使用无关联公司、无 franked investment income 的简单场景下的标准阈值和减免形状。真实账目仍可能因会计期间、关联公司、augmented profits 和其他调整而不同。",
+        faq3Q:"为什么它适合规划，不适合申报？",
+        faq3A:"因为工资软件、董事 NI 规则、会计调整以及个人整体税务情况都会影响最终结果。这个工具用于比较和决策参考，不用于申报或替代专业建议。",
+        relatedTitle:"相关英国财务工具",
+        relatedTaxTitle:"英国个税计算器",
+        relatedTaxText:"估算 PAYE、NI、养老金牺牲和税后工资。",
+        relatedIr35Title:"IR35 计算器",
+        relatedIr35Text:"比较 inside 和 outside IR35 承包商场景。",
+        relatedVatTitle:"英国 VAT 计算器",
+        relatedVatText:"为发票和报价添加或反推 VAT。",
+        copyright:"© 2026 MINI-TOOLS.UK · 假设清晰的英国财务工具"
+      },
+      de: {
+        htmlLang:"de",
+        langLabel:"Deutsch",
+        locale:"de-DE",
+        title:"Gehalt vs Dividende Rechner UK 2026/27｜Limited Company Director｜Mini-Tools.uk",
+        description:"Schätzen Sie Gehalt, Dividenden, Corporation Tax, Employer NI, Income Tax, Employee NI und Dividend Tax für UK Limited Company Directors 2026/27.",
+        keywords:"Gehalt vs Dividende Rechner UK, Dividend Tax Rechner UK, Limited Company Director Tax, Corporation Tax Rechner UK, Contractor Dividend Rechner",
+        skip:"Zum Inhalt springen",
+        brandSubtitle:"UK-Finanztools mit klaren Annahmen",
+        navHome:"Startseite",
+        navTools:"Alle Tools",
+        navCategories:"Kategorien",
+        navBlog:"Blog",
+        navAbout:"Über uns",
+        navContact:"Kontakt",
+        privacy:"Datenschutz",
+        catFinance:"UK Finanzen",
+        catFinanceSmall:"Steuer, VAT, IR35, Dividenden",
+        catDev:"Developer Tools",
+        catDevSmall:"JSON, Diff, Tokens, Prompts",
+        catImage:"Bild & PDF",
+        catImageSmall:"Komprimieren, konvertieren, extrahieren",
+        catText:"Text & Konvertierung",
+        catTextSmall:"Wörter, Einheiten und Utilities",
+        catSecurity:"Sicherheit & Datenschutz",
+        catSecuritySmall:"Passwort und lokale Tools",
+        badge:"UK Limited Company Planung · 2026/27",
+        heroTitle:"Gehalt vs Dividende Rechner für UK Directors",
+        heroText:"Schätzen Sie, wie viel Sie aus einer UK Limited Company behalten könnten, wenn Sie Director Salary und Dividenden kombinieren. Diese Seite ist für einfache Planung gedacht, nicht für Jahresabschluss oder Payroll Filing.",
+        breadcrumb:"Startseite · UK Finanzen · Gehalt vs Dividende",
+        mini1Title:"Schnelle Planung",
+        mini1Text:"Hilfreich für eine erste Gehalt-gegen-Dividende-Schätzung vor dem Gespräch mit dem Accountant.",
+        mini2Title:"Klare Annahmen",
+        mini2Text:"Ein Director-Shareholder, kein weiteres Einkommen, keine Associated Companies, ganzes Steuerjahr 2026/27.",
+        mini3Title:"Für Vergleich gebaut",
+        mini3Text:"Employer NI, Corporation Tax, Salary Tax, Dividend Tax und Take-home in einer Ansicht.",
+        formTitle:"Unternehmensdaten",
+        profitLabel:"Company profit before director salary and company taxes",
+        profitHint:"Gewinn vor Director Salary, Employer NI und Corporation Tax eingeben.",
+        salaryLabel:"Director Salary pro Jahr",
+        salaryHint:"Ein häufiger Startwert ist £12,570, aber die beste Zahl hängt von Ihrer Gesamtsituation ab.",
+        calculateBtn:"Take-home berechnen",
+        defaultBtn:"£12,570 Standard nutzen",
+        importantTitle:"Wichtig:",
+        importantText:"Dies ist eine jährliche Planungsschätzung. Nicht enthalten sind Scottish Rates, Pension Planning, Student Loans, Director NIC Details, Benefits in kind, Associated Companies oder individuelle Accountant-Anpassungen.",
+        resultEyebrow:"Geschätztes Take-home",
+        monthlyEquivalent:"Monatlich:",
+        assumptionBadge:"Single-Director Planning Case",
+        breakdownHead:"Aufschlüsselung",
+        amountHead:"Betrag",
+        grossProfitRow:"Company profit input",
+        salaryRow:"Director Salary",
+        employerNiRow:"Employer NI",
+        corpTaxRow:"Corporation Tax",
+        dividendsAvailableRow:"Post-tax dividends available",
+        salaryTaxRow:"Income Tax + Employee NI on salary",
+        dividendTaxRow:"Dividend Tax",
+        totalTaxRow:"Total tax paid",
+        noteTitle:"Annahmen:",
+        noteText:"Dividenden werden nach Corporation Tax ausgeschüttet, die £500 Dividend Allowance wird genutzt, und Corporation Tax verwendet die 2026-Sätze mit üblichen Schwellen ohne Associated Companies.",
+        howTitle:"Wie dieser Rechner arbeitet",
+        howP1:"Die Seite beginnt mit Company Profit vor Director Salary und Company Taxes. Danach werden Salary und geschätzte Employer National Insurance abgezogen. Der verbleibende taxable profit wird für Corporation Tax genutzt. Der Rest wird in diesem einfachen Planungsfall als ausschüttbare Dividende behandelt.",
+        howP2:"Auf persönlicher Ebene werden zuerst Salary Taxes und anschließend Dividend Tax geschätzt. Dividenden nutzen zuerst verbleibende Personal Allowance, dann Dividend Allowance und anschließend die 2026/27 Dividend Tax Rates.",
+        usefulTitle:"Wofür das nützlich ist",
+        useful1:"Vergleich von Low-Salary/High-Dividend mit höherem Salary.",
+        useful2:"Grobe Einschätzung der Gesamtsteuerlast vor dem Gespräch mit dem Accountant.",
+        useful3:"Verstehen, wie Employer NI und Corporation Tax die ausschüttbaren Dividenden beeinflussen.",
+        faq1Q:"Welches Salary wird oft als Startwert genutzt?",
+        faq1A:"Viele Directors testen £12,570, weil es der Standard Personal Allowance 2026/27 entspricht. Es ist aber nicht automatisch für jeden Fall optimal.",
+        faq2Q:"Ist die Corporation Tax Marginal Relief Berechnung exakt?",
+        faq2A:"Sie nutzt Standard-Schwellen und die Relief-Form für eine einfache Company ohne Associated Companies und ohne Franked Investment Income. Reale Accounts können abweichen.",
+        faq3Q:"Warum ist die Seite Planung statt Filing?",
+        faq3A:"Payroll Software, Director NIC Regeln, Accounting Adjustments und Ihre persönliche Steuersituation können das Ergebnis ändern. Das Tool ist für Vergleich und Entscheidungshilfe gedacht.",
+        relatedTitle:"Verwandte UK-Finanztools",
+        relatedTaxTitle:"UK Salary Tax Calculator",
+        relatedTaxText:"PAYE, NI, pension sacrifice und Take-home schätzen.",
+        relatedIr35Title:"IR35 Rechner",
+        relatedIr35Text:"Inside und outside IR35 Szenarien vergleichen.",
+        relatedVatTitle:"UK VAT Rechner",
+        relatedVatText:"VAT für Rechnungen und Angebote hinzufügen oder entfernen.",
+        copyright:"© 2026 MINI-TOOLS.UK · UK FINANCE TOOLS WITH CLEAR ASSUMPTIONS"
+      },
+      fr: {
+        htmlLang:"fr",
+        langLabel:"Français",
+        locale:"fr-FR",
+        title:"Calculateur salaire vs dividende UK 2026/27｜Director Limited Company｜Mini-Tools.uk",
+        description:"Estimez salaire, dividendes, Corporation Tax, Employer NI, Income Tax, Employee NI et dividend tax pour un director de société UK en 2026/27.",
+        keywords:"calculateur salaire dividende UK, calculateur dividend tax UK, limited company director tax, corporation tax UK, contractor dividend calculator",
+        skip:"Aller au contenu",
+        brandSubtitle:"Outils finance UK avec hypothèses claires",
+        navHome:"Accueil",
+        navTools:"Tous les outils",
+        navCategories:"Catégories",
+        navBlog:"Blog",
+        navAbout:"À propos",
+        navContact:"Contact",
+        privacy:"Confidentialité",
+        catFinance:"Finance UK",
+        catFinanceSmall:"Impôt, VAT, IR35, dividendes",
+        catDev:"Outils développeur",
+        catDevSmall:"JSON, diff, tokens, prompts",
+        catImage:"Image & PDF",
+        catImageSmall:"Compresser, convertir, extraire",
+        catText:"Texte & conversion",
+        catTextSmall:"Mots, unités et utilitaires",
+        catSecurity:"Sécurité & confidentialité",
+        catSecuritySmall:"Mot de passe et outils locaux",
+        badge:"Estimation UK limited company · 2026/27",
+        heroTitle:"Calculateur salaire vs dividende pour directors UK",
+        heroText:"Estimez combien vous pourriez conserver depuis une UK limited company en combinant director salary et dividendes. Cette page sert à la planification simple, pas au dépôt fiscal ou à la paie.",
+        breadcrumb:"Accueil · Finance UK · Salaire vs dividende",
+        mini1Title:"Planification rapide",
+        mini1Text:"Utile pour une première estimation salaire-dividende avant de parler à un accountant.",
+        mini2Title:"Hypothèses claires",
+        mini2Text:"Un director-shareholder, pas d’autre revenu, pas d’associated companies, année fiscale complète 2026/27.",
+        mini3Title:"Conçu pour comparer",
+        mini3Text:"Employer NI, Corporation Tax, salary tax, dividend tax et take-home en une seule vue.",
+        formTitle:"Données société",
+        profitLabel:"Profit de la société avant director salary et taxes",
+        profitHint:"Saisissez les profits disponibles avant salary, Employer NI et Corporation Tax.",
+        salaryLabel:"Director salary annuel",
+        salaryHint:"Un point de départ courant est £12,570, mais le bon montant dépend de votre situation fiscale.",
+        calculateBtn:"Calculer le take-home",
+        defaultBtn:"Utiliser £12,570",
+        importantTitle:"Important :",
+        importantText:"Ceci est une estimation annuelle. Elle n’inclut pas les Scottish rates, pension planning, student loans, détails Director NIC, benefits in kind, associated companies ou ajustements comptables.",
+        resultEyebrow:"Take-home estimé",
+        monthlyEquivalent:"Équivalent mensuel :",
+        assumptionBadge:"Cas simple single-director",
+        breakdownHead:"Détail",
+        amountHead:"Montant",
+        grossProfitRow:"Profit société",
+        salaryRow:"Director salary",
+        employerNiRow:"Employer NI",
+        corpTaxRow:"Corporation Tax",
+        dividendsAvailableRow:"Dividendes disponibles après impôt",
+        salaryTaxRow:"Income Tax + employee NI sur salary",
+        dividendTaxRow:"Dividend tax",
+        totalTaxRow:"Total impôts",
+        noteTitle:"Hypothèses :",
+        noteText:"Les dividendes sont pris après Corporation Tax, le dividend allowance de £500 est utilisé, et Corporation Tax utilise les taux 2026 avec les seuils habituels sans associated companies.",
+        howTitle:"Comment fonctionne ce calculateur",
+        howP1:"La page commence avec le profit avant director salary et company taxes. Elle déduit ensuite le salary et estime Employer National Insurance. Le profit imposable restant sert à estimer Corporation Tax. Le solde après company taxes est traité comme dividendes distribuables.",
+        howP2:"Côté personnel, le calculateur estime d’abord la fiscalité du salary, puis la dividend tax. Les dividendes utilisent d’abord la Personal Allowance restante, puis le dividend allowance, puis les taux 2026/27.",
+        usefulTitle:"Quand l’utiliser",
+        useful1:"Comparer une approche low-salary/high-dividend avec un salary plus élevé.",
+        useful2:"Comprendre approximativement la charge fiscale avant de parler à un accountant.",
+        useful3:"Voir comment Employer NI et Corporation Tax influencent les dividendes disponibles.",
+        faq1Q:"Quel salary utilise-t-on souvent au départ ?",
+        faq1A:"Beaucoup de directors testent £12,570, car cela correspond à la Personal Allowance standard 2026/27. Ce n’est pas automatiquement le meilleur choix pour tous les cas.",
+        faq2Q:"Le calcul de marginal relief est-il exact ?",
+        faq2A:"Il utilise les seuils standards et la forme du relief pour une société simple sans associated companies ni franked investment income. Les comptes réels peuvent différer.",
+        faq3Q:"Pourquoi est-ce un outil de planification ?",
+        faq3A:"La paie, les règles Director NIC, les ajustements comptables et votre situation personnelle peuvent modifier le résultat. Cet outil sert à comparer, pas à déposer.",
+        relatedTitle:"Outils finance UK liés",
+        relatedTaxTitle:"Calculateur salaire net UK",
+        relatedTaxText:"Estimer PAYE, NI, pension sacrifice et take-home.",
+        relatedIr35Title:"Calculateur IR35",
+        relatedIr35Text:"Comparer scénarios inside et outside IR35.",
+        relatedVatTitle:"Calculateur VAT UK",
+        relatedVatText:"Ajouter ou retirer la VAT sur factures et devis.",
+        copyright:"© 2026 MINI-TOOLS.UK · OUTILS FINANCE UK AVEC HYPOTHÈSES CLAIRES"
+      },
+      es: {
+        htmlLang:"es",
+        langLabel:"Español",
+        locale:"es-ES",
+        title:"Calculadora salario vs dividendos UK 2026/27｜Limited Company Director｜Mini-Tools.uk",
+        description:"Estima salario, dividendos, Corporation Tax, Employer NI, Income Tax, Employee NI e impuesto sobre dividendos para un director de empresa UK en 2026/27.",
+        keywords:"calculadora salario dividendos UK, calculadora dividend tax UK, limited company director tax, corporation tax calculator UK, contractor dividend calculator",
+        skip:"Saltar al contenido",
+        brandSubtitle:"Herramientas financieras UK con supuestos claros",
+        navHome:"Inicio",
+        navTools:"Todas las herramientas",
+        navCategories:"Categorías",
+        navBlog:"Blog",
+        navAbout:"Acerca de",
+        navContact:"Contacto",
+        privacy:"Privacidad",
+        catFinance:"Finanzas UK",
+        catFinanceSmall:"Impuestos, VAT, IR35, dividendos",
+        catDev:"Herramientas developer",
+        catDevSmall:"JSON, diff, tokens, prompts",
+        catImage:"Imagen y PDF",
+        catImageSmall:"Comprimir, convertir y extraer",
+        catText:"Texto y conversión",
+        catTextSmall:"Palabras, unidades y utilidades",
+        catSecurity:"Seguridad y privacidad",
+        catSecuritySmall:"Contraseñas y herramientas locales",
+        badge:"Estimación UK limited company · 2026/27",
+        heroTitle:"Calculadora salario vs dividendos para directors UK",
+        heroText:"Estima cuánto podrías recibir de una UK limited company mezclando salario de director y dividendos. Esta página es para planificación simple, no para contabilidad final ni payroll filing.",
+        breadcrumb:"Inicio · Finanzas UK · Salario vs dividendos",
+        mini1Title:"Planificación rápida",
+        mini1Text:"Útil cuando quieres una estimación salario-dividendos antes de hablar con un accountant.",
+        mini2Title:"Supuestos claros",
+        mini2Text:"Un director-shareholder, sin otros ingresos, sin associated companies, año fiscal completo 2026/27.",
+        mini3Title:"Diseñada para comparar",
+        mini3Text:"Employer NI, Corporation Tax, salario, dividend tax y take-home en una sola vista.",
+        formTitle:"Datos de empresa",
+        profitLabel:"Beneficio de empresa antes de salario de director e impuestos",
+        profitHint:"Introduce beneficios disponibles antes de salario, Employer NI y Corporation Tax.",
+        salaryLabel:"Salario anual del director",
+        salaryHint:"Un punto de partida común es £12,570, pero el mejor importe depende de tu situación fiscal.",
+        calculateBtn:"Calcular take-home",
+        defaultBtn:"Usar £12,570",
+        importantTitle:"Importante:",
+        importantText:"Es una estimación anual. No incluye Scottish rates, pension planning, student loans, detalles de Director NIC, benefits in kind, associated companies ni ajustes contables específicos.",
+        resultEyebrow:"Take-home estimado",
+        monthlyEquivalent:"Equivalente mensual:",
+        assumptionBadge:"Caso simple single-director",
+        breakdownHead:"Desglose",
+        amountHead:"Importe",
+        grossProfitRow:"Beneficio de empresa",
+        salaryRow:"Salario del director",
+        employerNiRow:"Employer NI",
+        corpTaxRow:"Corporation Tax",
+        dividendsAvailableRow:"Dividendos disponibles tras impuestos",
+        salaryTaxRow:"Income Tax + employee NI sobre salario",
+        dividendTaxRow:"Dividend tax",
+        totalTaxRow:"Total impuestos",
+        noteTitle:"Supuestos:",
+        noteText:"Los dividendos se toman después de Corporation Tax, se usa el dividend allowance de £500 y Corporation Tax usa las tasas 2026 con umbrales normales sin associated companies.",
+        howTitle:"Cómo funciona esta calculadora",
+        howP1:"La página parte del beneficio antes de salario de director e impuestos de empresa. Después descuenta el salario y estima Employer National Insurance. El beneficio imponible restante se usa para Corporation Tax. El saldo tras impuestos de empresa se trata como dividendos distribuibles.",
+        howP2:"En la parte personal, calcula primero impuestos sobre salario y luego dividend tax. Los dividendos usan primero Personal Allowance restante, después dividend allowance y luego las tasas 2026/27.",
+        usefulTitle:"Cuándo es útil",
+        useful1:"Comparar enfoque low-salary/high-dividend con un salario más alto.",
+        useful2:"Tener una idea aproximada de la carga fiscal antes de hablar con un accountant.",
+        useful3:"Entender cómo Employer NI y Corporation Tax afectan los dividendos disponibles.",
+        faq1Q:"¿Qué salario se usa a menudo como punto de partida?",
+        faq1A:"Muchos directors prueban £12,570 porque coincide con la Personal Allowance estándar 2026/27. Puede tener sentido en casos simples, pero no es automáticamente lo mejor.",
+        faq2Q:"¿El cálculo de marginal relief es exacto?",
+        faq2A:"Usa umbrales estándar y la forma del relief para una empresa simple sin associated companies ni franked investment income. Las cuentas reales pueden diferir.",
+        faq3Q:"¿Por qué es planificación y no filing?",
+        faq3A:"Payroll software, reglas Director NIC, ajustes contables y tu situación fiscal personal pueden cambiar el resultado. Esta herramienta es para comparar y decidir.",
+        relatedTitle:"Herramientas financieras UK relacionadas",
+        relatedTaxTitle:"Calculadora salario neto UK",
+        relatedTaxText:"Estimar PAYE, NI, pension sacrifice y take-home.",
+        relatedIr35Title:"Calculadora IR35",
+        relatedIr35Text:"Comparar escenarios inside y outside IR35.",
+        relatedVatTitle:"Calculadora VAT UK",
+        relatedVatText:"Añadir o quitar VAT en facturas y presupuestos.",
+        copyright:"© 2026 MINI-TOOLS.UK · HERRAMIENTAS FINANCIERAS UK CON SUPUESTOS CLAROS"
+      }
+    };
+
+    const fmtCache = {};
+    const allowedLangs = ["en", "zh-CN", "de", "fr", "es"];
+    let currentLang = "en";
+
+    function getDict(){ return translations[currentLang] || translations.en; }
+
+    function formatter(){
+      const dict = getDict();
+      const locale = dict.locale || "en-GB";
+      if (!fmtCache[locale]) {
+        fmtCache[locale] = new Intl.NumberFormat(locale, { style: "currency", currency: "GBP", maximumFractionDigits: 0 });
+      }
+      return fmtCache[locale];
+    }
+
+    function getInitialLang(){
+      const params = new URLSearchParams(window.location.search);
+      let lang = params.get("lang");
+      if (lang === "zh") lang = "zh-CN";
+      if (allowedLangs.includes(lang)) return lang;
+      const saved = localStorage.getItem("miniToolsDividendLang");
+      if (allowedLangs.includes(saved)) return saved;
+      const browser = navigator.language || "en";
+      if (browser.startsWith("zh")) return "zh-CN";
+      if (browser.startsWith("de")) return "de";
+      if (browser.startsWith("fr")) return "fr";
+      if (browser.startsWith("es")) return "es";
+      return "en";
+    }
+
+    function setMeta(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setOg(property, content){
+      const tag = document.querySelector(`meta[property="${property}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setTwitter(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function applyLanguage(lang, updateUrl = true){
+      currentLang = allowedLangs.includes(lang) ? lang : "en";
+      const dict = getDict();
+
+      document.documentElement.lang = dict.htmlLang || "en-GB";
+      document.title = dict.title;
+      setMeta("description", dict.description);
+      setMeta("keywords", dict.keywords);
+      setOg("og:title", dict.title);
+      setOg("og:description", dict.description);
+      setTwitter("twitter:title", dict.title);
+      setTwitter("twitter:description", dict.description);
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+
+      const label = document.getElementById("currentLangLabel");
+      if (label) label.textContent = dict.langLabel;
+
+      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
+      });
+
+      localStorage.setItem("miniToolsDividendLang", currentLang);
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", currentLang);
+        history.replaceState(null, "", url.toString());
+      }
+
+      calculate();
+    }
+
+    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
+    });
 
     const config = {
       personalAllowance: 12570,
@@ -389,6 +921,7 @@
       dividendAdditionalRate: 0.3935
     };
 
+    function money(value){ return formatter().format(value || 0); }
     function clamp(n){ return Number.isFinite(n) ? n : 0; }
 
     function corporationTax(profit) {
@@ -400,6 +933,7 @@
     }
 
     function calculate() {
+      const dict = getDict();
       const companyProfit = Math.max(0, clamp(parseFloat(document.getElementById('profit').value)));
       const salary = Math.max(0, clamp(parseFloat(document.getElementById('salary').value)));
 
@@ -459,16 +993,16 @@
       const takeHome = Math.max(0, salary - salaryPersonalTaxes + dividendsAvailable - dividendTax);
       const totalTax = employerNI + corpTax + salaryPersonalTaxes + dividendTax;
 
-      document.getElementById('take-home').textContent = fmt.format(takeHome);
-      document.getElementById('monthly-equivalent').textContent = `Monthly equivalent: ${fmt.format(takeHome / 12)}`;
-      document.getElementById('gross-profit').textContent = fmt.format(companyProfit);
-      document.getElementById('salary-paid').textContent = fmt.format(salary);
-      document.getElementById('employer-ni').textContent = '-' + fmt.format(employerNI);
-      document.getElementById('corporation-tax').textContent = '-' + fmt.format(corpTax);
-      document.getElementById('dividends-available').textContent = fmt.format(dividendsAvailable);
-      document.getElementById('salary-tax').textContent = '-' + fmt.format(salaryPersonalTaxes);
-      document.getElementById('dividend-tax').textContent = '-' + fmt.format(dividendTax);
-      document.getElementById('total-tax').textContent = fmt.format(totalTax);
+      document.getElementById('take-home').textContent = money(takeHome);
+      document.getElementById('monthly-equivalent').textContent = `${dict.monthlyEquivalent} ${money(takeHome / 12)}`;
+      document.getElementById('gross-profit').textContent = money(companyProfit);
+      document.getElementById('salary-paid').textContent = money(salary);
+      document.getElementById('employer-ni').textContent = '-' + money(employerNI);
+      document.getElementById('corporation-tax').textContent = '-' + money(corpTax);
+      document.getElementById('dividends-available').textContent = money(dividendsAvailable);
+      document.getElementById('salary-tax').textContent = '-' + money(salaryPersonalTaxes);
+      document.getElementById('dividend-tax').textContent = '-' + money(dividendTax);
+      document.getElementById('total-tax').textContent = money(totalTax);
     }
 
     document.getElementById('calculate-btn').addEventListener('click', calculate);
@@ -482,7 +1016,9 @@
       el.addEventListener('keypress', (e) => { if (e.key === 'Enter') calculate(); });
     });
 
-    calculate();
+    window.addEventListener("load", () => {
+      applyLanguage(getInitialLang(), false);
+    });
   </script>
 </body>
 </html>
