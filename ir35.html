@@ -1,22 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>IR35 Take-Home Pay Calculator (2026/27 Estimate) | Inside vs Outside IR35</title>
-  <meta name="description" content="Estimate your 2026/27 take-home pay inside IR35 vs outside IR35. Compare umbrella PAYE, employer NI, corporation tax and dividend tax with a clearer UK contractor breakdown." />
-  <meta name="robots" content="index,follow" />
+
+  <title>IR35 Calculator 2026/27 | Inside vs Outside IR35 Take-Home Pay | Mini-Tools.uk</title>
+  <meta name="description" content="Estimate 2026/27 UK contractor take-home pay inside IR35 and outside IR35. Compare umbrella PAYE with a simplified limited company salary and dividend scenario." />
+  <meta name="keywords" content="IR35 calculator, inside IR35 calculator, outside IR35 calculator, contractor take home pay calculator, umbrella PAYE calculator, contractor dividend calculator, 英国IR35计算器, 英国承包商税后收入计算器" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#2563eb" />
   <link rel="canonical" href="https://mini-tools.uk/ir35" />
+
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/ir35?lang=en" />
+  <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/ir35?lang=zh-CN" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/ir35?lang=de" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/ir35?lang=fr" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/ir35?lang=es" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/ir35" />
 
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
 
-  <meta property="og:title" content="IR35 Take-Home Pay Calculator (2026/27 Estimate)" />
-  <meta property="og:description" content="Compare inside IR35 umbrella pay with outside IR35 limited company income using a clearer contractor-focused estimate." />
+  <meta property="og:title" content="IR35 Calculator 2026/27 | Inside vs Outside IR35" />
+  <meta property="og:description" content="Compare inside IR35 umbrella pay with outside IR35 limited company income using a contractor-focused estimate." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mini-tools.uk/ir35" />
+  <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="IR35 Calculator 2026/27 | Inside vs Outside IR35" />
+  <meta name="twitter:description" content="Compare inside IR35 umbrella pay with outside IR35 limited company income." />
+  <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
@@ -26,15 +40,16 @@
     gtag('config', 'G-DR6V84JEZW');
   </script>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
 
-  <script type="application/ld+json">
+  <script type="application/ld+json" id="schema-json">
   {
     "@context":"https://schema.org",
     "@type":"SoftwareApplication",
     "name":"IR35 Take-Home Pay Calculator",
     "applicationCategory":"FinanceApplication",
     "operatingSystem":"Web",
+    "url":"https://mini-tools.uk/ir35",
     "offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"},
     "description":"Estimate 2026/27 UK contractor take-home pay inside IR35 and outside IR35."
   }
@@ -66,7 +81,7 @@
         "name":"What does the outside IR35 side assume?",
         "acceptedAnswer":{
           "@type":"Answer",
-          "text":"The outside IR35 estimate assumes a personal service company taking a standard director salary with the remainder extracted as dividends after allowable expenses and corporation tax."
+          "text":"The outside IR35 estimate assumes a personal service company taking a standard director salary with the remainder extracted as dividends after allowable expenses and Corporation Tax."
         }
       }
     ]
@@ -88,7 +103,7 @@
       --red-soft:#fef2f2;
       --amber:#b45309;
       --amber-soft:#fffbeb;
-      --shadow:0 12px 30px rgba(15,23,42,.08);
+      --shadow:none;
       --radius:24px;
     }
     *{box-sizing:border-box}
@@ -101,30 +116,34 @@
       line-height:1.5;
     }
     a{color:inherit;text-decoration:none}
+    button,input,select{font:inherit}
     .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+    .skip-link{position:absolute;left:12px;top:-48px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:12px;z-index:100}
+    .skip-link:focus{top:12px}
 
     .nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
     .nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:18px}
     .brand{display:flex;align-items:center;gap:12px;font-weight:800;min-width:0}
-    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;box-shadow:0 4px 12px rgba(15,23,42,.08)}
+    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;box-shadow:none}
     .brand-copy{display:flex;flex-direction:column;line-height:1.05}
     .brand-title{font-size:1.06rem;letter-spacing:-.03em}
     .brand-subtitle{margin-top:4px;color:#64748b;font-size:.79rem;font-weight:600}
-    .nav-links{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    .nav-link,.nav-trigger{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;color:#334155;font-weight:700;font-size:14px;border:1px solid transparent;background:transparent}
-    .nav-link:hover,.nav-trigger:hover,.nav-group:hover .nav-trigger{background:#f8fafc;color:#0f172a}
+    .nav-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .nav-link,.nav-trigger,.lang-trigger{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;color:#334155;font-weight:700;font-size:14px;border:1px solid transparent;background:transparent;cursor:pointer}
+    .nav-link:hover,.nav-trigger:hover,.nav-group:hover .nav-trigger,.lang-trigger:hover,.lang-group:hover .lang-trigger{background:#f8fafc;color:#0f172a}
     .nav-link.current{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
-    .nav-group{position:relative;padding-bottom:14px;margin-bottom:-14px}
-    .nav-trigger svg{width:14px;height:14px;transition:transform .2s ease}.nav-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}
-    .nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg{transform:rotate(180deg)}
-    .dropdown{position:absolute;top:calc(100% + 2px);left:0;min-width:220px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 22px 44px rgba(15,23,42,.12);padding:10px;display:none}
-    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown{display:block}
-    .dropdown a{display:block;padding:10px 12px;border-radius:12px;color:#334155;font-size:14px;font-weight:700}
+    .nav-group,.lang-group{position:relative;padding-bottom:14px;margin-bottom:-14px}
+    .nav-trigger svg,.lang-trigger svg{width:14px;height:14px;transition:transform .2s ease}
+    .nav-group::after,.lang-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}
+    .nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg,.lang-group:hover .lang-trigger svg,.lang-group:focus-within .lang-trigger svg{transform:rotate(180deg)}
+    .dropdown,.lang-dropdown{position:absolute;top:calc(100% + 2px);right:0;min-width:220px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:none;padding:10px;display:none;z-index:40}
+    .nav-group .dropdown{left:0;right:auto;min-width:245px}
+    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown,.lang-group:hover .lang-dropdown,.lang-group:focus-within .lang-dropdown{display:block}
+    .dropdown a,.lang-dropdown button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:12px;color:#334155;font-size:14px;font-weight:700;border:0;background:transparent;cursor:pointer}
     .dropdown a small{display:block;margin-top:2px;color:#64748b;font-size:12px;font-weight:600}
-    .dropdown a:hover{background:#f8fafc;color:#0f172a}
+    .dropdown a:hover,.lang-dropdown button:hover,.lang-dropdown button.active{background:#f8fafc;color:#0f172a}
 
-
-    .hero{padding:44px 0 24px}
+    .hero{padding:48px 0 24px;text-align:center}
     .eyebrow{
       display:inline-flex;gap:8px;align-items:center;
       background:var(--blue-soft);color:var(--blue);
@@ -139,7 +158,7 @@
       letter-spacing:-.03em;
     }
     .hero p{
-      margin:0 auto;max-width:820px;
+      margin:0 auto;max-width:860px;
       color:var(--muted);
       font-size:1.05rem;
     }
@@ -154,12 +173,10 @@
       border:1px solid var(--line);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
+      overflow:hidden;
     }
     .input-card{padding:24px}
-    .grid-2,.grid-3{
-      display:grid;
-      gap:16px;
-    }
+    .grid-2,.grid-3{display:grid;gap:16px}
     .grid-2{grid-template-columns:1fr 1fr}
     .grid-3{grid-template-columns:repeat(3,1fr)}
     .field label{
@@ -181,7 +198,6 @@
       background:#fff;
       border-radius:16px;
       padding:14px 14px;
-      font:inherit;
       color:var(--text);
       outline:none;
     }
@@ -189,9 +205,7 @@
       border-color:#93c5fd;
       box-shadow:0 0 0 4px rgba(37,99,235,.12);
     }
-    .with-pound{
-      position:relative;
-    }
+    .with-pound{position:relative}
     .with-pound span{
       position:absolute;left:14px;top:50%;transform:translateY(-50%);
       color:#64748b;font-weight:700
@@ -211,8 +225,8 @@
     }
     button{
       border:0;border-radius:16px;padding:14px 18px;
-      background:var(--blue);color:white;font:inherit;font-weight:800;cursor:pointer;
-      box-shadow:0 10px 20px rgba(37,99,235,.18)
+      background:var(--blue);color:white;font-weight:800;cursor:pointer;
+      box-shadow:none
     }
     .ghost-btn{
       background:#fff;color:#334155;border:1px solid var(--line);box-shadow:none
@@ -244,7 +258,7 @@
     }
     .impact{
       border-radius:22px;
-      background:linear-gradient(135deg,#0f172a,#1e293b);
+      background:#0f172a;
       color:#fff;
       padding:22px;
     }
@@ -261,11 +275,9 @@
       grid-template-columns:1fr 1fr;
       gap:22px;
     }
-    .result-head{
-      padding:18px 20px;color:#fff
-    }
-    .result-head.inside{background:linear-gradient(135deg,#ef4444,#dc2626)}
-    .result-head.outside{background:linear-gradient(135deg,#10b981,#059669)}
+    .result-head{padding:18px 20px;color:#fff}
+    .result-head.inside{background:#dc2626}
+    .result-head.outside{background:#059669}
     .result-head h2{margin:0;font-size:1.1rem}
     .result-head p{margin:6px 0 0;font-size:13px;color:rgba(255,255,255,.88)}
     .result-body{padding:20px}
@@ -343,123 +355,140 @@
 
     @media (max-width: 980px){
       .hero-grid,.results{grid-template-columns:1fr}
+      .nav-inner{flex-direction:column;align-items:flex-start;padding:12px 0}
+      .nav-links{justify-content:flex-start}
+      .dropdown,.lang-dropdown{left:0;right:auto}
     }
     @media (max-width: 720px){
       .grid-2,.grid-3,.kpis,.related{grid-template-columns:1fr}
-      .nav-inner{min-height:auto;padding:14px 0}
+      .nav-inner{min-height:auto}
       .nav-links{gap:10px}
       .input-card,.summary-card,.content-card{padding:20px}
     }
-    </style>
+  </style>
 </head>
 <body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
   <nav class="nav">
     <div class="wrap nav-inner">
       <a class="brand" href="/">
         <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" />
         <span class="brand-copy">
           <span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span>
-          <span class="brand-subtitle">Practical tools, cleaner structure</span>
+          <span class="brand-subtitle" data-i18n="brandSubtitle">Practical calculators and browser tools</span>
         </span>
       </a>
       <div class="nav-links">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/#featured-tools">All Tools</a>
+        <a class="nav-link" href="/" data-i18n="navHome">Home</a>
+        <a class="nav-link" href="/#featured-tools" data-i18n="navTools">All Tools</a>
         <div class="nav-group">
-          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">Categories
+          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="navCategories">Categories</span>
             <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div class="dropdown" role="menu">
-            <a href="/#uk-calculators">UK Finance<small>Tax, VAT, mortgage and workday tools</small></a>
-            <a href="/#developer-tools">Developer Tools<small>JSON, diff, word and coding helpers</small></a>
-            <a href="/#image-tools">Image & PDF<small>Compression, conversion and media utilities</small></a>
-            <a href="/password">Security & Privacy<small>Password and privacy-first helpers</small></a>
+            <a href="/#uk-finance"><strong data-i18n="catFinance">UK Finance</strong><small data-i18n="catFinanceSmall">Tax, VAT, mortgage and contractor tools</small></a>
+            <a href="/#developer-tools"><strong data-i18n="catDev">Developer Tools</strong><small data-i18n="catDevSmall">JSON, diff, tokens and coding helpers</small></a>
+            <a href="/#image-tools"><strong data-i18n="catImage">Image & PDF</strong><small data-i18n="catImageSmall">Compression, conversion and media utilities</small></a>
+            <a href="/password"><strong data-i18n="catSecurity">Security & Privacy</strong><small data-i18n="catSecuritySmall">Password and privacy-first helpers</small></a>
           </div>
         </div>
-        <a class="nav-link" href="/blog">Blog</a>
-        <a class="nav-link" href="/about">About</a>
+        <a class="nav-link" href="/blog" data-i18n="navBlog">Blog</a>
+        <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
+        <a class="nav-link" href="/contact" data-i18n="navContact">Contact</a>
+
+        <div class="lang-group">
+          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            <span id="currentLangLabel">English</span>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="lang-dropdown" role="menu" aria-label="Language">
+            <button type="button" data-lang-btn="en">English</button>
+            <button type="button" data-lang-btn="zh-CN">中文</button>
+            <button type="button" data-lang-btn="de">Deutsch</button>
+            <button type="button" data-lang-btn="fr">Français</button>
+            <button type="button" data-lang-btn="es">Español</button>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
 
-  <main class="wrap">
+  <main class="wrap" id="main">
     <section class="hero">
-      <div class="eyebrow">UK contractor estimate · 2026/27 tax year</div>
-      <h1>IR35 Take-Home Pay Calculator</h1>
-      <p>
-        Compare an <strong>inside IR35 umbrella-style estimate</strong> with an <strong>outside IR35 limited company estimate</strong>.
-        This page is designed to explain the numbers, not just output them. It assumes standard UK income tax bands for
-        England, Wales and Northern Ireland and should be used as an estimate, not as status advice.
+      <div class="eyebrow" data-i18n="eyebrow">UK contractor estimate · 2026/27 tax year</div>
+      <h1 data-i18n="heroTitle">IR35 Calculator 2026/27: Inside vs Outside IR35 Take-Home Pay</h1>
+      <p data-i18n="heroText">
+        Compare an inside IR35 umbrella-style estimate with an outside IR35 limited company estimate. This page explains the numbers and assumptions, but it does not decide your IR35 status.
       </p>
 
       <div class="hero-grid">
         <section class="card input-card">
           <div class="grid-2">
             <div class="field">
-              <label for="dayRate">Day rate</label>
+              <label for="dayRate" data-i18n="dayRateLabel">Day rate</label>
               <div class="with-pound"><span>£</span><input id="dayRate" type="number" min="0" step="1" value="500"></div>
             </div>
             <div class="field">
-              <label for="daysWeek">Days per week</label>
+              <label for="daysWeek" data-i18n="daysWeekLabel">Days per week</label>
               <input id="daysWeek" type="number" min="1" max="7" step="0.5" value="5">
             </div>
           </div>
 
           <div class="grid-2" style="margin-top:16px">
             <div class="field">
-              <label for="weeksYear">Weeks per year</label>
+              <label for="weeksYear" data-i18n="weeksYearLabel">Weeks per year</label>
               <input id="weeksYear" type="number" min="1" max="52" step="1" value="46">
-              <span class="hint">Use paid weeks actually worked.</span>
+              <span class="hint" data-i18n="weeksHint">Use paid weeks actually worked.</span>
             </div>
             <div class="field">
-              <label for="umbrellaFee">Umbrella fee per week</label>
+              <label for="umbrellaFee" data-i18n="umbrellaFeeLabel">Umbrella fee per week</label>
               <div class="with-pound"><span>£</span><input id="umbrellaFee" type="number" min="0" step="1" value="25"></div>
             </div>
           </div>
 
           <div class="grid-2" style="margin-top:16px">
             <div class="field">
-              <label for="expenses">Allowable annual expenses (outside IR35)</label>
+              <label for="expenses" data-i18n="expensesLabel">Allowable annual expenses (outside IR35)</label>
               <div class="with-pound"><span>£</span><input id="expenses" type="number" min="0" step="50" value="2000"></div>
             </div>
             <div class="field">
-              <label for="directorSalary">Director salary (outside IR35)</label>
+              <label for="directorSalary" data-i18n="directorSalaryLabel">Director salary (outside IR35)</label>
               <div class="with-pound"><span>£</span><input id="directorSalary" type="number" min="0" step="10" value="12570"></div>
-              <span class="hint">Default uses a common simple estimate.</span>
+              <span class="hint" data-i18n="directorSalaryHint">Default uses a common simple estimate.</span>
             </div>
           </div>
 
-          <div class="inline-note">
-            This page does <strong>not</strong> decide whether a contract is inside or outside IR35. It only compares the estimated take-home pay
-            after you choose a scenario.
+          <div class="inline-note" data-i18n="inlineNote">
+            This page does not decide whether a contract is inside or outside IR35. It only compares the estimated take-home pay after you choose a scenario.
           </div>
 
           <div class="actions">
-            <button id="calcBtn" type="button">Calculate estimate</button>
-            <button id="resetBtn" class="ghost-btn" type="button">Reset example</button>
+            <button id="calcBtn" type="button" data-i18n="calcBtn">Calculate estimate</button>
+            <button id="resetBtn" class="ghost-btn" type="button" data-i18n="resetBtn">Reset example</button>
           </div>
         </section>
 
         <aside class="card summary-card">
           <div class="kpis">
             <div class="kpi inside">
-              <div class="label">Inside IR35 annual take-home</div>
+              <div class="label" data-i18n="insideKpiLabel">Inside IR35 annual take-home</div>
               <div class="value" id="insideNetHeadline">£0</div>
               <div class="sub" id="insideMonthlyHeadline">£0 per month</div>
             </div>
             <div class="kpi outside">
-              <div class="label">Outside IR35 annual take-home</div>
+              <div class="label" data-i18n="outsideKpiLabel">Outside IR35 annual take-home</div>
               <div class="value" id="outsideNetHeadline">£0</div>
               <div class="sub" id="outsideMonthlyHeadline">£0 per month</div>
             </div>
           </div>
           <div class="impact">
-            <div class="small">Estimated difference</div>
+            <div class="small" data-i18n="differenceLabel">Estimated difference</div>
             <div class="big" id="differenceHeadline">£0 more outside IR35</div>
           </div>
-          <div class="footnote">
-            Assumptions used here: England/Wales/Northern Ireland income tax bands, 2026/27 employee NI rates, 2026/27 employer NI rates,
-            and standard dividend tax rates. Scottish income tax is different, so it is not included in this version.
+          <div class="footnote" data-i18n="summaryFootnote">
+            Assumptions used here: England/Wales/Northern Ireland income tax bands, 2026/27 employee NI rates, 2026/27 employer NI rates, and standard dividend tax rates. Scottish income tax is different, so it is not included in this version.
           </div>
         </aside>
       </div>
@@ -467,18 +496,18 @@
       <section class="results">
         <article class="card">
           <div class="result-head inside">
-            <h2>Inside IR35</h2>
-            <p>Umbrella-style payroll estimate</p>
+            <h2 data-i18n="insideTitle">Inside IR35</h2>
+            <p data-i18n="insideSubtitle">Umbrella-style payroll estimate</p>
           </div>
           <div class="result-body">
             <div class="rows">
-              <div class="row"><span class="muted">Gross contract value</span><strong id="inGross">£0</strong></div>
-              <div class="row"><span class="muted">Umbrella fees</span><span class="neg" id="inUmbrella">-£0</span></div>
-              <div class="row"><span class="muted">Employer NI</span><span class="neg" id="inEmployerNI">-£0</span></div>
-              <div class="row"><span class="muted">Taxable gross salary</span><strong id="inTaxableSalary">£0</strong></div>
-              <div class="row"><span class="muted">Income tax</span><span class="neg" id="inIncomeTax">-£0</span></div>
-              <div class="row"><span class="muted">Employee NI</span><span class="neg" id="inEmployeeNI">-£0</span></div>
-              <div class="row"><span class="muted"><strong>Net take-home</strong></span><span class="pos" id="inNet">£0</span></div>
+              <div class="row"><span class="muted" data-i18n="grossContract">Gross contract value</span><strong id="inGross">£0</strong></div>
+              <div class="row"><span class="muted" data-i18n="umbrellaFees">Umbrella fees</span><span class="neg" id="inUmbrella">-£0</span></div>
+              <div class="row"><span class="muted" data-i18n="employerNI">Employer NI</span><span class="neg" id="inEmployerNI">-£0</span></div>
+              <div class="row"><span class="muted" data-i18n="taxableSalary">Taxable gross salary</span><strong id="inTaxableSalary">£0</strong></div>
+              <div class="row"><span class="muted" data-i18n="incomeTax">Income tax</span><span class="neg" id="inIncomeTax">-£0</span></div>
+              <div class="row"><span class="muted" data-i18n="employeeNI">Employee NI</span><span class="neg" id="inEmployeeNI">-£0</span></div>
+              <div class="row"><span class="muted"><strong data-i18n="netTakeHome">Net take-home</strong></span><span class="pos" id="inNet">£0</span></div>
             </div>
             <div class="bar" aria-hidden="true">
               <div class="seg-net" id="inBarNet" style="width:0%"></div>
@@ -486,7 +515,7 @@
               <div class="seg-ni" id="inBarNI" style="width:0%"></div>
               <div class="seg-fee" id="inBarFees" style="width:0%"></div>
             </div>
-            <div class="footnote">
+            <div class="footnote" data-i18n="insideFootnote">
               This side assumes the contract is treated as employment for tax, with employer NI and umbrella costs coming out of the contract value before net pay is calculated.
             </div>
           </div>
@@ -494,26 +523,26 @@
 
         <article class="card">
           <div class="result-head outside">
-            <h2>Outside IR35</h2>
-            <p>Limited company estimate</p>
+            <h2 data-i18n="outsideTitle">Outside IR35</h2>
+            <p data-i18n="outsideSubtitle">Limited company estimate</p>
           </div>
           <div class="result-body">
             <div class="rows">
-              <div class="row"><span class="muted">Company revenue</span><strong id="outRevenue">£0</strong></div>
-              <div class="row"><span class="muted">Allowable expenses</span><span class="neg" id="outExpenses">-£0</span></div>
-              <div class="row"><span class="muted">Director salary</span><span class="pos" id="outSalary">+£0</span></div>
-              <div class="row"><span class="muted">Profit before corporation tax</span><strong id="outProfitBeforeTax">£0</strong></div>
-              <div class="row"><span class="muted">Corporation tax</span><span class="neg" id="outCorpTax">-£0</span></div>
-              <div class="row"><span class="muted">Dividends available</span><span class="pos" id="outDividends">+£0</span></div>
-              <div class="row"><span class="muted">Dividend tax</span><span class="neg" id="outDividendTax">-£0</span></div>
-              <div class="row"><span class="muted"><strong>Net take-home</strong></span><span class="pos" id="outNet">£0</span></div>
+              <div class="row"><span class="muted" data-i18n="companyRevenue">Company revenue</span><strong id="outRevenue">£0</strong></div>
+              <div class="row"><span class="muted" data-i18n="allowableExpenses">Allowable expenses</span><span class="neg" id="outExpenses">-£0</span></div>
+              <div class="row"><span class="muted" data-i18n="directorSalaryRow">Director salary</span><span class="pos" id="outSalary">+£0</span></div>
+              <div class="row"><span class="muted" data-i18n="profitBeforeTax">Profit before Corporation Tax</span><strong id="outProfitBeforeTax">£0</strong></div>
+              <div class="row"><span class="muted" data-i18n="corpTax">Corporation Tax</span><span class="neg" id="outCorpTax">-£0</span></div>
+              <div class="row"><span class="muted" data-i18n="dividendsAvailable">Dividends available</span><span class="pos" id="outDividends">+£0</span></div>
+              <div class="row"><span class="muted" data-i18n="dividendTax">Dividend tax</span><span class="neg" id="outDividendTax">-£0</span></div>
+              <div class="row"><span class="muted"><strong data-i18n="netTakeHome">Net take-home</strong></span><span class="pos" id="outNet">£0</span></div>
             </div>
             <div class="bar" aria-hidden="true">
               <div class="seg-net" id="outBarNet" style="width:0%"></div>
               <div class="seg-tax" id="outBarTax" style="width:0%"></div>
               <div class="seg-fee" id="outBarCorp" style="width:0%"></div>
             </div>
-            <div class="footnote">
+            <div class="footnote" data-i18n="outsideFootnote">
               This side is a simplified director-salary-plus-dividends estimate. It does not include VAT, accountant fees, pension strategy, associated companies, or bespoke tax planning.
             </div>
           </div>
@@ -523,59 +552,45 @@
 
     <section class="content">
       <article class="card content-card">
-        <h2>Why this page is still worth improving even if it is not on your homepage</h2>
-        <p>
-          A tool page can still attract visits through direct URL access, sitemap discovery, internal links from related pages, old indexed URLs,
-          bookmarks, and external links. On Google, pages can be found and re-found through links and sitemaps even when they are not featured on the homepage.
+        <h2 data-i18n="contentTitle">How the IR35 estimate works</h2>
+        <h3 data-i18n="insideHeading">Inside IR35</h3>
+        <p data-i18n="insideP">
+          The inside IR35 side assumes an umbrella-style payroll flow. Umbrella fees are removed first. Employer National Insurance is then treated as a contract cost, and the remaining taxable salary is used to estimate PAYE income tax and employee National Insurance.
         </p>
-        <p>
-          For this site specifically, <strong>IR35 is a high-intent finance topic</strong>. People landing here usually have a real tax decision in mind,
-          which makes this page more valuable than a generic utility page. That also means it needs clearer assumptions, better wording, and a stronger trust signal than a thin calculator page.
+        <h3 data-i18n="outsideHeading">Outside IR35</h3>
+        <p data-i18n="outsideP">
+          The outside IR35 side assumes you operate through your own limited company, pay a director salary, deduct allowable business expenses, then pay Corporation Tax and take the remaining post-tax profit as dividends. The page then estimates dividend tax on top of the salary.
         </p>
-      </article>
-
-      <article class="card content-card">
-        <h2>How the estimate works</h2>
-        <h3>Inside IR35</h3>
-        <p>
-          The inside IR35 side assumes an umbrella-style payroll flow. Umbrella fees are removed first. Employer National Insurance is then treated as a contract cost,
-          and the remaining taxable salary is used to estimate PAYE income tax and employee National Insurance.
-        </p>
-        <h3>Outside IR35</h3>
-        <p>
-          The outside IR35 side assumes you operate through your own limited company, pay a director salary, deduct allowable business expenses,
-          then pay corporation tax and take the remaining post-tax profit as dividends. The page then estimates dividend tax on top of the salary.
-        </p>
-        <h3>What this page does not do</h3>
+        <h3 data-i18n="notDoTitle">What this page does not do</h3>
         <ul>
-          <li>It does not determine employment status.</li>
-          <li>It does not replace a Status Determination Statement or professional advice.</li>
-          <li>It does not cover Scottish income tax, VAT, pension planning, or every umbrella charging model.</li>
+          <li data-i18n="notDo1">It does not determine employment status.</li>
+          <li data-i18n="notDo2">It does not replace a Status Determination Statement or professional advice.</li>
+          <li data-i18n="notDo3">It does not cover Scottish income tax, VAT, pension planning, or every umbrella charging model.</li>
         </ul>
       </article>
 
       <article class="card content-card faq">
-        <h2>Frequently asked questions</h2>
+        <h2 data-i18n="faqTitle">Frequently asked questions</h2>
         <details open>
-          <summary>Does this calculator tell me whether my contract is inside IR35?</summary>
-          <p>No. It compares pay outcomes after you choose a scenario. IR35 status depends on the facts of the contract and working practices.</p>
+          <summary data-i18n="faq1Q">Does this calculator tell me whether my contract is inside IR35?</summary>
+          <p data-i18n="faq1A">No. It compares pay outcomes after you choose a scenario. IR35 status depends on the facts of the contract and working practices.</p>
         </details>
         <details>
-          <summary>Why is the inside IR35 number usually much lower?</summary>
-          <p>Because the estimate includes employer NI as a cost of the contract, then still applies employee PAYE tax and employee NI to the deemed salary. Umbrella fees also reduce the result.</p>
+          <summary data-i18n="faq2Q">Why is the inside IR35 number usually much lower?</summary>
+          <p data-i18n="faq2A">Because the estimate includes employer NI as a cost of the contract, then still applies employee PAYE tax and employee NI to the deemed salary. Umbrella fees also reduce the result.</p>
         </details>
         <details>
-          <summary>Why is Scotland not included in this version?</summary>
-          <p>Scottish income tax bands are different from the rest of the UK for employment income. This page avoids mixing those rates into a simplified contractor estimate.</p>
+          <summary data-i18n="faq3Q">Why is Scotland not included in this version?</summary>
+          <p data-i18n="faq3A">Scottish income tax bands are different from the rest of the UK for employment income. This page avoids mixing those rates into a simplified contractor estimate.</p>
         </details>
       </article>
 
       <article class="card content-card">
-        <h2>Related tools</h2>
+        <h2 data-i18n="relatedTitle">Related tools</h2>
         <div class="related">
-          <a href="/tax">UK Tax Calculator<span>Check salary tax and NI with a simpler employment view.</span></a>
-          <a href="/dividend">Salary vs Dividend<span>Compare a common director salary and dividend mix.</span></a>
-          <a href="/vat">VAT Calculator<span>Useful for contractor invoices and quick VAT checks.</span></a>
+          <a href="/tax"><span data-i18n="relatedTaxTitle">UK Tax Calculator</span><span data-i18n="relatedTaxText">Check salary tax and NI with a simpler employment view.</span></a>
+          <a href="/dividend"><span data-i18n="relatedDividendTitle">Salary vs Dividend</span><span data-i18n="relatedDividendText">Compare a common director salary and dividend mix.</span></a>
+          <a href="/vat"><span data-i18n="relatedVatTitle">VAT Calculator</span><span data-i18n="relatedVatText">Useful for contractor invoices and quick VAT checks.</span></a>
         </div>
       </article>
     </section>
@@ -584,19 +599,555 @@
   <footer>
     <div class="wrap footer-inner">
       <div class="footer-links">
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/contact">Contact</a>
-        <a href="/blog">Blog</a>
+        <a href="/" data-i18n="navHome">Home</a>
+        <a href="/about" data-i18n="navAbout">About</a>
+        <a href="/privacy" data-i18n="privacy">Privacy</a>
+        <a href="/contact" data-i18n="navContact">Contact</a>
+        <a href="/blog" data-i18n="navBlog">Blog</a>
       </div>
-      <div class="tiny">© 2026 Mini-Tools.uk · UK tax tools with clearer assumptions and cleaner page structure.</div>
+      <div class="tiny" data-i18n="footerNote">© 2026 Mini-Tools.uk · UK tax tools with clear assumptions.</div>
     </div>
   </footer>
 
   <script>
-    const fmt0 = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
-    const fmt2 = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const translations = {
+      en: {
+        htmlLang:"en-GB",
+        langLabel:"English",
+        locale:"en-GB",
+        title:"IR35 Calculator 2026/27 | Inside vs Outside IR35 Take-Home Pay | Mini-Tools.uk",
+        description:"Estimate 2026/27 UK contractor take-home pay inside IR35 and outside IR35. Compare umbrella PAYE with a simplified limited company salary and dividend scenario.",
+        keywords:"IR35 calculator, inside IR35 calculator, outside IR35 calculator, contractor take home pay calculator, umbrella PAYE calculator, contractor dividend calculator",
+        skip:"Skip to content",
+        brandSubtitle:"Practical calculators and browser tools",
+        navHome:"Home",
+        navTools:"All Tools",
+        navCategories:"Categories",
+        navBlog:"Blog",
+        navAbout:"About",
+        navContact:"Contact",
+        privacy:"Privacy",
+        catFinance:"UK Finance",
+        catFinanceSmall:"Tax, VAT, mortgage and contractor tools",
+        catDev:"Developer Tools",
+        catDevSmall:"JSON, diff, tokens and coding helpers",
+        catImage:"Image & PDF",
+        catImageSmall:"Compression, conversion and media utilities",
+        catSecurity:"Security & Privacy",
+        catSecuritySmall:"Password and privacy-first helpers",
+        eyebrow:"UK contractor estimate · 2026/27 tax year",
+        heroTitle:"IR35 Calculator 2026/27: Inside vs Outside IR35 Take-Home Pay",
+        heroText:"Compare an inside IR35 umbrella-style estimate with an outside IR35 limited company estimate. This page explains the numbers and assumptions, but it does not decide your IR35 status.",
+        dayRateLabel:"Day rate",
+        daysWeekLabel:"Days per week",
+        weeksYearLabel:"Weeks per year",
+        weeksHint:"Use paid weeks actually worked.",
+        umbrellaFeeLabel:"Umbrella fee per week",
+        expensesLabel:"Allowable annual expenses (outside IR35)",
+        directorSalaryLabel:"Director salary (outside IR35)",
+        directorSalaryHint:"Default uses a common simple estimate.",
+        inlineNote:"This page does not decide whether a contract is inside or outside IR35. It only compares the estimated take-home pay after you choose a scenario.",
+        calcBtn:"Calculate estimate",
+        resetBtn:"Reset example",
+        insideKpiLabel:"Inside IR35 annual take-home",
+        outsideKpiLabel:"Outside IR35 annual take-home",
+        perMonth:"per month",
+        differenceLabel:"Estimated difference",
+        moreOutside:"more outside IR35",
+        moreInside:"more inside IR35",
+        summaryFootnote:"Assumptions used here: England/Wales/Northern Ireland income tax bands, 2026/27 employee NI rates, 2026/27 employer NI rates, and standard dividend tax rates. Scottish income tax is different, so it is not included in this version.",
+        insideTitle:"Inside IR35",
+        insideSubtitle:"Umbrella-style payroll estimate",
+        grossContract:"Gross contract value",
+        umbrellaFees:"Umbrella fees",
+        employerNI:"Employer NI",
+        taxableSalary:"Taxable gross salary",
+        incomeTax:"Income tax",
+        employeeNI:"Employee NI",
+        netTakeHome:"Net take-home",
+        insideFootnote:"This side assumes the contract is treated as employment for tax, with employer NI and umbrella costs coming out of the contract value before net pay is calculated.",
+        outsideTitle:"Outside IR35",
+        outsideSubtitle:"Limited company estimate",
+        companyRevenue:"Company revenue",
+        allowableExpenses:"Allowable expenses",
+        directorSalaryRow:"Director salary",
+        profitBeforeTax:"Profit before Corporation Tax",
+        corpTax:"Corporation Tax",
+        dividendsAvailable:"Dividends available",
+        dividendTax:"Dividend tax",
+        outsideFootnote:"This side is a simplified director-salary-plus-dividends estimate. It does not include VAT, accountant fees, pension strategy, associated companies, or bespoke tax planning.",
+        contentTitle:"How the IR35 estimate works",
+        insideHeading:"Inside IR35",
+        insideP:"The inside IR35 side assumes an umbrella-style payroll flow. Umbrella fees are removed first. Employer National Insurance is then treated as a contract cost, and the remaining taxable salary is used to estimate PAYE income tax and employee National Insurance.",
+        outsideHeading:"Outside IR35",
+        outsideP:"The outside IR35 side assumes you operate through your own limited company, pay a director salary, deduct allowable business expenses, then pay Corporation Tax and take the remaining post-tax profit as dividends. The page then estimates dividend tax on top of the salary.",
+        notDoTitle:"What this page does not do",
+        notDo1:"It does not determine employment status.",
+        notDo2:"It does not replace a Status Determination Statement or professional advice.",
+        notDo3:"It does not cover Scottish income tax, VAT, pension planning, or every umbrella charging model.",
+        faqTitle:"Frequently asked questions",
+        faq1Q:"Does this calculator tell me whether my contract is inside IR35?",
+        faq1A:"No. It compares pay outcomes after you choose a scenario. IR35 status depends on the facts of the contract and working practices.",
+        faq2Q:"Why is the inside IR35 number usually much lower?",
+        faq2A:"Because the estimate includes employer NI as a cost of the contract, then still applies employee PAYE tax and employee NI to the deemed salary. Umbrella fees also reduce the result.",
+        faq3Q:"Why is Scotland not included in this version?",
+        faq3A:"Scottish income tax bands are different from the rest of the UK for employment income. This page avoids mixing those rates into a simplified contractor estimate.",
+        relatedTitle:"Related tools",
+        relatedTaxTitle:"UK Tax Calculator",
+        relatedTaxText:"Check salary tax and NI with a simpler employment view.",
+        relatedDividendTitle:"Salary vs Dividend",
+        relatedDividendText:"Compare a common director salary and dividend mix.",
+        relatedVatTitle:"VAT Calculator",
+        relatedVatText:"Useful for contractor invoices and quick VAT checks.",
+        footerNote:"© 2026 Mini-Tools.uk · UK tax tools with clear assumptions."
+      },
+      "zh-CN": {
+        htmlLang:"zh-CN",
+        langLabel:"中文",
+        locale:"zh-CN",
+        title:"英国IR35计算器｜Inside vs Outside IR35 税后收入对比｜Mini-Tools.uk",
+        description:"使用 Mini-Tools 英国IR35计算器，估算英国承包商 inside IR35 与 outside IR35 的税后收入，对比 umbrella PAYE 和有限公司工资股息方案。",
+        keywords:"英国IR35计算器, inside IR35计算器, outside IR35计算器, 英国承包商税后收入计算器, 英国umbrella PAYE计算器, 英国有限公司股息计算器, IR35 take home pay calculator",
+        skip:"跳到正文",
+        brandSubtitle:"实用计算器和浏览器工具",
+        navHome:"首页",
+        navTools:"全部工具",
+        navCategories:"分类",
+        navBlog:"博客",
+        navAbout:"关于",
+        navContact:"联系",
+        privacy:"隐私政策",
+        catFinance:"英国财务工具",
+        catFinanceSmall:"个税、VAT、房贷和承包商工具",
+        catDev:"开发者工具",
+        catDevSmall:"JSON、diff、Token 和代码工具",
+        catImage:"图片与 PDF",
+        catImageSmall:"压缩、转换和媒体工具",
+        catSecurity:"安全与隐私",
+        catSecuritySmall:"密码和隐私优先工具",
+        eyebrow:"英国承包商估算 · 2026/27 税年",
+        heroTitle:"英国 IR35 计算器：Inside vs Outside IR35 税后收入对比",
+        heroText:"比较 inside IR35 的 umbrella payroll 估算和 outside IR35 的有限公司估算。本页面用于解释数字和计算假设，但不判断你的 IR35 状态。",
+        dayRateLabel:"日薪",
+        daysWeekLabel:"每周工作天数",
+        weeksYearLabel:"每年工作周数",
+        weeksHint:"填写实际有收入的工作周数。",
+        umbrellaFeeLabel:"每周 umbrella 费用",
+        expensesLabel:"年度可抵扣费用（outside IR35）",
+        directorSalaryLabel:"董事工资（outside IR35）",
+        directorSalaryHint:"默认使用常见的简单估算值。",
+        inlineNote:"本页面不会判断合同属于 inside IR35 还是 outside IR35。它只是在你选择场景后，对比预计税后收入。",
+        calcBtn:"计算估算结果",
+        resetBtn:"重置示例",
+        insideKpiLabel:"Inside IR35 年度税后收入",
+        outsideKpiLabel:"Outside IR35 年度税后收入",
+        perMonth:"每月",
+        differenceLabel:"预计差额",
+        moreOutside:"outside IR35 更多",
+        moreInside:"inside IR35 更多",
+        summaryFootnote:"这里使用的假设：英格兰/威尔士/北爱尔兰所得税税带、2026/27 雇员 NI、2026/27 雇主 NI 以及标准股息税率。苏格兰所得税不同，本版本未包含。",
+        insideTitle:"Inside IR35",
+        insideSubtitle:"Umbrella payroll 估算",
+        grossContract:"合同总收入",
+        umbrellaFees:"Umbrella 费用",
+        employerNI:"雇主 NI",
+        taxableSalary:"应税工资",
+        incomeTax:"个人所得税",
+        employeeNI:"雇员 NI",
+        netTakeHome:"税后到手收入",
+        insideFootnote:"此侧假设合同按雇佣关系纳税，雇主 NI 和 umbrella 成本先从合同收入中扣除，再计算税后工资。",
+        outsideTitle:"Outside IR35",
+        outsideSubtitle:"有限公司估算",
+        companyRevenue:"公司收入",
+        allowableExpenses:"可抵扣费用",
+        directorSalaryRow:"董事工资",
+        profitBeforeTax:"公司税前利润",
+        corpTax:"公司税",
+        dividendsAvailable:"可分配股息",
+        dividendTax:"股息税",
+        outsideFootnote:"此侧是简化的董事工资 + 股息估算，不包含 VAT、会计费用、养老金策略、关联公司或个性化税务规划。",
+        contentTitle:"IR35 估算如何工作",
+        insideHeading:"Inside IR35",
+        insideP:"Inside IR35 侧假设 umbrella payroll 流程。先扣除 umbrella 费用，再把雇主 National Insurance 视为合同成本，剩余的应税工资用于估算 PAYE 所得税和雇员 National Insurance。",
+        outsideHeading:"Outside IR35",
+        outsideP:"Outside IR35 侧假设你通过自己的有限公司运营，支付董事工资，扣除可抵扣商业费用，然后支付 Corporation Tax，并把剩余税后利润作为股息提取。页面随后估算工资之外的股息税。",
+        notDoTitle:"这个页面不做什么",
+        notDo1:"它不判断雇佣状态或 IR35 状态。",
+        notDo2:"它不能替代 Status Determination Statement 或专业建议。",
+        notDo3:"它不覆盖苏格兰所得税、VAT、养老金规划或所有 umbrella 收费模型。",
+        faqTitle:"常见问题",
+        faq1Q:"这个计算器能判断我的合同是 inside IR35 吗？",
+        faq1A:"不能。它只是在你选择场景后对比收入结果。IR35 状态取决于合同事实和实际工作方式。",
+        faq2Q:"为什么 inside IR35 的结果通常低很多？",
+        faq2A:"因为估算中把雇主 NI 作为合同成本，并且仍需对 deemed salary 计算 PAYE 所得税和雇员 NI。Umbrella 费用也会降低结果。",
+        faq3Q:"为什么这个版本不包含苏格兰？",
+        faq3A:"苏格兰就业收入所得税税带与英国其他地区不同。本页面为了保持承包商估算简单，没有混入苏格兰税率。",
+        relatedTitle:"相关工具",
+        relatedTaxTitle:"英国个税计算器",
+        relatedTaxText:"用更简单的雇佣收入视角计算工资税和 NI。",
+        relatedDividendTitle:"工资 vs 股息计算器",
+        relatedDividendText:"比较常见的董事工资和股息组合。",
+        relatedVatTitle:"VAT 计算器",
+        relatedVatText:"适合承包商发票和快速 VAT 检查。",
+        footerNote:"© 2026 Mini-Tools.uk · 假设清晰的英国税务工具。"
+      },
+      de: {
+        htmlLang:"de",
+        langLabel:"Deutsch",
+        locale:"de-DE",
+        title:"IR35 Take-Home Rechner 2026/27｜Inside vs Outside IR35｜Mini-Tools.uk",
+        description:"Schätzen Sie UK Contractor Take-home Pay inside IR35 und outside IR35. Vergleichen Sie Umbrella PAYE mit einer vereinfachten Limited-Company-Salary-und-Dividend-Situation.",
+        keywords:"IR35 Rechner, inside IR35 Rechner, outside IR35 Rechner, Contractor Take Home UK, Umbrella PAYE Rechner, contractor dividend calculator",
+        skip:"Zum Inhalt springen",
+        brandSubtitle:"Praktische Rechner und Browser-Tools",
+        navHome:"Startseite",
+        navTools:"Alle Tools",
+        navCategories:"Kategorien",
+        navBlog:"Blog",
+        navAbout:"Über uns",
+        navContact:"Kontakt",
+        privacy:"Datenschutz",
+        catFinance:"UK Finanzen",
+        catFinanceSmall:"Steuer, VAT, Hypothek und Contractor Tools",
+        catDev:"Developer Tools",
+        catDevSmall:"JSON, Diff, Tokens und Code-Helfer",
+        catImage:"Bild & PDF",
+        catImageSmall:"Komprimierung, Konvertierung und Medien",
+        catSecurity:"Sicherheit & Datenschutz",
+        catSecuritySmall:"Passwort- und Privacy-First-Tools",
+        eyebrow:"UK Contractor Estimate · Steuerjahr 2026/27",
+        heroTitle:"IR35 Rechner 2026/27: Inside vs Outside IR35 Take-Home Pay",
+        heroText:"Vergleichen Sie eine inside IR35 Umbrella-Schätzung mit einer outside IR35 Limited-Company-Schätzung. Diese Seite erklärt Zahlen und Annahmen, entscheidet aber nicht Ihren IR35-Status.",
+        dayRateLabel:"Day rate",
+        daysWeekLabel:"Tage pro Woche",
+        weeksYearLabel:"Wochen pro Jahr",
+        weeksHint:"Nutzen Sie bezahlte Arbeitswochen.",
+        umbrellaFeeLabel:"Umbrella fee pro Woche",
+        expensesLabel:"Allowable annual expenses (outside IR35)",
+        directorSalaryLabel:"Director salary (outside IR35)",
+        directorSalaryHint:"Standard nutzt eine einfache übliche Schätzung.",
+        inlineNote:"Diese Seite entscheidet nicht, ob ein Contract inside oder outside IR35 ist. Sie vergleicht nur das geschätzte Take-home nach Wahl eines Szenarios.",
+        calcBtn:"Schätzung berechnen",
+        resetBtn:"Beispiel zurücksetzen",
+        insideKpiLabel:"Inside IR35 jährliches Take-home",
+        outsideKpiLabel:"Outside IR35 jährliches Take-home",
+        perMonth:"pro Monat",
+        differenceLabel:"Geschätzter Unterschied",
+        moreOutside:"mehr outside IR35",
+        moreInside:"mehr inside IR35",
+        summaryFootnote:"Annahmen: England/Wales/Nordirland Income Tax Bands, 2026/27 employee NI, 2026/27 employer NI und Standard Dividend Tax Rates. Scottish Income Tax ist anders und hier nicht enthalten.",
+        insideTitle:"Inside IR35",
+        insideSubtitle:"Umbrella-style payroll estimate",
+        grossContract:"Gross contract value",
+        umbrellaFees:"Umbrella fees",
+        employerNI:"Employer NI",
+        taxableSalary:"Taxable gross salary",
+        incomeTax:"Income tax",
+        employeeNI:"Employee NI",
+        netTakeHome:"Net take-home",
+        insideFootnote:"Diese Seite nimmt an, dass der Contract steuerlich wie Employment behandelt wird, wobei employer NI und umbrella costs vor Net Pay aus dem Contract Value entnommen werden.",
+        outsideTitle:"Outside IR35",
+        outsideSubtitle:"Limited company estimate",
+        companyRevenue:"Company revenue",
+        allowableExpenses:"Allowable expenses",
+        directorSalaryRow:"Director salary",
+        profitBeforeTax:"Profit before Corporation Tax",
+        corpTax:"Corporation Tax",
+        dividendsAvailable:"Dividends available",
+        dividendTax:"Dividend tax",
+        outsideFootnote:"Diese Seite ist eine vereinfachte Director-Salary-plus-Dividends-Schätzung. VAT, accountant fees, pension strategy, associated companies und individuelle Steuerplanung sind nicht enthalten.",
+        contentTitle:"Wie die IR35-Schätzung funktioniert",
+        insideHeading:"Inside IR35",
+        insideP:"Die inside IR35-Seite nimmt einen Umbrella-Payroll-Flow an. Umbrella fees werden zuerst entfernt. Employer National Insurance wird als Contract Cost behandelt, und das verbleibende Taxable Salary wird für PAYE und employee NI verwendet.",
+        outsideHeading:"Outside IR35",
+        outsideP:"Die outside IR35-Seite nimmt an, dass Sie über eine Limited Company arbeiten, director salary zahlen, allowable business expenses abziehen, Corporation Tax zahlen und den Rest als dividends entnehmen.",
+        notDoTitle:"Was diese Seite nicht macht",
+        notDo1:"Sie bestimmt keinen Employment Status.",
+        notDo2:"Sie ersetzt keine Status Determination Statement oder professionelle Beratung.",
+        notDo3:"Sie deckt Scottish Income Tax, VAT, pension planning oder jedes Umbrella-Modell nicht ab.",
+        faqTitle:"Häufige Fragen",
+        faq1Q:"Sagt mir der Rechner, ob mein Contract inside IR35 ist?",
+        faq1A:"Nein. Er vergleicht Pay Outcomes nach Auswahl eines Szenarios. IR35 Status hängt von Contract Facts und Working Practices ab.",
+        faq2Q:"Warum ist inside IR35 oft niedriger?",
+        faq2A:"Weil employer NI als Contract Cost enthalten ist und danach employee PAYE tax sowie employee NI auf das deemed salary angewendet werden. Umbrella fees reduzieren das Ergebnis ebenfalls.",
+        faq3Q:"Warum ist Scotland nicht enthalten?",
+        faq3A:"Scottish Income Tax Bands unterscheiden sich für Employment Income. Diese Seite hält die Contractor-Schätzung bewusst vereinfacht.",
+        relatedTitle:"Verwandte Tools",
+        relatedTaxTitle:"UK Tax Calculator",
+        relatedTaxText:"Salary tax und NI in einer einfacheren Employment-Ansicht prüfen.",
+        relatedDividendTitle:"Salary vs Dividend",
+        relatedDividendText:"Eine übliche Director Salary und Dividend Mischung vergleichen.",
+        relatedVatTitle:"VAT Calculator",
+        relatedVatText:"Nützlich für Contractor-Rechnungen und VAT Checks.",
+        footerNote:"© 2026 Mini-Tools.uk · UK tax tools with clear assumptions."
+      },
+      fr: {
+        htmlLang:"fr",
+        langLabel:"Français",
+        locale:"fr-FR",
+        title:"Calculateur IR35 Take-Home 2026/27｜Inside vs Outside IR35｜Mini-Tools.uk",
+        description:"Estimez le take-home pay UK contractor inside IR35 et outside IR35. Comparez umbrella PAYE avec un scénario limited company simplifié.",
+        keywords:"calculateur IR35, inside IR35 calculator, outside IR35 calculator, contractor take home UK, umbrella PAYE calculator",
+        skip:"Aller au contenu",
+        brandSubtitle:"Calculateurs pratiques et outils navigateur",
+        navHome:"Accueil",
+        navTools:"Tous les outils",
+        navCategories:"Catégories",
+        navBlog:"Blog",
+        navAbout:"À propos",
+        navContact:"Contact",
+        privacy:"Confidentialité",
+        catFinance:"Finance UK",
+        catFinanceSmall:"Impôt, VAT, prêt immobilier et contractor",
+        catDev:"Outils développeur",
+        catDevSmall:"JSON, diff, tokens et code",
+        catImage:"Image & PDF",
+        catImageSmall:"Compression, conversion et médias",
+        catSecurity:"Sécurité & confidentialité",
+        catSecuritySmall:"Mots de passe et outils privacy-first",
+        eyebrow:"Estimation UK contractor · année fiscale 2026/27",
+        heroTitle:"Calculateur IR35 2026/27 : Inside vs Outside IR35",
+        heroText:"Comparez une estimation umbrella-style inside IR35 avec une estimation limited company outside IR35. Cette page explique les chiffres et hypothèses, mais ne décide pas votre statut IR35.",
+        dayRateLabel:"Day rate",
+        daysWeekLabel:"Jours par semaine",
+        weeksYearLabel:"Semaines par an",
+        weeksHint:"Utilisez les semaines réellement travaillées et payées.",
+        umbrellaFeeLabel:"Frais umbrella par semaine",
+        expensesLabel:"Dépenses annuelles admises (outside IR35)",
+        directorSalaryLabel:"Director salary (outside IR35)",
+        directorSalaryHint:"Le défaut utilise une estimation simple courante.",
+        inlineNote:"Cette page ne décide pas si un contrat est inside ou outside IR35. Elle compare seulement le take-home estimé après le choix d’un scénario.",
+        calcBtn:"Calculer l’estimation",
+        resetBtn:"Réinitialiser l’exemple",
+        insideKpiLabel:"Take-home annuel inside IR35",
+        outsideKpiLabel:"Take-home annuel outside IR35",
+        perMonth:"par mois",
+        differenceLabel:"Différence estimée",
+        moreOutside:"de plus outside IR35",
+        moreInside:"de plus inside IR35",
+        summaryFootnote:"Hypothèses : bandes Income Tax Angleterre/Pays de Galles/Irlande du Nord, employee NI 2026/27, employer NI 2026/27 et taux standard dividend tax. L’impôt écossais est différent et non inclus.",
+        insideTitle:"Inside IR35",
+        insideSubtitle:"Estimation payroll umbrella",
+        grossContract:"Valeur brute du contrat",
+        umbrellaFees:"Frais umbrella",
+        employerNI:"Employer NI",
+        taxableSalary:"Salaire brut taxable",
+        incomeTax:"Income tax",
+        employeeNI:"Employee NI",
+        netTakeHome:"Net take-home",
+        insideFootnote:"Ce côté suppose que le contrat est traité comme employment pour l’impôt, avec employer NI et frais umbrella retirés de la valeur du contrat avant le net pay.",
+        outsideTitle:"Outside IR35",
+        outsideSubtitle:"Estimation limited company",
+        companyRevenue:"Revenu société",
+        allowableExpenses:"Dépenses admises",
+        directorSalaryRow:"Director salary",
+        profitBeforeTax:"Profit avant Corporation Tax",
+        corpTax:"Corporation Tax",
+        dividendsAvailable:"Dividendes disponibles",
+        dividendTax:"Dividend tax",
+        outsideFootnote:"Ce côté est une estimation simplifiée director salary + dividends. Il n’inclut pas VAT, accountant fees, pension strategy, associated companies ou tax planning personnalisé.",
+        contentTitle:"Comment fonctionne l’estimation IR35",
+        insideHeading:"Inside IR35",
+        insideP:"Le côté inside IR35 suppose un flux payroll umbrella. Les frais umbrella sont retirés d’abord. Employer National Insurance est traité comme coût de contrat, puis le salaire taxable restant sert à estimer PAYE et employee NI.",
+        outsideHeading:"Outside IR35",
+        outsideP:"Le côté outside IR35 suppose que vous travaillez via votre limited company, payez un director salary, déduisez les dépenses admises, payez Corporation Tax puis prenez le profit après impôt en dividendes.",
+        notDoTitle:"Ce que cette page ne fait pas",
+        notDo1:"Elle ne détermine pas le statut employment.",
+        notDo2:"Elle ne remplace pas une Status Determination Statement ou un conseil professionnel.",
+        notDo3:"Elle ne couvre pas Scottish income tax, VAT, pension planning ou tous les modèles umbrella.",
+        faqTitle:"Questions fréquentes",
+        faq1Q:"Ce calculateur me dit-il si mon contrat est inside IR35 ?",
+        faq1A:"Non. Il compare les résultats après choix d’un scénario. Le statut IR35 dépend du contrat et des pratiques réelles.",
+        faq2Q:"Pourquoi le chiffre inside IR35 est-il souvent plus bas ?",
+        faq2A:"Parce que l’estimation inclut employer NI comme coût du contrat, puis applique employee PAYE tax et employee NI au deemed salary. Les frais umbrella réduisent aussi le résultat.",
+        faq3Q:"Pourquoi l’Écosse n’est-elle pas incluse ?",
+        faq3A:"Les bandes Scottish income tax sont différentes pour employment income. Cette page garde l’estimation contractor simplifiée.",
+        relatedTitle:"Outils liés",
+        relatedTaxTitle:"Calculateur impôt UK",
+        relatedTaxText:"Vérifier salary tax et NI avec une vue employment plus simple.",
+        relatedDividendTitle:"Salary vs Dividend",
+        relatedDividendText:"Comparer une combinaison director salary et dividend courante.",
+        relatedVatTitle:"Calculateur VAT",
+        relatedVatText:"Utile pour les factures contractor et les vérifications VAT.",
+        footerNote:"© 2026 Mini-Tools.uk · outils fiscaux UK avec hypothèses claires."
+      },
+      es: {
+        htmlLang:"es",
+        langLabel:"Español",
+        locale:"es-ES",
+        title:"Calculadora IR35 Take-Home 2026/27｜Inside vs Outside IR35｜Mini-Tools.uk",
+        description:"Estima take-home pay para contractor UK inside IR35 y outside IR35. Compara umbrella PAYE con un escenario simplificado de limited company.",
+        keywords:"calculadora IR35, inside IR35 calculator, outside IR35 calculator, contractor take home UK, umbrella PAYE calculator",
+        skip:"Saltar al contenido",
+        brandSubtitle:"Calculadoras prácticas y herramientas web",
+        navHome:"Inicio",
+        navTools:"Todas las herramientas",
+        navCategories:"Categorías",
+        navBlog:"Blog",
+        navAbout:"Acerca de",
+        navContact:"Contacto",
+        privacy:"Privacidad",
+        catFinance:"Finanzas UK",
+        catFinanceSmall:"Impuestos, VAT, hipoteca y contractor",
+        catDev:"Herramientas developer",
+        catDevSmall:"JSON, diff, tokens y código",
+        catImage:"Imagen y PDF",
+        catImageSmall:"Compresión, conversión y medios",
+        catSecurity:"Seguridad y privacidad",
+        catSecuritySmall:"Contraseñas y herramientas privacy-first",
+        eyebrow:"Estimación contractor UK · año fiscal 2026/27",
+        heroTitle:"Calculadora IR35 2026/27: Inside vs Outside IR35",
+        heroText:"Compara una estimación umbrella-style inside IR35 con una estimación limited company outside IR35. Esta página explica números y supuestos, pero no decide tu estatus IR35.",
+        dayRateLabel:"Day rate",
+        daysWeekLabel:"Días por semana",
+        weeksYearLabel:"Semanas por año",
+        weeksHint:"Usa semanas realmente trabajadas y pagadas.",
+        umbrellaFeeLabel:"Umbrella fee por semana",
+        expensesLabel:"Gastos anuales permitidos (outside IR35)",
+        directorSalaryLabel:"Director salary (outside IR35)",
+        directorSalaryHint:"El valor por defecto usa una estimación simple común.",
+        inlineNote:"Esta página no decide si un contrato está inside u outside IR35. Solo compara take-home estimado tras elegir un escenario.",
+        calcBtn:"Calcular estimación",
+        resetBtn:"Restablecer ejemplo",
+        insideKpiLabel:"Take-home anual inside IR35",
+        outsideKpiLabel:"Take-home anual outside IR35",
+        perMonth:"por mes",
+        differenceLabel:"Diferencia estimada",
+        moreOutside:"más outside IR35",
+        moreInside:"más inside IR35",
+        summaryFootnote:"Supuestos: bandas de Income Tax de Inglaterra/Gales/Irlanda del Norte, employee NI 2026/27, employer NI 2026/27 y tasas estándar de dividend tax. Scottish income tax es distinto y no está incluido.",
+        insideTitle:"Inside IR35",
+        insideSubtitle:"Estimación payroll umbrella",
+        grossContract:"Valor bruto del contrato",
+        umbrellaFees:"Umbrella fees",
+        employerNI:"Employer NI",
+        taxableSalary:"Salario bruto imponible",
+        incomeTax:"Income tax",
+        employeeNI:"Employee NI",
+        netTakeHome:"Net take-home",
+        insideFootnote:"Este lado asume que el contrato se trata como employment para impuestos, con employer NI y costes umbrella saliendo del contrato antes del net pay.",
+        outsideTitle:"Outside IR35",
+        outsideSubtitle:"Estimación limited company",
+        companyRevenue:"Ingresos de empresa",
+        allowableExpenses:"Gastos permitidos",
+        directorSalaryRow:"Director salary",
+        profitBeforeTax:"Beneficio antes de Corporation Tax",
+        corpTax:"Corporation Tax",
+        dividendsAvailable:"Dividendos disponibles",
+        dividendTax:"Dividend tax",
+        outsideFootnote:"Este lado es una estimación simplificada director salary + dividends. No incluye VAT, accountant fees, pension strategy, associated companies ni tax planning personalizado.",
+        contentTitle:"Cómo funciona la estimación IR35",
+        insideHeading:"Inside IR35",
+        insideP:"El lado inside IR35 asume un flujo payroll umbrella. Primero se retiran umbrella fees. Employer National Insurance se trata como coste del contrato, y el salario imponible restante se usa para estimar PAYE y employee NI.",
+        outsideHeading:"Outside IR35",
+        outsideP:"El lado outside IR35 asume que trabajas mediante tu limited company, pagas director salary, deduces gastos permitidos, pagas Corporation Tax y tomas el beneficio post-tax restante como dividends.",
+        notDoTitle:"Lo que esta página no hace",
+        notDo1:"No determina employment status.",
+        notDo2:"No sustituye una Status Determination Statement ni asesoramiento profesional.",
+        notDo3:"No cubre Scottish income tax, VAT, pension planning ni todos los modelos umbrella.",
+        faqTitle:"Preguntas frecuentes",
+        faq1Q:"¿La calculadora me dice si mi contrato está inside IR35?",
+        faq1A:"No. Compara resultados tras elegir un escenario. El estatus IR35 depende del contrato y las prácticas reales.",
+        faq2Q:"¿Por qué inside IR35 suele ser mucho menor?",
+        faq2A:"Porque la estimación incluye employer NI como coste del contrato, y después aplica employee PAYE tax y employee NI al deemed salary. Umbrella fees también reducen el resultado.",
+        faq3Q:"¿Por qué Escocia no está incluida?",
+        faq3A:"Las bandas de Scottish income tax son distintas para employment income. Esta página mantiene la estimación contractor simplificada.",
+        relatedTitle:"Herramientas relacionadas",
+        relatedTaxTitle:"Calculadora impuestos UK",
+        relatedTaxText:"Revisar salary tax y NI con una vista employment más simple.",
+        relatedDividendTitle:"Salary vs Dividend",
+        relatedDividendText:"Comparar una mezcla común de director salary y dividend.",
+        relatedVatTitle:"Calculadora VAT",
+        relatedVatText:"Útil para facturas contractor y revisiones rápidas de VAT.",
+        footerNote:"© 2026 Mini-Tools.uk · herramientas fiscales UK con supuestos claros."
+      }
+    };
+
+    const allowedLangs = ["en","zh-CN","de","fr","es"];
+    let currentLang = "en";
+    const fmtCache0 = {};
+
+    function getDict(){ return translations[currentLang] || translations.en; }
+
+    function formatter(){
+      const locale = getDict().locale || "en-GB";
+      if (!fmtCache0[locale]) {
+        fmtCache0[locale] = new Intl.NumberFormat(locale, { style: "currency", currency: "GBP", maximumFractionDigits: 0 });
+      }
+      return fmtCache0[locale];
+    }
+
+    function money(v){ return formatter().format(Math.max(0, v)); }
+
+    function getInitialLang(){
+      const params = new URLSearchParams(window.location.search);
+      let lang = params.get("lang");
+      if (lang === "zh") lang = "zh-CN";
+      if (allowedLangs.includes(lang)) return lang;
+      const saved = localStorage.getItem("miniToolsIR35Lang");
+      if (allowedLangs.includes(saved)) return saved;
+      const browser = navigator.language || "en";
+      if (browser.startsWith("zh")) return "zh-CN";
+      if (browser.startsWith("de")) return "de";
+      if (browser.startsWith("fr")) return "fr";
+      if (browser.startsWith("es")) return "es";
+      return "en";
+    }
+
+    function setMeta(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setOg(property, content){
+      const tag = document.querySelector(`meta[property="${property}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setTwitter(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function applyLanguage(lang, updateUrl = true){
+      currentLang = allowedLangs.includes(lang) ? lang : "en";
+      const dict = getDict();
+
+      document.documentElement.lang = dict.htmlLang || "en-GB";
+      document.title = dict.title;
+      setMeta("description", dict.description);
+      setMeta("keywords", dict.keywords);
+      setOg("og:title", dict.title);
+      setOg("og:description", dict.description);
+      setTwitter("twitter:title", dict.title);
+      setTwitter("twitter:description", dict.description);
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+
+      const label = document.getElementById("currentLangLabel");
+      if (label) label.textContent = dict.langLabel;
+
+      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
+      });
+
+      localStorage.setItem("miniToolsIR35Lang", currentLang);
+
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", currentLang);
+        history.replaceState(null, "", url.toString());
+      }
+
+      update();
+    }
+
+    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
+    });
 
     const TAX = {
       allowance: 12570,
@@ -636,14 +1187,14 @@
       tax += basic * 0.20;
 
       if (taxable > TAX.basicBand) {
-        const higher = Math.min(taxable - TAX.basicBand, (TAX.higherThreshold - TAX.allowance - TAX.basicBand));
+        const higherBandLimit = Math.max(0, TAX.higherThreshold - allowance - TAX.basicBand);
+        const higher = Math.min(taxable - TAX.basicBand, higherBandLimit);
         tax += higher * 0.40;
       }
 
-      const additionalStart = TAX.higherThreshold - allowance;
-      if (grossIncome > additionalStart) {
-        const additionalTaxable = grossIncome - additionalStart;
-        tax += additionalTaxable * 0.45;
+      const taxableBeforeAdditional = Math.max(0, TAX.higherThreshold - allowance);
+      if (taxable > taxableBeforeAdditional) {
+        tax += (taxable - taxableBeforeAdditional) * 0.45;
       }
 
       return { tax, allowance, taxable };
@@ -666,7 +1217,6 @@
 
     function solveInsideSalary(contractAfterUmbrella){
       if (contractAfterUmbrella <= 0) return { salary: 0, employerNI: 0 };
-      // salary + 15% * (salary - threshold) = contract amount
       if (contractAfterUmbrella <= NI.employerThreshold) {
         return { salary: contractAfterUmbrella, employerNI: 0 };
       }
@@ -677,8 +1227,6 @@
 
     function corporationTax(profit){
       if (profit <= 0) return 0;
-      // Simple non-associated-company estimate:
-      // small profits rate 19% up to 50k, main rate 25% from 250k, marginal relief in between
       if (profit <= 50000) return profit * 0.19;
       if (profit >= 250000) return profit * 0.25;
       const marginalRelief = ((250000 - profit) * 3) / 200;
@@ -717,20 +1265,19 @@
       return tax;
     }
 
-    function money(v){ return fmt0.format(Math.max(0, v)); }
-    function pct(v){ return clamp(v, 0, 100).toFixed(1) + '%'; }
+    function pct(v){ return clamp(v, 0, 100).toFixed(1) + "%"; }
 
     function update(){
-      const dayRate = Math.max(0, Number(document.getElementById('dayRate').value) || 0);
-      const daysWeek = clamp(Number(document.getElementById('daysWeek').value) || 0, 0, 7);
-      const weeksYear = clamp(Number(document.getElementById('weeksYear').value) || 0, 0, 52);
-      const umbrellaFee = Math.max(0, Number(document.getElementById('umbrellaFee').value) || 0);
-      const expenses = Math.max(0, Number(document.getElementById('expenses').value) || 0);
-      const directorSalary = Math.max(0, Number(document.getElementById('directorSalary').value) || 0);
+      const dict = getDict();
+      const dayRate = Math.max(0, Number(document.getElementById("dayRate").value) || 0);
+      const daysWeek = clamp(Number(document.getElementById("daysWeek").value) || 0, 0, 7);
+      const weeksYear = clamp(Number(document.getElementById("weeksYear").value) || 0, 0, 52);
+      const umbrellaFee = Math.max(0, Number(document.getElementById("umbrellaFee").value) || 0);
+      const expenses = Math.max(0, Number(document.getElementById("expenses").value) || 0);
+      const directorSalary = Math.max(0, Number(document.getElementById("directorSalary").value) || 0);
 
       const revenue = dayRate * daysWeek * weeksYear;
 
-      // Inside IR35
       const annualUmbrella = umbrellaFee * weeksYear;
       const insideContractAfterUmbrella = Math.max(0, revenue - annualUmbrella);
       const insideSolved = solveInsideSalary(insideContractAfterUmbrella);
@@ -740,7 +1287,6 @@
       const insideEeNi = employeeNI(insideSalary);
       const insideNet = Math.max(0, insideSalary - insideTax - insideEeNi);
 
-      // Outside IR35
       const safeSalary = Math.min(directorSalary, Math.max(0, revenue - expenses));
       const profitBeforeTax = Math.max(0, revenue - expenses - safeSalary);
       const corpTax = corporationTax(profitBeforeTax);
@@ -750,65 +1296,67 @@
 
       const diff = outsideNet - insideNet;
 
-      document.getElementById('insideNetHeadline').textContent = money(insideNet);
-      document.getElementById('insideMonthlyHeadline').textContent = money(insideNet / 12) + ' per month';
-      document.getElementById('outsideNetHeadline').textContent = money(outsideNet);
-      document.getElementById('outsideMonthlyHeadline').textContent = money(outsideNet / 12) + ' per month';
-      document.getElementById('differenceHeadline').textContent =
-        diff >= 0 ? (money(diff) + ' more outside IR35') : (money(Math.abs(diff)) + ' more inside IR35');
+      document.getElementById("insideNetHeadline").textContent = money(insideNet);
+      document.getElementById("insideMonthlyHeadline").textContent = money(insideNet / 12) + " " + dict.perMonth;
+      document.getElementById("outsideNetHeadline").textContent = money(outsideNet);
+      document.getElementById("outsideMonthlyHeadline").textContent = money(outsideNet / 12) + " " + dict.perMonth;
+      document.getElementById("differenceHeadline").textContent =
+        diff >= 0 ? (money(diff) + " " + dict.moreOutside) : (money(Math.abs(diff)) + " " + dict.moreInside);
 
-      document.getElementById('inGross').textContent = money(revenue);
-      document.getElementById('inUmbrella').textContent = '-' + money(annualUmbrella);
-      document.getElementById('inEmployerNI').textContent = '-' + money(insideEmployerNi);
-      document.getElementById('inTaxableSalary').textContent = money(insideSalary);
-      document.getElementById('inIncomeTax').textContent = '-' + money(insideTax);
-      document.getElementById('inEmployeeNI').textContent = '-' + money(insideEeNi);
-      document.getElementById('inNet').textContent = money(insideNet);
+      document.getElementById("inGross").textContent = money(revenue);
+      document.getElementById("inUmbrella").textContent = "-" + money(annualUmbrella);
+      document.getElementById("inEmployerNI").textContent = "-" + money(insideEmployerNi);
+      document.getElementById("inTaxableSalary").textContent = money(insideSalary);
+      document.getElementById("inIncomeTax").textContent = "-" + money(insideTax);
+      document.getElementById("inEmployeeNI").textContent = "-" + money(insideEeNi);
+      document.getElementById("inNet").textContent = money(insideNet);
 
-      document.getElementById('outRevenue').textContent = money(revenue);
-      document.getElementById('outExpenses').textContent = '-' + money(expenses);
-      document.getElementById('outSalary').textContent = '+' + money(safeSalary);
-      document.getElementById('outProfitBeforeTax').textContent = money(profitBeforeTax);
-      document.getElementById('outCorpTax').textContent = '-' + money(corpTax);
-      document.getElementById('outDividends').textContent = '+' + money(dividendsAvailable);
-      document.getElementById('outDividendTax').textContent = '-' + money(dividendTaxDue);
-      document.getElementById('outNet').textContent = money(outsideNet);
+      document.getElementById("outRevenue").textContent = money(revenue);
+      document.getElementById("outExpenses").textContent = "-" + money(expenses);
+      document.getElementById("outSalary").textContent = "+" + money(safeSalary);
+      document.getElementById("outProfitBeforeTax").textContent = money(profitBeforeTax);
+      document.getElementById("outCorpTax").textContent = "-" + money(corpTax);
+      document.getElementById("outDividends").textContent = "+" + money(dividendsAvailable);
+      document.getElementById("outDividendTax").textContent = "-" + money(dividendTaxDue);
+      document.getElementById("outNet").textContent = money(outsideNet);
 
       const inNetPct = revenue ? (insideNet / revenue) * 100 : 0;
       const inTaxPct = revenue ? (insideTax / revenue) * 100 : 0;
       const inNiPct = revenue ? ((insideEeNi + insideEmployerNi) / revenue) * 100 : 0;
       const inFeePct = revenue ? (annualUmbrella / revenue) * 100 : 0;
 
-      document.getElementById('inBarNet').style.width = pct(inNetPct);
-      document.getElementById('inBarTax').style.width = pct(inTaxPct);
-      document.getElementById('inBarNI').style.width = pct(inNiPct);
-      document.getElementById('inBarFees').style.width = pct(inFeePct);
+      document.getElementById("inBarNet").style.width = pct(inNetPct);
+      document.getElementById("inBarTax").style.width = pct(inTaxPct);
+      document.getElementById("inBarNI").style.width = pct(inNiPct);
+      document.getElementById("inBarFees").style.width = pct(inFeePct);
 
       const outNetPct = revenue ? (outsideNet / revenue) * 100 : 0;
       const outTaxPct = revenue ? (dividendTaxDue / revenue) * 100 : 0;
       const outCorpPct = revenue ? (corpTax / revenue) * 100 : 0;
 
-      document.getElementById('outBarNet').style.width = pct(outNetPct);
-      document.getElementById('outBarTax').style.width = pct(outTaxPct);
-      document.getElementById('outBarCorp').style.width = pct(outCorpPct);
+      document.getElementById("outBarNet").style.width = pct(outNetPct);
+      document.getElementById("outBarTax").style.width = pct(outTaxPct);
+      document.getElementById("outBarCorp").style.width = pct(outCorpPct);
     }
 
-    document.getElementById('calcBtn').addEventListener('click', update);
-    document.getElementById('resetBtn').addEventListener('click', () => {
-      document.getElementById('dayRate').value = 500;
-      document.getElementById('daysWeek').value = 5;
-      document.getElementById('weeksYear').value = 46;
-      document.getElementById('umbrellaFee').value = 25;
-      document.getElementById('expenses').value = 2000;
-      document.getElementById('directorSalary').value = 12570;
+    document.getElementById("calcBtn").addEventListener("click", update);
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      document.getElementById("dayRate").value = 500;
+      document.getElementById("daysWeek").value = 5;
+      document.getElementById("weeksYear").value = 46;
+      document.getElementById("umbrellaFee").value = 25;
+      document.getElementById("expenses").value = 2000;
+      document.getElementById("directorSalary").value = 12570;
       update();
     });
 
-    ['dayRate','daysWeek','weeksYear','umbrellaFee','expenses','directorSalary'].forEach(id => {
-      document.getElementById(id).addEventListener('input', update);
+    ["dayRate","daysWeek","weeksYear","umbrellaFee","expenses","directorSalary"].forEach(id => {
+      document.getElementById(id).addEventListener("input", update);
     });
 
-    update();
+    window.addEventListener("load", () => {
+      applyLanguage(getInitialLang(), false);
+    });
   </script>
 </body>
 </html>
