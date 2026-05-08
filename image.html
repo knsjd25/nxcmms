@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>Image Resizer & Compressor | Mini-Tools</title>
-  <meta name="description" content="Resize, crop, and compress images in your browser. Adjust dimensions, aspect ratios, quality, and export format without uploading files to a server." />
-  <meta name="keywords" content="image resizer, image compressor, crop image, webp converter, image optimizer, resize photo online, private image tool" />
-  <meta name="robots" content="index, follow" />
+  <title>Image Resizer & Compressor | Resize, Crop & WebP Export | Mini-Tools.uk</title>
+  <meta name="description" content="Resize, crop and compress images in your browser. Adjust dimensions, aspect ratios, quality and export JPG or WebP without uploading files to a server." />
+  <meta name="keywords" content="image resizer, image compressor, crop image online, resize photo online, WebP converter, JPG compressor, image optimizer, 图片压缩工具, 图片尺寸调整工具, 图片裁剪工具" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/image" />
 
-  <meta property="og:title" content="Image Resizer & Compressor | Mini-Tools" />
-  <meta property="og:description" content="Resize, crop, and compress images locally in your browser with JPG and WebP export." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://mini-tools.uk/image" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/image?lang=en" />
+  <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/image?lang=zh-CN" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/image?lang=de" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/image?lang=fr" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/image?lang=es" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/image" />
 
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
@@ -21,15 +24,25 @@
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
+  <meta property="og:title" content="Image Resizer & Compressor | Mini-Tools.uk" />
+  <meta property="og:description" content="Resize, crop and compress images locally in your browser with JPG and WebP export." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mini-tools.uk/image" />
+  <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Image Resizer & Compressor | Mini-Tools.uk" />
+  <meta name="twitter:description" content="Resize, crop and compress images locally in your browser with JPG and WebP export." />
+  <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DR6V84JEZW');
+    gtag("js", new Date());
+    gtag("config", "G-DR6V84JEZW");
   </script>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
 
   <script type="application/ld+json">
   {
@@ -40,35 +53,27 @@
         "name":"Mini-Tools Image Resizer & Compressor",
         "applicationCategory":"MultimediaApplication",
         "operatingSystem":"Web",
-        "description":"Resize, crop, and compress images locally in your browser with adjustable quality and export format.",
-        "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
+        "url":"https://mini-tools.uk/image",
+        "description":"Resize, crop and compress images locally in your browser with adjustable quality and JPG or WebP export.",
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"}
       },
       {
         "@type":"FAQPage",
         "mainEntity":[
           {
             "@type":"Question",
-            "name":"Is this image tool private?",
-            "acceptedAnswer":{
-              "@type":"Answer",
-              "text":"Yes. Images are processed locally in your browser and are not uploaded to our servers."
-            }
+            "name":"Is this image compressor private?",
+            "acceptedAnswer":{"@type":"Answer","text":"Yes. The image is processed in your browser and is not uploaded to Mini-Tools.uk."}
           },
           {
             "@type":"Question",
-            "name":"Can I crop to common aspect ratios?",
-            "acceptedAnswer":{
-              "@type":"Answer",
-              "text":"Yes. You can switch between original, 1:1, 4:3, 16:9, and 9:16 aspect ratios."
-            }
+            "name":"Can I crop images to common aspect ratios?",
+            "acceptedAnswer":{"@type":"Answer","text":"Yes. You can switch between original, 1:1, 4:3, 16:9 and 9:16 ratios."}
           },
           {
             "@type":"Question",
             "name":"Can I export as JPG or WebP?",
-            "acceptedAnswer":{
-              "@type":"Answer",
-              "text":"Yes. The tool supports JPG and WebP export, along with adjustable quality settings."
-            }
+            "acceptedAnswer":{"@type":"Answer","text":"Yes. The tool supports JPG and WebP export with adjustable quality settings."}
           }
         ]
       }
@@ -79,258 +84,329 @@
   <style>
     :root{
       --bg:#f8fafc;
-      --panel:#ffffff;
-      --text:#0f172a;
-      --muted:#64748b;
+      --card:#ffffff;
+      --ink:#0f172a;
+      --muted:#475569;
+      --muted-2:#64748b;
       --line:#e2e8f0;
-      --brand:#2563eb;
-      --brand-soft:#dbeafe;
-      --shadow:0 10px 25px -5px rgba(15,23,42,0.08);
+      --blue:#2563eb;
+      --blue-2:#1d4ed8;
+      --soft:#eff6ff;
+      --soft-2:#f1f5f9;
+      --green:#166534;
+      --green-bg:#dcfce7;
+      --red:#b91c1c;
+      --red-bg:#fef2f2;
+      --amber:#92400e;
+      --amber-bg:#fffbeb;
+      --shadow:none;
       --radius:22px;
-      --sans:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      --sans:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
     }
 
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans)}
-    body{min-height:100vh;display:flex;flex-direction:column}
-    a{text-decoration:none;color:inherit}
-    button,input,textarea,select{font:inherit}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.55;
+    }
 
-    .container{width:min(1420px,calc(100% - 32px));margin:0 auto}
+    a{color:inherit;text-decoration:none}
+    button,input,select{font:inherit}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+    .skip-link{position:absolute;left:14px;top:-48px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:12px;z-index:100}
+    .skip-link:focus{top:14px}
 
-    .site-header{
-      position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);
-      backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
-    }
-    .site-header-inner{
-      min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;
-    }
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;object-fit:contain;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-    .brand-title{font-weight:900;font-size:1.15rem;letter-spacing:-.02em}
-    .brand-title span{color:var(--brand)}
+    .nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;min-width:0}
+    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;box-shadow:none}
+    .brand-copy{display:flex;flex-direction:column;line-height:1.05}
+    .brand-title{font-size:1.06rem;letter-spacing:-.03em}
+    .brand-subtitle{margin-top:4px;color:#64748b;font-size:.79rem;font-weight:600}
+    .nav-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .nav-link,.nav-trigger,.lang-trigger{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border-radius:12px;color:#334155;font-weight:700;font-size:14px;border:1px solid transparent;background:transparent;cursor:pointer}
+    .nav-link:hover,.nav-trigger:hover,.nav-group:hover .nav-trigger,.lang-trigger:hover,.lang-group:hover .lang-trigger{background:#f8fafc;color:#0f172a}
+    .nav-link.current{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+    .nav-group,.lang-group{position:relative;padding-bottom:14px;margin-bottom:-14px}
+    .nav-trigger svg,.lang-trigger svg{width:14px;height:14px;transition:transform .2s ease}
+    .nav-group::after,.lang-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}
+    .nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg,.lang-group:hover .lang-trigger svg,.lang-group:focus-within .lang-trigger svg{transform:rotate(180deg)}
+    .dropdown,.lang-dropdown{position:absolute;top:calc(100% + 2px);right:0;min-width:220px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:none;padding:10px;display:none;z-index:40}
+    .nav-group .dropdown{left:0;right:auto;min-width:245px}
+    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown,.lang-group:hover .lang-dropdown,.lang-group:focus-within .lang-dropdown{display:block}
+    .dropdown a,.lang-dropdown button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:12px;color:#334155;font-size:14px;font-weight:700;border:0;background:transparent;cursor:pointer}
+    .dropdown a small{display:block;margin-top:2px;color:#64748b;font-size:12px;font-weight:600}
+    .dropdown a:hover,.lang-dropdown button:hover,.lang-dropdown button.active{background:#f8fafc;color:#0f172a}
 
-    .nav{display:flex;align-items:center;gap:8px;position:relative}
-    .nav-link,.nav-button{
-      padding:10px 14px;border-radius:12px;font-size:.95rem;font-weight:800;color:#334155;
-      transition:background .2s,color .2s;display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;
-    }
-    .nav-link:hover,.nav-button:hover{background:#f1f5f9;color:#0f172a}
-    .dropdown{position:relative}
-    .dropdown-bridge{position:absolute;left:0;right:0;height:14px;top:100%}
-    .dropdown-menu{
-      position:absolute;top:calc(100% + 10px);left:0;min-width:240px;background:#fff;border:1px solid var(--line);
-      border-radius:16px;padding:10px;box-shadow:0 20px 40px rgba(15,23,42,.12);
-      opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s;
-    }
-    .dropdown.open .dropdown-menu,
-    .dropdown:hover .dropdown-menu,
-    .dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
-    .dropdown-item{display:block;padding:11px 12px;border-radius:12px;font-weight:700;color:#334155}
-    .dropdown-item:hover{background:#f8fafc;color:#0f172a}
-
-    .page-intro{padding:36px 0 20px;text-align:center}
-    .eyebrow{
-      display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;border:1px solid #bfdbfe;
-      background:#eff6ff;color:#1d4ed8;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
-    }
-    h1{margin:14px 0 10px;font-size:clamp(2rem,4vw,3.3rem);line-height:1.05;letter-spacing:-.04em}
-    .intro-text{max-width:780px;margin:0 auto;color:var(--muted);font-size:1.08rem;line-height:1.75}
+    .hero{padding:48px 0 24px;text-align:center}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:var(--green-bg);color:var(--green);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    .hero h1{margin:18px 0 14px;font-size:clamp(2rem,4vw,3.4rem);line-height:1.02;letter-spacing:-.03em}
+    .hero p{margin:0 auto;max-width:860px;color:var(--muted);font-size:1.1rem}
+    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:26px auto 10px;max-width:1120px}
+    .mini-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:none;text-align:left}
+    .mini-card strong{display:block;margin-bottom:6px;font-size:.95rem}
+    .mini-card span{color:var(--muted);font-size:.93rem}
 
     .workspace{
-      display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:24px;margin:14px 0 18px;align-items:start
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 360px;
+      gap:24px;
+      margin:28px auto 40px;
+      max-width:1120px;
+      align-items:start;
     }
-    .panel{
-      background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:0 20px 40px rgba(15,23,42,.08);
-      overflow:hidden;
-    }
+    .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:none;overflow:hidden}
     .drop-zone{
-      border:3px dashed #dbe4ef;border-radius:28px;background:#fff;min-height:470px;padding:18px;cursor:pointer;
-      transition:border-color .2s,background .2s,transform .15s;position:relative
+      border:2px dashed #cbd5e1;
+      border-radius:var(--radius);
+      background:#fff;
+      min-height:470px;
+      padding:18px;
+      cursor:pointer;
+      transition:border-color .2s, background .2s;
     }
-    .drop-zone.active{border-color:#2563eb;background:#eff6ff;transform:scale(1.005)}
+    .drop-zone.active{border-color:#2563eb;background:#eff6ff}
     .drop-inner{
-      min-height:430px;border-radius:22px;background:#f8fafc;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden
+      min-height:430px;
+      border-radius:18px;
+      background:#f8fafc;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+      border:1px solid #eef2f7;
     }
-    .placeholder{
-      text-align:center;padding:28px;color:#64748b
-    }
+    .placeholder{text-align:center;padding:28px;color:#64748b}
     .placeholder-icon{
-      width:92px;height:92px;border-radius:28px;background:#dbeafe;color:#2563eb;display:flex;align-items:center;justify-content:center;
-      margin:0 auto 18px;box-shadow:inset 0 0 0 1px rgba(37,99,235,.08)
+      width:92px;
+      height:92px;
+      border-radius:28px;
+      background:#dbeafe;
+      color:#2563eb;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto 18px;
     }
-    .placeholder h3{margin:0;font-size:1.6rem;letter-spacing:-.03em;color:#0f172a}
-    .placeholder p{margin:10px 0 0;font-size:.86rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8}
-
+    .placeholder h3{margin:0;font-size:1.55rem;letter-spacing:-.03em;color:#0f172a}
+    .placeholder p{margin:10px 0 0;font-size:.82rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8}
     .preview-wrap{
-      width:100%;height:100%;display:none;align-items:center;justify-content:center;background:#e2e8f0;border-radius:22px;padding:18px;position:relative
+      width:100%;
+      height:100%;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:#e2e8f0;
+      border-radius:18px;
+      padding:18px;
+      position:relative;
     }
-    .preview-img{max-width:100%;max-height:100%;object-fit:contain;border-radius:16px;box-shadow:0 12px 28px rgba(15,23,42,.12)}
+    .preview-img{max-width:100%;max-height:100%;object-fit:contain;border-radius:16px}
     .preview-badge{
       position:absolute;right:16px;bottom:16px;padding:6px 12px;border-radius:10px;background:rgba(37,99,235,.92);
-      color:#fff;font-size:.72rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase
+      color:#fff;font-size:.72rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
     }
-
     .stats{
-      margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:20px;
-      display:none
+      margin-top:16px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:20px;
+      box-shadow:none;
+      padding:20px;
+      display:none;
     }
-    .slider-head{
-      display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:12px
-    }
+    .slider-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:12px}
     .slider-label{font-size:.84rem;font-weight:900;letter-spacing:.04em;color:#334155}
     .quality-pill{background:#eff6ff;color:#1d4ed8;border-radius:14px;padding:8px 14px;font-size:1rem;font-weight:900}
-    input[type=range]{
-      -webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:999px;background:#e2e8f0;outline:none
-    }
-    input[type=range]::-webkit-slider-thumb{
-      -webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:#2563eb;border:4px solid #fff;
-      box-shadow:0 4px 10px rgba(0,0,0,.15);cursor:pointer
-    }
-    input[type=range]::-moz-range-thumb{
-      width:26px;height:26px;border-radius:50%;background:#2563eb;border:4px solid #fff;cursor:pointer
-    }
-
+    input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:999px;background:#e2e8f0;outline:none}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;border-radius:50%;background:#2563eb;border:4px solid #fff;box-shadow:none;cursor:pointer}
+    input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#2563eb;border:4px solid #fff;cursor:pointer}
     .size-row{
-      margin-top:16px;background:#f8fafc;border:1px solid #eef2f7;border-radius:20px;padding:16px;
-      display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px
+      margin-top:16px;background:#f8fafc;border:1px solid #eef2f7;border-radius:18px;padding:16px;
+      display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;
     }
-    .size-group{
-      display:flex;align-items:center;gap:14px;font-size:.88rem;font-weight:900;color:#475569
-    }
+    .size-group{display:flex;align-items:center;gap:14px;font-size:.88rem;font-weight:900;color:#475569}
     .size-box span{display:block;font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
-    .save-badge{
-      padding:10px 14px;border-radius:14px;font-size:.9rem;font-weight:900;display:inline-flex;align-items:center;gap:8px
-    }
+    .save-badge{padding:10px 14px;border-radius:14px;font-size:.9rem;font-weight:900;display:inline-flex;align-items:center;gap:8px}
     .save-badge.good{background:#dcfce7;color:#166534}
     .save-badge.bad{background:#fee2e2;color:#991b1b}
 
-    .side{
-      position:sticky;top:96px;padding:22px
-    }
+    .side{padding:22px}
     .section + .section{margin-top:24px}
     .section-title{
       display:flex;align-items:center;gap:10px;padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid #eef2f7;
-      font-size:.76rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#0f172a
+      font-size:.76rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#0f172a;
     }
     .dot{width:8px;height:8px;border-radius:50%}
     .dot.blue{background:#2563eb}
     .dot.gray{background:#94a3b8}
-
     .ratio-grid,.fmt-grid{display:grid;gap:10px}
     .ratio-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
     .fmt-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
     .chip{
-      border:1px solid var(--line);background:#f8fafc;color:#475569;border-radius:14px;padding:12px 10px;text-align:center;
-      font-size:.82rem;font-weight:900;cursor:pointer;transition:.18s
+      border:1px solid var(--line);
+      background:#f8fafc;
+      color:#475569;
+      border-radius:14px;
+      padding:12px 10px;
+      text-align:center;
+      font-size:.82rem;
+      font-weight:900;
+      cursor:pointer;
+      transition:.18s;
     }
     .chip:hover{background:#f1f5f9}
-    .chip.active{background:#2563eb;color:#fff;border-color:#2563eb;box-shadow:0 10px 22px rgba(37,99,235,.18)}
-
+    .chip.active{background:#2563eb;color:#fff;border-color:#2563eb;box-shadow:none}
     .field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .field label{
-      display:block;margin-bottom:8px;font-size:.68rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:#94a3b8
-    }
+    .field label{display:block;margin-bottom:8px;font-size:.68rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:#94a3b8}
     .field input{
-      width:100%;padding:14px 14px;border:1px solid var(--line);border-radius:14px;background:#f8fafc;color:#0f172a;font-weight:800;outline:none
+      width:100%;padding:14px 14px;border:1px solid var(--line);border-radius:14px;background:#f8fafc;color:#0f172a;font-weight:800;outline:none;
     }
     .field input:focus{border-color:#93c5fd;box-shadow:0 0 0 4px rgba(37,99,235,.1)}
-    .toggle{
-      display:flex;align-items:center;gap:10px;margin-top:12px;font-size:.88rem;font-weight:800;color:#475569
-    }
+    .toggle{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:.88rem;font-weight:800;color:#475569}
     .toggle input{width:18px;height:18px;accent-color:#2563eb}
-
     .main-btn{
-      width:100%;margin-top:18px;border:none;border-radius:18px;background:#2563eb;color:#fff;padding:18px 20px;
-      font-size:.96rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:.18s;
-      box-shadow:0 18px 30px rgba(37,99,235,.22)
+      width:100%;
+      margin-top:18px;
+      border:none;
+      border-radius:18px;
+      background:linear-gradient(180deg,var(--blue),var(--blue-2));
+      color:#fff;
+      padding:16px 20px;
+      font-size:.96rem;
+      font-weight:900;
+      letter-spacing:.04em;
+      cursor:pointer;
+      box-shadow:none;
     }
     .main-btn:hover{background:#1d4ed8}
+    .main-btn:disabled{opacity:.55;cursor:not-allowed}
 
-    .section-card{
-      margin:28px 0 0;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:28px
-    }
-    .section-card h2{margin:0 0 12px;font-size:1.8rem;letter-spacing:-.03em}
-    .section-card p{color:var(--muted);line-height:1.75}
-    .faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
-    .faq-item{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:18px}
-    .faq-item h3{margin:0 0 8px;font-size:1.05rem}
-    .faq-item p{margin:0;font-size:.98rem}
+    .article-wrap{margin:18px auto 56px;max-width:1120px;display:grid;grid-template-columns:minmax(0,760px) 320px;gap:24px;justify-content:center}
+    .article{background:#fff;border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:none}
+    .article h2{font-size:1.7rem;line-height:1.15;margin:0 0 14px}
+    .article h3{font-size:1.22rem;margin:30px 0 12px}
+    .article p{color:var(--muted);margin:0 0 14px}
+    .article ul{color:var(--muted);padding-left:20px}
+    .article li{margin-bottom:10px}
+    .faq{margin-top:24px;display:grid;gap:14px}
+    .faq-item{border:1px solid var(--line);border-radius:18px;background:#f8fafc;padding:18px}
+    .faq-item h4{margin:0 0 8px;font-size:1.03rem}
+    .faq-item p{margin:0;color:var(--muted)}
+    .side-info{display:grid;gap:16px;align-self:start;position:sticky;top:96px}
+    .side-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:none}
+    .side-card h3{margin:0 0 12px;font-size:1rem}
+    .side-card p,.side-card li{color:var(--muted);font-size:.92rem}
+    .side-card ul{margin:0;padding-left:18px}
+    .chips{display:flex;flex-wrap:wrap;gap:10px}
+    .tag{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;padding:8px 12px;font-size:.82rem;font-weight:800}
+    .related-links{display:grid;gap:10px}
+    .related-links a{padding:12px 14px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-weight:800;color:#1e293b}
+    .related-links a:hover{background:#eff6ff;border-color:#bfdbfe}
 
-    .site-footer{
-      margin-top:40px;padding:28px 0;background:#fff;border-top:1px solid var(--line)
-    }
-    .footer-links{
-      display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-bottom:12px;font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#64748b
-    }
-    .footer-links a:hover{color:var(--brand)}
-    .footer-note{text-align:center;font-size:.72rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#cbd5e1}
-
+    .footer{border-top:1px solid var(--line);background:#fff;padding:28px 0 46px}
+    .footer-inner{display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap;color:#64748b;font-size:.9rem}
+    .footer-links{display:flex;gap:14px;flex-wrap:wrap}
+    .footer-links a{font-weight:700}
     canvas{display:none}
 
-    @media (max-width:1100px){
-      .workspace{grid-template-columns:1fr}
-      .side{position:static}
-      .faq-grid{grid-template-columns:1fr}
-      .site-header-inner{flex-wrap:wrap;padding:10px 0}
-      .nav{width:100%;overflow:auto;padding-bottom:4px}
+    @media (max-width:980px){
+      .workspace,.article-wrap{grid-template-columns:1fr}
+      .side-info{position:static}
+      .nav-inner{align-items:flex-start;flex-direction:column;padding:12px 0}
+      .nav-links{justify-content:flex-start}
+      .panel.right{position:static}
     }
-    @media (max-width:640px){
-      .container{width:min(100% - 20px,1420px)}
+    @media (max-width:760px){
+      .mini-grid,.field-grid{grid-template-columns:1fr}
       .ratio-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-      .field-grid{grid-template-columns:1fr}
+      .side,.article{padding:22px}
       .drop-zone{min-height:380px}
       .drop-inner{min-height:340px}
-      .size-row{align-items:flex-start}
+      .dropdown,.lang-dropdown{left:0;right:auto}
+      .footer-inner{align-items:flex-start;flex-direction:column}
     }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container site-header-inner">
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+  <nav class="nav">
+    <div class="wrap nav-inner">
       <a class="brand" href="/">
-        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools logo" />
-        <div class="brand-title">Mini-Tools<span>.uk</span></div>
+        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" />
+        <span class="brand-copy">
+          <span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span>
+          <span class="brand-subtitle" data-i18n="brandSubtitle">Practical calculators and browser tools</span>
+        </span>
       </a>
 
-      <nav class="nav" aria-label="Main navigation">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/#all-tools">All Tools</a>
+      <div class="nav-links" aria-label="Primary navigation">
+        <a class="nav-link" href="/" data-i18n="navHome">Home</a>
+        <a class="nav-link" href="/#featured-tools" data-i18n="navTools">All Tools</a>
 
-        <div class="dropdown" id="categoriesDropdown">
-          <button class="nav-button" type="button" aria-expanded="false" aria-controls="categoriesMenu">
-            Categories
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+        <div class="nav-group">
+          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="navCategories">Categories</span>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-          <div class="dropdown-bridge" aria-hidden="true"></div>
-          <div class="dropdown-menu" id="categoriesMenu" role="menu">
-            <a class="dropdown-item" href="/#uk-finance">UK Finance</a>
-            <a class="dropdown-item" href="/#developer-tools">Developer Tools</a>
-            <a class="dropdown-item" href="/#image-tools">Image & PDF</a>
-            <a class="dropdown-item" href="/#text-conversion">Text & Conversion</a>
-            <a class="dropdown-item" href="/#privacy-security">Security & Privacy</a>
+          <div class="dropdown" role="menu">
+            <a href="/#uk-finance"><span data-i18n="catFinance">UK Finance</span><small data-i18n="catFinanceSmall">Tax, VAT, mortgage and contractor tools</small></a>
+            <a href="/#developer-tools"><span data-i18n="catDev">Developer Tools</span><small data-i18n="catDevSmall">JSON, diff, image hosting and AI token estimation</small></a>
+            <a href="/#image-tools"><span data-i18n="catImage">Image & PDF</span><small data-i18n="catImageSmall">Compression, conversion and media utilities</small></a>
+            <a href="/password"><span data-i18n="catSecurity">Security</span><small data-i18n="catSecuritySmall">Password and privacy helpers</small></a>
           </div>
         </div>
 
-        <a class="nav-link" href="/blog">Blog</a>
-        <a class="nav-link" href="/about">About</a>
-      </nav>
-    </div>
-  </header>
+        <a class="nav-link" href="/blog" data-i18n="navBlog">Blog</a>
+        <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
+        <a class="nav-link" href="/contact" data-i18n="navContact">Contact</a>
 
-  <main class="container">
-    <section class="page-intro">
-      <div class="eyebrow">Image Tool • Local Processing</div>
-      <h1>Image Resizer & Compressor</h1>
-      <p class="intro-text">
-        Resize, crop, and compress images locally in your browser. Adjust dimensions, switch aspect ratios,
-        tune export quality, and download the optimized result.
-      </p>
+        <div class="lang-group">
+          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            <span id="currentLangLabel">English</span>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="lang-dropdown" role="menu" aria-label="Language">
+            <button type="button" data-lang-btn="en">English</button>
+            <button type="button" data-lang-btn="zh-CN">中文</button>
+            <button type="button" data-lang-btn="de">Deutsch</button>
+            <button type="button" data-lang-btn="fr">Français</button>
+            <button type="button" data-lang-btn="es">Español</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="wrap">
+    <section class="hero">
+      <span class="badge" data-i18n="badge">Image tool · local processing</span>
+      <h1 data-i18n="heroTitle">Image Resizer & Compressor</h1>
+      <p data-i18n="heroText">Resize, crop and compress images locally in your browser. Adjust dimensions, switch aspect ratios, tune export quality and download JPG or WebP output.</p>
+
+      <div class="mini-grid">
+        <div class="mini-card">
+          <strong data-i18n="mini1Title">Resize and compress</strong>
+          <span data-i18n="mini1Text">Reduce image dimensions and file size before uploading to websites, blogs or forms.</span>
+        </div>
+        <div class="mini-card">
+          <strong data-i18n="mini2Title">Common crop ratios</strong>
+          <span data-i18n="mini2Text">Crop to original, square, landscape or portrait ratios for publishing and social images.</span>
+        </div>
+        <div class="mini-card">
+          <strong data-i18n="mini3Title">JPG and WebP export</strong>
+          <span data-i18n="mini3Text">Choose a compatible JPG output or a smaller WebP file with adjustable quality.</span>
+        </div>
+      </div>
     </section>
 
-    <section class="workspace">
+    <section class="workspace" aria-label="Image resizing and compression workspace">
       <div>
         <div class="drop-zone panel" id="dropArea">
           <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" hidden />
@@ -341,20 +417,20 @@
                   <path d="M4 16L8.58579 11.4142C9.36684 10.6332 10.6332 10.6332 11.4142 11.4142L16 16M14 14L15.5858 12.4142C16.3668 11.6332 17.6332 11.6332 18.4142 12.4142L20 14M14 6H14.01M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              <h3>Select or Drag Image</h3>
-              <p>JPG, PNG, or WebP</p>
+              <h3 data-i18n="placeholderTitle">Select or drag image</h3>
+              <p data-i18n="placeholderText">JPG, PNG or WebP</p>
             </div>
 
             <div class="preview-wrap" id="previewWrap">
               <img id="previewImage" class="preview-img" alt="Optimized preview" />
-              <div class="preview-badge">Live Preview</div>
+              <div class="preview-badge" data-i18n="previewBadge">Live preview</div>
             </div>
           </div>
         </div>
 
         <div class="stats" id="statsCard">
           <div class="slider-head">
-            <div class="slider-label">Image quality</div>
+            <div class="slider-label" data-i18n="qualityLabel">Image quality</div>
             <div class="quality-pill" id="qualityValue">80%</div>
           </div>
 
@@ -363,20 +439,20 @@
           <div class="size-row">
             <div class="size-group">
               <div class="size-box">
-                <span>Original</span>
+                <span data-i18n="originalLabel">Original</span>
                 <strong id="originalSize">0 KB</strong>
               </div>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="color:#cbd5e1">
                 <path d="M14 5L21 12L14 19M21 12H3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
               <div class="size-box">
-                <span>Optimized</span>
+                <span data-i18n="optimizedLabel">Optimized</span>
                 <strong id="optimizedSize">0 KB</strong>
               </div>
             </div>
 
             <div class="save-badge good" id="savingBadge">
-              <span>Saved</span>
+              <span id="savingText" data-i18n="savedLabel">Saved</span>
               <strong id="savedPercent">0%</strong>
             </div>
           </div>
@@ -385,9 +461,9 @@
 
       <aside class="panel side">
         <div class="section">
-          <div class="section-title"><span class="dot blue"></span> Aspect ratio</div>
+          <div class="section-title"><span class="dot blue"></span><span data-i18n="aspectTitle">Aspect ratio</span></div>
           <div class="ratio-grid">
-            <button class="chip active" data-ratio="original">Orig</button>
+            <button class="chip active" data-ratio="original" data-i18n="ratioOriginal">Orig</button>
             <button class="chip" data-ratio="1:1">1:1</button>
             <button class="chip" data-ratio="4:3">4:3</button>
             <button class="chip" data-ratio="16:9">16:9</button>
@@ -396,82 +472,570 @@
         </div>
 
         <div class="section">
-          <div class="section-title"><span class="dot gray"></span> Dimensions</div>
+          <div class="section-title"><span class="dot gray"></span><span data-i18n="dimensionsTitle">Dimensions</span></div>
           <div class="field-grid">
             <div class="field">
-              <label for="widthInput">Width (px)</label>
+              <label for="widthInput" data-i18n="widthLabel">Width (px)</label>
               <input type="number" id="widthInput" />
             </div>
             <div class="field">
-              <label for="heightInput">Height (px)</label>
+              <label for="heightInput" data-i18n="heightLabel">Height (px)</label>
               <input type="number" id="heightInput" />
             </div>
           </div>
 
           <label class="toggle">
             <input type="checkbox" id="lockRatioInput" checked />
-            <span>Lock aspect ratio</span>
+            <span data-i18n="lockRatioLabel">Lock aspect ratio</span>
           </label>
         </div>
 
         <div class="section">
-          <div class="section-title"><span class="dot gray"></span> Export format</div>
+          <div class="section-title"><span class="dot gray"></span><span data-i18n="formatTitle">Export format</span></div>
           <div class="fmt-grid">
             <button class="chip" data-format="image/jpeg">JPG</button>
             <button class="chip active" data-format="image/webp">WEBP</button>
           </div>
         </div>
 
-        <button class="main-btn" id="downloadBtn" type="button">Download Optimized</button>
+        <button class="main-btn" id="downloadBtn" type="button" data-i18n="downloadBtn">Download optimized</button>
       </aside>
     </section>
 
-    <section class="section-card">
-      <h2>Why this image tool is useful</h2>
-      <p>
-        Unoptimized images are one of the fastest ways to slow down a website or increase upload size. This page lets
-        you resize images, switch aspect ratios, lower file size, and export to a more efficient format without
-        sending files to a remote server. It is a simple local workflow for content publishing, design prep, and
-        general image cleanup.
-      </p>
+    <section class="article-wrap">
+      <article class="article">
+        <h2 data-i18n="articleTitle">Why this image resizer is useful</h2>
+        <p data-i18n="articleP1">Large images can slow down websites, make forms fail, and increase upload time. This page helps you resize photos, crop to common ratios, lower file size and export a cleaner JPG or WebP file.</p>
+        <p data-i18n="articleP2">The tool uses the browser canvas API. For normal use, the selected image is processed locally in your browser instead of being uploaded to Mini-Tools.uk.</p>
+        <p data-i18n="articleP3">For Chinese users, this page can also be used as a 图片压缩工具, 图片尺寸调整工具, 图片裁剪工具 and WebP转换工具.</p>
 
-      <div class="faq-grid">
-        <article class="faq-item">
-          <h3>Is it private?</h3>
-          <p>Yes. The image is processed locally in your browser and is not uploaded to our servers.</p>
-        </article>
-        <article class="faq-item">
-          <h3>Can I crop to social media ratios?</h3>
-          <p>Yes. You can switch between original, 1:1, 4:3, 16:9, and 9:16 aspect ratios.</p>
-        </article>
-        <article class="faq-item">
-          <h3>Should I use JPG or WebP?</h3>
-          <p>WebP is often smaller at similar quality, while JPG remains a widely compatible option.</p>
-        </article>
-        <article class="faq-item">
-          <h3>Will it keep the image sharp?</h3>
-          <p>It aims to preserve clarity while reducing size, but the final result depends on the original image and your quality setting.</p>
-        </article>
-      </div>
+        <h3 data-i18n="privacyTitle">Local processing note</h3>
+        <p data-i18n="privacyText">Your image is rendered and exported in the browser. The page does not need an account, API key or remote upload for resizing and compression.</p>
+
+        <h3 data-i18n="useTitle">Common use cases</h3>
+        <ul>
+          <li data-i18n="use1">Compress a photo before uploading it to a website, CMS or form.</li>
+          <li data-i18n="use2">Crop an image to square, landscape or portrait format for social posts.</li>
+          <li data-i18n="use3">Resize a screenshot before attaching it to a ticket or documentation page.</li>
+          <li data-i18n="use4">Convert JPG or PNG to WebP when you need smaller web images.</li>
+        </ul>
+
+        <div class="faq">
+          <div class="faq-item">
+            <h4 data-i18n="faq1Q">Is this image compressor private?</h4>
+            <p data-i18n="faq1A">Yes. The image is processed locally in your browser and is not uploaded to Mini-Tools.uk.</p>
+          </div>
+          <div class="faq-item">
+            <h4 data-i18n="faq2Q">Can I crop to common aspect ratios?</h4>
+            <p data-i18n="faq2A">Yes. You can switch between original, 1:1, 4:3, 16:9 and 9:16 ratios.</p>
+          </div>
+          <div class="faq-item">
+            <h4 data-i18n="faq3Q">Should I use JPG or WebP?</h4>
+            <p data-i18n="faq3A">WebP is often smaller at similar quality, while JPG is still a widely compatible option.</p>
+          </div>
+        </div>
+      </article>
+
+      <aside class="side-info">
+        <div class="side-card">
+          <h3 data-i18n="sideUseTitle">Useful for</h3>
+          <div class="chips">
+            <span class="tag" data-i18n="chip1">Website images</span>
+            <span class="tag" data-i18n="chip2">Blog uploads</span>
+            <span class="tag" data-i18n="chip3">Social crops</span>
+            <span class="tag" data-i18n="chip4">WebP export</span>
+          </div>
+        </div>
+
+        <div class="side-card">
+          <h3 data-i18n="sideFeaturesTitle">Features</h3>
+          <ul>
+            <li data-i18n="feature1">Resize by width and height</li>
+            <li data-i18n="feature2">Lock aspect ratio</li>
+            <li data-i18n="feature3">Crop to common ratios</li>
+            <li data-i18n="feature4">Adjust export quality</li>
+            <li data-i18n="feature5">Download JPG or WebP</li>
+          </ul>
+        </div>
+
+        <div class="side-card">
+          <h3 data-i18n="sideKeywordsTitle">Related searches</h3>
+          <div class="chips">
+            <span class="tag" data-i18n="kw1">image compressor</span>
+            <span class="tag" data-i18n="kw2">image resizer</span>
+            <span class="tag" data-i18n="kw3">图片压缩工具</span>
+            <span class="tag" data-i18n="kw4">图片裁剪工具</span>
+          </div>
+        </div>
+
+        <div class="side-card">
+          <h3 data-i18n="relatedTitle">Related tools</h3>
+          <div class="related-links">
+            <a href="/color-picker" data-i18n="relatedColor">Image color picker</a>
+            <a href="/pdf-to-image" data-i18n="relatedPdf">PDF to image</a>
+            <a href="/image-hosting" data-i18n="relatedHosting">Image hosting</a>
+          </div>
+        </div>
+      </aside>
     </section>
   </main>
 
   <canvas id="workCanvas"></canvas>
 
-  <footer class="site-footer">
-    <div class="container">
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>© 2026 Mini-Tools.uk</div>
       <div class="footer-links">
-        <a href="/">Home</a>
-        <a href="/blog">Blog</a>
-        <a href="/about">About</a>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/contact">Contact</a>
+        <a href="/about" data-i18n="navAbout">About</a>
+        <a href="/blog" data-i18n="navBlog">Blog</a>
+        <a href="/privacy" data-i18n="privacy">Privacy</a>
+        <a href="/contact" data-i18n="navContact">Contact</a>
       </div>
-      <div class="footer-note">© 2026 Mini-Tools.uk — secure local image utilities</div>
     </div>
   </footer>
 
   <script>
+    const translations = {
+      en: {
+        htmlLang:"en-GB",
+        langLabel:"English",
+        title:"Image Resizer & Compressor | Resize, Crop & WebP Export | Mini-Tools.uk",
+        description:"Resize, crop and compress images in your browser. Adjust dimensions, aspect ratios, quality and export JPG or WebP without uploading files to a server.",
+        keywords:"image resizer, image compressor, crop image online, resize photo online, WebP converter, JPG compressor, image optimizer",
+        skip:"Skip to content",
+        brandSubtitle:"Practical calculators and browser tools",
+        navHome:"Home",
+        navTools:"All Tools",
+        navCategories:"Categories",
+        navBlog:"Blog",
+        navAbout:"About",
+        navContact:"Contact",
+        privacy:"Privacy",
+        catFinance:"UK Finance",
+        catFinanceSmall:"Tax, VAT, mortgage and contractor tools",
+        catDev:"Developer Tools",
+        catDevSmall:"JSON, diff, image hosting and AI token estimation",
+        catImage:"Image & PDF",
+        catImageSmall:"Compression, conversion and media utilities",
+        catSecurity:"Security",
+        catSecuritySmall:"Password and privacy helpers",
+        badge:"Image tool · local processing",
+        heroTitle:"Image Resizer & Compressor",
+        heroText:"Resize, crop and compress images locally in your browser. Adjust dimensions, switch aspect ratios, tune export quality and download JPG or WebP output.",
+        mini1Title:"Resize and compress",
+        mini1Text:"Reduce image dimensions and file size before uploading to websites, blogs or forms.",
+        mini2Title:"Common crop ratios",
+        mini2Text:"Crop to original, square, landscape or portrait ratios for publishing and social images.",
+        mini3Title:"JPG and WebP export",
+        mini3Text:"Choose a compatible JPG output or a smaller WebP file with adjustable quality.",
+        placeholderTitle:"Select or drag image",
+        placeholderText:"JPG, PNG or WebP",
+        previewBadge:"Live preview",
+        qualityLabel:"Image quality",
+        originalLabel:"Original",
+        optimizedLabel:"Optimized",
+        savedLabel:"Saved",
+        heavierLabel:"Heavier",
+        resultLabel:"Result",
+        aspectTitle:"Aspect ratio",
+        ratioOriginal:"Orig",
+        dimensionsTitle:"Dimensions",
+        widthLabel:"Width (px)",
+        heightLabel:"Height (px)",
+        lockRatioLabel:"Lock aspect ratio",
+        formatTitle:"Export format",
+        downloadBtn:"Download optimized",
+        articleTitle:"Why this image resizer is useful",
+        articleP1:"Large images can slow down websites, make forms fail, and increase upload time. This page helps you resize photos, crop to common ratios, lower file size and export a cleaner JPG or WebP file.",
+        articleP2:"The tool uses the browser canvas API. For normal use, the selected image is processed locally in your browser instead of being uploaded to Mini-Tools.uk.",
+        articleP3:"For Chinese users, this page can also be used as a 图片压缩工具, 图片尺寸调整工具, 图片裁剪工具 and WebP转换工具.",
+        privacyTitle:"Local processing note",
+        privacyText:"Your image is rendered and exported in the browser. The page does not need an account, API key or remote upload for resizing and compression.",
+        useTitle:"Common use cases",
+        use1:"Compress a photo before uploading it to a website, CMS or form.",
+        use2:"Crop an image to square, landscape or portrait format for social posts.",
+        use3:"Resize a screenshot before attaching it to a ticket or documentation page.",
+        use4:"Convert JPG or PNG to WebP when you need smaller web images.",
+        faq1Q:"Is this image compressor private?",
+        faq1A:"Yes. The image is processed locally in your browser and is not uploaded to Mini-Tools.uk.",
+        faq2Q:"Can I crop to common aspect ratios?",
+        faq2A:"Yes. You can switch between original, 1:1, 4:3, 16:9 and 9:16 ratios.",
+        faq3Q:"Should I use JPG or WebP?",
+        faq3A:"WebP is often smaller at similar quality, while JPG is still a widely compatible option.",
+        sideUseTitle:"Useful for",
+        chip1:"Website images",
+        chip2:"Blog uploads",
+        chip3:"Social crops",
+        chip4:"WebP export",
+        sideFeaturesTitle:"Features",
+        feature1:"Resize by width and height",
+        feature2:"Lock aspect ratio",
+        feature3:"Crop to common ratios",
+        feature4:"Adjust export quality",
+        feature5:"Download JPG or WebP",
+        sideKeywordsTitle:"Related searches",
+        kw1:"image compressor",
+        kw2:"image resizer",
+        kw3:"图片压缩工具",
+        kw4:"图片裁剪工具",
+        relatedTitle:"Related tools",
+        relatedColor:"Image color picker",
+        relatedPdf:"PDF to image",
+        relatedHosting:"Image hosting"
+      },
+      "zh-CN": {
+        htmlLang:"zh-CN",
+        langLabel:"中文",
+        title:"图片压缩工具｜图片尺寸调整与裁剪｜WebP转换｜Mini-Tools.uk",
+        description:"使用 Mini-Tools 图片压缩工具，在浏览器中调整图片尺寸、裁剪比例、压缩质量，并导出 JPG 或 WebP，不需要上传到服务器。",
+        keywords:"图片压缩工具, 图片尺寸调整工具, 图片裁剪工具, WebP转换工具, JPG压缩工具, 在线图片压缩, 图片优化工具, image compressor",
+        skip:"跳到正文",
+        brandSubtitle:"实用计算器和浏览器工具",
+        navHome:"首页",
+        navTools:"全部工具",
+        navCategories:"分类",
+        navBlog:"博客",
+        navAbout:"关于",
+        navContact:"联系",
+        privacy:"隐私政策",
+        catFinance:"英国财务工具",
+        catFinanceSmall:"个税、VAT、房贷和承包商工具",
+        catDev:"开发者工具",
+        catDevSmall:"JSON、文本对比、图床和 AI Token 估算",
+        catImage:"图片与 PDF",
+        catImageSmall:"压缩、转换和媒体工具",
+        catSecurity:"安全工具",
+        catSecuritySmall:"密码和隐私相关工具",
+        badge:"图片工具 · 浏览器本地处理",
+        heroTitle:"图片压缩工具与图片尺寸调整工具",
+        heroText:"在浏览器中本地调整图片尺寸、裁剪比例、压缩质量，并导出 JPG 或 WebP 图片。",
+        mini1Title:"调整尺寸并压缩",
+        mini1Text:"上传到网站、博客或表单前，先降低图片尺寸和文件大小。",
+        mini2Title:"常用裁剪比例",
+        mini2Text:"支持原始比例、正方形、横版和竖版比例，适合发布和社交图片。",
+        mini3Title:"JPG 和 WebP 导出",
+        mini3Text:"可选择兼容性好的 JPG，也可导出更小的 WebP 文件。",
+        placeholderTitle:"选择或拖拽图片",
+        placeholderText:"JPG、PNG 或 WebP",
+        previewBadge:"实时预览",
+        qualityLabel:"图片质量",
+        originalLabel:"原图",
+        optimizedLabel:"优化后",
+        savedLabel:"节省",
+        heavierLabel:"变大",
+        resultLabel:"结果",
+        aspectTitle:"裁剪比例",
+        ratioOriginal:"原图",
+        dimensionsTitle:"尺寸",
+        widthLabel:"宽度（px）",
+        heightLabel:"高度（px）",
+        lockRatioLabel:"锁定宽高比",
+        formatTitle:"导出格式",
+        downloadBtn:"下载优化图片",
+        articleTitle:"这个图片压缩工具适合做什么",
+        articleP1:"过大的图片会拖慢网站速度、增加上传时间，甚至导致表单上传失败。这个页面可以帮助你调整照片尺寸、裁剪常见比例、降低文件大小，并导出更适合网页使用的 JPG 或 WebP。",
+        articleP2:"工具通过浏览器 Canvas API 处理图片。正常使用时，所选图片会在你的浏览器本地处理，不会上传到 Mini-Tools.uk。",
+        articleP3:"如果你正在搜索 图片压缩工具、图片尺寸调整工具、图片裁剪工具 或 WebP转换工具，这个页面适合做日常图片优化。",
+        privacyTitle:"本地处理说明",
+        privacyText:"图片在浏览器中渲染并导出。调整尺寸和压缩过程不需要账号、API key 或远程上传。",
+        useTitle:"常见使用场景",
+        use1:"上传到网站、CMS 或表单前压缩照片。",
+        use2:"把图片裁剪成正方形、横版或竖版，用于社交媒体发布。",
+        use3:"把截图缩小后再放到工单或文档页面。",
+        use4:"需要更小网页图片时，把 JPG 或 PNG 转成 WebP。",
+        faq1Q:"这个图片压缩工具隐私安全吗？",
+        faq1A:"是的。图片在浏览器本地处理，不会上传到 Mini-Tools.uk。",
+        faq2Q:"可以裁剪常见比例吗？",
+        faq2A:"可以。支持原始比例、1:1、4:3、16:9 和 9:16。",
+        faq3Q:"应该用 JPG 还是 WebP？",
+        faq3A:"WebP 通常在相似质量下文件更小，而 JPG 的兼容性仍然很好。",
+        sideUseTitle:"适合用于",
+        chip1:"网站图片",
+        chip2:"博客上传",
+        chip3:"社交裁剪",
+        chip4:"WebP 导出",
+        sideFeaturesTitle:"功能",
+        feature1:"按宽高调整尺寸",
+        feature2:"锁定宽高比",
+        feature3:"裁剪常用比例",
+        feature4:"调整导出质量",
+        feature5:"下载 JPG 或 WebP",
+        sideKeywordsTitle:"相关搜索词",
+        kw1:"图片压缩工具",
+        kw2:"图片尺寸调整工具",
+        kw3:"图片裁剪工具",
+        kw4:"WebP转换工具",
+        relatedTitle:"相关工具",
+        relatedColor:"图片取色器",
+        relatedPdf:"PDF 转图片",
+        relatedHosting:"免费图床"
+      },
+      de: {
+        htmlLang:"de",
+        langLabel:"Deutsch",
+        title:"Image Resizer & Compressor｜Resize, Crop & WebP Export｜Mini-Tools.uk",
+        description:"Bilder im Browser verkleinern, zuschneiden und komprimieren. Dimensionen, Seitenverhältnis, Qualität und JPG/WebP Export einstellen.",
+        keywords:"image resizer, image compressor, Bild komprimieren, Bild zuschneiden online, WebP converter, JPG compressor",
+        skip:"Zum Inhalt springen",
+        brandSubtitle:"Praktische Rechner und Browser-Tools",
+        navHome:"Startseite",
+        navTools:"Alle Tools",
+        navCategories:"Kategorien",
+        navBlog:"Blog",
+        navAbout:"Über uns",
+        navContact:"Kontakt",
+        privacy:"Datenschutz",
+        catFinance:"UK Finanzen",
+        catFinanceSmall:"Steuer, VAT, Hypothek und Contractor-Tools",
+        catDev:"Developer Tools",
+        catDevSmall:"JSON, Diff, Bildhosting und AI-Token-Schätzung",
+        catImage:"Bild & PDF",
+        catImageSmall:"Komprimierung, Konvertierung und Medien",
+        catSecurity:"Sicherheit",
+        catSecuritySmall:"Passwort- und Datenschutzhelfer",
+        badge:"Bildtool · lokale Verarbeitung",
+        heroTitle:"Image Resizer & Compressor",
+        heroText:"Bilder lokal im Browser verkleinern, zuschneiden und komprimieren. Dimensionen, Ratio, Qualität und JPG/WebP Export einstellen.",
+        mini1Title:"Resize und Compress",
+        mini1Text:"Bildgröße und Dateigröße vor Uploads reduzieren.",
+        mini2Title:"Häufige Crop-Ratios",
+        mini2Text:"Original, Quadrat, Landscape und Portrait für Publishing und Social Media.",
+        mini3Title:"JPG und WebP Export",
+        mini3Text:"Kompatibles JPG oder kleineres WebP mit einstellbarer Qualität.",
+        placeholderTitle:"Bild auswählen oder ziehen",
+        placeholderText:"JPG, PNG oder WebP",
+        previewBadge:"Live Preview",
+        qualityLabel:"Bildqualität",
+        originalLabel:"Original",
+        optimizedLabel:"Optimiert",
+        savedLabel:"Gespart",
+        heavierLabel:"Größer",
+        resultLabel:"Ergebnis",
+        aspectTitle:"Seitenverhältnis",
+        ratioOriginal:"Orig",
+        dimensionsTitle:"Dimensionen",
+        widthLabel:"Breite (px)",
+        heightLabel:"Höhe (px)",
+        lockRatioLabel:"Seitenverhältnis sperren",
+        formatTitle:"Exportformat",
+        downloadBtn:"Optimiertes Bild laden",
+        articleTitle:"Warum dieses Bildtool nützlich ist",
+        articleP1:"Große Bilder können Websites verlangsamen und Uploads erschweren. Diese Seite hilft beim Resize, Crop, Komprimieren und Export als JPG oder WebP.",
+        articleP2:"Das Tool nutzt die Browser Canvas API. Bei normaler Nutzung wird das Bild lokal verarbeitet und nicht an Mini-Tools.uk hochgeladen.",
+        articleP3:"Dieses Tool ist für Bild komprimieren, Image Resizer, WebP Converter und Crop Image Online geeignet.",
+        privacyTitle:"Lokale Verarbeitung",
+        privacyText:"Ihr Bild wird im Browser gerendert und exportiert. Kein Account, API Key oder Upload ist nötig.",
+        useTitle:"Häufige Anwendungen",
+        use1:"Foto vor Upload auf Website, CMS oder Formular komprimieren.",
+        use2:"Bild für Social Posts in Quadrat, Landscape oder Portrait zuschneiden.",
+        use3:"Screenshot vor Ticket oder Dokumentation verkleinern.",
+        use4:"JPG oder PNG in WebP konvertieren.",
+        faq1Q:"Ist dieses Tool privat?",
+        faq1A:"Ja. Das Bild wird lokal im Browser verarbeitet und nicht hochgeladen.",
+        faq2Q:"Kann ich gängige Ratios zuschneiden?",
+        faq2A:"Ja. Original, 1:1, 4:3, 16:9 und 9:16 sind verfügbar.",
+        faq3Q:"JPG oder WebP?",
+        faq3A:"WebP ist oft kleiner, JPG ist weiterhin sehr kompatibel.",
+        sideUseTitle:"Nützlich für",
+        chip1:"Website Bilder",
+        chip2:"Blog Uploads",
+        chip3:"Social Crops",
+        chip4:"WebP Export",
+        sideFeaturesTitle:"Features",
+        feature1:"Resize by width and height",
+        feature2:"Lock aspect ratio",
+        feature3:"Crop to common ratios",
+        feature4:"Adjust export quality",
+        feature5:"Download JPG or WebP",
+        sideKeywordsTitle:"Verwandte Suchanfragen",
+        kw1:"image compressor",
+        kw2:"image resizer",
+        kw3:"Bild komprimieren",
+        kw4:"WebP converter",
+        relatedTitle:"Verwandte Tools",
+        relatedColor:"Image Color Picker",
+        relatedPdf:"PDF to Image",
+        relatedHosting:"Image Hosting"
+      },
+      fr: {
+        htmlLang:"fr",
+        langLabel:"Français",
+        title:"Redimensionner & compresser image｜Crop & WebP｜Mini-Tools.uk",
+        description:"Redimensionnez, recadrez et compressez des images dans le navigateur. Dimensions, ratios, qualité et export JPG/WebP.",
+        keywords:"redimensionner image, compresser image, crop image online, convertisseur WebP, compresseur JPG",
+        skip:"Aller au contenu",
+        brandSubtitle:"Calculateurs pratiques et outils navigateur",
+        navHome:"Accueil",
+        navTools:"Tous les outils",
+        navCategories:"Catégories",
+        navBlog:"Blog",
+        navAbout:"À propos",
+        navContact:"Contact",
+        privacy:"Confidentialité",
+        catFinance:"Finance UK",
+        catFinanceSmall:"Impôt, VAT, prêt immobilier et contractor",
+        catDev:"Outils développeur",
+        catDevSmall:"JSON, diff, hébergement image et estimation tokens IA",
+        catImage:"Image & PDF",
+        catImageSmall:"Compression, conversion et médias",
+        catSecurity:"Sécurité",
+        catSecuritySmall:"Mot de passe et confidentialité",
+        badge:"Outil image · traitement local",
+        heroTitle:"Redimensionner & compresser image",
+        heroText:"Redimensionnez, recadrez et compressez des images localement dans le navigateur. Ajustez dimensions, ratios, qualité et export JPG/WebP.",
+        mini1Title:"Resize et compression",
+        mini1Text:"Réduire dimensions et taille avant un upload.",
+        mini2Title:"Ratios courants",
+        mini2Text:"Original, carré, paysage ou portrait pour publication et réseaux sociaux.",
+        mini3Title:"Export JPG et WebP",
+        mini3Text:"Choisissez JPG compatible ou WebP plus léger avec qualité réglable.",
+        placeholderTitle:"Sélectionner ou déposer une image",
+        placeholderText:"JPG, PNG ou WebP",
+        previewBadge:"Aperçu",
+        qualityLabel:"Qualité image",
+        originalLabel:"Original",
+        optimizedLabel:"Optimisé",
+        savedLabel:"Économisé",
+        heavierLabel:"Plus lourd",
+        resultLabel:"Résultat",
+        aspectTitle:"Ratio",
+        ratioOriginal:"Orig",
+        dimensionsTitle:"Dimensions",
+        widthLabel:"Largeur (px)",
+        heightLabel:"Hauteur (px)",
+        lockRatioLabel:"Verrouiller le ratio",
+        formatTitle:"Format export",
+        downloadBtn:"Télécharger l’image optimisée",
+        articleTitle:"Pourquoi cet outil image est utile",
+        articleP1:"Les grandes images ralentissent les sites et les uploads. Cette page aide à redimensionner, recadrer, compresser et exporter en JPG ou WebP.",
+        articleP2:"L’outil utilise Canvas dans le navigateur. En usage normal, l’image reste locale et n’est pas envoyée à Mini-Tools.uk.",
+        articleP3:"Cet outil correspond aux besoins compresser image, redimensionner image, crop image online et convertisseur WebP.",
+        privacyTitle:"Traitement local",
+        privacyText:"L’image est rendue et exportée dans le navigateur. Aucun compte, API key ou upload distant n’est nécessaire.",
+        useTitle:"Cas d’usage fréquents",
+        use1:"Compresser une photo avant upload sur site, CMS ou formulaire.",
+        use2:"Recadrer une image carrée, paysage ou portrait pour réseaux sociaux.",
+        use3:"Réduire une capture avant ticket ou documentation.",
+        use4:"Convertir JPG ou PNG en WebP.",
+        faq1Q:"Est-ce privé ?",
+        faq1A:"Oui. L’image est traitée localement dans le navigateur.",
+        faq2Q:"Puis-je recadrer en ratios courants ?",
+        faq2A:"Oui. Original, 1:1, 4:3, 16:9 et 9:16 sont disponibles.",
+        faq3Q:"JPG ou WebP ?",
+        faq3A:"WebP est souvent plus léger, JPG reste très compatible.",
+        sideUseTitle:"Utile pour",
+        chip1:"Images web",
+        chip2:"Uploads blog",
+        chip3:"Crops social",
+        chip4:"Export WebP",
+        sideFeaturesTitle:"Fonctions",
+        feature1:"Redimensionner par largeur/hauteur",
+        feature2:"Verrouiller ratio",
+        feature3:"Recadrer ratios courants",
+        feature4:"Ajuster qualité",
+        feature5:"Télécharger JPG ou WebP",
+        sideKeywordsTitle:"Recherches liées",
+        kw1:"image compressor",
+        kw2:"image resizer",
+        kw3:"compresser image",
+        kw4:"convertisseur WebP",
+        relatedTitle:"Outils liés",
+        relatedColor:"Image color picker",
+        relatedPdf:"PDF to image",
+        relatedHosting:"Hébergement image"
+      },
+      es: {
+        htmlLang:"es",
+        langLabel:"Español",
+        title:"Redimensionar & comprimir imagen｜Crop & WebP｜Mini-Tools.uk",
+        description:"Redimensiona, recorta y comprime imágenes en el navegador. Ajusta dimensiones, ratios, calidad y exporta JPG/WebP.",
+        keywords:"redimensionar imagen, comprimir imagen, recortar imagen online, convertidor WebP, compresor JPG",
+        skip:"Saltar al contenido",
+        brandSubtitle:"Calculadoras prácticas y herramientas web",
+        navHome:"Inicio",
+        navTools:"Todas las herramientas",
+        navCategories:"Categorías",
+        navBlog:"Blog",
+        navAbout:"Acerca de",
+        navContact:"Contacto",
+        privacy:"Privacidad",
+        catFinance:"Finanzas UK",
+        catFinanceSmall:"Impuestos, VAT, hipoteca y contractor",
+        catDev:"Herramientas developer",
+        catDevSmall:"JSON, diff, hosting de imágenes y tokens IA",
+        catImage:"Imagen y PDF",
+        catImageSmall:"Compresión, conversión y medios",
+        catSecurity:"Seguridad",
+        catSecuritySmall:"Contraseñas y privacidad",
+        badge:"Herramienta imagen · procesamiento local",
+        heroTitle:"Redimensionar & comprimir imagen",
+        heroText:"Redimensiona, recorta y comprime imágenes localmente en el navegador. Ajusta dimensiones, ratios, calidad y exporta JPG/WebP.",
+        mini1Title:"Resize y compresión",
+        mini1Text:"Reduce dimensiones y tamaño antes de subir imágenes.",
+        mini2Title:"Ratios comunes",
+        mini2Text:"Original, cuadrado, horizontal o vertical para publicaciones y redes.",
+        mini3Title:"Export JPG y WebP",
+        mini3Text:"Elige JPG compatible o WebP más pequeño con calidad ajustable.",
+        placeholderTitle:"Seleccionar o arrastrar imagen",
+        placeholderText:"JPG, PNG o WebP",
+        previewBadge:"Vista previa",
+        qualityLabel:"Calidad imagen",
+        originalLabel:"Original",
+        optimizedLabel:"Optimizado",
+        savedLabel:"Ahorrado",
+        heavierLabel:"Más pesado",
+        resultLabel:"Resultado",
+        aspectTitle:"Ratio",
+        ratioOriginal:"Orig",
+        dimensionsTitle:"Dimensiones",
+        widthLabel:"Ancho (px)",
+        heightLabel:"Alto (px)",
+        lockRatioLabel:"Bloquear ratio",
+        formatTitle:"Formato exportación",
+        downloadBtn:"Descargar imagen optimizada",
+        articleTitle:"Por qué esta herramienta es útil",
+        articleP1:"Imágenes grandes ralentizan sitios y dificultan uploads. Esta página ayuda a redimensionar, recortar, comprimir y exportar JPG o WebP.",
+        articleP2:"La herramienta usa Canvas en el navegador. En uso normal, la imagen se procesa localmente y no se sube a Mini-Tools.uk.",
+        articleP3:"Esta herramienta cubre usos como comprimir imagen, redimensionar imagen, recortar imagen online y convertidor WebP.",
+        privacyTitle:"Procesamiento local",
+        privacyText:"La imagen se renderiza y exporta en el navegador. No necesitas cuenta, API key ni upload remoto.",
+        useTitle:"Casos de uso comunes",
+        use1:"Comprimir foto antes de subirla a web, CMS o formulario.",
+        use2:"Recortar imagen cuadrada, horizontal o vertical para redes.",
+        use3:"Reducir screenshot antes de ticket o documentación.",
+        use4:"Convertir JPG o PNG a WebP.",
+        faq1Q:"¿Es privado?",
+        faq1A:"Sí. La imagen se procesa localmente en el navegador.",
+        faq2Q:"¿Puedo recortar ratios comunes?",
+        faq2A:"Sí. Original, 1:1, 4:3, 16:9 y 9:16.",
+        faq3Q:"¿JPG o WebP?",
+        faq3A:"WebP suele ser más pequeño, JPG sigue siendo muy compatible.",
+        sideUseTitle:"Útil para",
+        chip1:"Imágenes web",
+        chip2:"Uploads blog",
+        chip3:"Crops social",
+        chip4:"Export WebP",
+        sideFeaturesTitle:"Funciones",
+        feature1:"Redimensionar por ancho/alto",
+        feature2:"Bloquear ratio",
+        feature3:"Recortar ratios comunes",
+        feature4:"Ajustar calidad",
+        feature5:"Descargar JPG o WebP",
+        sideKeywordsTitle:"Búsquedas relacionadas",
+        kw1:"image compressor",
+        kw2:"image resizer",
+        kw3:"comprimir imagen",
+        kw4:"convertidor WebP",
+        relatedTitle:"Herramientas relacionadas",
+        relatedColor:"Image color picker",
+        relatedPdf:"PDF to image",
+        relatedHosting:"Hosting de imágenes"
+      }
+    };
+
+    const allowedLangs = ["en","zh-CN","de","fr","es"];
+    let currentLang = "en";
+
     const fileInput = document.getElementById("fileInput");
     const dropArea = document.getElementById("dropArea");
     const placeholder = document.getElementById("placeholder");
@@ -484,13 +1048,13 @@
     const optimizedSize = document.getElementById("optimizedSize");
     const savedPercent = document.getElementById("savedPercent");
     const savingBadge = document.getElementById("savingBadge");
+    const savingText = document.getElementById("savingText");
     const widthInput = document.getElementById("widthInput");
     const heightInput = document.getElementById("heightInput");
     const lockRatioInput = document.getElementById("lockRatioInput");
     const downloadBtn = document.getElementById("downloadBtn");
     const ratioButtons = Array.from(document.querySelectorAll("[data-ratio]"));
     const formatButtons = Array.from(document.querySelectorAll("[data-format]"));
-
     const canvas = document.getElementById("workCanvas");
     const ctx = canvas.getContext("2d");
 
@@ -501,6 +1065,77 @@
     let currentRatioMode = "original";
     let previewUrl = null;
     let updateTimer = null;
+
+    function getDict(){ return translations[currentLang] || translations.en; }
+
+    function getInitialLang(){
+      const params = new URLSearchParams(window.location.search);
+      let lang = params.get("lang");
+      if (lang === "zh") lang = "zh-CN";
+      if (allowedLangs.includes(lang)) return lang;
+      const saved = localStorage.getItem("miniToolsImageLang");
+      if (allowedLangs.includes(saved)) return saved;
+      const browser = navigator.language || "en";
+      if (browser.startsWith("zh")) return "zh-CN";
+      if (browser.startsWith("de")) return "de";
+      if (browser.startsWith("fr")) return "fr";
+      if (browser.startsWith("es")) return "es";
+      return "en";
+    }
+
+    function setMeta(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setOg(property, content){
+      const tag = document.querySelector(`meta[property="${property}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setTwitter(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function applyLanguage(lang, updateUrl = true){
+      currentLang = allowedLangs.includes(lang) ? lang : "en";
+      const dict = getDict();
+
+      document.documentElement.lang = dict.htmlLang || "en-GB";
+      document.title = dict.title;
+      setMeta("description", dict.description);
+      setMeta("keywords", dict.keywords);
+      setOg("og:title", dict.title);
+      setOg("og:description", dict.description);
+      setTwitter("twitter:title", dict.title);
+      setTwitter("twitter:description", dict.description);
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+
+      const label = document.getElementById("currentLangLabel");
+      if (label) label.textContent = dict.langLabel;
+
+      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
+      });
+
+      localStorage.setItem("miniToolsImageLang", currentLang);
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", currentLang);
+        history.replaceState(null, "", url.toString());
+      }
+
+      updateSavingText();
+    }
+
+    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
+    });
 
     function formatBytes(bytes) {
       if (!bytes) return "0 KB";
@@ -513,6 +1148,12 @@
     function setChipActive(buttons, activeButton) {
       buttons.forEach(btn => btn.classList.remove("active"));
       activeButton.classList.add("active");
+    }
+
+    function updateSavingText(isHeavier = false) {
+      const dict = getDict();
+      if (!savingText) return;
+      savingText.textContent = isHeavier ? dict.resultLabel : dict.savedLabel;
     }
 
     function applyRatioMode(mode) {
@@ -580,11 +1221,11 @@
           if (saved >= 0) {
             savedPercent.textContent = saved.toFixed(1) + "%";
             savingBadge.className = "save-badge good";
-            savingBadge.querySelector("span").textContent = "Saved";
+            updateSavingText(false);
           } else {
-            savedPercent.textContent = "Heavier";
+            savedPercent.textContent = getDict().heavierLabel;
             savingBadge.className = "save-badge bad";
-            savingBadge.querySelector("span").textContent = "Result";
+            updateSavingText(true);
           }
         }
 
@@ -725,18 +1366,8 @@
       }, exportFormat, quality);
     });
 
-    const dropdown = document.getElementById("categoriesDropdown");
-    const trigger = dropdown.querySelector(".nav-button");
-    trigger.addEventListener("click", (e) => {
-      e.preventDefault();
-      const open = dropdown.classList.toggle("open");
-      trigger.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-    document.addEventListener("click", (e) => {
-      if (!dropdown.contains(e.target)) {
-        dropdown.classList.remove("open");
-        trigger.setAttribute("aria-expanded", "false");
-      }
+    window.addEventListener("load", () => {
+      applyLanguage(getInitialLang(), false);
     });
   </script>
 </body>
