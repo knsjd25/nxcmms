@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>QR Code Generator | Mini-Tools</title>
-  <meta name="description" content="Generate QR codes for URLs, Wi-Fi, email, and contact details directly in your browser. Download a high-resolution PNG with adjustable error correction." />
-  <meta name="keywords" content="qr code generator, wifi qr code, vcard qr code, email qr code, static qr code, qr png download" />
-  <meta name="robots" content="index, follow" />
+  <title>QR Code Generator | URL, Wi-Fi, Email and vCard QR Codes | Mini-Tools.uk</title>
+  <meta name="description" content="Generate QR codes for URLs, text, Wi-Fi, email and contact details in your browser. Choose export size, error correction level and download a PNG QR code." />
+  <meta name="keywords" content="QR code generator, WiFi QR code generator, vCard QR code, email QR code, URL QR code, QR PNG download, 二维码生成器, WiFi二维码, 名片二维码, 邮件二维码" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/qr" />
 
-  <meta property="og:title" content="QR Code Generator | Mini-Tools" />
-  <meta property="og:description" content="Create QR codes for URLs, Wi-Fi, email, and contact details directly in your browser." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://mini-tools.uk/qr" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/qr?lang=en" />
+  <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/qr?lang=zh-CN" />
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/qr?lang=de" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/qr?lang=fr" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/qr?lang=es" />
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/qr" />
 
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
@@ -21,12 +24,22 @@
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
+  <meta property="og:title" content="QR Code Generator | Mini-Tools.uk" />
+  <meta property="og:description" content="Create URL, Wi-Fi, email and vCard QR codes in your browser and download PNG output." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mini-tools.uk/qr" />
+  <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="QR Code Generator | Mini-Tools.uk" />
+  <meta name="twitter:description" content="Create URL, Wi-Fi, email and vCard QR codes in your browser and download PNG output." />
+  <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DR6V84JEZW');
+    gtag("js", new Date());
+    gtag("config", "G-DR6V84JEZW");
   </script>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
@@ -41,8 +54,9 @@
         "name":"Mini-Tools QR Code Generator",
         "applicationCategory":"UtilitiesApplication",
         "operatingSystem":"Web",
-        "description":"Generate QR codes for links, Wi-Fi, email, and contact details locally in your browser.",
-        "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
+        "url":"https://mini-tools.uk/qr",
+        "description":"Generate QR codes for URLs, Wi-Fi, email and contact details locally in your browser.",
+        "offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"}
       },
       {
         "@type":"FAQPage",
@@ -50,26 +64,17 @@
           {
             "@type":"Question",
             "name":"Is this QR code generator private?",
-            "acceptedAnswer":{
-              "@type":"Answer",
-              "text":"Yes. QR code content is processed locally in your browser and is not sent to our servers."
-            }
+            "acceptedAnswer":{"@type":"Answer","text":"QR code generation happens in your browser. The page does not need to send QR content to Mini-Tools.uk to create the image."}
           },
           {
             "@type":"Question",
             "name":"Will the QR code expire?",
-            "acceptedAnswer":{
-              "@type":"Answer",
-              "text":"The QR image itself does not expire. It continues to work as long as the encoded destination or content remains valid."
-            }
+            "acceptedAnswer":{"@type":"Answer","text":"The QR image itself does not expire. It continues to work as long as the encoded URL, Wi-Fi credentials, email address or contact details remain valid."}
           },
           {
             "@type":"Question",
-            "name":"Can I make Wi-Fi and contact QR codes?",
-            "acceptedAnswer":{
-              "@type":"Answer",
-              "text":"Yes. This page supports URL or text, Wi-Fi, email, and simple vCard contact QR codes."
-            }
+            "name":"Can I create Wi-Fi and contact QR codes?",
+            "acceptedAnswer":{"@type":"Answer","text":"Yes. The page supports URL or text, Wi-Fi, email and simple vCard contact QR codes."}
           }
         ]
       }
@@ -80,286 +85,323 @@
   <style>
     :root{
       --bg:#f8fafc;
-      --panel:#ffffff;
-      --text:#0f172a;
-      --muted:#64748b;
+      --card:#ffffff;
+      --ink:#0f172a;
+      --muted:#475569;
+      --muted-2:#64748b;
       --line:#e2e8f0;
-      --brand:#2563eb;
-      --brand-soft:#dbeafe;
-      --shadow:0 10px 25px -5px rgba(15,23,42,0.08);
+      --blue:#2563eb;
+      --blue-2:#1d4ed8;
+      --soft:#eff6ff;
+      --soft-2:#f1f5f9;
+      --green:#166534;
+      --green-bg:#dcfce7;
+      --red:#b91c1c;
+      --red-bg:#fef2f2;
+      --amber:#92400e;
+      --amber-bg:#fffbeb;
+      --shadow:none;
       --radius:22px;
-      --sans:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      --sans:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      --mono:"JetBrains Mono","SFMono-Regular",Consolas,Monaco,monospace;
     }
 
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans)}
-    body{min-height:100vh;display:flex;flex-direction:column}
-    a{text-decoration:none;color:inherit}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.55;
+    }
+
+    a{color:inherit;text-decoration:none}
     button,input,textarea,select{font:inherit}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+    .skip-link{position:absolute;left:14px;top:-48px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:12px;z-index:100}
+    .skip-link:focus{top:14px}
 
-    .container{width:min(1180px,calc(100% - 32px));margin:0 auto}
+    .nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;min-width:0}
+    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;box-shadow:none}
+    .brand-copy{display:flex;flex-direction:column;line-height:1.05}
+    .brand-title{font-size:1.06rem;letter-spacing:-.03em}
+    .brand-subtitle{margin-top:4px;color:#64748b;font-size:.79rem;font-weight:600}
+    .nav-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .nav-link,.nav-trigger,.lang-trigger{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border-radius:12px;color:#334155;font-weight:700;font-size:14px;border:1px solid transparent;background:transparent;cursor:pointer}
+    .nav-link:hover,.nav-trigger:hover,.nav-group:hover .nav-trigger,.lang-trigger:hover,.lang-group:hover .lang-trigger{background:#f8fafc;color:#0f172a}
+    .nav-link.current{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+    .nav-group,.lang-group{position:relative;padding-bottom:14px;margin-bottom:-14px}
+    .nav-trigger svg,.lang-trigger svg{width:14px;height:14px;transition:transform .2s ease}
+    .nav-group::after,.lang-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}
+    .nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg,.lang-group:hover .lang-trigger svg,.lang-group:focus-within .lang-trigger svg{transform:rotate(180deg)}
+    .dropdown,.lang-dropdown{position:absolute;top:calc(100% + 2px);right:0;min-width:220px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:none;padding:10px;display:none;z-index:40}
+    .nav-group .dropdown{left:0;right:auto;min-width:245px}
+    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown,.lang-group:hover .lang-dropdown,.lang-group:focus-within .lang-dropdown{display:block}
+    .dropdown a,.lang-dropdown button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:12px;color:#334155;font-size:14px;font-weight:700;border:0;background:transparent;cursor:pointer}
+    .dropdown a small{display:block;margin-top:2px;color:#64748b;font-size:12px;font-weight:600}
+    .dropdown a:hover,.lang-dropdown button:hover,.lang-dropdown button.active{background:#f8fafc;color:#0f172a}
 
-    .site-header{
-      position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);
-      backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
-    }
-    .site-header-inner{
-      min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;
-    }
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;object-fit:contain;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-    .brand-title{font-weight:900;font-size:1.15rem;letter-spacing:-.02em}
-    .brand-title span{color:var(--brand)}
-
-    .nav{display:flex;align-items:center;gap:8px;position:relative}
-    .nav-link,.nav-button{
-      padding:10px 14px;border-radius:12px;font-size:.95rem;font-weight:800;color:#334155;
-      transition:background .2s,color .2s;display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;
-    }
-    .nav-link:hover,.nav-button:hover{background:#f1f5f9;color:#0f172a}
-    .dropdown{position:relative}
-    .dropdown-bridge{position:absolute;left:0;right:0;height:14px;top:100%}
-    .dropdown-menu{
-      position:absolute;top:calc(100% + 10px);left:0;min-width:240px;background:#fff;border:1px solid var(--line);
-      border-radius:16px;padding:10px;box-shadow:0 20px 40px rgba(15,23,42,.12);
-      opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s;
-    }
-    .dropdown.open .dropdown-menu,
-    .dropdown:hover .dropdown-menu,
-    .dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
-    .dropdown-item{display:block;padding:11px 12px;border-radius:12px;font-weight:700;color:#334155}
-    .dropdown-item:hover{background:#f8fafc;color:#0f172a}
-
-    .page-intro{padding:38px 0 20px}
-    .eyebrow{
-      display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;
-      border:1px solid #e2e8f0;background:#f8fafc;color:#475569;
-      font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
-    }
-    h1{margin:14px 0 10px;font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;letter-spacing:-.04em}
-    .intro-text{max-width:760px;color:var(--muted);font-size:1.06rem;line-height:1.75}
+    .hero{padding:48px 0 24px;text-align:center}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:var(--green-bg);color:var(--green);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    .hero h1{margin:18px 0 14px;font-size:clamp(2rem,4vw,3.4rem);line-height:1.02;letter-spacing:-.03em}
+    .hero p{margin:0 auto;max-width:860px;color:var(--muted);font-size:1.1rem}
+    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:26px auto 10px;max-width:1120px}
+    .mini-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:none;text-align:left}
+    .mini-card strong{display:block;margin-bottom:6px;font-size:.95rem}
+    .mini-card span{color:var(--muted);font-size:.93rem}
 
     .workspace{
-      display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;align-items:start;margin-top:8px
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 380px;
+      gap:24px;
+      margin:28px auto 40px;
+      max-width:1120px;
+      align-items:start;
     }
-    .panel{
-      background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:0 20px 40px rgba(15,23,42,.08)
-    }
-    .left-panel{padding:28px}
-    .right-panel{padding:28px;position:sticky;top:94px}
-
-    .section + .section{margin-top:26px}
-    .section-label{
-      display:block;margin-bottom:12px;font-size:.76rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:#475569
-    }
-
-    .tab-grid{
-      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:8px;border-radius:20px;border:1px solid var(--line);background:#f8fafc
-    }
+    .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:none}
+    .left-panel{padding:26px}
+    .right-panel{padding:28px;position:sticky;top:96px}
+    .section + .section{margin-top:24px}
+    .section-label{display:block;margin-bottom:12px;font-size:.78rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:#475569}
+    .tab-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:8px;border-radius:20px;border:1px solid var(--line);background:#f8fafc}
     .tab-btn{
-      border:2px solid transparent;background:transparent;color:#64748b;padding:12px 10px;border-radius:14px;
-      font-size:.85rem;font-weight:800;cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center;gap:8px;text-align:center
+      border:1px solid transparent;background:transparent;color:#64748b;padding:12px 10px;border-radius:14px;
+      font-size:.85rem;font-weight:900;cursor:pointer;transition:.18s;text-align:center
     }
     .tab-btn:hover{background:#f1f5f9;color:#0f172a}
-    .tab-btn.active{background:#eff6ff;color:#2563eb;border-color:#bfdbfe}
-
+    .tab-btn.active{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
     .field + .field{margin-top:16px}
-    .field label{
-      display:block;margin-bottom:8px;font-size:.74rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#475569
-    }
+    .field label{display:block;margin-bottom:8px;font-size:.74rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#475569}
     .form-input,.form-select{
       width:100%;padding:15px 16px;background:#f8fafc;border:1px solid var(--line);border-radius:16px;color:#0f172a;
       font-size:.96rem;font-weight:700;outline:none;transition:border-color .18s, box-shadow .18s
     }
     .form-input:focus,.form-select:focus{border-color:#93c5fd;box-shadow:0 0 0 4px rgba(37,99,235,.1);background:#fff}
-    textarea.form-input{resize:vertical;min-height:110px}
+    textarea.form-input{resize:vertical;min-height:130px;line-height:1.65;font-weight:600}
     .dual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .controls-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding-top:8px;border-top:1px solid #eef2f7}
-
     .qr-box{
       background:#fff;border:2px dashed #cbd5e1;border-radius:28px;padding:26px;min-height:368px;
       display:flex;align-items:center;justify-content:center;position:relative;transition:.2s
     }
-    .qr-box.loaded{border-color:transparent;box-shadow:0 18px 36px rgba(15,23,42,.08)}
-    .qr-box.loaded::before{
-      content:"";position:absolute;inset:-2px;border-radius:28px;background:linear-gradient(45deg,#3b82f6,#8b5cf6,#ec4899);
-      z-index:-1;filter:blur(18px);opacity:.14
-    }
+    .qr-box.loaded{border-style:solid;border-color:#bfdbfe;background:#eff6ff}
+    .qr-inner{width:100%;display:flex;align-items:center;justify-content:center}
     .qr-placeholder{text-align:center;color:#94a3b8}
     .qr-placeholder svg{display:block;margin:0 auto 12px;opacity:.55}
     .qr-placeholder p{margin:0;font-size:.8rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
-    #qrcode{display:none}
-    #qrcode img{
-      display:block;margin:0 auto;border:16px solid #fff;border-radius:14px;image-rendering:pixelated;
-      box-shadow:0 12px 28px rgba(15,23,42,.12);width:100%;max-width:280px;height:auto
+    #qrcode{display:none;line-height:0}
+    #qrcode img,#qrcode canvas{
+      display:block;
+      margin:0 auto;
+      border:16px solid #fff;
+      border-radius:14px;
+      image-rendering:pixelated;
+      width:100%;
+      max-width:280px;
+      height:auto;
+      background:#fff;
+      box-shadow:none;
     }
-    #qrcode canvas{display:none}
-
-    .action-area{
-      margin-top:18px;opacity:0;pointer-events:none;transition:opacity .25s
-    }
+    .action-area{margin-top:18px;opacity:0;pointer-events:none;transition:opacity .25s}
     .action-area.show{opacity:1;pointer-events:auto}
     .main-btn{
-      width:100%;border:none;border-radius:18px;background:#2563eb;color:#fff;padding:16px 18px;font-size:.96rem;font-weight:900;
-      letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:.18s;box-shadow:0 18px 30px rgba(37,99,235,.22)
+      width:100%;border:none;border-radius:18px;background:linear-gradient(180deg,var(--blue),var(--blue-2));color:#fff;padding:16px 18px;font-size:.96rem;font-weight:900;
+      letter-spacing:.05em;cursor:pointer;transition:.18s;box-shadow:none
     }
     .main-btn:hover{background:#1d4ed8}
-    .hint{
-      text-align:center;margin-top:10px;color:#94a3b8;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase
-    }
+    .hint{text-align:center;margin-top:10px;color:#94a3b8;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
 
-    .section-card{
-      margin:30px 0 0;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:28px
-    }
-    .section-card h2{margin:0 0 12px;font-size:1.8rem;letter-spacing:-.03em}
-    .section-card p{color:var(--muted);line-height:1.75}
-    .faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
-    .faq-item{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:18px}
-    .faq-item h3{margin:0 0 8px;font-size:1.05rem}
-    .faq-item p{margin:0;font-size:.98rem}
+    .article-wrap{margin:18px auto 56px;max-width:1120px;display:grid;grid-template-columns:minmax(0,760px) 320px;gap:24px;justify-content:center}
+    .article{background:#fff;border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:none}
+    .article h2{font-size:1.7rem;line-height:1.15;margin:0 0 14px}
+    .article h3{font-size:1.22rem;margin:30px 0 12px}
+    .article p{color:var(--muted);margin:0 0 14px}
+    .article ul{color:var(--muted);padding-left:20px}
+    .article li{margin-bottom:10px}
+    .faq{margin-top:24px;display:grid;gap:14px}
+    .faq-item{border:1px solid var(--line);border-radius:18px;background:#f8fafc;padding:18px}
+    .faq-item h4{margin:0 0 8px;font-size:1.03rem}
+    .faq-item p{margin:0;color:var(--muted)}
+    .side-info{display:grid;gap:16px;align-self:start;position:sticky;top:96px}
+    .side-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:none}
+    .side-card h3{margin:0 0 12px;font-size:1rem}
+    .side-card p,.side-card li{color:var(--muted);font-size:.92rem}
+    .side-card ul{margin:0;padding-left:18px}
+    .chips{display:flex;flex-wrap:wrap;gap:10px}
+    .tag{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;padding:8px 12px;font-size:.82rem;font-weight:800}
+    .related-links{display:grid;gap:10px}
+    .related-links a{padding:12px 14px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-weight:800;color:#1e293b}
+    .related-links a:hover{background:#eff6ff;border-color:#bfdbfe}
 
-    .site-footer{
-      margin-top:40px;padding:28px 0;background:#fff;border-top:1px solid var(--line)
-    }
-    .footer-links{
-      display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-bottom:12px;font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#64748b
-    }
-    .footer-links a:hover{color:var(--brand)}
-    .footer-note{text-align:center;font-size:.72rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#cbd5e1}
+    .footer{border-top:1px solid var(--line);background:#fff;padding:28px 0 46px}
+    .footer-inner{display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap;color:#64748b;font-size:.9rem}
+    .footer-links{display:flex;gap:14px;flex-wrap:wrap}
+    .footer-links a{font-weight:700}
 
-    @media (max-width: 980px){
-      .workspace{grid-template-columns:1fr}
-      .right-panel{position:static}
-      .faq-grid{grid-template-columns:1fr}
-      .site-header-inner{flex-wrap:wrap;padding:10px 0}
-      .nav{width:100%;overflow:auto;padding-bottom:4px}
+    @media (max-width:980px){
+      .workspace,.article-wrap{grid-template-columns:1fr}
+      .right-panel,.side-info{position:static}
+      .nav-inner{align-items:flex-start;flex-direction:column;padding:12px 0}
+      .nav-links{justify-content:flex-start}
     }
-    @media (max-width: 640px){
-      .container{width:min(100% - 20px,1180px)}
-      .left-panel,.right-panel{padding:18px}
+    @media (max-width:760px){
+      .mini-grid,.dual-grid,.controls-grid{grid-template-columns:1fr}
       .tab-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .dual-grid,.controls-grid{grid-template-columns:1fr}
+      .left-panel,.right-panel,.article{padding:22px}
+      .dropdown,.lang-dropdown{left:0;right:auto}
+      .footer-inner{align-items:flex-start;flex-direction:column}
     }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container site-header-inner">
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+  <nav class="nav">
+    <div class="wrap nav-inner">
       <a class="brand" href="/">
-        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools logo" />
-        <div class="brand-title">Mini-Tools<span>.uk</span></div>
+        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" />
+        <span class="brand-copy">
+          <span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span>
+          <span class="brand-subtitle" data-i18n="brandSubtitle">Practical calculators and browser tools</span>
+        </span>
       </a>
 
-      <nav class="nav" aria-label="Main navigation">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/#all-tools">All Tools</a>
+      <div class="nav-links" aria-label="Primary navigation">
+        <a class="nav-link" href="/" data-i18n="navHome">Home</a>
+        <a class="nav-link" href="/#featured-tools" data-i18n="navTools">All Tools</a>
 
-        <div class="dropdown" id="categoriesDropdown">
-          <button class="nav-button" type="button" aria-expanded="false" aria-controls="categoriesMenu">
-            Categories
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+        <div class="nav-group">
+          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="navCategories">Categories</span>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-          <div class="dropdown-bridge" aria-hidden="true"></div>
-          <div class="dropdown-menu" id="categoriesMenu" role="menu">
-            <a class="dropdown-item" href="/#uk-finance">UK Finance</a>
-            <a class="dropdown-item" href="/#developer-tools">Developer Tools</a>
-            <a class="dropdown-item" href="/#image-tools">Image & PDF</a>
-            <a class="dropdown-item" href="/#text-conversion">Text & Conversion</a>
-            <a class="dropdown-item" href="/#privacy-security">Security & Privacy</a>
+          <div class="dropdown" role="menu">
+            <a href="/#uk-finance"><span data-i18n="catFinance">UK Finance</span><small data-i18n="catFinanceSmall">Tax, VAT, mortgage and contractor tools</small></a>
+            <a href="/#developer-tools"><span data-i18n="catDev">Developer Tools</span><small data-i18n="catDevSmall">JSON, diff, image hosting and AI token estimation</small></a>
+            <a href="/#image-tools"><span data-i18n="catImage">Image & PDF</span><small data-i18n="catImageSmall">Compression, conversion and media utilities</small></a>
+            <a href="/password"><span data-i18n="catSecurity">Security</span><small data-i18n="catSecuritySmall">Password and privacy helpers</small></a>
           </div>
         </div>
 
-        <a class="nav-link" href="/blog">Blog</a>
-        <a class="nav-link" href="/about">About</a>
-      </nav>
-    </div>
-  </header>
+        <a class="nav-link" href="/blog" data-i18n="navBlog">Blog</a>
+        <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
+        <a class="nav-link" href="/contact" data-i18n="navContact">Contact</a>
 
-  <main class="container">
-    <section class="page-intro">
-      <div class="eyebrow">QR Tool • Local Generation</div>
-      <h1>QR Code Generator</h1>
-      <p class="intro-text">
-        Create QR codes for links, Wi-Fi credentials, email actions, or contact details directly in your browser.
-        Download a high-resolution PNG when the preview looks right.
-      </p>
+        <div class="lang-group">
+          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            <span id="currentLangLabel">English</span>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="lang-dropdown" role="menu" aria-label="Language">
+            <button type="button" data-lang-btn="en">English</button>
+            <button type="button" data-lang-btn="zh-CN">中文</button>
+            <button type="button" data-lang-btn="de">Deutsch</button>
+            <button type="button" data-lang-btn="fr">Français</button>
+            <button type="button" data-lang-btn="es">Español</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="wrap">
+    <section class="hero">
+      <span class="badge" data-i18n="badge">QR tool · local generation</span>
+      <h1 data-i18n="heroTitle">QR Code Generator</h1>
+      <p data-i18n="heroText">Create QR codes for links, Wi-Fi credentials, email actions or contact details directly in your browser. Choose error correction and export size, then download a PNG.</p>
+
+      <div class="mini-grid">
+        <div class="mini-card">
+          <strong data-i18n="mini1Title">Multiple QR types</strong>
+          <span data-i18n="mini1Text">Generate URL/text, Wi-Fi, email and vCard-style contact QR codes.</span>
+        </div>
+        <div class="mini-card">
+          <strong data-i18n="mini2Title">PNG download</strong>
+          <span data-i18n="mini2Text">Choose 256, 512 or 1024 px output for documents, posters or websites.</span>
+        </div>
+        <div class="mini-card">
+          <strong data-i18n="mini3Title">Browser generation</strong>
+          <span data-i18n="mini3Text">QR content is encoded locally in the browser using a client-side QR library.</span>
+        </div>
+      </div>
     </section>
 
-    <section class="workspace">
+    <section class="workspace" aria-label="QR code generator workspace">
       <div class="panel left-panel">
         <div class="section">
-          <label class="section-label">QR code type</label>
+          <label class="section-label" data-i18n="typeLabel">QR code type</label>
           <div class="tab-grid">
-            <button class="tab-btn active" data-template="text">URL/Text</button>
-            <button class="tab-btn" data-template="wifi">Wi‑Fi</button>
-            <button class="tab-btn" data-template="email">Email</button>
-            <button class="tab-btn" data-template="vcard">vCard</button>
+            <button class="tab-btn active" data-template="text" data-i18n="tabText">URL/Text</button>
+            <button class="tab-btn" data-template="wifi" data-i18n="tabWifi">Wi‑Fi</button>
+            <button class="tab-btn" data-template="email" data-i18n="tabEmail">Email</button>
+            <button class="tab-btn" data-template="vcard" data-i18n="tabVcard">vCard</button>
           </div>
         </div>
 
         <div class="section" id="form-text">
           <div class="field">
-            <label for="input-text">Content or URL</label>
-            <textarea id="input-text" class="form-input" placeholder="https://mini-tools.uk"></textarea>
+            <label for="input-text" data-i18n="contentLabel">Content or URL</label>
+            <textarea id="input-text" class="form-input" data-i18n-placeholder="contentPlaceholder" placeholder="https://mini-tools.uk">https://mini-tools.uk</textarea>
           </div>
         </div>
 
         <div class="section" id="form-wifi" hidden>
           <div class="field">
-            <label for="input-wifi-ssid">Network name (SSID)</label>
+            <label for="input-wifi-ssid" data-i18n="ssidLabel">Network name (SSID)</label>
             <input id="input-wifi-ssid" type="text" class="form-input" placeholder="MyHomeNetwork" />
           </div>
           <div class="field">
-            <label for="input-wifi-pass">Password</label>
-            <input id="input-wifi-pass" type="text" class="form-input" placeholder="Network password" />
+            <label for="input-wifi-pass" data-i18n="wifiPasswordLabel">Password</label>
+            <input id="input-wifi-pass" type="text" class="form-input" data-i18n-placeholder="wifiPasswordPlaceholder" placeholder="Network password" />
           </div>
           <div class="field">
-            <label for="input-wifi-type">Encryption type</label>
+            <label for="input-wifi-type" data-i18n="encryptionLabel">Encryption type</label>
             <select id="input-wifi-type" class="form-select">
               <option value="WPA">WPA / WPA2 / WPA3</option>
               <option value="WEP">WEP</option>
-              <option value="nopass">No password (open)</option>
+              <option value="nopass" data-i18n="openWifi">No password (open)</option>
             </select>
           </div>
         </div>
 
         <div class="section" id="form-email" hidden>
           <div class="field">
-            <label for="input-email-to">Email address</label>
+            <label for="input-email-to" data-i18n="emailAddressLabel">Email address</label>
             <input id="input-email-to" type="email" class="form-input" placeholder="hello@example.com" />
           </div>
           <div class="field">
-            <label for="input-email-sub">Subject</label>
-            <input id="input-email-sub" type="text" class="form-input" placeholder="Quick question" />
+            <label for="input-email-sub" data-i18n="emailSubjectLabel">Subject</label>
+            <input id="input-email-sub" type="text" class="form-input" data-i18n-placeholder="emailSubjectPlaceholder" placeholder="Quick question" />
           </div>
         </div>
 
         <div class="section" id="form-vcard" hidden>
           <div class="dual-grid">
             <div class="field">
-              <label for="input-vc-first">First name</label>
+              <label for="input-vc-first" data-i18n="firstNameLabel">First name</label>
               <input id="input-vc-first" type="text" class="form-input" placeholder="John" />
             </div>
             <div class="field">
-              <label for="input-vc-last">Last name</label>
+              <label for="input-vc-last" data-i18n="lastNameLabel">Last name</label>
               <input id="input-vc-last" type="text" class="form-input" placeholder="Doe" />
             </div>
           </div>
           <div class="field">
-            <label for="input-vc-phone">Phone number</label>
+            <label for="input-vc-phone" data-i18n="phoneLabel">Phone number</label>
             <input id="input-vc-phone" type="tel" class="form-input" placeholder="+44 7700 900077" />
           </div>
           <div class="field">
-            <label for="input-vc-email">Email</label>
+            <label for="input-vc-email" data-i18n="vcardEmailLabel">Email</label>
             <input id="input-vc-email" type="email" class="form-input" placeholder="john@example.com" />
           </div>
         </div>
 
         <div class="section controls-grid">
           <div class="field">
-            <label for="qr-size">Export size</label>
+            <label for="qr-size" data-i18n="sizeLabel">Export size</label>
             <select id="qr-size" class="form-select">
               <option value="256">256 × 256</option>
               <option value="512">512 × 512</option>
@@ -367,7 +409,7 @@
             </select>
           </div>
           <div class="field">
-            <label for="qr-level">Error correction</label>
+            <label for="qr-level" data-i18n="levelLabel">Error correction</label>
             <select id="qr-level" class="form-select">
               <option value="L">L — 7%</option>
               <option value="M">M — 15%</option>
@@ -380,67 +422,578 @@
 
       <aside class="panel right-panel">
         <div class="qr-box" id="qr-container">
-          <div class="qr-placeholder" id="qr-placeholder">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 4H10V10H4V4ZM14 4H20V10H14V4ZM4 14H10V20H4V14ZM14 14H16V16H14V14ZM16 16H18V18H16V16ZM18 14H20V20H18V14ZM14 18H16V20H14V18Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <p>Live Preview</p>
+          <div class="qr-inner">
+            <div class="qr-placeholder" id="qr-placeholder">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 4H10V10H4V4ZM14 4H20V10H14V4ZM4 14H10V20H4V14ZM14 14H16V16H14V14ZM16 16H18V18H16V16ZM18 14H20V20H18V14ZM14 18H16V20H14V18Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <p data-i18n="previewText">Live Preview</p>
+            </div>
+            <div id="qrcode"></div>
           </div>
-          <div id="qrcode"></div>
         </div>
 
         <div class="action-area" id="action-area">
-          <button class="main-btn" id="download-btn" type="button">Download High-Res PNG</button>
-          <div class="hint">Scan to test before printing</div>
+          <button class="main-btn" id="download-btn" type="button" data-i18n="downloadBtn">Download PNG</button>
+          <div class="hint" data-i18n="hintText">Scan to test before printing</div>
         </div>
       </aside>
     </section>
 
-    <section class="section-card">
-      <h2>How this QR generator helps</h2>
-      <p>
-        A QR code is a quick way to move from paper or screen into an action on a phone. This page supports the most
-        common use cases: website links, Wi‑Fi access, email actions, and a simple contact card. Everything is generated
-        locally in your browser, so the entered data does not need to be sent away for processing.
-      </p>
+    <section class="article-wrap">
+      <article class="article">
+        <h2 data-i18n="articleTitle">How this QR code generator helps</h2>
+        <p data-i18n="articleP1">A QR code is a quick way to move from paper, packaging, signage or a screen into an action on a phone. This page supports common static QR formats: website links, plain text, Wi‑Fi access, email actions and simple contact details.</p>
+        <p data-i18n="articleP2">The QR image is generated in your browser. The page does not need to send your QR content to Mini-Tools.uk to build the image.</p>
+        <p data-i18n="articleP3">For Chinese users, this page can also be used as a 二维码生成器, WiFi二维码生成器, 名片二维码生成器 and 邮件二维码生成器.</p>
 
-      <div class="faq-grid">
-        <article class="faq-item">
-          <h3>Is it private?</h3>
-          <p>Yes. QR code generation happens locally in your browser and the input is not sent to our servers.</p>
-        </article>
-        <article class="faq-item">
-          <h3>Will the QR code expire?</h3>
-          <p>The image itself does not expire. It keeps working as long as the encoded destination or content remains valid.</p>
-        </article>
-        <article class="faq-item">
-          <h3>What does error correction do?</h3>
-          <p>Higher levels make the QR code more resilient to damage or obstruction, but they also increase visual density.</p>
-        </article>
-        <article class="faq-item">
-          <h3>Can I use it for Wi‑Fi and contact info?</h3>
-          <p>Yes. The built-in templates make it easier to format Wi‑Fi, email, and vCard-style contact QR codes correctly.</p>
-        </article>
-      </div>
+        <h3 data-i18n="tipsTitle">Before printing or sharing</h3>
+        <ul>
+          <li data-i18n="tip1">Scan the QR code with a phone before printing it on a poster or label.</li>
+          <li data-i18n="tip2">Use higher error correction if the QR code may be printed small or placed near a logo.</li>
+          <li data-i18n="tip3">For URLs, make sure the destination page will stay online after the QR code is distributed.</li>
+          <li data-i18n="tip4">For Wi‑Fi QR codes, check that the SSID and password are exactly correct.</li>
+        </ul>
+
+        <div class="faq">
+          <div class="faq-item">
+            <h4 data-i18n="faq1Q">Is this QR code generator private?</h4>
+            <p data-i18n="faq1A">QR code generation happens locally in your browser. The page does not need to send QR content to Mini-Tools.uk to create the image.</p>
+          </div>
+          <div class="faq-item">
+            <h4 data-i18n="faq2Q">Will the QR code expire?</h4>
+            <p data-i18n="faq2A">The QR image itself does not expire. It continues to work as long as the encoded destination or content remains valid.</p>
+          </div>
+          <div class="faq-item">
+            <h4 data-i18n="faq3Q">What does error correction do?</h4>
+            <p data-i18n="faq3A">Higher error correction can make a QR code more resilient to damage or obstruction, but it also makes the code visually denser.</p>
+          </div>
+        </div>
+      </article>
+
+      <aside class="side-info">
+        <div class="side-card">
+          <h3 data-i18n="sideUseTitle">Useful for</h3>
+          <div class="chips">
+            <span class="tag" data-i18n="chip1">Website links</span>
+            <span class="tag" data-i18n="chip2">Wi‑Fi sharing</span>
+            <span class="tag" data-i18n="chip3">Contact cards</span>
+            <span class="tag" data-i18n="chip4">Email actions</span>
+          </div>
+        </div>
+
+        <div class="side-card">
+          <h3 data-i18n="sideFeaturesTitle">Features</h3>
+          <ul>
+            <li data-i18n="feature1">URL and text QR codes</li>
+            <li data-i18n="feature2">Wi‑Fi QR format</li>
+            <li data-i18n="feature3">Email mailto QR format</li>
+            <li data-i18n="feature4">Simple vCard contact QR</li>
+            <li data-i18n="feature5">PNG download with size control</li>
+          </ul>
+        </div>
+
+        <div class="side-card">
+          <h3 data-i18n="sideKeywordsTitle">Related searches</h3>
+          <div class="chips">
+            <span class="tag" data-i18n="kw1">QR code generator</span>
+            <span class="tag" data-i18n="kw2">WiFi QR code</span>
+            <span class="tag" data-i18n="kw3">二维码生成器</span>
+            <span class="tag" data-i18n="kw4">名片二维码</span>
+          </div>
+        </div>
+
+        <div class="side-card">
+          <h3 data-i18n="relatedTitle">Related tools</h3>
+          <div class="related-links">
+            <a href="/image" data-i18n="relatedImage">Image resizer</a>
+            <a href="/color-picker" data-i18n="relatedColor">Image color picker</a>
+            <a href="/json" data-i18n="relatedJson">JSON formatter</a>
+          </div>
+        </div>
+      </aside>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>© 2026 Mini-Tools.uk</div>
       <div class="footer-links">
-        <a href="/">Home</a>
-        <a href="/blog">Blog</a>
-        <a href="/about">About</a>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/contact">Contact</a>
+        <a href="/about" data-i18n="navAbout">About</a>
+        <a href="/blog" data-i18n="navBlog">Blog</a>
+        <a href="/privacy" data-i18n="privacy">Privacy</a>
+        <a href="/contact" data-i18n="navContact">Contact</a>
       </div>
-      <div class="footer-note">© 2026 Mini-Tools.uk — local qr generation without server upload</div>
     </div>
   </footer>
 
   <script>
+    const translations = {
+      en: {
+        htmlLang:"en-GB",
+        langLabel:"English",
+        title:"QR Code Generator | URL, Wi-Fi, Email and vCard QR Codes | Mini-Tools.uk",
+        description:"Generate QR codes for URLs, text, Wi-Fi, email and contact details in your browser. Choose export size, error correction level and download a PNG QR code.",
+        keywords:"QR code generator, WiFi QR code generator, vCard QR code, email QR code, URL QR code, QR PNG download",
+        skip:"Skip to content",
+        brandSubtitle:"Practical calculators and browser tools",
+        navHome:"Home",
+        navTools:"All Tools",
+        navCategories:"Categories",
+        navBlog:"Blog",
+        navAbout:"About",
+        navContact:"Contact",
+        privacy:"Privacy",
+        catFinance:"UK Finance",
+        catFinanceSmall:"Tax, VAT, mortgage and contractor tools",
+        catDev:"Developer Tools",
+        catDevSmall:"JSON, diff, image hosting and AI token estimation",
+        catImage:"Image & PDF",
+        catImageSmall:"Compression, conversion and media utilities",
+        catSecurity:"Security",
+        catSecuritySmall:"Password and privacy helpers",
+        badge:"QR tool · local generation",
+        heroTitle:"QR Code Generator",
+        heroText:"Create QR codes for links, Wi-Fi credentials, email actions or contact details directly in your browser. Choose error correction and export size, then download a PNG.",
+        mini1Title:"Multiple QR types",
+        mini1Text:"Generate URL/text, Wi-Fi, email and vCard-style contact QR codes.",
+        mini2Title:"PNG download",
+        mini2Text:"Choose 256, 512 or 1024 px output for documents, posters or websites.",
+        mini3Title:"Browser generation",
+        mini3Text:"QR content is encoded locally in the browser using a client-side QR library.",
+        typeLabel:"QR code type",
+        tabText:"URL/Text",
+        tabWifi:"Wi‑Fi",
+        tabEmail:"Email",
+        tabVcard:"vCard",
+        contentLabel:"Content or URL",
+        contentPlaceholder:"https://mini-tools.uk",
+        ssidLabel:"Network name (SSID)",
+        wifiPasswordLabel:"Password",
+        wifiPasswordPlaceholder:"Network password",
+        encryptionLabel:"Encryption type",
+        openWifi:"No password (open)",
+        emailAddressLabel:"Email address",
+        emailSubjectLabel:"Subject",
+        emailSubjectPlaceholder:"Quick question",
+        firstNameLabel:"First name",
+        lastNameLabel:"Last name",
+        phoneLabel:"Phone number",
+        vcardEmailLabel:"Email",
+        sizeLabel:"Export size",
+        levelLabel:"Error correction",
+        previewText:"Live Preview",
+        downloadBtn:"Download PNG",
+        hintText:"Scan to test before printing",
+        articleTitle:"How this QR code generator helps",
+        articleP1:"A QR code is a quick way to move from paper, packaging, signage or a screen into an action on a phone. This page supports common static QR formats: website links, plain text, Wi‑Fi access, email actions and simple contact details.",
+        articleP2:"The QR image is generated in your browser. The page does not need to send your QR content to Mini-Tools.uk to build the image.",
+        articleP3:"For Chinese users, this page can also be used as a 二维码生成器, WiFi二维码生成器, 名片二维码生成器 and 邮件二维码生成器.",
+        tipsTitle:"Before printing or sharing",
+        tip1:"Scan the QR code with a phone before printing it on a poster or label.",
+        tip2:"Use higher error correction if the QR code may be printed small or placed near a logo.",
+        tip3:"For URLs, make sure the destination page will stay online after the QR code is distributed.",
+        tip4:"For Wi‑Fi QR codes, check that the SSID and password are exactly correct.",
+        faq1Q:"Is this QR code generator private?",
+        faq1A:"QR code generation happens locally in your browser. The page does not need to send QR content to Mini-Tools.uk to create the image.",
+        faq2Q:"Will the QR code expire?",
+        faq2A:"The QR image itself does not expire. It continues to work as long as the encoded destination or content remains valid.",
+        faq3Q:"What does error correction do?",
+        faq3A:"Higher error correction can make a QR code more resilient to damage or obstruction, but it also makes the code visually denser.",
+        sideUseTitle:"Useful for",
+        chip1:"Website links",
+        chip2:"Wi‑Fi sharing",
+        chip3:"Contact cards",
+        chip4:"Email actions",
+        sideFeaturesTitle:"Features",
+        feature1:"URL and text QR codes",
+        feature2:"Wi‑Fi QR format",
+        feature3:"Email mailto QR format",
+        feature4:"Simple vCard contact QR",
+        feature5:"PNG download with size control",
+        sideKeywordsTitle:"Related searches",
+        kw1:"QR code generator",
+        kw2:"WiFi QR code",
+        kw3:"二维码生成器",
+        kw4:"名片二维码",
+        relatedTitle:"Related tools",
+        relatedImage:"Image resizer",
+        relatedColor:"Image color picker",
+        relatedJson:"JSON formatter"
+      },
+      "zh-CN": {
+        htmlLang:"zh-CN",
+        langLabel:"中文",
+        title:"二维码生成器｜URL、WiFi、邮件和名片二维码｜Mini-Tools.uk",
+        description:"使用 Mini-Tools 二维码生成器，在浏览器中生成 URL、文本、WiFi、邮件和名片二维码，支持纠错等级、导出尺寸和 PNG 下载。",
+        keywords:"二维码生成器, WiFi二维码生成器, URL二维码, 邮件二维码, 名片二维码, vCard二维码, QR code generator, 二维码PNG下载",
+        skip:"跳到正文",
+        brandSubtitle:"实用计算器和浏览器工具",
+        navHome:"首页",
+        navTools:"全部工具",
+        navCategories:"分类",
+        navBlog:"博客",
+        navAbout:"关于",
+        navContact:"联系",
+        privacy:"隐私政策",
+        catFinance:"英国财务工具",
+        catFinanceSmall:"个税、VAT、房贷和承包商工具",
+        catDev:"开发者工具",
+        catDevSmall:"JSON、文本对比、图床和 AI Token 估算",
+        catImage:"图片与 PDF",
+        catImageSmall:"压缩、转换和媒体工具",
+        catSecurity:"安全工具",
+        catSecuritySmall:"密码和隐私相关工具",
+        badge:"二维码工具 · 浏览器本地生成",
+        heroTitle:"二维码生成器",
+        heroText:"在浏览器中生成链接、WiFi、邮件和联系人二维码。选择纠错等级和导出尺寸，然后下载 PNG 图片。",
+        mini1Title:"多种二维码类型",
+        mini1Text:"支持 URL/文本、WiFi、邮件和 vCard 名片二维码。",
+        mini2Title:"PNG 下载",
+        mini2Text:"可选择 256、512 或 1024 px 输出尺寸，用于文档、海报或网页。",
+        mini3Title:"浏览器本地生成",
+        mini3Text:"二维码内容通过前端 QR 库在浏览器中编码生成。",
+        typeLabel:"二维码类型",
+        tabText:"URL/文本",
+        tabWifi:"Wi‑Fi",
+        tabEmail:"邮件",
+        tabVcard:"名片",
+        contentLabel:"内容或 URL",
+        contentPlaceholder:"https://mini-tools.uk",
+        ssidLabel:"网络名称（SSID）",
+        wifiPasswordLabel:"密码",
+        wifiPasswordPlaceholder:"WiFi 密码",
+        encryptionLabel:"加密类型",
+        openWifi:"无密码（开放网络）",
+        emailAddressLabel:"邮箱地址",
+        emailSubjectLabel:"邮件主题",
+        emailSubjectPlaceholder:"快速咨询",
+        firstNameLabel:"名",
+        lastNameLabel:"姓",
+        phoneLabel:"电话号码",
+        vcardEmailLabel:"邮箱",
+        sizeLabel:"导出尺寸",
+        levelLabel:"纠错等级",
+        previewText:"实时预览",
+        downloadBtn:"下载 PNG",
+        hintText:"打印前请先扫码测试",
+        articleTitle:"这个二维码生成器适合做什么",
+        articleP1:"二维码可以让用户从纸质资料、包装、海报或屏幕快速跳转到手机上的操作。本页面支持常见静态二维码格式：网址链接、普通文本、WiFi 连接、邮件动作和简单联系人信息。",
+        articleP2:"二维码图片在浏览器中生成。页面不需要把二维码内容发送到 Mini-Tools.uk 服务器来生成图片。",
+        articleP3:"如果你正在搜索 二维码生成器、WiFi二维码生成器、名片二维码生成器 或 邮件二维码生成器，这个页面适合日常使用。",
+        tipsTitle:"打印或分享前注意",
+        tip1:"把二维码印到海报或标签前，先用手机扫码测试。",
+        tip2:"如果二维码会被印得较小或靠近 logo，可以使用较高纠错等级。",
+        tip3:"如果是网址二维码，请确认目标页面会长期保持可访问。",
+        tip4:"如果是 WiFi 二维码，请仔细检查 SSID 和密码是否完全正确。",
+        faq1Q:"这个二维码生成器隐私安全吗？",
+        faq1A:"二维码生成发生在浏览器本地。页面不需要把二维码内容发送到 Mini-Tools.uk 服务器来创建图片。",
+        faq2Q:"二维码会过期吗？",
+        faq2A:"二维码图片本身不会过期。只要其中编码的网址、WiFi 信息、邮箱或联系人内容仍然有效，它就可以继续使用。",
+        faq3Q:"纠错等级有什么作用？",
+        faq3A:"更高的纠错等级可以让二维码在轻微损坏或遮挡时更容易被识别，但图案也会更密集。",
+        sideUseTitle:"适合用于",
+        chip1:"网站链接",
+        chip2:"WiFi 分享",
+        chip3:"名片联系",
+        chip4:"邮件动作",
+        sideFeaturesTitle:"功能",
+        feature1:"URL 和文本二维码",
+        feature2:"WiFi 二维码格式",
+        feature3:"邮件 mailto 二维码",
+        feature4:"简单 vCard 名片二维码",
+        feature5:"可控尺寸 PNG 下载",
+        sideKeywordsTitle:"相关搜索词",
+        kw1:"二维码生成器",
+        kw2:"WiFi二维码",
+        kw3:"名片二维码",
+        kw4:"邮件二维码",
+        relatedTitle:"相关工具",
+        relatedImage:"图片尺寸调整工具",
+        relatedColor:"图片取色器",
+        relatedJson:"JSON 格式化工具"
+      },
+      de: {
+        htmlLang:"de",
+        langLabel:"Deutsch",
+        title:"QR Code Generator｜URL, Wi‑Fi, Email und vCard QR｜Mini-Tools.uk",
+        description:"Erzeugen Sie QR Codes für URL, Text, Wi‑Fi, E-Mail und Kontakt lokal im Browser. Größe, Error Correction und PNG Download.",
+        keywords:"QR code generator, WiFi QR code generator, vCard QR code, email QR code, URL QR code, QR PNG download",
+        skip:"Zum Inhalt springen",
+        brandSubtitle:"Praktische Rechner und Browser-Tools",
+        navHome:"Startseite",
+        navTools:"Alle Tools",
+        navCategories:"Kategorien",
+        navBlog:"Blog",
+        navAbout:"Über uns",
+        navContact:"Kontakt",
+        privacy:"Datenschutz",
+        catFinance:"UK Finanzen",
+        catFinanceSmall:"Steuer, VAT, Hypothek und Contractor-Tools",
+        catDev:"Developer Tools",
+        catDevSmall:"JSON, Diff, Bildhosting und AI-Token-Schätzung",
+        catImage:"Bild & PDF",
+        catImageSmall:"Komprimierung, Konvertierung und Medien",
+        catSecurity:"Sicherheit",
+        catSecuritySmall:"Passwort- und Datenschutzhelfer",
+        badge:"QR Tool · lokale Generierung",
+        heroTitle:"QR Code Generator",
+        heroText:"Erzeugen Sie QR Codes für Links, Wi‑Fi, E-Mail Aktionen oder Kontakte direkt im Browser.",
+        mini1Title:"Mehrere QR Typen",
+        mini1Text:"URL/Text, Wi‑Fi, Email und vCard-style Kontakt QR Codes.",
+        mini2Title:"PNG Download",
+        mini2Text:"256, 512 oder 1024 px Output für Dokumente, Poster oder Websites.",
+        mini3Title:"Browser Generierung",
+        mini3Text:"QR Inhalte werden lokal mit einer client-side QR Library codiert.",
+        typeLabel:"QR Code Typ",
+        tabText:"URL/Text",
+        tabWifi:"Wi‑Fi",
+        tabEmail:"Email",
+        tabVcard:"vCard",
+        contentLabel:"Content oder URL",
+        contentPlaceholder:"https://mini-tools.uk",
+        ssidLabel:"Netzwerkname (SSID)",
+        wifiPasswordLabel:"Passwort",
+        wifiPasswordPlaceholder:"WiFi Passwort",
+        encryptionLabel:"Verschlüsselung",
+        openWifi:"Kein Passwort (offen)",
+        emailAddressLabel:"Email Adresse",
+        emailSubjectLabel:"Betreff",
+        emailSubjectPlaceholder:"Kurze Frage",
+        firstNameLabel:"Vorname",
+        lastNameLabel:"Nachname",
+        phoneLabel:"Telefonnummer",
+        vcardEmailLabel:"Email",
+        sizeLabel:"Exportgröße",
+        levelLabel:"Error Correction",
+        previewText:"Live Preview",
+        downloadBtn:"PNG herunterladen",
+        hintText:"Vor dem Drucken testen",
+        articleTitle:"Wie dieser QR Code Generator hilft",
+        articleP1:"Ein QR Code bringt Nutzer schnell von Papier, Verpackung, Beschilderung oder Screen zu einer Aktion am Smartphone.",
+        articleP2:"Das QR Bild wird im Browser erzeugt und muss nicht an Mini-Tools.uk gesendet werden.",
+        articleP3:"Dieses Tool ist für QR code generator, WiFi QR code generator, vCard QR code und email QR code geeignet.",
+        tipsTitle:"Vor Druck oder Teilen",
+        tip1:"QR Code mit einem Smartphone testen, bevor er gedruckt wird.",
+        tip2:"Höhere Error Correction nutzen, wenn der Code klein gedruckt wird.",
+        tip3:"Bei URLs sicherstellen, dass die Zielseite erreichbar bleibt.",
+        tip4:"Bei Wi‑Fi QR Codes SSID und Passwort exakt prüfen.",
+        faq1Q:"Ist dieser QR Generator privat?",
+        faq1A:"Die QR Generierung passiert lokal im Browser.",
+        faq2Q:"Läuft der QR Code ab?",
+        faq2A:"Das Bild selbst läuft nicht ab. Es funktioniert, solange der Inhalt gültig bleibt.",
+        faq3Q:"Was macht Error Correction?",
+        faq3A:"Höhere Werte machen den QR Code robuster, aber dichter.",
+        sideUseTitle:"Nützlich für",
+        chip1:"Website Links",
+        chip2:"Wi‑Fi Sharing",
+        chip3:"Kontaktkarten",
+        chip4:"Email Aktionen",
+        sideFeaturesTitle:"Features",
+        feature1:"URL und Text QR Codes",
+        feature2:"Wi‑Fi QR Format",
+        feature3:"Email mailto QR Format",
+        feature4:"Einfacher vCard Kontakt QR",
+        feature5:"PNG Download mit Größensteuerung",
+        sideKeywordsTitle:"Verwandte Suchanfragen",
+        kw1:"QR code generator",
+        kw2:"WiFi QR code",
+        kw3:"vCard QR code",
+        kw4:"email QR code",
+        relatedTitle:"Verwandte Tools",
+        relatedImage:"Image Resizer",
+        relatedColor:"Image Color Picker",
+        relatedJson:"JSON Formatter"
+      },
+      fr: {
+        htmlLang:"fr",
+        langLabel:"Français",
+        title:"Générateur QR Code｜URL, Wi‑Fi, Email et vCard｜Mini-Tools.uk",
+        description:"Générez des QR codes pour URL, texte, Wi‑Fi, email et contact dans le navigateur. Taille, correction d’erreur et PNG.",
+        keywords:"QR code generator, WiFi QR code generator, vCard QR code, email QR code, URL QR code, QR PNG download",
+        skip:"Aller au contenu",
+        brandSubtitle:"Calculateurs pratiques et outils navigateur",
+        navHome:"Accueil",
+        navTools:"Tous les outils",
+        navCategories:"Catégories",
+        navBlog:"Blog",
+        navAbout:"À propos",
+        navContact:"Contact",
+        privacy:"Confidentialité",
+        catFinance:"Finance UK",
+        catFinanceSmall:"Impôt, VAT, prêt immobilier et contractor",
+        catDev:"Outils développeur",
+        catDevSmall:"JSON, diff, hébergement image et estimation tokens IA",
+        catImage:"Image & PDF",
+        catImageSmall:"Compression, conversion et médias",
+        catSecurity:"Sécurité",
+        catSecuritySmall:"Mot de passe et confidentialité",
+        badge:"Outil QR · génération locale",
+        heroTitle:"Générateur QR Code",
+        heroText:"Créez des QR codes pour liens, Wi‑Fi, email ou contacts directement dans le navigateur.",
+        mini1Title:"Plusieurs types QR",
+        mini1Text:"URL/texte, Wi‑Fi, email et QR contact vCard.",
+        mini2Title:"Téléchargement PNG",
+        mini2Text:"Sortie 256, 512 ou 1024 px pour documents, affiches ou sites.",
+        mini3Title:"Génération navigateur",
+        mini3Text:"Le contenu QR est encodé localement via une librairie client.",
+        typeLabel:"Type QR",
+        tabText:"URL/Texte",
+        tabWifi:"Wi‑Fi",
+        tabEmail:"Email",
+        tabVcard:"vCard",
+        contentLabel:"Contenu ou URL",
+        contentPlaceholder:"https://mini-tools.uk",
+        ssidLabel:"Nom réseau (SSID)",
+        wifiPasswordLabel:"Mot de passe",
+        wifiPasswordPlaceholder:"Mot de passe WiFi",
+        encryptionLabel:"Type chiffrement",
+        openWifi:"Sans mot de passe",
+        emailAddressLabel:"Adresse email",
+        emailSubjectLabel:"Sujet",
+        emailSubjectPlaceholder:"Question rapide",
+        firstNameLabel:"Prénom",
+        lastNameLabel:"Nom",
+        phoneLabel:"Téléphone",
+        vcardEmailLabel:"Email",
+        sizeLabel:"Taille export",
+        levelLabel:"Correction d’erreur",
+        previewText:"Aperçu",
+        downloadBtn:"Télécharger PNG",
+        hintText:"Tester avant impression",
+        articleTitle:"Pourquoi ce générateur QR est utile",
+        articleP1:"Un QR code permet de passer rapidement d’un support papier ou écran à une action sur mobile.",
+        articleP2:"L’image QR est générée dans le navigateur sans envoyer le contenu à Mini-Tools.uk.",
+        articleP3:"Cet outil correspond aux recherches QR code generator, WiFi QR code generator, vCard QR code et email QR code.",
+        tipsTitle:"Avant impression ou partage",
+        tip1:"Scanner le QR avec un téléphone avant impression.",
+        tip2:"Utiliser une correction plus élevée si le QR est petit ou proche d’un logo.",
+        tip3:"Pour les URLs, vérifier que la page cible reste en ligne.",
+        tip4:"Pour Wi‑Fi, vérifier exactement SSID et mot de passe.",
+        faq1Q:"Est-ce privé ?",
+        faq1A:"La génération QR se fait localement dans le navigateur.",
+        faq2Q:"Le QR expire-t-il ?",
+        faq2A:"L’image n’expire pas. Elle fonctionne tant que le contenu reste valide.",
+        faq3Q:"À quoi sert la correction d’erreur ?",
+        faq3A:"Elle rend le QR plus robuste, mais plus dense.",
+        sideUseTitle:"Utile pour",
+        chip1:"Liens web",
+        chip2:"Partage Wi‑Fi",
+        chip3:"Contacts",
+        chip4:"Actions email",
+        sideFeaturesTitle:"Fonctions",
+        feature1:"QR URL et texte",
+        feature2:"Format Wi‑Fi QR",
+        feature3:"Format email mailto",
+        feature4:"Contact vCard simple",
+        feature5:"Téléchargement PNG avec taille",
+        sideKeywordsTitle:"Recherches liées",
+        kw1:"QR code generator",
+        kw2:"WiFi QR code",
+        kw3:"vCard QR code",
+        kw4:"email QR code",
+        relatedTitle:"Outils liés",
+        relatedImage:"Image resizer",
+        relatedColor:"Image color picker",
+        relatedJson:"Formateur JSON"
+      },
+      es: {
+        htmlLang:"es",
+        langLabel:"Español",
+        title:"Generador QR｜URL, Wi‑Fi, Email y vCard｜Mini-Tools.uk",
+        description:"Genera códigos QR para URL, texto, Wi‑Fi, email y contactos en el navegador. Tamaño, corrección de error y PNG.",
+        keywords:"QR code generator, WiFi QR code generator, vCard QR code, email QR code, URL QR code, QR PNG download",
+        skip:"Saltar al contenido",
+        brandSubtitle:"Calculadoras prácticas y herramientas web",
+        navHome:"Inicio",
+        navTools:"Todas las herramientas",
+        navCategories:"Categorías",
+        navBlog:"Blog",
+        navAbout:"Acerca de",
+        navContact:"Contacto",
+        privacy:"Privacidad",
+        catFinance:"Finanzas UK",
+        catFinanceSmall:"Impuestos, VAT, hipoteca y contractor",
+        catDev:"Herramientas developer",
+        catDevSmall:"JSON, diff, hosting de imágenes y tokens IA",
+        catImage:"Imagen y PDF",
+        catImageSmall:"Compresión, conversión y medios",
+        catSecurity:"Seguridad",
+        catSecuritySmall:"Contraseñas y privacidad",
+        badge:"Herramienta QR · generación local",
+        heroTitle:"Generador de códigos QR",
+        heroText:"Crea QR para enlaces, Wi‑Fi, email o contactos directamente en el navegador.",
+        mini1Title:"Varios tipos QR",
+        mini1Text:"URL/texto, Wi‑Fi, email y QR de contacto vCard.",
+        mini2Title:"Descarga PNG",
+        mini2Text:"Salida 256, 512 o 1024 px para documentos, carteles o webs.",
+        mini3Title:"Generación en navegador",
+        mini3Text:"El contenido QR se codifica localmente con una librería client-side.",
+        typeLabel:"Tipo de QR",
+        tabText:"URL/Texto",
+        tabWifi:"Wi‑Fi",
+        tabEmail:"Email",
+        tabVcard:"vCard",
+        contentLabel:"Contenido o URL",
+        contentPlaceholder:"https://mini-tools.uk",
+        ssidLabel:"Nombre de red (SSID)",
+        wifiPasswordLabel:"Contraseña",
+        wifiPasswordPlaceholder:"Contraseña WiFi",
+        encryptionLabel:"Tipo de cifrado",
+        openWifi:"Sin contraseña",
+        emailAddressLabel:"Email",
+        emailSubjectLabel:"Asunto",
+        emailSubjectPlaceholder:"Pregunta rápida",
+        firstNameLabel:"Nombre",
+        lastNameLabel:"Apellido",
+        phoneLabel:"Teléfono",
+        vcardEmailLabel:"Email",
+        sizeLabel:"Tamaño exportación",
+        levelLabel:"Corrección de error",
+        previewText:"Vista previa",
+        downloadBtn:"Descargar PNG",
+        hintText:"Probar antes de imprimir",
+        articleTitle:"Cómo ayuda este generador QR",
+        articleP1:"Un QR permite pasar de papel, packaging, señalización o pantalla a una acción en el móvil.",
+        articleP2:"La imagen QR se genera en el navegador sin enviar el contenido a Mini-Tools.uk.",
+        articleP3:"Esta herramienta cubre búsquedas como QR code generator, WiFi QR code generator, vCard QR code y email QR code.",
+        tipsTitle:"Antes de imprimir o compartir",
+        tip1:"Escanea el QR con un teléfono antes de imprimir.",
+        tip2:"Usa mayor corrección si el QR será pequeño o cerca de un logo.",
+        tip3:"Para URLs, confirma que la página destino seguirá online.",
+        tip4:"Para Wi‑Fi, comprueba SSID y contraseña exactamente.",
+        faq1Q:"¿Es privado?",
+        faq1A:"La generación QR ocurre localmente en el navegador.",
+        faq2Q:"¿El QR expira?",
+        faq2A:"La imagen no expira. Funciona mientras el contenido sea válido.",
+        faq3Q:"¿Qué hace la corrección de error?",
+        faq3A:"Hace el QR más resistente, pero más denso.",
+        sideUseTitle:"Útil para",
+        chip1:"Enlaces web",
+        chip2:"Compartir Wi‑Fi",
+        chip3:"Contactos",
+        chip4:"Acciones email",
+        sideFeaturesTitle:"Funciones",
+        feature1:"QR de URL y texto",
+        feature2:"Formato QR Wi‑Fi",
+        feature3:"Formato email mailto",
+        feature4:"Contacto vCard simple",
+        feature5:"Descarga PNG con tamaño",
+        sideKeywordsTitle:"Búsquedas relacionadas",
+        kw1:"QR code generator",
+        kw2:"WiFi QR code",
+        kw3:"vCard QR code",
+        kw4:"email QR code",
+        relatedTitle:"Herramientas relacionadas",
+        relatedImage:"Image resizer",
+        relatedColor:"Image color picker",
+        relatedJson:"Formateador JSON"
+      }
+    };
+
+    const allowedLangs = ["en", "zh-CN", "de", "fr", "es"];
+    let currentLang = "en";
     let currentTemplate = "text";
-    let qrInstance = null;
     let autoGenTimer = null;
 
     const forms = {
@@ -459,13 +1012,93 @@
     const levelSelect = document.getElementById("qr-level");
     const downloadBtn = document.getElementById("download-btn");
 
+    function getDict(){ return translations[currentLang] || translations.en; }
+
+    function getInitialLang(){
+      const params = new URLSearchParams(window.location.search);
+      let lang = params.get("lang");
+      if (lang === "zh") lang = "zh-CN";
+      if (allowedLangs.includes(lang)) return lang;
+
+      const saved = localStorage.getItem("miniToolsQrLang");
+      if (allowedLangs.includes(saved)) return saved;
+
+      const browser = navigator.language || "en";
+      if (browser.startsWith("zh")) return "zh-CN";
+      if (browser.startsWith("de")) return "de";
+      if (browser.startsWith("fr")) return "fr";
+      if (browser.startsWith("es")) return "es";
+      return "en";
+    }
+
+    function setMeta(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setOg(property, content){
+      const tag = document.querySelector(`meta[property="${property}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setTwitter(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function applyLanguage(lang, updateUrl = true){
+      currentLang = allowedLangs.includes(lang) ? lang : "en";
+      const dict = getDict();
+
+      document.documentElement.lang = dict.htmlLang || "en-GB";
+      document.title = dict.title;
+      setMeta("description", dict.description);
+      setMeta("keywords", dict.keywords);
+      setOg("og:title", dict.title);
+      setOg("og:description", dict.description);
+      setTwitter("twitter:title", dict.title);
+      setTwitter("twitter:description", dict.description);
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (dict[key] !== undefined) el.setAttribute("placeholder", dict[key]);
+      });
+
+      const label = document.getElementById("currentLangLabel");
+      if (label) label.textContent = dict.langLabel;
+
+      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
+      });
+
+      localStorage.setItem("miniToolsQrLang", currentLang);
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", currentLang);
+        history.replaceState(null, "", url.toString());
+      }
+    }
+
+    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
+    });
+
     function setTemplate(template) {
       currentTemplate = template;
       tabButtons.forEach(btn => btn.classList.toggle("active", btn.dataset.template === template));
       Object.entries(forms).forEach(([key, el]) => {
         el.hidden = key !== template;
       });
-      autoGenerate();
+      autoGenerate(true);
+    }
+
+    function escapeWifiValue(value) {
+      return String(value || "").replace(/([\\;,":])/g, "\\$1");
     }
 
     function getFormattedContent() {
@@ -478,14 +1111,14 @@
         const pass = document.getElementById("input-wifi-pass").value;
         const type = document.getElementById("input-wifi-type").value;
         if (!ssid) return "";
-        return `WIFI:T:${type};S:${ssid};P:${pass};;`;
+        return `WIFI:T:${type};S:${escapeWifiValue(ssid)};P:${escapeWifiValue(pass)};;`;
       }
 
       if (currentTemplate === "email") {
         const to = document.getElementById("input-email-to").value.trim();
         const sub = document.getElementById("input-email-sub").value.trim();
         if (!to) return "";
-        return `mailto:${to}?subject=${encodeURIComponent(sub)}`;
+        return `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(sub)}`;
       }
 
       if (currentTemplate === "vcard") {
@@ -502,7 +1135,7 @@
           phone ? `TEL:${phone}` : "",
           email ? `EMAIL:${email}` : "",
           "END:VCARD"
-        ].filter(Boolean).join("\n");
+        ].filter(Boolean).join("\\n");
       }
 
       return "";
@@ -523,19 +1156,25 @@
         return;
       }
 
+      if (!window.QRCode || !QRCode.CorrectLevel) {
+        qrPlaceholder.style.display = "block";
+        qrPlaceholder.querySelector("p").textContent = "QR library failed to load";
+        return;
+      }
+
       const size = parseInt(sizeSelect.value, 10);
       const level = levelSelect.value;
 
       qrcodeEl.innerHTML = "";
       qrcodeEl.style.display = "block";
 
-      qrInstance = new QRCode(qrcodeEl, {
+      new QRCode(qrcodeEl, {
         text: content,
         width: size,
         height: size,
         colorDark: "#0f172a",
         colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel[level]
+        correctLevel: QRCode.CorrectLevel[level] || QRCode.CorrectLevel.Q
       });
 
       qrPlaceholder.style.display = "none";
@@ -549,10 +1188,20 @@
     }
 
     function downloadQr() {
+      const canvas = qrcodeEl.querySelector("canvas");
       const img = qrcodeEl.querySelector("img");
-      if (!img || !img.src) return;
+      let dataUrl = "";
+
+      if (canvas) {
+        dataUrl = canvas.toDataURL("image/png");
+      } else if (img && img.src) {
+        dataUrl = img.src;
+      }
+
+      if (!dataUrl) return;
+
       const link = document.createElement("a");
-      link.href = img.src;
+      link.href = dataUrl;
       link.download = `qr-${currentTemplate}-${Date.now()}.png`;
       document.body.appendChild(link);
       link.click();
@@ -570,25 +1219,13 @@
     });
 
     sizeSelect.addEventListener("change", () => autoGenerate(true));
-    levelSelect.addEventListener("change", () => autoGenerate());
-
+    levelSelect.addEventListener("change", () => autoGenerate(true));
     downloadBtn.addEventListener("click", downloadQr);
 
-    const dropdown = document.getElementById("categoriesDropdown");
-    const trigger = dropdown.querySelector(".nav-button");
-    trigger.addEventListener("click", (e) => {
-      e.preventDefault();
-      const open = dropdown.classList.toggle("open");
-      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    window.addEventListener("load", () => {
+      applyLanguage(getInitialLang(), false);
+      setTemplate("text");
     });
-    document.addEventListener("click", (e) => {
-      if (!dropdown.contains(e.target)) {
-        dropdown.classList.remove("open");
-        trigger.setAttribute("aria-expanded", "false");
-      }
-    });
-
-    setTemplate("text");
   </script>
 </body>
 </html>
