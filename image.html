@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>Image Resizer & Compressor | Resize, Crop & WebP Export | Mini-Tools.uk</title>
-  <meta name="description" content="Resize, crop and compress images in your browser. Adjust dimensions, aspect ratios, quality and export JPG or WebP without uploading files to a server." />
-  <meta name="keywords" content="image resizer, image compressor, crop image online, resize photo online, WebP converter, JPG compressor, image optimizer, 图片压缩工具, 图片尺寸调整工具, 图片裁剪工具" />
+  <title>Image Resizer & Compressor | JPG, PNG and WebP Converter</title>
+  <meta name="description" content="Resize, crop and compress JPG or PNG images in your browser. Adjust dimensions, aspect ratios and quality, then export JPG or WebP without upload." />
+  <meta name="keywords" content="image resizer, image compressor, crop image online, resize photo online, WebP converter, JPG compressor, image optimizer" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/image" />
@@ -332,6 +332,7 @@
       .footer-inner{align-items:flex-start;flex-direction:column}
     }
   </style>
+  <link rel="stylesheet" href="ui-refresh.css" />
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
@@ -507,7 +508,7 @@
         <h2 data-i18n="articleTitle">Why this image resizer is useful</h2>
         <p data-i18n="articleP1">Large images can slow down websites, make forms fail, and increase upload time. This page helps you resize photos, crop to common ratios, lower file size and export a cleaner JPG or WebP file.</p>
         <p data-i18n="articleP2">The tool uses the browser canvas API. For normal use, the selected image is processed locally in your browser instead of being uploaded to Mini-Tools.uk.</p>
-        <p data-i18n="articleP3">For Chinese users, this page can also be used as a 图片压缩工具, 图片尺寸调整工具, 图片裁剪工具 and WebP转换工具.</p>
+        <p data-i18n="articleP3">Use it when you need a smaller upload, a cleaner crop for a profile or product image, or a quick WebP version for a website. Always keep an original copy if you may need to edit the image again later.</p>
 
         <h3 data-i18n="privacyTitle">Local processing note</h3>
         <p data-i18n="privacyText">Your image is rendered and exported in the browser. The page does not need an account, API key or remote upload for resizing and compression.</p>
@@ -559,12 +560,12 @@
         </div>
 
         <div class="side-card">
-          <h3 data-i18n="sideKeywordsTitle">Related searches</h3>
+          <h3 data-i18n="sideKeywordsTitle">Before exporting</h3>
           <div class="chips">
-            <span class="tag" data-i18n="kw1">image compressor</span>
-            <span class="tag" data-i18n="kw2">image resizer</span>
-            <span class="tag" data-i18n="kw3">图片压缩工具</span>
-            <span class="tag" data-i18n="kw4">图片裁剪工具</span>
+            <span class="tag" data-i18n="kw1">Keep original file</span>
+            <span class="tag" data-i18n="kw2">Check dimensions</span>
+            <span class="tag" data-i18n="kw3">Preview quality</span>
+            <span class="tag" data-i18n="kw4">Choose JPG or WebP</span>
           </div>
         </div>
 
@@ -1032,7 +1033,30 @@
         relatedHosting:"Hosting de imágenes"
       }
     };
-
+    translations.en.articleP3 = "Use it when you need a smaller upload, a cleaner crop for a profile or product image, or a quick WebP version for a website. Always keep an original copy if you may need to edit the image again later.";
+    translations.en.sideKeywordsTitle = "Before exporting";
+    translations.en.kw1 = "Keep original file";
+    translations.en.kw2 = "Check dimensions";
+    translations.en.kw3 = "Preview quality";
+    translations.en.kw4 = "Choose JPG or WebP";
+    if (translations["zh-CN"]) {
+      translations["zh-CN"].articleP3 = "当你需要缩小上传图片、裁剪头像或商品图，或者为网站准备 WebP 版本时，可以使用这个工具。若之后还可能继续编辑，建议保留原始图片。";
+      translations["zh-CN"].sideKeywordsTitle = "导出前先检查";
+      translations["zh-CN"].kw1 = "保留原图";
+      translations["zh-CN"].kw2 = "检查尺寸";
+      translations["zh-CN"].kw3 = "预览质量";
+      translations["zh-CN"].kw4 = "选择 JPG 或 WebP";
+    }
+    ["de","fr","es"].forEach(lang => {
+      if (translations[lang]) {
+        translations[lang].articleP3 = translations.en.articleP3;
+        translations[lang].sideKeywordsTitle = translations.en.sideKeywordsTitle;
+        translations[lang].kw1 = translations.en.kw1;
+        translations[lang].kw2 = translations.en.kw2;
+        translations[lang].kw3 = translations.en.kw3;
+        translations[lang].kw4 = translations.en.kw4;
+      }
+    });
     const allowedLangs = ["en","zh-CN","de","fr","es"];
     let currentLang = "en";
 

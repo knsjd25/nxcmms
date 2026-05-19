@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UK Working Days Calculator | Business Days & Bank Holidays</title>
-  <meta name="description" content="Calculate UK working days between two dates. Exclude weekends and official bank holidays for England & Wales, Scotland, or Northern Ireland." />
+  <title>UK Working Days Calculator 2026/2027 | Exclude Bank Holidays</title>
+  <meta name="description" content="Calculate UK working days between two dates and exclude weekends and 2026/2027 bank holidays for England & Wales, Scotland or Northern Ireland." />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://mini-tools.uk/working-days" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
@@ -44,6 +44,16 @@
             "@type": "Question",
             "name": "Can I exclude UK bank holidays?",
             "acceptedAnswer": {"@type": "Answer", "text": "Yes. You can choose England & Wales, Scotland, or Northern Ireland and exclude the official bank holidays for that region."}
+          },
+          {
+            "@type": "Question",
+            "name": "Does the calculator include both start and end dates?",
+            "acceptedAnswer": {"@type": "Answer", "text": "Yes. The calculator counts both the start date and the end date, then removes weekends and selected bank holidays."}
+          },
+          {
+            "@type": "Question",
+            "name": "Is this suitable for payroll or legal deadlines?",
+            "acceptedAnswer": {"@type": "Answer", "text": "It is useful for planning, but payroll, contract and legal deadline rules can vary. Check the relevant policy or professional guidance for formal use."}
           }
         ]
       }
@@ -242,6 +252,7 @@
       .hero { padding-top: 26px; }
     }
   </style>
+  <link rel="stylesheet" href="ui-refresh.css" />
 </head>
 <body>
   <header class="site-header">
@@ -280,7 +291,7 @@
   <main class="container">
     <section class="hero">
       <div class="eyebrow">🇬🇧 UK business-day calculator</div>
-      <h1>Working Days Calculator for the UK</h1>
+      <h1>UK working days calculator with bank holidays</h1>
       <p>Calculate business days between two dates, optionally excluding official bank holidays for England &amp; Wales, Scotland, or Northern Ireland.</p>
     </section>
 
@@ -359,18 +370,37 @@
     </section>
 
     <section class="prose">
-      <h2>How this calculator works</h2>
-      <p>This tool counts every day between your start date and end date, then removes Saturdays and Sundays. When bank holiday exclusion is turned on, it also removes the official bank holidays for your chosen UK region.</p>
-      <p>England &amp; Wales, Scotland, and Northern Ireland do not always share the same holiday calendar, so region matters. For example, Scotland has its own holiday pattern, while Northern Ireland includes St Patrick’s Day and the Battle of the Boyne. The official GOV.UK bank holiday listings also note that employers do not automatically have to give paid leave on bank holidays. citeturn902401search0turn417092search0</p>
+      <h2>How this UK working days calculator works</h2>
+      <p>This tool counts every calendar day between your start date and end date, then removes Saturdays and Sundays. If bank holiday exclusion is enabled, it also removes the built-in 2026 and 2027 bank holidays for the selected UK region.</p>
+      <p>England &amp; Wales, Scotland and Northern Ireland do not always share the same bank holiday calendar, so the region setting matters. This is useful when planning project timelines, invoice due dates, annual leave cover, delivery schedules or internal service-level targets.</p>
+
+      <h3>How to use it</h3>
+      <ul>
+        <li>Choose the start and end date for the period you want to check.</li>
+        <li>Select England &amp; Wales, Scotland or Northern Ireland.</li>
+        <li>Keep “Exclude bank holidays” enabled if you want a business-day style count.</li>
+        <li>Read the working-day total, calendar-day total, weekend count and excluded bank holidays.</li>
+      </ul>
+
+      <h3>Who this is useful for</h3>
+      <p>The calculator is useful for UK small businesses, contractors, project managers, operations teams, students and anyone planning around weekdays rather than raw calendar days. It helps answer practical questions such as “how many working days are left before this deadline?” or “how long is this project window after weekends and bank holidays?”</p>
+
+      <h3>Important limits</h3>
+      <p>This page is a planning tool, not a payroll, employment law or legal deadline system. Some organisations treat bank holidays, part-time working patterns, local holidays and contractual deadlines differently. For formal HR, payroll, court, tax or contract deadlines, check the relevant rules before relying on the result.</p>
 
       <div class="faq">
         <h3>What counts as a working day?</h3>
-        <p>In this calculator, a working day is any weekday that is not excluded as an official bank holiday for the region you selected.</p>
+        <p>In this calculator, a working day is a Monday to Friday that is not excluded as a bank holiday for the selected UK region.</p>
       </div>
 
       <div class="faq">
-        <h3>Are the holiday dates official?</h3>
-        <p>Yes. The built-in dates for 2026 and 2027 come from the official GOV.UK bank holiday listings for England &amp; Wales, Scotland, and Northern Ireland. citeturn902401search0turn417092search0</p>
+        <h3>Does it include both the start date and end date?</h3>
+        <p>Yes. The date range is inclusive. If the start or end date falls on a weekend or excluded bank holiday, that day is removed from the working-day total.</p>
+      </div>
+
+      <div class="faq">
+        <h3>Which bank holiday years are included?</h3>
+        <p>The built-in bank holiday sets cover 2026 and 2027 for England &amp; Wales, Scotland and Northern Ireland. Dates outside those years will still exclude weekends, but may not include every regional bank holiday.</p>
       </div>
 
       <div class="faq">

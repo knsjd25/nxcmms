@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>JSON Formatter & Validator | Beautify, Minify & Tree View | Mini-Tools.uk</title>
-  <meta name="description" content="Format, validate, minify and inspect JSON in your browser. Use a readable editor, collapsible tree view, copy button and PNG export without uploading your JSON." />
+  <title>JSON Formatter and Validator Online | Beautify, Minify, Tree View</title>
+  <meta name="description" content="Format, validate, beautify and minify JSON online in your browser. Inspect nested JSON in a tree view and copy or export results without upload." />
   <meta name="keywords" content="JSON formatter, JSON validator, JSON beautifier, JSON minifier, JSON tree viewer, JSON parser, developer tools, JSON格式化工具, JSON校验工具, JSON压缩工具" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#0f172a" />
@@ -257,6 +257,7 @@
       .footer-inner{align-items:flex-start;flex-direction:column}
     }
   </style>
+  <link rel="stylesheet" href="ui-refresh.css" />
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
@@ -312,7 +313,7 @@
   <main id="main" class="wrap">
     <section class="hero">
       <span class="badge" data-i18n="badge">Developer tool · local processing</span>
-      <h1 data-i18n="heroTitle">JSON Formatter & Validator</h1>
+      <h1 data-i18n="heroTitle">JSON formatter and validator online</h1>
       <p data-i18n="heroText">Paste raw JSON to format, validate, minify and inspect it in a collapsible tree view. The main parsing and formatting workflow runs in your browser.</p>
 
       <div class="mini-grid">
@@ -401,7 +402,7 @@
         <h2 data-i18n="articleTitle">What this JSON formatter includes</h2>
         <p data-i18n="articleP1">This JSON formatter helps you turn minified or hard-to-read JSON into a readable structure. It is useful for API responses, configuration files, webhook payloads, debugging logs and code examples.</p>
         <p data-i18n="articleP2">You can beautify JSON, minify it, validate syntax, inspect nested data in a tree viewer, copy the formatted result and export the tree view as a PNG image for documentation or tickets.</p>
-        <p data-i18n="articleP3">For Chinese users, this page is also useful as a JSON格式化工具, JSON校验工具, JSON压缩工具 and JSON树形查看器.</p>
+        <p data-i18n="articleP3">Use it to make JSON easier to read before debugging, documenting an API response or pasting a payload into a support ticket. If the data contains secrets, remove keys, tokens and personal data before sharing screenshots or copied output.</p>
 
         <h3 data-i18n="privacyTitle">Local processing note</h3>
         <p data-i18n="privacyText">Formatting, parsing and validation are handled in your browser. For normal use, the JSON you paste into the editor is not uploaded to Mini-Tools.uk.</p>
@@ -453,12 +454,12 @@
         </div>
 
         <div class="side-card">
-          <h3 data-i18n="sideKeywordsTitle">Related searches</h3>
+          <h3 data-i18n="sideKeywordsTitle">Before sharing JSON</h3>
           <div class="chips">
-            <span class="chip" data-i18n="kw1">JSON formatter</span>
-            <span class="chip" data-i18n="kw2">JSON validator</span>
-            <span class="chip" data-i18n="kw3">JSON格式化工具</span>
-            <span class="chip" data-i18n="kw4">JSON校验工具</span>
+            <span class="chip" data-i18n="kw1">Remove secrets</span>
+            <span class="chip" data-i18n="kw2">Validate syntax</span>
+            <span class="chip" data-i18n="kw3">Check nesting</span>
+            <span class="chip" data-i18n="kw4">Minify only when needed</span>
           </div>
         </div>
 
@@ -492,8 +493,8 @@
         htmlLang:"en-GB",
         langLabel:"English",
         locale:"en-GB",
-        title:"JSON Formatter & Validator | Beautify, Minify & Tree View | Mini-Tools.uk",
-        description:"Format, validate, minify and inspect JSON in your browser. Use a readable editor, collapsible tree view, copy button and PNG export without uploading your JSON.",
+        title:"JSON Formatter and Validator Online | Beautify, Minify, Tree View",
+        description:"Format, validate, beautify and minify JSON online in your browser. Inspect nested JSON in a tree view and copy or export results without upload.",
         keywords:"JSON formatter, JSON validator, JSON beautifier, JSON minifier, JSON tree viewer, JSON parser, developer tools",
         skip:"Skip to content",
         brandSubtitle:"Practical calculators and browser tools",
@@ -513,7 +514,7 @@
         catSecurity:"Security",
         catSecuritySmall:"Password and privacy helpers",
         badge:"Developer tool · local processing",
-        heroTitle:"JSON Formatter & Validator",
+        heroTitle:"JSON formatter and validator online",
         heroText:"Paste raw JSON to format, validate, minify and inspect it in a collapsible tree view. The main parsing and formatting workflow runs in your browser.",
         mini1Title:"Readable formatting",
         mini1Text:"Beautify minified API responses with clear indentation and syntax highlighting.",
@@ -1006,6 +1007,30 @@
     };
 
     const BIGINT_PREFIX = "__MT_BIGINT__";
+    translations.en.articleP3 = "Use it to make JSON easier to read before debugging, documenting an API response or pasting a payload into a support ticket. If the data contains secrets, remove keys, tokens and personal data before sharing screenshots or copied output.";
+    translations.en.sideKeywordsTitle = "Before sharing JSON";
+    translations.en.kw1 = "Remove secrets";
+    translations.en.kw2 = "Validate syntax";
+    translations.en.kw3 = "Check nesting";
+    translations.en.kw4 = "Minify only when needed";
+    if (translations["zh-CN"]) {
+      translations["zh-CN"].articleP3 = "在调试、记录 API 响应或把 payload 发到工单前，可以先把 JSON 格式化为更容易阅读的结构。如果内容包含密钥、token 或个人信息，分享截图或复制结果前应先移除。";
+      translations["zh-CN"].sideKeywordsTitle = "分享 JSON 前先检查";
+      translations["zh-CN"].kw1 = "移除密钥";
+      translations["zh-CN"].kw2 = "校验语法";
+      translations["zh-CN"].kw3 = "检查嵌套";
+      translations["zh-CN"].kw4 = "必要时再压缩";
+    }
+    ["de","fr","es"].forEach(lang => {
+      if (translations[lang]) {
+        translations[lang].articleP3 = translations.en.articleP3;
+        translations[lang].sideKeywordsTitle = translations.en.sideKeywordsTitle;
+        translations[lang].kw1 = translations.en.kw1;
+        translations[lang].kw2 = translations.en.kw2;
+        translations[lang].kw3 = translations.en.kw3;
+        translations[lang].kw4 = translations.en.kw4;
+      }
+    });
     const allowedLangs = ["en","zh-CN","de","fr","es"];
     let currentLang = "en";
     let parsedData = null;

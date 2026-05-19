@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>PDF to Image Converter | Convert PDF Pages to PNG Locally | Mini-Tools.uk</title>
-  <meta name="description" content="Convert PDF pages to high-resolution PNG images locally in your browser. Download individual pages or export all PDF pages as a ZIP file." />
-  <meta name="keywords" content="pdf to image, pdf to png, pdf converter, convert pdf locally, pdf to images zip, private pdf tool, PDF转图片, PDF转PNG, PDF图片转换器, PDF本地转换工具" />
+  <title>PDF to PNG Converter | Convert PDF Pages to Images</title>
+  <meta name="description" content="Convert PDF pages to PNG images locally in your browser. Download individual pages or export every PDF page as a ZIP file without uploading the PDF." />
+  <meta name="keywords" content="pdf to image, pdf to png, pdf converter, convert pdf locally, pdf to images zip, private pdf tool" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/pdf2img" />
@@ -243,6 +243,7 @@
       .footer-inner{align-items:flex-start;flex-direction:column}
     }
   </style>
+  <link rel="stylesheet" href="ui-refresh.css" />
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
@@ -365,7 +366,7 @@
         <h2 data-i18n="articleTitle">Why this PDF tool is useful</h2>
         <p data-i18n="articleP1">Exporting PDF pages as images is useful for previews, presentations, social posts, documentation and quick sharing. This tool renders each page as a PNG image so text and graphics stay clear.</p>
         <p data-i18n="articleP2">The PDF is processed locally in your browser. The file is not uploaded to Mini-Tools.uk for conversion, although the page still loads browser libraries and normal site assets.</p>
-        <p data-i18n="articleP3">For Chinese users, this page can also be used as a PDF转图片工具, PDF转PNG工具, PDF图片转换器 and PDF本地转换工具.</p>
+        <p data-i18n="articleP3">Use the converter when you need image previews for documentation, tickets, presentations or records. For confidential PDFs, review the file contents first and avoid sharing exported images that contain personal or sensitive information.</p>
 
         <h3 data-i18n="tipsTitle">Tips for better results</h3>
         <ul>
@@ -418,12 +419,12 @@
         </div>
 
         <div class="side-card">
-          <h3 data-i18n="sideKeywordsTitle">Related searches</h3>
+          <h3 data-i18n="sideKeywordsTitle">Before exporting</h3>
           <div class="chips">
-            <span class="tag" data-i18n="kw1">pdf to image</span>
-            <span class="tag" data-i18n="kw2">pdf to png</span>
-            <span class="tag" data-i18n="kw3">PDF转图片</span>
-            <span class="tag" data-i18n="kw4">PDF转PNG</span>
+            <span class="tag" data-i18n="kw1">Check page range</span>
+            <span class="tag" data-i18n="kw2">Preview resolution</span>
+            <span class="tag" data-i18n="kw3">Remove sensitive pages</span>
+            <span class="tag" data-i18n="kw4">Use ZIP for batches</span>
           </div>
         </div>
 
@@ -864,7 +865,30 @@
         relatedColor:"Image color picker"
       }
     };
-
+    translations.en.articleP3 = "Use the converter when you need image previews for documentation, tickets, presentations or records. For confidential PDFs, review the file contents first and avoid sharing exported images that contain personal or sensitive information.";
+    translations.en.sideKeywordsTitle = "Before exporting";
+    translations.en.kw1 = "Check page range";
+    translations.en.kw2 = "Preview resolution";
+    translations.en.kw3 = "Remove sensitive pages";
+    translations.en.kw4 = "Use ZIP for batches";
+    if (translations["zh-CN"]) {
+      translations["zh-CN"].articleP3 = "当你需要为文档、工单、演示或存档生成 PDF 页面预览图时，可以使用这个转换工具。处理包含隐私信息的 PDF 前，应先检查内容，避免分享含有个人或敏感信息的导出图片。";
+      translations["zh-CN"].sideKeywordsTitle = "导出前先检查";
+      translations["zh-CN"].kw1 = "检查页码范围";
+      translations["zh-CN"].kw2 = "预览分辨率";
+      translations["zh-CN"].kw3 = "移除敏感页面";
+      translations["zh-CN"].kw4 = "批量使用 ZIP";
+    }
+    ["de", "fr", "es"].forEach(lang => {
+      if (translations[lang]) {
+        translations[lang].articleP3 = translations.en.articleP3;
+        translations[lang].sideKeywordsTitle = translations.en.sideKeywordsTitle;
+        translations[lang].kw1 = translations.en.kw1;
+        translations[lang].kw2 = translations.en.kw2;
+        translations[lang].kw3 = translations.en.kw3;
+        translations[lang].kw4 = translations.en.kw4;
+      }
+    });
     const allowedLangs = ["en", "zh-CN", "de", "fr", "es"];
     let currentLang = "en";
 

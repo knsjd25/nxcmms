@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>UK Fuel Cost Calculator | Miles, MPG & Pence per Litre | Mini-Tools.uk</title>
-  <meta name="description" content="Estimate UK journey fuel costs using miles, imperial MPG and pence per litre. See total cost, litres used, gallons used and split cost per passenger." />
+  <title>UK Petrol Cost Calculator | Miles, MPG & Pence per Litre</title>
+  <meta name="description" content="Estimate UK petrol or diesel trip costs using miles, imperial MPG and pence per litre. See litres used, total fuel cost and cost per passenger." />
   <meta name="keywords" content="UK fuel cost calculator, petrol cost calculator UK, diesel cost calculator UK, fuel trip calculator, MPG fuel cost calculator, pence per litre fuel calculator, 英国燃油费用计算器, 英国油费计算器" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#0f172a" />
@@ -243,6 +243,7 @@
       .dropdown,.lang-dropdown{left:0;right:auto}
     }
   </style>
+  <link rel="stylesheet" href="ui-refresh.css" />
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
@@ -294,7 +295,7 @@
   <main id="main">
     <section class="hero wrap">
       <span class="badge" data-i18n="badge">UK road-trip estimate tool</span>
-      <h1 data-i18n="heroTitle">Fuel Cost Calculator</h1>
+      <h1 data-i18n="heroTitle">UK petrol and fuel cost calculator</h1>
       <p data-i18n="heroText">Estimate a one-way or return trip using UK miles, imperial MPG and pence per litre. See the total cost, litres required, gallons used and the split cost per passenger.</p>
 
       <div class="mini-grid">
@@ -480,12 +481,12 @@
     const translations = {
       en: {
         htmlLang:"en-GB", langLabel:"English", locale:"en-GB",
-        title:"UK Fuel Cost Calculator | Miles, MPG & Pence per Litre | Mini-Tools.uk",
-        description:"Estimate UK journey fuel costs using miles, imperial MPG and pence per litre. See total cost, litres used, gallons used and split cost per passenger.",
+        title:"UK Petrol Cost Calculator | Miles, MPG & Pence per Litre",
+        description:"Estimate UK petrol or diesel trip costs using miles, imperial MPG and pence per litre. See litres used, total fuel cost and cost per passenger.",
         keywords:"UK fuel cost calculator, petrol cost calculator UK, diesel cost calculator UK, fuel trip calculator, MPG fuel cost calculator, pence per litre fuel calculator",
         skip:"Skip to content", brandSubtitle:"Practical calculators and browser tools", navHome:"Home", navTools:"All Tools", navCategories:"Categories", navBlog:"Blog", navAbout:"About", navContact:"Contact", privacy:"Privacy",
         catFinance:"UK Finance", catFinanceSmall:"Tax, VAT, mortgage and travel tools", catDev:"Developer Tools", catDevSmall:"JSON, diff, image hosting and AI token estimation", catImage:"Image & PDF", catImageSmall:"Compression, conversion and media utilities", catSecurity:"Security", catSecuritySmall:"Password and privacy helpers",
-        badge:"UK road-trip estimate tool", heroTitle:"Fuel Cost Calculator", heroText:"Estimate a one-way or return trip using UK miles, imperial MPG and pence per litre. See the total cost, litres required, gallons used and the split cost per passenger.",
+        badge:"UK road-trip estimate tool", heroTitle:"UK petrol and fuel cost calculator", heroText:"Estimate a one-way or return trip using UK miles, imperial MPG and pence per litre. See the total cost, litres required, gallons used and the split cost per passenger.",
         mini1Title:"Made for UK inputs", mini1Text:"Uses miles, imperial MPG and pence per litre instead of mixing UK and US fuel assumptions.", mini2Title:"Useful for planning", mini2Text:"Quickly compare one-way and return journeys before setting off or splitting costs with friends.", mini3Title:"Clear cost breakdown", mini3Text:"Shows litres, imperial gallons and per-person cost without making you do the conversion yourself.",
         formTitle:"Journey details", tripTypeLabel:"Trip type", oneWay:"One way", returnTrip:"Return trip", tripHint:"Return trip simply doubles the journey distance before estimating fuel use.", distanceLabel:"Distance", milesUnit:"miles", mpgLabel:"Fuel efficiency", mpgUnit:"UK mpg", priceLabel:"Fuel price", priceUnit:"p / litre", priceHint:"Enter the pump price in pence per litre, for example 145.9.", passengersLabel:"Passengers sharing cost", peopleUnit:"people", planningNote:"This page is a journey planning estimate. Real-world consumption may change because of traffic, speed, weather, route profile, tyre pressure and vehicle load.", calcButton:"Estimate fuel cost",
         resultEyebrow:"Estimated journey cost", breakdownHead:"Breakdown", valueHead:"Value", effectiveDistanceLabel:"Journey distance used", litresLabel:"Fuel required", gallonsLabel:"Imperial gallons", displayPriceLabel:"Price per litre", perPersonLabel:"Cost per passenger", gallonNote:"For UK calculations, 1 imperial gallon =", gallonNote2:"This page uses the UK gallon, not the smaller US gallon.",

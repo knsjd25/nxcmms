@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>UK Mortgage Calculator | Monthly Payments, LTV & SDLT Estimate | Mini-Tools.uk</title>
-  <meta name="description" content="Estimate UK mortgage repayments, total interest, loan-to-value ratio and residential Stamp Duty Land Tax for England and Northern Ireland. Includes repayment, interest-only and rate stress checks." />
-  <meta name="keywords" content="UK mortgage calculator, mortgage repayment calculator UK, mortgage payment calculator, LTV calculator UK, stamp duty mortgage calculator, SDLT calculator, 英国房贷计算器, 英国按揭计算器, 英国印花税计算器" />
+  <title>UK Mortgage Repayment Calculator | Monthly Payments, LTV & SDLT</title>
+  <meta name="description" content="Estimate UK mortgage repayments, monthly payments, total interest, loan-to-value ratio and SDLT with repayment, interest-only and rate stress checks." />
+  <meta name="keywords" content="UK mortgage calculator, mortgage repayment calculator UK, mortgage payment calculator, LTV calculator UK, stamp duty mortgage calculator, SDLT calculator" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/mortgage" />
@@ -254,6 +254,7 @@
       .footer-inner{align-items:flex-start;flex-direction:column}
     }
   </style>
+  <link rel="stylesheet" href="ui-refresh.css" />
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
@@ -309,7 +310,7 @@
   <main id="main" class="wrap">
     <section class="hero">
       <span class="badge" data-i18n="badge">England & Northern Ireland SDLT estimate included</span>
-      <h1 data-i18n="heroTitle">UK Mortgage Calculator</h1>
+      <h1 data-i18n="heroTitle">UK mortgage repayment calculator</h1>
       <p data-i18n="heroText">Estimate monthly repayments, total interest, loan-to-value ratio and residential Stamp Duty Land Tax in one place. Built for quick planning, not lender approval.</p>
 
       <div class="mini-grid">
@@ -453,7 +454,7 @@
         <h2 data-i18n="articleTitle">How this mortgage calculator works</h2>
         <p data-i18n="articleP1">This calculator estimates monthly repayments using a standard amortisation formula for repayment mortgages, or monthly interest for interest-only mortgages. It also shows total interest over the full term and calculates loan-to-value.</p>
         <p data-i18n="articleP2">LTV means loan-to-value. A mortgage of £240,000 on a property worth £300,000 gives an 80% LTV. Lower LTVs can often unlock better mortgage products, while higher LTVs can mean fewer products and higher costs.</p>
-        <p data-i18n="articleP3">For Chinese users, this page can also be used as an 英国房贷计算器, 英国按揭计算器, 英国贷款价值比计算器 and 英国印花税计算器.</p>
+        <p data-i18n="articleP3">Use the estimate to compare monthly affordability, deposit size, LTV and SDLT before you speak to a broker or lender. It does not include lender fees, legal costs, insurance, credit checks or product-specific affordability rules.</p>
 
         <h3 data-i18n="sdltTitle">SDLT estimate included</h3>
         <p data-i18n="sdltText">The SDLT estimate is for residential property purchases in England and Northern Ireland. It supports main residence purchases, first-time buyer relief, additional property rates and the optional 2% non-UK resident surcharge.</p>
@@ -499,12 +500,12 @@
         </div>
 
         <div class="side-card">
-          <h3 data-i18n="sideKeywordsTitle">Related searches</h3>
+          <h3 data-i18n="sideKeywordsTitle">Before relying on it</h3>
           <div class="chips">
-            <span class="chip" data-i18n="kw1">UK mortgage calculator</span>
-            <span class="chip" data-i18n="kw2">LTV calculator UK</span>
-            <span class="chip" data-i18n="kw3">英国房贷计算器</span>
-            <span class="chip" data-i18n="kw4">英国印花税计算器</span>
+            <span class="chip" data-i18n="kw1">Check lender fees</span>
+            <span class="chip" data-i18n="kw2">Confirm product rate</span>
+            <span class="chip" data-i18n="kw3">Review SDLT status</span>
+            <span class="chip" data-i18n="kw4">Stress test payments</span>
           </div>
         </div>
 
@@ -1035,7 +1036,33 @@
         relatedSdlt:"Calculadora Stamp Duty"
       }
     };
-
+    translations.en.title = "UK Mortgage Repayment Calculator | Monthly Payments, LTV & SDLT";
+    translations.en.description = "Estimate UK mortgage repayments, monthly payments, total interest, loan-to-value ratio and SDLT with repayment, interest-only and rate stress checks.";
+    translations.en.keywords = "UK mortgage calculator, mortgage repayment calculator UK, mortgage payment calculator, LTV calculator UK, stamp duty mortgage calculator, SDLT calculator";
+    translations.en.articleP3 = "Use the estimate to compare monthly affordability, deposit size, LTV and SDLT before you speak to a broker or lender. It does not include lender fees, legal costs, insurance, credit checks or product-specific affordability rules.";
+    translations.en.sideKeywordsTitle = "Before relying on it";
+    translations.en.kw1 = "Check lender fees";
+    translations.en.kw2 = "Confirm product rate";
+    translations.en.kw3 = "Review SDLT status";
+    translations.en.kw4 = "Stress test payments";
+    if (translations["zh-CN"]) {
+      translations["zh-CN"].articleP3 = "在联系贷款经纪或银行前，可以用这个估算比较月供承受能力、首付比例、LTV 和 SDLT。它不包含贷款机构费用、律师费、保险、信用审核或具体产品的负担能力规则。";
+      translations["zh-CN"].sideKeywordsTitle = "使用结果前先核对";
+      translations["zh-CN"].kw1 = "检查贷款费用";
+      translations["zh-CN"].kw2 = "确认产品利率";
+      translations["zh-CN"].kw3 = "核对 SDLT 状态";
+      translations["zh-CN"].kw4 = "压力测试月供";
+    }
+    ["de", "fr", "es"].forEach(lang => {
+      if (translations[lang]) {
+        translations[lang].articleP3 = translations.en.articleP3;
+        translations[lang].sideKeywordsTitle = translations.en.sideKeywordsTitle;
+        translations[lang].kw1 = translations.en.kw1;
+        translations[lang].kw2 = translations.en.kw2;
+        translations[lang].kw3 = translations.en.kw3;
+        translations[lang].kw4 = translations.en.kw4;
+      }
+    });
     const allowedLangs = ["en", "zh-CN", "de", "fr", "es"];
     let currentLang = "en";
 
