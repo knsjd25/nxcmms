@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Free Image Hosting for GitHub README, Markdown and Blogs</title>
-  <meta name="description" content="Upload an image and get a shareable direct link. Free image hosting with browser preview, flexible retention periods and optional long-term storage codes." />
-  <meta name="keywords" content="free image hosting, free image host, image hosting, upload image and get link, share image online, screenshot hosting, image URL hosting, hotlink image, image link generator" />
+  <title>Free Image Hosting for GitHub README, Markdown and Blogs | Mini-Tools.uk</title>
+  <meta name="description" content="Upload an image and get a shareable direct link. Free image hosting for GitHub README, Markdown, blogs and forums with direct URL, Markdown, HTML and BBCode output." />
+  <meta name="keywords" content="free image hosting, no signup image hosting, image to URL, free image host, Markdown image hosting, GitHub README image hosting, upload image and get link, share image online, screenshot hosting, image URL hosting, image link generator, 免费图床, 免注册图床, 图片转URL, Markdown 图床" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://mini-tools.uk/upload" />
 
   <meta property="og:title" content="Free Image Hosting for GitHub README, Markdown and Blogs" />
-  <meta property="og:description" content="Free image hosting with shareable links, browser preview, selectable retention settings, and optional long-term storage codes." />
+  <meta property="og:description" content="Free image hosting with direct URL, Markdown, HTML and BBCode output for GitHub README, Markdown documents, blogs and forums." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mini-tools.uk/upload" />
 
@@ -259,7 +259,10 @@
     .result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .result-item{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
     .result-item label{
-      display:block;margin-bottom:8px;font-size:.74rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#334155
+      display:block;margin-bottom:6px;font-size:.74rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#334155
+    }
+    .format-use{
+      display:block;margin:0 0 10px;color:#64748b;font-size:.84rem;line-height:1.45
     }
     .copy-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start}
     .copy-field{
@@ -442,35 +445,39 @@
       </div>
       <div class="log-body" id="uploadLog"></div>
       <div class="result-panel" id="resultPanel" aria-live="polite">
-        <h2>Your hosted image links</h2>
-        <p>Use the format that matches where you want to embed the uploaded image.</p>
+        <h2 id="resultTitle">Your hosted image links</h2>
+        <p id="resultIntro">Use the format that matches where you want to embed the uploaded image.</p>
         <div class="result-grid">
           <div class="result-item">
-            <label for="directUrlOutput">Direct URL</label>
+            <label id="resultDirectLabel" for="directUrlOutput">Direct URL</label>
+            <small class="format-use" id="resultDirectUse">For pasting the raw image link anywhere.</small>
             <div class="copy-row">
               <textarea class="copy-field" id="directUrlOutput" rows="2" readonly></textarea>
-              <button class="copy-btn" type="button" data-copy-target="directUrlOutput">Copy</button>
+              <button class="copy-btn" id="copyDirectBtn" type="button" data-copy-target="directUrlOutput">Copy URL</button>
             </div>
           </div>
           <div class="result-item">
-            <label for="markdownOutput">Markdown</label>
+            <label id="resultMarkdownLabel" for="markdownOutput">Markdown</label>
+            <small class="format-use" id="resultMarkdownUse">For GitHub README, Markdown docs and issue comments.</small>
             <div class="copy-row">
               <textarea class="copy-field" id="markdownOutput" rows="2" readonly></textarea>
-              <button class="copy-btn" type="button" data-copy-target="markdownOutput">Copy</button>
+              <button class="copy-btn" id="copyMarkdownBtn" type="button" data-copy-target="markdownOutput">Copy Markdown</button>
             </div>
           </div>
           <div class="result-item">
-            <label for="htmlOutput">HTML</label>
+            <label id="resultHtmlLabel" for="htmlOutput">HTML</label>
+            <small class="format-use" id="resultHtmlUse">For web pages, blog editors and CMS templates.</small>
             <div class="copy-row">
               <textarea class="copy-field" id="htmlOutput" rows="2" readonly></textarea>
-              <button class="copy-btn" type="button" data-copy-target="htmlOutput">Copy</button>
+              <button class="copy-btn" id="copyHtmlBtn" type="button" data-copy-target="htmlOutput">Copy HTML</button>
             </div>
           </div>
           <div class="result-item">
-            <label for="bbcodeOutput">BBCode</label>
+            <label id="resultBbcodeLabel" for="bbcodeOutput">BBCode</label>
+            <small class="format-use" id="resultBbcodeUse">For forums and communities that support BBCode.</small>
             <div class="copy-row">
               <textarea class="copy-field" id="bbcodeOutput" rows="2" readonly></textarea>
-              <button class="copy-btn" type="button" data-copy-target="bbcodeOutput">Copy</button>
+              <button class="copy-btn" id="copyBbcodeBtn" type="button" data-copy-target="bbcodeOutput">Copy BBCode</button>
             </div>
           </div>
         </div>
@@ -486,36 +493,36 @@
     </section>
 
     <section class="section-card">
-      <h2>Usage examples for README, Markdown, HTML and BBCode</h2>
-      <p>
+      <h2 id="examplesTitle">Usage examples for README, Markdown, HTML and BBCode</h2>
+      <p id="examplesIntro">
         After upload, copy the format you need. GitHub README files and most documentation systems use Markdown, web pages use HTML, and many forums still support BBCode.
       </p>
       <div class="examples-grid">
         <article class="example-item">
-          <h3>GitHub README</h3>
-          <p>Paste the Markdown output into README.md to show the hosted image in a repository page.</p>
+          <h3 id="readmeExampleTitle">GitHub README</h3>
+          <p id="readmeExampleText">Paste the Markdown output into README.md to show the hosted image in a repository page.</p>
           <pre class="example-code"><code>![Project screenshot](https://mini-tools.uk/example-image.webp)</code></pre>
         </article>
         <article class="example-item">
-          <h3>Markdown</h3>
-          <p>Use Markdown in docs, blog engines, issue comments and notes that support image embeds.</p>
+          <h3 id="markdownExampleTitle">Markdown</h3>
+          <p id="markdownExampleText">Use Markdown in docs, blog engines, issue comments and notes that support image embeds.</p>
           <pre class="example-code"><code>![Alt text](https://mini-tools.uk/example-image.webp)</code></pre>
         </article>
         <article class="example-item">
-          <h3>HTML</h3>
-          <p>Use HTML when you need an image tag for a website, CMS block or custom template.</p>
+          <h3 id="htmlExampleTitle">HTML</h3>
+          <p id="htmlExampleText">Use HTML when you need an image tag for a website, CMS block or custom template.</p>
           <pre class="example-code"><code>&lt;img src="https://mini-tools.uk/example-image.webp" alt="Hosted image"&gt;</code></pre>
         </article>
         <article class="example-item">
-          <h3>BBCode</h3>
-          <p>Use BBCode on forums and community sites that accept classic image tags.</p>
+          <h3 id="bbcodeExampleTitle">BBCode</h3>
+          <p id="bbcodeExampleText">Use BBCode on forums and community sites that accept classic image tags.</p>
           <pre class="example-code"><code>[img]https://mini-tools.uk/example-image.webp[/img]</code></pre>
         </article>
       </div>
     </section>
 
     <section class="section-card">
-      <h2>FAQ</h2>
+      <h2 id="faqSectionTitle">FAQ</h2>
 
       <div class="faq-grid">
         <article class="faq-item">
@@ -535,20 +542,20 @@
           <p id="faq4Text">It is useful for screenshots, blog images, product photos, forum posts, support tickets and other simple image sharing tasks.</p>
         </article>
         <article class="faq-item">
-          <h3>Can I use the link in a GitHub README?</h3>
-          <p>Yes. Upload the image, copy the Markdown output, and paste it into README.md or a GitHub issue comment.</p>
+          <h3 id="faq5Title">Can I use the link in a GitHub README?</h3>
+          <p id="faq5Text">Yes. Upload the image, copy the Markdown output, and paste it into README.md or a GitHub issue comment.</p>
         </article>
         <article class="faq-item">
-          <h3>Which output format should I copy?</h3>
-          <p>Use Direct URL for plain links, Markdown for README files and docs, HTML for web pages, and BBCode for forums.</p>
+          <h3 id="faq6Title">Which output format should I copy?</h3>
+          <p id="faq6Text">Use Direct URL for plain links, Markdown for README files and docs, HTML for web pages, and BBCode for forums.</p>
         </article>
         <article class="faq-item">
-          <h3>Does this change the upload API?</h3>
-          <p>No. The page still sends uploads to the existing Worker endpoint and only formats the returned image URL for easier reuse.</p>
+          <h3 id="faq7Title">Does this change the upload API?</h3>
+          <p id="faq7Text">No. The page still sends uploads to the existing Worker endpoint and only formats the returned image URL for easier reuse.</p>
         </article>
         <article class="faq-item">
-          <h3>Do I need a long-term storage code?</h3>
-          <p>Only permanent storage requires an approved long-term storage code. Normal 1 day, 7 day and 30 day uploads can leave it blank.</p>
+          <h3 id="faq8Title">Do I need a long-term storage code?</h3>
+          <p id="faq8Text">Only permanent storage requires an approved long-term storage code. Normal 1 day, 7 day and 30 day uploads can leave it blank.</p>
         </article>
       </div>
     </section>
@@ -573,7 +580,7 @@
     const translations = {
       en: {
         htmlLang: "en",
-        seoTitle: "Free Image Hosting | Mini-Tools",
+        seoTitle: "Free Image Hosting for GitHub README, Markdown and Blogs | Mini-Tools.uk",
         seoDescription: "Free image hosting with shareable image links, flexible retention periods, browser preview before upload, and optional long-term storage codes for approved use.",
         seoKeywords: "free image hosting, free image host, image hosting, upload image and get link, share image online, screenshot hosting, image URL hosting, hotlink image, image link generator",
         ogTitle: "Free Image Hosting | Mini-Tools",
@@ -598,7 +605,7 @@
         navAbout: "About",
 
         eyebrowText: "Free Image Hosting • Remote Storage",
-        pageTitle: "Free image hosting with direct links",
+        pageTitle: "Free Image Hosting for GitHub README, Markdown and Blogs",
         introText: "Upload an image, choose how long it should stay online, and get a shareable image link. This free image hosting page is useful for screenshots, blog images, product images and quick online sharing.",
         noticeText: "Use this free image hosting page only for images you are comfortable uploading to the service. Simple math verification helps reduce abuse, and approved storage codes can be used for long-term image hosting.",
 
@@ -635,6 +642,43 @@
         faq4Title: "What can I use this free image host for?",
         faq4Text: "It is useful for screenshots, blog images, product photos, forum posts, support tickets and other simple image sharing tasks.",
 
+
+        resultTitle: "Your hosted image links",
+        resultIntro: "Use the format that matches where you want to embed the uploaded image.",
+        resultDirectLabel: "Direct URL",
+        resultDirectUse: "For pasting the raw image link anywhere.",
+        resultMarkdownLabel: "Markdown",
+        resultMarkdownUse: "For GitHub README, Markdown docs and issue comments.",
+        resultHtmlLabel: "HTML",
+        resultHtmlUse: "For web pages, blog editors and CMS templates.",
+        resultBbcodeLabel: "BBCode",
+        resultBbcodeUse: "For forums and communities that support BBCode.",
+        copyDirectBtn: "Copy URL",
+        copyMarkdownBtn: "Copy Markdown",
+        copyHtmlBtn: "Copy HTML",
+        copyBbcodeBtn: "Copy BBCode",
+        copiedButton: "Copied",
+
+        examplesTitle: "Usage examples for README, Markdown, HTML and BBCode",
+        examplesIntro: "After upload, copy the format you need. GitHub README files and most documentation systems use Markdown, web pages use HTML, and many forums still support BBCode.",
+        readmeExampleTitle: "GitHub README",
+        readmeExampleText: "Paste the Markdown output into README.md to show the hosted image in a repository page.",
+        markdownExampleTitle: "Markdown",
+        markdownExampleText: "Use Markdown in docs, blog engines, issue comments and notes that support image embeds.",
+        htmlExampleTitle: "HTML",
+        htmlExampleText: "Use HTML when you need an image tag for a website, CMS block or custom template.",
+        bbcodeExampleTitle: "BBCode",
+        bbcodeExampleText: "Use BBCode on forums and community sites that accept classic image tags.",
+
+        faqSectionTitle: "FAQ",
+        faq5Title: "Can I use the link in a GitHub README?",
+        faq5Text: "Yes. Upload the image, copy the Markdown output, and paste it into README.md or a GitHub issue comment.",
+        faq6Title: "Which output format should I copy?",
+        faq6Text: "Use Direct URL for plain links, Markdown for README files and docs, HTML for web pages, and BBCode for forums.",
+        faq7Title: "Does this change the upload API?",
+        faq7Text: "No. The page still sends uploads to the existing Worker endpoint and only formats the returned image URL for easier reuse.",
+        faq8Title: "Do I need a long-term storage code?",
+        faq8Text: "Only permanent storage requires an approved long-term storage code. Normal 1 day, 7 day and 30 day uploads can leave it blank.",
         footerHome: "Home",
         footerBlog: "Blog",
         footerAbout: "About",
@@ -667,7 +711,7 @@
 
       zh: {
         htmlLang: "zh-CN",
-        seoTitle: "免费图床 | Mini-Tools",
+        seoTitle: "免费图床：图片转 URL、Markdown 与 GitHub README 图片托管 | Mini-Tools.uk",
         seoDescription: "免费图床支持上传图片并生成可分享外链，可自定义保留时长，支持上传前预览、长期存储码和简单计算验证。",
         seoKeywords: "免费图床, 图床, 图片外链, 图片托管, 图片上传, 截图图床, 分享图片链接, 在线图床, 图片直链",
         ogTitle: "免费图床 | Mini-Tools",
@@ -692,7 +736,7 @@
         navAbout: "关于",
 
         eyebrowText: "免费图床 • 远程存储",
-        pageTitle: "免费图床",
+        pageTitle: "免费图床：图片转 URL、Markdown 与 GitHub README 图片托管",
         introText: "上传图片，选择保留时长，并生成可分享图片外链。这个免费图床适合截图、博客配图、商品图片、工单反馈和日常在线分享。",
         noticeText: "请仅上传你愿意保存到服务端的图片。简单计算验证用于减少滥用，已批准的长期存储码可用于长期图片托管。",
 
@@ -729,6 +773,43 @@
         faq4Title: "这个免费图床适合用来做什么？",
         faq4Text: "它适合截图、博客配图、商品图片、论坛发帖、工单反馈和其他简单的图片分享场景。",
 
+
+        resultTitle: "你的图片托管链接",
+        resultIntro: "根据你要使用的位置，复制对应格式的图片链接。",
+        resultDirectLabel: "图片直链",
+        resultDirectUse: "用于直接粘贴原始图片链接，适合分享、引用或放到需要 URL 的地方。",
+        resultMarkdownLabel: "Markdown",
+        resultMarkdownUse: "用于 GitHub README、Markdown 文档、Issue 评论和技术笔记。",
+        resultHtmlLabel: "HTML",
+        resultHtmlUse: "用于网页、博客编辑器、CMS 内容块和自定义模板。",
+        resultBbcodeLabel: "BBCode",
+        resultBbcodeUse: "用于支持 BBCode 的论坛、社区帖子和老式发帖系统。",
+        copyDirectBtn: "复制 URL",
+        copyMarkdownBtn: "复制 Markdown",
+        copyHtmlBtn: "复制 HTML",
+        copyBbcodeBtn: "复制 BBCode",
+        copiedButton: "已复制",
+
+        examplesTitle: "README、Markdown、HTML 和 BBCode 使用示例",
+        examplesIntro: "上传后复制你需要的格式。GitHub README 和多数文档系统使用 Markdown，网页使用 HTML，很多论坛仍支持 BBCode。",
+        readmeExampleTitle: "GitHub README",
+        readmeExampleText: "将 Markdown 输出粘贴到 README.md 中，即可在仓库页面展示托管图片。",
+        markdownExampleTitle: "Markdown",
+        markdownExampleText: "适用于文档、博客引擎、Issue 评论和支持图片嵌入的 Markdown 笔记。",
+        htmlExampleTitle: "HTML",
+        htmlExampleText: "当网站、CMS 模块或自定义模板需要图片标签时，可复制 HTML 格式。",
+        bbcodeExampleTitle: "BBCode",
+        bbcodeExampleText: "适用于支持经典图片标签的论坛和社区网站。",
+
+        faqSectionTitle: "常见问题",
+        faq5Title: "可以把链接用于 GitHub README 吗？",
+        faq5Text: "可以。上传图片后复制 Markdown 输出，并粘贴到 README.md 或 GitHub Issue 评论中即可。",
+        faq6Title: "我应该复制哪种输出格式？",
+        faq6Text: "普通分享用图片直链，README 和文档用 Markdown，网页用 HTML，论坛用 BBCode。",
+        faq7Title: "这会改变上传 API 吗？",
+        faq7Text: "不会。页面仍然发送到现有 Worker 上传端点，只是在返回图片 URL 后生成更方便复用的格式。",
+        faq8Title: "我需要长期存储码吗？",
+        faq8Text: "只有永久保存需要已批准的长期存储码。普通 1 天、7 天和 30 天上传可以留空。",
         footerHome: "首页",
         footerBlog: "博客",
         footerAbout: "关于",
@@ -761,7 +842,7 @@
 
       de: {
         htmlLang: "de",
-        seoTitle: "Kostenloses Bild-Hosting | Mini-Tools",
+        seoTitle: "Kostenloses Bild-Hosting für Markdown, README und Blogs | Mini-Tools.uk",
         seoDescription: "Kostenloses Bild-Hosting mit teilbaren Bildlinks, flexiblen Aufbewahrungszeiten, Vorschau vor dem Upload und optionalen Codes für genehmigte Langzeitspeicherung.",
         seoKeywords: "kostenloses bild-hosting, kostenloser bildhoster, bildhosting, bild hochladen link, bild online teilen, screenshot hosting, bild url hosting",
         ogTitle: "Kostenloses Bild-Hosting | Mini-Tools",
@@ -786,7 +867,7 @@
         navAbout: "Über uns",
 
         eyebrowText: "Kostenloses Bild-Hosting • Remote-Speicher",
-        pageTitle: "Kostenloses Bild-Hosting",
+        pageTitle: "Kostenloses Bild-Hosting für Markdown, README und Blogs",
         introText: "Lade ein Bild hoch, wähle die gewünschte Aufbewahrungsdauer und erhalte einen teilbaren Bildlink. Dieses kostenlose Bild-Hosting ist ideal für Screenshots, Blogbilder, Produktbilder und schnelles Online-Teilen.",
         noticeText: "Nutze diese Seite nur für Bilder, die du auf den Server hochladen möchtest. Eine einfache Rechenaufgabe hilft gegen Missbrauch, und genehmigte Speicher-Codes können für Langzeitspeicherung verwendet werden.",
 
@@ -823,6 +904,43 @@
         faq4Title: "Wofür kann ich diesen kostenlosen Bildhoster nutzen?",
         faq4Text: "Er eignet sich für Screenshots, Blogbilder, Produktfotos, Forenbeiträge, Support-Tickets und andere einfache Bildfreigaben.",
 
+
+        resultTitle: "Deine gehosteten Bildlinks",
+        resultIntro: "Kopiere das Format, das zu deinem Einbettungsziel passt.",
+        resultDirectLabel: "Direkt-URL",
+        resultDirectUse: "Zum Einfügen des reinen Bildlinks überall dort, wo eine URL benötigt wird.",
+        resultMarkdownLabel: "Markdown",
+        resultMarkdownUse: "Für GitHub README, Markdown-Dokumente und Issue-Kommentare.",
+        resultHtmlLabel: "HTML",
+        resultHtmlUse: "Für Webseiten, Blog-Editoren und CMS-Templates.",
+        resultBbcodeLabel: "BBCode",
+        resultBbcodeUse: "Für Foren und Communities, die BBCode unterstützen.",
+        copyDirectBtn: "URL kopieren",
+        copyMarkdownBtn: "Markdown kopieren",
+        copyHtmlBtn: "HTML kopieren",
+        copyBbcodeBtn: "BBCode kopieren",
+        copiedButton: "Kopiert",
+
+        examplesTitle: "Beispiele für README, Markdown, HTML und BBCode",
+        examplesIntro: "Kopiere nach dem Upload das passende Format. GitHub README und viele Dokumentationssysteme nutzen Markdown, Webseiten nutzen HTML und viele Foren unterstützen BBCode.",
+        readmeExampleTitle: "GitHub README",
+        readmeExampleText: "Füge die Markdown-Ausgabe in README.md ein, um das gehostete Bild auf der Repository-Seite anzuzeigen.",
+        markdownExampleTitle: "Markdown",
+        markdownExampleText: "Nutze Markdown in Dokumentationen, Blog-Systemen, Issue-Kommentaren und Notizen mit Bildunterstützung.",
+        htmlExampleTitle: "HTML",
+        htmlExampleText: "Nutze HTML, wenn du ein Bild-Tag für eine Webseite, ein CMS-Modul oder ein Template brauchst.",
+        bbcodeExampleTitle: "BBCode",
+        bbcodeExampleText: "Nutze BBCode in Foren und Community-Seiten, die klassische Bild-Tags unterstützen.",
+
+        faqSectionTitle: "Häufige Fragen",
+        faq5Title: "Kann ich den Link in einem GitHub README verwenden?",
+        faq5Text: "Ja. Lade das Bild hoch, kopiere die Markdown-Ausgabe und füge sie in README.md oder einen GitHub-Issue-Kommentar ein.",
+        faq6Title: "Welches Ausgabeformat soll ich kopieren?",
+        faq6Text: "Nutze Direkt-URL für einfache Links, Markdown für README-Dateien und Dokumente, HTML für Webseiten und BBCode für Foren.",
+        faq7Title: "Ändert das die Upload-API?",
+        faq7Text: "Nein. Die Seite sendet Uploads weiterhin an den bestehenden Worker-Endpunkt und formatiert nur die zurückgegebene Bild-URL.",
+        faq8Title: "Brauche ich einen Langzeitspeicher-Code?",
+        faq8Text: "Nur permanente Speicherung benötigt einen genehmigten Langzeitspeicher-Code. Normale Uploads für 1 Tag, 7 Tage und 30 Tage können leer bleiben.",
         footerHome: "Start",
         footerBlog: "Blog",
         footerAbout: "Über uns",
@@ -855,7 +973,7 @@
 
       fr: {
         htmlLang: "fr",
-        seoTitle: "Hébergement d’images gratuit | Mini-Tools",
+        seoTitle: "Hébergement d’images gratuit pour Markdown, README et blogs | Mini-Tools.uk",
         seoDescription: "Hébergement d’images gratuit avec liens partageables, durées de conservation flexibles, aperçu avant l’envoi et codes optionnels pour le stockage longue durée approuvé.",
         seoKeywords: "hébergement d’images gratuit, hébergeur d’images, image en ligne, lien image, partager image, hébergement capture d’écran",
         ogTitle: "Hébergement d’images gratuit | Mini-Tools",
@@ -880,7 +998,7 @@
         navAbout: "À propos",
 
         eyebrowText: "Hébergement d’images gratuit • Stockage distant",
-        pageTitle: "Hébergement d’images gratuit",
+        pageTitle: "Hébergement d’images gratuit pour Markdown, README et blogs",
         introText: "Téléversez une image, choisissez combien de temps elle reste en ligne et obtenez un lien image partageable. Cette page est utile pour les captures d’écran, les images de blog, les photos produits et le partage rapide.",
         noticeText: "Utilisez cette page uniquement pour les images que vous acceptez d’envoyer au service. Une simple opération aide à réduire les abus, et des codes approuvés peuvent être utilisés pour le stockage longue durée.",
 
@@ -917,6 +1035,43 @@
         faq4Title: "À quoi sert cet hébergeur d’images gratuit ?",
         faq4Text: "Il est utile pour les captures d’écran, images de blog, photos produits, messages de forum, tickets de support et autres partages d’images simples.",
 
+
+        resultTitle: "Vos liens d’image hébergée",
+        resultIntro: "Copiez le format correspondant à l’endroit où vous voulez intégrer l’image.",
+        resultDirectLabel: "URL directe",
+        resultDirectUse: "Pour coller le lien brut de l’image partout où une URL est nécessaire.",
+        resultMarkdownLabel: "Markdown",
+        resultMarkdownUse: "Pour GitHub README, les documents Markdown et les commentaires d’issues.",
+        resultHtmlLabel: "HTML",
+        resultHtmlUse: "Pour les pages web, éditeurs de blog et modèles CMS.",
+        resultBbcodeLabel: "BBCode",
+        resultBbcodeUse: "Pour les forums et communautés qui prennent BBCode en charge.",
+        copyDirectBtn: "Copier l’URL",
+        copyMarkdownBtn: "Copier Markdown",
+        copyHtmlBtn: "Copier HTML",
+        copyBbcodeBtn: "Copier BBCode",
+        copiedButton: "Copié",
+
+        examplesTitle: "Exemples pour README, Markdown, HTML et BBCode",
+        examplesIntro: "Après l’envoi, copiez le format nécessaire. Les README GitHub et la plupart des systèmes de documentation utilisent Markdown, les pages web utilisent HTML, et de nombreux forums prennent encore BBCode en charge.",
+        readmeExampleTitle: "GitHub README",
+        readmeExampleText: "Collez la sortie Markdown dans README.md pour afficher l’image hébergée sur la page du dépôt.",
+        markdownExampleTitle: "Markdown",
+        markdownExampleText: "Utilisez Markdown dans les docs, moteurs de blog, commentaires d’issue et notes qui acceptent les images.",
+        htmlExampleTitle: "HTML",
+        htmlExampleText: "Utilisez HTML lorsque vous avez besoin d’une balise image pour un site, un bloc CMS ou un modèle personnalisé.",
+        bbcodeExampleTitle: "BBCode",
+        bbcodeExampleText: "Utilisez BBCode sur les forums et sites communautaires qui acceptent les balises image classiques.",
+
+        faqSectionTitle: "FAQ",
+        faq5Title: "Puis-je utiliser le lien dans un GitHub README ?",
+        faq5Text: "Oui. Téléversez l’image, copiez la sortie Markdown, puis collez-la dans README.md ou un commentaire d’issue GitHub.",
+        faq6Title: "Quel format dois-je copier ?",
+        faq6Text: "Utilisez l’URL directe pour les liens simples, Markdown pour les README et docs, HTML pour les pages web, et BBCode pour les forums.",
+        faq7Title: "Cela modifie-t-il l’API d’envoi ?",
+        faq7Text: "Non. La page envoie toujours les fichiers au Worker existant et formate seulement l’URL retournée pour la réutiliser plus facilement.",
+        faq8Title: "Ai-je besoin d’un code de stockage longue durée ?",
+        faq8Text: "Seul le stockage permanent nécessite un code approuvé. Les envois de 1 jour, 7 jours et 30 jours peuvent le laisser vide.",
         footerHome: "Accueil",
         footerBlog: "Blog",
         footerAbout: "À propos",
@@ -949,7 +1104,7 @@
 
       es: {
         htmlLang: "es",
-        seoTitle: "Alojamiento gratuito de imágenes | Mini-Tools",
+        seoTitle: "Alojamiento gratuito de imágenes para Markdown, README y blogs | Mini-Tools.uk",
         seoDescription: "Alojamiento gratuito de imágenes con enlaces compartibles, tiempos de retención flexibles, vista previa antes de subir y códigos opcionales para almacenamiento prolongado aprobado.",
         seoKeywords: "alojamiento gratuito de imágenes, hosting de imágenes, subir imagen y obtener enlace, compartir imagen online, alojamiento de capturas",
         ogTitle: "Alojamiento gratuito de imágenes | Mini-Tools",
@@ -974,7 +1129,7 @@
         navAbout: "Acerca de",
 
         eyebrowText: "Alojamiento gratuito de imágenes • Almacenamiento remoto",
-        pageTitle: "Alojamiento gratuito de imágenes",
+        pageTitle: "Alojamiento gratuito de imágenes para Markdown, README y blogs",
         introText: "Sube una imagen, elige cuánto tiempo debe permanecer en línea y obtén un enlace compartible. Esta página es útil para capturas de pantalla, imágenes de blog, fotos de productos y compartición rápida.",
         noticeText: "Usa esta página solo para imágenes que aceptes subir al servicio. Una operación matemática sencilla ayuda a reducir abusos, y los códigos aprobados pueden utilizarse para almacenamiento prolongado.",
 
@@ -1011,6 +1166,43 @@
         faq4Title: "¿Para qué puedo usar este alojamiento gratuito de imágenes?",
         faq4Text: "Es útil para capturas, imágenes de blog, fotos de productos, publicaciones en foros, tickets de soporte y otras tareas sencillas para compartir imágenes.",
 
+
+        resultTitle: "Tus enlaces de imagen alojada",
+        resultIntro: "Copia el formato que coincida con el lugar donde quieres insertar la imagen.",
+        resultDirectLabel: "URL directa",
+        resultDirectUse: "Para pegar el enlace directo de la imagen donde se necesite una URL.",
+        resultMarkdownLabel: "Markdown",
+        resultMarkdownUse: "Para GitHub README, documentos Markdown y comentarios de issues.",
+        resultHtmlLabel: "HTML",
+        resultHtmlUse: "Para páginas web, editores de blog y plantillas CMS.",
+        resultBbcodeLabel: "BBCode",
+        resultBbcodeUse: "Para foros y comunidades que admiten BBCode.",
+        copyDirectBtn: "Copiar URL",
+        copyMarkdownBtn: "Copiar Markdown",
+        copyHtmlBtn: "Copiar HTML",
+        copyBbcodeBtn: "Copiar BBCode",
+        copiedButton: "Copiado",
+
+        examplesTitle: "Ejemplos para README, Markdown, HTML y BBCode",
+        examplesIntro: "Después de subir, copia el formato que necesitas. GitHub README y la mayoría de sistemas de documentación usan Markdown, las páginas web usan HTML y muchos foros aún admiten BBCode.",
+        readmeExampleTitle: "GitHub README",
+        readmeExampleText: "Pega la salida Markdown en README.md para mostrar la imagen alojada en la página del repositorio.",
+        markdownExampleTitle: "Markdown",
+        markdownExampleText: "Usa Markdown en documentos, motores de blog, comentarios de issues y notas que admitan imágenes.",
+        htmlExampleTitle: "HTML",
+        htmlExampleText: "Usa HTML cuando necesites una etiqueta de imagen para una web, bloque CMS o plantilla personalizada.",
+        bbcodeExampleTitle: "BBCode",
+        bbcodeExampleText: "Usa BBCode en foros y comunidades que acepten etiquetas clásicas de imagen.",
+
+        faqSectionTitle: "Preguntas frecuentes",
+        faq5Title: "¿Puedo usar el enlace en un GitHub README?",
+        faq5Text: "Sí. Sube la imagen, copia la salida Markdown y pégala en README.md o en un comentario de GitHub issue.",
+        faq6Title: "¿Qué formato debo copiar?",
+        faq6Text: "Usa URL directa para enlaces simples, Markdown para README y documentos, HTML para páginas web y BBCode para foros.",
+        faq7Title: "¿Esto cambia la API de subida?",
+        faq7Text: "No. La página sigue enviando subidas al Worker existente y solo formatea la URL devuelta para reutilizarla más fácilmente.",
+        faq8Title: "¿Necesito un código de almacenamiento prolongado?",
+        faq8Text: "Solo el almacenamiento permanente requiere un código aprobado. Las subidas de 1 día, 7 días y 30 días pueden dejarlo vacío.",
         footerHome: "Inicio",
         footerBlog: "Blog",
         footerAbout: "Acerca de",
@@ -1123,6 +1315,31 @@
                 "@type":"Question",
                 "name": texts.schemaFaq3Title,
                 "acceptedAnswer":{"@type":"Answer","text": texts.schemaFaq3Text}
+              },
+              {
+                "@type":"Question",
+                "name": texts.faq4Title,
+                "acceptedAnswer":{"@type":"Answer","text": texts.faq4Text}
+              },
+              {
+                "@type":"Question",
+                "name": texts.faq5Title,
+                "acceptedAnswer":{"@type":"Answer","text": texts.faq5Text}
+              },
+              {
+                "@type":"Question",
+                "name": texts.faq6Title,
+                "acceptedAnswer":{"@type":"Answer","text": texts.faq6Text}
+              },
+              {
+                "@type":"Question",
+                "name": texts.faq7Title,
+                "acceptedAnswer":{"@type":"Answer","text": texts.faq7Text}
+              },
+              {
+                "@type":"Question",
+                "name": texts.faq8Title,
+                "acceptedAnswer":{"@type":"Answer","text": texts.faq8Text}
               }
             ]
           }
@@ -1158,9 +1375,9 @@
 
       updateMeta("description", texts.seoDescription);
       updateMeta("keywords", texts.seoKeywords);
-      updateProperty("og:title", fixedPageTitle);
+      updateProperty("og:title", texts.ogTitle);
       updateProperty("og:description", texts.ogDescription);
-      document.title = fixedPageTitle;
+      document.title = texts.seoTitle;
       updateSchema(texts);
 
       const textIds = [
@@ -1169,7 +1386,11 @@
         "retentionLabel","option1Day","option7Day","option30Day","optionPermanent","permanentNotice",
         "storageCodeTitle","storageCodeText","selectImageLabel","chooseFileText",
         "previewTitle","previewText","captchaLabel","logTitle",
-        "sectionTitle","sectionIntro","faq1Title","faq1Text","faq2Title","faq2Text","faq3Title","faq3Text","faq4Title","faq4Text",
+        "sectionTitle","sectionIntro",
+        "resultTitle","resultIntro","resultDirectLabel","resultDirectUse","resultMarkdownLabel","resultMarkdownUse","resultHtmlLabel","resultHtmlUse","resultBbcodeLabel","resultBbcodeUse",
+        "copyDirectBtn","copyMarkdownBtn","copyHtmlBtn","copyBbcodeBtn",
+        "examplesTitle","examplesIntro","readmeExampleTitle","readmeExampleText","markdownExampleTitle","markdownExampleText","htmlExampleTitle","htmlExampleText","bbcodeExampleTitle","bbcodeExampleText",
+        "faqSectionTitle","faq1Title","faq1Text","faq2Title","faq2Text","faq3Title","faq3Text","faq4Title","faq4Text","faq5Title","faq5Text","faq6Title","faq6Text","faq7Title","faq7Text","faq8Title","faq8Text",
         "footerHome","footerBlog","footerAbout","footerPrivacy","footerContact","footerNote"
       ];
 
@@ -1178,7 +1399,6 @@
         if (el) el.textContent = texts[id];
       });
 
-      document.getElementById("pageTitle").textContent = fixedPageTitle;
 
       document.getElementById("storageCodeEmailText").innerHTML = texts.storageCodeEmailText;
       storageCodeInput.placeholder = texts.storageCodePlaceholder;
@@ -1403,7 +1623,7 @@
         }
 
         const originalText = button.textContent;
-        button.textContent = "Copied";
+        button.textContent = t().copiedButton || "Copied";
         button.classList.add("copied");
         window.setTimeout(() => {
           button.textContent = originalText;
