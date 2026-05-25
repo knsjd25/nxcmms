@@ -5,7 +5,7 @@
  *
  * What it does:
  * 1) Redirects /page.html -> /page
- * 2) Maps /page -> /page.html internally, so your existing HTML files still work
+ * 2) Fetches clean URLs first and only falls back to /page.html on 404, avoiding redirect loops
  * 3) Removes <meta name="keywords">
  * 4) Replaces old canonical / robots / hreflang tags with unified versions
  * 5) Adds X-Robots-Tag headers
@@ -14,6 +14,8 @@
  *    - keeps GOV.UK / HMRC official links without nofollow
  *    - adds nofollow to other non-official external links
  * 7) Leaves /blog routes alone, so your existing blog Worker / D1 logic is not broken
+ *
+ * v2 fix: avoids /upload -> /upload.html -> /upload loops when _redirects also handles .html URLs.
  *
  * Put this file at the Cloudflare Pages deployment root:
  *   /_worker.js
@@ -299,17 +301,42 @@ class ExternalLinkPolicyHandler {
 
 async function fetchAsset(request, env, pathname) {
   const originalUrl = new URL(request.url);
+
+  // Important: fetch the clean URL first.
+  // Cloudflare Pages can often resolve /upload to /upload.html by itself.
+  // If we fetch /upload.html first, existing _redirects rules such as
+  // /upload.html -> /upload may return a 301 and create a browser loop.
+  let response = await env.ASSETS.fetch(request);
+
+  if (response.status !== 404) {
+    return response;
+  }
+
+  // Fallback only when the clean URL is not found.
   const assetUrl = new URL(request.url);
   assetUrl.pathname = assetPathForCleanUrl(pathname);
 
-  let response = await env.ASSETS.fetch(new Request(assetUrl.toString(), request));
-
-  // If /page.html does not exist, fall back to the original request.
-  if (response.status === 404 && assetUrl.pathname !== originalUrl.pathname) {
-    response = await env.ASSETS.fetch(request);
+  if (assetUrl.pathname === originalUrl.pathname) {
+    return response;
   }
 
-  return response;
+  const fallbackResponse = await env.ASSETS.fetch(new Request(assetUrl.toString(), request));
+
+  // Never pass an internal redirect back to the browser if the fallback target
+  // points to the same clean URL. That is the usual cause of ERR_TOO_MANY_REDIRECTS.
+  if (fallbackResponse.status >= 300 && fallbackResponse.status < 400) {
+    const location = fallbackResponse.headers.get("Location") || "";
+    try {
+      const redirectTarget = new URL(location, originalUrl);
+      if (normalizePathname(redirectTarget.pathname) === normalizePathname(originalUrl.pathname)) {
+        return response;
+      }
+    } catch (_) {
+      return response;
+    }
+  }
+
+  return fallbackResponse;
 }
 
 function withRobotsHeader(response, robots) {
