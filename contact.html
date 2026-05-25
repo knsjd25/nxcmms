@@ -6,8 +6,7 @@
 
   <title>Contact Mini-Tools.uk | Support, Feedback and Site Questions</title>
   <meta name="description" content="Contact Mini-Tools.uk for support, feedback, bug reports, feature suggestions, business questions, policy questions or general site issues." />
-  <meta name="keywords" content="contact Mini-Tools, Mini-Tools support, website feedback, bug report, feature request, site contact, Mini-Tools contact, 联系Mini-Tools, 网站反馈, 在线工具反馈" />
-  <meta name="robots" content="index,follow,max-image-preview:large" />
+<meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/contact" />
 
@@ -28,6 +27,7 @@
   <meta property="og:description" content="Get in touch about Mini-Tools.uk support, feedback, bug reports, feature suggestions, business questions or policy issues." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mini-tools.uk/contact" />
+  <meta property="og:locale" content="en_GB" />
   <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Contact Mini-Tools.uk" />
@@ -42,7 +42,7 @@
     gtag("config", "G-DR6V84JEZW");
   </script>
 
-  <script type="application/ld+json">
+  <script id="structured-data" type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@graph":[
@@ -467,7 +467,6 @@
         langLabel:"English",
         title:"Contact Mini-Tools.uk | Support, Feedback and Site Questions",
         description:"Contact Mini-Tools.uk for support, feedback, bug reports, feature suggestions, business questions, policy questions or general site issues.",
-        keywords:"contact Mini-Tools, Mini-Tools support, website feedback, bug report, feature request, site contact, Mini-Tools contact",
         skip:"Skip to content",
         brandSubtitle:"Practical calculators and browser tools",
         navHome:"Home",
@@ -544,7 +543,6 @@
         langLabel:"中文",
         title:"联系 Mini-Tools.uk｜支持、反馈和网站问题",
         description:"联系 Mini-Tools.uk，提交支持请求、反馈、bug 报告、功能建议、商务问题、政策问题或一般网站问题。",
-        keywords:"联系Mini-Tools, Mini-Tools支持, 网站反馈, bug报告, 功能建议, 网站联系, 在线工具反馈, Mini-Tools联系",
         skip:"跳到正文",
         brandSubtitle:"实用计算器和浏览器工具",
         navHome:"首页",
@@ -621,7 +619,6 @@
         langLabel:"Deutsch",
         title:"Kontakt Mini-Tools.uk｜Support, Feedback und Website-Fragen",
         description:"Kontaktieren Sie Mini-Tools.uk für Support, Feedback, Bug Reports, Feature-Vorschläge, Business-Fragen, Policy-Fragen oder Website-Probleme.",
-        keywords:"contact Mini-Tools, Mini-Tools support, website feedback, bug report, feature request, site contact",
         skip:"Zum Inhalt springen",
         brandSubtitle:"Praktische Rechner und Browser-Tools",
         navHome:"Startseite",
@@ -698,7 +695,6 @@
         langLabel:"Français",
         title:"Contact Mini-Tools.uk｜Support, feedback et questions site",
         description:"Contactez Mini-Tools.uk pour support, feedback, bugs, suggestions, business, policy ou questions site.",
-        keywords:"contact Mini-Tools, Mini-Tools support, website feedback, bug report, feature request, site contact",
         skip:"Aller au contenu",
         brandSubtitle:"Calculateurs pratiques et outils navigateur",
         navHome:"Accueil",
@@ -775,7 +771,6 @@
         langLabel:"Español",
         title:"Contacto Mini-Tools.uk｜Soporte, feedback y preguntas",
         description:"Contacta con Mini-Tools.uk para soporte, feedback, bugs, sugerencias, business, policy o problemas del sitio.",
-        keywords:"contact Mini-Tools, Mini-Tools support, website feedback, bug report, feature request, site contact",
         skip:"Saltar al contenido",
         brandSubtitle:"Calculadoras prácticas y herramientas web",
         navHome:"Inicio",
@@ -850,25 +845,35 @@
     };
 
     const allowedLangs = ["en", "zh-CN", "de", "fr", "es"];
-    let currentLang = "en";
+    const defaultLang = "en";
+    const pagePath = "/contact";
+    const siteOrigin = "https://mini-tools.uk";
+    let currentLang = defaultLang;
+
+    const localeMap = {
+      en: "en_GB",
+      "zh-CN": "zh_CN",
+      de: "de_DE",
+      fr: "fr_FR",
+      es: "es_ES"
+    };
 
     function getDict(){ return translations[currentLang] || translations.en; }
 
+    function normalizeLang(lang){
+      if (lang === "zh") return "zh-CN";
+      return allowedLangs.includes(lang) ? lang : defaultLang;
+    }
+
     function getInitialLang(){
       const params = new URLSearchParams(window.location.search);
-      let lang = params.get("lang");
-      if (lang === "zh") lang = "zh-CN";
-      if (allowedLangs.includes(lang)) return lang;
+      return normalizeLang(params.get("lang") || defaultLang);
+    }
 
-      const saved = localStorage.getItem("miniToolsContactLang");
-      if (allowedLangs.includes(saved)) return saved;
-
-      const browser = navigator.language || "en";
-      if (browser.startsWith("zh")) return "zh-CN";
-      if (browser.startsWith("de")) return "de";
-      if (browser.startsWith("fr")) return "fr";
-      if (browser.startsWith("es")) return "es";
-      return "en";
+    function currentPageUrl(includeLang = true){
+      const url = new URL(siteOrigin + pagePath);
+      if (includeLang) url.searchParams.set("lang", currentLang);
+      return url.toString();
     }
 
     function setMeta(name, content){
@@ -886,14 +891,114 @@
       if (tag) tag.setAttribute("content", content);
     }
 
+    function setCanonicalAndSocialUrls(){
+      const params = new URLSearchParams(window.location.search);
+      const hasExplicitLang = params.has("lang");
+      const canonical = hasExplicitLang ? currentPageUrl(true) : `${siteOrigin}${pagePath}`;
+
+      const canonicalTag = document.querySelector('link[rel="canonical"]');
+      if (canonicalTag) canonicalTag.setAttribute("href", canonical);
+
+      setOg("og:url", canonical);
+      setOg("og:locale", localeMap[currentLang] || "en_GB");
+    }
+
+    function updateInternalLinks(){
+      document.querySelectorAll("a[href]").forEach(link => {
+        const raw = link.getAttribute("href");
+        if (!raw || raw.startsWith("#") || raw.startsWith("mailto:") || raw.startsWith("tel:") || raw.startsWith("javascript:")) return;
+
+        if (!link.dataset.baseHref) {
+          link.dataset.baseHref = raw;
+        }
+
+        const baseHref = link.dataset.baseHref;
+        try {
+          const url = new URL(baseHref, window.location.origin);
+          if (url.origin !== window.location.origin) return;
+
+          url.pathname = url.pathname.replace(/\.html$/i, "");
+          if (url.pathname === "/index") url.pathname = "/";
+
+          url.searchParams.set("lang", currentLang);
+          link.href = url.pathname + url.search + url.hash;
+        } catch (error) {
+          // Keep unusual links unchanged.
+        }
+      });
+    }
+
+    function updateStructuredData(dict){
+      const jsonLd = document.getElementById("structured-data");
+      if (!jsonLd) return;
+
+      const pageUrl = currentPageUrl(new URLSearchParams(window.location.search).has("lang"));
+
+      const schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "ContactPage",
+            "name": dict.title,
+            "url": pageUrl,
+            "description": dict.description,
+            "inLanguage": dict.htmlLang || currentLang
+          },
+          {
+            "@type": "Organization",
+            "name": "Mini-Tools.uk",
+            "url": "https://mini-tools.uk",
+            "logo": "https://assets.mini-tools.uk/image/icon-512x512.png",
+            "email": "yuyananuu@gmail.com",
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "contactType": "support",
+                "email": "yuyananuu@gmail.com",
+                "availableLanguage": ["English", "Chinese", "German", "French", "Spanish"]
+              },
+              {
+                "@type": "ContactPoint",
+                "contactType": "business and policy questions",
+                "email": "admin@mini-tools.uk",
+                "availableLanguage": ["English", "Chinese", "German", "French", "Spanish"]
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "inLanguage": dict.htmlLang || currentLang,
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": dict.faq1Q,
+                "acceptedAnswer": { "@type": "Answer", "text": dict.faq1A }
+              },
+              {
+                "@type": "Question",
+                "name": dict.faq2Q,
+                "acceptedAnswer": { "@type": "Answer", "text": dict.faq2A }
+              },
+              {
+                "@type": "Question",
+                "name": dict.faq3Q,
+                "acceptedAnswer": { "@type": "Answer", "text": dict.faq3A }
+              }
+            ]
+          }
+        ]
+      };
+
+      jsonLd.textContent = JSON.stringify(schema, null, 2);
+    }
+
     function applyLanguage(lang, updateUrl = true){
-      currentLang = allowedLangs.includes(lang) ? lang : "en";
+      currentLang = normalizeLang(lang);
       const dict = getDict();
 
       document.documentElement.lang = dict.htmlLang || "en-GB";
       document.title = dict.title;
       setMeta("description", dict.description);
-      setMeta("keywords", dict.keywords);
       setOg("og:title", dict.title);
       setOg("og:description", dict.description);
       setTwitter("twitter:title", dict.title);
@@ -911,12 +1016,16 @@
         btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
       });
 
-      localStorage.setItem("miniToolsContactLang", currentLang);
       if (updateUrl) {
         const url = new URL(window.location.href);
+        url.pathname = pagePath;
         url.searchParams.set("lang", currentLang);
         history.replaceState(null, "", url.toString());
       }
+
+      setCanonicalAndSocialUrls();
+      updateInternalLinks();
+      updateStructuredData(dict);
     }
 
     document.querySelectorAll("[data-lang-btn]").forEach(btn => {
@@ -924,7 +1033,10 @@
     });
 
     window.addEventListener("load", () => {
-      applyLanguage(getInitialLang(), false);
+      const params = new URLSearchParams(window.location.search);
+      const requestedLang = params.get("lang");
+      const normalizedLang = getInitialLang();
+      applyLanguage(normalizedLang, Boolean(requestedLang && requestedLang !== normalizedLang));
     });
   </script>
 </body>
