@@ -6,8 +6,7 @@
 
   <title>UK Salary vs Dividend Calculator 2026/27 | Director Take-Home</title>
   <meta name="description" content="Estimate 2026/27 UK limited company director take-home pay using salary and dividends, including Corporation Tax, Employer NI and dividend tax assumptions." />
-  <meta name="keywords" content="salary vs dividend calculator, UK dividend tax calculator, limited company director tax calculator, corporation tax calculator UK, contractor dividend calculator, director salary calculator, 英国股息税计算器, 英国有限公司董事税务计算器" />
-  <meta name="robots" content="index,follow,max-image-preview:large" />
+<meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#4c1d95" />
   <link rel="canonical" href="https://mini-tools.uk/dividend" />
 
@@ -25,6 +24,7 @@
   <meta property="og:description" content="Estimate salary, dividend tax and Corporation Tax for a UK limited company director in 2026/27." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mini-tools.uk/dividend" />
+  <meta property="og:locale" content="en_GB" />
   <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Salary vs Dividend Calculator 2026/27" />
@@ -61,7 +61,7 @@
   }
   </script>
 
-  <script type="application/ld+json">
+  <script type="application/ld+json" id="faq-schema-json">
   {
     "@context":"https://schema.org",
     "@type":"FAQPage",
@@ -409,7 +409,6 @@
         locale:"en-GB",
         title:"UK Salary vs Dividend Calculator 2026/27 | Director Take-Home",
         description:"Estimate 2026/27 UK limited company director take-home pay using salary and dividends, including Corporation Tax, Employer NI and dividend tax assumptions.",
-        keywords:"salary vs dividend calculator, UK dividend tax calculator, limited company director tax calculator, corporation tax calculator UK, contractor dividend calculator, director salary calculator",
         skip:"Skip to content",
         brandSubtitle:"UK finance tools with clear assumptions",
         navHome:"Home",
@@ -491,7 +490,6 @@
         locale:"zh-CN",
         title:"英国工资与股息计算器｜英国有限公司董事税务计算器｜Mini-Tools.uk",
         description:"使用 Mini-Tools 英国工资与股息计算器，估算英国有限公司董事在 2026/27 税年的工资、股息、公司税、雇主 NI、个人所得税和股息税。",
-        keywords:"英国工资与股息计算器, 英国股息税计算器, 英国有限公司董事税务计算器, 英国公司税计算器, 英国董事工资计算器, 英国承包商股息计算器, salary vs dividend calculator",
         skip:"跳到正文",
         brandSubtitle:"英国财务工具，假设清晰",
         navHome:"首页",
@@ -573,7 +571,6 @@
         locale:"de-DE",
         title:"Gehalt vs Dividende Rechner UK 2026/27｜Limited Company Director｜Mini-Tools.uk",
         description:"Schätzen Sie Gehalt, Dividenden, Corporation Tax, Employer NI, Income Tax, Employee NI und Dividend Tax für UK Limited Company Directors 2026/27.",
-        keywords:"Gehalt vs Dividende Rechner UK, Dividend Tax Rechner UK, Limited Company Director Tax, Corporation Tax Rechner UK, Contractor Dividend Rechner",
         skip:"Zum Inhalt springen",
         brandSubtitle:"UK-Finanztools mit klaren Annahmen",
         navHome:"Startseite",
@@ -655,7 +652,6 @@
         locale:"fr-FR",
         title:"Calculateur salaire vs dividende UK 2026/27｜Director Limited Company｜Mini-Tools.uk",
         description:"Estimez salaire, dividendes, Corporation Tax, Employer NI, Income Tax, Employee NI et dividend tax pour un director de société UK en 2026/27.",
-        keywords:"calculateur salaire dividende UK, calculateur dividend tax UK, limited company director tax, corporation tax UK, contractor dividend calculator",
         skip:"Aller au contenu",
         brandSubtitle:"Outils finance UK avec hypothèses claires",
         navHome:"Accueil",
@@ -737,7 +733,6 @@
         locale:"es-ES",
         title:"Calculadora salario vs dividendos UK 2026/27｜Limited Company Director｜Mini-Tools.uk",
         description:"Estima salario, dividendos, Corporation Tax, Employer NI, Income Tax, Employee NI e impuesto sobre dividendos para un director de empresa UK en 2026/27.",
-        keywords:"calculadora salario dividendos UK, calculadora dividend tax UK, limited company director tax, corporation tax calculator UK, contractor dividend calculator",
         skip:"Saltar al contenido",
         brandSubtitle:"Herramientas financieras UK con supuestos claros",
         navHome:"Inicio",
@@ -834,15 +829,7 @@
       const params = new URLSearchParams(window.location.search);
       let lang = params.get("lang");
       if (lang === "zh") lang = "zh-CN";
-      if (allowedLangs.includes(lang)) return lang;
-      const saved = localStorage.getItem("miniToolsDividendLang");
-      if (allowedLangs.includes(saved)) return saved;
-      const browser = navigator.language || "en";
-      if (browser.startsWith("zh")) return "zh-CN";
-      if (browser.startsWith("de")) return "de";
-      if (browser.startsWith("fr")) return "fr";
-      if (browser.startsWith("es")) return "es";
-      return "en";
+      return allowedLangs.includes(lang) ? lang : "en";
     }
 
     function setMeta(name, content){
@@ -860,6 +847,112 @@
       if (tag) tag.setAttribute("content", content);
     }
 
+    function pageUrlForLang(lang){
+      const url = new URL("https://mini-tools.uk/dividend");
+      if (lang && lang !== "en") url.searchParams.set("lang", lang);
+      return url.toString();
+    }
+
+    function updateSeoTags(dict){
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute("href", pageUrlForLang(currentLang));
+
+      const ogUrl = document.querySelector('meta[property="og:url"]');
+      if (ogUrl) ogUrl.setAttribute("content", pageUrlForLang(currentLang));
+
+      const ogLocale = document.querySelector('meta[property="og:locale"]');
+      if (ogLocale) {
+        const locales = { en:"en_GB", "zh-CN":"zh_CN", de:"de_DE", fr:"fr_FR", es:"es_ES" };
+        ogLocale.setAttribute("content", locales[currentLang] || "en_GB");
+      }
+
+      document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => {
+        const lang = link.getAttribute("hreflang");
+        if (lang === "x-default") {
+          link.setAttribute("href", "https://mini-tools.uk/dividend");
+        } else if (allowedLangs.includes(lang)) {
+          const url = new URL("https://mini-tools.uk/dividend");
+          url.searchParams.set("lang", lang);
+          link.setAttribute("href", url.toString());
+        }
+      });
+    }
+
+    function updateInternalLinks(){
+      document.querySelectorAll('a[href]').forEach(link => {
+        const raw = link.getAttribute('href');
+        if (!raw || raw.startsWith('#') || raw.startsWith('mailto:') || raw.startsWith('tel:')) return;
+        try {
+          const url = new URL(raw, window.location.origin);
+          if (url.origin !== window.location.origin) {
+            const safeOfficial = /(^|\.)gov\.uk$|(^|\.)hmrc\.gov\.uk$/i.test(url.hostname);
+            const rel = safeOfficial ? "noopener noreferrer" : "nofollow noopener noreferrer";
+            link.setAttribute("rel", rel);
+            if (!link.target) link.setAttribute("target", "_blank");
+            return;
+          }
+
+          url.pathname = url.pathname.replace(/\.html$/i, "");
+          if (url.pathname === "/index") url.pathname = "/";
+          url.searchParams.delete("lang");
+          if (currentLang !== "en") url.searchParams.set("lang", currentLang);
+          link.setAttribute("href", url.pathname + url.search + url.hash);
+        } catch (e) {}
+      });
+    }
+
+    function updateSchema(dict){
+      const appSchema = document.getElementById("schema-json");
+      if (appSchema) {
+        const schema = {
+          "@context":"https://schema.org",
+          "@type":"SoftwareApplication",
+          "name": dict.title,
+          "applicationCategory":"FinanceApplication",
+          "operatingSystem":"Web",
+          "url": pageUrlForLang(currentLang),
+          "description": dict.description,
+          "inLanguage": dict.htmlLang || "en-GB",
+          "offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"},
+          "featureList":[
+            dict.employerNiRow || "Employer National Insurance estimate",
+            dict.corpTaxRow || "Corporation Tax estimate",
+            dict.dividendTaxRow || "Dividend tax estimate",
+            dict.assumptionBadge || "Single director planning scenario",
+            dict.resultEyebrow || "Take-home estimate"
+          ]
+        };
+        appSchema.textContent = JSON.stringify(schema, null, 2);
+      }
+
+      const faqSchema = document.getElementById("faq-schema-json");
+      if (faqSchema) {
+        const schema = {
+          "@context":"https://schema.org",
+          "@type":"FAQPage",
+          "inLanguage": dict.htmlLang || "en-GB",
+          "mainEntity":[
+            {
+              "@type":"Question",
+              "name": dict.faq1Q,
+              "acceptedAnswer":{"@type":"Answer","text":dict.faq1A}
+            },
+            {
+              "@type":"Question",
+              "name": dict.faq2Q,
+              "acceptedAnswer":{"@type":"Answer","text":dict.faq2A}
+            },
+            {
+              "@type":"Question",
+              "name": dict.faq3Q,
+              "acceptedAnswer":{"@type":"Answer","text":dict.faq3A}
+            }
+          ]
+        };
+        faqSchema.textContent = JSON.stringify(schema, null, 2);
+      }
+    }
+
     function applyLanguage(lang, updateUrl = true){
       currentLang = allowedLangs.includes(lang) ? lang : "en";
       const dict = getDict();
@@ -867,11 +960,13 @@
       document.documentElement.lang = dict.htmlLang || "en-GB";
       document.title = dict.title;
       setMeta("description", dict.description);
-      setMeta("keywords", dict.keywords);
       setOg("og:title", dict.title);
       setOg("og:description", dict.description);
       setTwitter("twitter:title", dict.title);
       setTwitter("twitter:description", dict.description);
+      updateSeoTags(dict);
+      updateInternalLinks();
+      updateSchema(dict);
 
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
@@ -888,8 +983,12 @@
       localStorage.setItem("miniToolsDividendLang", currentLang);
       if (updateUrl) {
         const url = new URL(window.location.href);
-        url.searchParams.set("lang", currentLang);
-        history.replaceState(null, "", url.toString());
+        if (currentLang === "en") {
+          url.searchParams.delete("lang");
+        } else {
+          url.searchParams.set("lang", currentLang);
+        }
+        history.replaceState(null, "", url.pathname + url.search + url.hash);
       }
 
       calculate();
