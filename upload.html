@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Free Image Hosting with Direct Link | Temporary Image Upload</title>
+  <title>Free Image Hosting for GitHub README, Markdown and Blogs</title>
   <meta name="description" content="Upload an image and get a shareable direct link. Free image hosting with browser preview, flexible retention periods and optional long-term storage codes." />
   <meta name="keywords" content="free image hosting, free image host, image hosting, upload image and get link, share image online, screenshot hosting, image URL hosting, hotlink image, image link generator" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://mini-tools.uk/upload" />
 
-  <meta property="og:title" content="Free Image Hosting | Mini-Tools" />
+  <meta property="og:title" content="Free Image Hosting for GitHub README, Markdown and Blogs" />
   <meta property="og:description" content="Free image hosting with shareable links, browser preview, selectable retention settings, and optional long-term storage codes." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mini-tools.uk/upload" />
@@ -250,6 +250,36 @@
     .result-link{
       display:inline-block;margin-top:6px;color:#60a5fa;text-decoration:underline;font-weight:800;word-break:break-all
     }
+    .result-panel{
+      display:none;padding:22px 28px 28px;background:#f8fafc;border-top:1px solid var(--line)
+    }
+    .result-panel.show{display:block}
+    .result-panel h2{margin:0 0 8px;font-size:1.35rem;letter-spacing:-.02em}
+    .result-panel p{margin:0 0 18px;color:var(--muted);line-height:1.65}
+    .result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .result-item{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
+    .result-item label{
+      display:block;margin-bottom:8px;font-size:.74rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#334155
+    }
+    .copy-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start}
+    .copy-field{
+      width:100%;min-height:46px;resize:vertical;padding:12px 13px;border:1px solid var(--line);border-radius:14px;
+      background:#f8fafc;color:#0f172a;font-family:var(--mono);font-size:.82rem;line-height:1.45;outline:none
+    }
+    .copy-btn{
+      min-height:46px;border:none;border-radius:14px;background:#0f172a;color:#fff;padding:0 14px;
+      font-size:.78rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;cursor:pointer
+    }
+    .copy-btn:hover{background:#1e293b}
+    .copy-btn.copied{background:#16a34a}
+    .examples-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+    .example-item{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:18px}
+    .example-item h3{margin:0 0 8px;font-size:1.02rem}
+    .example-item p{margin:0 0 12px;font-size:.96rem}
+    .example-code{
+      margin:0;padding:13px;border-radius:14px;background:#0f172a;color:#dbeafe;overflow:auto;
+      font-family:var(--mono);font-size:.8rem;line-height:1.55;white-space:pre-wrap;word-break:break-word
+    }
 
     .section-card{
       margin:28px 0 0;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:28px
@@ -271,6 +301,7 @@
     @media (max-width: 980px){
       .main-grid{grid-template-columns:1fr}
       .left-col{border-right:none;border-bottom:1px solid #eef2f7}
+      .result-grid,.examples-grid{grid-template-columns:1fr}
       .faq-grid{grid-template-columns:1fr}
       .site-header-inner{flex-wrap:wrap;padding:10px 0}
       .nav{width:100%;overflow:auto;padding-bottom:4px;justify-content:flex-start}
@@ -330,7 +361,7 @@
   <main class="container">
     <section class="page-intro">
       <div class="eyebrow" id="eyebrowText">Free Image Hosting • Remote Storage</div>
-      <h1 id="pageTitle">Free image hosting with direct links</h1>
+      <h1 id="pageTitle">Free Image Hosting for GitHub README, Markdown and Blogs</h1>
       <p class="intro-text" id="introText">
         Upload an image, choose how long it should stay online, and get a shareable image link. This free image hosting page is useful for screenshots, blog images, product images and quick online sharing.
       </p>
@@ -410,6 +441,40 @@
         <div class="log-title" id="logTitle">Upload terminal</div>
       </div>
       <div class="log-body" id="uploadLog"></div>
+      <div class="result-panel" id="resultPanel" aria-live="polite">
+        <h2>Your hosted image links</h2>
+        <p>Use the format that matches where you want to embed the uploaded image.</p>
+        <div class="result-grid">
+          <div class="result-item">
+            <label for="directUrlOutput">Direct URL</label>
+            <div class="copy-row">
+              <textarea class="copy-field" id="directUrlOutput" rows="2" readonly></textarea>
+              <button class="copy-btn" type="button" data-copy-target="directUrlOutput">Copy</button>
+            </div>
+          </div>
+          <div class="result-item">
+            <label for="markdownOutput">Markdown</label>
+            <div class="copy-row">
+              <textarea class="copy-field" id="markdownOutput" rows="2" readonly></textarea>
+              <button class="copy-btn" type="button" data-copy-target="markdownOutput">Copy</button>
+            </div>
+          </div>
+          <div class="result-item">
+            <label for="htmlOutput">HTML</label>
+            <div class="copy-row">
+              <textarea class="copy-field" id="htmlOutput" rows="2" readonly></textarea>
+              <button class="copy-btn" type="button" data-copy-target="htmlOutput">Copy</button>
+            </div>
+          </div>
+          <div class="result-item">
+            <label for="bbcodeOutput">BBCode</label>
+            <div class="copy-row">
+              <textarea class="copy-field" id="bbcodeOutput" rows="2" readonly></textarea>
+              <button class="copy-btn" type="button" data-copy-target="bbcodeOutput">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="section-card">
@@ -417,6 +482,40 @@
       <p id="sectionIntro">
         This is a server-backed free image hosting tool for creating direct image links. It works well for screenshots, blog content, marketplace listings, design feedback and general image sharing. Unlike local-only tools such as JSON or text utilities, this page uploads the selected file to the Mini-Tools service so a hosted image URL can be created with a chosen retention period.
       </p>
+
+    </section>
+
+    <section class="section-card">
+      <h2>Usage examples for README, Markdown, HTML and BBCode</h2>
+      <p>
+        After upload, copy the format you need. GitHub README files and most documentation systems use Markdown, web pages use HTML, and many forums still support BBCode.
+      </p>
+      <div class="examples-grid">
+        <article class="example-item">
+          <h3>GitHub README</h3>
+          <p>Paste the Markdown output into README.md to show the hosted image in a repository page.</p>
+          <pre class="example-code"><code>![Project screenshot](https://mini-tools.uk/example-image.webp)</code></pre>
+        </article>
+        <article class="example-item">
+          <h3>Markdown</h3>
+          <p>Use Markdown in docs, blog engines, issue comments and notes that support image embeds.</p>
+          <pre class="example-code"><code>![Alt text](https://mini-tools.uk/example-image.webp)</code></pre>
+        </article>
+        <article class="example-item">
+          <h3>HTML</h3>
+          <p>Use HTML when you need an image tag for a website, CMS block or custom template.</p>
+          <pre class="example-code"><code>&lt;img src="https://mini-tools.uk/example-image.webp" alt="Hosted image"&gt;</code></pre>
+        </article>
+        <article class="example-item">
+          <h3>BBCode</h3>
+          <p>Use BBCode on forums and community sites that accept classic image tags.</p>
+          <pre class="example-code"><code>[img]https://mini-tools.uk/example-image.webp[/img]</code></pre>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2>FAQ</h2>
 
       <div class="faq-grid">
         <article class="faq-item">
@@ -434,6 +533,22 @@
         <article class="faq-item">
           <h3 id="faq4Title">What can I use this free image host for?</h3>
           <p id="faq4Text">It is useful for screenshots, blog images, product photos, forum posts, support tickets and other simple image sharing tasks.</p>
+        </article>
+        <article class="faq-item">
+          <h3>Can I use the link in a GitHub README?</h3>
+          <p>Yes. Upload the image, copy the Markdown output, and paste it into README.md or a GitHub issue comment.</p>
+        </article>
+        <article class="faq-item">
+          <h3>Which output format should I copy?</h3>
+          <p>Use Direct URL for plain links, Markdown for README files and docs, HTML for web pages, and BBCode for forums.</p>
+        </article>
+        <article class="faq-item">
+          <h3>Does this change the upload API?</h3>
+          <p>No. The page still sends uploads to the existing Worker endpoint and only formats the returned image URL for easier reuse.</p>
+        </article>
+        <article class="faq-item">
+          <h3>Do I need a long-term storage code?</h3>
+          <p>Only permanent storage requires an approved long-term storage code. Normal 1 day, 7 day and 30 day uploads can leave it blank.</p>
         </article>
       </div>
     </section>
@@ -940,6 +1055,12 @@
     const captchaAnswerInput = document.getElementById("captchaAnswerInput");
     const mathQuestion = document.getElementById("mathQuestion");
     const refreshCaptchaBtn = document.getElementById("refreshCaptchaBtn");
+    const fixedPageTitle = "Free Image Hosting for GitHub README, Markdown and Blogs";
+    const resultPanel = document.getElementById("resultPanel");
+    const directUrlOutput = document.getElementById("directUrlOutput");
+    const markdownOutput = document.getElementById("markdownOutput");
+    const htmlOutput = document.getElementById("htmlOutput");
+    const bbcodeOutput = document.getElementById("bbcodeOutput");
 
     let captchaId = "";
 
@@ -1037,9 +1158,9 @@
 
       updateMeta("description", texts.seoDescription);
       updateMeta("keywords", texts.seoKeywords);
-      updateProperty("og:title", texts.ogTitle);
+      updateProperty("og:title", fixedPageTitle);
       updateProperty("og:description", texts.ogDescription);
-      document.title = texts.seoTitle;
+      document.title = fixedPageTitle;
       updateSchema(texts);
 
       const textIds = [
@@ -1056,6 +1177,8 @@
         const el = document.getElementById(id);
         if (el) el.textContent = texts[id];
       });
+
+      document.getElementById("pageTitle").textContent = fixedPageTitle;
 
       document.getElementById("storageCodeEmailText").innerHTML = texts.storageCodeEmailText;
       storageCodeInput.placeholder = texts.storageCodePlaceholder;
@@ -1088,11 +1211,43 @@
       previewPlaceholder.style.display = "block";
     }
 
+    function escapeHtmlAttribute(value) {
+      return value
+        .replaceAll("&", "&amp;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+
+    function formatImageAlt(fileNameValue) {
+      const baseName = (fileNameValue || "Hosted image").replace(/\.[^.]+$/, "").trim();
+      return baseName || "Hosted image";
+    }
+
+    function clearResultOutputs() {
+      resultPanel.classList.remove("show");
+      directUrlOutput.value = "";
+      markdownOutput.value = "";
+      htmlOutput.value = "";
+      bbcodeOutput.value = "";
+    }
+
+    function setResultOutputs(url, fileNameValue) {
+      const altText = formatImageAlt(fileNameValue);
+      directUrlOutput.value = url;
+      markdownOutput.value = `![${altText.replaceAll("[", "(").replaceAll("]", ")")}](${url})`;
+      htmlOutput.value = `<img src="${escapeHtmlAttribute(url)}" alt="${escapeHtmlAttribute(altText)}">`;
+      bbcodeOutput.value = `[img]${url}[/img]`;
+      resultPanel.classList.add("show");
+    }
+
     function updatePermanentNotice() {
       permanentNotice.classList.toggle("show", durationSelect.value === "permanent");
     }
 
     function setSelectedFile(file) {
+      clearResultOutputs();
+
       if (!file) {
         fileName.textContent = t().noFileChosen;
         fileName.style.color = "#94a3b8";
@@ -1147,6 +1302,7 @@
       uploadBtn.disabled = true;
       uploadBtn.textContent = texts.uploadingBtn;
       uploadLog.innerHTML = "";
+      clearResultOutputs();
       appendLog(texts.logPreparing);
       appendLog(interpolate(texts.logSelectedFile, { name: file.name }));
       appendLog(interpolate(texts.logRetention, { value: texts.retentionNames[durationSelect.value] || durationSelect.value }));
@@ -1182,6 +1338,7 @@
           link.className = "result-link";
           link.textContent = result.url;
           uploadLog.appendChild(link);
+          setResultOutputs(result.url, file.name);
 
           fileInput.value = "";
           fileName.textContent = texts.noFileChosen;
@@ -1230,6 +1387,29 @@
         e.preventDefault();
         uploadFile();
       }
+    });
+
+    document.querySelectorAll(".copy-btn").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const target = document.getElementById(button.dataset.copyTarget);
+        if (!target || !target.value) return;
+
+        try {
+          await navigator.clipboard.writeText(target.value);
+        } catch (error) {
+          target.select();
+          document.execCommand("copy");
+          target.setSelectionRange(0, 0);
+        }
+
+        const originalText = button.textContent;
+        button.textContent = "Copied";
+        button.classList.add("copied");
+        window.setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove("copied");
+        }, 1400);
+      });
     });
 
     const dropdown = document.getElementById("categoriesDropdown");
