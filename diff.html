@@ -6,8 +6,7 @@
 
   <title>Online Text Compare Tool | Side-by-Side Diff Checker</title>
   <meta name="description" content="Compare two texts or code snippets side by side in your browser. Highlight additions, removals and changed wording without uploading your text." />
-  <meta name="keywords" content="text compare, diff checker, compare two texts, compare code online, inline diff, split diff, text difference checker, code diff tool, 文本对比工具, 代码对比工具" />
-  <meta name="robots" content="index,follow,max-image-preview:large" />
+<meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/diff" />
 
@@ -112,7 +111,7 @@
     body{min-height:100vh;display:flex;flex-direction:column}
     a{text-decoration:none;color:inherit}
     button,input,textarea,select{font:inherit}
-    .container{width:min(1500px,calc(100% - 32px));margin:0 auto}
+    .container{width:min(1200px,calc(100% - 40px));margin:0 auto}
     .skip-link{position:absolute;left:12px;top:-48px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:12px;z-index:100}
     .skip-link:focus{top:12px}
 
@@ -211,7 +210,7 @@
       .nav{width:100%;overflow:auto;padding-bottom:4px;justify-content:flex-start}
     }
     @media (max-width:640px){
-      .container{width:min(100% - 20px,1500px)}
+      .container{width:min(100% - 20px,1200px)}
       .top-actions .btn{flex:1}
       .result-head{align-items:flex-start}
       .dropdown-menu,.lang-menu{left:0;right:auto}
@@ -413,7 +412,6 @@
         langLabel:"English",
         title:"Online Text Compare Tool | Side-by-Side Diff Checker",
         description:"Compare two texts or code snippets side by side in your browser. Highlight additions, removals and changed wording without uploading your text.",
-        keywords:"text compare, diff checker, compare two texts, compare code online, inline diff, split diff, text difference checker, code diff tool",
         skip:"Skip to content",
         navHome:"Home",
         navTools:"All Tools",
@@ -476,7 +474,6 @@
         langLabel:"中文",
         title:"文本对比工具｜代码差异对比｜Diff Checker｜Mini-Tools.uk",
         description:"使用 Mini-Tools 文本对比工具在浏览器中比较两段文本或代码，支持 inline 和 split 视图，快速查看新增、删除和修改内容。",
-        keywords:"文本对比工具, 文本差异对比, 代码对比工具, diff checker, 在线文本对比, 文档对比工具, 代码差异检查, 文本比较工具",
         skip:"跳到正文",
         navHome:"首页",
         navTools:"全部工具",
@@ -539,7 +536,6 @@
         langLabel:"Deutsch",
         title:"Text vergleichen & Diff Checker｜Code lokal vergleichen｜Mini-Tools.uk",
         description:"Vergleichen Sie zwei Text- oder Codeversionen im Browser. Inline- und Split-Ansicht zeigen hinzugefügte, entfernte und geänderte Wörter.",
-        keywords:"Text vergleichen, Diff Checker, Code vergleichen online, Textunterschiede prüfen, Inline Diff, Split Diff, lokales Texttool",
         skip:"Zum Inhalt springen",
         navHome:"Startseite",
         navTools:"Alle Tools",
@@ -602,7 +598,6 @@
         langLabel:"Français",
         title:"Comparateur de texte & Diff Checker｜Comparer du code localement｜Mini-Tools.uk",
         description:"Comparez deux versions de texte ou de code dans votre navigateur. Les vues inline et split montrent les ajouts, suppressions et changements.",
-        keywords:"comparateur de texte, diff checker, comparer deux textes, comparer code en ligne, différence texte, outil diff local",
         skip:"Aller au contenu",
         navHome:"Accueil",
         navTools:"Tous les outils",
@@ -665,7 +660,6 @@
         langLabel:"Español",
         title:"Comparador de texto & Diff Checker｜Comparar código localmente｜Mini-Tools.uk",
         description:"Compara dos versiones de texto o código en tu navegador. Las vistas inline y split muestran añadidos, eliminados y cambios.",
-        keywords:"comparador de texto, diff checker, comparar dos textos, comparar código online, diferencias de texto, herramienta diff local",
         skip:"Saltar al contenido",
         navHome:"Inicio",
         navTools:"Todas las herramientas",
@@ -756,15 +750,6 @@
       let lang = params.get("lang");
       if (lang === "zh") lang = "zh-CN";
       if (allowedLangs.includes(lang)) return lang;
-
-      const saved = localStorage.getItem("miniToolsDiffLang");
-      if (allowedLangs.includes(saved)) return saved;
-
-      const browser = navigator.language || "en";
-      if (browser.startsWith("zh")) return "zh-CN";
-      if (browser.startsWith("de")) return "de";
-      if (browser.startsWith("fr")) return "fr";
-      if (browser.startsWith("es")) return "es";
       return "en";
     }
 
@@ -783,6 +768,105 @@
       if (tag) tag.setAttribute("content", content);
     }
 
+    function buildPageUrl(langCode = currentLang) {
+      const base = "https://mini-tools.uk/diff";
+      if (!langCode) return base;
+      return `${base}?lang=${encodeURIComponent(langCode)}`;
+    }
+
+    function updateCanonicalAndSocialUrls(langCode = currentLang) {
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute("href", buildPageUrl(langCode));
+
+      const ogUrl = document.querySelector('meta[property="og:url"]');
+      if (ogUrl) ogUrl.setAttribute("content", buildPageUrl(langCode));
+
+      const localeMap = {
+        en: "en_GB",
+        "zh-CN": "zh_CN",
+        de: "de_DE",
+        fr: "fr_FR",
+        es: "es_ES"
+      };
+      let ogLocale = document.querySelector('meta[property="og:locale"]');
+      if (!ogLocale) {
+        ogLocale = document.createElement("meta");
+        ogLocale.setAttribute("property", "og:locale");
+        document.head.appendChild(ogLocale);
+      }
+      ogLocale.setAttribute("content", localeMap[langCode] || "en_GB");
+    }
+
+    function updateStructuredData(langCode = currentLang) {
+      const dict = translations[langCode] || translations.en;
+      const schema = document.getElementById("schema-json");
+      if (!schema) return;
+
+      const data = {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "name": dict.title,
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Web",
+            "url": buildPageUrl(langCode),
+            "description": dict.description,
+            "inLanguage": dict.htmlLang || langCode,
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "GBP"
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "inLanguage": dict.htmlLang || langCode,
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": dict.faq1Q,
+                "acceptedAnswer": { "@type": "Answer", "text": dict.faq1A }
+              },
+              {
+                "@type": "Question",
+                "name": dict.faq2Q,
+                "acceptedAnswer": { "@type": "Answer", "text": dict.faq2A }
+              },
+              {
+                "@type": "Question",
+                "name": dict.faq3Q,
+                "acceptedAnswer": { "@type": "Answer", "text": dict.faq3A }
+              },
+              {
+                "@type": "Question",
+                "name": dict.faq4Q,
+                "acceptedAnswer": { "@type": "Answer", "text": dict.faq4A }
+              }
+            ]
+          }
+        ]
+      };
+
+      schema.textContent = JSON.stringify(data, null, 2);
+    }
+
+    function updateInternalLinks(langCode = currentLang) {
+      document.querySelectorAll('a[href]').forEach(link => {
+        const rawHref = link.getAttribute('href');
+        if (!rawHref || rawHref.startsWith('#') || rawHref.startsWith('mailto:') || rawHref.startsWith('tel:')) return;
+
+        try {
+          const linkUrl = new URL(rawHref, window.location.origin);
+          if (linkUrl.origin !== window.location.origin) return;
+
+          linkUrl.pathname = linkUrl.pathname.replace(/\.html$/i, '');
+          linkUrl.searchParams.set('lang', langCode);
+          link.setAttribute('href', linkUrl.pathname + linkUrl.search + linkUrl.hash);
+        } catch (e) {}
+      });
+    }
+
     function applyLanguage(lang, updateUrl = true){
       currentLang = allowedLangs.includes(lang) ? lang : "en";
       const dict = getDict();
@@ -790,11 +874,12 @@
       document.documentElement.lang = dict.htmlLang || "en-GB";
       document.title = dict.title;
       setMeta("description", dict.description);
-      setMeta("keywords", dict.keywords);
       setOg("og:title", dict.title);
       setOg("og:description", dict.description);
       setTwitter("twitter:title", dict.title);
       setTwitter("twitter:description", dict.description);
+      updateCanonicalAndSocialUrls(currentLang);
+      updateStructuredData(currentLang);
 
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
@@ -821,6 +906,7 @@
         history.replaceState(null, "", url.toString());
       }
 
+      updateInternalLinks(currentLang);
       updateMetaCounts();
       if (currentDiff) renderDiff();
     }
