@@ -1,28 +1,26 @@
 /**
  * Mini-Tools.uk Cloudflare Pages _worker.js
  * ------------------------------------------------------------
- * First-stage safe SEO gateway for a static HTML site on Cloudflare Pages.
+ * Server-side multilingual rendering gateway for static HTML pages.
  *
- * What it does:
- * 1) Redirects /page.html -> /page
- * 2) Fetches clean URLs first and only falls back to /page.html on 404, avoiding redirect loops
- * 3) Removes <meta name="keywords">
- * 4) Replaces old canonical / robots / hreflang tags with unified versions
- * 5) Adds X-Robots-Tag headers
- * 6) Applies external-link policy:
- *    - removes public GitHub/editor/admin links
- *    - keeps GOV.UK / HMRC official links without nofollow
- *    - adds nofollow to other non-official external links
- * 7) Leaves /blog routes alone, so your existing blog Worker / D1 logic is not broken
+ * Goal:
+ * - Keep your existing HTML/CSS/JS functionality intact.
+ * - Serve clean URLs such as /tax instead of /tax.html.
+ * - Render the visible HTML body, title, meta description, OG/Twitter tags,
+ *   canonical and structured data according to ?lang=en|zh-CN|de|fr|es
+ *   before the response reaches Googlebot or the browser.
  *
- * v2 fix: avoids /upload -> /upload.html -> /upload loops when _redirects also handles .html URLs.
+ * How it works:
+ * - Fetches the static HTML page from Cloudflare Pages Assets.
+ * - Extracts the page's existing `const translations = { ... }` dictionary.
+ * - Applies the selected language to:
+ *   1) elements using data-i18n="key"
+ *   2) elements whose id matches a translation key, such as upload.html
+ *   3) placeholders / alt text for common upload-page fields
+ *   4) title, description, canonical, hreflang, robots, og/twitter, JSON-LD
  *
  * Put this file at the Cloudflare Pages deployment root:
  *   /_worker.js
- *
- * If you use a build output directory such as dist/ or public/,
- * make sure the deployed output contains:
- *   dist/_worker.js
  */
 
 const SITE_ORIGIN = "https://mini-tools.uk";
@@ -30,7 +28,7 @@ const SITE_ORIGIN = "https://mini-tools.uk";
 const DEFAULT_LANG = "en";
 const SUPPORTED_LANGS = ["en", "zh-CN", "de", "fr", "es"];
 
-const HTML_LANG = {
+const HTML_LANG_FALLBACK = {
   en: "en-GB",
   "zh-CN": "zh-CN",
   de: "de",
@@ -38,15 +36,7 @@ const HTML_LANG = {
   es: "es",
 };
 
-// Routes handled by another Worker or dynamic service.
-// Keep /blog here while your blog SSR/API/editor runs elsewhere.
-const PASSTHROUGH_PREFIXES = [
-  "/blog",
-  "/blog/",
-];
-
-// Public pages that should receive canonical + hreflang.
-const INDEXABLE_PAGES = new Set([
+const INDEXABLE_PATHS = new Set([
   "/",
   "/tax",
   "/vat",
@@ -70,21 +60,19 @@ const INDEXABLE_PAGES = new Set([
   "/about",
   "/contact",
   "/privacy",
+  "/blog",
 ]);
 
-// Paths that must never be indexed if they are exposed by Pages.
 const NOINDEX_PATH_PREFIXES = [
   "/blog/search",
   "/blog/tag",
   "/blog/editor",
   "/blog/api",
+  "/admin",
   "/image_admin",
   "/map",
-  "/admin",
 ];
 
-// External domains that are useful and trusted enough not to receive nofollow.
-// Add official documentation domains here if needed.
 const TRUSTED_EXTERNAL_DOMAINS = [
   "gov.uk",
   "www.gov.uk",
@@ -93,242 +81,710 @@ const TRUSTED_EXTERNAL_DOMAINS = [
   "developer.service.hmrc.gov.uk",
 ];
 
-// Public links that should be removed from rendered HTML.
 const REMOVE_LINK_HREF_PARTS = [
   "github.com",
   "/blog/editor",
-  "image_admin",
   "/admin",
+  "image_admin",
+];
+
+const LOCAL_STORAGE_LANG_KEYS = [
+  "miniToolsLang",
+  "miniToolsTaxLang",
+  "miniToolsUploadLang",
+  "miniToolsBlogLang",
+  "miniToolsToolLang",
+  "miniToolsPreferredLang",
 ];
 
 function normalizePathname(pathname) {
   if (!pathname || pathname === "/index.html") return "/";
-  if (pathname.length > 1 && pathname.endsWith("/")) {
-    return pathname.slice(0, -1);
-  }
-  if (pathname.endsWith(".html")) {
-    return pathname.slice(0, -5) || "/";
-  }
-  return pathname;
+  let out = pathname;
+  if (out.length > 1 && out.endsWith("/")) out = out.slice(0, -1);
+  if (out.endsWith(".html")) out = out.slice(0, -5) || "/";
+  return out;
+}
+
+function assetPathForCleanUrl(pathname) {
+  const normalized = normalizePathname(pathname);
+  if (normalized === "/") return "/index.html";
+  return `${normalized}.html`;
 }
 
 function isStaticAsset(pathname) {
   return /\.(css|js|mjs|png|jpg|jpeg|webp|gif|svg|ico|json|xml|txt|pdf|zip|woff|woff2|ttf|eot|map|avif)$/i.test(pathname);
 }
 
-function isPassthroughPath(pathname) {
-  const normalized = normalizePathname(pathname);
-  return PASSTHROUGH_PREFIXES.some((prefix) => {
-    if (prefix.endsWith("/")) return normalized.startsWith(prefix.slice(0, -1) + "/");
-    return normalized === prefix || normalized.startsWith(prefix + "/");
-  });
+function normalizeLang(raw) {
+  if (!raw) return DEFAULT_LANG;
+  const lang = String(raw).trim();
+  if (!lang) return DEFAULT_LANG;
+  const lower = lang.toLowerCase();
+  if (lower === "zh" || lower === "zh-cn" || lower === "zh-hans" || lower === "cn") return "zh-CN";
+  if (SUPPORTED_LANGS.includes(lang)) return lang;
+  if (SUPPORTED_LANGS.includes(lower)) return lower;
+  return DEFAULT_LANG;
 }
 
-function normalizeLang(rawLang) {
-  if (!rawLang) return DEFAULT_LANG;
-  if (rawLang === "zh" || rawLang === "cn" || rawLang === "zh-cn") return "zh-CN";
-  return SUPPORTED_LANGS.includes(rawLang) ? rawLang : DEFAULT_LANG;
+function langFromUrl(url) {
+  const raw = url.searchParams.get("lang");
+  return normalizeLang(raw);
 }
 
-function langParamForUrl(lang) {
-  return encodeURIComponent(lang);
+function hasOnlyLangParam(url) {
+  for (const key of url.searchParams.keys()) {
+    if (key !== "lang") return false;
+  }
+  return true;
 }
 
-function buildPageUrl(pathname, lang, includeLang = true) {
-  const normalizedPath = normalizePathname(pathname);
-  const url = new URL(SITE_ORIGIN + normalizedPath);
+function shouldNoindex(url) {
+  const path = normalizePathname(url.pathname);
 
-  if (includeLang) {
-    url.searchParams.set("lang", langParamForUrl(lang));
+  if (NOINDEX_PATH_PREFIXES.some((prefix) => path === prefix || path.startsWith(prefix + "/"))) {
+    return true;
   }
 
-  // URLSearchParams encodes zh-CN safely; keep output readable.
-  return url.toString().replace("zh-CN", "zh-CN");
+  // Blog search, tag, sort and empty-language/filter pages should not be indexed.
+  if (path === "/blog" || path.startsWith("/blog/")) {
+    if (url.searchParams.has("sort")) return true;
+    if (url.searchParams.has("tag")) return true;
+    if (url.searchParams.has("search")) return true;
+    if (url.searchParams.has("q")) return true;
+    if (url.searchParams.get("lang") === "") return true;
+  }
+
+  // Tool result/filter URLs should not create many duplicate indexable pages.
+  if (!hasOnlyLangParam(url)) return true;
+
+  return false;
 }
 
 function buildCanonical(pathname, lang, url) {
-  const normalizedPath = normalizePathname(pathname);
-  const canonical = new URL(SITE_ORIGIN + normalizedPath);
-
-  // For clean default URL, /tax remains canonical for x-default/default entry.
-  // For explicit language URLs, keep self-referencing canonicals.
-  const rawLang = url.searchParams.get("lang");
-  if (rawLang) {
+  const path = normalizePathname(pathname);
+  const canonical = new URL(SITE_ORIGIN + path);
+  if (url.searchParams.has("lang")) {
     canonical.searchParams.set("lang", lang);
   }
-
   return canonical.toString();
 }
 
 function buildHreflang(pathname) {
-  const normalizedPath = normalizePathname(pathname);
+  const path = normalizePathname(pathname);
+  const links = SUPPORTED_LANGS.map((lang) => {
+    const href = new URL(SITE_ORIGIN + path);
+    href.searchParams.set("lang", lang);
+    return `<link rel="alternate" hreflang="${lang}" href="${href.toString()}">`;
+  });
+  links.push(`<link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${path}">`);
+  return links.join("\n  ");
+}
 
-  const tags = SUPPORTED_LANGS.map((lang) => {
-    const href = buildPageUrl(normalizedPath, lang, true);
-    return `<link rel="alternate" hreflang="${lang}" href="${href}">`;
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function escapeAttr(value) {
+  return escapeHtml(value).replace(/"/g, "&quot;");
+}
+
+function parseJsString(source, start) {
+  const quote = source[start];
+  let i = start + 1;
+  let out = "";
+
+  while (i < source.length) {
+    const ch = source[i];
+
+    if (ch === "\\") {
+      const next = source[i + 1];
+      if (next === "n") { out += "\n"; i += 2; continue; }
+      if (next === "r") { out += "\r"; i += 2; continue; }
+      if (next === "t") { out += "\t"; i += 2; continue; }
+      if (next === "b") { out += "\b"; i += 2; continue; }
+      if (next === "f") { out += "\f"; i += 2; continue; }
+      if (next === "u") {
+        const hex = source.slice(i + 2, i + 6);
+        if (/^[0-9a-fA-F]{4}$/.test(hex)) {
+          out += String.fromCharCode(parseInt(hex, 16));
+          i += 6;
+          continue;
+        }
+      }
+      out += next || "";
+      i += 2;
+      continue;
+    }
+
+    if (ch === quote) {
+      return { value: out, end: i + 1 };
+    }
+
+    out += ch;
+    i += 1;
+  }
+
+  return null;
+}
+
+function findMatchingBrace(source, openIndex) {
+  let depth = 0;
+  let i = openIndex;
+  let quote = null;
+  let inLineComment = false;
+  let inBlockComment = false;
+
+  while (i < source.length) {
+    const ch = source[i];
+    const next = source[i + 1];
+
+    if (inLineComment) {
+      if (ch === "\n") inLineComment = false;
+      i += 1;
+      continue;
+    }
+
+    if (inBlockComment) {
+      if (ch === "*" && next === "/") {
+        inBlockComment = false;
+        i += 2;
+        continue;
+      }
+      i += 1;
+      continue;
+    }
+
+    if (quote) {
+      if (ch === "\\") {
+        i += 2;
+        continue;
+      }
+      if (ch === quote) quote = null;
+      i += 1;
+      continue;
+    }
+
+    if (ch === "/" && next === "/") {
+      inLineComment = true;
+      i += 2;
+      continue;
+    }
+
+    if (ch === "/" && next === "*") {
+      inBlockComment = true;
+      i += 2;
+      continue;
+    }
+
+    if (ch === "'" || ch === '"' || ch === "`") {
+      quote = ch;
+      i += 1;
+      continue;
+    }
+
+    if (ch === "{") depth += 1;
+    if (ch === "}") {
+      depth -= 1;
+      if (depth === 0) return i;
+    }
+
+    i += 1;
+  }
+
+  return -1;
+}
+
+function readJsKey(source, start) {
+  let i = start;
+  while (i < source.length && /[\s,]/.test(source[i])) i += 1;
+
+  const ch = source[i];
+  if (ch === '"' || ch === "'") {
+    const parsed = parseJsString(source, i);
+    if (!parsed) return null;
+    return { key: parsed.value, end: parsed.end };
+  }
+
+  const match = /^[A-Za-z_$][A-Za-z0-9_$-]*/.exec(source.slice(i));
+  if (!match) return null;
+  return { key: match[0], end: i + match[0].length };
+}
+
+function extractTranslationsSource(html) {
+  const marker = "const translations";
+  const start = html.indexOf(marker);
+  if (start === -1) return null;
+
+  const eq = html.indexOf("=", start);
+  if (eq === -1) return null;
+
+  const open = html.indexOf("{", eq);
+  if (open === -1) return null;
+
+  const close = findMatchingBrace(html, open);
+  if (close === -1) return null;
+
+  return html.slice(open, close + 1);
+}
+
+function extractLangObjectBody(translationsSource, lang) {
+  if (!translationsSource || translationsSource[0] !== "{") return null;
+
+  let i = 1;
+  const end = translationsSource.length - 1;
+
+  while (i < end) {
+    const keyInfo = readJsKey(translationsSource, i);
+    if (!keyInfo) {
+      i += 1;
+      continue;
+    }
+
+    let j = keyInfo.end;
+    while (j < end && /\s/.test(translationsSource[j])) j += 1;
+    if (translationsSource[j] !== ":") {
+      i = j + 1;
+      continue;
+    }
+    j += 1;
+    while (j < end && /\s/.test(translationsSource[j])) j += 1;
+
+    if (translationsSource[j] === "{") {
+      const close = findMatchingBrace(translationsSource, j);
+      if (close === -1) return null;
+      if (keyInfo.key === lang) {
+        return translationsSource.slice(j + 1, close);
+      }
+      i = close + 1;
+      continue;
+    }
+
+    if (translationsSource[j] === '"' || translationsSource[j] === "'") {
+      const parsed = parseJsString(translationsSource, j);
+      i = parsed ? parsed.end : j + 1;
+      continue;
+    }
+
+    i = j + 1;
+  }
+
+  return null;
+}
+
+function parseFlatStringMap(objectBody) {
+  const dict = {};
+  let i = 0;
+
+  while (i < objectBody.length) {
+    const keyInfo = readJsKey(objectBody, i);
+    if (!keyInfo) {
+      i += 1;
+      continue;
+    }
+
+    let j = keyInfo.end;
+    while (j < objectBody.length && /\s/.test(objectBody[j])) j += 1;
+
+    if (objectBody[j] !== ":") {
+      i = j + 1;
+      continue;
+    }
+
+    j += 1;
+    while (j < objectBody.length && /\s/.test(objectBody[j])) j += 1;
+
+    const valueStart = objectBody[j];
+
+    if (valueStart === '"' || valueStart === "'") {
+      const parsed = parseJsString(objectBody, j);
+      if (parsed) {
+        dict[keyInfo.key] = parsed.value;
+        i = parsed.end;
+        continue;
+      }
+    }
+
+    if (valueStart === "{") {
+      const close = findMatchingBrace(objectBody, j);
+      i = close === -1 ? j + 1 : close + 1;
+      continue;
+    }
+
+    // Skip non-string values.
+    while (i < objectBody.length && objectBody[i] !== "," && objectBody[i] !== "\n") i += 1;
+  }
+
+  return dict;
+}
+
+function extractDictionary(html, lang) {
+  const src = extractTranslationsSource(html);
+  if (!src) return null;
+
+  const body = extractLangObjectBody(src, lang) || extractLangObjectBody(src, DEFAULT_LANG);
+  if (!body) return null;
+
+  const dict = parseFlatStringMap(body);
+  return Object.keys(dict).length ? dict : null;
+}
+
+function replaceElementInnerByAttribute(html, attrName, key, replacement, allowHtml = false) {
+  const safeKey = escapeRegExp(key);
+  const attr = escapeRegExp(attrName);
+  const re = new RegExp(`(<([A-Za-z][A-Za-z0-9:-]*)\\b(?=[^>]*\\s${attr}=(["'])${safeKey}\\3)[^>]*>)([\\s\\S]*?)(<\\/\\2>)`, "g");
+  const value = allowHtml ? String(replacement ?? "") : escapeHtml(replacement);
+  return html.replace(re, `$1${value}$5`);
+}
+
+function replaceElementInnerById(html, id, replacement) {
+  const safeId = escapeRegExp(id);
+  const re = new RegExp(`(<([A-Za-z][A-Za-z0-9:-]*)\\b(?=[^>]*\\sid=(["'])${safeId}\\3)[^>]*>)([\\s\\S]*?)(<\\/\\2>)`, "g");
+  const raw = String(replacement ?? "");
+  const value = raw.includes("<") && raw.includes(">") ? raw : escapeHtml(raw);
+  return html.replace(re, `$1${value}$5`);
+}
+
+function setAttributeOnElementById(html, id, attrName, attrValue) {
+  const safeId = escapeRegExp(id);
+  const re = new RegExp(`<([A-Za-z][A-Za-z0-9:-]*)\\b([^>]*\\sid=(["'])${safeId}\\3[^>]*)>`, "g");
+  return html.replace(re, (match, tag, attrs) => {
+    const value = escapeAttr(attrValue);
+    const attrRe = new RegExp(`\\s${escapeRegExp(attrName)}=(["'])[\\s\\S]*?\\1`, "i");
+    if (attrRe.test(attrs)) {
+      return `<${tag}${attrs.replace(attrRe, ` ${attrName}="${value}"`)}>`;
+    }
+    return `<${tag}${attrs} ${attrName}="${value}">`;
+  });
+}
+
+function renderTranslatedBody(html, dict) {
+  if (!dict) return html;
+
+  for (const [key, value] of Object.entries(dict)) {
+    html = replaceElementInnerByAttribute(html, "data-i18n", key, value, false);
+    html = replaceElementInnerByAttribute(html, "data-i18n-html", key, value, true);
+  }
+
+  // Some older pages, especially upload.html, use ids rather than data-i18n.
+  const idKeysToSkip = new Set([
+    "htmlLang",
+    "locale",
+    "seoTitle",
+    "seoDescription",
+    "seoKeywords",
+    "ogTitle",
+    "ogDescription",
+    "schemaAppName",
+    "schemaDescription",
+    "storageCodePlaceholder",
+    "captchaPlaceholder",
+    "previewAlt",
+    "uploadingBtn",
+    "copiedButton",
+  ]);
+
+  for (const [key, value] of Object.entries(dict)) {
+    if (idKeysToSkip.has(key)) continue;
+    html = replaceElementInnerById(html, key, value);
+  }
+
+  if (dict.storageCodePlaceholder) {
+    html = setAttributeOnElementById(html, "storageCodeInput", "placeholder", dict.storageCodePlaceholder);
+  }
+  if (dict.captchaPlaceholder) {
+    html = setAttributeOnElementById(html, "captchaAnswerInput", "placeholder", dict.captchaPlaceholder);
+  }
+  if (dict.previewAlt) {
+    html = setAttributeOnElementById(html, "previewImage", "alt", dict.previewAlt);
+  }
+
+  return html;
+}
+
+function removeSeoConflicts(html) {
+  return html
+    .replace(/<meta\b[^>]*\bname=(["'])keywords\1[^>]*>\s*/gi, "")
+    .replace(/<meta\b[^>]*\bname=(["'])robots\1[^>]*>\s*/gi, "")
+    .replace(/<link\b[^>]*\brel=(["'])canonical\1[^>]*>\s*/gi, "")
+    .replace(/<link\b[^>]*\brel=(["'])alternate\1[^>]*\bhreflang=(["'])[^"']+\2[^>]*>\s*/gi, "");
+}
+
+function setOrInsertMetaName(html, name, content) {
+  const safeContent = escapeAttr(content);
+  const re = new RegExp(`<meta\\b([^>]*\\bname=(["'])${escapeRegExp(name)}\\2[^>]*)>`, "i");
+  if (re.test(html)) {
+    return html.replace(re, (m) => {
+      if (/\bcontent=(["'])[\s\S]*?\1/i.test(m)) {
+        return m.replace(/\bcontent=(["'])[\s\S]*?\1/i, `content="${safeContent}"`);
+      }
+      return m.replace(/>$/, ` content="${safeContent}">`);
+    });
+  }
+  return html.replace(/<head\b[^>]*>/i, (m) => `${m}\n  <meta name="${name}" content="${safeContent}">`);
+}
+
+function setOrInsertMetaProperty(html, property, content) {
+  const safeContent = escapeAttr(content);
+  const re = new RegExp(`<meta\\b([^>]*\\bproperty=(["'])${escapeRegExp(property)}\\2[^>]*)>`, "i");
+  if (re.test(html)) {
+    return html.replace(re, (m) => {
+      if (/\bcontent=(["'])[\s\S]*?\1/i.test(m)) {
+        return m.replace(/\bcontent=(["'])[\s\S]*?\1/i, `content="${safeContent}"`);
+      }
+      return m.replace(/>$/, ` content="${safeContent}">`);
+    });
+  }
+  return html.replace(/<head\b[^>]*>/i, (m) => `${m}\n  <meta property="${property}" content="${safeContent}">`);
+}
+
+function setTitle(html, title) {
+  if (!title) return html;
+  const value = escapeHtml(title);
+  if (/<title\b[^>]*>[\s\S]*?<\/title>/i.test(html)) {
+    return html.replace(/<title\b[^>]*>[\s\S]*?<\/title>/i, `<title>${value}</title>`);
+  }
+  return html.replace(/<head\b[^>]*>/i, (m) => `${m}\n  <title>${value}</title>`);
+}
+
+function setHtmlLang(html, langValue) {
+  const value = escapeAttr(langValue || "en-GB");
+  if (/<html\b[^>]*\blang=(["'])[\s\S]*?\1/i.test(html)) {
+    return html.replace(/<html\b([^>]*?)\blang=(["'])[\s\S]*?\2([^>]*)>/i, `<html$1lang="${value}"$3>`);
+  }
+  return html.replace(/<html\b([^>]*)>/i, `<html$1 lang="${value}">`);
+}
+
+function injectHeadSeo(html, pathname, lang, url, robots) {
+  const path = normalizePathname(pathname);
+  const canonical = buildCanonical(path, lang, url);
+  const hreflang = INDEXABLE_PATHS.has(path) && !robots.startsWith("noindex") ? `\n  ${buildHreflang(path)}` : "";
+  const block = `
+  <link rel="canonical" href="${canonical}">${hreflang}
+  <meta name="robots" content="${robots}">`;
+
+  return html.replace(/<\/head>/i, `${block}\n</head>`);
+}
+
+function updateSeoForLang(html, dict, pathname, lang, url, robots) {
+  const title = dict?.title || dict?.seoTitle || dict?.ogTitle;
+  const description = dict?.description || dict?.seoDescription || dict?.ogDescription;
+  const ogTitle = dict?.ogTitle || title;
+  const ogDescription = dict?.ogDescription || description;
+  const canonical = buildCanonical(pathname, lang, url);
+
+  html = removeSeoConflicts(html);
+  html = setHtmlLang(html, dict?.htmlLang || HTML_LANG_FALLBACK[lang] || "en-GB");
+  if (title) html = setTitle(html, title);
+  if (description) html = setOrInsertMetaName(html, "description", description);
+
+  html = setOrInsertMetaName(html, "robots", robots);
+  if (ogTitle) html = setOrInsertMetaProperty(html, "og:title", ogTitle);
+  if (ogDescription) html = setOrInsertMetaProperty(html, "og:description", ogDescription);
+  html = setOrInsertMetaProperty(html, "og:url", canonical);
+
+  if (title) html = setOrInsertMetaName(html, "twitter:title", title);
+  if (description) html = setOrInsertMetaName(html, "twitter:description", description);
+
+  html = injectHeadSeo(html, pathname, lang, url, robots);
+
+  return html;
+}
+
+function replaceScriptJsonById(html, id, jsonObject) {
+  const re = new RegExp(`(<script\\b(?=[^>]*\\bid=(["'])${escapeRegExp(id)}\\2)[^>]*>)[\\s\\S]*?(<\\/script>)`, "i");
+  if (!re.test(html)) return html;
+  return html.replace(re, `$1\n${escapeHtmlForScript(JSON.stringify(jsonObject, null, 2))}\n$3`);
+}
+
+function escapeHtmlForScript(value) {
+  return String(value).replace(/<\/script/gi, "<\\/script");
+}
+
+function buildFaqItems(dict) {
+  const items = [];
+  for (let i = 1; i <= 10; i += 1) {
+    const q = dict[`faq${i}Q`] || dict[`faq${i}Title`] || dict[`schemaFaq${i}Title`];
+    const a = dict[`faq${i}A`] || dict[`faq${i}Text`] || dict[`schemaFaq${i}Text`];
+    if (q && a) {
+      items.push({
+        "@type": "Question",
+        "name": q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": a,
+        },
+      });
+    }
+  }
+  return items;
+}
+
+function updateStructuredDataServerSide(html, dict, pathname, lang, url) {
+  if (!dict) return html;
+  const canonical = buildCanonical(pathname, lang, url);
+
+  if (dict.schemaAppName || dict.schemaDescription) {
+    const appSchema = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": dict.schemaAppName || dict.title || dict.seoTitle || "Mini-Tools.uk",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "Web",
+          "url": canonical,
+          "description": dict.schemaDescription || dict.description || dict.seoDescription || "",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        },
+      ],
+    };
+
+    const faq = buildFaqItems(dict);
+    if (faq.length) {
+      appSchema["@graph"].push({
+        "@type": "FAQPage",
+        "mainEntity": faq,
+      });
+    }
+
+    html = replaceScriptJsonById(html, "appSchema", appSchema);
+  }
+
+  if (/<script\b(?=[^>]*\bid=(["'])software-schema\1)[^>]*>/i.test(html)) {
+    const app = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": (dict.title || dict.seoTitle || "Mini-Tools.uk").replace(/\s+\|\s+Mini-Tools\.uk$/i, ""),
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "url": canonical,
+      "description": dict.description || dict.seoDescription || "",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+      "featureList": [
+        dict.grossIncome,
+        dict.taxRowLabel,
+        dict.niRowLabel,
+        dict.pensionRowLabel,
+        dict.studentRowLabel,
+        dict.netRowLabel,
+      ].filter(Boolean),
+    };
+    html = replaceScriptJsonById(html, "software-schema", app);
+  }
+
+  if (/<script\b(?=[^>]*\bid=(["'])faq-schema\1)[^>]*>/i.test(html)) {
+    const faq = buildFaqItems(dict);
+    if (faq.length) {
+      html = replaceScriptJsonById(html, "faq-schema", {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faq,
+      });
+    }
+  }
+
+  return html;
+}
+
+function injectServerLangScript(html, lang) {
+  const safeLang = JSON.stringify(lang);
+  const localStorageWrites = LOCAL_STORAGE_LANG_KEYS
+    .map((key) => `try{localStorage.setItem(${JSON.stringify(key)},${safeLang});}catch(e){}`)
+    .join("");
+
+  const script = `<script>
+window.MINI_TOOLS_SERVER_LANG=${safeLang};
+${localStorageWrites}
+</script>`;
+
+  return html.replace(/<head\b[^>]*>/i, (m) => `${m}\n${script}`);
+}
+
+function rewriteInternalLinks(html, lang) {
+  return html.replace(/<a\b([^>]*?)\bhref=(["'])(\/[^"']*)\2([^>]*)>/gi, (match, before, quote, href, after) => {
+    if (href.startsWith("//")) return match;
+    if (href.startsWith("/api/")) return match;
+
+    try {
+      const parsed = new URL(href, SITE_ORIGIN);
+      if (lang !== DEFAULT_LANG) {
+        parsed.searchParams.set("lang", lang);
+      } else {
+        parsed.searchParams.delete("lang");
+      }
+      const nextHref = parsed.pathname + parsed.search + parsed.hash;
+      return `<a${before}href=${quote}${nextHref}${quote}${after}>`;
+    } catch (_) {
+      return match;
+    }
+  });
+}
+
+function applyExternalLinkPolicy(html) {
+  // Remove public admin/editor/GitHub links as anchors while preserving the visible text.
+  html = html.replace(/<a\b([^>]*?)\bhref=(["'])([^"']*)\2([^>]*)>([\s\S]*?)<\/a>/gi, (match, before, quote, href, after, inner) => {
+    const lower = href.toLowerCase();
+    if (REMOVE_LINK_HREF_PARTS.some((part) => lower.includes(part.toLowerCase()))) {
+      return inner;
+    }
+    return match;
   });
 
-  tags.push(`<link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${normalizedPath}">`);
-  return tags.join("\n    ");
-}
+  // Add rel policy to absolute external links.
+  html = html.replace(/<a\b([^>]*?)\bhref=(["'])(https?:\/\/[^"']+)\2([^>]*)>/gi, (match, before, quote, href, after) => {
+    try {
+      const parsed = new URL(href);
+      if (parsed.origin === SITE_ORIGIN) return match;
 
-function shouldNoindex(url) {
-  const normalizedPath = normalizePathname(url.pathname);
+      const host = parsed.hostname.toLowerCase();
+      const trusted = TRUSTED_EXTERNAL_DOMAINS.some((domain) => host === domain || host.endsWith("." + domain));
+      const relValue = trusted ? "noopener noreferrer" : "nofollow noopener noreferrer";
+      let attrs = `${before}href=${quote}${href}${quote}${after}`;
 
-  if (NOINDEX_PATH_PREFIXES.some((prefix) => normalizedPath === prefix || normalizedPath.startsWith(prefix + "/"))) {
-    return true;
-  }
-
-  // Internal search/filter/sort pages should not become indexable landing pages.
-  if (url.searchParams.has("q")) return true;
-  if (url.searchParams.has("search")) return true;
-  if (url.searchParams.has("sort")) return true;
-  if (url.searchParams.has("tag")) return true;
-
-  // Unknown HTML-like paths are better left indexable decision to origin/404,
-  // but known public pages are handled explicitly.
-  return false;
-}
-
-function assetPathForCleanUrl(pathname) {
-  const normalizedPath = normalizePathname(pathname);
-  if (normalizedPath === "/") return "/index.html";
-  return `${normalizedPath}.html`;
-}
-
-function isTrustedExternalUrl(href) {
-  try {
-    const parsed = new URL(href, SITE_ORIGIN);
-    if (parsed.origin === SITE_ORIGIN) return true;
-
-    const host = parsed.hostname.toLowerCase();
-    return TRUSTED_EXTERNAL_DOMAINS.some((domain) => host === domain || host.endsWith("." + domain));
-  } catch {
-    return true;
-  }
-}
-
-function shouldRemoveHref(href) {
-  if (!href) return false;
-  const lower = href.toLowerCase();
-  return REMOVE_LINK_HREF_PARTS.some((part) => lower.includes(part.toLowerCase()));
-}
-
-function mergeRel(existingRel, additions) {
-  const parts = new Set(
-    String(existingRel || "")
-      .split(/\s+/)
-      .map((x) => x.trim())
-      .filter(Boolean)
-  );
-
-  for (const item of additions) parts.add(item);
-  return Array.from(parts).join(" ");
-}
-
-class RemoveElementHandler {
-  element(element) {
-    element.remove();
-  }
-}
-
-class HtmlLangHandler {
-  constructor(lang) {
-    this.lang = lang;
-  }
-
-  element(element) {
-    element.setAttribute("lang", HTML_LANG[this.lang] || "en-GB");
-  }
-}
-
-class HeadSeoHandler {
-  constructor({ pathname, lang, robots, url }) {
-    this.pathname = pathname;
-    this.lang = lang;
-    this.robots = robots;
-    this.url = url;
-  }
-
-  element(element) {
-    const normalizedPath = normalizePathname(this.pathname);
-    const shouldAddHreflang = INDEXABLE_PAGES.has(normalizedPath) && !this.robots.startsWith("noindex");
-
-    const seoBlock = `
-    <link rel="canonical" href="${buildCanonical(this.pathname, this.lang, this.url)}">
-    ${shouldAddHreflang ? buildHreflang(this.pathname) : ""}
-    <meta name="robots" content="${this.robots}">
-`;
-
-    element.append(seoBlock, { html: true });
-  }
-}
-
-class OgUrlHandler {
-  constructor({ pathname, lang, url }) {
-    this.pathname = pathname;
-    this.lang = lang;
-    this.url = url;
-  }
-
-  element(element) {
-    element.setAttribute("content", buildCanonical(this.pathname, this.lang, this.url));
-  }
-}
-
-class ExternalLinkPolicyHandler {
-  element(element) {
-    const href = element.getAttribute("href") || "";
-
-    if (shouldRemoveHref(href)) {
-      element.remove();
-      return;
-    }
-
-    if (/^https?:\/\//i.test(href)) {
-      if (isTrustedExternalUrl(href)) {
-        element.setAttribute("rel", mergeRel(element.getAttribute("rel"), ["noopener", "noreferrer"]));
+      if (/\brel=(["'])[\s\S]*?\1/i.test(attrs)) {
+        attrs = attrs.replace(/\brel=(["'])[\s\S]*?\1/i, `rel="${relValue}"`);
       } else {
-        element.setAttribute("rel", mergeRel(element.getAttribute("rel"), ["nofollow", "noopener", "noreferrer"]));
+        attrs += ` rel="${relValue}"`;
       }
 
-      if (!element.getAttribute("target")) {
-        element.setAttribute("target", "_blank");
+      if (!/\btarget=(["'])[\s\S]*?\1/i.test(attrs)) {
+        attrs += ` target="_blank"`;
       }
+
+      return `<a${attrs}>`;
+    } catch (_) {
+      return match;
     }
-  }
+  });
+
+  return html;
 }
 
 async function fetchAsset(request, env, pathname) {
   const originalUrl = new URL(request.url);
 
-  // Important: fetch the clean URL first.
-  // Cloudflare Pages can often resolve /upload to /upload.html by itself.
-  // If we fetch /upload.html first, existing _redirects rules such as
-  // /upload.html -> /upload may return a 301 and create a browser loop.
   let response = await env.ASSETS.fetch(request);
+  if (response.status !== 404) return response;
 
-  if (response.status !== 404) {
-    return response;
-  }
+  const fallbackUrl = new URL(request.url);
+  fallbackUrl.pathname = assetPathForCleanUrl(pathname);
 
-  // Fallback only when the clean URL is not found.
-  const assetUrl = new URL(request.url);
-  assetUrl.pathname = assetPathForCleanUrl(pathname);
+  if (fallbackUrl.pathname === originalUrl.pathname) return response;
 
-  if (assetUrl.pathname === originalUrl.pathname) {
-    return response;
-  }
+  const fallbackResponse = await env.ASSETS.fetch(new Request(fallbackUrl.toString(), request));
 
-  const fallbackResponse = await env.ASSETS.fetch(new Request(assetUrl.toString(), request));
-
-  // Never pass an internal redirect back to the browser if the fallback target
-  // points to the same clean URL. That is the usual cause of ERR_TOO_MANY_REDIRECTS.
   if (fallbackResponse.status >= 300 && fallbackResponse.status < 400) {
     const location = fallbackResponse.headers.get("Location") || "";
     try {
-      const redirectTarget = new URL(location, originalUrl);
-      if (normalizePathname(redirectTarget.pathname) === normalizePathname(originalUrl.pathname)) {
+      const target = new URL(location, originalUrl);
+      if (normalizePathname(target.pathname) === normalizePathname(originalUrl.pathname)) {
         return response;
       }
     } catch (_) {
@@ -339,81 +795,101 @@ async function fetchAsset(request, env, pathname) {
   return fallbackResponse;
 }
 
-function withRobotsHeader(response, robots) {
-  const headers = new Headers(response.headers);
+function responseWithBody(original, body, robots, contentType = "text/html; charset=utf-8") {
+  const headers = new Headers(original.headers);
+  headers.set("content-type", contentType);
   headers.set("X-Robots-Tag", robots);
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
+  headers.set("Vary", "Accept-Encoding");
+  return new Response(body, {
+    status: original.status,
+    statusText: original.statusText,
     headers,
   });
 }
 
+function responseWithRobots(original, robots) {
+  const headers = new Headers(original.headers);
+  headers.set("X-Robots-Tag", robots);
+  return new Response(original.body, {
+    status: original.status,
+    statusText: original.statusText,
+    headers,
+  });
+}
+
+function maybeRedirectNormalizedUrl(requestUrl) {
+  const url = new URL(requestUrl);
+  let changed = false;
+
+  if (url.pathname === "/index.html" || url.pathname.endsWith(".html")) {
+    url.pathname = normalizePathname(url.pathname);
+    changed = true;
+  }
+
+  const rawLang = url.searchParams.get("lang");
+  if (rawLang !== null) {
+    const normalized = normalizeLang(rawLang);
+    if (!rawLang || rawLang !== normalized) {
+      if (normalized === DEFAULT_LANG && !rawLang) {
+        url.searchParams.delete("lang");
+      } else {
+        url.searchParams.set("lang", normalized);
+      }
+      changed = true;
+    }
+  }
+
+  return changed ? url.toString() : null;
+}
+
+function serverRenderHtml(html, requestUrl) {
+  const url = new URL(requestUrl);
+  const pathname = normalizePathname(url.pathname);
+  const lang = langFromUrl(url);
+  const robots = shouldNoindex(url)
+    ? "noindex, follow, max-image-preview:large"
+    : "index, follow, max-image-preview:large";
+
+  const dict = extractDictionary(html, lang);
+
+  html = renderTranslatedBody(html, dict);
+  html = updateSeoForLang(html, dict, pathname, lang, url, robots);
+  html = updateStructuredDataServerSide(html, dict, pathname, lang, url);
+  html = rewriteInternalLinks(html, lang);
+  html = applyExternalLinkPolicy(html);
+  html = injectServerLangScript(html, lang);
+
+  return { html, robots };
+}
+
 export default {
   async fetch(request, env) {
+    const redirectTo = maybeRedirectNormalizedUrl(request.url);
+    if (redirectTo) {
+      return Response.redirect(redirectTo, 301);
+    }
+
     const url = new URL(request.url);
     const pathname = url.pathname;
 
-    // Let static assets pass through exactly as they are.
     if (isStaticAsset(pathname)) {
       return env.ASSETS.fetch(request);
     }
 
-    // Force .html URLs to clean extensionless URLs.
-    if (pathname === "/index.html" || pathname.endsWith(".html")) {
-      const redirectUrl = new URL(request.url);
-      redirectUrl.pathname = normalizePathname(pathname);
-      return Response.redirect(redirectUrl.toString(), 301);
-    }
-
-    // Keep existing blog Worker / SSR / API flow safe.
-    // If /blog is handled by a separate Worker route, that route should take precedence.
-    // If Pages receives /blog anyway, this passes it to static assets unchanged.
-    if (isPassthroughPath(pathname)) {
-      const robots = shouldNoindex(url)
-        ? "noindex, follow, max-image-preview:large"
-        : "index, follow, max-image-preview:large";
-      const response = await env.ASSETS.fetch(request);
-      return withRobotsHeader(response, robots);
-    }
-
-    // Normalize language parameter.
-    const rawLang = url.searchParams.get("lang");
-    const lang = normalizeLang(rawLang);
-
-    if (rawLang && rawLang !== lang) {
-      const redirectUrl = new URL(request.url);
-      redirectUrl.searchParams.set("lang", lang);
-      return Response.redirect(redirectUrl.toString(), 301);
-    }
+    const assetResponse = await fetchAsset(request, env, pathname);
+    const contentType = assetResponse.headers.get("content-type") || "";
 
     const robots = shouldNoindex(url)
       ? "noindex, follow, max-image-preview:large"
       : "index, follow, max-image-preview:large";
 
-    const assetResponse = await fetchAsset(request, env, pathname);
-    const contentType = assetResponse.headers.get("content-type") || "";
-
     if (!contentType.toLowerCase().includes("text/html")) {
-      return withRobotsHeader(assetResponse, robots);
+      return responseWithRobots(assetResponse, robots);
     }
 
-    const transformed = new HTMLRewriter()
-      // Remove old SEO directives that conflict with the unified gateway.
-      .on('meta[name="keywords"]', new RemoveElementHandler())
-      .on('meta[name="robots"]', new RemoveElementHandler())
-      .on('link[rel="canonical"]', new RemoveElementHandler())
-      .on('link[rel="alternate"][hreflang]', new RemoveElementHandler())
+    const originalHtml = await assetResponse.text();
+    const rendered = serverRenderHtml(originalHtml, request.url);
 
-      // Remove public admin/editor/GitHub links and add nofollow policy for external links.
-      .on("a[href]", new ExternalLinkPolicyHandler())
-
-      // Normalize html lang, canonical, hreflang and robots.
-      .on("html", new HtmlLangHandler(lang))
-      .on('meta[property="og:url"]', new OgUrlHandler({ pathname, lang, url }))
-      .on("head", new HeadSeoHandler({ pathname, lang, robots, url }))
-      .transform(assetResponse);
-
-    return withRobotsHeader(transformed, robots);
+    return responseWithBody(assetResponse, rendered.html, rendered.robots);
   },
 };
