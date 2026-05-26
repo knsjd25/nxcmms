@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AI Token Counter & API Cost Calculator | OpenAI, Claude, Gemini</title>
   <meta name="description" content="Estimate prompt tokens, output tokens and API cost for OpenAI, Claude and Gemini models in your browser before planning LLM production usage." />
-  <meta name="keywords" content="AI token counter, API cost calculator, LLM cost calculator, GPT pricing calculator, Claude pricing calculator, Gemini pricing calculator, token estimator" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/token" />
@@ -52,54 +51,773 @@
     <section class="article-wrap"><article class="article"><h2 data-i18n="articleTitle">How this AI token calculator works</h2><p data-i18n="articleP1">Large language model APIs usually bill by tokens rather than by words. This page estimates token usage from your prompt, adds the expected output length, and applies the selected model's per-million-token input and output prices.</p><p data-i18n="articleP2">The token count is an approximation. English text, code, punctuation, whitespace and CJK characters can be split differently by each provider's tokenizer, so the final billed number may not match this estimate exactly.</p><p data-i18n="articleP3">Use the estimate to compare prompt sizes, model choices and expected output length before sending production traffic. For final budgeting, check the provider's current pricing, tokenizer behaviour, caching rules and account-specific settings.</p><h3 data-i18n="privacyTitle">Local processing note</h3><p data-i18n="privacyText">The prompt estimate runs in your browser. This page does not require API keys and does not call the selected model to calculate the estimate.</p><h3 data-i18n="useTitle">Good use cases</h3><ul><li data-i18n="use1">Estimate whether a prompt is likely to fit within a model's context window.</li><li data-i18n="use2">Compare high-quality and low-cost models before building an API workflow.</li><li data-i18n="use3">Estimate the cost of a batch job with hundreds or thousands of similar calls.</li><li data-i18n="use4">Adjust expected output length to understand why generated text can dominate cost.</li></ul><div class="faq"><div class="faq-item"><h4 data-i18n="faq1Q">Is the token estimate exact?</h4><p data-i18n="faq1A">No. It is a planning estimate. Exact token counts depend on the model tokenizer, message format, system prompts, tool definitions and provider billing rules.</p></div><div class="faq-item"><h4 data-i18n="faq2Q">Why are output tokens often more expensive?</h4><p data-i18n="faq2A">Generating text is usually priced higher than reading input. That is why long answers can cost more than the prompt that triggered them.</p></div><div class="faq-item"><h4 data-i18n="faq3Q">Does this include cached tokens or batch discounts?</h4><p data-i18n="faq3A">No. The main calculation uses standard input and output token prices only. Cached tokens, batch mode, regional processing and tool usage can change the final cost.</p></div></div></article><aside class="side"><div class="side-card"><h3 data-i18n="sideUseTitle">Useful for</h3><div class="chips"><span class="chip" data-i18n="chip1">Prompt budgeting</span><span class="chip" data-i18n="chip2">API planning</span><span class="chip" data-i18n="chip3">Batch estimates</span><span class="chip" data-i18n="chip4">Model comparison</span></div></div><div class="side-card"><h3 data-i18n="sideFeaturesTitle">Features</h3><ul><li data-i18n="feature1">Input token estimate</li><li data-i18n="feature2">Expected output tokens</li><li data-i18n="feature3">Per-call cost</li><li data-i18n="feature4">1,000-call estimate</li><li data-i18n="feature5">OpenAI, Claude and Gemini options</li></ul></div><div class="side-card"><h3 data-i18n="sideKeywordsTitle">Before budgeting</h3><div class="chips"><span class="chip" data-i18n="kw1">Check live pricing</span><span class="chip" data-i18n="kw2">Review tokenizer rules</span><span class="chip" data-i18n="kw3">Estimate output length</span><span class="chip" data-i18n="kw4">Consider caching</span></div></div><div class="side-card"><h3 data-i18n="relatedTitle">Related tools</h3><div class="related-links"><a href="/json" data-i18n="relatedJson">JSON formatter</a><a href="/diff" data-i18n="relatedDiff">Text diff checker</a><a href="/password" data-i18n="relatedWord">Password generator</a></div></div></aside></section>
   </main><footer class="footer"><div class="wrap footer-inner"><div>© 2026 Mini-Tools.uk</div><div class="footer-links"><a href="/about" data-i18n="navAbout">About</a><a href="/blog" data-i18n="navBlog">Blog</a><a href="/privacy" data-i18n="privacy">Privacy</a><a href="/contact" data-i18n="navContact">Contact</a></div></div></footer>
   <script>
-    const MODEL_PRICING={gpt55:{provider:'OpenAI',name:'GPT-5.5',input:5,output:30},gpt54:{provider:'OpenAI',name:'GPT-5.4',input:2.5,output:15},gpt54mini:{provider:'OpenAI',name:'GPT-5.4 mini',input:.75,output:4.5},claudeopus47:{provider:'Anthropic',name:'Claude Opus 4.7',input:5,output:25},claudesonnet46:{provider:'Anthropic',name:'Claude Sonnet 4.6',input:3,output:15},claudehaiku45:{provider:'Anthropic',name:'Claude Haiku 4.5',input:1,output:5},gemini25pro:{provider:'Google Gemini',name:'Gemini 2.5 Pro',input:1.25,output:10},gemini25flash:{provider:'Google Gemini',name:'Gemini 2.5 Flash',input:.30,output:2.5},gemini25flashlite:{provider:'Google Gemini',name:'Gemini 2.5 Flash-Lite',input:.10,output:.40}};
-    const translations={"en":{"htmlLang":"en-GB","langLabel":"English","title":"AI Token Counter & API Cost Calculator | Prompt Cost Estimate","description":"Estimate prompt tokens, expected output tokens and API cost for OpenAI, Claude and Gemini models in your browser before planning production usage.","keywords":"AI token counter, API cost calculator, LLM cost calculator, GPT pricing calculator, Claude pricing calculator, Gemini pricing calculator, token estimator","skip":"Skip to content","brandSubtitle":"Practical calculators and browser tools","navHome":"Home","navTools":"All Tools","navCategories":"Categories","navBlog":"Blog","navAbout":"About","navContact":"Contact","privacy":"Privacy","catFinance":"UK Finance","catFinanceSmall":"Tax, VAT, mortgage and contractor tools","catDev":"Developer Tools","catDevSmall":"JSON, diff, image hosting and AI token estimation","catImage":"Image & PDF","catImageSmall":"Compression, conversion and media utilities","catSecurity":"Security","catSecuritySmall":"Password and privacy helpers","badge":"LLM usage estimate - local processing","heroTitle":"AI Token Counter & API Cost Calculator","heroText":"Paste a prompt to estimate input tokens, expected output tokens and per-call API cost for selected OpenAI, Anthropic Claude and Google Gemini models. The estimate runs in your browser.","mini1Title":"Prompt size estimate","mini1Text":"Estimate tokens, words and characters before sending a prompt to an API.","mini2Title":"Cost comparison","mini2Text":"Compare per-call cost across OpenAI, Claude and Gemini model options.","mini3Title":"Scale planning","mini3Text":"See what 1,000 similar calls might cost before building a batch workflow.","formTitle":"Prompt and model inputs","promptLabel":"Prompt text","promptHint":"Paste or type any text","promptPlaceholder":"Example: Write a landing page headline and FAQ for a UK SaaS product aimed at accountants.","modelLabel":"AI model","outputLabel":"Expected output tokens","outputHint":"Use your expected completion length.","inputTokensStat":"Input tokens","wordStat":"Words","totalTokensStat":"Total tokens","subtleTitle":"Estimate note:","subtleText":"This is not an official tokenizer. It is useful for planning prompt size and comparing model cost, but provider invoices can differ.","resultEyebrow":"Estimated API cost","perRequestText":"Total per request","breakdownHead":"Breakdown","amountHead":"Amount","inputCostRow":"Input cost","outputCostRow":"Output cost","priceLineRow":"Pricing per 1M tokens","providerRow":"Provider","pricePrefixInput":"In","pricePrefixOutput":"Out","bulkLabel":"Estimated cost for 1,000 identical calls","resultNote":"Pricing can change and may vary by region, batch mode, caching, tool use, context length and account settings. Check provider pricing before production budgeting.","chars":"characters","articleTitle":"How this AI token calculator works","articleP1":"Large language model APIs usually bill by tokens rather than by words. This page estimates token usage from your prompt, adds the expected output length, and applies the selected model's per-million-token input and output prices.","articleP2":"The token count is an approximation. English text, code, punctuation, whitespace and CJK characters can be split differently by each provider's tokenizer, so the final billed number may not match this estimate exactly.","articleP3":"Use the estimate to compare prompt sizes, model choices and expected output length before sending production traffic. For final budgeting, check the provider's current pricing, tokenizer behaviour, caching rules and account-specific settings.","privacyTitle":"Local processing note","privacyText":"The prompt estimate runs in your browser. This page does not require API keys and does not call the selected model to calculate the estimate.","useTitle":"Good use cases","use1":"Estimate whether a prompt is likely to fit within a model's context window.","use2":"Compare high-quality and low-cost models before building an API workflow.","use3":"Estimate the cost of a batch job with hundreds or thousands of similar calls.","use4":"Adjust expected output length to understand why generated text can dominate cost.","faq1Q":"Is the token estimate exact?","faq1A":"No. It is a planning estimate. Exact token counts depend on the model tokenizer, message format, system prompts, tool definitions and provider billing rules.","faq2Q":"Why are output tokens often more expensive?","faq2A":"Generating text is usually priced higher than reading input. That is why long answers can cost more than the prompt that triggered them.","faq3Q":"Does this include cached tokens or batch discounts?","faq3A":"No. The main calculation uses standard input and output token prices only. Cached tokens, batch mode, regional processing and tool usage can change the final cost.","sideUseTitle":"Useful for","chip1":"Prompt budgeting","chip2":"API planning","chip3":"Batch estimates","chip4":"Model comparison","sideFeaturesTitle":"Features","feature1":"Input token estimate","feature2":"Expected output tokens","feature3":"Per-call cost","feature4":"1,000-call estimate","feature5":"OpenAI, Claude and Gemini options","sideKeywordsTitle":"Before budgeting","kw1":"Check live pricing","kw2":"Review tokenizer rules","kw3":"Estimate output length","kw4":"Consider caching","relatedTitle":"Related tools","relatedJson":"JSON formatter","relatedDiff":"Text diff checker","relatedWord":"Password generator"},"zh-CN":{"htmlLang":"zh-CN","langLabel":"中文","title":"AI Token Counter & API Cost Calculator | Prompt Cost Estimate","description":"Estimate prompt tokens, expected output tokens and API cost for OpenAI, Claude and Gemini models in your browser before planning production usage.","keywords":"AI token counter, API cost calculator, LLM cost calculator, GPT pricing calculator, Claude pricing calculator, Gemini pricing calculator, token estimator","skip":"Skip to content","brandSubtitle":"Practical calculators and browser tools","navHome":"Home","navTools":"All Tools","navCategories":"Categories","navBlog":"Blog","navAbout":"About","navContact":"Contact","privacy":"Privacy","catFinance":"UK Finance","catFinanceSmall":"Tax, VAT, mortgage and contractor tools","catDev":"Developer Tools","catDevSmall":"JSON, diff, image hosting and AI token estimation","catImage":"Image & PDF","catImageSmall":"Compression, conversion and media utilities","catSecurity":"Security","catSecuritySmall":"Password and privacy helpers","badge":"LLM usage estimate - local processing","heroTitle":"AI Token Counter & API Cost Calculator","heroText":"Paste a prompt to estimate input tokens, expected output tokens and per-call API cost for selected OpenAI, Anthropic Claude and Google Gemini models. The estimate runs in your browser.","mini1Title":"Prompt size estimate","mini1Text":"Estimate tokens, words and characters before sending a prompt to an API.","mini2Title":"Cost comparison","mini2Text":"Compare per-call cost across OpenAI, Claude and Gemini model options.","mini3Title":"Scale planning","mini3Text":"See what 1,000 similar calls might cost before building a batch workflow.","formTitle":"Prompt and model inputs","promptLabel":"Prompt text","promptHint":"Paste or type any text","promptPlaceholder":"Example: Write a landing page headline and FAQ for a UK SaaS product aimed at accountants.","modelLabel":"AI model","outputLabel":"Expected output tokens","outputHint":"Use your expected completion length.","inputTokensStat":"Input tokens","wordStat":"Words","totalTokensStat":"Total tokens","subtleTitle":"Estimate note:","subtleText":"This is not an official tokenizer. It is useful for planning prompt size and comparing model cost, but provider invoices can differ.","resultEyebrow":"Estimated API cost","perRequestText":"Total per request","breakdownHead":"Breakdown","amountHead":"Amount","inputCostRow":"Input cost","outputCostRow":"Output cost","priceLineRow":"Pricing per 1M tokens","providerRow":"Provider","pricePrefixInput":"In","pricePrefixOutput":"Out","bulkLabel":"Estimated cost for 1,000 identical calls","resultNote":"Pricing can change and may vary by region, batch mode, caching, tool use, context length and account settings. Check provider pricing before production budgeting.","chars":"characters","articleTitle":"How this AI token calculator works","articleP1":"Large language model APIs usually bill by tokens rather than by words. This page estimates token usage from your prompt, adds the expected output length, and applies the selected model's per-million-token input and output prices.","articleP2":"The token count is an approximation. English text, code, punctuation, whitespace and CJK characters can be split differently by each provider's tokenizer, so the final billed number may not match this estimate exactly.","articleP3":"在发送生产流量前，可以用这个估算比较 prompt 大小、模型选择和预计输出长度。正式预算时仍应核对服务商最新价格、tokenizer 规则、缓存规则和账号设置。","privacyTitle":"Local processing note","privacyText":"The prompt estimate runs in your browser. This page does not require API keys and does not call the selected model to calculate the estimate.","useTitle":"Good use cases","use1":"Estimate whether a prompt is likely to fit within a model's context window.","use2":"Compare high-quality and low-cost models before building an API workflow.","use3":"Estimate the cost of a batch job with hundreds or thousands of similar calls.","use4":"Adjust expected output length to understand why generated text can dominate cost.","faq1Q":"Is the token estimate exact?","faq1A":"No. It is a planning estimate. Exact token counts depend on the model tokenizer, message format, system prompts, tool definitions and provider billing rules.","faq2Q":"Why are output tokens often more expensive?","faq2A":"Generating text is usually priced higher than reading input. That is why long answers can cost more than the prompt that triggered them.","faq3Q":"Does this include cached tokens or batch discounts?","faq3A":"No. The main calculation uses standard input and output token prices only. Cached tokens, batch mode, regional processing and tool usage can change the final cost.","sideUseTitle":"Useful for","chip1":"Prompt budgeting","chip2":"API planning","chip3":"Batch estimates","chip4":"Model comparison","sideFeaturesTitle":"Features","feature1":"Input token estimate","feature2":"Expected output tokens","feature3":"Per-call cost","feature4":"1,000-call estimate","feature5":"OpenAI, Claude and Gemini options","sideKeywordsTitle":"预算前先核对","kw1":"核对最新价格","kw2":"查看 tokenizer 规则","kw3":"估算输出长度","kw4":"考虑缓存影响","relatedTitle":"Related tools","relatedJson":"JSON formatter","relatedDiff":"Text diff checker","relatedWord":"Password generator"}};
-    translations.en.title = "AI Token Counter & API Cost Calculator | Prompt Cost Estimate";
-    translations.en.description = "Estimate prompt tokens, expected output tokens and API cost for OpenAI, Claude and Gemini models in your browser before planning production usage.";
-    translations.en.keywords = "AI token counter, API cost calculator, LLM cost calculator, GPT pricing calculator, Claude pricing calculator, Gemini pricing calculator, token estimator";
-    translations.en.badge = "LLM usage estimate - local processing";
-    translations.en.articleP1 = "Large language model APIs usually bill by tokens rather than by words. This page estimates token usage from your prompt, adds the expected output length, and applies the selected model's per-million-token input and output prices.";
-    translations.en.articleP2 = "The token count is an approximation. English text, code, punctuation, whitespace and CJK characters can be split differently by each provider's tokenizer, so the final billed number may not match this estimate exactly.";
-    translations.en.articleP3 = "Use the estimate to compare prompt sizes, model choices and expected output length before sending production traffic. For final budgeting, check the provider's current pricing, tokenizer behaviour, caching rules and account-specific settings.";
-    translations.en.use1 = "Estimate whether a prompt is likely to fit within a model's context window.";
-    translations.en.sideKeywordsTitle = "Before budgeting";
-    translations.en.kw1 = "Check live pricing";
-    translations.en.kw2 = "Review tokenizer rules";
-    translations.en.kw3 = "Estimate output length";
-    translations.en.kw4 = "Consider caching";
-    if (translations["zh-CN"]) {
-      translations["zh-CN"].articleP3 = "在发送生产流量前，可以用这个估算比较 prompt 大小、模型选择和预计输出长度。正式预算时仍应核对服务商最新价格、tokenizer 规则、缓存规则和账号设置。";
-      translations["zh-CN"].sideKeywordsTitle = "预算前先核对";
-      translations["zh-CN"].kw1 = "核对最新价格";
-      translations["zh-CN"].kw2 = "查看 tokenizer 规则";
-      translations["zh-CN"].kw3 = "估算输出长度";
-      translations["zh-CN"].kw4 = "考虑缓存影响";
+    const MODEL_PRICING = {
+      gpt55: { provider: "OpenAI", name: "GPT-5.5", input: 5, output: 30 },
+      gpt54: { provider: "OpenAI", name: "GPT-5.4", input: 2.5, output: 15 },
+      gpt54mini: { provider: "OpenAI", name: "GPT-5.4 mini", input: 0.75, output: 4.5 },
+      claudeopus47: { provider: "Anthropic", name: "Claude Opus 4.7", input: 5, output: 25 },
+      claudesonnet46: { provider: "Anthropic", name: "Claude Sonnet 4.6", input: 3, output: 15 },
+      claudehaiku45: { provider: "Anthropic", name: "Claude Haiku 4.5", input: 1, output: 5 },
+      gemini25pro: { provider: "Google Gemini", name: "Gemini 2.5 Pro", input: 1.25, output: 10 },
+      gemini25flash: { provider: "Google Gemini", name: "Gemini 2.5 Flash", input: 0.30, output: 2.5 },
+      gemini25flashlite: { provider: "Google Gemini", name: "Gemini 2.5 Flash-Lite", input: 0.10, output: 0.40 }
+    };
+
+    const SITE_URL = "https://mini-tools.uk/token";
+    const allowedLangs = ["en", "zh-CN", "de", "fr", "es"];
+
+    const translations = {
+      en: {
+        htmlLang: "en-GB",
+        langLabel: "English",
+        locale: "en-GB",
+        ogLocale: "en_GB",
+        title: "AI Token Counter & API Cost Calculator | OpenAI, Claude, Gemini",
+        description: "Estimate prompt tokens, output tokens and API cost for OpenAI, Claude and Gemini models in your browser before planning LLM production usage.",
+        structuredName: "Mini-Tools AI Token Counter & API Cost Calculator",
+        structuredDescription: "Estimate token usage and API cost for OpenAI, Anthropic Claude and Google Gemini models in your browser.",
+        faqStructured: [
+          ["How does the token estimate work?", "This page uses a browser-side heuristic based on word count, punctuation, whitespace and CJK characters. Real billing can vary by model tokenizer."],
+          ["Does this page send my prompt to a server?", "No. Token estimation and cost calculation happen in your browser."],
+          ["Are the costs exact?", "No. The result is a planning estimate. Provider billing can differ because of tokenizer behaviour, cached tokens, tool use, batch pricing, taxes and account-specific settings."]
+        ],
+        skip: "Skip to content",
+        brandSubtitle: "Practical calculators and browser tools",
+        navHome: "Home",
+        navTools: "All Tools",
+        navCategories: "Categories",
+        navBlog: "Blog",
+        navAbout: "About",
+        navContact: "Contact",
+        privacy: "Privacy",
+        catFinance: "UK Finance",
+        catFinanceSmall: "Tax, VAT, mortgage and contractor tools",
+        catDev: "Developer Tools",
+        catDevSmall: "JSON, diff, image hosting and AI token estimation",
+        catImage: "Image & PDF",
+        catImageSmall: "Compression, conversion and media utilities",
+        catSecurity: "Security",
+        catSecuritySmall: "Password and privacy helpers",
+        badge: "LLM usage estimate · local processing",
+        heroTitle: "AI Token Counter & API Cost Calculator",
+        heroText: "Paste a prompt to estimate input tokens, expected output tokens and per-call API cost for selected OpenAI, Anthropic Claude and Google Gemini models. The estimate runs in your browser.",
+        mini1Title: "Prompt size estimate",
+        mini1Text: "Estimate tokens, words and characters before sending a prompt to an API.",
+        mini2Title: "Cost comparison",
+        mini2Text: "Compare per-call cost across OpenAI, Claude and Gemini model options.",
+        mini3Title: "Scale planning",
+        mini3Text: "See what 1,000 similar calls might cost before building a batch workflow.",
+        formTitle: "Prompt and model inputs",
+        promptLabel: "Prompt text",
+        promptHint: "Paste or type any text",
+        promptPlaceholder: "Example: Write a landing page headline and FAQ for a UK SaaS product aimed at accountants.",
+        modelLabel: "AI model",
+        outputLabel: "Expected output tokens",
+        outputHint: "Use your expected completion length.",
+        inputTokensStat: "Input tokens",
+        wordStat: "Words",
+        totalTokensStat: "Total tokens",
+        subtleTitle: "Estimate note:",
+        subtleText: "This is not an official tokenizer. It is useful for planning prompt size and comparing model cost, but provider invoices can differ.",
+        resultEyebrow: "Estimated API cost",
+        perRequestText: "Total per request",
+        breakdownHead: "Breakdown",
+        amountHead: "Amount",
+        inputCostRow: "Input cost",
+        outputCostRow: "Output cost",
+        priceLineRow: "Pricing per 1M tokens",
+        providerRow: "Provider",
+        pricePrefixInput: "In",
+        pricePrefixOutput: "Out",
+        bulkLabel: "Estimated cost for 1,000 identical calls",
+        resultNote: "Pricing can change and may vary by region, batch mode, caching, tool use, context length and account settings. Check provider pricing before production budgeting.",
+        chars: "characters",
+        articleTitle: "How this AI token calculator works",
+        articleP1: "Large language model APIs usually bill by tokens rather than by words. This page estimates token usage from your prompt, adds the expected output length, and applies the selected model's per-million-token input and output prices.",
+        articleP2: "The token count is an approximation. English text, code, punctuation, whitespace and CJK characters can be split differently by each provider's tokenizer, so the final billed number may not match this estimate exactly.",
+        articleP3: "Use the estimate to compare prompt sizes, model choices and expected output length before sending production traffic. For final budgeting, check the provider's current pricing, tokenizer behaviour, caching rules and account-specific settings.",
+        privacyTitle: "Local processing note",
+        privacyText: "The prompt estimate runs in your browser. This page does not require API keys and does not call the selected model to calculate the estimate.",
+        useTitle: "Good use cases",
+        use1: "Estimate whether a prompt is likely to fit within a model's context window.",
+        use2: "Compare high-quality and low-cost models before building an API workflow.",
+        use3: "Estimate the cost of a batch job with hundreds or thousands of similar calls.",
+        use4: "Adjust expected output length to understand why generated text can dominate cost.",
+        faq1Q: "Is the token estimate exact?",
+        faq1A: "No. It is a planning estimate. Exact token counts depend on the model tokenizer, message format, system prompts, tool definitions and provider billing rules.",
+        faq2Q: "Why are output tokens often more expensive?",
+        faq2A: "Generating text is usually priced higher than reading input. That is why long answers can cost more than the prompt that triggered them.",
+        faq3Q: "Does this include cached tokens or batch discounts?",
+        faq3A: "No. The main calculation uses standard input and output token prices only. Cached tokens, batch mode, regional processing and tool usage can change the final cost.",
+        sideUseTitle: "Useful for",
+        chip1: "Prompt budgeting",
+        chip2: "API planning",
+        chip3: "Batch estimates",
+        chip4: "Model comparison",
+        sideFeaturesTitle: "Features",
+        feature1: "Input token estimate",
+        feature2: "Expected output tokens",
+        feature3: "Per-call cost",
+        feature4: "1,000-call estimate",
+        feature5: "OpenAI, Claude and Gemini options",
+        sideKeywordsTitle: "Before budgeting",
+        kw1: "Check live pricing",
+        kw2: "Review tokenizer rules",
+        kw3: "Estimate output length",
+        kw4: "Consider caching",
+        relatedTitle: "Related tools",
+        relatedJson: "JSON formatter",
+        relatedDiff: "Text diff checker",
+        relatedWord: "Password generator"
+      },
+
+      "zh-CN": {
+        htmlLang: "zh-CN",
+        langLabel: "中文",
+        locale: "zh-CN",
+        ogLocale: "zh_CN",
+        title: "AI Token 计算器｜API 成本估算｜OpenAI、Claude、Gemini｜Mini-Tools.uk",
+        description: "在浏览器中估算 prompt token、预计输出 token 和 OpenAI、Claude、Gemini API 调用成本，适合 LLM 项目上线前做预算规划。",
+        structuredName: "Mini-Tools AI Token 计算器与 API 成本估算器",
+        structuredDescription: "在浏览器本地估算 OpenAI、Anthropic Claude 和 Google Gemini 模型的 token 用量与 API 成本。",
+        faqStructured: [
+          ["这个 token 估算是怎么计算的？", "本页面使用浏览器端启发式算法，根据词数、标点、空格和中日韩字符估算 token。真实计费会因不同模型 tokenizer 而变化。"],
+          ["页面会把我的 prompt 发送到服务器吗？", "不会。token 估算和成本计算都在浏览器本地完成。"],
+          ["这个成本结果是精确的吗？", "不是。它适合预算规划，真实账单可能受到 tokenizer、缓存 token、工具调用、批量价格、税费和账号设置影响。"]
+        ],
+        skip: "跳到正文",
+        brandSubtitle: "实用计算器和浏览器工具",
+        navHome: "首页",
+        navTools: "全部工具",
+        navCategories: "分类",
+        navBlog: "博客",
+        navAbout: "关于",
+        navContact: "联系",
+        privacy: "隐私政策",
+        catFinance: "英国财务工具",
+        catFinanceSmall: "个税、VAT、房贷和承包商工具",
+        catDev: "开发者工具",
+        catDevSmall: "JSON、文本对比、图床和 AI Token 估算",
+        catImage: "图片与 PDF",
+        catImageSmall: "压缩、转换和媒体工具",
+        catSecurity: "安全工具",
+        catSecuritySmall: "密码和隐私相关工具",
+        badge: "LLM 用量估算 · 本地处理",
+        heroTitle: "AI Token 计算器与 API 成本估算器",
+        heroText: "粘贴 prompt 后，估算输入 token、预计输出 token，以及 OpenAI、Anthropic Claude 和 Google Gemini 模型的单次 API 调用成本。计算在浏览器中完成。",
+        mini1Title: "Prompt 大小估算",
+        mini1Text: "在发送 API 请求前，先估算 token、词数和字符数。",
+        mini2Title: "模型成本对比",
+        mini2Text: "比较 OpenAI、Claude 和 Gemini 不同模型的单次调用成本。",
+        mini3Title: "批量任务预算",
+        mini3Text: "在构建批处理流程前，预估 1,000 次类似调用的大致费用。",
+        formTitle: "Prompt 与模型输入",
+        promptLabel: "Prompt 文本",
+        promptHint: "粘贴或输入任意文本",
+        promptPlaceholder: "示例：为面向英国会计师的 SaaS 产品写一个落地页标题和 FAQ。",
+        modelLabel: "AI 模型",
+        outputLabel: "预计输出 token",
+        outputHint: "填写你预计生成内容的大致长度。",
+        inputTokensStat: "输入 token",
+        wordStat: "词数",
+        totalTokensStat: "总 token",
+        subtleTitle: "估算说明：",
+        subtleText: "这不是官方 tokenizer。它适合规划 prompt 大小和比较模型成本，真实账单可能不同。",
+        resultEyebrow: "预计 API 成本",
+        perRequestText: "单次请求总成本",
+        breakdownHead: "明细",
+        amountHead: "金额",
+        inputCostRow: "输入成本",
+        outputCostRow: "输出成本",
+        priceLineRow: "每 100 万 token 价格",
+        providerRow: "服务商",
+        pricePrefixInput: "输入",
+        pricePrefixOutput: "输出",
+        bulkLabel: "1,000 次相同调用的预计成本",
+        resultNote: "价格可能随地区、批量模式、缓存、工具调用、上下文长度和账号设置而变化。生产预算前应核对服务商最新价格。",
+        chars: "字符",
+        articleTitle: "这个 AI Token 计算器如何工作",
+        articleP1: "大语言模型 API 通常按 token 而不是按词计费。本页面会从你的 prompt 中估算 token 用量，再加上预计输出长度，并根据所选模型的输入和输出 token 单价估算成本。",
+        articleP2: "token 数量只是近似值。英文、代码、标点、空格以及中日韩字符在不同服务商 tokenizer 中可能被切分成不同 token，因此最终账单不一定与本结果完全一致。",
+        articleP3: "在发送生产流量前，可以用这个估算比较 prompt 大小、模型选择和预计输出长度。正式预算时仍应核对服务商最新价格、tokenizer 规则、缓存规则和账号设置。",
+        privacyTitle: "本地处理说明",
+        privacyText: "prompt 估算在浏览器中运行。页面不需要 API key，也不会调用所选模型来完成估算。",
+        useTitle: "适合的使用场景",
+        use1: "估算 prompt 是否可能放入模型上下文窗口。",
+        use2: "在构建 API 工作流前比较高质量模型和低成本模型。",
+        use3: "估算数百次或数千次相似调用的批量任务成本。",
+        use4: "调整预计输出长度，了解生成文本为什么可能成为主要成本。",
+        faq1Q: "token 估算结果精确吗？",
+        faq1A: "不精确。它是规划估算。精确 token 数取决于模型 tokenizer、消息格式、system prompt、工具定义和服务商计费规则。",
+        faq2Q: "为什么输出 token 通常更贵？",
+        faq2A: "生成文本通常比读取输入价格更高，所以长回答的成本可能超过触发它的 prompt。",
+        faq3Q: "这个结果包含缓存 token 或批量折扣吗？",
+        faq3A: "不包含。主计算只使用标准输入和输出 token 价格。缓存 token、批量模式、区域处理和工具调用都可能改变最终成本。",
+        sideUseTitle: "适合用于",
+        chip1: "Prompt 预算",
+        chip2: "API 规划",
+        chip3: "批量估算",
+        chip4: "模型对比",
+        sideFeaturesTitle: "功能",
+        feature1: "输入 token 估算",
+        feature2: "预计输出 token",
+        feature3: "单次调用成本",
+        feature4: "1,000 次调用估算",
+        feature5: "OpenAI、Claude 和 Gemini 选项",
+        sideKeywordsTitle: "预算前先核对",
+        kw1: "核对最新价格",
+        kw2: "查看 tokenizer 规则",
+        kw3: "估算输出长度",
+        kw4: "考虑缓存影响",
+        relatedTitle: "相关工具",
+        relatedJson: "JSON 格式化工具",
+        relatedDiff: "文本对比工具",
+        relatedWord: "密码生成器"
+      },
+
+      de: {
+        htmlLang: "de",
+        langLabel: "Deutsch",
+        locale: "de-DE",
+        ogLocale: "de_DE",
+        title: "AI Token Counter & API-Kostenrechner | OpenAI, Claude, Gemini",
+        description: "Schätzen Sie Prompt-Tokens, erwartete Output-Tokens und API-Kosten für OpenAI-, Claude- und Gemini-Modelle direkt im Browser.",
+        structuredName: "Mini-Tools AI Token Counter & API-Kostenrechner",
+        structuredDescription: "Schätzt Token-Nutzung und API-Kosten für OpenAI, Anthropic Claude und Google Gemini Modelle im Browser.",
+        faqStructured: [
+          ["Wie funktioniert die Token-Schätzung?", "Diese Seite nutzt eine browserseitige Heuristik auf Basis von Wortzahl, Satzzeichen, Leerzeichen und CJK-Zeichen. Die echte Abrechnung kann je nach Modell-Tokenizer abweichen."],
+          ["Sendet diese Seite meinen Prompt an einen Server?", "Nein. Token-Schätzung und Kostenberechnung finden im Browser statt."],
+          ["Sind die Kosten exakt?", "Nein. Das Ergebnis ist eine Planungsschätzung. Anbieterabrechnungen können wegen Tokenizer-Verhalten, Cache, Tools, Batch-Preisen, Steuern und Kontoeinstellungen abweichen."]
+        ],
+        skip: "Zum Inhalt springen",
+        brandSubtitle: "Praktische Rechner und Browser-Tools",
+        navHome: "Startseite",
+        navTools: "Alle Tools",
+        navCategories: "Kategorien",
+        navBlog: "Blog",
+        navAbout: "Über uns",
+        navContact: "Kontakt",
+        privacy: "Datenschutz",
+        catFinance: "UK Finanzen",
+        catFinanceSmall: "Steuer, VAT, Hypothek und Contractor-Tools",
+        catDev: "Developer Tools",
+        catDevSmall: "JSON, Diff, Bildhosting und AI-Token-Schätzung",
+        catImage: "Bild & PDF",
+        catImageSmall: "Komprimierung, Konvertierung und Medien",
+        catSecurity: "Sicherheit",
+        catSecuritySmall: "Passwort- und Datenschutzhelfer",
+        badge: "LLM-Nutzungsschätzung · lokale Verarbeitung",
+        heroTitle: "AI Token Counter & API-Kostenrechner",
+        heroText: "Fügen Sie einen Prompt ein, um Input-Tokens, erwartete Output-Tokens und Kosten pro API-Aufruf für ausgewählte OpenAI-, Anthropic-Claude- und Google-Gemini-Modelle zu schätzen. Die Schätzung läuft im Browser.",
+        mini1Title: "Prompt-Größe schätzen",
+        mini1Text: "Tokens, Wörter und Zeichen vor einem API-Aufruf abschätzen.",
+        mini2Title: "Kosten vergleichen",
+        mini2Text: "Kosten pro Aufruf zwischen OpenAI-, Claude- und Gemini-Modellen vergleichen.",
+        mini3Title: "Skalierung planen",
+        mini3Text: "Schätzen, was 1.000 ähnliche Aufrufe kosten könnten, bevor Sie einen Batch-Workflow bauen.",
+        formTitle: "Prompt und Modell",
+        promptLabel: "Prompt-Text",
+        promptHint: "Text einfügen oder tippen",
+        promptPlaceholder: "Beispiel: Schreibe eine Landingpage-Headline und FAQ für ein UK-SaaS-Produkt für Buchhalter.",
+        modelLabel: "AI-Modell",
+        outputLabel: "Erwartete Output-Tokens",
+        outputHint: "Nutzen Sie die erwartete Länge der Antwort.",
+        inputTokensStat: "Input-Tokens",
+        wordStat: "Wörter",
+        totalTokensStat: "Gesamt-Tokens",
+        subtleTitle: "Hinweis:",
+        subtleText: "Dies ist kein offizieller Tokenizer. Es eignet sich zur Planung von Prompt-Größe und Modellkosten, Rechnungen können aber abweichen.",
+        resultEyebrow: "Geschätzte API-Kosten",
+        perRequestText: "Gesamt pro Anfrage",
+        breakdownHead: "Aufschlüsselung",
+        amountHead: "Betrag",
+        inputCostRow: "Input-Kosten",
+        outputCostRow: "Output-Kosten",
+        priceLineRow: "Preis pro 1 Mio. Tokens",
+        providerRow: "Anbieter",
+        pricePrefixInput: "Eingabe",
+        pricePrefixOutput: "Ausgabe",
+        bulkLabel: "Geschätzte Kosten für 1.000 gleiche Aufrufe",
+        resultNote: "Preise können sich ändern und je nach Region, Batch-Modus, Caching, Tool-Nutzung, Kontextlänge und Kontoeinstellungen variieren. Prüfen Sie Anbieterpreise vor produktiven Budgets.",
+        chars: "Zeichen",
+        articleTitle: "Wie dieser AI Token Calculator funktioniert",
+        articleP1: "LLM-APIs rechnen meist nach Tokens statt nach Wörtern ab. Diese Seite schätzt Token-Nutzung aus Ihrem Prompt, addiert die erwartete Output-Länge und wendet die Input- und Output-Preise des gewählten Modells pro Million Tokens an.",
+        articleP2: "Die Tokenzahl ist eine Näherung. Englischer Text, Code, Satzzeichen, Leerzeichen und CJK-Zeichen können je nach Anbieter-Tokenizer unterschiedlich zerlegt werden.",
+        articleP3: "Nutzen Sie die Schätzung, um Prompt-Größen, Modellwahl und erwartete Output-Länge vor Produktionsverkehr zu vergleichen. Für finale Budgets sollten aktuelle Preise, Tokenizer-Verhalten, Cache-Regeln und Kontoeinstellungen geprüft werden.",
+        privacyTitle: "Lokale Verarbeitung",
+        privacyText: "Die Prompt-Schätzung läuft im Browser. Diese Seite benötigt keine API-Schlüssel und ruft das gewählte Modell nicht auf.",
+        useTitle: "Gute Anwendungsfälle",
+        use1: "Schätzen, ob ein Prompt voraussichtlich in das Kontextfenster eines Modells passt.",
+        use2: "Hochwertige und kostengünstige Modelle vor dem Aufbau eines API-Workflows vergleichen.",
+        use3: "Kosten eines Batch-Jobs mit hunderten oder tausenden ähnlichen Aufrufen schätzen.",
+        use4: "Erwartete Output-Länge anpassen, um zu verstehen, warum generierter Text Kosten dominieren kann.",
+        faq1Q: "Ist die Token-Schätzung exakt?",
+        faq1A: "Nein. Es ist eine Planungsschätzung. Exakte Tokenzahlen hängen von Modell-Tokenizer, Nachrichtenformat, System-Prompts, Tool-Definitionen und Abrechnungsregeln ab.",
+        faq2Q: "Warum sind Output-Tokens oft teurer?",
+        faq2A: "Texterzeugung ist meist teurer als das Lesen von Eingaben. Lange Antworten können daher mehr kosten als der auslösende Prompt.",
+        faq3Q: "Sind gecachte Tokens oder Batch-Rabatte enthalten?",
+        faq3A: "Nein. Die Hauptberechnung nutzt nur Standardpreise für Input- und Output-Tokens. Caching, Batch-Modus, regionale Verarbeitung und Tools können die Endkosten ändern.",
+        sideUseTitle: "Nützlich für",
+        chip1: "Prompt-Budgetierung",
+        chip2: "API-Planung",
+        chip3: "Batch-Schätzungen",
+        chip4: "Modellvergleich",
+        sideFeaturesTitle: "Funktionen",
+        feature1: "Input-Token-Schätzung",
+        feature2: "Erwartete Output-Tokens",
+        feature3: "Kosten pro Aufruf",
+        feature4: "Schätzung für 1.000 Aufrufe",
+        feature5: "OpenAI-, Claude- und Gemini-Optionen",
+        sideKeywordsTitle: "Vor dem Budget prüfen",
+        kw1: "Aktuelle Preise prüfen",
+        kw2: "Tokenizer-Regeln ansehen",
+        kw3: "Output-Länge schätzen",
+        kw4: "Caching berücksichtigen",
+        relatedTitle: "Verwandte Tools",
+        relatedJson: "JSON-Formatter",
+        relatedDiff: "Text-Diff-Prüfer",
+        relatedWord: "Passwortgenerator"
+      },
+
+      fr: {
+        htmlLang: "fr",
+        langLabel: "Français",
+        locale: "fr-FR",
+        ogLocale: "fr_FR",
+        title: "Compteur de tokens IA & calculateur de coût API | OpenAI, Claude, Gemini",
+        description: "Estimez les tokens de prompt, les tokens de sortie et le coût API des modèles OpenAI, Claude et Gemini dans votre navigateur.",
+        structuredName: "Mini-Tools Compteur de tokens IA & calculateur de coût API",
+        structuredDescription: "Estime l’utilisation de tokens et le coût API pour OpenAI, Anthropic Claude et Google Gemini dans le navigateur.",
+        faqStructured: [
+          ["Comment fonctionne l’estimation de tokens ?", "Cette page utilise une heuristique côté navigateur basée sur le nombre de mots, la ponctuation, les espaces et les caractères CJK. La facturation réelle peut varier selon le tokenizer du modèle."],
+          ["Cette page envoie-t-elle mon prompt à un serveur ?", "Non. L’estimation de tokens et le calcul du coût se font dans votre navigateur."],
+          ["Les coûts sont-ils exacts ?", "Non. Le résultat est une estimation de planification. La facturation peut varier selon le tokenizer, le cache, les outils, le batch pricing, les taxes et les paramètres du compte."]
+        ],
+        skip: "Aller au contenu",
+        brandSubtitle: "Calculateurs pratiques et outils navigateur",
+        navHome: "Accueil",
+        navTools: "Tous les outils",
+        navCategories: "Catégories",
+        navBlog: "Blog",
+        navAbout: "À propos",
+        navContact: "Contact",
+        privacy: "Confidentialité",
+        catFinance: "Finance UK",
+        catFinanceSmall: "Impôt, VAT, prêt immobilier et contractor",
+        catDev: "Outils développeur",
+        catDevSmall: "JSON, diff, hébergement image et estimation tokens IA",
+        catImage: "Image & PDF",
+        catImageSmall: "Compression, conversion et médias",
+        catSecurity: "Sécurité",
+        catSecuritySmall: "Mot de passe et confidentialité",
+        badge: "Estimation d’usage LLM · traitement local",
+        heroTitle: "Compteur de tokens IA & calculateur de coût API",
+        heroText: "Collez un prompt pour estimer les tokens d’entrée, les tokens de sortie attendus et le coût par appel API pour des modèles OpenAI, Anthropic Claude et Google Gemini. L’estimation s’exécute dans votre navigateur.",
+        mini1Title: "Estimer la taille du prompt",
+        mini1Text: "Estimez tokens, mots et caractères avant d’envoyer un prompt à une API.",
+        mini2Title: "Comparer les coûts",
+        mini2Text: "Comparez le coût par appel entre des modèles OpenAI, Claude et Gemini.",
+        mini3Title: "Planifier à l’échelle",
+        mini3Text: "Voyez combien pourraient coûter 1 000 appels similaires avant de construire un workflow batch.",
+        formTitle: "Prompt et modèle",
+        promptLabel: "Texte du prompt",
+        promptHint: "Collez ou saisissez du texte",
+        promptPlaceholder: "Exemple : rédiger un titre de landing page et une FAQ pour un produit SaaS UK destiné aux comptables.",
+        modelLabel: "Modèle IA",
+        outputLabel: "Tokens de sortie attendus",
+        outputHint: "Indiquez la longueur de réponse attendue.",
+        inputTokensStat: "Tokens d’entrée",
+        wordStat: "Mots",
+        totalTokensStat: "Tokens totaux",
+        subtleTitle: "Note d’estimation :",
+        subtleText: "Ce n’est pas un tokenizer officiel. Utile pour planifier la taille du prompt et comparer les coûts, mais la facture du fournisseur peut différer.",
+        resultEyebrow: "Coût API estimé",
+        perRequestText: "Total par requête",
+        breakdownHead: "Détail",
+        amountHead: "Montant",
+        inputCostRow: "Coût entrée",
+        outputCostRow: "Coût sortie",
+        priceLineRow: "Prix par 1M tokens",
+        providerRow: "Fournisseur",
+        pricePrefixInput: "Entrée",
+        pricePrefixOutput: "Sortie",
+        bulkLabel: "Coût estimé pour 1 000 appels identiques",
+        resultNote: "Les prix peuvent changer et varier selon région, batch, cache, outils, longueur de contexte et paramètres de compte. Vérifiez les tarifs avant un budget de production.",
+        chars: "caractères",
+        articleTitle: "Comment fonctionne ce calculateur de tokens IA",
+        articleP1: "Les API de grands modèles facturent généralement par tokens plutôt que par mots. Cette page estime les tokens de votre prompt, ajoute la longueur de sortie attendue et applique les prix d’entrée et de sortie par million de tokens du modèle choisi.",
+        articleP2: "Le nombre de tokens est approximatif. Texte anglais, code, ponctuation, espaces et caractères CJK peuvent être découpés différemment selon le tokenizer du fournisseur.",
+        articleP3: "Utilisez cette estimation pour comparer tailles de prompt, choix de modèle et longueur de sortie attendue avant d’envoyer du trafic en production. Pour un budget final, vérifiez les prix actuels, le tokenizer, le cache et les paramètres de compte.",
+        privacyTitle: "Traitement local",
+        privacyText: "L’estimation du prompt s’exécute dans votre navigateur. Cette page ne nécessite pas de clé API et n’appelle pas le modèle sélectionné.",
+        useTitle: "Bons cas d’usage",
+        use1: "Estimer si un prompt peut tenir dans la fenêtre de contexte d’un modèle.",
+        use2: "Comparer des modèles haut de gamme et économiques avant de créer un workflow API.",
+        use3: "Estimer le coût d’un batch avec des centaines ou milliers d’appels similaires.",
+        use4: "Ajuster la longueur de sortie attendue pour comprendre pourquoi le texte généré peut dominer le coût.",
+        faq1Q: "L’estimation de tokens est-elle exacte ?",
+        faq1A: "Non. C’est une estimation de planification. Les comptes exacts dépendent du tokenizer, du format des messages, des system prompts, des définitions d’outils et des règles de facturation.",
+        faq2Q: "Pourquoi les tokens de sortie sont-ils souvent plus chers ?",
+        faq2A: "Générer du texte coûte souvent plus cher que lire l’entrée. Les réponses longues peuvent donc coûter plus que le prompt qui les a déclenchées.",
+        faq3Q: "Le calcul inclut-il cache ou remises batch ?",
+        faq3A: "Non. Le calcul principal utilise seulement les prix standard des tokens d’entrée et de sortie. Cache, batch, région et outils peuvent modifier le coût final.",
+        sideUseTitle: "Utile pour",
+        chip1: "Budget prompt",
+        chip2: "Planification API",
+        chip3: "Estimation batch",
+        chip4: "Comparaison modèles",
+        sideFeaturesTitle: "Fonctions",
+        feature1: "Estimation tokens d’entrée",
+        feature2: "Tokens de sortie attendus",
+        feature3: "Coût par appel",
+        feature4: "Estimation 1 000 appels",
+        feature5: "Options OpenAI, Claude et Gemini",
+        sideKeywordsTitle: "Avant de budgéter",
+        kw1: "Vérifier les prix actuels",
+        kw2: "Examiner les règles tokenizer",
+        kw3: "Estimer la longueur de sortie",
+        kw4: "Considérer le cache",
+        relatedTitle: "Outils liés",
+        relatedJson: "Formateur JSON",
+        relatedDiff: "Comparateur de texte",
+        relatedWord: "Générateur de mot de passe"
+      },
+
+      es: {
+        htmlLang: "es",
+        langLabel: "Español",
+        locale: "es-ES",
+        ogLocale: "es_ES",
+        title: "Contador de tokens IA y calculadora de coste API | OpenAI, Claude, Gemini",
+        description: "Estima tokens de prompt, tokens de salida y coste API para modelos OpenAI, Claude y Gemini directamente en tu navegador.",
+        structuredName: "Mini-Tools Contador de tokens IA y calculadora de coste API",
+        structuredDescription: "Estima uso de tokens y coste API para modelos OpenAI, Anthropic Claude y Google Gemini en el navegador.",
+        faqStructured: [
+          ["¿Cómo funciona la estimación de tokens?", "Esta página usa una heurística en el navegador basada en palabras, puntuación, espacios y caracteres CJK. La facturación real puede variar según el tokenizer del modelo."],
+          ["¿Esta página envía mi prompt a un servidor?", "No. La estimación de tokens y el cálculo de coste ocurren en tu navegador."],
+          ["¿Los costes son exactos?", "No. El resultado es una estimación de planificación. La facturación puede variar por tokenizer, tokens en caché, herramientas, precios batch, impuestos y configuración de cuenta."]
+        ],
+        skip: "Saltar al contenido",
+        brandSubtitle: "Calculadoras prácticas y herramientas web",
+        navHome: "Inicio",
+        navTools: "Todas las herramientas",
+        navCategories: "Categorías",
+        navBlog: "Blog",
+        navAbout: "Acerca de",
+        navContact: "Contacto",
+        privacy: "Privacidad",
+        catFinance: "Finanzas UK",
+        catFinanceSmall: "Impuestos, VAT, hipoteca y contractor",
+        catDev: "Herramientas developer",
+        catDevSmall: "JSON, diff, hosting de imágenes y tokens IA",
+        catImage: "Imagen y PDF",
+        catImageSmall: "Compresión, conversión y medios",
+        catSecurity: "Seguridad",
+        catSecuritySmall: "Contraseñas y privacidad",
+        badge: "Estimación de uso LLM · procesamiento local",
+        heroTitle: "Contador de tokens IA y calculadora de coste API",
+        heroText: "Pega un prompt para estimar tokens de entrada, tokens de salida esperados y coste por llamada API para modelos OpenAI, Anthropic Claude y Google Gemini. La estimación se ejecuta en tu navegador.",
+        mini1Title: "Estimar tamaño del prompt",
+        mini1Text: "Estima tokens, palabras y caracteres antes de enviar un prompt a una API.",
+        mini2Title: "Comparar costes",
+        mini2Text: "Compara el coste por llamada entre modelos OpenAI, Claude y Gemini.",
+        mini3Title: "Planificar escala",
+        mini3Text: "Comprueba cuánto podrían costar 1.000 llamadas similares antes de crear un flujo batch.",
+        formTitle: "Prompt y modelo",
+        promptLabel: "Texto del prompt",
+        promptHint: "Pega o escribe cualquier texto",
+        promptPlaceholder: "Ejemplo: escribe un titular de landing page y FAQ para un producto SaaS UK dirigido a contables.",
+        modelLabel: "Modelo IA",
+        outputLabel: "Tokens de salida esperados",
+        outputHint: "Usa la longitud de respuesta esperada.",
+        inputTokensStat: "Tokens de entrada",
+        wordStat: "Palabras",
+        totalTokensStat: "Tokens totales",
+        subtleTitle: "Nota de estimación:",
+        subtleText: "No es un tokenizer oficial. Sirve para planificar tamaño de prompt y comparar costes, pero la factura del proveedor puede diferir.",
+        resultEyebrow: "Coste API estimado",
+        perRequestText: "Total por solicitud",
+        breakdownHead: "Desglose",
+        amountHead: "Importe",
+        inputCostRow: "Coste entrada",
+        outputCostRow: "Coste salida",
+        priceLineRow: "Precio por 1M tokens",
+        providerRow: "Proveedor",
+        pricePrefixInput: "Entrada",
+        pricePrefixOutput: "Salida",
+        bulkLabel: "Coste estimado para 1.000 llamadas idénticas",
+        resultNote: "Los precios pueden cambiar y variar por región, batch, caché, herramientas, longitud de contexto y configuración de cuenta. Revisa tarifas antes de presupuestar producción.",
+        chars: "caracteres",
+        articleTitle: "Cómo funciona esta calculadora de tokens IA",
+        articleP1: "Las API de modelos de lenguaje suelen cobrar por tokens en lugar de palabras. Esta página estima tokens desde tu prompt, suma la salida esperada y aplica los precios de entrada y salida por millón de tokens del modelo elegido.",
+        articleP2: "El recuento de tokens es aproximado. Texto en inglés, código, puntuación, espacios y caracteres CJK pueden dividirse de forma distinta según el tokenizer del proveedor.",
+        articleP3: "Usa la estimación para comparar tamaños de prompt, modelos y longitud de salida esperada antes de enviar tráfico de producción. Para presupuestos finales, revisa precios actuales, tokenizer, caché y configuración de cuenta.",
+        privacyTitle: "Procesamiento local",
+        privacyText: "La estimación del prompt se ejecuta en tu navegador. Esta página no necesita API keys ni llama al modelo seleccionado.",
+        useTitle: "Buenos casos de uso",
+        use1: "Estimar si un prompt probablemente cabe en la ventana de contexto del modelo.",
+        use2: "Comparar modelos de alta calidad y bajo coste antes de crear un workflow API.",
+        use3: "Estimar el coste de un batch con cientos o miles de llamadas similares.",
+        use4: "Ajustar la salida esperada para entender por qué el texto generado puede dominar el coste.",
+        faq1Q: "¿La estimación de tokens es exacta?",
+        faq1A: "No. Es una estimación de planificación. Los conteos exactos dependen del tokenizer, formato de mensajes, system prompts, herramientas y reglas de facturación.",
+        faq2Q: "¿Por qué los tokens de salida suelen ser más caros?",
+        faq2A: "Generar texto suele costar más que leer entrada. Por eso las respuestas largas pueden costar más que el prompt que las generó.",
+        faq3Q: "¿Incluye tokens cacheados o descuentos batch?",
+        faq3A: "No. El cálculo principal usa precios estándar de tokens de entrada y salida. Caché, batch, región y herramientas pueden cambiar el coste final.",
+        sideUseTitle: "Útil para",
+        chip1: "Presupuesto de prompt",
+        chip2: "Planificación API",
+        chip3: "Estimaciones batch",
+        chip4: "Comparar modelos",
+        sideFeaturesTitle: "Funciones",
+        feature1: "Estimación de tokens de entrada",
+        feature2: "Tokens de salida esperados",
+        feature3: "Coste por llamada",
+        feature4: "Estimación de 1.000 llamadas",
+        feature5: "Opciones OpenAI, Claude y Gemini",
+        sideKeywordsTitle: "Antes de presupuestar",
+        kw1: "Revisar precios actuales",
+        kw2: "Revisar reglas tokenizer",
+        kw3: "Estimar longitud de salida",
+        kw4: "Considerar caché",
+        relatedTitle: "Herramientas relacionadas",
+        relatedJson: "Formateador JSON",
+        relatedDiff: "Comparador de texto",
+        relatedWord: "Generador de contraseñas"
+      }
+    };
+
+    let currentLang = "en";
+
+    const promptInput = document.getElementById("promptInput");
+    const modelSelect = document.getElementById("modelSelect");
+    const outputTokens = document.getElementById("outputTokens");
+    const charCount = document.getElementById("charCount");
+    const inputTokenCount = document.getElementById("inputTokenCount");
+    const totalTokenCount = document.getElementById("totalTokenCount");
+    const wordCount = document.getElementById("wordCount");
+    const modelName = document.getElementById("modelName");
+    const providerName = document.getElementById("providerName");
+    const inputCost = document.getElementById("inputCost");
+    const outputCost = document.getElementById("outputCost");
+    const totalCost = document.getElementById("totalCost");
+    const bulkCost = document.getElementById("bulkCost");
+    const priceLine = document.getElementById("priceLine");
+
+    function getDict(){
+      return translations[currentLang] || translations.en;
     }
 
-    translations.de = {...translations.en,
-      htmlLang:'de', langLabel:'Deutsch',
-      title:'AI Token Counter & API Cost Calculator｜LLM Kosten schätzen｜Mini-Tools.uk',
-      description:'Schätzen Sie Input Tokens, Output Tokens und API-Kosten für OpenAI, Claude und Gemini Modelle im Browser.',
-      keywords:'AI Token Counter, API Cost Calculator, LLM Kosten Rechner, GPT Pricing Calculator, Claude Pricing Calculator, Gemini Pricing Calculator',
-      skip:'Zum Inhalt springen', brandSubtitle:'Praktische Rechner und Browser-Tools', navHome:'Startseite', navTools:'Alle Tools', navCategories:'Kategorien', navBlog:'Blog', navAbout:'Über uns', navContact:'Kontakt', privacy:'Datenschutz',
-      catFinance:'UK Finanzen', catFinanceSmall:'Steuer, VAT, Hypothek und Contractor-Tools', catDev:'Developer Tools', catDevSmall:'JSON, Diff, Bildhosting und AI-Token-Schätzung', catImage:'Bild & PDF', catImageSmall:'Komprimierung, Konvertierung und Medien', catSecurity:'Sicherheit', catSecuritySmall:'Passwort- und Datenschutzhelfer',
-      badge:'LLM Nutzungsschätzung · lokale Verarbeitung', heroTitle:'AI Token Counter & API Cost Calculator', heroText:'Fügen Sie einen Prompt ein, um Input Tokens, erwartete Output Tokens und API-Kosten für ausgewählte OpenAI-, Claude- und Gemini-Modelle zu schätzen.',
-      mini1Title:'Prompt-Größe schätzen', mini1Text:'Tokens, Wörter und Zeichen vor dem API-Aufruf schätzen.', mini2Title:'Kosten vergleichen', mini2Text:'Per-Call-Kosten zwischen OpenAI, Claude und Gemini vergleichen.', mini3Title:'Skalierung planen', mini3Text:'Schätzen, was 1.000 ähnliche Calls kosten könnten.',
-      formTitle:'Prompt und Modell', promptLabel:'Prompt Text', promptHint:'Text einfügen oder tippen', promptPlaceholder:'Beispiel: Schreibe eine Landingpage-Headline und FAQ für ein UK SaaS Produkt für Accountants.', modelLabel:'AI Modell', outputLabel:'Erwartete Output Tokens', outputHint:'Nutzen Sie die erwartete Completion-Länge.',
-      inputTokensStat:'Input Tokens', wordStat:'Wörter', totalTokensStat:'Total Tokens', subtleTitle:'Hinweis:', subtleText:'Dies ist kein offizieller Tokenizer. Gut für Planung und Vergleich, aber Rechnungen können abweichen.', resultEyebrow:'Geschätzte API-Kosten', perRequestText:'Total pro Request', bulkLabel:'Geschätzte Kosten für 1.000 gleiche Calls', chars:'Zeichen',
-      articleTitle:'Wie dieser AI Token Calculator funktioniert', articleP1:'LLM APIs rechnen meist nach Tokens statt Wörtern ab. Diese Seite schätzt Tokens aus Ihrem Prompt und wendet die Preise des gewählten Modells an.', articleP2:'Die Tokenzahl ist eine Näherung. Text, Code, Satzzeichen, Whitespace und CJK-Zeichen können je nach Tokenizer anders zerlegt werden.', articleP3:'Dieses Tool ist für Suchen wie AI Token Counter, API Cost Calculator und LLM Cost Calculator geeignet.', privacyTitle:'Lokale Verarbeitung', privacyText:'Die Schätzung läuft im Browser. Es werden keine API Keys benötigt und kein Modell aufgerufen.', useTitle:'Gute Anwendungsfälle', use1:'Schätzen, ob ein Prompt in das Context Window passt.', use2:'Premium- und Low-Cost-Modelle vor dem API Workflow vergleichen.', use3:'Kosten für Batch Jobs mit vielen ähnlichen Calls schätzen.', use4:'Erwartete Output-Länge anpassen, um Kosten zu verstehen.',
-      faq1Q:'Ist die Token-Schätzung exakt?', faq1A:'Nein. Exakte Counts hängen von Tokenizer, Message Format, System Prompt, Tool Definitions und Provider Billing ab.', faq2Q:'Warum sind Output Tokens oft teurer?', faq2A:'Textgenerierung ist meist teurer als Input lesen. Lange Antworten können daher die Kosten dominieren.', faq3Q:'Sind Cache Tokens oder Batch Discounts enthalten?', faq3A:'Nein. Die Hauptberechnung nutzt Standard Input- und Output-Preise.', sideUseTitle:'Nützlich für', chip1:'Prompt Budgeting', chip2:'API Planung', chip3:'Batch Schätzung', chip4:'Modellvergleich', sideFeaturesTitle:'Features', feature1:'Input Token Estimate', feature2:'Expected Output Tokens', feature3:'Per-Call Cost', feature4:'1,000-Call Estimate', feature5:'OpenAI, Claude und Gemini', relatedJson:'JSON Formatter', relatedDiff:'Text Diff Checker', relatedWord:'Passwortgenerator'};
-    translations.fr = {...translations.en,
-      htmlLang:'fr', langLabel:'Français', title:'Compteur tokens IA & calculateur coût API｜Mini-Tools.uk', description:'Estimez tokens d’entrée, tokens de sortie et coût API pour OpenAI, Claude et Gemini dans votre navigateur.', keywords:'compteur tokens IA, calculateur coût API, LLM cost calculator, GPT pricing calculator, Claude pricing calculator, Gemini pricing calculator', skip:'Aller au contenu', brandSubtitle:'Calculateurs pratiques et outils navigateur', navHome:'Accueil', navTools:'Tous les outils', navCategories:'Catégories', navBlog:'Blog', navAbout:'À propos', navContact:'Contact', privacy:'Confidentialité', catFinance:'Finance UK', catFinanceSmall:'Impôt, VAT, prêt immobilier et contractor', catDev:'Outils développeur', catDevSmall:'JSON, diff, hébergement image et estimation tokens IA', catImage:'Image & PDF', catImageSmall:'Compression, conversion et médias', catSecurity:'Sécurité', catSecuritySmall:'Mot de passe et confidentialité', badge:'Estimation usage LLM · traitement local', heroTitle:'Compteur tokens IA & calculateur coût API', heroText:'Collez un prompt pour estimer tokens d’entrée, tokens de sortie attendus et coût API pour des modèles OpenAI, Claude et Gemini.', mini1Title:'Estimation taille prompt', mini1Text:'Estimez tokens, mots et caractères avant un appel API.', mini2Title:'Comparaison coût', mini2Text:'Comparez le coût par appel entre OpenAI, Claude et Gemini.', mini3Title:'Planification échelle', mini3Text:'Voyez ce que 1 000 appels similaires pourraient coûter.', formTitle:'Prompt et modèle', promptLabel:'Texte du prompt', promptHint:'Collez ou tapez du texte', promptPlaceholder:'Exemple : écrire un titre de landing page et une FAQ pour un SaaS UK destiné aux comptables.', modelLabel:'Modèle IA', outputLabel:'Tokens de sortie attendus', outputHint:'Utilisez la longueur attendue de la réponse.', inputTokensStat:'Tokens entrée', wordStat:'Mots', totalTokensStat:'Tokens total', subtleTitle:'Note d’estimation :', subtleText:'Ce n’est pas un tokenizer officiel. Utile pour planifier et comparer, mais les factures peuvent différer.', resultEyebrow:'Coût API estimé', perRequestText:'Total par requête', breakdownHead:'Détail', amountHead:'Montant', inputCostRow:'Coût entrée', outputCostRow:'Coût sortie', priceLineRow:'Prix par 1M tokens', providerRow:'Fournisseur', bulkLabel:'Coût estimé pour 1 000 appels identiques', chars:'caractères', articleTitle:'Comment fonctionne ce calculateur tokens IA', privacyTitle:'Traitement local', useTitle:'Bons cas d’usage', faq1Q:'L’estimation est-elle exacte ?', faq2Q:'Pourquoi les tokens de sortie sont souvent plus chers ?', faq3Q:'Le cache ou batch discounts sont-ils inclus ?', sideUseTitle:'Utile pour', chip1:'Budget prompt', chip2:'Plan API', chip3:'Estimation batch', chip4:'Comparaison modèles', sideFeaturesTitle:'Fonctions', relatedTitle:'Outils liés', relatedJson:'Formateur JSON', relatedDiff:'Text diff checker', relatedWord:'Générateur de mots de passe'};
-    translations.es = {...translations.en,
-      htmlLang:'es', langLabel:'Español', title:'Contador tokens IA & calculadora coste API｜Mini-Tools.uk', description:'Estima tokens de entrada, salida y coste API para OpenAI, Claude y Gemini en tu navegador.', keywords:'contador tokens IA, calculadora coste API, LLM cost calculator, GPT pricing calculator, Claude pricing calculator, Gemini pricing calculator', skip:'Saltar al contenido', brandSubtitle:'Calculadoras prácticas y herramientas web', navHome:'Inicio', navTools:'Todas las herramientas', navCategories:'Categorías', navBlog:'Blog', navAbout:'Acerca de', navContact:'Contacto', privacy:'Privacidad', catFinance:'Finanzas UK', catFinanceSmall:'Impuestos, VAT, hipoteca y contractor', catDev:'Herramientas developer', catDevSmall:'JSON, diff, hosting de imágenes y tokens IA', catImage:'Imagen y PDF', catImageSmall:'Compresión, conversión y medios', catSecurity:'Seguridad', catSecuritySmall:'Contraseñas y privacidad', badge:'Estimación uso LLM · procesamiento local', heroTitle:'Contador tokens IA & calculadora coste API', heroText:'Pega un prompt para estimar tokens de entrada, salida esperada y coste API por llamada para modelos OpenAI, Claude y Gemini.', mini1Title:'Tamaño del prompt', mini1Text:'Estima tokens, palabras y caracteres antes de llamar una API.', mini2Title:'Comparar costes', mini2Text:'Compara coste por llamada entre OpenAI, Claude y Gemini.', mini3Title:'Planificar escala', mini3Text:'Mira cuánto podrían costar 1.000 llamadas similares.', formTitle:'Prompt y modelo', promptLabel:'Texto del prompt', promptHint:'Pega o escribe texto', promptPlaceholder:'Ejemplo: escribe un headline y FAQ de landing page para un SaaS UK dirigido a contables.', modelLabel:'Modelo IA', outputLabel:'Tokens de salida esperados', outputHint:'Usa la longitud esperada de la respuesta.', inputTokensStat:'Tokens entrada', wordStat:'Palabras', totalTokensStat:'Tokens total', subtleTitle:'Nota de estimación:', subtleText:'No es un tokenizer oficial. Sirve para planificar y comparar, pero la factura puede diferir.', resultEyebrow:'Coste API estimado', perRequestText:'Total por request', breakdownHead:'Desglose', amountHead:'Importe', inputCostRow:'Coste entrada', outputCostRow:'Coste salida', priceLineRow:'Precio por 1M tokens', providerRow:'Proveedor', bulkLabel:'Coste estimado para 1.000 llamadas iguales', chars:'caracteres', articleTitle:'Cómo funciona esta calculadora de tokens IA', privacyTitle:'Procesamiento local', useTitle:'Buenos casos de uso', faq1Q:'¿La estimación es exacta?', faq2Q:'¿Por qué los tokens de salida suelen ser más caros?', faq3Q:'¿Incluye caché o descuentos batch?', sideUseTitle:'Útil para', chip1:'Presupuesto prompt', chip2:'Plan API', chip3:'Estimación batch', chip4:'Comparar modelos', sideFeaturesTitle:'Funciones', relatedTitle:'Herramientas relacionadas', relatedJson:'Formateador JSON', relatedDiff:'Text diff checker', relatedWord:'Generador de contraseñas'};
+    function getInitialLang(){
+      const params = new URLSearchParams(window.location.search);
+      let lang = params.get("lang");
+      if (lang === "zh") lang = "zh-CN";
+      return allowedLangs.includes(lang) ? lang : "en";
+    }
 
-    const fallbackLangs={};const allowedLangs=['en','zh-CN','de','fr','es'];let currentLang='en';const promptInput=document.getElementById('promptInput'),modelSelect=document.getElementById('modelSelect'),outputTokens=document.getElementById('outputTokens'),charCount=document.getElementById('charCount'),inputTokenCount=document.getElementById('inputTokenCount'),totalTokenCount=document.getElementById('totalTokenCount'),wordCount=document.getElementById('wordCount'),modelName=document.getElementById('modelName'),providerName=document.getElementById('providerName'),inputCost=document.getElementById('inputCost'),outputCost=document.getElementById('outputCost'),totalCost=document.getElementById('totalCost'),bulkCost=document.getElementById('bulkCost'),priceLine=document.getElementById('priceLine');
-    function getDict(){return translations[currentLang]||translations[fallbackLangs[currentLang]]||translations.en}function setMeta(n,c){const t=document.querySelector(`meta[name="${n}"]`);if(t)t.setAttribute('content',c)}function setOg(p,c){const t=document.querySelector(`meta[property="${p}"]`);if(t)t.setAttribute('content',c)}function setTw(n,c){const t=document.querySelector(`meta[name="${n}"]`);if(t)t.setAttribute('content',c)}function getInitialLang(){let l=new URLSearchParams(location.search).get('lang');if(l==='zh')l='zh-CN';if(allowedLangs.includes(l))return l;let s=localStorage.getItem('miniToolsTokenLang');if(allowedLangs.includes(s))return s;let b=navigator.language||'en';if(b.startsWith('zh'))return'zh-CN';if(b.startsWith('de'))return'de';if(b.startsWith('fr'))return'fr';if(b.startsWith('es'))return'es';return'en'}
-    function applyLanguage(lang,updateUrl=true){currentLang=allowedLangs.includes(lang)?lang:'en';const d=getDict();document.documentElement.lang=d.htmlLang||'en-GB';document.title=d.title;setMeta('description',d.description);setMeta('keywords',d.keywords);setOg('og:title',d.title);setOg('og:description',d.description);setTw('twitter:title',d.title);setTw('twitter:description',d.description);document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(d[k]!==undefined)el.textContent=d[k]});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const k=el.getAttribute('data-i18n-placeholder');if(d[k]!==undefined)el.placeholder=d[k]});document.getElementById('currentLangLabel').textContent=d.langLabel||'English';document.querySelectorAll('[data-lang-btn]').forEach(btn=>btn.classList.toggle('active',btn.dataset.langBtn===currentLang));localStorage.setItem('miniToolsTokenLang',currentLang);if(updateUrl){const u=new URL(location.href);u.searchParams.set('lang',currentLang);history.replaceState(null,'',u.toString())}updateCalc()}
-    document.querySelectorAll('[data-lang-btn]').forEach(btn=>btn.addEventListener('click',()=>applyLanguage(btn.dataset.langBtn)));function usd4(n){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:4,maximumFractionDigits:4}).format(n)}function usd2(n){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(n)}function estimateTokens(text){if(!text.trim())return 0;const cjk=(text.match(/[\u3400-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]/g)||[]).length;const code=(text.match(/[{}()[\];=<>/\\|`~]/g)||[]).length;const punct=(text.match(/[.,!?;:'"()[\]{}<>/\\|-]/g)||[]).length;const words=text.replace(/[\u3400-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]/g,' ').trim().split(/\s+/).filter(Boolean);return Math.max(1,Math.ceil(words.length*1.33+cjk*1.5+punct*.35+code*.2))}function countWords(text){if(!text.trim())return 0;const cjk=(text.match(/[\u3400-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]/g)||[]).length;const words=text.replace(/[\u3400-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]/g,' ').trim().split(/\s+/).filter(Boolean).length;return words+cjk}
-    function updateCalc(){const d=getDict(),text=promptInput.value||'',words=countWords(text),inTokens=estimateTokens(text),out=Math.max(0,parseInt(outputTokens.value||'0',10)),m=MODEL_PRICING[modelSelect.value]||MODEL_PRICING.gpt55,inCost=inTokens*(m.input/1e6),outCost=out*(m.output/1e6),sum=inCost+outCost;charCount.textContent=`${text.length.toLocaleString()} ${d.chars||'characters'}`;wordCount.textContent=words.toLocaleString();inputTokenCount.textContent=inTokens.toLocaleString();totalTokenCount.textContent=(inTokens+out).toLocaleString();modelName.textContent=m.name;providerName.textContent=m.provider;inputCost.textContent=usd4(inCost);outputCost.textContent=usd4(outCost);totalCost.textContent=usd4(sum);bulkCost.textContent=usd2(sum*1000);priceLine.textContent=`${d.pricePrefixInput||'In'} $${m.input.toFixed(2)} · ${d.pricePrefixOutput||'Out'} $${m.output.toFixed(2)}`}
-    promptInput.addEventListener('input',updateCalc);modelSelect.addEventListener('change',updateCalc);outputTokens.addEventListener('input',updateCalc);window.addEventListener('load',()=>applyLanguage(getInitialLang(),false));
+    function setMeta(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setOg(property, content){
+      const tag = document.querySelector(`meta[property="${property}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function setTwitter(name, content){
+      const tag = document.querySelector(`meta[name="${name}"]`);
+      if (tag) tag.setAttribute("content", content);
+    }
+
+    function canonicalForLang(lang){
+      return lang === "en" ? SITE_URL : `${SITE_URL}?lang=${encodeURIComponent(lang)}`;
+    }
+
+    function updateCanonicalAndSocialUrl(lang){
+      const canonicalUrl = canonicalForLang(lang);
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute("href", canonicalUrl);
+      setOg("og:url", canonicalUrl);
+
+      let ogLocale = document.querySelector('meta[property="og:locale"]');
+      if (!ogLocale) {
+        ogLocale = document.createElement("meta");
+        ogLocale.setAttribute("property", "og:locale");
+        document.head.appendChild(ogLocale);
+      }
+      ogLocale.setAttribute("content", getDict().ogLocale || "en_GB");
+    }
+
+    function updateStructuredData(){
+      const dict = getDict();
+      const data = {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "name": dict.structuredName,
+            "operatingSystem": "Web",
+            "applicationCategory": "DeveloperApplication",
+            "url": canonicalForLang(currentLang),
+            "description": dict.structuredDescription,
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": dict.faqStructured.map(([q, a]) => ({
+              "@type": "Question",
+              "name": q,
+              "acceptedAnswer": { "@type": "Answer", "text": a }
+            }))
+          }
+        ]
+      };
+
+      const script = document.querySelector('script[type="application/ld+json"]');
+      if (script) script.textContent = JSON.stringify(data);
+    }
+
+    function updateInternalLinks(){
+      document.querySelectorAll('a[href^="/"]').forEach(link => {
+        if (!link.dataset.baseHref) link.dataset.baseHref = link.getAttribute("href");
+        const base = link.dataset.baseHref;
+        const [path, hash = ""] = base.split("#");
+        const url = new URL(path || "/", window.location.origin);
+
+        if (currentLang !== "en") {
+          url.searchParams.set("lang", currentLang);
+        } else {
+          url.searchParams.delete("lang");
+        }
+
+        link.setAttribute("href", `${url.pathname}${url.search}${hash ? "#" + hash : ""}`);
+      });
+    }
+
+    function applyLanguage(lang, updateUrl = true){
+      currentLang = allowedLangs.includes(lang) ? lang : "en";
+      const dict = getDict();
+
+      document.documentElement.lang = dict.htmlLang || "en-GB";
+      document.title = dict.title;
+      setMeta("description", dict.description);
+      setOg("og:title", dict.title);
+      setOg("og:description", dict.description);
+      setTwitter("twitter:title", dict.title);
+      setTwitter("twitter:description", dict.description);
+      updateCanonicalAndSocialUrl(currentLang);
+      updateStructuredData();
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (dict[key] !== undefined) el.placeholder = dict[key];
+      });
+
+      const label = document.getElementById("currentLangLabel");
+      if (label) label.textContent = dict.langLabel || "English";
+
+      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.langBtn === currentLang);
+      });
+
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", currentLang);
+        history.replaceState(null, "", url.toString());
+      }
+
+      updateInternalLinks();
+      updateCalc();
+    }
+
+    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
+      btn.addEventListener("click", () => applyLanguage(btn.dataset.langBtn));
+    });
+
+    function usd4(value){
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 4,
+        maximumFractionDigits: 4
+      }).format(value);
+    }
+
+    function usd2(value){
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(value);
+    }
+
+    function estimateTokens(text){
+      if (!text.trim()) return 0;
+      const cjk = (text.match(/[\u3400-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]/g) || []).length;
+      const code = (text.match(/[{}()[\];=<>/\\|`~]/g) || []).length;
+      const punct = (text.match(/[.,!?;:'"()[\]{}<>/\\|-]/g) || []).length;
+      const words = text
+        .replace(/[\u3400-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]/g, " ")
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+
+      return Math.max(1, Math.ceil(words.length * 1.33 + cjk * 1.5 + punct * 0.35 + code * 0.2));
+    }
+
+    function countWords(text){
+      if (!text.trim()) return 0;
+      const cjk = (text.match(/[\u3400-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]/g) || []).length;
+      const words = text
+        .replace(/[\u3400-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]/g, " ")
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean)
+        .length;
+
+      return words + cjk;
+    }
+
+    function updateCalc(){
+      const dict = getDict();
+      const text = promptInput.value || "";
+      const words = countWords(text);
+      const inTokens = estimateTokens(text);
+      const out = Math.max(0, parseInt(outputTokens.value || "0", 10));
+      const model = MODEL_PRICING[modelSelect.value] || MODEL_PRICING.gpt55;
+      const inCost = inTokens * (model.input / 1_000_000);
+      const outCost = out * (model.output / 1_000_000);
+      const sum = inCost + outCost;
+
+      charCount.textContent = `${text.length.toLocaleString()} ${dict.chars || "characters"}`;
+      wordCount.textContent = words.toLocaleString();
+      inputTokenCount.textContent = inTokens.toLocaleString();
+      totalTokenCount.textContent = (inTokens + out).toLocaleString();
+      modelName.textContent = model.name;
+      providerName.textContent = model.provider;
+      inputCost.textContent = usd4(inCost);
+      outputCost.textContent = usd4(outCost);
+      totalCost.textContent = usd4(sum);
+      bulkCost.textContent = usd2(sum * 1000);
+      priceLine.textContent = `${dict.pricePrefixInput || "In"} $${model.input.toFixed(2)} · ${dict.pricePrefixOutput || "Out"} $${model.output.toFixed(2)}`;
+    }
+
+    promptInput.addEventListener("input", updateCalc);
+    modelSelect.addEventListener("change", updateCalc);
+    outputTokens.addEventListener("input", updateCalc);
+
+    window.addEventListener("load", () => {
+      applyLanguage(getInitialLang(), false);
+    });
   </script>
+
 </body>
 </html>

@@ -12,8 +12,8 @@
   <meta property="og:title" content="Image Color Picker from Image | HEX, RGB, HSL Tool" />
   <meta property="og:description" content="Extract HEX, RGB and HSL colors from images and screenshots locally in your browser." />
   <meta property="og:url" content="https://mini-tools.uk/color-picker" />
-  <meta name="keywords" content="image color picker, image colour picker, color picker from image, HEX color picker, RGB picker, HSL picker, screenshot cropper, crop image online, local image tool" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:locale" content="en_GB" />
+<meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Image Color Picker from Image | HEX, RGB, HSL Tool" />
   <meta name="twitter:description" content="Extract HEX, RGB and HSL colors from images and screenshots locally in your browser." />
   <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
@@ -22,9 +22,9 @@
 
   <link rel="alternate" hreflang="en" href="https://mini-tools.uk/color-picker?lang=en" />
   <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/color-picker?lang=zh-CN" />
-  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/color-picker?lang=es" />
-  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/color-picker?lang=fr" />
   <link rel="alternate" hreflang="de" href="https://mini-tools.uk/color-picker?lang=de" />
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/color-picker?lang=fr" />
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/color-picker?lang=es" />
   <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/color-picker" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
@@ -38,7 +38,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
 
 
-  <script type="application/ld+json">
+  <script type="application/ld+json" id="structured-data">
   {
     "@context": "https://schema.org",
     "@graph": [
@@ -252,9 +252,9 @@
         <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
           <option value="en">English</option>
           <option value="zh-CN">中文</option>
-          <option value="es">Español</option>
-          <option value="fr">Français</option>
           <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="es">Español</option>
         </select>
       </div>
     </div>
@@ -442,7 +442,6 @@
       "zh-CN": {
         metaTitle: "图片取色器与图片裁剪工具 | 提取 HEX、RGB、HSL | Mini-Tools.uk",
         metaDesc: "使用 Mini-Tools 图片取色器从图片中提取 HEX、RGB 和 HSL 颜色代码，生成最近调色板，并在浏览器本地裁剪截图。",
-        keywords: "图片取色器, 图片颜色提取工具, 图片颜色选择器, 在线取色器, HEX颜色提取, RGB颜色提取, HSL颜色提取, 图片裁剪工具, 截图裁剪工具",
         title: "图片取色器与图片裁剪工具",
         desc: "从图片或截图中提取 HEX、RGB 和 HSL 颜色代码，生成最近调色板，也可以在浏览器本地裁剪图片区域。",
         updateText: "浏览器本地图像工具",
@@ -477,7 +476,6 @@
       es: {
         metaTitle: "Selector de Color de Imagen y Recortador | Extraer HEX, RGB, HSL",
         metaDesc: "Selector de color de imagen sin conexión y herramienta de recorte. Extraiga códigos HEX, RGB y HSL. Construya paletas localmente sin subir al servidor.",
-        keywords: "selector de color de imagen, extraer color de imagen, selector HEX, selector RGB, recortar imagen online, herramienta local de imagen",
         title: "Selector de Color y Recortador",
         desc: "Extraiga colores exactos HEX, RGB y HSL de cualquier imagen. Construya una paleta o recorte capturas localmente.",
         updateText: "Utilidad de Imagen Local",
@@ -506,7 +504,6 @@
       fr: {
         metaTitle: "Sélecteur de Couleur d'Image | Extraire HEX, RGB, HSL",
         metaDesc: "Sélecteur de couleur d'image hors ligne et outil de recadrage. Extrayez les codes HEX, RGB et HSL. Traitement local dans le navigateur.",
-        keywords: "sélecteur couleur image, extraire couleur image, sélecteur HEX, sélecteur RGB, recadrer image en ligne, outil image local",
         title: "Sélecteur de Couleur & Recadrage",
         desc: "Extrayez les couleurs HEX, RGB et HSL exactes. Construisez une palette ou recadrez des captures d'écran localement.",
         updateText: "Outil d'Image Local",
@@ -535,7 +532,6 @@
       de: {
         metaTitle: "Bild Farbpipette & Zuschneider | HEX, RGB, HSL Extrahieren",
         metaDesc: "Kostenloser Offline-Farbpipette und Screenshot-Zuschneidetool. Extrahieren Sie genaue HEX-, RGB- und HSL-Codes. Lokale Verarbeitung im Browser.",
-        keywords: "Bild Farbpipette, Farbe aus Bild extrahieren, HEX Farbpipette, RGB Farbpipette, Bild zuschneiden online, lokales Bildtool",
         title: "Farbpipette & Bildzuschneider",
         desc: "Extrahieren Sie genaue HEX-, RGB- und HSL-Farben. Erstellen Sie eine Palette oder schneiden Sie Screenshots lokal zu.",
         updateText: "Lokales Bildwerkzeug",
@@ -562,6 +558,114 @@
           </div>`
       }
     };
+
+
+    const LANG_HTML_ATTR = {
+      en: "en-GB",
+      "zh-CN": "zh-CN",
+      de: "de",
+      fr: "fr",
+      es: "es"
+    };
+
+    const LANG_OG_LOCALE = {
+      en: "en_GB",
+      "zh-CN": "zh_CN",
+      de: "de_DE",
+      fr: "fr_FR",
+      es: "es_ES"
+    };
+
+    function updateSeoUrls(lang, data) {
+      const pagePath = "/color-picker";
+      const canonicalHref = lang === "en"
+        ? "https://mini-tools.uk/color-picker"
+        : `https://mini-tools.uk/color-picker?lang=${encodeURIComponent(lang)}`;
+
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute("href", canonicalHref);
+
+      const ogUrl = document.querySelector('meta[property="og:url"]');
+      if (ogUrl) ogUrl.setAttribute("content", canonicalHref);
+
+      const ogLocale = document.querySelector('meta[property="og:locale"]');
+      if (ogLocale) ogLocale.setAttribute("content", LANG_OG_LOCALE[lang] || "en_GB");
+
+      document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => {
+        const code = link.getAttribute("hreflang");
+        if (code === "x-default") {
+          link.setAttribute("href", "https://mini-tools.uk/color-picker");
+        } else if (["en", "zh-CN", "de", "fr", "es"].includes(code)) {
+          link.setAttribute("href", `https://mini-tools.uk${pagePath}?lang=${encodeURIComponent(code)}`);
+        }
+      });
+    }
+
+    function updateStructuredData(lang, data) {
+      const script = document.getElementById("structured-data");
+      if (!script) return;
+
+      const canonicalHref = lang === "en"
+        ? "https://mini-tools.uk/color-picker"
+        : `https://mini-tools.uk/color-picker?lang=${encodeURIComponent(lang)}`;
+
+      const faqByLang = {
+        en: [
+          ["Are my images uploaded to a server?", "No. Images are processed locally in your browser using canvas, so they are not uploaded to our servers."],
+          ["Can I crop a screenshot without losing quality?", "Yes. The crop tool maps your selection back to the original image pixels before exporting the result."],
+          ["Which colour formats does this tool export?", "The picker shows HEX, RGB, and HSL values for the selected pixel."]
+        ],
+        "zh-CN": [
+          ["图片会上传到服务器吗？", "不会。正常取色和裁剪使用浏览器 Canvas 本地处理，图片不会上传到 Mini-Tools.uk 服务器。"],
+          ["裁剪图片会变模糊吗？", "不会。裁剪导出会把选区映射回原图像素，导出的 PNG 使用原始图片区域。"],
+          ["这个工具支持哪些颜色格式？", "页面会显示所选像素的 HEX、RGB 和 HSL 颜色值。"]
+        ],
+        de: [
+          ["Werden meine Bilder auf einen Server hochgeladen?", "Nein. Bilder werden lokal im Browser mit Canvas verarbeitet und nicht an unsere Server gesendet."],
+          ["Verliert der Zuschnitt Qualität?", "Nein. Der Zuschnitt wird auf die Originalpixel des Bildes zurückgerechnet."],
+          ["Welche Farbformate werden angezeigt?", "Das Tool zeigt HEX-, RGB- und HSL-Werte für den ausgewählten Pixel."]
+        ],
+        fr: [
+          ["Mes images sont-elles envoyées à un serveur ?", "Non. Les images sont traitées localement dans votre navigateur avec Canvas."],
+          ["Le recadrage réduit-il la qualité ?", "Non. La sélection est recalculée à partir des pixels de l’image originale."],
+          ["Quels formats de couleur sont affichés ?", "L’outil affiche les valeurs HEX, RGB et HSL du pixel sélectionné."]
+        ],
+        es: [
+          ["¿Mis imágenes se suben a un servidor?", "No. Las imágenes se procesan localmente en el navegador mediante Canvas."],
+          ["¿El recorte reduce la calidad?", "No. El recorte se calcula desde los píxeles originales de la imagen."],
+          ["¿Qué formatos de color muestra?", "La herramienta muestra valores HEX, RGB y HSL del píxel seleccionado."]
+        ]
+      };
+
+      const faq = faqByLang[lang] || faqByLang.en;
+
+      const jsonLd = {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "name": data.title,
+            "url": canonicalHref,
+            "operatingSystem": "Web",
+            "applicationCategory": "DesignApplication",
+            "inLanguage": LANG_HTML_ATTR[lang] || "en-GB",
+            "description": data.metaDesc,
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          },
+          {
+            "@type": "FAQPage",
+            "inLanguage": LANG_HTML_ATTR[lang] || "en-GB",
+            "mainEntity": faq.map(([name, answer]) => ({
+              "@type": "Question",
+              "name": name,
+              "acceptedAnswer": { "@type": "Answer", "text": answer }
+            }))
+          }
+        ]
+      };
+
+      script.textContent = JSON.stringify(jsonLd, null, 2);
+    }
 
     // DOM Elements
     const imageInput = document.getElementById('image-input');
@@ -606,16 +710,15 @@
     function updateLanguage() {
       let lang = new URLSearchParams(window.location.search).get('lang') || 'en';
       if (lang === 'zh') lang = 'zh-CN';
+      if (!i18n[lang]) lang = 'en';
       currentLang = lang;
       const data = i18n[lang] || i18n['en'];
 
-      document.documentElement.lang = lang;
+      document.documentElement.lang = LANG_HTML_ATTR[lang] || "en-GB";
 
-      // 🌟 核心优化 3：彻底打通 Title 和 Description 标签的动态多语言切换
+      // 动态切换当前语言的 title、description、Open Graph 与结构化数据
       document.title = data.metaTitle;
       document.querySelector('meta[name="description"]').setAttribute("content", data.metaDesc);
-      const kw = document.querySelector('meta[name="keywords"]');
-      if (kw && data.keywords) kw.setAttribute("content", data.keywords);
       const ogTitle = document.querySelector('meta[property="og:title"]');
       if (ogTitle) ogTitle.setAttribute("content", data.metaTitle);
       const ogDesc = document.querySelector('meta[property="og:description"]');
@@ -624,6 +727,9 @@
       if (twTitle) twTitle.setAttribute("content", data.metaTitle);
       const twDesc = document.querySelector('meta[name="twitter:description"]');
       if (twDesc) twDesc.setAttribute("content", data.metaDesc);
+
+      updateSeoUrls(lang, data);
+      updateStructuredData(lang, data);
 
       document.getElementById('update-text').innerText = data.updateText;
       document.getElementById('page-title').innerText = data.title;

@@ -6,7 +6,6 @@
 
   <title>Privacy Policy | Mini-Tools.uk Browser Tools and Calculators</title>
   <meta name="description" content="Read the Mini-Tools.uk privacy policy to understand browser-side processing, file uploads, analytics, advertising, local storage, third-party links and contact messages." />
-  <meta name="keywords" content="Mini-Tools privacy policy, browser tools privacy, client side processing, file upload privacy, analytics policy, advertising policy, local storage privacy, 隐私政策, 在线工具隐私政策" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/privacy" />
@@ -27,6 +26,7 @@
   <meta property="og:title" content="Privacy Policy | Mini-Tools.uk" />
   <meta property="og:description" content="How Mini-Tools.uk handles browser-side processing, uploads, analytics, advertising, local storage and contact messages." />
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_GB" />
   <meta property="og:url" content="https://mini-tools.uk/privacy" />
   <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -42,15 +42,16 @@
     gtag("config", "G-DR6V84JEZW");
   </script>
 
-  <script type="application/ld+json">
+  <script type="application/ld+json" id="schema-json">
   {
     "@context":"https://schema.org",
     "@graph":[
       {
         "@type":"WebPage",
-        "name":"Privacy Policy",
+        "name":"Privacy Policy | Mini-Tools.uk Browser Tools and Calculators",
         "url":"https://mini-tools.uk/privacy",
-        "description":"Privacy policy for Mini-Tools.uk browser tools and calculators."
+        "inLanguage":"en-GB",
+        "description":"Read the Mini-Tools.uk privacy policy to understand browser-side processing, file uploads, analytics, advertising, local storage, third-party links and contact messages."
       },
       {
         "@type":"Organization",
@@ -61,21 +62,22 @@
       },
       {
         "@type":"FAQPage",
+        "inLanguage":"en-GB",
         "mainEntity":[
           {
             "@type":"Question",
-            "name":"Do all Mini-Tools.uk tools process data locally?",
-            "acceptedAnswer":{"@type":"Answer","text":"No. Many tools process data locally in the browser, but some features, such as hosted uploads or shared links, may need a remote service."}
+            "name":"Do all tools run locally?",
+            "acceptedAnswer":{"@type":"Answer","text":"No. Many tools run locally, but upload, hosting or sharing features may need remote processing. Check the tool page for specific behaviour."}
           },
           {
             "@type":"Question",
-            "name":"Does Mini-Tools.uk use analytics?",
-            "acceptedAnswer":{"@type":"Answer","text":"Yes. Mini-Tools.uk uses Google Analytics to understand broad site usage, such as visited pages and general navigation patterns."}
+            "name":"Does Mini-Tools.uk collect the content I paste into local tools?",
+            "acceptedAnswer":{"@type":"Answer","text":"For tools described as local browser tools, the main processing happens on your device. Analytics may still record page-level usage, not the actual local content you process."}
           },
           {
             "@type":"Question",
-            "name":"How can I contact Mini-Tools.uk about privacy?",
-            "acceptedAnswer":{"@type":"Answer","text":"Privacy questions can be sent to yuyananuu@gmail.com."}
+            "name":"Can I clear stored preferences?",
+            "acceptedAnswer":{"@type":"Answer","text":"Yes. Browser preferences stored with localStorage can usually be cleared through your browser site data settings."}
           }
         ]
       }
@@ -85,183 +87,26 @@
 
   <style>
     :root{
-      --bg:#f8fafc;
-      --card:#ffffff;
-      --ink:#0f172a;
-      --muted:#475569;
-      --muted-2:#64748b;
-      --line:#e2e8f0;
-      --blue:#2563eb;
-      --blue-2:#1d4ed8;
-      --soft:#eff6ff;
-      --soft-2:#f1f5f9;
-      --green:#166534;
-      --green-bg:#dcfce7;
-      --red:#b91c1c;
-      --red-bg:#fef2f2;
-      --amber:#92400e;
-      --amber-bg:#fffbeb;
-      --shadow:none;
-      --radius:22px;
-      --sans:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      --mono:"JetBrains Mono","SFMono-Regular",Consolas,Monaco,monospace;
+      --bg:#f8fafc;--card:#fff;--ink:#0f172a;--muted:#475569;--muted-2:#64748b;--line:#e2e8f0;--blue:#2563eb;--blue-2:#1d4ed8;--soft:#eff6ff;--green:#166534;--green-bg:#dcfce7;--radius:22px;--sans:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;--mono:"JetBrains Mono","SFMono-Regular",Consolas,Monaco,monospace;
     }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:var(--sans);
-      background:var(--bg);
-      color:var(--ink);
-      line-height:1.55;
-    }
-
-    a{color:inherit;text-decoration:none}
-    button{font:inherit}
-    code{
-      font-family:var(--mono);
-      background:#f8fafc;
-      border:1px solid var(--line);
-      border-radius:8px;
-      padding:2px 6px;
-      font-size:.92em;
-      color:#0f172a;
-    }
-    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-    .skip-link{position:absolute;left:14px;top:-48px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:12px;z-index:100}
-    .skip-link:focus{top:14px}
-
-    .nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:18px}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:800;min-width:0}
-    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;box-shadow:none}
-    .brand-copy{display:flex;flex-direction:column;line-height:1.05}
-    .brand-title{font-size:1.06rem;letter-spacing:-.03em}
-    .brand-subtitle{margin-top:4px;color:#64748b;font-size:.79rem;font-weight:600}
-    .nav-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-    .nav-link,.nav-trigger,.lang-trigger{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border-radius:12px;color:#334155;font-weight:700;font-size:14px;border:1px solid transparent;background:transparent;cursor:pointer}
-    .nav-link:hover,.nav-trigger:hover,.nav-group:hover .nav-trigger,.lang-trigger:hover,.lang-group:hover .lang-trigger{background:#f8fafc;color:#0f172a}
-    .nav-link.current{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
-    .nav-group,.lang-group{position:relative;padding-bottom:14px;margin-bottom:-14px}
-    .nav-trigger svg,.lang-trigger svg{width:14px;height:14px;transition:transform .2s ease}
-    .nav-group::after,.lang-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}
-    .nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg,.lang-group:hover .lang-trigger svg,.lang-group:focus-within .lang-trigger svg{transform:rotate(180deg)}
-    .dropdown,.lang-dropdown{position:absolute;top:calc(100% + 2px);right:0;min-width:220px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:none;padding:10px;display:none;z-index:40}
-    .nav-group .dropdown{left:0;right:auto;min-width:245px}
-    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown,.lang-group:hover .lang-dropdown,.lang-group:focus-within .lang-dropdown{display:block}
-    .dropdown a,.lang-dropdown button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:12px;color:#334155;font-size:14px;font-weight:700;border:0;background:transparent;cursor:pointer}
-    .dropdown a small{display:block;margin-top:2px;color:#64748b;font-size:12px;font-weight:600}
-    .dropdown a:hover,.lang-dropdown button:hover,.lang-dropdown button.active{background:#f8fafc;color:#0f172a}
-
-    .hero{padding:56px 0 24px;text-align:center}
-    .badge{display:inline-flex;align-items:center;gap:8px;background:var(--green-bg);color:var(--green);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
-    .hero h1{margin:18px 0 14px;font-size:clamp(2rem,4vw,3.4rem);line-height:1.02;letter-spacing:-.03em}
-    .hero p{margin:0 auto;max-width:860px;color:var(--muted);font-size:1.1rem}
-    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:26px auto 10px;max-width:1120px}
-    .mini-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:none;text-align:left}
-    .mini-card strong{display:block;margin-bottom:6px;font-size:.95rem}
-    .mini-card span{color:var(--muted);font-size:.93rem}
-
-    .article-wrap{margin:32px auto 56px;max-width:1120px;display:grid;grid-template-columns:minmax(0,760px) 320px;gap:24px;justify-content:center}
-    .article{background:#fff;border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:none}
-    .article h2{font-size:1.7rem;line-height:1.15;margin:34px 0 14px}
-    .article h2:first-child{margin-top:0}
-    .article h3{font-size:1.18rem;margin:24px 0 10px}
-    .article p{color:var(--muted);margin:0 0 14px}
-    .article ul{color:var(--muted);padding-left:20px;margin-top:0}
-    .article li{margin-bottom:10px}
-    .meta-note{
-      margin:0 0 24px;
-      padding:16px 18px;
-      border-radius:18px;
-      background:#f8fafc;
-      border:1px solid var(--line);
-      color:#475569;
-      font-size:.96rem;
-      line-height:1.75;
-    }
-    .policy-box{
-      margin:18px 0;
-      padding:18px;
-      border-radius:18px;
-      background:#f8fafc;
-      border:1px solid var(--line);
-    }
-    .policy-box strong{color:#0f172a}
-    .section-list{display:grid;gap:12px;margin:18px 0}
-    .section-item{
-      display:grid;
-      grid-template-columns:36px 1fr;
-      gap:12px;
-      align-items:start;
-      background:#f8fafc;
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:16px;
-    }
-    .section-num{width:36px;height:36px;border-radius:12px;background:#eff6ff;color:#1d4ed8;font-weight:900;display:flex;align-items:center;justify-content:center}
-    .section-item strong{display:block;color:#0f172a;margin-bottom:4px}
-    .section-item span{display:block;color:#64748b;font-size:.92rem}
-    .faq{margin-top:24px;display:grid;gap:14px}
-    .faq-item{border:1px solid var(--line);border-radius:18px;background:#f8fafc;padding:18px}
-    .faq-item h4{margin:0 0 8px;font-size:1.03rem}
-    .faq-item p{margin:0;color:var(--muted)}
-    .side-info{display:grid;gap:16px;align-self:start;position:sticky;top:96px}
-    .side-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:none}
-    .side-card h3{margin:0 0 12px;font-size:1rem}
-    .side-card p,.side-card li{color:var(--muted);font-size:.92rem}
-    .side-card ul{margin:0;padding-left:18px}
-    .chips{display:flex;flex-wrap:wrap;gap:10px}
-    .tag{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;padding:8px 12px;font-size:.82rem;font-weight:800}
-    .related-links{display:grid;gap:10px}
-    .related-links a{padding:12px 14px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-weight:800;color:#1e293b}
-    .related-links a:hover{background:#eff6ff;border-color:#bfdbfe}
-    .contact-box{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:18px;margin-top:18px}
-    .contact-box strong{color:#0f172a}
-    .footer{border-top:1px solid var(--line);background:#fff;padding:28px 0 46px}
-    .footer-inner{display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap;color:#64748b;font-size:.9rem}
-    .footer-links{display:flex;gap:14px;flex-wrap:wrap}
-    .footer-links a{font-weight:700}
-
-    @media (max-width:980px){
-      .article-wrap{grid-template-columns:1fr}
-      .side-info{position:static}
-      .nav-inner{align-items:flex-start;flex-direction:column;padding:12px 0}
-      .nav-links{justify-content:flex-start}
-    }
-    @media (max-width:760px){
-      .mini-grid{grid-template-columns:1fr}
-      .article{padding:22px}
-      .section-item{grid-template-columns:1fr}
-      .dropdown,.lang-dropdown{left:0;right:auto}
-      .footer-inner{align-items:flex-start;flex-direction:column}
-    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.55} a{color:inherit;text-decoration:none} button{font:inherit} code{font-family:var(--mono);background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:2px 6px;font-size:.92em;color:#0f172a}.wrap{max-width:1200px;margin:0 auto;padding:0 20px}.skip-link{position:absolute;left:14px;top:-48px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:12px;z-index:100}.skip-link:focus{top:14px}
+    .nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:18px}.brand{display:flex;align-items:center;gap:12px;font-weight:800;min-width:0}.brand img{width:40px;height:40px;border-radius:12px;background:#fff}.brand-copy{display:flex;flex-direction:column;line-height:1.05}.brand-title{font-size:1.06rem;letter-spacing:-.03em}.brand-subtitle{margin-top:4px;color:#64748b;font-size:.79rem;font-weight:600}.nav-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}.nav-link,.nav-trigger,.lang-trigger{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border-radius:12px;color:#334155;font-weight:700;font-size:14px;border:1px solid transparent;background:transparent;cursor:pointer}.nav-link:hover,.nav-trigger:hover,.nav-group:hover .nav-trigger,.lang-trigger:hover,.lang-group:hover .lang-trigger{background:#f8fafc;color:#0f172a}.nav-link.current{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}.nav-group,.lang-group{position:relative;padding-bottom:14px;margin-bottom:-14px}.nav-trigger svg,.lang-trigger svg{width:14px;height:14px;transition:transform .2s}.nav-group::after,.lang-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}.nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg,.lang-group:hover .lang-trigger svg,.lang-group:focus-within .lang-trigger svg{transform:rotate(180deg)}.dropdown,.lang-dropdown{position:absolute;top:calc(100% + 2px);right:0;min-width:220px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px;display:none;z-index:40}.nav-group .dropdown{left:0;right:auto;min-width:245px}.nav-group:hover .dropdown,.nav-group:focus-within .dropdown,.lang-group:hover .lang-dropdown,.lang-group:focus-within .lang-dropdown{display:block}.dropdown a,.lang-dropdown button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:12px;color:#334155;font-size:14px;font-weight:700;border:0;background:transparent;cursor:pointer}.dropdown a small{display:block;margin-top:2px;color:#64748b;font-size:12px;font-weight:600}.dropdown a:hover,.lang-dropdown button:hover,.lang-dropdown button.active{background:#f8fafc;color:#0f172a}
+    .hero{padding:56px 0 24px;text-align:center}.badge{display:inline-flex;align-items:center;gap:8px;background:var(--green-bg);color:var(--green);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}.hero h1{margin:18px 0 14px;font-size:clamp(2rem,4vw,3.4rem);line-height:1.02;letter-spacing:-.03em}.hero p{margin:0 auto;max-width:860px;color:var(--muted);font-size:1.1rem}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:26px auto 10px;max-width:1120px}.mini-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;text-align:left}.mini-card strong{display:block;margin-bottom:6px;font-size:.95rem}.mini-card span{color:var(--muted);font-size:.93rem}
+    .article-wrap{margin:32px auto 56px;max-width:1120px;display:grid;grid-template-columns:minmax(0,760px) 320px;gap:24px;justify-content:center}.article{background:#fff;border:1px solid var(--line);border-radius:24px;padding:32px}.article h2{font-size:1.7rem;line-height:1.15;margin:34px 0 14px}.article h2:first-child{margin-top:0}.article h3{font-size:1.18rem;margin:24px 0 10px}.article p{color:var(--muted);margin:0 0 14px}.article ul{color:var(--muted);padding-left:20px;margin-top:0}.article li{margin-bottom:10px}.meta-note,.policy-box,.contact-box{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:18px}.meta-note{margin:0 0 24px;color:#475569;line-height:1.75}.policy-box{margin:18px 0}.contact-box{margin-top:18px}.policy-box strong,.contact-box strong{color:#0f172a}.section-list{display:grid;gap:12px;margin:18px 0}.section-item{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start;background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:16px}.section-num{width:36px;height:36px;border-radius:12px;background:#eff6ff;color:#1d4ed8;font-weight:900;display:flex;align-items:center;justify-content:center}.section-item strong{display:block;color:#0f172a;margin-bottom:4px}.section-item span{display:block;color:#64748b;font-size:.92rem}.faq{margin-top:24px;display:grid;gap:14px}.faq-item{border:1px solid var(--line);border-radius:18px;background:#f8fafc;padding:18px}.faq-item h4{margin:0 0 8px;font-size:1.03rem}.faq-item p{margin:0;color:var(--muted)}.side-info{display:grid;gap:16px;align-self:start;position:sticky;top:96px}.side-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px}.side-card h3{margin:0 0 12px;font-size:1rem}.side-card p,.side-card li{color:var(--muted);font-size:.92rem}.side-card ul{margin:0;padding-left:18px}.chips{display:flex;flex-wrap:wrap;gap:10px}.tag{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;padding:8px 12px;font-size:.82rem;font-weight:800}.related-links{display:grid;gap:10px}.related-links a{padding:12px 14px;border-radius:14px;background:#f8fafc;border:1px solid var(--line);font-weight:800;color:#1e293b}.related-links a:hover{background:#eff6ff;border-color:#bfdbfe}.footer{border-top:1px solid var(--line);background:#fff;padding:28px 0 46px}.footer-inner{display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap;color:#64748b;font-size:.9rem}.footer-links{display:flex;gap:14px;flex-wrap:wrap}.footer-links a{font-weight:700}
+    @media (max-width:980px){.article-wrap{grid-template-columns:1fr}.side-info{position:static}.nav-inner{align-items:flex-start;flex-direction:column;padding:12px 0}.nav-links{justify-content:flex-start}}@media (max-width:760px){.mini-grid{grid-template-columns:1fr}.article{padding:22px}.section-item{grid-template-columns:1fr}.dropdown,.lang-dropdown{left:0;right:auto}.footer-inner{align-items:flex-start;flex-direction:column}}
   </style>
   <link rel="stylesheet" href="ui-refresh.css" />
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
-
   <nav class="nav">
     <div class="wrap nav-inner">
-      <a class="brand" href="/">
-        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" />
-        <span class="brand-copy">
-          <span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span>
-          <span class="brand-subtitle" data-i18n="brandSubtitle">Practical calculators and browser tools</span>
-        </span>
-      </a>
-
+      <a class="brand" href="/"><img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" /><span class="brand-copy"><span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="brand-subtitle" data-i18n="brandSubtitle">Practical calculators and browser tools</span></span></a>
       <div class="nav-links" aria-label="Primary navigation">
         <a class="nav-link" href="/" data-i18n="navHome">Home</a>
         <a class="nav-link" href="/#featured-tools" data-i18n="navTools">All Tools</a>
-
         <div class="nav-group">
-          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-            <span data-i18n="navCategories">Categories</span>
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span data-i18n="navCategories">Categories</span><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <div class="dropdown" role="menu">
             <a href="/#uk-finance"><span data-i18n="catFinance">UK Finance</span><small data-i18n="catFinanceSmall">Tax, VAT, mortgage and contractor tools</small></a>
             <a href="/#developer-tools"><span data-i18n="catDev">Developer Tools</span><small data-i18n="catDevSmall">JSON, diff, image hosting and AI token estimation</small></a>
@@ -269,24 +114,13 @@
             <a href="/password"><span data-i18n="catSecurity">Security</span><small data-i18n="catSecuritySmall">Password and privacy helpers</small></a>
           </div>
         </div>
-
         <a class="nav-link" href="/blog" data-i18n="navBlog">Blog</a>
         <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
         <a class="nav-link" href="/contact" data-i18n="navContact">Contact</a>
         <a class="nav-link current" href="/privacy" data-i18n="privacy">Privacy</a>
-
         <div class="lang-group">
-          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-            <span id="currentLangLabel">English</span>
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="lang-dropdown" role="menu" aria-label="Language">
-            <button type="button" data-lang-btn="en">English</button>
-            <button type="button" data-lang-btn="zh-CN">中文</button>
-            <button type="button" data-lang-btn="de">Deutsch</button>
-            <button type="button" data-lang-btn="fr">Français</button>
-            <button type="button" data-lang-btn="es">Español</button>
-          </div>
+          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="lang-dropdown" role="menu" aria-label="Language"><button type="button" data-lang-btn="en">English</button><button type="button" data-lang-btn="zh-CN">中文</button><button type="button" data-lang-btn="de">Deutsch</button><button type="button" data-lang-btn="fr">Français</button><button type="button" data-lang-btn="es">Español</button></div>
         </div>
       </div>
     </div>
@@ -297,745 +131,82 @@
       <span class="badge" data-i18n="badge">Privacy Policy</span>
       <h1 data-i18n="heroTitle">How Mini-Tools.uk handles browser processing, uploads and basic site data.</h1>
       <p data-i18n="heroText">Different tools on this site work in different ways. Some run locally in your browser, while some features need a remote service. This policy explains those differences in plain language.</p>
-
       <div class="mini-grid">
-        <div class="mini-card">
-          <strong data-i18n="mini1Title">Browser-side tools</strong>
-          <span data-i18n="mini1Text">Many calculators and utilities process the main task locally in your browser.</span>
-        </div>
-        <div class="mini-card">
-          <strong data-i18n="mini2Title">Remote-service features</strong>
-          <span data-i18n="mini2Text">Uploads, hosted files or shared links may require data to be sent to a server.</span>
-        </div>
-        <div class="mini-card">
-          <strong data-i18n="mini3Title">Basic site measurement</strong>
-          <span data-i18n="mini3Text">Analytics helps understand broad site usage, separate from local tool processing.</span>
-        </div>
+        <div class="mini-card"><strong data-i18n="mini1Title">Browser-side tools</strong><span data-i18n="mini1Text">Many calculators and utilities process the main task locally in your browser.</span></div>
+        <div class="mini-card"><strong data-i18n="mini2Title">Remote-service features</strong><span data-i18n="mini2Text">Uploads, hosted files or shared links may require data to be sent to a server.</span></div>
+        <div class="mini-card"><strong data-i18n="mini3Title">Basic site measurement</strong><span data-i18n="mini3Text">Analytics helps understand broad site usage, separate from local tool processing.</span></div>
       </div>
     </section>
 
     <section class="article-wrap">
       <article class="article">
-        <div class="meta-note">
-          <strong data-i18n="lastUpdatedLabel">Last updated:</strong>
-          <span data-i18n="lastUpdatedDate">May 8, 2026.</span>
-          <span data-i18n="introNote">This policy describes the general behaviour of Mini-Tools.uk. Individual tool pages may provide more specific explanations for their own processing and storage behaviour.</span>
-        </div>
-
+        <div class="meta-note"><strong data-i18n="lastUpdatedLabel">Last updated:</strong> <span data-i18n="lastUpdatedDate">May 8, 2026.</span> <span data-i18n="introNote">This policy describes the general behaviour of Mini-Tools.uk. Individual tool pages may provide more specific explanations for their own processing and storage behaviour.</span></div>
         <h2 data-i18n="summaryTitle">Quick summary</h2>
         <div class="section-list">
-          <div class="section-item">
-            <div class="section-num">1</div>
-            <div>
-              <strong data-i18n="summary1Title">Many tools run in the browser</strong>
-              <span data-i18n="summary1Text">For tools such as JSON formatting, text comparison, password generation or image resizing, the main processing may happen on your device.</span>
-            </div>
-          </div>
-          <div class="section-item">
-            <div class="section-num">2</div>
-            <div>
-              <strong data-i18n="summary2Title">Some features need servers</strong>
-              <span data-i18n="summary2Text">If a tool creates a hosted image, shared file or remote result, the relevant data must be sent to a service so the feature can work.</span>
-            </div>
-          </div>
-          <div class="section-item">
-            <div class="section-num">3</div>
-            <div>
-              <strong data-i18n="summary3Title">Analytics and advertising may use cookies</strong>
-              <span data-i18n="summary3Text">Google Analytics and advertising services may use cookies or similar technologies according to their own policies and settings.</span>
-            </div>
-          </div>
+          <div class="section-item"><div class="section-num">1</div><div><strong data-i18n="summary1Title">Many tools run in the browser</strong><span data-i18n="summary1Text">For tools such as JSON formatting, text comparison, password generation or image resizing, the main processing may happen on your device.</span></div></div>
+          <div class="section-item"><div class="section-num">2</div><div><strong data-i18n="summary2Title">Some features need servers</strong><span data-i18n="summary2Text">If a tool creates a hosted image, shared file or remote result, the relevant data must be sent to a service so the feature can work.</span></div></div>
+          <div class="section-item"><div class="section-num">3</div><div><strong data-i18n="summary3Title">Analytics and advertising may use cookies</strong><span data-i18n="summary3Text">Google Analytics and advertising services may use cookies or similar technologies according to their own policies and settings.</span></div></div>
         </div>
-
         <h2 data-i18n="section1Title">1. Browser-based tools</h2>
         <p data-i18n="section1P1">Many pages on Mini-Tools.uk are designed to run their main task in the browser. This can include formatting text, validating JSON, comparing two blocks of text, generating a password, estimating tokens, resizing an image or running a calculator.</p>
         <p data-i18n="section1P2">When a tool works this way, the content you enter for that tool is normally processed on your device rather than uploaded to a Mini-Tools.uk application server for the core operation.</p>
-        <ul>
-          <li data-i18n="section1L1">Local processing means the main task happens in the browser.</li>
-          <li data-i18n="section1L2">It does not mean the whole website works offline or that no external assets are loaded.</li>
-          <li data-i18n="section1L3">A page may still load scripts, analytics, icons, images or other static assets.</li>
-        </ul>
-
+        <ul><li data-i18n="section1L1">Local processing means the main task happens in the browser.</li><li data-i18n="section1L2">It does not mean the whole website works offline or that no external assets are loaded.</li><li data-i18n="section1L3">A page may still load scripts, analytics, icons, images or other static assets.</li></ul>
         <h2 data-i18n="section2Title">2. Pages that use remote services</h2>
         <p data-i18n="section2P1">Some features cannot work without sending data to a remote service. For example, an image-hosting or sharing feature needs to upload a file so a hosted URL can be created.</p>
         <p data-i18n="section2P2">When a tool depends on a remote service, the page should describe that behaviour clearly rather than presenting itself as local-only.</p>
-        <ul>
-          <li data-i18n="section2L1">Upload pages may send files or form data to a remote endpoint.</li>
-          <li data-i18n="section2L2">Hosted results may remain available outside your browser session.</li>
-          <li data-i18n="section2L3">Retention or deletion options, when available, should be explained on the relevant tool page.</li>
-        </ul>
-
+        <ul><li data-i18n="section2L1">Upload pages may send files or form data to a remote endpoint.</li><li data-i18n="section2L2">Hosted results may remain available outside your browser session.</li><li data-i18n="section2L3">Retention or deletion options, when available, should be explained on the relevant tool page.</li></ul>
         <h2 data-i18n="section3Title">3. Analytics and basic website data</h2>
         <p data-i18n="section3P1">Mini-Tools.uk uses Google Analytics to understand broad site usage, such as which pages are visited, what devices or browsers are commonly used, and how visitors move around the site.</p>
         <p data-i18n="section3P2">Analytics is separate from the content you may process inside a local browser tool. For example, using a local JSON formatter and visiting a page are different kinds of activity.</p>
-        <div class="policy-box">
-          <p data-i18n="section3Box">Google Analytics may use cookies or similar technologies. Google provides its own privacy controls and policies for analytics-related data.</p>
-        </div>
-
+        <div class="policy-box"><p data-i18n="section3Box">Google Analytics may use cookies or similar technologies. Google provides its own privacy controls and policies for analytics-related data.</p></div>
         <h2 data-i18n="section4Title">4. Advertising</h2>
         <p data-i18n="section4P1">Some pages on Mini-Tools.uk may display advertising. Advertising partners may use cookies or similar technologies to show, measure or manage ads according to their own policies.</p>
         <p data-i18n="section4P2">Policy, contact and informational pages may be kept separate from advertising depending on the page design. Advertising does not change the local or remote processing behaviour of individual tools.</p>
-
         <h2 data-i18n="section5Title">5. Local storage and browser storage</h2>
-        <p data-i18n="section5P1">Some pages may use browser storage, such as <code>localStorage</code>, to remember preferences like language, tool settings, recent values or interface state.</p>
+        <p data-i18n="section5P1">Some pages may use browser storage, such as localStorage, to remember preferences like language, tool settings, recent values or interface state.</p>
         <p data-i18n="section5P2">Browser storage stays on your device unless a page explicitly sends something elsewhere as part of a remote feature.</p>
-
         <h2 data-i18n="section6Title">6. Contact messages</h2>
         <p data-i18n="section6P1">If you contact Mini-Tools.uk by email, the information you send becomes part of that email conversation. Please avoid sending passwords, payment information or highly sensitive personal information through email.</p>
-        <div class="contact-box">
-          <span data-i18n="contactBoxText">Privacy questions can be sent to:</span>
-          <strong> yuyananuu@gmail.com</strong>
-        </div>
-
+        <div class="contact-box"><span data-i18n="contactBoxText">Privacy questions can be sent to:</span><strong> yuyananuu@gmail.com</strong></div>
         <h2 data-i18n="section7Title">7. Third-party links and services</h2>
         <p data-i18n="section7P1">Mini-Tools.uk may link to third-party websites, documentation, libraries or services. Those websites and services have their own privacy practices. Mini-Tools.uk does not control third-party websites.</p>
-
         <h2 data-i18n="section8Title">8. Changes to this policy</h2>
         <p data-i18n="section8P1">This policy may be updated as the site adds, removes or rewrites tools. The aim is to keep the wording aligned with how the tools actually work.</p>
-
         <div class="faq">
-          <div class="faq-item">
-            <h4 data-i18n="faq1Q">Do all tools run locally?</h4>
-            <p data-i18n="faq1A">No. Many tools run locally, but upload, hosting or sharing features may need remote processing. Check the tool page for specific behaviour.</p>
-          </div>
-          <div class="faq-item">
-            <h4 data-i18n="faq2Q">Does Mini-Tools.uk collect the content I paste into local tools?</h4>
-            <p data-i18n="faq2A">For tools described as local browser tools, the main processing happens on your device. Analytics may still record page-level usage, not the actual local content you process.</p>
-          </div>
-          <div class="faq-item">
-            <h4 data-i18n="faq3Q">Can I clear stored preferences?</h4>
-            <p data-i18n="faq3A">Yes. Browser preferences stored with localStorage can usually be cleared through your browser site data settings.</p>
-          </div>
+          <div class="faq-item"><h4 data-i18n="faq1Q">Do all tools run locally?</h4><p data-i18n="faq1A">No. Many tools run locally, but upload, hosting or sharing features may need remote processing. Check the tool page for specific behaviour.</p></div>
+          <div class="faq-item"><h4 data-i18n="faq2Q">Does Mini-Tools.uk collect the content I paste into local tools?</h4><p data-i18n="faq2A">For tools described as local browser tools, the main processing happens on your device. Analytics may still record page-level usage, not the actual local content you process.</p></div>
+          <div class="faq-item"><h4 data-i18n="faq3Q">Can I clear stored preferences?</h4><p data-i18n="faq3A">Yes. Browser preferences stored with localStorage can usually be cleared through your browser site data settings.</p></div>
         </div>
       </article>
 
       <aside class="side-info">
-        <div class="side-card">
-          <h3 data-i18n="sideCoversTitle">This policy covers</h3>
-          <div class="chips">
-            <span class="tag" data-i18n="chip1">Browser processing</span>
-            <span class="tag" data-i18n="chip2">Uploads</span>
-            <span class="tag" data-i18n="chip3">Analytics</span>
-            <span class="tag" data-i18n="chip4">Advertising</span>
-          </div>
-        </div>
-
-        <div class="side-card">
-          <h3 data-i18n="sideImportantTitle">Important points</h3>
-          <ul>
-            <li data-i18n="point1">Local tools and upload tools behave differently.</li>
-            <li data-i18n="point2">Analytics is used for broad page-level measurement.</li>
-            <li data-i18n="point3">Advertising partners may use their own technologies.</li>
-            <li data-i18n="point4">Do not send sensitive secrets by email.</li>
-          </ul>
-        </div>
-
-        <div class="side-card">
-          <h3 data-i18n="sidePagesTitle">Related pages</h3>
-          <div class="related-links">
-            <a href="/about" data-i18n="relatedAbout">About</a>
-            <a href="/contact" data-i18n="relatedContact">Contact</a>
-            <a href="/blog" data-i18n="relatedBlog">Blog</a>
-            <a href="/#featured-tools" data-i18n="relatedTools">All tools</a>
-          </div>
-        </div>
-
-        <div class="side-card">
-          <h3 data-i18n="sideLocalTitle">Examples of local tools</h3>
-          <div class="related-links">
-            <a href="/json" data-i18n="localJson">JSON formatter</a>
-            <a href="/diff" data-i18n="localDiff">Text diff checker</a>
-            <a href="/password" data-i18n="localPassword">Password generator</a>
-            <a href="/image" data-i18n="localImage">Image resizer</a>
-          </div>
-        </div>
+        <div class="side-card"><h3 data-i18n="sideCoversTitle">This policy covers</h3><div class="chips"><span class="tag" data-i18n="chip1">Browser processing</span><span class="tag" data-i18n="chip2">Uploads</span><span class="tag" data-i18n="chip3">Analytics</span><span class="tag" data-i18n="chip4">Advertising</span></div></div>
+        <div class="side-card"><h3 data-i18n="sideImportantTitle">Important points</h3><ul><li data-i18n="point1">Local tools and upload tools behave differently.</li><li data-i18n="point2">Analytics is used for broad page-level measurement.</li><li data-i18n="point3">Advertising partners may use their own technologies.</li><li data-i18n="point4">Do not send sensitive secrets by email.</li></ul></div>
+        <div class="side-card"><h3 data-i18n="sidePagesTitle">Related pages</h3><div class="related-links"><a href="/about" data-i18n="relatedAbout">About</a><a href="/contact" data-i18n="relatedContact">Contact</a><a href="/blog" data-i18n="relatedBlog">Blog</a><a href="/#featured-tools" data-i18n="relatedTools">All tools</a></div></div>
+        <div class="side-card"><h3 data-i18n="sideLocalTitle">Examples of local tools</h3><div class="related-links"><a href="/json" data-i18n="localJson">JSON formatter</a><a href="/diff" data-i18n="localDiff">Text diff checker</a><a href="/password" data-i18n="localPassword">Password generator</a><a href="/image" data-i18n="localImage">Image resizer</a></div></div>
       </aside>
     </section>
   </main>
-
-  <footer class="footer">
-    <div class="wrap footer-inner">
-      <div>© 2026 Mini-Tools.uk</div>
-      <div class="footer-links">
-        <a href="/about" data-i18n="navAbout">About</a>
-        <a href="/blog" data-i18n="navBlog">Blog</a>
-        <a href="/privacy" data-i18n="privacy">Privacy</a>
-        <a href="/contact" data-i18n="navContact">Contact</a>
-      </div>
-    </div>
-  </footer>
+  <footer class="footer"><div class="wrap footer-inner"><div>© 2026 Mini-Tools.uk</div><div class="footer-links"><a href="/about" data-i18n="navAbout">About</a><a href="/blog" data-i18n="navBlog">Blog</a><a href="/privacy" data-i18n="privacy">Privacy</a><a href="/contact" data-i18n="navContact">Contact</a></div></div></footer>
 
   <script>
     const translations = {
-      en: {
-        htmlLang:"en-GB",
-        langLabel:"English",
-        title:"Privacy Policy | Mini-Tools.uk Browser Tools and Calculators",
-        description:"Read the Mini-Tools.uk privacy policy to understand browser-side processing, file uploads, analytics, advertising, local storage, third-party links and contact messages.",
-        keywords:"Mini-Tools privacy policy, browser tools privacy, client side processing, file upload privacy, analytics policy, advertising policy, local storage privacy",
-        skip:"Skip to content",
-        brandSubtitle:"Practical calculators and browser tools",
-        navHome:"Home",
-        navTools:"All Tools",
-        navCategories:"Categories",
-        navBlog:"Blog",
-        navAbout:"About",
-        navContact:"Contact",
-        privacy:"Privacy",
-        catFinance:"UK Finance",
-        catFinanceSmall:"Tax, VAT, mortgage and contractor tools",
-        catDev:"Developer Tools",
-        catDevSmall:"JSON, diff, image hosting and AI token estimation",
-        catImage:"Image & PDF",
-        catImageSmall:"Compression, conversion and media utilities",
-        catSecurity:"Security",
-        catSecuritySmall:"Password and privacy helpers",
-        badge:"Privacy Policy",
-        heroTitle:"How Mini-Tools.uk handles browser processing, uploads and basic site data.",
-        heroText:"Different tools on this site work in different ways. Some run locally in your browser, while some features need a remote service. This policy explains those differences in plain language.",
-        mini1Title:"Browser-side tools",
-        mini1Text:"Many calculators and utilities process the main task locally in your browser.",
-        mini2Title:"Remote-service features",
-        mini2Text:"Uploads, hosted files or shared links may require data to be sent to a server.",
-        mini3Title:"Basic site measurement",
-        mini3Text:"Analytics helps understand broad site usage, separate from local tool processing.",
-        lastUpdatedLabel:"Last updated:",
-        lastUpdatedDate:"May 8, 2026.",
-        introNote:"This policy describes the general behaviour of Mini-Tools.uk. Individual tool pages may provide more specific explanations for their own processing and storage behaviour.",
-        summaryTitle:"Quick summary",
-        summary1Title:"Many tools run in the browser",
-        summary1Text:"For tools such as JSON formatting, text comparison, password generation or image resizing, the main processing may happen on your device.",
-        summary2Title:"Some features need servers",
-        summary2Text:"If a tool creates a hosted image, shared file or remote result, the relevant data must be sent to a service so the feature can work.",
-        summary3Title:"Analytics and advertising may use cookies",
-        summary3Text:"Google Analytics and advertising services may use cookies or similar technologies according to their own policies and settings.",
-        section1Title:"1. Browser-based tools",
-        section1P1:"Many pages on Mini-Tools.uk are designed to run their main task in the browser. This can include formatting text, validating JSON, comparing two blocks of text, generating a password, estimating tokens, resizing an image or running a calculator.",
-        section1P2:"When a tool works this way, the content you enter for that tool is normally processed on your device rather than uploaded to a Mini-Tools.uk application server for the core operation.",
-        section1L1:"Local processing means the main task happens in the browser.",
-        section1L2:"It does not mean the whole website works offline or that no external assets are loaded.",
-        section1L3:"A page may still load scripts, analytics, icons, images or other static assets.",
-        section2Title:"2. Pages that use remote services",
-        section2P1:"Some features cannot work without sending data to a remote service. For example, an image-hosting or sharing feature needs to upload a file so a hosted URL can be created.",
-        section2P2:"When a tool depends on a remote service, the page should describe that behaviour clearly rather than presenting itself as local-only.",
-        section2L1:"Upload pages may send files or form data to a remote endpoint.",
-        section2L2:"Hosted results may remain available outside your browser session.",
-        section2L3:"Retention or deletion options, when available, should be explained on the relevant tool page.",
-        section3Title:"3. Analytics and basic website data",
-        section3P1:"Mini-Tools.uk uses Google Analytics to understand broad site usage, such as which pages are visited, what devices or browsers are commonly used, and how visitors move around the site.",
-        section3P2:"Analytics is separate from the content you may process inside a local browser tool. For example, using a local JSON formatter and visiting a page are different kinds of activity.",
-        section3Box:"Google Analytics may use cookies or similar technologies. Google provides its own privacy controls and policies for analytics-related data.",
-        section4Title:"4. Advertising",
-        section4P1:"Some pages on Mini-Tools.uk may display advertising. Advertising partners may use cookies or similar technologies to show, measure or manage ads according to their own policies.",
-        section4P2:"Policy, contact and informational pages may be kept separate from advertising depending on the page design. Advertising does not change the local or remote processing behaviour of individual tools.",
-        section5Title:"5. Local storage and browser storage",
-        section5P1:"Some pages may use browser storage, such as localStorage, to remember preferences like language, tool settings, recent values or interface state.",
-        section5P2:"Browser storage stays on your device unless a page explicitly sends something elsewhere as part of a remote feature.",
-        section6Title:"6. Contact messages",
-        section6P1:"If you contact Mini-Tools.uk by email, the information you send becomes part of that email conversation. Please avoid sending passwords, payment information or highly sensitive personal information through email.",
-        contactBoxText:"Privacy questions can be sent to:",
-        section7Title:"7. Third-party links and services",
-        section7P1:"Mini-Tools.uk may link to third-party websites, documentation, libraries or services. Those websites and services have their own privacy practices. Mini-Tools.uk does not control third-party websites.",
-        section8Title:"8. Changes to this policy",
-        section8P1:"This policy may be updated as the site adds, removes or rewrites tools. The aim is to keep the wording aligned with how the tools actually work.",
-        faq1Q:"Do all tools run locally?",
-        faq1A:"No. Many tools run locally, but upload, hosting or sharing features may need remote processing. Check the tool page for specific behaviour.",
-        faq2Q:"Does Mini-Tools.uk collect the content I paste into local tools?",
-        faq2A:"For tools described as local browser tools, the main processing happens on your device. Analytics may still record page-level usage, not the actual local content you process.",
-        faq3Q:"Can I clear stored preferences?",
-        faq3A:"Yes. Browser preferences stored with localStorage can usually be cleared through your browser site data settings.",
-        sideCoversTitle:"This policy covers",
-        chip1:"Browser processing",
-        chip2:"Uploads",
-        chip3:"Analytics",
-        chip4:"Advertising",
-        sideImportantTitle:"Important points",
-        point1:"Local tools and upload tools behave differently.",
-        point2:"Analytics is used for broad page-level measurement.",
-        point3:"Advertising partners may use their own technologies.",
-        point4:"Do not send sensitive secrets by email.",
-        sidePagesTitle:"Related pages",
-        relatedAbout:"About",
-        relatedContact:"Contact",
-        relatedBlog:"Blog",
-        relatedTools:"All tools",
-        sideLocalTitle:"Examples of local tools",
-        localJson:"JSON formatter",
-        localDiff:"Text diff checker",
-        localPassword:"Password generator",
-        localImage:"Image resizer"
-      },
-      "zh-CN": {
-        htmlLang:"zh-CN",
-        langLabel:"中文",
-        title:"隐私政策｜Mini-Tools.uk 浏览器工具和计算器",
-        description:"阅读 Mini-Tools.uk 隐私政策，了解浏览器本地处理、文件上传、分析工具、广告、localStorage、第三方链接和联系邮件的处理方式。",
-        keywords:"隐私政策, Mini-Tools隐私政策, 浏览器工具隐私, 本地处理, 文件上传隐私, 网站分析政策, 广告政策, localStorage隐私",
-        skip:"跳到正文",
-        brandSubtitle:"实用计算器和浏览器工具",
-        navHome:"首页",
-        navTools:"全部工具",
-        navCategories:"分类",
-        navBlog:"博客",
-        navAbout:"关于",
-        navContact:"联系",
-        privacy:"隐私政策",
-        catFinance:"英国财务工具",
-        catFinanceSmall:"个税、VAT、房贷和承包商工具",
-        catDev:"开发者工具",
-        catDevSmall:"JSON、文本对比、图床和 AI Token 估算",
-        catImage:"图片与 PDF",
-        catImageSmall:"压缩、转换和媒体工具",
-        catSecurity:"安全工具",
-        catSecuritySmall:"密码和隐私相关工具",
-        badge:"隐私政策",
-        heroTitle:"Mini-Tools.uk 如何处理浏览器本地处理、上传和基础网站数据。",
-        heroText:"本站不同工具的工作方式不同。有些工具在浏览器本地运行，有些功能需要远程服务。本隐私政策用直白语言说明这些区别。",
-        mini1Title:"浏览器本地工具",
-        mini1Text:"许多计算器和工具会在你的浏览器中完成主要处理。",
-        mini2Title:"远程服务功能",
-        mini2Text:"上传、托管文件或分享链接可能需要把相关数据发送到服务器。",
-        mini3Title:"基础网站统计",
-        mini3Text:"分析工具用于了解整体网站使用情况，和本地工具处理内容是不同概念。",
-        lastUpdatedLabel:"最后更新：",
-        lastUpdatedDate:"2026 年 5 月 8 日。",
-        introNote:"本政策说明 Mini-Tools.uk 的一般行为。具体工具页面可能会对自身的数据处理和存储方式提供更具体说明。",
-        summaryTitle:"快速摘要",
-        summary1Title:"很多工具在浏览器中运行",
-        summary1Text:"例如 JSON 格式化、文本对比、密码生成或图片尺寸调整，主要处理可能发生在你的设备上。",
-        summary2Title:"有些功能需要服务器",
-        summary2Text:"如果工具要创建托管图片、分享文件或远程结果，相关数据必须发送到服务端才能实现该功能。",
-        summary3Title:"分析和广告可能使用 cookie",
-        summary3Text:"Google Analytics 和广告服务可能根据各自政策和设置使用 cookie 或类似技术。",
-        section1Title:"1. 浏览器本地工具",
-        section1P1:"Mini-Tools.uk 上很多页面的主要任务设计为在浏览器中运行。这可能包括格式化文本、校验 JSON、比较两段文本、生成密码、估算 token、调整图片尺寸或运行计算器。",
-        section1P2:"当工具以这种方式工作时，你输入到该工具中的内容通常会在你的设备上处理，而不是为了核心操作上传到 Mini-Tools.uk 的应用服务器。",
-        section1L1:"本地处理意味着主要任务发生在浏览器中。",
-        section1L2:"这不代表整个网站可以离线使用，也不代表不会加载任何外部资源。",
-        section1L3:"页面仍可能加载脚本、分析工具、图标、图片或其他静态资源。",
-        section2Title:"2. 使用远程服务的页面",
-        section2P1:"有些功能不发送数据到远程服务就无法工作。例如图床或分享功能需要上传文件，才能创建可访问的托管链接。",
-        section2P2:"当工具依赖远程服务时，页面应该清楚说明这种行为，而不是把自己描述成完全本地工具。",
-        section2L1:"上传页面可能会把文件或表单数据发送到远程接口。",
-        section2L2:"托管结果可能会在浏览器会话之外继续存在。",
-        section2L3:"如果有保留时间或删除选项，应在相关工具页面说明。",
-        section3Title:"3. 分析工具和基础网站数据",
-        section3P1:"Mini-Tools.uk 使用 Google Analytics 来了解整体网站使用情况，例如访问了哪些页面、常用设备或浏览器，以及用户如何在网站中浏览。",
-        section3P2:"分析数据和你在本地浏览器工具中处理的内容是不同的。例如，访问某个页面和在本地 JSON 工具中处理内容，是两类不同活动。",
-        section3Box:"Google Analytics 可能使用 cookie 或类似技术。Google 为相关数据提供自己的隐私控制和政策。",
-        section4Title:"4. 广告",
-        section4P1:"Mini-Tools.uk 的部分页面可能展示广告。广告合作方可能根据自身政策使用 cookie 或类似技术来展示、衡量或管理广告。",
-        section4P2:"隐私、联系和信息类页面是否展示广告，取决于具体页面设计。广告不会改变单个工具的本地或远程处理方式。",
-        section5Title:"5. 本地存储和浏览器存储",
-        section5P1:"部分页面可能使用浏览器存储，例如 localStorage，用来记住语言、工具设置、最近输入值或界面状态。",
-        section5P2:"浏览器存储会保留在你的设备上，除非某个页面作为远程功能的一部分明确发送了相关内容。",
-        section6Title:"6. 联系邮件",
-        section6P1:"如果你通过邮件联系 Mini-Tools.uk，你发送的信息会成为该邮件对话的一部分。请不要通过邮件发送密码、支付信息或高度敏感的个人信息。",
-        contactBoxText:"隐私相关问题可发送至：",
-        section7Title:"7. 第三方链接和服务",
-        section7P1:"Mini-Tools.uk 可能链接到第三方网站、文档、库或服务。这些网站和服务有自己的隐私做法，Mini-Tools.uk 无法控制第三方网站。",
-        section8Title:"8. 政策变更",
-        section8P1:"随着网站新增、删除或重写工具，本政策可能会更新。目标是让政策文字和工具实际工作方式保持一致。",
-        faq1Q:"所有工具都在本地运行吗？",
-        faq1A:"不是。很多工具会本地运行，但上传、托管或分享功能可能需要远程处理。请查看具体工具页面的说明。",
-        faq2Q:"Mini-Tools.uk 会收集我粘贴到本地工具里的内容吗？",
-        faq2A:"对于标明为浏览器本地工具的页面，主要处理发生在你的设备上。分析工具仍可能记录页面级别使用情况，但不是你本地处理的实际内容。",
-        faq3Q:"我可以清除已保存的偏好吗？",
-        faq3A:"可以。通过 localStorage 保存的浏览器偏好通常可以在浏览器的网站数据设置中清除。",
-        sideCoversTitle:"本政策覆盖",
-        chip1:"浏览器处理",
-        chip2:"上传",
-        chip3:"分析工具",
-        chip4:"广告",
-        sideImportantTitle:"重点说明",
-        point1:"本地工具和上传工具行为不同。",
-        point2:"分析工具用于整体页面级别统计。",
-        point3:"广告合作方可能使用自己的技术。",
-        point4:"不要通过邮件发送敏感密钥或密码。",
-        sidePagesTitle:"相关页面",
-        relatedAbout:"关于",
-        relatedContact:"联系",
-        relatedBlog:"博客",
-        relatedTools:"全部工具",
-        sideLocalTitle:"本地工具示例",
-        localJson:"JSON 格式化工具",
-        localDiff:"文本对比工具",
-        localPassword:"密码生成器",
-        localImage:"图片尺寸调整工具"
-      },
-      de: {
-        htmlLang:"de",
-        langLabel:"Deutsch",
-        title:"Datenschutzerklärung | Mini-Tools.uk Browser Tools und Rechner",
-        description:"Lesen Sie die Mini-Tools.uk Datenschutzerklärung zu Browser-Verarbeitung, Uploads, Analytics, Werbung, localStorage, Drittlinks und Kontaktmails.",
-        keywords:"Mini-Tools privacy policy, browser tools privacy, client side processing, file upload privacy, analytics policy, advertising policy, local storage privacy",
-        skip:"Zum Inhalt springen",
-        brandSubtitle:"Praktische Rechner und Browser-Tools",
-        navHome:"Startseite",
-        navTools:"Alle Tools",
-        navCategories:"Kategorien",
-        navBlog:"Blog",
-        navAbout:"Über uns",
-        navContact:"Kontakt",
-        privacy:"Datenschutz",
-        catFinance:"UK Finanzen",
-        catFinanceSmall:"Steuer, VAT, Hypothek und Contractor-Tools",
-        catDev:"Developer Tools",
-        catDevSmall:"JSON, Diff, Bildhosting und AI-Token-Schätzung",
-        catImage:"Bild & PDF",
-        catImageSmall:"Komprimierung, Konvertierung und Medien",
-        catSecurity:"Sicherheit",
-        catSecuritySmall:"Passwort- und Datenschutzhelfer",
-        badge:"Datenschutzerklärung",
-        heroTitle:"Wie Mini-Tools.uk Browser-Verarbeitung, Uploads und Website-Daten behandelt.",
-        heroText:"Verschiedene Tools funktionieren unterschiedlich. Einige laufen lokal im Browser, andere benötigen Remote-Services. Diese Richtlinie erklärt die Unterschiede.",
-        mini1Title:"Browserseitige Tools",
-        mini1Text:"Viele Rechner und Utilities verarbeiten die Hauptaufgabe lokal im Browser.",
-        mini2Title:"Remote-Service Features",
-        mini2Text:"Uploads, gehostete Dateien oder Share-Links können Server-Verarbeitung benötigen.",
-        mini3Title:"Basis-Messung",
-        mini3Text:"Analytics hilft, allgemeine Nutzung zu verstehen, getrennt von lokaler Tool-Verarbeitung.",
-        lastUpdatedLabel:"Zuletzt aktualisiert:",
-        lastUpdatedDate:"8. Mai 2026.",
-        introNote:"Diese Richtlinie beschreibt das allgemeine Verhalten von Mini-Tools.uk. Einzelne Tool-Seiten können spezifischere Hinweise geben.",
-        summaryTitle:"Kurzfassung",
-        summary1Title:"Viele Tools laufen im Browser",
-        summary1Text:"JSON Formatting, Textvergleich, Passworterzeugung oder Image Resizing können lokal auf Ihrem Gerät stattfinden.",
-        summary2Title:"Einige Features brauchen Server",
-        summary2Text:"Wenn ein Tool gehostete Bilder, Dateien oder Remote-Ergebnisse erstellt, müssen relevante Daten an einen Service gesendet werden.",
-        summary3Title:"Analytics und Werbung können Cookies nutzen",
-        summary3Text:"Google Analytics und Werbedienste können Cookies oder ähnliche Technologien gemäß eigenen Richtlinien verwenden.",
-        section1Title:"1. Browserbasierte Tools",
-        section1P1:"Viele Seiten auf Mini-Tools.uk führen ihre Hauptaufgabe im Browser aus. Dazu gehören Textformatierung, JSON-Validierung, Textvergleich, Passworterzeugung, Token-Schätzung, Image Resizing oder Rechner.",
-        section1P2:"Wenn ein Tool so arbeitet, wird der eingegebene Inhalt normalerweise auf Ihrem Gerät verarbeitet und nicht für die Kernfunktion an einen Mini-Tools.uk App-Server hochgeladen.",
-        section1L1:"Lokale Verarbeitung bedeutet, dass die Hauptaufgabe im Browser stattfindet.",
-        section1L2:"Das bedeutet nicht, dass die gesamte Website offline funktioniert oder keine externen Assets lädt.",
-        section1L3:"Eine Seite kann weiterhin Skripte, Analytics, Icons, Bilder oder statische Assets laden.",
-        section2Title:"2. Seiten mit Remote-Services",
-        section2P1:"Einige Features funktionieren nur, wenn Daten an einen Remote-Service gesendet werden. Bildhosting oder Sharing muss Dateien hochladen, damit eine URL erstellt werden kann.",
-        section2P2:"Wenn ein Tool Remote-Services nutzt, sollte die Seite dies klar beschreiben.",
-        section2L1:"Upload-Seiten können Dateien oder Formulardaten an einen Remote-Endpunkt senden.",
-        section2L2:"Gehostete Ergebnisse können außerhalb der Browser-Sitzung verfügbar bleiben.",
-        section2L3:"Retention- oder Löschoptionen sollten auf der Tool-Seite erklärt werden.",
-        section3Title:"3. Analytics und Website-Daten",
-        section3P1:"Mini-Tools.uk verwendet Google Analytics, um allgemeine Nutzung zu verstehen, z. B. besuchte Seiten, Geräte, Browser und Navigation.",
-        section3P2:"Analytics ist getrennt von Inhalten, die in einem lokalen Browser-Tool verarbeitet werden.",
-        section3Box:"Google Analytics kann Cookies oder ähnliche Technologien nutzen. Google stellt eigene Datenschutzkontrollen und Richtlinien bereit.",
-        section4Title:"4. Werbung",
-        section4P1:"Einige Seiten können Werbung anzeigen. Werbepartner können Cookies oder ähnliche Technologien gemäß eigenen Richtlinien nutzen.",
-        section4P2:"Policy-, Kontakt- und Informationsseiten können je nach Design von Werbung getrennt bleiben.",
-        section5Title:"5. Local Storage und Browser Storage",
-        section5P1:"Einige Seiten nutzen Browser-Speicher wie localStorage für Sprache, Einstellungen, Werte oder UI-State.",
-        section5P2:"Browser-Speicher bleibt auf Ihrem Gerät, sofern eine Seite nicht ausdrücklich etwas als Remote-Feature sendet.",
-        section6Title:"6. Kontaktmails",
-        section6P1:"Wenn Sie Mini-Tools.uk per E-Mail kontaktieren, wird Ihre Nachricht Teil dieser E-Mail-Konversation. Senden Sie keine Passwörter, Zahlungsdaten oder hochsensible Informationen per E-Mail.",
-        contactBoxText:"Datenschutzfragen an:",
-        section7Title:"7. Drittanbieter-Links und Services",
-        section7P1:"Mini-Tools.uk kann zu externen Websites, Dokumentation, Libraries oder Services verlinken. Diese haben eigene Datenschutzpraktiken.",
-        section8Title:"8. Änderungen",
-        section8P1:"Diese Richtlinie kann aktualisiert werden, wenn Tools hinzugefügt, entfernt oder überarbeitet werden.",
-        faq1Q:"Laufen alle Tools lokal?",
-        faq1A:"Nein. Viele laufen lokal, aber Upload-, Hosting- oder Sharing-Features benötigen Remote-Verarbeitung.",
-        faq2Q:"Sammelt Mini-Tools.uk Inhalte aus lokalen Tools?",
-        faq2A:"Bei lokalen Browser-Tools findet die Hauptverarbeitung auf Ihrem Gerät statt. Analytics kann Seitenaufrufe messen, nicht die lokalen Inhalte.",
-        faq3Q:"Kann ich gespeicherte Einstellungen löschen?",
-        faq3A:"Ja. localStorage-Daten können normalerweise über Browser-Site-Data-Einstellungen gelöscht werden.",
-        sideCoversTitle:"Diese Richtlinie behandelt",
-        chip1:"Browser-Verarbeitung",
-        chip2:"Uploads",
-        chip3:"Analytics",
-        chip4:"Werbung",
-        sideImportantTitle:"Wichtige Punkte",
-        point1:"Lokale Tools und Upload-Tools verhalten sich unterschiedlich.",
-        point2:"Analytics misst allgemeine Seitennutzung.",
-        point3:"Werbepartner können eigene Technologien nutzen.",
-        point4:"Keine sensiblen Secrets per E-Mail senden.",
-        sidePagesTitle:"Verwandte Seiten",
-        relatedAbout:"Über uns",
-        relatedContact:"Kontakt",
-        relatedBlog:"Blog",
-        relatedTools:"Alle Tools",
-        sideLocalTitle:"Beispiele lokaler Tools",
-        localJson:"JSON Formatter",
-        localDiff:"Text Diff Checker",
-        localPassword:"Password Generator",
-        localImage:"Image Resizer"
-      },
-      fr: {
-        htmlLang:"fr",
-        langLabel:"Français",
-        title:"Politique de confidentialité | Mini-Tools.uk",
-        description:"Lisez la politique de confidentialité Mini-Tools.uk : traitement navigateur, uploads, analytics, publicité, localStorage, liens tiers et messages de contact.",
-        keywords:"Mini-Tools privacy policy, browser tools privacy, client side processing, file upload privacy, analytics policy, advertising policy",
-        skip:"Aller au contenu",
-        brandSubtitle:"Calculateurs pratiques et outils navigateur",
-        navHome:"Accueil",
-        navTools:"Tous les outils",
-        navCategories:"Catégories",
-        navBlog:"Blog",
-        navAbout:"À propos",
-        navContact:"Contact",
-        privacy:"Confidentialité",
-        catFinance:"Finance UK",
-        catFinanceSmall:"Impôt, VAT, prêt immobilier et contractor",
-        catDev:"Outils développeur",
-        catDevSmall:"JSON, diff, hébergement image et estimation tokens IA",
-        catImage:"Image & PDF",
-        catImageSmall:"Compression, conversion et médias",
-        catSecurity:"Sécurité",
-        catSecuritySmall:"Mot de passe et confidentialité",
-        badge:"Politique de confidentialité",
-        heroTitle:"Comment Mini-Tools.uk gère traitement navigateur, uploads et données du site.",
-        heroText:"Les outils fonctionnent différemment. Certains sont locaux dans le navigateur, d’autres utilisent un service distant.",
-        mini1Title:"Outils côté navigateur",
-        mini1Text:"Beaucoup de calculateurs et outils traitent la tâche principale localement.",
-        mini2Title:"Fonctions distantes",
-        mini2Text:"Uploads, fichiers hébergés ou liens partagés peuvent nécessiter un serveur.",
-        mini3Title:"Mesure du site",
-        mini3Text:"Analytics aide à comprendre l’usage général, séparément du traitement local.",
-        lastUpdatedLabel:"Dernière mise à jour :",
-        lastUpdatedDate:"8 mai 2026.",
-        introNote:"Cette politique décrit le comportement général de Mini-Tools.uk. Les pages d’outils peuvent fournir plus de détails.",
-        summaryTitle:"Résumé rapide",
-        summary1Title:"Beaucoup d’outils fonctionnent dans le navigateur",
-        summary1Text:"JSON, diff, password generator ou image resizer peuvent traiter localement sur votre appareil.",
-        summary2Title:"Certaines fonctions ont besoin de serveurs",
-        summary2Text:"Les images hébergées, fichiers partagés ou résultats distants nécessitent l’envoi des données au service.",
-        summary3Title:"Analytics et publicité peuvent utiliser des cookies",
-        summary3Text:"Google Analytics et services publicitaires peuvent utiliser cookies ou technologies similaires.",
-        section1Title:"1. Outils basés navigateur",
-        section1P1:"Beaucoup de pages Mini-Tools.uk exécutent la tâche principale dans le navigateur : formatage texte, validation JSON, diff, password generator, estimation tokens, image resizing ou calculateur.",
-        section1P2:"Dans ce cas, le contenu est normalement traité sur votre appareil et non envoyé au serveur Mini-Tools.uk pour l’opération principale.",
-        section1L1:"Le traitement local signifie que la tâche principale se fait dans le navigateur.",
-        section1L2:"Cela ne signifie pas que tout le site fonctionne hors ligne ni qu’aucun asset externe n’est chargé.",
-        section1L3:"Une page peut charger scripts, analytics, icônes, images ou assets statiques.",
-        section2Title:"2. Pages avec services distants",
-        section2P1:"Certaines fonctions ne peuvent pas fonctionner sans envoyer des données à un service distant, par exemple l’hébergement ou le partage d’image.",
-        section2P2:"Quand un outil dépend d’un service distant, la page doit le décrire clairement.",
-        section2L1:"Les pages d’upload peuvent envoyer fichiers ou données à un endpoint distant.",
-        section2L2:"Les résultats hébergés peuvent rester disponibles après la session navigateur.",
-        section2L3:"Les options de conservation ou suppression doivent être expliquées sur la page concernée.",
-        section3Title:"3. Analytics et données du site",
-        section3P1:"Mini-Tools.uk utilise Google Analytics pour comprendre l’usage général : pages visitées, appareils, navigateurs et navigation.",
-        section3P2:"Analytics est distinct du contenu traité dans un outil local.",
-        section3Box:"Google Analytics peut utiliser des cookies ou technologies similaires. Google fournit ses propres contrôles et politiques.",
-        section4Title:"4. Publicité",
-        section4P1:"Certaines pages peuvent afficher de la publicité. Les partenaires publicitaires peuvent utiliser cookies ou technologies similaires.",
-        section4P2:"Les pages policy, contact et information peuvent être séparées de la publicité selon leur design.",
-        section5Title:"5. Local storage et stockage navigateur",
-        section5P1:"Certaines pages utilisent localStorage pour mémoriser langue, paramètres, valeurs récentes ou état d’interface.",
-        section5P2:"Le stockage navigateur reste sur votre appareil sauf envoi explicite via une fonction distante.",
-        section6Title:"6. Messages de contact",
-        section6P1:"Si vous contactez Mini-Tools.uk par email, votre message fait partie de cette conversation. N’envoyez pas mots de passe, paiements ou informations très sensibles par email.",
-        contactBoxText:"Questions confidentialité :",
-        section7Title:"7. Liens et services tiers",
-        section7P1:"Mini-Tools.uk peut lier vers sites, docs, libraries ou services tiers. Ils ont leurs propres pratiques.",
-        section8Title:"8. Changements",
-        section8P1:"Cette politique peut évoluer quand des outils sont ajoutés, retirés ou réécrits.",
-        faq1Q:"Tous les outils sont-ils locaux ?",
-        faq1A:"Non. Beaucoup sont locaux, mais upload, hébergement ou partage peuvent demander un service distant.",
-        faq2Q:"Mini-Tools.uk collecte-t-il le contenu collé dans les outils locaux ?",
-        faq2A:"Pour les outils locaux, le traitement principal se fait sur votre appareil. Analytics peut mesurer les visites de page, pas le contenu local.",
-        faq3Q:"Puis-je effacer les préférences ?",
-        faq3A:"Oui. Les préférences localStorage peuvent généralement être effacées dans les paramètres du navigateur.",
-        sideCoversTitle:"Cette politique couvre",
-        chip1:"Traitement navigateur",
-        chip2:"Uploads",
-        chip3:"Analytics",
-        chip4:"Publicité",
-        sideImportantTitle:"Points importants",
-        point1:"Outils locaux et uploads fonctionnent différemment.",
-        point2:"Analytics mesure l’usage général des pages.",
-        point3:"Les partenaires publicitaires peuvent utiliser leurs technologies.",
-        point4:"N’envoyez pas de secrets sensibles par email.",
-        sidePagesTitle:"Pages liées",
-        relatedAbout:"À propos",
-        relatedContact:"Contact",
-        relatedBlog:"Blog",
-        relatedTools:"Tous les outils",
-        sideLocalTitle:"Exemples d’outils locaux",
-        localJson:"Formateur JSON",
-        localDiff:"Text diff checker",
-        localPassword:"Générateur mot de passe",
-        localImage:"Image resizer"
-      },
-      es: {
-        htmlLang:"es",
-        langLabel:"Español",
-        title:"Política de privacidad | Mini-Tools.uk",
-        description:"Lee la política de privacidad de Mini-Tools.uk sobre procesamiento en navegador, uploads, analytics, publicidad, localStorage, enlaces terceros y mensajes.",
-        keywords:"Mini-Tools privacy policy, browser tools privacy, client side processing, file upload privacy, analytics policy, advertising policy",
-        skip:"Saltar al contenido",
-        brandSubtitle:"Calculadoras prácticas y herramientas web",
-        navHome:"Inicio",
-        navTools:"Todas las herramientas",
-        navCategories:"Categorías",
-        navBlog:"Blog",
-        navAbout:"Acerca de",
-        navContact:"Contacto",
-        privacy:"Privacidad",
-        catFinance:"Finanzas UK",
-        catFinanceSmall:"Impuestos, VAT, hipoteca y contractor",
-        catDev:"Herramientas developer",
-        catDevSmall:"JSON, diff, hosting de imágenes y tokens IA",
-        catImage:"Imagen y PDF",
-        catImageSmall:"Compresión, conversión y medios",
-        catSecurity:"Seguridad",
-        catSecuritySmall:"Contraseñas y privacidad",
-        badge:"Política de privacidad",
-        heroTitle:"Cómo Mini-Tools.uk maneja procesamiento en navegador, uploads y datos básicos.",
-        heroText:"Las herramientas funcionan de formas distintas. Algunas son locales en el navegador y otras necesitan servicio remoto.",
-        mini1Title:"Herramientas en navegador",
-        mini1Text:"Muchas calculadoras y utilidades procesan la tarea principal localmente.",
-        mini2Title:"Funciones remotas",
-        mini2Text:"Uploads, archivos alojados o enlaces compartidos pueden requerir servidor.",
-        mini3Title:"Medición básica",
-        mini3Text:"Analytics ayuda a entender uso general, separado del procesamiento local.",
-        lastUpdatedLabel:"Última actualización:",
-        lastUpdatedDate:"8 de mayo de 2026.",
-        introNote:"Esta política describe el comportamiento general de Mini-Tools.uk. Cada herramienta puede dar más detalles.",
-        summaryTitle:"Resumen rápido",
-        summary1Title:"Muchas herramientas corren en el navegador",
-        summary1Text:"JSON, diff, password generator o image resizer pueden procesar localmente en tu dispositivo.",
-        summary2Title:"Algunas funciones necesitan servidores",
-        summary2Text:"Imágenes alojadas, archivos compartidos o resultados remotos requieren enviar datos al servicio.",
-        summary3Title:"Analytics y anuncios pueden usar cookies",
-        summary3Text:"Google Analytics y servicios de publicidad pueden usar cookies o tecnologías similares.",
-        section1Title:"1. Herramientas basadas en navegador",
-        section1P1:"Muchas páginas ejecutan su tarea principal en el navegador: formatear texto, validar JSON, comparar texto, generar contraseñas, estimar tokens, redimensionar imágenes o calcular.",
-        section1P2:"Cuando una herramienta funciona así, el contenido normalmente se procesa en tu dispositivo y no se sube al servidor de Mini-Tools.uk para la operación principal.",
-        section1L1:"Procesamiento local significa que la tarea principal sucede en el navegador.",
-        section1L2:"No significa que todo el sitio funcione offline ni que no cargue recursos externos.",
-        section1L3:"Una página puede cargar scripts, analytics, iconos, imágenes o assets estáticos.",
-        section2Title:"2. Páginas que usan servicios remotos",
-        section2P1:"Algunas funciones no pueden funcionar sin enviar datos a un servicio remoto, por ejemplo hosting o compartir imágenes.",
-        section2P2:"Cuando una herramienta depende de un servicio remoto, la página debe explicarlo claramente.",
-        section2L1:"Las páginas de upload pueden enviar archivos o formularios a un endpoint remoto.",
-        section2L2:"Los resultados alojados pueden seguir disponibles fuera de la sesión del navegador.",
-        section2L3:"Las opciones de retención o borrado deben explicarse en la página correspondiente.",
-        section3Title:"3. Analytics y datos del sitio",
-        section3P1:"Mini-Tools.uk usa Google Analytics para entender uso general: páginas visitadas, dispositivos, navegadores y navegación.",
-        section3P2:"Analytics está separado del contenido procesado dentro de una herramienta local.",
-        section3Box:"Google Analytics puede usar cookies o tecnologías similares. Google ofrece sus propios controles y políticas.",
-        section4Title:"4. Publicidad",
-        section4P1:"Algunas páginas pueden mostrar publicidad. Los partners publicitarios pueden usar cookies o tecnologías similares.",
-        section4P2:"Las páginas de policy, contacto e información pueden separarse de publicidad según el diseño.",
-        section5Title:"5. Local storage y almacenamiento del navegador",
-        section5P1:"Algunas páginas usan localStorage para recordar idioma, ajustes, valores recientes o estado de interfaz.",
-        section5P2:"El almacenamiento del navegador queda en tu dispositivo salvo envío explícito por una función remota.",
-        section6Title:"6. Mensajes de contacto",
-        section6P1:"Si contactas por email, la información enviada forma parte de esa conversación. No envíes contraseñas, pagos o datos muy sensibles por email.",
-        contactBoxText:"Preguntas de privacidad:",
-        section7Title:"7. Enlaces y servicios terceros",
-        section7P1:"Mini-Tools.uk puede enlazar a sitios, documentación, librerías o servicios terceros. Tienen sus propias prácticas.",
-        section8Title:"8. Cambios",
-        section8P1:"Esta política puede actualizarse cuando se añadan, eliminen o reescriban herramientas.",
-        faq1Q:"¿Todas las herramientas son locales?",
-        faq1A:"No. Muchas son locales, pero uploads, hosting o compartir pueden necesitar procesamiento remoto.",
-        faq2Q:"¿Mini-Tools.uk recoge el contenido pegado en herramientas locales?",
-        faq2A:"En herramientas locales, el procesamiento principal ocurre en tu dispositivo. Analytics puede medir visitas de página, no el contenido local.",
-        faq3Q:"¿Puedo borrar preferencias guardadas?",
-        faq3A:"Sí. localStorage normalmente puede borrarse desde los ajustes de datos del sitio del navegador.",
-        sideCoversTitle:"Esta política cubre",
-        chip1:"Procesamiento navegador",
-        chip2:"Uploads",
-        chip3:"Analytics",
-        chip4:"Publicidad",
-        sideImportantTitle:"Puntos importantes",
-        point1:"Herramientas locales y uploads se comportan distinto.",
-        point2:"Analytics mide uso general de páginas.",
-        point3:"Partners publicitarios pueden usar sus tecnologías.",
-        point4:"No envíes secretos sensibles por email.",
-        sidePagesTitle:"Páginas relacionadas",
-        relatedAbout:"Acerca de",
-        relatedContact:"Contacto",
-        relatedBlog:"Blog",
-        relatedTools:"Todas las herramientas",
-        sideLocalTitle:"Ejemplos de herramientas locales",
-        localJson:"Formateador JSON",
-        localDiff:"Text diff checker",
-        localPassword:"Generador contraseñas",
-        localImage:"Image resizer"
-      }
+      en:{htmlLang:"en-GB",langLabel:"English",locale:"en-GB",title:"Privacy Policy | Mini-Tools.uk Browser Tools and Calculators",description:"Read the Mini-Tools.uk privacy policy to understand browser-side processing, file uploads, analytics, advertising, local storage, third-party links and contact messages.",skip:"Skip to content",brandSubtitle:"Practical calculators and browser tools",navHome:"Home",navTools:"All Tools",navCategories:"Categories",navBlog:"Blog",navAbout:"About",navContact:"Contact",privacy:"Privacy",catFinance:"UK Finance",catFinanceSmall:"Tax, VAT, mortgage and contractor tools",catDev:"Developer Tools",catDevSmall:"JSON, diff, image hosting and AI token estimation",catImage:"Image & PDF",catImageSmall:"Compression, conversion and media utilities",catSecurity:"Security",catSecuritySmall:"Password and privacy helpers",badge:"Privacy Policy",heroTitle:"How Mini-Tools.uk handles browser processing, uploads and basic site data.",heroText:"Different tools on this site work in different ways. Some run locally in your browser, while some features need a remote service. This policy explains those differences in plain language.",mini1Title:"Browser-side tools",mini1Text:"Many calculators and utilities process the main task locally in your browser.",mini2Title:"Remote-service features",mini2Text:"Uploads, hosted files or shared links may require data to be sent to a server.",mini3Title:"Basic site measurement",mini3Text:"Analytics helps understand broad site usage, separate from local tool processing.",lastUpdatedLabel:"Last updated:",lastUpdatedDate:"May 8, 2026.",introNote:"This policy describes the general behaviour of Mini-Tools.uk. Individual tool pages may provide more specific explanations for their own processing and storage behaviour.",summaryTitle:"Quick summary",summary1Title:"Many tools run in the browser",summary1Text:"For tools such as JSON formatting, text comparison, password generation or image resizing, the main processing may happen on your device.",summary2Title:"Some features need servers",summary2Text:"If a tool creates a hosted image, shared file or remote result, the relevant data must be sent to a service so the feature can work.",summary3Title:"Analytics and advertising may use cookies",summary3Text:"Google Analytics and advertising services may use cookies or similar technologies according to their own policies and settings.",section1Title:"1. Browser-based tools",section1P1:"Many pages on Mini-Tools.uk are designed to run their main task in the browser. This can include formatting text, validating JSON, comparing two blocks of text, generating a password, estimating tokens, resizing an image or running a calculator.",section1P2:"When a tool works this way, the content you enter for that tool is normally processed on your device rather than uploaded to a Mini-Tools.uk application server for the core operation.",section1L1:"Local processing means the main task happens in the browser.",section1L2:"It does not mean the whole website works offline or that no external assets are loaded.",section1L3:"A page may still load scripts, analytics, icons, images or other static assets.",section2Title:"2. Pages that use remote services",section2P1:"Some features cannot work without sending data to a remote service. For example, an image-hosting or sharing feature needs to upload a file so a hosted URL can be created.",section2P2:"When a tool depends on a remote service, the page should describe that behaviour clearly rather than presenting itself as local-only.",section2L1:"Upload pages may send files or form data to a remote endpoint.",section2L2:"Hosted results may remain available outside your browser session.",section2L3:"Retention or deletion options, when available, should be explained on the relevant tool page.",section3Title:"3. Analytics and basic website data",section3P1:"Mini-Tools.uk uses Google Analytics to understand broad site usage, such as which pages are visited, what devices or browsers are commonly used, and how visitors move around the site.",section3P2:"Analytics is separate from the content you may process inside a local browser tool. For example, using a local JSON formatter and visiting a page are different kinds of activity.",section3Box:"Google Analytics may use cookies or similar technologies. Google provides its own privacy controls and policies for analytics-related data.",section4Title:"4. Advertising",section4P1:"Some pages on Mini-Tools.uk may display advertising. Advertising partners may use cookies or similar technologies to show, measure or manage ads according to their own policies.",section4P2:"Policy, contact and informational pages may be kept separate from advertising depending on the page design. Advertising does not change the local or remote processing behaviour of individual tools.",section5Title:"5. Local storage and browser storage",section5P1:"Some pages may use browser storage, such as localStorage, to remember preferences like language, tool settings, recent values or interface state.",section5P2:"Browser storage stays on your device unless a page explicitly sends something elsewhere as part of a remote feature.",section6Title:"6. Contact messages",section6P1:"If you contact Mini-Tools.uk by email, the information you send becomes part of that email conversation. Please avoid sending passwords, payment information or highly sensitive personal information through email.",contactBoxText:"Privacy questions can be sent to:",section7Title:"7. Third-party links and services",section7P1:"Mini-Tools.uk may link to third-party websites, documentation, libraries or services. Those websites and services have their own privacy practices. Mini-Tools.uk does not control third-party websites.",section8Title:"8. Changes to this policy",section8P1:"This policy may be updated as the site adds, removes or rewrites tools. The aim is to keep the wording aligned with how the tools actually work.",faq1Q:"Do all tools run locally?",faq1A:"No. Many tools run locally, but upload, hosting or sharing features may need remote processing. Check the tool page for specific behaviour.",faq2Q:"Does Mini-Tools.uk collect the content I paste into local tools?",faq2A:"For tools described as local browser tools, the main processing happens on your device. Analytics may still record page-level usage, not the actual local content you process.",faq3Q:"Can I clear stored preferences?",faq3A:"Yes. Browser preferences stored with localStorage can usually be cleared through your browser site data settings.",sideCoversTitle:"This policy covers",chip1:"Browser processing",chip2:"Uploads",chip3:"Analytics",chip4:"Advertising",sideImportantTitle:"Important points",point1:"Local tools and upload tools behave differently.",point2:"Analytics is used for broad page-level measurement.",point3:"Advertising partners may use their own technologies.",point4:"Do not send sensitive secrets by email.",sidePagesTitle:"Related pages",relatedAbout:"About",relatedContact:"Contact",relatedBlog:"Blog",relatedTools:"All tools",sideLocalTitle:"Examples of local tools",localJson:"JSON formatter",localDiff:"Text diff checker",localPassword:"Password generator",localImage:"Image resizer"},
+      "zh-CN":{htmlLang:"zh-CN",langLabel:"中文",locale:"zh-CN",title:"隐私政策｜Mini-Tools.uk 浏览器工具和计算器",description:"阅读 Mini-Tools.uk 隐私政策，了解浏览器本地处理、文件上传、分析工具、广告、localStorage、第三方链接和联系邮件的处理方式。",skip:"跳到正文",brandSubtitle:"实用计算器和浏览器工具",navHome:"首页",navTools:"全部工具",navCategories:"分类",navBlog:"博客",navAbout:"关于",navContact:"联系",privacy:"隐私政策",catFinance:"英国财务工具",catFinanceSmall:"个税、VAT、房贷和承包商工具",catDev:"开发者工具",catDevSmall:"JSON、文本对比、图床和 AI Token 估算",catImage:"图片与 PDF",catImageSmall:"压缩、转换和媒体工具",catSecurity:"安全工具",catSecuritySmall:"密码和隐私相关工具",badge:"隐私政策",heroTitle:"Mini-Tools.uk 如何处理浏览器本地处理、上传和基础网站数据。",heroText:"本站不同工具的工作方式不同。有些工具在浏览器本地运行，有些功能需要远程服务。本隐私政策用直白语言说明这些区别。",mini1Title:"浏览器本地工具",mini1Text:"许多计算器和工具会在你的浏览器中完成主要处理。",mini2Title:"远程服务功能",mini2Text:"上传、托管文件或分享链接可能需要把相关数据发送到服务器。",mini3Title:"基础网站统计",mini3Text:"分析工具用于了解整体网站使用情况，和本地工具处理内容是不同概念。",lastUpdatedLabel:"最后更新：",lastUpdatedDate:"2026 年 5 月 8 日。",introNote:"本政策说明 Mini-Tools.uk 的一般行为。具体工具页面可能会对自身的数据处理和存储方式提供更具体说明。",summaryTitle:"快速摘要",summary1Title:"很多工具在浏览器中运行",summary1Text:"例如 JSON 格式化、文本对比、密码生成或图片尺寸调整，主要处理可能发生在你的设备上。",summary2Title:"有些功能需要服务器",summary2Text:"如果工具要创建托管图片、分享文件或远程结果，相关数据必须发送到服务端才能实现该功能。",summary3Title:"分析和广告可能使用 cookie",summary3Text:"Google Analytics 和广告服务可能根据各自政策和设置使用 cookie 或类似技术。",section1Title:"1. 浏览器本地工具",section1P1:"Mini-Tools.uk 上很多页面的主要任务设计为在浏览器中运行。这可能包括格式化文本、校验 JSON、比较两段文本、生成密码、估算 token、调整图片尺寸或运行计算器。",section1P2:"当工具以这种方式工作时，你输入到该工具中的内容通常会在你的设备上处理，而不是为了核心操作上传到 Mini-Tools.uk 的应用服务器。",section1L1:"本地处理意味着主要任务发生在浏览器中。",section1L2:"这不代表整个网站可以离线使用，也不代表不会加载任何外部资源。",section1L3:"页面仍可能加载脚本、分析工具、图标、图片或其他静态资源。",section2Title:"2. 使用远程服务的页面",section2P1:"有些功能不发送数据到远程服务就无法工作。例如图床或分享功能需要上传文件，才能创建可访问的托管链接。",section2P2:"当工具依赖远程服务时，页面应该清楚说明这种行为，而不是把自己描述成完全本地工具。",section2L1:"上传页面可能会把文件或表单数据发送到远程接口。",section2L2:"托管结果可能会在浏览器会话之外继续存在。",section2L3:"如果有保留时间或删除选项，应在相关工具页面说明。",section3Title:"3. 分析工具和基础网站数据",section3P1:"Mini-Tools.uk 使用 Google Analytics 来了解整体网站使用情况，例如访问了哪些页面、常用设备或浏览器，以及用户如何在网站中浏览。",section3P2:"分析数据和你在本地浏览器工具中处理的内容是不同的。例如，访问某个页面和在本地 JSON 工具中处理内容，是两类不同活动。",section3Box:"Google Analytics 可能使用 cookie 或类似技术。Google 为相关数据提供自己的隐私控制和政策。",section4Title:"4. 广告",section4P1:"Mini-Tools.uk 的部分页面可能展示广告。广告合作方可能根据自身政策使用 cookie 或类似技术来展示、衡量或管理广告。",section4P2:"隐私、联系和信息类页面是否展示广告，取决于具体页面设计。广告不会改变单个工具的本地或远程处理方式。",section5Title:"5. 本地存储和浏览器存储",section5P1:"部分页面可能使用浏览器存储，例如 localStorage，用来记住语言、工具设置、最近输入值或界面状态。",section5P2:"浏览器存储会保留在你的设备上，除非某个页面作为远程功能的一部分明确发送了相关内容。",section6Title:"6. 联系邮件",section6P1:"如果你通过邮件联系 Mini-Tools.uk，你发送的信息会成为该邮件对话的一部分。请不要通过邮件发送密码、支付信息或高度敏感的个人信息。",contactBoxText:"隐私相关问题可发送至：",section7Title:"7. 第三方链接和服务",section7P1:"Mini-Tools.uk 可能链接到第三方网站、文档、库或服务。这些网站和服务有自己的隐私做法，Mini-Tools.uk 无法控制第三方网站。",section8Title:"8. 政策变更",section8P1:"随着网站新增、删除或重写工具，本政策可能会更新。目标是让政策文字和工具实际工作方式保持一致。",faq1Q:"所有工具都在本地运行吗？",faq1A:"不是。很多工具会本地运行，但上传、托管或分享功能可能需要远程处理。请查看具体工具页面的说明。",faq2Q:"Mini-Tools.uk 会收集我粘贴到本地工具里的内容吗？",faq2A:"对于标明为浏览器本地工具的页面，主要处理发生在你的设备上。分析工具仍可能记录页面级别使用情况，但不是你本地处理的实际内容。",faq3Q:"我可以清除已保存的偏好吗？",faq3A:"可以。通过 localStorage 保存的浏览器偏好通常可以在浏览器的网站数据设置中清除。",sideCoversTitle:"本政策覆盖",chip1:"浏览器处理",chip2:"上传",chip3:"分析工具",chip4:"广告",sideImportantTitle:"重点说明",point1:"本地工具和上传工具行为不同。",point2:"分析工具用于整体页面级别统计。",point3:"广告合作方可能使用自己的技术。",point4:"不要通过邮件发送敏感密钥或密码。",sidePagesTitle:"相关页面",relatedAbout:"关于",relatedContact:"联系",relatedBlog:"博客",relatedTools:"全部工具",sideLocalTitle:"本地工具示例",localJson:"JSON 格式化工具",localDiff:"文本对比工具",localPassword:"密码生成器",localImage:"图片尺寸调整工具"},
+      de:{htmlLang:"de",langLabel:"Deutsch",locale:"de-DE",title:"Datenschutzerklärung | Mini-Tools.uk Browser Tools und Rechner",description:"Lesen Sie die Mini-Tools.uk Datenschutzerklärung zu Browser-Verarbeitung, Uploads, Analytics, Werbung, localStorage, Drittlinks und Kontaktmails.",skip:"Zum Inhalt springen",brandSubtitle:"Praktische Rechner und Browser-Tools",navHome:"Startseite",navTools:"Alle Tools",navCategories:"Kategorien",navBlog:"Blog",navAbout:"Über uns",navContact:"Kontakt",privacy:"Datenschutz",catFinance:"UK Finanzen",catFinanceSmall:"Steuer, VAT, Hypothek und Contractor-Tools",catDev:"Developer Tools",catDevSmall:"JSON, Diff, Bildhosting und AI-Token-Schätzung",catImage:"Bild & PDF",catImageSmall:"Komprimierung, Konvertierung und Medien",catSecurity:"Sicherheit",catSecuritySmall:"Passwort- und Datenschutzhelfer",badge:"Datenschutzerklärung",heroTitle:"Wie Mini-Tools.uk Browser-Verarbeitung, Uploads und Website-Daten behandelt.",heroText:"Verschiedene Tools funktionieren unterschiedlich. Einige laufen lokal im Browser, andere benötigen Remote-Services. Diese Richtlinie erklärt die Unterschiede.",mini1Title:"Browserseitige Tools",mini1Text:"Viele Rechner und Utilities verarbeiten die Hauptaufgabe lokal im Browser.",mini2Title:"Remote-Service Features",mini2Text:"Uploads, gehostete Dateien oder Share-Links können Server-Verarbeitung benötigen.",mini3Title:"Basis-Messung",mini3Text:"Analytics hilft, allgemeine Nutzung zu verstehen, getrennt von lokaler Tool-Verarbeitung.",lastUpdatedLabel:"Zuletzt aktualisiert:",lastUpdatedDate:"8. Mai 2026.",introNote:"Diese Richtlinie beschreibt das allgemeine Verhalten von Mini-Tools.uk. Einzelne Tool-Seiten können spezifischere Hinweise geben.",summaryTitle:"Kurzfassung",summary1Title:"Viele Tools laufen im Browser",summary1Text:"JSON Formatting, Textvergleich, Passworterzeugung oder Image Resizing können lokal auf Ihrem Gerät stattfinden.",summary2Title:"Einige Features brauchen Server",summary2Text:"Wenn ein Tool gehostete Bilder, Dateien oder Remote-Ergebnisse erstellt, müssen relevante Daten an einen Service gesendet werden.",summary3Title:"Analytics und Werbung können Cookies nutzen",summary3Text:"Google Analytics und Werbedienste können Cookies oder ähnliche Technologien gemäß eigenen Richtlinien verwenden.",section1Title:"1. Browserbasierte Tools",section1P1:"Viele Seiten auf Mini-Tools.uk führen ihre Hauptaufgabe im Browser aus. Dazu gehören Textformatierung, JSON-Validierung, Textvergleich, Passworterzeugung, Token-Schätzung, Image Resizing oder Rechner.",section1P2:"Wenn ein Tool so arbeitet, wird der eingegebene Inhalt normalerweise auf Ihrem Gerät verarbeitet und nicht für die Kernfunktion an einen Mini-Tools.uk App-Server hochgeladen.",section1L1:"Lokale Verarbeitung bedeutet, dass die Hauptaufgabe im Browser stattfindet.",section1L2:"Das bedeutet nicht, dass die gesamte Website offline funktioniert oder keine externen Assets lädt.",section1L3:"Eine Seite kann weiterhin Skripte, Analytics, Icons, Bilder oder statische Assets laden.",section2Title:"2. Seiten mit Remote-Services",section2P1:"Einige Features funktionieren nur, wenn Daten an einen Remote-Service gesendet werden. Bildhosting oder Sharing muss Dateien hochladen, damit eine URL erstellt werden kann.",section2P2:"Wenn ein Tool Remote-Services nutzt, sollte die Seite dies klar beschreiben.",section2L1:"Upload-Seiten können Dateien oder Formulardaten an einen Remote-Endpunkt senden.",section2L2:"Gehostete Ergebnisse können außerhalb der Browser-Sitzung verfügbar bleiben.",section2L3:"Retention- oder Löschoptionen sollten auf der Tool-Seite erklärt werden.",section3Title:"3. Analytics und Website-Daten",section3P1:"Mini-Tools.uk verwendet Google Analytics, um allgemeine Nutzung zu verstehen, z. B. besuchte Seiten, Geräte, Browser und Navigation.",section3P2:"Analytics ist getrennt von Inhalten, die in einem lokalen Browser-Tool verarbeitet werden.",section3Box:"Google Analytics kann Cookies oder ähnliche Technologien nutzen. Google stellt eigene Datenschutzkontrollen und Richtlinien bereit.",section4Title:"4. Werbung",section4P1:"Einige Seiten können Werbung anzeigen. Werbepartner können Cookies oder ähnliche Technologien gemäß eigenen Richtlinien nutzen.",section4P2:"Policy-, Kontakt- und Informationsseiten können je nach Design von Werbung getrennt bleiben.",section5Title:"5. Local Storage und Browser Storage",section5P1:"Einige Seiten nutzen Browser-Speicher wie localStorage für Sprache, Einstellungen, Werte oder UI-State.",section5P2:"Browser-Speicher bleibt auf Ihrem Gerät, sofern eine Seite nicht ausdrücklich etwas als Remote-Feature sendet.",section6Title:"6. Kontaktmails",section6P1:"Wenn Sie Mini-Tools.uk per E-Mail kontaktieren, wird Ihre Nachricht Teil dieser E-Mail-Konversation. Senden Sie keine Passwörter, Zahlungsdaten oder hochsensible Informationen per E-Mail.",contactBoxText:"Datenschutzfragen an:",section7Title:"7. Drittanbieter-Links und Services",section7P1:"Mini-Tools.uk kann zu externen Websites, Dokumentation, Libraries oder Services verlinken. Diese haben eigene Datenschutzpraktiken.",section8Title:"8. Änderungen",section8P1:"Diese Richtlinie kann aktualisiert werden, wenn Tools hinzugefügt, entfernt oder überarbeitet werden.",faq1Q:"Laufen alle Tools lokal?",faq1A:"Nein. Viele laufen lokal, aber Upload-, Hosting- oder Sharing-Features benötigen Remote-Verarbeitung.",faq2Q:"Sammelt Mini-Tools.uk Inhalte aus lokalen Tools?",faq2A:"Bei lokalen Browser-Tools findet die Hauptverarbeitung auf Ihrem Gerät statt. Analytics kann Seitenaufrufe messen, nicht die lokalen Inhalte.",faq3Q:"Kann ich gespeicherte Einstellungen löschen?",faq3A:"Ja. localStorage-Daten können normalerweise über Browser-Site-Data-Einstellungen gelöscht werden.",sideCoversTitle:"Diese Richtlinie behandelt",chip1:"Browser-Verarbeitung",chip2:"Uploads",chip3:"Analytics",chip4:"Werbung",sideImportantTitle:"Wichtige Punkte",point1:"Lokale Tools und Upload-Tools verhalten sich unterschiedlich.",point2:"Analytics misst allgemeine Seitennutzung.",point3:"Werbepartner können eigene Technologien nutzen.",point4:"Keine sensiblen Secrets per E-Mail senden.",sidePagesTitle:"Verwandte Seiten",relatedAbout:"Über uns",relatedContact:"Kontakt",relatedBlog:"Blog",relatedTools:"Alle Tools",sideLocalTitle:"Beispiele lokaler Tools",localJson:"JSON Formatter",localDiff:"Text Diff Checker",localPassword:"Password Generator",localImage:"Image Resizer"},
+      fr:{htmlLang:"fr",langLabel:"Français",locale:"fr-FR",title:"Politique de confidentialité | Mini-Tools.uk",description:"Lisez la politique de confidentialité Mini-Tools.uk : traitement navigateur, uploads, analytics, publicité, localStorage, liens tiers et messages de contact.",skip:"Aller au contenu",brandSubtitle:"Calculateurs pratiques et outils navigateur",navHome:"Accueil",navTools:"Tous les outils",navCategories:"Catégories",navBlog:"Blog",navAbout:"À propos",navContact:"Contact",privacy:"Confidentialité",catFinance:"Finance UK",catFinanceSmall:"Impôt, VAT, prêt immobilier et contractor",catDev:"Outils développeur",catDevSmall:"JSON, diff, hébergement image et estimation tokens IA",catImage:"Image & PDF",catImageSmall:"Compression, conversion et médias",catSecurity:"Sécurité",catSecuritySmall:"Mot de passe et confidentialité",badge:"Politique de confidentialité",heroTitle:"Comment Mini-Tools.uk gère traitement navigateur, uploads et données du site.",heroText:"Les outils fonctionnent différemment. Certains sont locaux dans le navigateur, d’autres utilisent un service distant.",mini1Title:"Outils côté navigateur",mini1Text:"Beaucoup de calculateurs et outils traitent la tâche principale localement.",mini2Title:"Fonctions distantes",mini2Text:"Uploads, fichiers hébergés ou liens partagés peuvent nécessiter un serveur.",mini3Title:"Mesure du site",mini3Text:"Analytics aide à comprendre l’usage général, séparément du traitement local.",lastUpdatedLabel:"Dernière mise à jour :",lastUpdatedDate:"8 mai 2026.",introNote:"Cette politique décrit le comportement général de Mini-Tools.uk. Les pages d’outils peuvent fournir plus de détails.",summaryTitle:"Résumé rapide",summary1Title:"Beaucoup d’outils fonctionnent dans le navigateur",summary1Text:"JSON, diff, password generator ou image resizer peuvent traiter localement sur votre appareil.",summary2Title:"Certaines fonctions ont besoin de serveurs",summary2Text:"Les images hébergées, fichiers partagés ou résultats distants nécessitent l’envoi des données au service.",summary3Title:"Analytics et publicité peuvent utiliser des cookies",summary3Text:"Google Analytics et services publicitaires peuvent utiliser cookies ou technologies similaires.",section1Title:"1. Outils basés navigateur",section1P1:"Beaucoup de pages Mini-Tools.uk exécutent la tâche principale dans le navigateur : formatage texte, validation JSON, diff, password generator, estimation tokens, image resizing ou calculateur.",section1P2:"Dans ce cas, le contenu est normalement traité sur votre appareil et non envoyé au serveur Mini-Tools.uk pour l’opération principale.",section1L1:"Le traitement local signifie que la tâche principale se fait dans le navigateur.",section1L2:"Cela ne signifie pas que tout le site fonctionne hors ligne ni qu’aucun asset externe n’est chargé.",section1L3:"Une page peut charger scripts, analytics, icônes, images ou assets statiques.",section2Title:"2. Pages avec services distants",section2P1:"Certaines fonctions ne peuvent pas fonctionner sans envoyer des données à un service distant, par exemple l’hébergement ou le partage d’image.",section2P2:"Quand un outil dépend d’un service distant, la page doit le décrire clairement.",section2L1:"Les pages d’upload peuvent envoyer fichiers ou données à un endpoint distant.",section2L2:"Les résultats hébergés peuvent rester disponibles après la session navigateur.",section2L3:"Les options de conservation ou suppression doivent être expliquées sur la page concernée.",section3Title:"3. Analytics et données du site",section3P1:"Mini-Tools.uk utilise Google Analytics pour comprendre l’usage général : pages visitées, appareils, navigateurs et navigation.",section3P2:"Analytics est distinct du contenu traité dans un outil local.",section3Box:"Google Analytics peut utiliser des cookies ou technologies similaires. Google fournit ses propres contrôles et politiques.",section4Title:"4. Publicité",section4P1:"Certaines pages peuvent afficher de la publicité. Les partenaires publicitaires peuvent utiliser cookies ou technologies similaires.",section4P2:"Les pages policy, contact et information peuvent être séparées de la publicité selon leur design.",section5Title:"5. Local storage et stockage navigateur",section5P1:"Certaines pages utilisent localStorage pour mémoriser langue, paramètres, valeurs récentes ou état d’interface.",section5P2:"Le stockage navigateur reste sur votre appareil sauf envoi explicite via une fonction distante.",section6Title:"6. Messages de contact",section6P1:"Si vous contactez Mini-Tools.uk par email, votre message fait partie de cette conversation. N’envoyez pas mots de passe, paiements ou informations très sensibles par email.",contactBoxText:"Questions confidentialité :",section7Title:"7. Liens et services tiers",section7P1:"Mini-Tools.uk peut lier vers sites, docs, libraries ou services tiers. Ils ont leurs propres pratiques.",section8Title:"8. Changements",section8P1:"Cette politique peut évoluer quand des outils sont ajoutés, retirés ou réécrits.",faq1Q:"Tous les outils sont-ils locaux ?",faq1A:"Non. Beaucoup sont locaux, mais upload, hébergement ou partage peuvent demander un service distant.",faq2Q:"Mini-Tools.uk collecte-t-il le contenu collé dans les outils locaux ?",faq2A:"Pour les outils locaux, le traitement principal se fait sur votre appareil. Analytics peut mesurer les visites de page, pas le contenu local.",faq3Q:"Puis-je effacer les préférences ?",faq3A:"Oui. Les préférences localStorage peuvent généralement être effacées dans les paramètres du navigateur.",sideCoversTitle:"Cette politique couvre",chip1:"Traitement navigateur",chip2:"Uploads",chip3:"Analytics",chip4:"Publicité",sideImportantTitle:"Points importants",point1:"Outils locaux et uploads fonctionnent différemment.",point2:"Analytics mesure l’usage général des pages.",point3:"Les partenaires publicitaires peuvent utiliser leurs technologies.",point4:"N’envoyez pas de secrets sensibles par email.",sidePagesTitle:"Pages liées",relatedAbout:"À propos",relatedContact:"Contact",relatedBlog:"Blog",relatedTools:"Tous les outils",sideLocalTitle:"Exemples d’outils locaux",localJson:"Formateur JSON",localDiff:"Text diff checker",localPassword:"Générateur mot de passe",localImage:"Image resizer"},
+      es:{htmlLang:"es",langLabel:"Español",locale:"es-ES",title:"Política de privacidad | Mini-Tools.uk",description:"Lee la política de privacidad de Mini-Tools.uk sobre procesamiento en navegador, uploads, analytics, publicidad, localStorage, enlaces terceros y mensajes.",skip:"Saltar al contenido",brandSubtitle:"Calculadoras prácticas y herramientas web",navHome:"Inicio",navTools:"Todas las herramientas",navCategories:"Categorías",navBlog:"Blog",navAbout:"Acerca de",navContact:"Contacto",privacy:"Privacidad",catFinance:"Finanzas UK",catFinanceSmall:"Impuestos, VAT, hipoteca y contractor",catDev:"Herramientas developer",catDevSmall:"JSON, diff, hosting de imágenes y tokens IA",catImage:"Imagen y PDF",catImageSmall:"Compresión, conversión y medios",catSecurity:"Seguridad",catSecuritySmall:"Contraseñas y privacidad",badge:"Política de privacidad",heroTitle:"Cómo Mini-Tools.uk maneja procesamiento en navegador, uploads y datos básicos.",heroText:"Las herramientas funcionan de formas distintas. Algunas son locales en el navegador y otras necesitan servicio remoto.",mini1Title:"Herramientas en navegador",mini1Text:"Muchas calculadoras y utilidades procesan la tarea principal localmente.",mini2Title:"Funciones remotas",mini2Text:"Uploads, archivos alojados o enlaces compartidos pueden requerir servidor.",mini3Title:"Medición básica",mini3Text:"Analytics ayuda a entender uso general, separado del procesamiento local.",lastUpdatedLabel:"Última actualización:",lastUpdatedDate:"8 de mayo de 2026.",introNote:"Esta política describe el comportamiento general de Mini-Tools.uk. Cada herramienta puede dar más detalles.",summaryTitle:"Resumen rápido",summary1Title:"Muchas herramientas corren en el navegador",summary1Text:"JSON, diff, password generator o image resizer pueden procesar localmente en tu dispositivo.",summary2Title:"Algunas funciones necesitan servidores",summary2Text:"Imágenes alojadas, archivos compartidos o resultados remotos requieren enviar datos al servicio.",summary3Title:"Analytics y anuncios pueden usar cookies",summary3Text:"Google Analytics y servicios de publicidad pueden usar cookies o tecnologías similares.",section1Title:"1. Herramientas basadas en navegador",section1P1:"Muchas páginas ejecutan su tarea principal en el navegador: formatear texto, validar JSON, comparar texto, generar contraseñas, estimar tokens, redimensionar imágenes o calcular.",section1P2:"Cuando una herramienta funciona así, el contenido normalmente se procesa en tu dispositivo y no se sube al servidor de Mini-Tools.uk para la operación principal.",section1L1:"Procesamiento local significa que la tarea principal sucede en el navegador.",section1L2:"No significa que todo el sitio funcione offline ni que no cargue recursos externos.",section1L3:"Una página puede cargar scripts, analytics, iconos, imágenes o assets estáticos.",section2Title:"2. Páginas que usan servicios remotos",section2P1:"Algunas funciones no pueden funcionar sin enviar datos a un servicio remoto, por ejemplo hosting o compartir imágenes.",section2P2:"Cuando una herramienta depende de un servicio remoto, la página debe explicarlo claramente.",section2L1:"Las páginas de upload pueden enviar archivos o formularios a un endpoint remoto.",section2L2:"Los resultados alojados pueden seguir disponibles fuera de la sesión del navegador.",section2L3:"Las opciones de retención o borrado deben explicarse en la página correspondiente.",section3Title:"3. Analytics y datos del sitio",section3P1:"Mini-Tools.uk usa Google Analytics para entender uso general: páginas visitadas, dispositivos, navegadores y navegación.",section3P2:"Analytics está separado del contenido procesado dentro de una herramienta local.",section3Box:"Google Analytics puede usar cookies o tecnologías similares. Google ofrece sus propios controles y políticas.",section4Title:"4. Publicidad",section4P1:"Algunas páginas pueden mostrar publicidad. Los partners publicitarios pueden usar cookies o tecnologías similares.",section4P2:"Las páginas de policy, contacto e información pueden separarse de publicidad según el diseño.",section5Title:"5. Local storage y almacenamiento del navegador",section5P1:"Algunas páginas usan localStorage para recordar idioma, ajustes, valores recientes o estado de interfaz.",section5P2:"El almacenamiento del navegador queda en tu dispositivo salvo envío explícito por una función remota.",section6Title:"6. Mensajes de contacto",section6P1:"Si contactas por email, la información enviada forma parte de esa conversación. No envíes contraseñas, pagos o datos muy sensibles por email.",contactBoxText:"Preguntas de privacidad:",section7Title:"7. Enlaces y servicios terceros",section7P1:"Mini-Tools.uk puede enlazar a sitios, documentación, librerías o servicios terceros. Tienen sus propias prácticas.",section8Title:"8. Cambios",section8P1:"Esta política puede actualizarse cuando se añadan, eliminen o reescriban herramientas.",faq1Q:"¿Todas las herramientas son locales?",faq1A:"No. Muchas son locales, pero uploads, hosting o compartir pueden necesitar procesamiento remoto.",faq2Q:"¿Mini-Tools.uk recoge el contenido pegado en herramientas locales?",faq2A:"En herramientas locales, el procesamiento principal ocurre en tu dispositivo. Analytics puede medir visitas de página, no el contenido local.",faq3Q:"¿Puedo borrar preferencias guardadas?",faq3A:"Sí. localStorage normalmente puede borrarse desde los ajustes de datos del sitio del navegador.",sideCoversTitle:"Esta política cubre",chip1:"Procesamiento navegador",chip2:"Uploads",chip3:"Analytics",chip4:"Publicidad",sideImportantTitle:"Puntos importantes",point1:"Herramientas locales y uploads se comportan distinto.",point2:"Analytics mide uso general de páginas.",point3:"Partners publicitarios pueden usar sus tecnologías.",point4:"No envíes secretos sensibles por email.",sidePagesTitle:"Páginas relacionadas",relatedAbout:"Acerca de",relatedContact:"Contacto",relatedBlog:"Blog",relatedTools:"Todas las herramientas",sideLocalTitle:"Ejemplos de herramientas locales",localJson:"Formateador JSON",localDiff:"Text diff checker",localPassword:"Generador contraseñas",localImage:"Image resizer"}
     };
-
-    const allowedLangs = ["en", "zh-CN", "de", "fr", "es"];
-    let currentLang = "en";
-
-    function getDict(){ return translations[currentLang] || translations.en; }
-
-    function getInitialLang(){
-      const params = new URLSearchParams(window.location.search);
-      let lang = params.get("lang");
-      if (lang === "zh") lang = "zh-CN";
-      if (allowedLangs.includes(lang)) return lang;
-
-      const saved = localStorage.getItem("miniToolsPrivacyLang");
-      if (allowedLangs.includes(saved)) return saved;
-
-      const browser = navigator.language || "en";
-      if (browser.startsWith("zh")) return "zh-CN";
-      if (browser.startsWith("de")) return "de";
-      if (browser.startsWith("fr")) return "fr";
-      if (browser.startsWith("es")) return "es";
-      return "en";
-    }
-
-    function setMeta(name, content){
-      const tag = document.querySelector(`meta[name="${name}"]`);
-      if (tag) tag.setAttribute("content", content);
-    }
-
-    function setOg(property, content){
-      const tag = document.querySelector(`meta[property="${property}"]`);
-      if (tag) tag.setAttribute("content", content);
-    }
-
-    function setTwitter(name, content){
-      const tag = document.querySelector(`meta[name="${name}"]`);
-      if (tag) tag.setAttribute("content", content);
-    }
-
-    function applyLanguage(lang, updateUrl = true){
-      currentLang = allowedLangs.includes(lang) ? lang : "en";
-      const dict = getDict();
-
-      document.documentElement.lang = dict.htmlLang || "en-GB";
-      document.title = dict.title;
-      setMeta("description", dict.description);
-      setMeta("keywords", dict.keywords);
-      setOg("og:title", dict.title);
-      setOg("og:description", dict.description);
-      setTwitter("twitter:title", dict.title);
-      setTwitter("twitter:description", dict.description);
-
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.getAttribute("data-i18n");
-        if (dict[key] !== undefined) el.textContent = dict[key];
-      });
-
-      const label = document.getElementById("currentLangLabel");
-      if (label) label.textContent = dict.langLabel;
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
-      });
-
-      localStorage.setItem("miniToolsPrivacyLang", currentLang);
-      if (updateUrl) {
-        const url = new URL(window.location.href);
-        url.searchParams.set("lang", currentLang);
-        history.replaceState(null, "", url.toString());
-      }
-    }
-
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
-    });
-
-    window.addEventListener("load", () => {
-      applyLanguage(getInitialLang(), false);
-    });
+    const allowedLangs=["en","zh-CN","de","fr","es"];let currentLang="en";
+    function getDict(){return translations[currentLang]||translations.en;}
+    function getInitialLang(){const params=new URLSearchParams(window.location.search);let lang=params.get("lang");if(lang==="zh")return"zh-CN";return allowedLangs.includes(lang)?lang:"en";}
+    function setMeta(name,content){const tag=document.querySelector(`meta[name="${name}"]`);if(tag)tag.setAttribute("content",content);}function setOg(property,content){const tag=document.querySelector(`meta[property="${property}"]`);if(tag)tag.setAttribute("content",content);}function setTwitter(name,content){const tag=document.querySelector(`meta[name="${name}"]`);if(tag)tag.setAttribute("content",content);}function setCanonical(content){const tag=document.querySelector('link[rel="canonical"]');if(tag)tag.setAttribute("href",content);}function localeForOg(locale){const map={"en-GB":"en_GB","zh-CN":"zh_CN","de":"de_DE","fr":"fr_FR","es":"es_ES"};return map[locale]||"en_GB";}
+    function currentCanonicalUrl(){const base="https://mini-tools.uk/privacy";const params=new URLSearchParams(window.location.search);if(!params.has("lang")&&currentLang==="en")return base;return `${base}?lang=${encodeURIComponent(currentLang)}`;}
+    function updateInternalLinks(){document.querySelectorAll('a[href^="/"]').forEach(link=>{const raw=link.getAttribute("href");if(!raw||raw.startsWith("//"))return;const hashIndex=raw.indexOf("#");const pathPart=hashIndex>=0?raw.slice(0,hashIndex):raw;const hashPart=hashIndex>=0?raw.slice(hashIndex):"";const url=new URL(pathPart||"/",window.location.origin);if(url.pathname.endsWith(".html"))url.pathname=url.pathname.replace(/\.html$/," ").trim();if(currentLang==="en")url.searchParams.delete("lang");else url.searchParams.set("lang",currentLang);link.setAttribute("href",url.pathname+url.search+hashPart);});}
+    function updateSchema(dict){const schema=document.getElementById("schema-json");if(!schema)return;const data={"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":dict.title,"url":currentCanonicalUrl(),"inLanguage":dict.htmlLang||"en-GB","description":dict.description},{"@type":"Organization","name":"Mini-Tools.uk","url":"https://mini-tools.uk","logo":"https://assets.mini-tools.uk/image/icon-512x512.png","email":"yuyananuu@gmail.com"},{"@type":"FAQPage","inLanguage":dict.htmlLang||"en-GB","mainEntity":[{"@type":"Question","name":dict.faq1Q,"acceptedAnswer":{"@type":"Answer","text":dict.faq1A}},{"@type":"Question","name":dict.faq2Q,"acceptedAnswer":{"@type":"Answer","text":dict.faq2A}},{"@type":"Question","name":dict.faq3Q,"acceptedAnswer":{"@type":"Answer","text":dict.faq3A}}]}]};schema.textContent=JSON.stringify(data,null,2);}
+    function applyLanguage(lang,updateUrl=true){currentLang=allowedLangs.includes(lang)?lang:"en";const dict=getDict();document.documentElement.lang=dict.htmlLang||"en-GB";document.title=dict.title;setMeta("description",dict.description);setOg("og:title",dict.title);setOg("og:description",dict.description);setTwitter("twitter:title",dict.title);setTwitter("twitter:description",dict.description);const canonical=currentCanonicalUrl();setCanonical(canonical);setOg("og:url",canonical);setOg("og:locale",localeForOg(dict.htmlLang));updateSchema(dict);document.querySelectorAll("[data-i18n]").forEach(el=>{const key=el.getAttribute("data-i18n");if(dict[key]!==undefined)el.textContent=dict[key];});const label=document.getElementById("currentLangLabel");if(label)label.textContent=dict.langLabel;document.querySelectorAll("[data-lang-btn]").forEach(btn=>btn.classList.toggle("active",btn.getAttribute("data-lang-btn")===currentLang));localStorage.setItem("miniToolsPrivacyLang",currentLang);if(updateUrl){const url=new URL(window.location.href);url.searchParams.set("lang",currentLang);history.replaceState(null,"",url.toString());}updateInternalLinks();}
+    document.querySelectorAll("[data-lang-btn]").forEach(btn=>btn.addEventListener("click",()=>applyLanguage(btn.getAttribute("data-lang-btn"))));
+    window.addEventListener("load",()=>applyLanguage(getInitialLang(),false));
   </script>
 </body>
 </html>

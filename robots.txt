@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
 
+Disallow: /image_admin
+Disallow: /image_admin.html
+Disallow: /map
+Disallow: /map.html
+Disallow: /admin
+Disallow: /blog/editor
+Disallow: /blog/api
+
 Sitemap: https://mini-tools.uk/sitemap.xml
