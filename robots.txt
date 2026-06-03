@@ -1,12 +1,36 @@
 User-agent: *
 Allow: /
 
+Disallow: /*?*tag=
+Disallow: /*?*search=
+Disallow: /*?*sort=
+Disallow: /*?*q=
+
 Disallow: /image_admin
 Disallow: /image_admin.html
 Disallow: /map
 Disallow: /map.html
 Disallow: /admin
+Disallow: /blog
 Disallow: /blog/editor
 Disallow: /blog/api
+Disallow: /blog/tag
+Disallow: /vat
+Disallow: /mortgage
+Disallow: /stamp-duty
+Disallow: /ir35
+Disallow: /dividend
+Disallow: /fuel
+Disallow: /working-days
+Disallow: /json
+Disallow: /diff
+Disallow: /token
+Disallow: /image
+Disallow: /pdf
+Disallow: /pdf2img
+Disallow: /color-picker
+Disallow: /qr
+Disallow: /password
+Disallow: /weight
 
 Sitemap: https://mini-tools.uk/sitemap.xml

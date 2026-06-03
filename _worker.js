@@ -39,6 +39,13 @@ const HTML_LANG_FALLBACK = {
 const INDEXABLE_PATHS = new Set([
   "/",
   "/tax",
+  "/upload",
+  "/about",
+  "/contact",
+  "/privacy",
+]);
+
+const NOINDEX_PATH_PREFIXES = [
   "/vat",
   "/mortgage",
   "/stamp-duty",
@@ -50,20 +57,13 @@ const INDEXABLE_PATHS = new Set([
   "/diff",
   "/token",
   "/image",
-  "/upload",
   "/pdf2img",
   "/pdf",
   "/color-picker",
   "/qr",
   "/password",
   "/weight",
-  "/about",
-  "/contact",
-  "/privacy",
   "/blog",
-]);
-
-const NOINDEX_PATH_PREFIXES = [
   "/blog/search",
   "/blog/tag",
   "/blog/editor",
@@ -140,6 +140,10 @@ function hasOnlyLangParam(url) {
 
 function shouldNoindex(url) {
   const path = normalizePathname(url.pathname);
+
+  if (!INDEXABLE_PATHS.has(path)) {
+    return true;
+  }
 
   if (NOINDEX_PATH_PREFIXES.some((prefix) => path === prefix || path.startsWith(prefix + "/"))) {
     return true;
@@ -829,12 +833,17 @@ function maybeRedirectNormalizedUrl(requestUrl) {
   const rawLang = url.searchParams.get("lang");
   if (rawLang !== null) {
     const normalized = normalizeLang(rawLang);
-    if (!rawLang || rawLang !== normalized) {
-      if (normalized === DEFAULT_LANG && !rawLang) {
-        url.searchParams.delete("lang");
-      } else {
-        url.searchParams.set("lang", normalized);
-      }
+    const trimmed = String(rawLang).trim();
+    const isSupportedVariant =
+      trimmed === normalized ||
+      trimmed.toLowerCase() === normalized.toLowerCase() ||
+      (normalized === "zh-CN" && ["zh", "zh-cn", "zh-hans", "cn"].includes(trimmed.toLowerCase()));
+
+    if (!trimmed || !isSupportedVariant) {
+      url.searchParams.delete("lang");
+      changed = true;
+    } else if (rawLang !== normalized) {
+      url.searchParams.set("lang", normalized);
       changed = true;
     }
   }

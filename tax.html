@@ -830,37 +830,8 @@
 
       <div class="nav-links">
         <a class="nav-link" href="/" data-i18n="navHome">Home</a>
-        <a class="nav-link" href="/#featured-tools" data-i18n="navTools">All Tools</a>
-
-        <div class="nav-group">
-          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-            <span data-i18n="navCategories">Categories</span>
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-
-          <div class="dropdown" role="menu">
-            <a href="/#uk-finance">
-              <span data-i18n="catFinance">UK Finance</span>
-              <small data-i18n="catFinanceSmall">Tax, VAT, mortgage and contractor tools</small>
-            </a>
-            <a href="/#developer-tools">
-              <span data-i18n="catDev">Developer Tools</span>
-              <small data-i18n="catDevSmall">JSON, diff, image hosting and AI token estimation</small>
-            </a>
-            <a href="/#image-tools">
-              <span data-i18n="catImage">Image & PDF</span>
-              <small data-i18n="catImageSmall">Compression, conversion and media utilities</small>
-            </a>
-            <a href="/password">
-              <span data-i18n="catSecurity">Security</span>
-              <small data-i18n="catSecuritySmall">Password and privacy helpers</small>
-            </a>
-          </div>
-        </div>
-
-        <a class="nav-link" href="/blog" data-i18n="navBlog">Blog</a>
+        <a class="nav-link" href="/upload" data-i18n="navUpload">Image Hosting</a>
+        <a class="nav-link" href="/tax" data-i18n="navTax">UK Tax</a>
         <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
         <a class="nav-link" href="/contact" data-i18n="navContact">Contact</a>
 
@@ -1193,6 +1164,15 @@
         </div>
 
         <div class="side-card">
+          <h3 data-i18n="trustTitle">Trust signals</h3>
+          <ul>
+            <li data-i18n="trust1">Calculation runs in your browser; salary input is not uploaded.</li>
+            <li data-i18n="trust2">2026/27 tax year assumptions are listed on this page.</li>
+            <li data-i18n="trust3">Estimate only, not HMRC, payroll, legal or tax advice.</li>
+          </ul>
+        </div>
+
+        <div class="side-card">
           <h3 data-i18n="sideKeywordsTitle">Before relying on the result</h3>
           <div class="chips">
             <span class="chip" data-i18n="kw1">Check your tax code</span>
@@ -1203,12 +1183,9 @@
         </div>
 
         <div class="side-card">
-          <h3 data-i18n="relatedTitle">Related tools</h3>
+          <h3 data-i18n="relatedTitle">Related product</h3>
           <div class="related-links">
-            <a href="/dividend" data-i18n="relatedDividend">Salary vs Dividend calculator</a>
-            <a href="/ir35" data-i18n="relatedIr35">IR35 calculator</a>
-            <a href="/vat" data-i18n="relatedVat">VAT calculator</a>
-            <a href="/mortgage" data-i18n="relatedMortgage">Mortgage calculator</a>
+            <a href="/upload" data-i18n="relatedUpload">Free image hosting</a>
           </div>
         </div>
       </aside>
@@ -1220,7 +1197,6 @@
       <div>© 2026 Mini-Tools.uk</div>
       <div class="footer-links">
         <a href="/about" data-i18n="navAbout">About</a>
-        <a href="/blog" data-i18n="navBlog">Blog</a>
         <a href="/privacy" data-i18n="privacy">Privacy</a>
         <a href="/contact" data-i18n="navContact">Contact</a>
       </div>
@@ -1239,6 +1215,8 @@
         brandSubtitle:"Practical calculators and browser tools",
         navHome:"Home",
         navTools:"All Tools",
+        navUpload:"Image Hosting",
+        navTax:"UK Tax",
         navCategories:"Categories",
         navBlog:"Blog",
         navAbout:"About",
@@ -1357,12 +1335,17 @@
         assumption2:"Employee salary income only",
         assumption3:"2026/27 tax year only",
         assumption4:"Annualised estimate, not payroll software",
+        trustTitle:"Trust signals",
+        trust1:"Calculation runs in your browser; salary input is not uploaded.",
+        trust2:"2026/27 tax year assumptions are listed on this page.",
+        trust3:"Estimate only, not HMRC, payroll, legal or tax advice.",
         sideKeywordsTitle:"Before relying on the result",
         kw1:"Check your tax code",
         kw2:"Confirm pension type",
         kw3:"Review bonus handling",
         kw4:"Compare with payslip",
-        relatedTitle:"Related tools",
+        relatedTitle:"Related product",
+        relatedUpload:"Free image hosting",
         relatedDividend:"Salary vs Dividend calculator",
         relatedIr35:"IR35 calculator",
         relatedVat:"VAT calculator",
