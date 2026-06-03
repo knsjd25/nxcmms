@@ -1250,12 +1250,29 @@
 
     let captchaId = "";
 
+    function normalizeLang(lang) {
+      const value = String(lang || "").trim().toLowerCase().replace("_", "-");
+      if (value.startsWith("zh")) return "zh";
+      if (value.startsWith("de")) return "de";
+      if (value.startsWith("fr")) return "fr";
+      if (value.startsWith("es")) return "es";
+      return "en";
+    }
+
+    function getUrlLang() {
+      try {
+        return new URLSearchParams(window.location.search).get("lang");
+      } catch (error) {
+        return "";
+      }
+    }
+
     function getLang() {
-      return localStorage.getItem("miniToolsUploadLang") || "en";
+      return normalizeLang(getUrlLang() || localStorage.getItem("miniToolsUploadLang") || navigator.language || "en");
     }
 
     function setLang(lang) {
-      localStorage.setItem("miniToolsUploadLang", lang);
+      localStorage.setItem("miniToolsUploadLang", normalizeLang(lang));
     }
 
     function t() {
@@ -1330,6 +1347,7 @@
     }
 
     function applyLanguage(lang) {
+      lang = normalizeLang(lang);
       setLang(lang);
       const texts = t();
       document.documentElement.lang = texts.htmlLang;
