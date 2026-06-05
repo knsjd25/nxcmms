@@ -6,7 +6,7 @@
 
   <title>UK Working Days Calculator 2026/2027 | Exclude Bank Holidays</title>
   <meta name="description" content="Calculate UK working days between two dates and exclude weekends and 2026/2027 bank holidays for England and Wales, Scotland or Northern Ireland." />
-  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="robots" content="noindex,follow,max-image-preview:large">
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/working-days" />
 
@@ -304,44 +304,32 @@
           <span class="brand-subtitle" data-i18n="brandSubtitle">Practical calculators and browser tools</span>
         </span>
       </a>
-      <nav class="nav-links" aria-label="Primary">
-        <a class="nav-link" href="/" data-i18n="navHome">Home</a>
-        <a class="nav-link" href="/#featured-tools" data-i18n="navTools">All Tools</a>
-        <div class="menu-wrap" id="categoryMenu">
-          <button class="nav-button menu-trigger" type="button" aria-expanded="false" aria-controls="categoryDropdown">
-            <span data-i18n="navCategories">Categories</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="menu" id="categoryDropdown">
-            <div class="group-title" data-i18n="catFinance">UK Finance</div>
-            <a href="/tax"><span data-i18n="menuTax">Tax Calculator</span><small data-i18n="menuTaxSmall">Estimate salary tax and take-home pay</small></a>
-            <a href="/vat"><span data-i18n="menuVat">VAT Calculator</span><small data-i18n="menuVatSmall">Add or remove UK VAT</small></a>
-            <a href="/stamp-duty"><span data-i18n="menuStamp">Stamp Duty</span><small data-i18n="menuStampSmall">Estimate residential SDLT</small></a>
-            <a href="/dividend"><span data-i18n="menuDividend">Salary vs Dividend</span><small data-i18n="menuDividendSmall">Compare director pay approaches</small></a>
-            <a href="/ir35"><span data-i18n="menuIr35">IR35</span><small data-i18n="menuIr35Small">Inside and outside IR35 estimates</small></a>
-            <a href="/fuel"><span data-i18n="menuFuel">Fuel Cost</span><small data-i18n="menuFuelSmall">Estimate journey fuel costs</small></a>
-            <a class="active" href="/working-days"><span data-i18n="menuWorking">Working Days</span><small data-i18n="menuWorkingSmall">Count weekdays and bank holidays</small></a>
-            <div class="group-title" data-i18n="catUtilities">Utilities</div>
-            <a href="/weight"><span data-i18n="menuWeight">Stones to Kg</span><small data-i18n="menuWeightSmall">Convert UK body weight units</small></a>
-          </div>
+      <nav class="nav" aria-label="Primary navigation">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo">
+      <span class="brand-copy"><span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="brand-subtitle">Useful online tools</span></span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="/#search">Search</a>
+      <a class="nav-link" href="/#popular">Popular</a>
+      <a class="nav-link" href="/#uk-apps">UK Apps</a>
+      <a class="nav-link" href="/#developer-tools">Dev Tools</a>
+      <a class="nav-link" href="/#other-tools">Other</a>
+      <a class="nav-link" href="/about">About</a>
+      <a class="nav-link" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <div class="lang-group">
+        <button class="lang-trigger" type="button" aria-haspopup="true"><span id="currentLangLabel">English</span></button>
+        <div class="lang-dropdown" aria-label="Language">
+          <a href="?lang=en">English</a><a href="?lang=zh-CN">涓枃</a><a href="?lang=de">Deutsch</a><a href="?lang=fr">Fran莽ais</a><a href="?lang=es">Espa帽ol</a>
         </div>
-        <a class="nav-link hide-mobile" href="/blog" data-i18n="navBlog">Blog</a>
-        <a class="nav-link hide-mobile" href="/about" data-i18n="navAbout">About</a>
-
-        <div class="lang-group">
-          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-            <span id="currentLangLabel">English</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="lang-dropdown" role="menu" aria-label="Language">
-            <button type="button" data-lang-btn="en">English</button>
-            <button type="button" data-lang-btn="zh-CN">中文</button>
-            <button type="button" data-lang-btn="de">Deutsch</button>
-            <button type="button" data-lang-btn="fr">Français</button>
-            <button type="button" data-lang-btn="es">Español</button>
-          </div>
-        </div>
-      </nav>
+        <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">涓枃</option><option value="de">Deutsch</option><option value="fr">Fran莽ais</option><option value="es">Espa帽ol</option></select>
+      </div>
+    </div>
+  </div>
+</nav>
     </div>
   </header>
 
@@ -474,17 +462,12 @@
     </section>
   </main>
 
-  <footer>
-    <div class="container footer-inner">
-      <div class="footer-links">
-        <a href="/about" data-i18n="navAbout">About</a>
-        <a href="/blog" data-i18n="navBlog">Blog</a>
-        <a href="/privacy" data-i18n="privacy">Privacy</a>
-        <a href="/contact" data-i18n="navContact">Contact</a>
-      </div>
-      <div class="footer-note" data-i18n="footerNote">© 2026 MINI-TOOLS.UK — UK calculators and privacy-first web tools</div>
-    </div>
-  </footer>
+  <footer class="footer">
+  <div class="wrap footer-inner">
+    <div>漏 2026 Mini-Tools.uk</div>
+    <div class="footer-links"><a href="/">Home</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a></div>
+  </div>
+</footer>
 
   <script>
     const translations = {
@@ -501,13 +484,13 @@
         skip: "Skip to content",
         brandSubtitle: "Practical calculators and browser tools",
         navHome: "Home",
-        navTools: "All Tools",
+        navTools: "Search Tools",
         navCategories: "Categories",
-        navBlog: "Blog",
+        navBlog: "Website",
         navAbout: "About",
         navContact: "Contact",
         privacy: "Privacy",
-        catFinance: "UK Finance",
+        catFinance: "UK Apps",
         catUtilities: "Utilities",
         menuTax: "Tax Calculator",
         menuTaxSmall: "Estimate salary tax and take-home pay",
@@ -693,7 +676,7 @@
         navHome: "Startseite",
         navTools: "Alle Tools",
         navCategories: "Kategorien",
-        navBlog: "Blog",
+        navBlog: "Website",
         navAbout: "Über uns",
         navContact: "Kontakt",
         privacy: "Datenschutz",
@@ -788,7 +771,7 @@
         navHome: "Accueil",
         navTools: "Tous les outils",
         navCategories: "Catégories",
-        navBlog: "Blog",
+        navBlog: "Website",
         navAbout: "À propos",
         navContact: "Contact",
         privacy: "Confidentialité",
@@ -883,7 +866,7 @@
         navHome: "Inicio",
         navTools: "Todas las herramientas",
         navCategories: "Categorías",
-        navBlog: "Blog",
+        navBlog: "Website",
         navAbout: "Acerca de",
         navContact: "Contacto",
         privacy: "Privacidad",

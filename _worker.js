@@ -167,7 +167,7 @@ function shouldNoindex(url) {
 function buildCanonical(pathname, lang, url) {
   const path = normalizePathname(pathname);
   const canonical = new URL(SITE_ORIGIN + path);
-  if (url.searchParams.has("lang")) {
+  if (lang !== DEFAULT_LANG && url.searchParams.has("lang")) {
     canonical.searchParams.set("lang", lang);
   }
   return canonical.toString();
@@ -873,6 +873,20 @@ function serverRenderHtml(html, requestUrl) {
 
 export default {
   async fetch(request, env) {
+    const initialUrl = new URL(request.url);
+    const initialPathname = initialUrl.pathname;
+
+    if (initialPathname === "/terms" || initialPathname === "/acceptable-use") {
+      return Response.redirect(`${SITE_ORIGIN}/privacy`, 301);
+    }
+
+    if (initialPathname === "/blog" || initialPathname.startsWith("/blog/")) {
+      return new Response("Gone", {
+        status: 410,
+        headers: { "content-type": "text/plain; charset=utf-8", "X-Robots-Tag": "noindex, nofollow" },
+      });
+    }
+
     const redirectTo = maybeRedirectNormalizedUrl(request.url);
     if (redirectTo) {
       return Response.redirect(redirectTo, 301);

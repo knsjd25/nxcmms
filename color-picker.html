@@ -6,7 +6,7 @@
 
   <title id="meta-title">Image Color Picker from Image | HEX, RGB, HSL Tool</title>
   <meta name="description" id="meta-desc" content="Pick HEX, RGB and HSL colors from an image or screenshot, build a small palette, and crop a selected area locally in your browser." />
-  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="robots" content="noindex,follow,max-image-preview:large">
   <meta name="theme-color" content="#0f172a" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Image Color Picker from Image | HEX, RGB, HSL Tool" />
@@ -234,31 +234,32 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-    <div class="w-full px-6 lg:px-10 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <a href="/" id="home-link" class="transition-transform active:scale-90 shrink-0">
-          <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools Logo" class="w-10 h-10 rounded-xl object-contain shadow-sm bg-white" />
-        </a>
-        <div class="flex flex-col -mt-1 hidden sm:flex">
-          <span class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">Mini-Tools<span class="text-blue-600">.uk</span></span>
+  <nav class="nav" aria-label="Primary navigation">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo">
+      <span class="brand-copy"><span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="brand-subtitle">Useful online tools</span></span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="/#search">Search</a>
+      <a class="nav-link" href="/#popular">Popular</a>
+      <a class="nav-link" href="/#uk-apps">UK Apps</a>
+      <a class="nav-link" href="/#developer-tools">Dev Tools</a>
+      <a class="nav-link" href="/#other-tools">Other</a>
+      <a class="nav-link" href="/about">About</a>
+      <a class="nav-link" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <div class="lang-group">
+        <button class="lang-trigger" type="button" aria-haspopup="true"><span id="currentLangLabel">English</span></button>
+        <div class="lang-dropdown" aria-label="Language">
+          <a href="?lang=en">English</a><a href="?lang=zh-CN">涓枃</a><a href="?lang=de">Deutsch</a><a href="?lang=fr">Fran莽ais</a><a href="?lang=es">Espa帽ol</a>
         </div>
-      </div>
-      <div class="flex items-center gap-4 sm:gap-6">
-        <a href="/blog" id="nav-blog" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors tracking-wide border border-blue-100">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path></svg>
-          <span id="nav-blog-text">Blog & Guides</span>
-        </a>
-        <select id="lang-select" class="bg-slate-100 px-3 py-1.5 rounded-lg text-sm font-bold outline-none cursor-pointer border-none focus:ring-2 focus:ring-blue-500">
-          <option value="en">English</option>
-          <option value="zh-CN">中文</option>
-          <option value="de">Deutsch</option>
-          <option value="fr">Français</option>
-          <option value="es">Español</option>
-        </select>
+        <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">涓枃</option><option value="de">Deutsch</option><option value="fr">Fran莽ais</option><option value="es">Espa帽ol</option></select>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
   <main class="w-full px-4 lg:px-8 py-8 flex-1 flex flex-col">
 
@@ -385,20 +386,12 @@
 
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-12 mt-10">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="flex justify-center gap-8 mb-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
-        <a href="/" class="hover:text-blue-600 transition-colors">Home</a>
-        <a href="/about" id="footer-about" class="hover:text-blue-600 transition-colors">About Us</a>
-        <a href="/blog" id="footer-blog" class="hover:text-blue-600 transition-colors">Blog</a>
-        <a href="/privacy" id="footer-privacy" class="hover:text-blue-600 transition-colors">Privacy Policy</a>
-        <a href="/contact" id="footer-contact" class="hover:text-blue-600 transition-colors">Contact Us</a>
-      </div>
-      <p class="text-center text-[10px] text-slate-300 font-bold tracking-widest uppercase">
-        © 2026 MINI-TOOLS.UK — Practical browser tools for everyday work
-      </p>
-    </div>
-  </footer>
+  <footer class="footer">
+  <div class="wrap footer-inner">
+    <div>漏 2026 Mini-Tools.uk</div>
+    <div class="footer-links"><a href="/">Home</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a></div>
+  </div>
+</footer>
 
   <script>
     // 🌟 1. 字典大换血：加入 MetaDesc 和 SEO 富文本
@@ -413,7 +406,7 @@
         dropText: "Click or Drag & Drop to upload an image",
         statusText: "100% Local processing. Your images never leave your device.",
         labelPalette: "Recent Palette",
-        navBlog: "Blog & Guides", footerBlog: "Blog",
+        navBlog: "Website & Guides", footerBlog: "Website",
         panHint: "💡 Tip: Right-click & drag to pan, use mouse wheel to zoom.",
         footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
         // 🌟 英文 SEO 文本
@@ -483,7 +476,7 @@
         dropText: "Haga clic o arrastre para subir una imagen",
         statusText: "Procesamiento 100% local. Sus imágenes nunca salen de su dispositivo.",
         labelPalette: "Paleta Reciente",
-        navBlog: "Blog y Guías", footerBlog: "Blog",
+        navBlog: "Website y Guías", footerBlog: "Website",
         panHint: "💡 Consejo: Haga clic derecho y arrastre para mover, use la rueda para acercar.",
         footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
         seoHtml: `
@@ -511,7 +504,7 @@
         dropText: "Cliquez ou glissez-déposez une image",
         statusText: "Traitement 100% local. Vos images ne quittent jamais votre appareil.",
         labelPalette: "Palette Récente",
-        navBlog: "Blog et Guides", footerBlog: "Blog",
+        navBlog: "Website et Guides", footerBlog: "Website",
         panHint: "💡 Astuce : Clic droit et glissez pour déplacer, utilisez la molette pour zoomer.",
         footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
         seoHtml: `
@@ -539,7 +532,7 @@
         dropText: "Klicken oder ziehen, um ein Bild hochzuladen",
         statusText: "100% lokale Verarbeitung. Ihre Bilder verlassen niemals Ihr Gerät.",
         labelPalette: "Letzte Palette",
-        navBlog: "Blog & Anleitungen", footerBlog: "Blog",
+        navBlog: "Website & Anleitungen", footerBlog: "Website",
         panHint: "💡 Tipp: Rechtsklick und ziehen zum Verschieben, Mausrad zum Zoomen.",
         footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
         seoHtml: `
@@ -746,12 +739,12 @@
       document.getElementById('footer-privacy').innerText = data.footerPrivacy;
       document.getElementById('footer-contact').innerText = data.footerContact;
 
-      // Update Nav Blog Links
-      const navBlogText = document.getElementById('nav-blog-text');
-      if (navBlogText) navBlogText.innerText = data.navBlog || "Blog & Guides";
+      // Update Nav Website Links
+      const navBlogText = document.getElementById('nav-Website-text');
+      if (navBlogText) navBlogText.innerText = data.navBlog || "Website & Guides";
 
-      const footerBlog = document.getElementById('footer-blog');
-      if (footerBlog) footerBlog.innerText = data.footerBlog || "Blog";
+      const footerBlog = document.getElementById('footer-Website');
+      if (footerBlog) footerBlog.innerText = data.footerBlog || "Website";
 
       // 🌟 核心优化 4：动态注入对应的纯净 SEO 长文内容
       const seoContainer = document.getElementById('seo-container');

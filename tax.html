@@ -818,41 +818,32 @@
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
 
-  <nav class="nav">
-    <div class="wrap nav-inner">
-      <a class="brand" href="/">
-        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" />
-        <span class="brand-copy">
-          <span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span>
-          <span class="brand-subtitle" data-i18n="brandSubtitle">Practical calculators and browser tools</span>
-        </span>
-      </a>
-
-      <div class="nav-links">
-        <a class="nav-link" href="/" data-i18n="navHome">Home</a>
-        <a class="nav-link" href="/upload" data-i18n="navUpload">Image Hosting</a>
-        <a class="nav-link current" href="/tax" data-i18n="navTax">UK Tax</a>
-        <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
-        <a class="nav-link" href="/contact" data-i18n="navContact">Contact</a>
-
-        <div class="lang-group">
-          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-            <span id="currentLangLabel">English</span>
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-          <div class="lang-dropdown" role="menu" aria-label="Language">
-            <button type="button" data-lang-btn="en">English</button>
-            <button type="button" data-lang-btn="zh-CN">中文</button>
-            <button type="button" data-lang-btn="de">Deutsch</button>
-            <button type="button" data-lang-btn="fr">Français</button>
-            <button type="button" data-lang-btn="es">Español</button>
-          </div>
+  <nav class="nav" aria-label="Primary navigation">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo">
+      <span class="brand-copy"><span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="brand-subtitle">Useful online tools</span></span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="/#search">Search</a>
+      <a class="nav-link" href="/#popular">Popular</a>
+      <a class="nav-link" href="/#uk-apps">UK Apps</a>
+      <a class="nav-link" href="/#developer-tools">Dev Tools</a>
+      <a class="nav-link" href="/#other-tools">Other</a>
+      <a class="nav-link" href="/about">About</a>
+      <a class="nav-link" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <div class="lang-group">
+        <button class="lang-trigger" type="button" aria-haspopup="true"><span id="currentLangLabel">English</span></button>
+        <div class="lang-dropdown" aria-label="Language">
+          <a href="?lang=en">English</a><a href="?lang=zh-CN">涓枃</a><a href="?lang=de">Deutsch</a><a href="?lang=fr">Fran莽ais</a><a href="?lang=es">Espa帽ol</a>
         </div>
+        <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">涓枃</option><option value="de">Deutsch</option><option value="fr">Fran莽ais</option><option value="es">Espa帽ol</option></select>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
   <main id="main" class="wrap">
     <section class="hero">
@@ -1201,16 +1192,18 @@
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer-inner">
-      <div>© 2026 Mini-Tools.uk</div>
-      <div class="footer-links">
-        <a href="/about" data-i18n="navAbout">About</a>
-        <a href="/privacy" data-i18n="privacy">Privacy</a>
-        <a href="/contact" data-i18n="navContact">Contact</a>
-      </div>
-    </div>
-  </footer>
+  <section class="wrap" id="calculator-disclaimer-summary" style="margin:32px auto">
+  <div class="article">
+    <h2>Calculator disclaimer</h2>
+    <p>Results are estimates only. This calculator is not official tax advice and is not legal or financial advice.</p>
+  </div>
+</section>
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div>漏 2026 Mini-Tools.uk</div>
+    <div class="footer-links"><a href="/">Home</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a></div>
+  </div>
+</footer>
 
   <script>
     const translations = {
@@ -1223,21 +1216,21 @@
         skip:"Skip to content",
         brandSubtitle:"Practical calculators and browser tools",
         navHome:"Home",
-        navTools:"All Tools",
+        navTools:"Search Tools",
         navUpload:"Image Hosting",
         navTax:"UK Tax",
         navCategories:"Categories",
-        navBlog:"Blog",
+        navBlog:"Website",
         navAbout:"About",
         navContact:"Contact",
         privacy:"Privacy",
-        catFinance:"UK Finance",
+        catFinance:"UK Apps",
         catFinanceSmall:"Tax, VAT, mortgage and contractor tools",
         catDev:"Developer Tools",
         catDevSmall:"JSON, diff, image hosting and AI token estimation",
-        catImage:"Image & PDF",
+        catImage:"Other Tools",
         catImageSmall:"Compression, conversion and media utilities",
-        catSecurity:"Security",
+        catSecurity:"Safety",
         catSecuritySmall:"Password and privacy helpers",
         badge:"Updated for 2026/27 tax year",
         heroTitle:"UK take-home pay calculator for 2026/27",
@@ -1547,7 +1540,7 @@
         navTax:"UK Steuer",
         navTools:"Alle Tools",
         navCategories:"Kategorien",
-        navBlog:"Blog",
+        navBlog:"Website",
         navAbout:"Über uns",
         navContact:"Kontakt",
         privacy:"Datenschutz",
@@ -1707,7 +1700,7 @@
         navTax:"Impôt UK",
         navTools:"Tous les outils",
         navCategories:"Catégories",
-        navBlog:"Blog",
+        navBlog:"Website",
         navAbout:"À propos",
         navContact:"Contact",
         privacy:"Confidentialité",
@@ -1715,7 +1708,7 @@
         catFinanceSmall:"Impôt, VAT, prêt immobilier et contractor",
         catDev:"Outils développeur",
         catDevSmall:"JSON, diff, hébergement image et estimation tokens IA",
-        catImage:"Image & PDF",
+        catImage:"Other Tools",
         catImageSmall:"Compression, conversion et médias",
         catSecurity:"Sécurité",
         catSecuritySmall:"Mot de passe et confidentialité",
@@ -1867,7 +1860,7 @@
         navTax:"Impuesto UK",
         navTools:"Todas las herramientas",
         navCategories:"Categorías",
-        navBlog:"Blog",
+        navBlog:"Website",
         navAbout:"Acerca de",
         navContact:"Contacto",
         privacy:"Privacidad",

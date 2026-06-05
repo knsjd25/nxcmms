@@ -218,41 +218,32 @@
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
 
-  <nav class="nav">
-    <div class="wrap nav-inner">
-      <a class="brand" href="/">
-        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" />
-        <span class="brand-copy">
-          <span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span>
-          <span class="brand-subtitle" data-i18n="brandSubtitle">Practical calculators and browser tools</span>
-        </span>
-      </a>
-
-      <div class="nav-links" aria-label="Primary navigation">
-        <a class="nav-link" href="/" data-i18n="navHome">Home</a>
-        <a class="nav-link" href="/#uk-apps" data-i18n="navUkApps">UK Apps</a>
-        <a class="nav-link" href="/#developer-tools" data-i18n="navDeveloperTools">Developer Tools</a>
-        <a class="nav-link" href="/#other-tools" data-i18n="navOtherTools">Other Tools</a>
-        <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
-        <a class="nav-link current" href="/contact" data-i18n="navContact">Contact</a>
-        <a class="nav-link" href="/privacy" data-i18n="privacy">Privacy</a>
-
-        <div class="lang-group">
-          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-            <span id="currentLangLabel">English</span>
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="lang-dropdown" role="menu" aria-label="Language">
-            <button type="button" data-lang-btn="en">English</button>
-            <button type="button" data-lang-btn="zh-CN">中文</button>
-            <button type="button" data-lang-btn="de">Deutsch</button>
-            <button type="button" data-lang-btn="fr">Français</button>
-            <button type="button" data-lang-btn="es">Español</button>
-          </div>
+  <nav class="nav" aria-label="Primary navigation">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo">
+      <span class="brand-copy"><span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="brand-subtitle">Useful online tools</span></span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="/#search">Search</a>
+      <a class="nav-link" href="/#popular">Popular</a>
+      <a class="nav-link" href="/#uk-apps">UK Apps</a>
+      <a class="nav-link" href="/#developer-tools">Dev Tools</a>
+      <a class="nav-link" href="/#other-tools">Other</a>
+      <a class="nav-link" href="/about">About</a>
+      <a class="nav-link" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <div class="lang-group">
+        <button class="lang-trigger" type="button" aria-haspopup="true"><span id="currentLangLabel">English</span></button>
+        <div class="lang-dropdown" aria-label="Language">
+          <a href="?lang=en">English</a><a href="?lang=zh-CN">涓枃</a><a href="?lang=de">Deutsch</a><a href="?lang=fr">Fran莽ais</a><a href="?lang=es">Espa帽ol</a>
         </div>
+        <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">涓枃</option><option value="de">Deutsch</option><option value="fr">Fran莽ais</option><option value="es">Espa帽ol</option></select>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
   <main id="main" class="wrap">
     <section class="hero">
@@ -399,7 +390,7 @@
             <a href="/about" data-i18n="relatedAbout">About</a>
             <a href="/privacy" data-i18n="relatedPrivacy">Privacy policy</a>
             <a href="/upload" data-i18n="relatedUpload">Free image hosting</a>
-            <a href="/#featured-tools" data-i18n="relatedTools">All tools</a>
+            <a href="/#popular" data-i18n="relatedTools">Search Tools</a>
           </div>
         </div>
 
@@ -416,16 +407,18 @@
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer-inner">
-      <div>© 2026 Mini-Tools.uk</div>
-      <div class="footer-links">
-        <a href="/about" data-i18n="navAbout">About</a>
-        <a href="/privacy" data-i18n="privacy">Privacy</a>
-        <a href="/contact" data-i18n="navContact">Contact</a>
-      </div>
-    </div>
-  </footer>
+  <section class="wrap" id="removal-request-details" style="margin:32px auto">
+  <div class="article">
+    <h2>Image removal request details</h2>
+    <p>Include the hosted image URL, the reason for removal, and copyright, privacy, or other rights details when relevant.</p>
+  </div>
+</section>
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div>漏 2026 Mini-Tools.uk</div>
+    <div class="footer-links"><a href="/">Home</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a></div>
+  </div>
+</footer>
 
   <script>
     const translations = {
@@ -498,7 +491,7 @@
         relatedAbout:"About",
         relatedPrivacy:"Privacy policy",
         relatedUpload:"Free image hosting",
-        relatedTools:"All tools",
+        relatedTools:"Search Tools",
         sidePopularTitle:"Popular tools",
         popularTax:"UK tax calculator",
         popularUpload:"Free image hosting",

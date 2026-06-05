@@ -39,7 +39,7 @@
         "name":"Mini-Tools Free Image Hosting",
         "applicationCategory":"UtilitiesApplication",
         "operatingSystem":"Web",
-        "description":"Free image hosting for screenshots, blog images, product images and other shareable image links with selectable retention periods.",
+        "description":"Free image hosting for screenshots, Website images, product images and other shareable image links with selectable retention periods.",
         "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
       },
       {
@@ -57,8 +57,8 @@
           },
           {
             "@type":"Question",
-            "name":"Can I use it for blog images?",
-            "acceptedAnswer":{"@type":"Answer","text":"Yes. You can copy Markdown or HTML embed code and paste it into blog posts, documentation or forum content."}
+            "name":"Can I use it for Website images?",
+            "acceptedAnswer":{"@type":"Answer","text":"Yes. You can copy Markdown or HTML embed code and paste it into Website posts, documentation or forum content."}
           }
         ]
       }
@@ -337,36 +337,32 @@
         <div class="brand-title">Mini-Tools<span>.uk</span></div>
       </a>
 
-      <nav class="nav" aria-label="Main navigation">
-        <a class="nav-link" href="/" id="navHome">Home</a>
-        <a class="nav-link" href="/#featured-tools" id="navAllTools">All Tools</a>
-
-        <div class="dropdown" id="categoriesDropdown">
-          <button class="nav-button" type="button" aria-expanded="false" aria-controls="categoriesMenu" id="navCategories">
-            Categories
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-          <div class="dropdown-bridge" aria-hidden="true"></div>
-          <div class="dropdown-menu" id="categoriesMenu" role="menu">
-            <a class="dropdown-item" href="/#uk-applications" id="navUkFinance">UK applications</a>
-            <a class="dropdown-item" href="/#developer-tools" id="navDeveloperTools">Developer tools</a>
-            <a class="dropdown-item" href="/#other-tools" id="navImagePdf">Other tools</a>
-          </div>
+      <nav class="nav" aria-label="Primary navigation">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo">
+      <span class="brand-copy"><span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="brand-subtitle">Useful online tools</span></span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="/#search">Search</a>
+      <a class="nav-link" href="/#popular">Popular</a>
+      <a class="nav-link" href="/#uk-apps">UK Apps</a>
+      <a class="nav-link" href="/#developer-tools">Dev Tools</a>
+      <a class="nav-link" href="/#other-tools">Other</a>
+      <a class="nav-link" href="/about">About</a>
+      <a class="nav-link" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <div class="lang-group">
+        <button class="lang-trigger" type="button" aria-haspopup="true"><span id="currentLangLabel">English</span></button>
+        <div class="lang-dropdown" aria-label="Language">
+          <a href="?lang=en">English</a><a href="?lang=zh-CN">涓枃</a><a href="?lang=de">Deutsch</a><a href="?lang=fr">Fran莽ais</a><a href="?lang=es">Espa帽ol</a>
         </div>
-
-        <a class="nav-link" href="/blog" id="navBlog">Blog</a>
-        <a class="nav-link" href="/about" id="navAbout">About</a>
-
-        <select class="lang-select" id="languageSelect" aria-label="Language selector">
-          <option value="en">English</option>
-          <option value="zh">中文</option>
-          <option value="de">Deutsch</option>
-          <option value="fr">Français</option>
-          <option value="es">Español</option>
-        </select>
-      </nav>
+        <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">涓枃</option><option value="de">Deutsch</option><option value="fr">Fran莽ais</option><option value="es">Espa帽ol</option></select>
+      </div>
+    </div>
+  </div>
+</nav>
     </div>
   </header>
 
@@ -375,7 +371,7 @@
       <div class="eyebrow" id="eyebrowText">Free Image Hosting • Remote Storage</div>
       <h1 id="pageTitle">Free Image Hosting for GitHub README, Markdown and Blogs</h1>
       <p class="intro-text" id="introText">
-        Upload an image, choose how long it should stay online, and get a shareable image link. This free image hosting page is useful for screenshots, blog images, product images and quick online sharing.
+        Upload an image, choose how long it should stay online, and get a shareable image link. This free image hosting page is useful for screenshots, Website images, product images and quick online sharing.
       </p>
       <div class="notice" id="noticeText">
         Use this free image hosting page only for images you are comfortable uploading to the service. Simple math verification helps reduce abuse, and approved storage codes can be used for long-term image hosting.
@@ -475,7 +471,7 @@
           </div>
           <div class="result-item">
             <label id="resultHtmlLabel" for="htmlOutput">HTML</label>
-            <small class="format-use" id="resultHtmlUse">For web pages, blog editors and CMS templates.</small>
+            <small class="format-use" id="resultHtmlUse">For web pages, Website editors and CMS templates.</small>
             <div class="copy-row">
               <textarea class="copy-field" id="htmlOutput" rows="2" readonly></textarea>
               <button class="copy-btn" id="copyHtmlBtn" type="button" data-copy-target="htmlOutput">Copy HTML</button>
@@ -496,7 +492,7 @@
     <section class="section-card">
       <h2 id="sectionTitle">Why use this free image hosting tool</h2>
       <p id="sectionIntro">
-        This page uploads the selected file to the Mini-Tools.uk service so a hosted image URL can be created with the retention period you choose. It is useful for GitHub README files, Markdown documents, blog images, forum posts, support tickets, marketplace images and quick screenshot sharing.
+        This page uploads the selected file to the Mini-Tools.uk service so a hosted image URL can be created with the retention period you choose. It is useful for GitHub README files, Markdown documents, Website images, forum posts, support tickets, marketplace images and quick screenshot sharing.
       </p>
       <div class="detail-grid" aria-label="Image hosting link formats">
         <div class="detail-item">
@@ -509,7 +505,7 @@
         </div>
         <div class="detail-item">
           <strong id="formatHtmlTitle">HTML</strong>
-          <p id="formatHtmlText">Use the HTML image tag in websites, blog editors, CMS blocks and custom templates.</p>
+          <p id="formatHtmlText">Use the HTML image tag in websites, Website editors, CMS blocks and custom templates.</p>
         </div>
         <div class="detail-item">
           <strong id="formatBbcodeTitle">BBCode</strong>
@@ -534,7 +530,7 @@
         </div>
         <div class="detail-item">
           <strong id="retentionThirtyTitle">Delete after 30 days</strong>
-          <p id="retentionThirtyText">Useful for longer temporary references, blog drafts and review cycles.</p>
+          <p id="retentionThirtyText">Useful for longer temporary references, Website drafts and review cycles.</p>
         </div>
         <div class="detail-item">
           <strong id="retentionPermanentTitle">Permanent storage</strong>
@@ -593,7 +589,7 @@
         </article>
         <article class="example-item">
           <h3 id="markdownExampleTitle">Markdown</h3>
-          <p id="markdownExampleText">Use Markdown in docs, blog engines, issue comments and notes that support image embeds.</p>
+          <p id="markdownExampleText">Use Markdown in docs, Website engines, issue comments and notes that support image embeds.</p>
           <pre class="example-code"><code>![Alt text](https://mini-tools.uk/example-image.webp)</code></pre>
         </article>
         <article class="example-item">
@@ -627,7 +623,7 @@
         </article>
         <article class="faq-item">
           <h3 id="faq4Title">What can I use this free image host for?</h3>
-          <p id="faq4Text">It is useful for screenshots, blog images, product photos, forum posts, support tickets and other simple image sharing tasks.</p>
+          <p id="faq4Text">It is useful for screenshots, Website images, product photos, forum posts, support tickets and other simple image sharing tasks.</p>
         </article>
         <article class="faq-item">
           <h3 id="faq5Title">Can I use the link in a GitHub README?</h3>
@@ -638,8 +634,8 @@
           <p id="faq6Text">Use Direct URL for plain links, Markdown for README files and docs, HTML for web pages, and BBCode for forums.</p>
         </article>
         <article class="faq-item">
-          <h3 id="faq7Title">Can I use it for blog images?</h3>
-          <p id="faq7Text">Yes. You can copy Markdown or HTML embed code and paste it into blog posts, documentation or forum content.</p>
+          <h3 id="faq7Title">Can I use it for Website images?</h3>
+          <p id="faq7Text">Yes. You can copy Markdown or HTML embed code and paste it into Website posts, documentation or forum content.</p>
         </article>
         <article class="faq-item">
           <h3 id="faq8Title">Do I need a long-term storage code?</h3>
@@ -649,19 +645,12 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-links">
-        <a href="/" id="footerHome">Home</a>
-        <a href="/blog" id="footerBlog">Blog</a>
-        <a href="/about" id="footerAbout">About</a>
-        <a href="/privacy" id="footerPrivacy">Privacy Policy</a>
-        <a href="#upload-rules" id="footerRules">Upload Rules</a>
-        <a href="/contact" id="footerContact">Contact</a>
-      </div>
-      <div class="footer-note" id="footerNote">© 2026 Mini-Tools.uk — free image hosting with configurable retention</div>
-    </div>
-  </footer>
+  <footer class="footer">
+  <div class="wrap footer-inner">
+    <div>漏 2026 Mini-Tools.uk</div>
+    <div class="footer-links"><a href="/">Home</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a></div>
+  </div>
+</footer>
 
   <script>
     const WORKER_URL = "https://api.mini-tools.uk";
@@ -674,27 +663,27 @@
         ogTitle: "Free Image Hosting | Mini-Tools",
         ogDescription: "Free image hosting with direct URL, Markdown, HTML and BBCode output, selectable retention settings and clear upload rules.",
         schemaAppName: "Mini-Tools Free Image Hosting",
-        schemaDescription: "Free image hosting for screenshots, README images, blog images and other shareable image links with selectable retention periods and clear upload rules.",
+        schemaDescription: "Free image hosting for screenshots, README images, Website images and other shareable image links with selectable retention periods and clear upload rules.",
         schemaFaq1Title: "Is this image hosting tool free to use?",
         schemaFaq1Text: "Yes. You can upload images and copy direct links, Markdown, HTML or BBCode snippets for common publishing workflows.",
         schemaFaq2Title: "How long are uploaded images kept?",
         schemaFaq2Text: "Images are kept according to the selected retention option: 1 day, 7 days, 30 days, or permanent storage when a valid approved storage code is used. Do not upload private, sensitive, illegal or infringing content.",
-        schemaFaq3Title: "Can I use it for blog images?",
-        schemaFaq3Text: "Yes. You can copy Markdown or HTML embed code and paste it into blog posts, documentation or forum content.",
+        schemaFaq3Title: "Can I use it for Website images?",
+        schemaFaq3Text: "Yes. You can copy Markdown or HTML embed code and paste it into Website posts, documentation or forum content.",
 
         navHome: "Home",
-        navAllTools: "All Tools",
+        navAllTools: "Search Tools",
         navCategories: "Categories",
         navUkFinance: "UK applications",
         navDeveloperTools: "Developer Tools",
         navImagePdf: "Other tools",
         navMoreTools: "Other tools",
-        navBlog: "Blog",
+        navBlog: "Website",
         navAbout: "About",
 
         eyebrowText: "Free Image Hosting • Remote Storage",
         pageTitle: "Free Image Hosting for GitHub README, Markdown and Blogs",
-        introText: "Upload an image, choose how long it should stay online, and get a shareable image link. This free image hosting page is useful for screenshots, blog images, product images and quick online sharing.",
+        introText: "Upload an image, choose how long it should stay online, and get a shareable image link. This free image hosting page is useful for screenshots, Website images, product images and quick online sharing.",
         noticeText: "Use this free image hosting page only for images you are comfortable uploading to the service. Simple math verification helps reduce abuse, and approved storage codes can be used for long-term image hosting.",
 
         retentionLabel: "1. Retention period",
@@ -720,13 +709,13 @@
         logTitle: "Upload terminal",
 
         sectionTitle: "Why use this free image hosting tool",
-        sectionIntro: "This page uploads the selected file to the Mini-Tools.uk service so a hosted image URL can be created with the retention period you choose. It is useful for GitHub README files, Markdown documents, blog images, forum posts, support tickets, marketplace images and quick screenshot sharing.",
+        sectionIntro: "This page uploads the selected file to the Mini-Tools.uk service so a hosted image URL can be created with the retention period you choose. It is useful for GitHub README files, Markdown documents, Website images, forum posts, support tickets, marketplace images and quick screenshot sharing.",
         formatDirectTitle: "Direct URL",
         formatDirectText: "Copy the raw image link for messages, documents, previews and tools that ask for an image URL.",
         formatMarkdownTitle: "Markdown",
         formatMarkdownText: "Use the Markdown output in GitHub README files, documentation pages and issue comments.",
         formatHtmlTitle: "HTML",
-        formatHtmlText: "Use the HTML image tag in websites, blog editors, CMS blocks and custom templates.",
+        formatHtmlText: "Use the HTML image tag in websites, Website editors, CMS blocks and custom templates.",
         formatBbcodeTitle: "BBCode",
         formatBbcodeText: "Use BBCode for forums and communities that still support classic image tags.",
         retentionTitle: "How image retention works",
@@ -736,7 +725,7 @@
         retentionSevenTitle: "Delete after 7 days",
         retentionSevenText: "Useful for drafts, feedback links and short project references.",
         retentionThirtyTitle: "Delete after 30 days",
-        retentionThirtyText: "Useful for longer temporary references, blog drafts and review cycles.",
+        retentionThirtyText: "Useful for longer temporary references, Website drafts and review cycles.",
         retentionPermanentTitle: "Permanent storage",
         retentionPermanentText: "Requires a valid approved storage code and may still be removed if it violates upload rules.",
         rulesTitle: "What not to upload",
@@ -765,7 +754,7 @@
         faq3Title: "What is the long-term storage code for?",
         faq3Text: "It is an optional code for approved long-term image hosting. Normal free image uploads can leave it blank.",
         faq4Title: "What can I use this free image host for?",
-        faq4Text: "It is useful for screenshots, blog images, product photos, forum posts, support tickets and other simple image sharing tasks.",
+        faq4Text: "It is useful for screenshots, Website images, product photos, forum posts, support tickets and other simple image sharing tasks.",
 
 
         resultTitle: "Your hosted image links",
@@ -775,7 +764,7 @@
         resultMarkdownLabel: "Markdown",
         resultMarkdownUse: "For GitHub README, Markdown docs and issue comments.",
         resultHtmlLabel: "HTML",
-        resultHtmlUse: "For web pages, blog editors and CMS templates.",
+        resultHtmlUse: "For web pages, Website editors and CMS templates.",
         resultBbcodeLabel: "BBCode",
         resultBbcodeUse: "For forums and communities that support BBCode.",
         copyDirectBtn: "Copy URL",
@@ -789,7 +778,7 @@
         readmeExampleTitle: "GitHub README",
         readmeExampleText: "Paste the Markdown output into README.md to show the hosted image in a repository page.",
         markdownExampleTitle: "Markdown",
-        markdownExampleText: "Use Markdown in docs, blog engines, issue comments and notes that support image embeds.",
+        markdownExampleText: "Use Markdown in docs, Website engines, issue comments and notes that support image embeds.",
         htmlExampleTitle: "HTML",
         htmlExampleText: "Use HTML when you need an image tag for a website, CMS block or custom template.",
         bbcodeExampleTitle: "BBCode",
@@ -800,12 +789,12 @@
         faq5Text: "Yes. Upload the image, copy the Markdown output, and paste it into README.md or a GitHub issue comment.",
         faq6Title: "Which output format should I copy?",
         faq6Text: "Use Direct URL for plain links, Markdown for README files and docs, HTML for web pages, and BBCode for forums.",
-        faq7Title: "Can I use it for blog images?",
-        faq7Text: "Yes. You can copy Markdown or HTML embed code and paste it into blog posts, documentation or forum content.",
+        faq7Title: "Can I use it for Website images?",
+        faq7Text: "Yes. You can copy Markdown or HTML embed code and paste it into Website posts, documentation or forum content.",
         faq8Title: "Do I need a long-term storage code?",
         faq8Text: "Only permanent storage requires an approved long-term storage code. Normal 1 day, 7 day and 30 day uploads can leave it blank.",
         footerHome: "Home",
-        footerBlog: "Blog",
+        footerBlog: "Website",
         footerAbout: "About",
         footerPrivacy: "Privacy Policy",
         footerContact: "Contact",
@@ -1025,7 +1014,7 @@
         navDeveloperTools: "Entwickler-Tools",
         navImagePdf: "Weitere Tools",
         navMoreTools: "Weitere Tools",
-        navBlog: "Blog",
+        navBlog: "Website",
         navAbout: "Über uns",
 
         eyebrowText: "Kostenloses Bild-Hosting • Remote-Speicher",
@@ -1062,7 +1051,7 @@
         formatMarkdownTitle: "Markdown",
         formatMarkdownText: "Nutze die Markdown-Ausgabe für GitHub README, Dokumentationsseiten und Issue-Kommentare.",
         formatHtmlTitle: "HTML",
-        formatHtmlText: "Nutze das HTML-Bild-Tag für Websites, Blog-Editoren, CMS-Blöcke und Templates.",
+        formatHtmlText: "Nutze das HTML-Bild-Tag für Websites, Website-Editoren, CMS-Blöcke und Templates.",
         formatBbcodeTitle: "BBCode",
         formatBbcodeText: "Nutze BBCode für Foren und Communities mit klassischen Bild-Tags.",
         retentionTitle: "So funktioniert die Bildaufbewahrung",
@@ -1072,7 +1061,7 @@
         retentionSevenTitle: "Nach 7 Tagen löschen",
         retentionSevenText: "Für Entwürfe, Feedback-Links und kurze Projektreferenzen.",
         retentionThirtyTitle: "Nach 30 Tagen löschen",
-        retentionThirtyText: "Für längere temporäre Referenzen, Blog-Entwürfe und Review-Zyklen.",
+        retentionThirtyText: "Für längere temporäre Referenzen, Website-Entwürfe und Review-Zyklen.",
         retentionPermanentTitle: "Dauerhafte Speicherung",
         retentionPermanentText: "Benötigt einen gültigen genehmigten Code und kann bei Regelverstößen entfernt werden.",
         rulesTitle: "Was nicht hochgeladen werden darf",
@@ -1111,7 +1100,7 @@
         resultMarkdownLabel: "Markdown",
         resultMarkdownUse: "Für GitHub README, Markdown-Dokumente und Issue-Kommentare.",
         resultHtmlLabel: "HTML",
-        resultHtmlUse: "Für Webseiten, Blog-Editoren und CMS-Templates.",
+        resultHtmlUse: "Für Webseiten, Website-Editoren und CMS-Templates.",
         resultBbcodeLabel: "BBCode",
         resultBbcodeUse: "Für Foren und Communities, die BBCode unterstützen.",
         copyDirectBtn: "URL kopieren",
@@ -1125,7 +1114,7 @@
         readmeExampleTitle: "GitHub README",
         readmeExampleText: "Füge die Markdown-Ausgabe in README.md ein, um das gehostete Bild auf der Repository-Seite anzuzeigen.",
         markdownExampleTitle: "Markdown",
-        markdownExampleText: "Nutze Markdown in Dokumentationen, Blog-Systemen, Issue-Kommentaren und Notizen mit Bildunterstützung.",
+        markdownExampleText: "Nutze Markdown in Dokumentationen, Website-Systemen, Issue-Kommentaren und Notizen mit Bildunterstützung.",
         htmlExampleTitle: "HTML",
         htmlExampleText: "Nutze HTML, wenn du ein Bild-Tag für eine Webseite, ein CMS-Modul oder ein Template brauchst.",
         bbcodeExampleTitle: "BBCode",
@@ -1141,7 +1130,7 @@
         faq8Title: "Brauche ich einen Langzeitspeicher-Code?",
         faq8Text: "Nur permanente Speicherung benötigt einen genehmigten Langzeitspeicher-Code. Normale Uploads für 1 Tag, 7 Tage und 30 Tage können leer bleiben.",
         footerHome: "Start",
-        footerBlog: "Blog",
+        footerBlog: "Website",
         footerAbout: "Über uns",
         footerPrivacy: "Datenschutz",
         footerContact: "Kontakt",
@@ -1178,13 +1167,13 @@
         ogTitle: "Hébergement d’images gratuit | Mini-Tools",
         ogDescription: "Hébergement d’images gratuit avec liens partageables, aperçu dans le navigateur, durées de conservation au choix et codes optionnels de stockage longue durée.",
         schemaAppName: "Mini-Tools Hébergement d’images gratuit",
-        schemaDescription: "Hébergement d’images gratuit pour captures d’écran, images de blog, photos produits et autres liens d’images partageables avec durées de conservation au choix.",
+        schemaDescription: "Hébergement d’images gratuit pour captures d’écran, images de Website, photos produits et autres liens d’images partageables avec durées de conservation au choix.",
         schemaFaq1Title: "Cet outil d’hébergement d’images est-il gratuit ?",
         schemaFaq1Text: "Oui. Vous pouvez téléverser des images et copier des liens directs, des extraits Markdown, HTML ou BBCode pour les usages de publication courants.",
         schemaFaq2Title: "Combien de temps les images téléversées sont-elles conservées ?",
         schemaFaq2Text: "Les images sont conservées selon l’option choisie : 1 jour, 7 jours, 30 jours ou stockage permanent avec un code approuvé valide. Ne téléversez pas de contenu privé, sensible, illégal ou contrefaisant.",
-        schemaFaq3Title: "Puis-je l’utiliser pour des images de blog ?",
-        schemaFaq3Text: "Oui. Vous pouvez copier le code d’intégration Markdown ou HTML et le coller dans des articles de blog, de la documentation ou du contenu de forum.",
+        schemaFaq3Title: "Puis-je l’utiliser pour des images de Website ?",
+        schemaFaq3Text: "Oui. Vous pouvez copier le code d’intégration Markdown ou HTML et le coller dans des articles de Website, de la documentation ou du contenu de forum.",
 
         navHome: "Accueil",
         navAllTools: "Tous les outils",
@@ -1193,12 +1182,12 @@
         navDeveloperTools: "Outils développeur",
         navImagePdf: "Autres outils",
         navMoreTools: "Autres outils",
-        navBlog: "Blog",
+        navBlog: "Website",
         navAbout: "À propos",
 
         eyebrowText: "Hébergement d’images gratuit • Stockage distant",
         pageTitle: "Hébergement d’images gratuit pour Markdown, README et blogs",
-        introText: "Téléversez une image, choisissez combien de temps elle reste en ligne et obtenez un lien image partageable. Cette page est utile pour les captures d’écran, les images de blog, les photos produits et le partage rapide.",
+        introText: "Téléversez une image, choisissez combien de temps elle reste en ligne et obtenez un lien image partageable. Cette page est utile pour les captures d’écran, les images de Website, les photos produits et le partage rapide.",
         noticeText: "Utilisez cette page uniquement pour les images que vous acceptez d’envoyer au service. Une simple opération aide à réduire les abus, et des codes approuvés peuvent être utilisés pour le stockage longue durée.",
 
         retentionLabel: "1. Durée de conservation",
@@ -1224,13 +1213,13 @@
         logTitle: "Terminal d’envoi",
 
         sectionTitle: "Pourquoi utiliser cet hébergement d’images gratuit ?",
-        sectionIntro: "Cette page téléverse le fichier sélectionné vers Mini-Tools.uk afin de créer une URL d’image hébergée avec la durée de conservation choisie. Elle convient aux README GitHub, documents Markdown, images de blog, forums, tickets de support et captures d’écran.",
+        sectionIntro: "Cette page téléverse le fichier sélectionné vers Mini-Tools.uk afin de créer une URL d’image hébergée avec la durée de conservation choisie. Elle convient aux README GitHub, documents Markdown, images de Website, forums, tickets de support et captures d’écran.",
         formatDirectTitle: "URL directe",
         formatDirectText: "Copiez le lien brut de l’image pour messages, documents, aperçus et outils demandant une URL d’image.",
         formatMarkdownTitle: "Markdown",
         formatMarkdownText: "Utilisez la sortie Markdown dans les README GitHub, pages de documentation et commentaires.",
         formatHtmlTitle: "HTML",
-        formatHtmlText: "Utilisez la balise image HTML dans sites web, éditeurs de blog, blocs CMS et modèles.",
+        formatHtmlText: "Utilisez la balise image HTML dans sites web, éditeurs de Website, blocs CMS et modèles.",
         formatBbcodeTitle: "BBCode",
         formatBbcodeText: "Utilisez BBCode pour les forums et communautés compatibles.",
         retentionTitle: "Fonctionnement de la conservation",
@@ -1240,7 +1229,7 @@
         retentionSevenTitle: "Supprimer après 7 jours",
         retentionSevenText: "Utile pour brouillons, liens de retour et références de projet courtes.",
         retentionThirtyTitle: "Supprimer après 30 jours",
-        retentionThirtyText: "Utile pour références temporaires plus longues, brouillons de blog et cycles de revue.",
+        retentionThirtyText: "Utile pour références temporaires plus longues, brouillons de Website et cycles de revue.",
         retentionPermanentTitle: "Stockage permanent",
         retentionPermanentText: "Nécessite un code approuvé valide et peut être supprimé en cas de violation des règles.",
         rulesTitle: "Ce qu’il ne faut pas téléverser",
@@ -1269,7 +1258,7 @@
         faq3Title: "À quoi sert le code de stockage longue durée ?",
         faq3Text: "C’est un code facultatif pour un hébergement d’images longue durée approuvé. Les envois normaux peuvent le laisser vide.",
         faq4Title: "À quoi sert cet hébergeur d’images gratuit ?",
-        faq4Text: "Il est utile pour les captures d’écran, images de blog, photos produits, messages de forum, tickets de support et autres partages d’images simples.",
+        faq4Text: "Il est utile pour les captures d’écran, images de Website, photos produits, messages de forum, tickets de support et autres partages d’images simples.",
 
 
         resultTitle: "Vos liens d’image hébergée",
@@ -1279,7 +1268,7 @@
         resultMarkdownLabel: "Markdown",
         resultMarkdownUse: "Pour GitHub README, les documents Markdown et les commentaires d’issues.",
         resultHtmlLabel: "HTML",
-        resultHtmlUse: "Pour les pages web, éditeurs de blog et modèles CMS.",
+        resultHtmlUse: "Pour les pages web, éditeurs de Website et modèles CMS.",
         resultBbcodeLabel: "BBCode",
         resultBbcodeUse: "Pour les forums et communautés qui prennent BBCode en charge.",
         copyDirectBtn: "Copier l’URL",
@@ -1293,7 +1282,7 @@
         readmeExampleTitle: "GitHub README",
         readmeExampleText: "Collez la sortie Markdown dans README.md pour afficher l’image hébergée sur la page du dépôt.",
         markdownExampleTitle: "Markdown",
-        markdownExampleText: "Utilisez Markdown dans les docs, moteurs de blog, commentaires d’issue et notes qui acceptent les images.",
+        markdownExampleText: "Utilisez Markdown dans les docs, moteurs de Website, commentaires d’issue et notes qui acceptent les images.",
         htmlExampleTitle: "HTML",
         htmlExampleText: "Utilisez HTML lorsque vous avez besoin d’une balise image pour un site, un bloc CMS ou un modèle personnalisé.",
         bbcodeExampleTitle: "BBCode",
@@ -1304,12 +1293,12 @@
         faq5Text: "Oui. Téléversez l’image, copiez la sortie Markdown, puis collez-la dans README.md ou un commentaire d’issue GitHub.",
         faq6Title: "Quel format dois-je copier ?",
         faq6Text: "Utilisez l’URL directe pour les liens simples, Markdown pour les README et docs, HTML pour les pages web, et BBCode pour les forums.",
-        faq7Title: "Puis-je l’utiliser pour des images de blog ?",
-        faq7Text: "Oui. Vous pouvez copier le code d’intégration Markdown ou HTML et le coller dans des articles de blog, de la documentation ou du contenu de forum.",
+        faq7Title: "Puis-je l’utiliser pour des images de Website ?",
+        faq7Text: "Oui. Vous pouvez copier le code d’intégration Markdown ou HTML et le coller dans des articles de Website, de la documentation ou du contenu de forum.",
         faq8Title: "Ai-je besoin d’un code de stockage longue durée ?",
         faq8Text: "Seul le stockage permanent nécessite un code approuvé. Les envois de 1 jour, 7 jours et 30 jours peuvent le laisser vide.",
         footerHome: "Accueil",
-        footerBlog: "Blog",
+        footerBlog: "Website",
         footerAbout: "À propos",
         footerPrivacy: "Politique de confidentialité",
         footerContact: "Contact",
@@ -1346,13 +1335,13 @@
         ogTitle: "Alojamiento gratuito de imágenes | Mini-Tools",
         ogDescription: "Alojamiento gratuito de imágenes con enlaces compartibles, vista previa en el navegador, tiempos de retención seleccionables y códigos opcionales para almacenamiento prolongado.",
         schemaAppName: "Mini-Tools Alojamiento gratuito de imágenes",
-        schemaDescription: "Alojamiento gratuito de imágenes para capturas, imágenes de blog, fotos de productos y otros enlaces de imagen compartibles con tiempos de retención seleccionables.",
+        schemaDescription: "Alojamiento gratuito de imágenes para capturas, imágenes de Website, fotos de productos y otros enlaces de imagen compartibles con tiempos de retención seleccionables.",
         schemaFaq1Title: "¿Esta herramienta de alojamiento de imágenes es gratis?",
         schemaFaq1Text: "Sí. Puedes subir imágenes y copiar enlaces directos, fragmentos Markdown, HTML o BBCode para flujos habituales de publicación.",
         schemaFaq2Title: "¿Cuánto tiempo se conservan las imágenes subidas?",
         schemaFaq2Text: "Las imágenes subidas pueden almacenarse para compartir y mostrar. No subas contenido privado, sensible o ilegal.",
-        schemaFaq3Title: "¿Puedo usarlo para imágenes de blog?",
-        schemaFaq3Text: "Sí. Puedes copiar código de inserción Markdown o HTML y pegarlo en entradas de blog, documentación o contenido de foros.",
+        schemaFaq3Title: "¿Puedo usarlo para imágenes de Website?",
+        schemaFaq3Text: "Sí. Puedes copiar código de inserción Markdown o HTML y pegarlo en entradas de Website, documentación o contenido de foros.",
 
         navHome: "Inicio",
         navAllTools: "Todas las herramientas",
@@ -1361,12 +1350,12 @@
         navDeveloperTools: "Herramientas para desarrolladores",
         navImagePdf: "Imagen y PDF",
         navMoreTools: "Más herramientas",
-        navBlog: "Blog",
+        navBlog: "Website",
         navAbout: "Acerca de",
 
         eyebrowText: "Alojamiento gratuito de imágenes • Almacenamiento remoto",
         pageTitle: "Alojamiento gratuito de imágenes para Markdown, README y blogs",
-        introText: "Sube una imagen, elige cuánto tiempo debe permanecer en línea y obtén un enlace compartible. Esta página es útil para capturas de pantalla, imágenes de blog, fotos de productos y compartición rápida.",
+        introText: "Sube una imagen, elige cuánto tiempo debe permanecer en línea y obtén un enlace compartible. Esta página es útil para capturas de pantalla, imágenes de Website, fotos de productos y compartición rápida.",
         noticeText: "Usa esta página solo para imágenes que aceptes subir al servicio. Una operación matemática sencilla ayuda a reducir abusos, y los códigos aprobados pueden utilizarse para almacenamiento prolongado.",
 
         retentionLabel: "1. Tiempo de retención",
@@ -1392,7 +1381,7 @@
         logTitle: "Terminal de subida",
 
         sectionTitle: "¿Por qué usar este alojamiento gratuito de imágenes?",
-        sectionIntro: "Esta es una herramienta de alojamiento gratuito de imágenes basada en servidor para crear enlaces directos. Funciona bien para capturas de pantalla, contenido de blog, listados de productos, comentarios de diseño y uso general. A diferencia de las herramientas locales, esta página sube el archivo seleccionado para crear una URL de imagen alojada con el tiempo de retención elegido.",
+        sectionIntro: "Esta es una herramienta de alojamiento gratuito de imágenes basada en servidor para crear enlaces directos. Funciona bien para capturas de pantalla, contenido de Website, listados de productos, comentarios de diseño y uso general. A diferencia de las herramientas locales, esta página sube el archivo seleccionado para crear una URL de imagen alojada con el tiempo de retención elegido.",
         faq1Title: "¿Esta herramienta de alojamiento de imágenes es gratis?",
         faq1Text: "Sí. Puedes subir imágenes y copiar enlaces directos, fragmentos Markdown, HTML o BBCode para flujos habituales de publicación.",
         faq2Title: "¿Cuánto tiempo se conservan las imágenes subidas?",
@@ -1400,7 +1389,7 @@
         faq3Title: "¿Para qué sirve el código de almacenamiento prolongado?",
         faq3Text: "Es un código opcional para alojamiento prolongado de imágenes aprobado. Las subidas normales pueden dejarlo vacío.",
         faq4Title: "¿Para qué puedo usar este alojamiento gratuito de imágenes?",
-        faq4Text: "Es útil para capturas, imágenes de blog, fotos de productos, publicaciones en foros, tickets de soporte y otras tareas sencillas para compartir imágenes.",
+        faq4Text: "Es útil para capturas, imágenes de Website, fotos de productos, publicaciones en foros, tickets de soporte y otras tareas sencillas para compartir imágenes.",
 
 
         resultTitle: "Tus enlaces de imagen alojada",
@@ -1410,7 +1399,7 @@
         resultMarkdownLabel: "Markdown",
         resultMarkdownUse: "Para GitHub README, documentos Markdown y comentarios de issues.",
         resultHtmlLabel: "HTML",
-        resultHtmlUse: "Para páginas web, editores de blog y plantillas CMS.",
+        resultHtmlUse: "Para páginas web, editores de Website y plantillas CMS.",
         resultBbcodeLabel: "BBCode",
         resultBbcodeUse: "Para foros y comunidades que admiten BBCode.",
         copyDirectBtn: "Copiar URL",
@@ -1424,7 +1413,7 @@
         readmeExampleTitle: "GitHub README",
         readmeExampleText: "Pega la salida Markdown en README.md para mostrar la imagen alojada en la página del repositorio.",
         markdownExampleTitle: "Markdown",
-        markdownExampleText: "Usa Markdown en documentos, motores de blog, comentarios de issues y notas que admitan imágenes.",
+        markdownExampleText: "Usa Markdown en documentos, motores de Website, comentarios de issues y notas que admitan imágenes.",
         htmlExampleTitle: "HTML",
         htmlExampleText: "Usa HTML cuando necesites una etiqueta de imagen para una web, bloque CMS o plantilla personalizada.",
         bbcodeExampleTitle: "BBCode",
@@ -1435,12 +1424,12 @@
         faq5Text: "Sí. Sube la imagen, copia la salida Markdown y pégala en README.md o en un comentario de GitHub issue.",
         faq6Title: "¿Qué formato debo copiar?",
         faq6Text: "Usa URL directa para enlaces simples, Markdown para README y documentos, HTML para páginas web y BBCode para foros.",
-        faq7Title: "¿Puedo usarlo para imágenes de blog?",
-        faq7Text: "Sí. Puedes copiar código de inserción Markdown o HTML y pegarlo en entradas de blog, documentación o contenido de foros.",
+        faq7Title: "¿Puedo usarlo para imágenes de Website?",
+        faq7Text: "Sí. Puedes copiar código de inserción Markdown o HTML y pegarlo en entradas de Website, documentación o contenido de foros.",
         faq8Title: "¿Necesito un código de almacenamiento prolongado?",
         faq8Text: "Solo el almacenamiento permanente requiere un código aprobado. Las subidas de 1 día, 7 días y 30 días pueden dejarlo vacío.",
         footerHome: "Inicio",
-        footerBlog: "Blog",
+        footerBlog: "Website",
         footerAbout: "Acerca de",
         footerPrivacy: "Política de privacidad",
         footerContact: "Contacto",
@@ -1851,20 +1840,6 @@ updateProperty("og:title", texts.ogTitle);
           button.classList.remove("copied");
         }, 1400);
       });
-    });
-
-    const dropdown = document.getElementById("categoriesDropdown");
-    const trigger = dropdown.querySelector(".nav-button");
-    trigger.addEventListener("click", (e) => {
-      e.preventDefault();
-      const open = dropdown.classList.toggle("open");
-      trigger.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-    document.addEventListener("click", (e) => {
-      if (!dropdown.contains(e.target)) {
-        dropdown.classList.remove("open");
-        trigger.setAttribute("aria-expanded", "false");
-      }
     });
 
     languageSelect.addEventListener("change", (e) => {

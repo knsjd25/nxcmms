@@ -1,75 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url>
-    <loc>https://mini-tools.uk/</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/?lang=zh-CN"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/"/>
-  </url>
-  <url>
-    <loc>https://mini-tools.uk/upload</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/upload?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/upload?lang=zh-CN"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/upload?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/upload?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/upload?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/upload"/>
-  </url>
-  <url>
-    <loc>https://mini-tools.uk/tax</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/tax?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/tax?lang=zh-CN"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/tax?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/tax?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/tax?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/tax"/>
-  </url>
-  <url>
-    <loc>https://mini-tools.uk/about</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.40</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/about?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/about?lang=zh-CN"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/about?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/about?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/about?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/about"/>
-  </url>
-  <url>
-    <loc>https://mini-tools.uk/contact</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.40</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/contact?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/contact?lang=zh-CN"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/contact?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/contact?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/contact?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/contact"/>
-  </url>
-  <url>
-    <loc>https://mini-tools.uk/privacy</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.40</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://mini-tools.uk/privacy?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/privacy?lang=zh-CN"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://mini-tools.uk/privacy?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://mini-tools.uk/privacy?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://mini-tools.uk/privacy?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/privacy"/>
-  </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://mini-tools.uk/</loc></url>
+  <url><loc>https://mini-tools.uk/upload</loc></url>
+  <url><loc>https://mini-tools.uk/tax</loc></url>
+  <url><loc>https://mini-tools.uk/privacy</loc></url>
+  <url><loc>https://mini-tools.uk/contact</loc></url>
+  <url><loc>https://mini-tools.uk/about</loc></url>
 </urlset>

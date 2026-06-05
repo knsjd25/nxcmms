@@ -6,7 +6,7 @@
 
   <title>UK Petrol Cost Calculator | Miles, MPG & Pence per Litre</title>
   <meta name="description" content="Estimate UK petrol or diesel trip costs using miles, imperial MPG and pence per litre. See litres used, total fuel cost and cost per passenger." />
-<meta name="robots" content="index,follow,max-image-preview:large" />
+<meta name="robots" content="noindex,follow,max-image-preview:large">
   <meta name="theme-color" content="#0f172a" />
 
   <link rel="canonical" href="https://mini-tools.uk/fuel" />
@@ -75,7 +75,7 @@
             "name":"Is this page suitable for exact reimbursement claims?",
             "acceptedAnswer":{
               "@type":"Answer",
-              "text":"No. It is a planning estimate for journeys and cost-sharing. Exact reimbursement rules may depend on your employer, lease terms, route changes, traffic and real-world vehicle efficiency."
+              "text":"No. It is a planning estimate for journeys and cost-sharing. Exact reimbursement rules may depend on your employer, lease Policies, route changes, traffic and real-world vehicle efficiency."
             }
           }
         ]
@@ -247,49 +247,32 @@
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
 
-  <nav class="nav">
-    <div class="wrap nav-inner">
-      <a class="brand" href="/">
-        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" />
-        <span class="brand-copy">
-          <span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span>
-          <span class="brand-subtitle" data-i18n="brandSubtitle">Practical calculators and browser tools</span>
-        </span>
-      </a>
-      <div class="nav-links">
-        <a class="nav-link" href="/" data-i18n="navHome">Home</a>
-        <a class="nav-link" href="/#featured-tools" data-i18n="navTools">All Tools</a>
-        <div class="nav-group">
-          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span data-i18n="navCategories">Categories</span>
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="dropdown" role="menu">
-            <a href="/#uk-finance"><span data-i18n="catFinance">UK Finance</span><small data-i18n="catFinanceSmall">Tax, VAT, mortgage and travel tools</small></a>
-            <a href="/#developer-tools"><span data-i18n="catDev">Developer Tools</span><small data-i18n="catDevSmall">JSON, diff, image hosting and AI token estimation</small></a>
-            <a href="/#image-tools"><span data-i18n="catImage">Image & PDF</span><small data-i18n="catImageSmall">Compression, conversion and media utilities</small></a>
-            <a href="/password"><span data-i18n="catSecurity">Security</span><small data-i18n="catSecuritySmall">Password and privacy helpers</small></a>
-          </div>
+  <nav class="nav" aria-label="Primary navigation">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo">
+      <span class="brand-copy"><span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="brand-subtitle">Useful online tools</span></span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="/#search">Search</a>
+      <a class="nav-link" href="/#popular">Popular</a>
+      <a class="nav-link" href="/#uk-apps">UK Apps</a>
+      <a class="nav-link" href="/#developer-tools">Dev Tools</a>
+      <a class="nav-link" href="/#other-tools">Other</a>
+      <a class="nav-link" href="/about">About</a>
+      <a class="nav-link" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <div class="lang-group">
+        <button class="lang-trigger" type="button" aria-haspopup="true"><span id="currentLangLabel">English</span></button>
+        <div class="lang-dropdown" aria-label="Language">
+          <a href="?lang=en">English</a><a href="?lang=zh-CN">涓枃</a><a href="?lang=de">Deutsch</a><a href="?lang=fr">Fran莽ais</a><a href="?lang=es">Espa帽ol</a>
         </div>
-        <a class="nav-link" href="/blog" data-i18n="navBlog">Blog</a>
-        <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
-        <a class="nav-link" href="/contact" data-i18n="navContact">Contact</a>
-
-        <div class="lang-group">
-          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-            <span id="currentLangLabel">English</span>
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="lang-dropdown" role="menu" aria-label="Language">
-            <button type="button" data-lang-btn="en">English</button>
-            <button type="button" data-lang-btn="zh-CN">中文</button>
-            <button type="button" data-lang-btn="de">Deutsch</button>
-            <button type="button" data-lang-btn="fr">Français</button>
-            <button type="button" data-lang-btn="es">Español</button>
-          </div>
-        </div>
+        <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">涓枃</option><option value="de">Deutsch</option><option value="fr">Fran莽ais</option><option value="es">Espa帽ol</option></select>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
   <main id="main">
     <section class="hero wrap">
@@ -463,18 +446,12 @@
     </section>
   </main>
 
-  <footer>
-    <div class="wrap footer-inner">
-      <div class="footer-top">
-        <a href="/" data-i18n="navHome">Home</a>
-        <a href="/about" data-i18n="navAbout">About</a>
-        <a href="/blog" data-i18n="navBlog">Blog</a>
-        <a href="/privacy" data-i18n="privacy">Privacy</a>
-        <a href="/contact" data-i18n="navContact">Contact</a>
-      </div>
-      <div class="footer-bottom" data-i18n="footerNote">© 2026 Mini-Tools.uk — practical web tools for work, study and everyday planning.</div>
-    </div>
-  </footer>
+  <footer class="footer">
+  <div class="wrap footer-inner">
+    <div>漏 2026 Mini-Tools.uk</div>
+    <div class="footer-links"><a href="/">Home</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a></div>
+  </div>
+</footer>
 
   <script>
     const translations = {
@@ -482,8 +459,8 @@
         htmlLang:"en-GB", langLabel:"English", locale:"en-GB",
         title:"UK Petrol Cost Calculator | Miles, MPG & Pence per Litre",
         description:"Estimate UK petrol or diesel trip costs using miles, imperial MPG and pence per litre. See litres used, total fuel cost and cost per passenger.",
-        skip:"Skip to content", brandSubtitle:"Practical calculators and browser tools", navHome:"Home", navTools:"All Tools", navCategories:"Categories", navBlog:"Blog", navAbout:"About", navContact:"Contact", privacy:"Privacy",
-        catFinance:"UK Finance", catFinanceSmall:"Tax, VAT, mortgage and travel tools", catDev:"Developer Tools", catDevSmall:"JSON, diff, image hosting and AI token estimation", catImage:"Image & PDF", catImageSmall:"Compression, conversion and media utilities", catSecurity:"Security", catSecuritySmall:"Password and privacy helpers",
+        skip:"Skip to content", brandSubtitle:"Practical calculators and browser tools", navHome:"Home", navTools:"Search Tools", navCategories:"Categories", navBlog:"Website", navAbout:"About", navContact:"Contact", privacy:"Privacy",
+        catFinance:"UK Apps", catFinanceSmall:"Tax, VAT, mortgage and travel tools", catDev:"Developer Tools", catDevSmall:"JSON, diff, image hosting and AI token estimation", catImage:"Other Tools", catImageSmall:"Compression, conversion and media utilities", catSecurity:"Safety", catSecuritySmall:"Password and privacy helpers",
         badge:"UK road-trip estimate tool", heroTitle:"UK petrol and fuel cost calculator", heroText:"Estimate a one-way or return trip using UK miles, imperial MPG and pence per litre. See the total cost, litres required, gallons used and the split cost per passenger.",
         mini1Title:"Made for UK inputs", mini1Text:"Uses miles, imperial MPG and pence per litre instead of mixing UK and US fuel assumptions.", mini2Title:"Useful for planning", mini2Text:"Quickly compare one-way and return journeys before setting off or splitting costs with friends.", mini3Title:"Clear cost breakdown", mini3Text:"Shows litres, imperial gallons and per-person cost without making you do the conversion yourself.",
         formTitle:"Journey details", tripTypeLabel:"Trip type", oneWay:"One way", returnTrip:"Return trip", tripHint:"Return trip simply doubles the journey distance before estimating fuel use.", distanceLabel:"Distance", milesUnit:"miles", mpgLabel:"Fuel efficiency", mpgUnit:"UK mpg", priceLabel:"Fuel price", priceUnit:"p / litre", priceHint:"Enter the pump price in pence per litre, for example 145.9.", passengersLabel:"Passengers sharing cost", peopleUnit:"people", planningNote:"This page is a journey planning estimate. Real-world consumption may change because of traffic, speed, weather, route profile, tyre pressure and vehicle load.", calcButton:"Estimate fuel cost",
@@ -514,7 +491,7 @@
         htmlLang:"de", langLabel:"Deutsch", locale:"de-DE",
         title:"UK Kraftstoffkostenrechner｜Meilen, MPG und Pence pro Liter｜Mini-Tools.uk",
         description:"Schätzen Sie Kraftstoffkosten für UK-Fahrten mit Meilen, imperial MPG und Pence pro Liter. Inklusive Liter, Gallonen und Kosten pro Person.",
-        skip:"Zum Inhalt springen", brandSubtitle:"Praktische Rechner und Browser-Tools", navHome:"Startseite", navTools:"Alle Tools", navCategories:"Kategorien", navBlog:"Blog", navAbout:"Über uns", navContact:"Kontakt", privacy:"Datenschutz",
+        skip:"Zum Inhalt springen", brandSubtitle:"Praktische Rechner und Browser-Tools", navHome:"Startseite", navTools:"Alle Tools", navCategories:"Kategorien", navBlog:"Website", navAbout:"Über uns", navContact:"Kontakt", privacy:"Datenschutz",
         catFinance:"UK Finanzen", catFinanceSmall:"Steuer, VAT, Hypothek und Reisekosten", catDev:"Developer Tools", catDevSmall:"JSON, Diff, Bildhosting und AI-Token-Schätzung", catImage:"Bild & PDF", catImageSmall:"Komprimierung, Konvertierung und Medien", catSecurity:"Sicherheit", catSecuritySmall:"Passwort- und Datenschutzhelfer",
         badge:"UK Fahrtkosten-Schätzung", heroTitle:"Kraftstoffkostenrechner", heroText:"Schätzen Sie einfache oder Hin-und-zurück-Fahrten mit UK-Meilen, imperial MPG und Pence pro Liter. Sehen Sie Gesamtkosten, Liter, Gallonen und Kosten pro Person.",
         mini1Title:"Für UK-Eingaben", mini1Text:"Verwendet Meilen, imperial MPG und Pence pro Liter statt gemischter UK/US-Annahmen.", mini2Title:"Nützlich für Planung", mini2Text:"Vergleichen Sie einfache und Rückfahrten oder teilen Sie Kosten mit Freunden.", mini3Title:"Klare Kostenaufschlüsselung", mini3Text:"Zeigt Liter, imperial gallons und Kosten pro Person ohne manuelle Umrechnung.",
@@ -530,8 +507,8 @@
         htmlLang:"fr", langLabel:"Français", locale:"fr-FR",
         title:"Calculateur de coût carburant UK｜Miles, MPG et pence par litre｜Mini-Tools.uk",
         description:"Estimez le coût carburant d’un trajet au Royaume-Uni avec miles, MPG impérial et pence par litre. Affiche litres, gallons et coût par passager.",
-        skip:"Aller au contenu", brandSubtitle:"Calculateurs pratiques et outils navigateur", navHome:"Accueil", navTools:"Tous les outils", navCategories:"Catégories", navBlog:"Blog", navAbout:"À propos", navContact:"Contact", privacy:"Confidentialité",
-        catFinance:"Finance UK", catFinanceSmall:"Impôt, VAT, prêt immobilier et trajets", catDev:"Outils développeur", catDevSmall:"JSON, diff, hébergement image et estimation tokens IA", catImage:"Image & PDF", catImageSmall:"Compression, conversion et médias", catSecurity:"Sécurité", catSecuritySmall:"Mot de passe et confidentialité",
+        skip:"Aller au contenu", brandSubtitle:"Calculateurs pratiques et outils navigateur", navHome:"Accueil", navTools:"Tous les outils", navCategories:"Catégories", navBlog:"Website", navAbout:"À propos", navContact:"Contact", privacy:"Confidentialité",
+        catFinance:"Finance UK", catFinanceSmall:"Impôt, VAT, prêt immobilier et trajets", catDev:"Outils développeur", catDevSmall:"JSON, diff, hébergement image et estimation tokens IA", catImage:"Other Tools", catImageSmall:"Compression, conversion et médias", catSecurity:"Sécurité", catSecuritySmall:"Mot de passe et confidentialité",
         badge:"Estimateur de trajet UK", heroTitle:"Calculateur de coût carburant", heroText:"Estimez un trajet aller simple ou aller-retour avec miles UK, MPG impérial et pence par litre. Affichez le coût total, les litres, les gallons et le coût par passager.",
         mini1Title:"Entrées adaptées au Royaume-Uni", mini1Text:"Utilise miles, MPG impérial et pence par litre sans mélanger unités UK et US.", mini2Title:"Utile pour planifier", mini2Text:"Comparez rapidement aller simple et aller-retour avant de partir ou de partager les frais.", mini3Title:"Détail clair du coût", mini3Text:"Affiche litres, gallons impériaux et coût par personne sans conversion manuelle.",
         formTitle:"Détails du trajet", tripTypeLabel:"Type de trajet", oneWay:"Aller simple", returnTrip:"Aller-retour", tripHint:"Un aller-retour double simplement la distance avant l’estimation.", distanceLabel:"Distance", milesUnit:"miles", mpgLabel:"Efficacité carburant", mpgUnit:"UK MPG", priceLabel:"Prix carburant", priceUnit:"p / litre", priceHint:"Entrez le prix à la pompe en pence par litre, par exemple 145.9.", passengersLabel:"Passagers partageant le coût", peopleUnit:"personnes", planningNote:"Cette page fournit une estimation. La consommation réelle dépend du trafic, de la vitesse, de la météo, de l’itinéraire, des pneus et de la charge.", calcButton:"Estimer le coût carburant",
@@ -546,7 +523,7 @@
         htmlLang:"es", langLabel:"Español", locale:"es-ES",
         title:"Calculadora de coste de combustible UK｜Millas, MPG y peniques por litro｜Mini-Tools.uk",
         description:"Estima el coste de combustible de un viaje en Reino Unido con millas, MPG imperial y peniques por litro. Incluye litros, galones y coste por pasajero.",
-        skip:"Saltar al contenido", brandSubtitle:"Calculadoras prácticas y herramientas web", navHome:"Inicio", navTools:"Todas las herramientas", navCategories:"Categorías", navBlog:"Blog", navAbout:"Acerca de", navContact:"Contacto", privacy:"Privacidad",
+        skip:"Saltar al contenido", brandSubtitle:"Calculadoras prácticas y herramientas web", navHome:"Inicio", navTools:"Todas las herramientas", navCategories:"Categorías", navBlog:"Website", navAbout:"Acerca de", navContact:"Contacto", privacy:"Privacidad",
         catFinance:"Finanzas UK", catFinanceSmall:"Impuestos, VAT, hipoteca y viajes", catDev:"Herramientas developer", catDevSmall:"JSON, diff, hosting de imágenes y tokens IA", catImage:"Imagen y PDF", catImageSmall:"Compresión, conversión y medios", catSecurity:"Seguridad", catSecuritySmall:"Contraseñas y privacidad",
         badge:"Estimador de viaje UK", heroTitle:"Calculadora de coste de combustible", heroText:"Estima un viaje de ida o ida y vuelta usando millas UK, MPG imperial y peniques por litro. Muestra coste total, litros, galones y coste por pasajero.",
         mini1Title:"Pensada para datos UK", mini1Text:"Usa millas, MPG imperial y peniques por litro sin mezclar unidades UK y US.", mini2Title:"Útil para planificar", mini2Text:"Compara viajes de ida y vuelta antes de salir o dividir gastos con amigos.", mini3Title:"Desglose claro", mini3Text:"Muestra litros, galones imperiales y coste por persona sin conversión manual.",

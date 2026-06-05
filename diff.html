@@ -228,46 +228,32 @@
         <div class="brand-title">Mini-Tools<span>.uk</span></div>
       </a>
 
-      <nav class="nav" aria-label="Main navigation">
-        <a class="nav-link" href="/" data-i18n="navHome">Home</a>
-        <a class="nav-link" href="/#featured-tools" data-i18n="navTools">All Tools</a>
-
-        <div class="dropdown" id="categoriesDropdown">
-          <button class="nav-button" type="button" aria-expanded="false" aria-controls="categoriesMenu">
-            <span data-i18n="navCategories">Categories</span>
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-          <div class="dropdown-menu" id="categoriesMenu" role="menu">
-            <a class="dropdown-item" href="/#uk-finance" data-i18n="catFinance">UK Finance</a>
-            <a class="dropdown-item" href="/#developer-tools" data-i18n="catDev">Developer Tools</a>
-            <a class="dropdown-item" href="/#image-tools" data-i18n="catImage">Image & PDF</a>
-            <a class="dropdown-item" href="/#developer-tools" data-i18n="catText">Text & Conversion</a>
-            <a class="dropdown-item" href="/password" data-i18n="catSecurity">Security & Privacy</a>
-          </div>
+      <nav class="nav" aria-label="Primary navigation">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo">
+      <span class="brand-copy"><span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="brand-subtitle">Useful online tools</span></span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="/#search">Search</a>
+      <a class="nav-link" href="/#popular">Popular</a>
+      <a class="nav-link" href="/#uk-apps">UK Apps</a>
+      <a class="nav-link" href="/#developer-tools">Dev Tools</a>
+      <a class="nav-link" href="/#other-tools">Other</a>
+      <a class="nav-link" href="/about">About</a>
+      <a class="nav-link" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <div class="lang-group">
+        <button class="lang-trigger" type="button" aria-haspopup="true"><span id="currentLangLabel">English</span></button>
+        <div class="lang-dropdown" aria-label="Language">
+          <a href="?lang=en">English</a><a href="?lang=zh-CN">涓枃</a><a href="?lang=de">Deutsch</a><a href="?lang=fr">Fran莽ais</a><a href="?lang=es">Espa帽ol</a>
         </div>
-
-        <a class="nav-link" href="/blog" data-i18n="navBlog">Blog</a>
-        <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
-        <a class="nav-link" href="/contact" data-i18n="navContact">Contact</a>
-
-        <div class="lang-group">
-          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-            <span id="currentLangLabel">English</span>
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-          <div class="lang-menu" role="menu" aria-label="Language">
-            <button type="button" data-lang-btn="en">English</button>
-            <button type="button" data-lang-btn="zh-CN">中文</button>
-            <button type="button" data-lang-btn="de">Deutsch</button>
-            <button type="button" data-lang-btn="fr">Français</button>
-            <button type="button" data-lang-btn="es">Español</button>
-          </div>
-        </div>
-      </nav>
+        <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">涓枃</option><option value="de">Deutsch</option><option value="fr">Fran莽ais</option><option value="es">Espa帽ol</option></select>
+      </div>
+    </div>
+  </div>
+</nav>
     </div>
   </header>
 
@@ -366,9 +352,9 @@
     <section class="section-card">
       <h2 data-i18n="useTitle">Common ways to use a text diff checker</h2>
       <ul>
-        <li data-i18n="use1">Compare two versions of an article, blog post, email or product description before publishing.</li>
+        <li data-i18n="use1">Compare two versions of an article, Website post, email or product description before publishing.</li>
         <li data-i18n="use2">Check code changes when you only have two pasted snippets instead of a full Git workflow.</li>
-        <li data-i18n="use3">Review small policy, contract or terms updates by highlighting changed wording.</li>
+        <li data-i18n="use3">Review small policy, contract or Policies updates by highlighting changed wording.</li>
         <li data-i18n="use4">Compare prompts, logs or configuration text to find the exact edit that changed the result.</li>
       </ul>
     </section>
@@ -392,18 +378,12 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-links">
-        <a href="/" data-i18n="navHome">Home</a>
-        <a href="/blog" data-i18n="navBlog">Blog</a>
-        <a href="/about" data-i18n="navAbout">About</a>
-        <a href="/privacy" data-i18n="privacy">Privacy Policy</a>
-        <a href="/contact" data-i18n="navContact">Contact</a>
-      </div>
-      <div class="footer-note" data-i18n="footerNote">© 2026 Mini-Tools.uk — local text utilities for everyday work</div>
-    </div>
-  </footer>
+  <footer class="footer">
+  <div class="wrap footer-inner">
+    <div>漏 2026 Mini-Tools.uk</div>
+    <div class="footer-links"><a href="/">Home</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a></div>
+  </div>
+</footer>
 
   <script>
     const translations = {
@@ -414,17 +394,17 @@
         description:"Compare two texts or code snippets side by side in your browser. Highlight additions, removals and changed wording without uploading your text.",
         skip:"Skip to content",
         navHome:"Home",
-        navTools:"All Tools",
+        navTools:"Search Tools",
         navCategories:"Categories",
-        navBlog:"Blog",
+        navBlog:"Website",
         navAbout:"About",
         navContact:"Contact",
         privacy:"Privacy Policy",
-        catFinance:"UK Finance",
+        catFinance:"UK Apps",
         catDev:"Developer Tools",
-        catImage:"Image & PDF",
+        catImage:"Other Tools",
         catText:"Text & Conversion",
-        catSecurity:"Security & Privacy",
+        catSecurity:"Safety & Privacy",
         eyebrow:"Text Tool • Local Processing",
         heroTitle:"Online text compare and side-by-side diff checker",
         heroText:"Compare two versions of text or code and highlight exactly what changed. Use inline view for fast reading, or split view for side-by-side review.",
@@ -454,9 +434,9 @@
         faq4Q:"When should I use split view?",
         faq4A:"Split view is better for reviewing two versions side by side, especially for code and longer documents.",
         useTitle:"Common ways to use a text diff checker",
-        use1:"Compare two versions of an article, blog post, email or product description before publishing.",
+        use1:"Compare two versions of an article, Website post, email or product description before publishing.",
         use2:"Check code changes when you only have two pasted snippets instead of a full Git workflow.",
-        use3:"Review small policy, contract or terms updates by highlighting changed wording.",
+        use3:"Review small policy, contract or Policies updates by highlighting changed wording.",
         use4:"Compare prompts, logs or configuration text to find the exact edit that changed the result.",
         relatedTitle:"Related tools",
         relatedJsonTitle:"JSON Formatter",
@@ -540,7 +520,7 @@
         navHome:"Startseite",
         navTools:"Alle Tools",
         navCategories:"Kategorien",
-        navBlog:"Blog",
+        navBlog:"Website",
         navAbout:"Über uns",
         navContact:"Kontakt",
         privacy:"Datenschutz",
@@ -602,13 +582,13 @@
         navHome:"Accueil",
         navTools:"Tous les outils",
         navCategories:"Catégories",
-        navBlog:"Blog",
+        navBlog:"Website",
         navAbout:"À propos",
         navContact:"Contact",
         privacy:"Confidentialité",
         catFinance:"Finance UK",
         catDev:"Outils développeur",
-        catImage:"Image & PDF",
+        catImage:"Other Tools",
         catText:"Texte & conversion",
         catSecurity:"Sécurité & confidentialité",
         eyebrow:"Outil texte • Traitement local",
@@ -664,7 +644,7 @@
         navHome:"Inicio",
         navTools:"Todas las herramientas",
         navCategories:"Categorías",
-        navBlog:"Blog",
+        navBlog:"Website",
         navAbout:"Acerca de",
         navContact:"Contacto",
         privacy:"Privacidad",

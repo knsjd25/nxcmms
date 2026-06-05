@@ -73,11 +73,11 @@
           {
             "@type":"Question",
             "name":"What is Mini-Tools.uk?",
-            "acceptedAnswer":{"@type":"Answer","text":"Mini-Tools.uk is a collection of practical calculators and browser tools for everyday tasks, including UK finance calculators, developer utilities, image tools, PDF tools and privacy-related helpers."}
+            "acceptedAnswer":{"@type":"Answer","text":"Mini-Tools.uk is a collection of practical calculators and browser tools for everyday tasks, including UK Apps calculators, developer utilities, image tools, PDF tools and privacy-related helpers."}
           },
           {
             "@type":"Question",
-            "name":"Do all tools run locally in the browser?",
+            "name":"Do Search Tools run locally in the browser?",
             "acceptedAnswer":{"@type":"Answer","text":"Many tools run locally in the browser, but some features, such as hosted image sharing, may need a remote service. Each tool should explain its own behaviour clearly."}
           },
           {
@@ -221,53 +221,32 @@
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
 
-  <nav class="nav">
-    <div class="wrap nav-inner">
-      <a class="brand" href="/">
-        <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo" />
-        <span class="brand-copy">
-          <span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span>
-          <span class="brand-subtitle" data-i18n="brandSubtitle">Practical calculators and browser tools</span>
-        </span>
-      </a>
-
-      <div class="nav-links" aria-label="Primary navigation">
-        <a class="nav-link" href="/" data-i18n="navHome">Home</a>
-        <a class="nav-link" href="/#featured-tools" data-i18n="navTools">All Tools</a>
-
-        <div class="nav-group">
-          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-            <span data-i18n="navCategories">Categories</span>
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="dropdown" role="menu">
-            <a href="/#uk-finance"><span data-i18n="catFinance">UK Finance</span><small data-i18n="catFinanceSmall">Tax, VAT, mortgage and contractor tools</small></a>
-            <a href="/#developer-tools"><span data-i18n="catDev">Developer Tools</span><small data-i18n="catDevSmall">JSON, diff, image hosting and AI token estimation</small></a>
-            <a href="/#image-tools"><span data-i18n="catImage">Image & PDF</span><small data-i18n="catImageSmall">Compression, conversion and media utilities</small></a>
-            <a href="/password"><span data-i18n="catSecurity">Security</span><small data-i18n="catSecuritySmall">Password and privacy helpers</small></a>
-          </div>
+  <nav class="nav" aria-label="Primary navigation">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo">
+      <span class="brand-copy"><span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="brand-subtitle">Useful online tools</span></span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="/#search">Search</a>
+      <a class="nav-link" href="/#popular">Popular</a>
+      <a class="nav-link" href="/#uk-apps">UK Apps</a>
+      <a class="nav-link" href="/#developer-tools">Dev Tools</a>
+      <a class="nav-link" href="/#other-tools">Other</a>
+      <a class="nav-link" href="/about">About</a>
+      <a class="nav-link" href="/contact">Contact</a>
+      <a class="nav-link" href="/privacy">Privacy</a>
+      <div class="lang-group">
+        <button class="lang-trigger" type="button" aria-haspopup="true"><span id="currentLangLabel">English</span></button>
+        <div class="lang-dropdown" aria-label="Language">
+          <a href="?lang=en">English</a><a href="?lang=zh-CN">涓枃</a><a href="?lang=de">Deutsch</a><a href="?lang=fr">Fran莽ais</a><a href="?lang=es">Espa帽ol</a>
         </div>
-
-        <a class="nav-link" href="/blog" data-i18n="navBlog">Blog</a>
-        <a class="nav-link current" href="/about" data-i18n="navAbout">About</a>
-        <a class="nav-link" href="/contact" data-i18n="navContact">Contact</a>
-
-        <div class="lang-group">
-          <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-            <span id="currentLangLabel">English</span>
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="lang-dropdown" role="menu" aria-label="Language">
-            <button type="button" data-lang-btn="en">English</button>
-            <button type="button" data-lang-btn="zh-CN">中文</button>
-            <button type="button" data-lang-btn="de">Deutsch</button>
-            <button type="button" data-lang-btn="fr">Français</button>
-            <button type="button" data-lang-btn="es">Español</button>
-          </div>
-        </div>
+        <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">涓枃</option><option value="de">Deutsch</option><option value="fr">Fran莽ais</option><option value="es">Espa帽ol</option></select>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
   <main id="main" class="wrap">
     <section class="hero">
@@ -294,7 +273,7 @@
     <section class="article-wrap">
       <article class="article">
         <h2 data-i18n="articleTitle">What Mini-Tools.uk is</h2>
-        <p data-i18n="articleP1">Mini-Tools.uk publishes small, practical tools for people who need quick answers or simple browser utilities. Some pages help with UK finance estimates, while others support developer, image, PDF, text and security tasks.</p>
+        <p data-i18n="articleP1">Mini-Tools.uk publishes small, practical tools for people who need quick answers or simple browser utilities. Some pages help with UK Apps estimates, while others support developer, image, PDF, text and Safety tasks.</p>
         <p data-i18n="articleP2">The site is built around ordinary use cases: checking a salary estimate, formatting JSON, compressing an image, comparing text, generating a secure password, or estimating the cost of an AI API call.</p>
 
         <div class="quote" data-i18n="quoteText">
@@ -329,10 +308,10 @@
 
         <h2 data-i18n="categoriesTitle">What kinds of tools are on the site</h2>
         <ul>
-          <li data-i18n="catList1">UK finance calculators, including tax, VAT, mortgage, stamp duty, IR35 and dividend planning tools.</li>
+          <li data-i18n="catList1">UK Apps calculators, including tax, VAT, mortgage, stamp duty, IR35 and dividend planning tools.</li>
           <li data-i18n="catList2">Developer tools, including JSON formatting, text diff checking and AI token cost estimation.</li>
           <li data-i18n="catList3">Image and PDF tools, including image resizing, compression, color picking and PDF conversion helpers.</li>
-          <li data-i18n="catList4">Privacy and security helpers, including a browser-side password generator.</li>
+          <li data-i18n="catList4">Privacy and Safety helpers, including a browser-side password generator.</li>
         </ul>
 
         <h2 data-i18n="contactTitle">Contact and feedback</h2>
@@ -345,11 +324,11 @@
 
         <div class="faq">
           <div class="faq-item">
-            <h4 data-i18n="faq1Q">Are all tools free to use?</h4>
+            <h4 data-i18n="faq1Q">Are Search Tools free to use?</h4>
             <p data-i18n="faq1A">The public tools on Mini-Tools.uk are available to use in the browser. Some features may depend on browser capabilities, file size or third-party service limits.</p>
           </div>
           <div class="faq-item">
-            <h4 data-i18n="faq2Q">Do all tools process data locally?</h4>
+            <h4 data-i18n="faq2Q">Do Search Tools process data locally?</h4>
             <p data-i18n="faq2A">No. Many tools run locally, but features that create hosted files or shared links may need a remote service. Each tool should explain its own behaviour.</p>
           </div>
           <div class="faq-item">
@@ -363,9 +342,9 @@
         <div class="side-card">
           <h3 data-i18n="sideUseTitle">Site focus</h3>
           <div class="chips">
-            <span class="tag" data-i18n="chip1">UK finance</span>
+            <span class="tag" data-i18n="chip1">UK Apps</span>
             <span class="tag" data-i18n="chip2">Developer tools</span>
-            <span class="tag" data-i18n="chip3">Image & PDF</span>
+            <span class="tag" data-i18n="chip3">Other Tools</span>
             <span class="tag" data-i18n="chip4">Privacy helpers</span>
           </div>
         </div>
@@ -385,8 +364,8 @@
           <div class="related-links">
             <a href="/contact" data-i18n="relatedContact">Contact</a>
             <a href="/privacy" data-i18n="relatedPrivacy">Privacy policy</a>
-            <a href="/blog" data-i18n="relatedBlog">Blog</a>
-            <a href="/#featured-tools" data-i18n="relatedTools">All tools</a>
+
+            <a href="/#popular" data-i18n="relatedTools">Search Tools</a>
           </div>
         </div>
 
@@ -403,17 +382,21 @@
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer-inner">
-      <div>© 2026 Mini-Tools.uk</div>
-      <div class="footer-links">
-        <a href="/about" data-i18n="navAbout">About</a>
-        <a href="/blog" data-i18n="navBlog">Blog</a>
-        <a href="/privacy" data-i18n="privacy">Privacy</a>
-        <a href="/contact" data-i18n="navContact">Contact</a>
-      </div>
-    </div>
-  </footer>
+  <section class="wrap" id="directory-overview" style="margin:32px auto">
+  <div class="article">
+    <h2>Mini-Tools.uk is a tool directory</h2>
+    <p>Mini-Tools.uk is a collection of focused online tools. Each tool page handles one practical task, categories are clear, and most tools can be used without an account. Many tools run locally in the browser; upload tools explain when they use a remote service. Feedback and requests can be sent through Contact.</p>
+    <h3>UK Apps</h3><p>UK Tax Calculator, VAT Calculator, Mortgage Calculator, IR35 Calculator, Stamp Duty Calculator and Dividend Calculator.</p>
+    <h3>Developer Tools</h3><p>JSON Formatter, Text Diff Checker, AI Token Calculator, QR Code Generator and Password Generator.</p>
+    <h3>Other Tools</h3><p>Free Image Hosting, Image Compressor, PDF to Image, Color Picker, Working Days Calculator, Fuel Cost Calculator and Weight Converter.</p>
+  </div>
+</section>
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div>漏 2026 Mini-Tools.uk</div>
+    <div class="footer-links"><a href="/">Home</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a></div>
+  </div>
+</footer>
 
   <script>
     const translations = {
@@ -425,19 +408,19 @@
         skip:"Skip to content",
         brandSubtitle:"Practical calculators and browser tools",
         navHome:"Home",
-        navTools:"All Tools",
+        navTools:"Search Tools",
         navCategories:"Categories",
-        navBlog:"Blog",
+        navBlog:"Website",
         navAbout:"About",
         navContact:"Contact",
         privacy:"Privacy",
-        catFinance:"UK Finance",
+        catFinance:"UK Apps",
         catFinanceSmall:"Tax, VAT, mortgage and contractor tools",
         catDev:"Developer Tools",
         catDevSmall:"JSON, diff, image hosting and AI token estimation",
-        catImage:"Image & PDF",
+        catImage:"Other Tools",
         catImageSmall:"Compression, conversion and media utilities",
-        catSecurity:"Security",
+        catSecurity:"Safety",
         catSecuritySmall:"Password and privacy helpers",
         badge:"About Mini-Tools.uk",
         heroTitle:"Practical calculators and browser tools for everyday tasks.",
@@ -449,7 +432,7 @@
         mini3Title:"Browser-first design",
         mini3Text:"Many tools run locally in the browser when the task does not need remote processing.",
         articleTitle:"What Mini-Tools.uk is",
-        articleP1:"Mini-Tools.uk publishes small, practical tools for people who need quick answers or simple browser utilities. Some pages help with UK finance estimates, while others support developer, image, PDF, text and security tasks.",
+        articleP1:"Mini-Tools.uk publishes small, practical tools for people who need quick answers or simple browser utilities. Some pages help with UK Apps estimates, while others support developer, image, PDF, text and Safety tasks.",
         articleP2:"The site is built around ordinary use cases: checking a salary estimate, formatting JSON, compressing an image, comparing text, generating a secure password, or estimating the cost of an AI API call.",
         quoteText:"A good tool page should be easy to open, easy to understand and clear about how the result is produced.",
         principlesTitle:"How pages are designed",
@@ -466,23 +449,23 @@
         privacyP1:"Privacy depends on what a page actually does. A JSON formatter, password generator or image compressor can often run inside the browser. A hosted image-sharing tool, by contrast, needs a remote service so the file can be stored and shared.",
         privacyP2:"That is why each tool should describe its behaviour in plain language. Local-only pages should say that processing happens in the browser. Upload or sharing pages should explain when a file is sent to a service.",
         categoriesTitle:"What kinds of tools are on the site",
-        catList1:"UK finance calculators, including tax, VAT, mortgage, stamp duty, IR35 and dividend planning tools.",
+        catList1:"UK Apps calculators, including tax, VAT, mortgage, stamp duty, IR35 and dividend planning tools.",
         catList2:"Developer tools, including JSON formatting, text diff checking and AI token cost estimation.",
         catList3:"Image and PDF tools, including image resizing, compression, color picking and PDF conversion helpers.",
-        catList4:"Privacy and security helpers, including a browser-side password generator.",
+        catList4:"Privacy and Safety helpers, including a browser-side password generator.",
         contactTitle:"Contact and feedback",
         contactP:"Mini-Tools.uk is still evolving. Feedback is useful when a page is confusing, a calculation needs clearer assumptions, a tool has a broken flow, or a feature could be explained better.",
         contactBoxText:"For general questions, product feedback or site issues, contact:",
-        faq1Q:"Are all tools free to use?",
+        faq1Q:"Are Search Tools free to use?",
         faq1A:"The public tools on Mini-Tools.uk are available to use in the browser. Some features may depend on browser capabilities, file size or third-party service limits.",
-        faq2Q:"Do all tools process data locally?",
+        faq2Q:"Do Search Tools process data locally?",
         faq2A:"No. Many tools run locally, but features that create hosted files or shared links may need a remote service. Each tool should explain its own behaviour.",
         faq3Q:"Can I suggest a new tool?",
         faq3A:"Yes. Send the suggestion by email and include the task, expected input, expected output and any examples that would make the tool easier to design.",
         sideUseTitle:"Site focus",
-        chip1:"UK finance",
+        chip1:"UK Apps",
         chip2:"Developer tools",
-        chip3:"Image & PDF",
+        chip3:"Other Tools",
         chip4:"Privacy helpers",
         sidePrinciplesTitle:"Principles",
         principle1:"Useful before decorative",
@@ -492,8 +475,8 @@
         sidePagesTitle:"Important pages",
         relatedContact:"Contact",
         relatedPrivacy:"Privacy policy",
-        relatedBlog:"Blog",
-        relatedTools:"All tools",
+        relatedBlog:"Website",
+        relatedTools:"Search Tools",
         sideToolsTitle:"Popular tools",
         popularTax:"UK tax calculator",
         popularJson:"JSON formatter",
@@ -593,7 +576,7 @@
         navHome:"Startseite",
         navTools:"Alle Tools",
         navCategories:"Kategorien",
-        navBlog:"Blog",
+        navBlog:"Website",
         navAbout:"Über uns",
         navContact:"Kontakt",
         privacy:"Datenschutz",
@@ -632,10 +615,10 @@
         privacyP1:"Datenschutz hängt davon ab, was eine Seite tatsächlich tut. JSON Formatter, Password Generator oder Image Compressor können oft im Browser laufen; gehostete Sharing-Tools benötigen einen Remote-Service.",
         privacyP2:"Darum sollte jedes Tool sein Verhalten klar beschreiben: lokale Verarbeitung im Browser oder Upload zu einem Dienst.",
         categoriesTitle:"Welche Tools gibt es?",
-        catList1:"UK Finance Rechner wie Tax, VAT, Mortgage, Stamp Duty, IR35 und Dividend Tools.",
+        catList1:"UK Apps Rechner wie Tax, VAT, Mortgage, Stamp Duty, IR35 und Dividend Tools.",
         catList2:"Developer Tools wie JSON Formatter, Text Diff und AI Token Cost Estimator.",
         catList3:"Bild- und PDF-Tools wie Image Resizer, Compression, Color Picker und PDF Converter.",
-        catList4:"Privacy und Security Tools wie ein browserbasierter Password Generator.",
+        catList4:"Privacy und Safety Tools wie ein browserbasierter Password Generator.",
         contactTitle:"Kontakt und Feedback",
         contactP:"Mini-Tools.uk entwickelt sich weiter. Feedback hilft, unklare Seiten, Annahmen oder Tool-Flows zu verbessern.",
         contactBoxText:"Für Fragen, Feedback oder Website-Probleme:",
@@ -646,9 +629,9 @@
         faq3Q:"Kann ich ein neues Tool vorschlagen?",
         faq3A:"Ja. Senden Sie Aufgabe, Eingabe, Ausgabe und Beispiele per E-Mail.",
         sideUseTitle:"Website-Fokus",
-        chip1:"UK Finance",
+        chip1:"UK Apps",
         chip2:"Developer Tools",
-        chip3:"Image & PDF",
+        chip3:"Other Tools",
         chip4:"Privacy Helpers",
         sidePrinciplesTitle:"Prinzipien",
         principle1:"Nützlich vor dekorativ",
@@ -658,7 +641,7 @@
         sidePagesTitle:"Wichtige Seiten",
         relatedContact:"Kontakt",
         relatedPrivacy:"Datenschutz",
-        relatedBlog:"Blog",
+        relatedBlog:"Website",
         relatedTools:"Alle Tools",
         sideToolsTitle:"Beliebte Tools",
         popularTax:"UK Tax Calculator",
@@ -676,7 +659,7 @@
         navHome:"Accueil",
         navTools:"Tous les outils",
         navCategories:"Catégories",
-        navBlog:"Blog",
+        navBlog:"Website",
         navAbout:"À propos",
         navContact:"Contact",
         privacy:"Confidentialité",
@@ -684,7 +667,7 @@
         catFinanceSmall:"Impôt, VAT, prêt immobilier et contractor",
         catDev:"Outils développeur",
         catDevSmall:"JSON, diff, hébergement image et estimation tokens IA",
-        catImage:"Image & PDF",
+        catImage:"Other Tools",
         catImageSmall:"Compression, conversion et médias",
         catSecurity:"Sécurité",
         catSecuritySmall:"Mot de passe et confidentialité",
@@ -731,7 +714,7 @@
         sideUseTitle:"Focus du site",
         chip1:"Finance UK",
         chip2:"Outils développeur",
-        chip3:"Image & PDF",
+        chip3:"Other Tools",
         chip4:"Confidentialité",
         sidePrinciplesTitle:"Principes",
         principle1:"Utile avant décoratif",
@@ -741,7 +724,7 @@
         sidePagesTitle:"Pages importantes",
         relatedContact:"Contact",
         relatedPrivacy:"Confidentialité",
-        relatedBlog:"Blog",
+        relatedBlog:"Website",
         relatedTools:"Tous les outils",
         sideToolsTitle:"Outils populaires",
         popularTax:"Calculateur impôt UK",
@@ -759,7 +742,7 @@
         navHome:"Inicio",
         navTools:"Todas las herramientas",
         navCategories:"Categorías",
-        navBlog:"Blog",
+        navBlog:"Website",
         navAbout:"Acerca de",
         navContact:"Contacto",
         privacy:"Privacidad",
@@ -824,7 +807,7 @@
         sidePagesTitle:"Páginas importantes",
         relatedContact:"Contacto",
         relatedPrivacy:"Privacidad",
-        relatedBlog:"Blog",
+        relatedBlog:"Website",
         relatedTools:"Todas las herramientas",
         sideToolsTitle:"Herramientas populares",
         popularTax:"Calculadora tax UK",
