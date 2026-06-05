@@ -51,16 +51,22 @@ test("language controls preserve current paths and localize internal links", () 
   }
 });
 
-test("all pages include the non-wrapping unified navigation style", () => {
+test("all pages use the same shared navigation stylesheet", () => {
   for (const file of htmlFiles) {
     const html = read(file);
-    assert.match(html, /id=["']site-nav-style["']/, file);
-    assert.match(html, /\.nav-links\{display:flex;align-items:center;gap:4px;flex-wrap:nowrap/, file);
+    assert.match(html, /href=["']\/site-nav\.css["']/, file);
+    assert.doesNotMatch(html, /id=["']site-nav-style["']/, file);
   }
 });
 
 test("upload does not retain its legacy header around the unified nav", () => {
   assert.doesNotMatch(read("upload.html"), /<header\s+class=["']site-header["']/i);
+});
+
+test("shared navigation keeps the main menu beside the brand", () => {
+  const css = read("site-nav.css");
+  assert.match(css, /justify-content:\s*flex-start\s*!important/);
+  assert.match(css, /margin-left:\s*auto\s*!important/);
 });
 
 test("homepage has the requested directory sections and popular tools", () => {
