@@ -33,6 +33,25 @@ $nav = @'
 </nav>
 '@
 
+$siteNavStyle = @'
+<style id="site-nav-style">
+.nav{position:sticky!important;top:0!important;z-index:50!important;display:block!important;width:100%!important;overflow:visible!important;padding:0!important;background:rgba(255,255,255,.92)!important;border-bottom:1px solid #e2e8f0!important}
+.nav .nav-inner{max-width:1180px!important;width:calc(100% - 40px)!important;min-height:74px!important;margin:0 auto!important;padding:0!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:14px!important;flex-wrap:nowrap!important}
+.nav .brand{display:flex!important;align-items:center!important;gap:10px!important;flex:0 0 auto!important;min-width:0!important;padding:0!important}
+.nav .brand img{width:40px!important;height:40px!important;flex:0 0 auto!important}
+.nav .brand-copy{display:flex!important;flex-direction:column!important;line-height:1.05!important}
+.nav .brand-title{font-size:1.06rem!important;font-weight:800!important;white-space:nowrap!important}
+.nav .brand-subtitle{display:block!important;margin-top:4px!important;color:#64748b!important;font-size:.79rem!important;font-weight:600!important;white-space:nowrap!important}
+.nav .nav-links{display:flex;align-items:center;gap:4px;flex-wrap:nowrap;justify-content:flex-end;min-width:0!important;width:auto!important;padding:0!important;margin:0!important;overflow:visible!important}
+.nav .nav-link,.nav .lang-trigger{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:33px!important;height:33px!important;padding:8px 7px!important;border:1px solid transparent!important;border-radius:8px!important;background:transparent!important;color:#334155!important;font-size:12.5px!important;line-height:1.2!important;font-weight:700!important;white-space:nowrap!important;flex:0 0 auto!important}
+.nav .lang-group{position:relative!important;flex:0 0 auto!important;padding-bottom:14px!important;margin-bottom:-14px!important}
+.nav .lang-dropdown{position:absolute!important;top:calc(100% + 2px)!important;right:0!important;left:auto!important;min-width:180px!important;display:none!important;background:#fff!important;border:1px solid #e2e8f0!important;padding:10px!important;z-index:80!important}
+.nav .lang-group:hover .lang-dropdown,.nav .lang-group:focus-within .lang-dropdown{display:block!important}
+.nav .lang-dropdown button{display:block!important;width:100%!important;text-align:left!important;padding:10px 12px!important;border:0!important;background:transparent!important;white-space:nowrap!important}
+@media(max-width:980px){.nav .nav-inner{width:calc(100% - 28px)!important;align-items:flex-start!important;flex-direction:column!important;padding:12px 0!important}.nav .nav-links{justify-content:flex-start!important;flex-wrap:wrap!important}.nav .brand-subtitle{display:none!important}.nav .lang-dropdown{left:0!important;right:auto!important}}
+</style>
+'@
+
 $siteNavScript = @'
 <script id="site-nav-language">
 (() => {
@@ -98,6 +117,9 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
   if ($excluded -contains $file.Name) { continue }
   $html = [System.IO.File]::ReadAllText($file.FullName)
   $html = [regex]::Replace($html, '<nav\b[\s\S]*?</nav>', $nav, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  if ($file.Name -eq "upload.html") {
+    $html = [regex]::Replace($html, '<header\s+class=["'']site-header["'']>[\s\S]*?(<nav\s+class=["'']nav["''][\s\S]*?</nav>)[\s\S]*?</header>', '$1', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  }
   $html = [regex]::Replace($html, '<footer\b[\s\S]*?</footer>', $footer, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<a\b[^>]*href=["'']/(?:blog(?:/[^"'']*)?|terms/?|acceptable-use/?)["''][^>]*>[\s\S]*?</a>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = $html.Replace('/#featured-tools', '/#popular').Replace('/#all-tools', '/#search').Replace('/#uk-finance', '/#uk-apps').Replace('/#image-tools', '/#other-tools').Replace('/#security-tools', '/#other-tools')
@@ -166,6 +188,8 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
   }
 
   $html = [regex]::Replace($html, '<script id=["'']site-nav-language["'']>[\s\S]*?</script>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = [regex]::Replace($html, '<style id=["'']site-nav-style["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = $html.Replace('</head>', "$siteNavStyle`r`n</head>")
   $html = $html.Replace('</body>', "$siteNavScript`r`n</body>")
   $html = [regex]::Replace($html.Replace("`r`n", "`n"), '[ \t]+(?=\n)', '')
   [System.IO.File]::WriteAllText($file.FullName, $html, $utf8)

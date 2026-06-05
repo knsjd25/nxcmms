@@ -32,6 +32,7 @@ foreach ($page in $keyPages) {
   Assert-True ($nav -notmatch 'Blog|Terms|Acceptable Use|All Tools|UK Finance|Image & PDF|Security|Categories') "$page nav has an old item"
   Assert-True ($footer -notmatch 'Blog|Terms|Acceptable Use|All Tools|Categories') "$page footer has an old item"
 }
+Assert-True ((Read-SiteFile "upload.html") -notmatch '<header\s+class=["'']site-header["'']') "upload.html still wraps the unified nav in its legacy header"
 
 foreach ($page in $publicPages) {
   $html = Read-SiteFile $page.Name
@@ -40,6 +41,8 @@ foreach ($page in $publicPages) {
     Assert-True ($html.Contains("data-site-lang=`"$language`"")) "$($page.Name) misses language option $language"
   }
   Assert-True ($html.Contains('id="site-nav-language"')) "$($page.Name) misses navigation language script"
+  Assert-True ($html.Contains('id="site-nav-style"')) "$($page.Name) misses unified navigation CSS"
+  Assert-True ($html.Contains('.nav-links{display:flex;align-items:center;gap:4px;flex-wrap:nowrap')) "$($page.Name) allows desktop navigation wrapping"
   Assert-True ($html.Contains('target.searchParams.set("lang", selectedLang)')) "$($page.Name) does not preserve the current path when switching language"
   Assert-True ($html.Contains('link.searchParams.set("lang", lang)')) "$($page.Name) does not localize internal links"
 }

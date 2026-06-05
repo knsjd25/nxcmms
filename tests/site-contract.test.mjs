@@ -51,6 +51,18 @@ test("language controls preserve current paths and localize internal links", () 
   }
 });
 
+test("all pages include the non-wrapping unified navigation style", () => {
+  for (const file of htmlFiles) {
+    const html = read(file);
+    assert.match(html, /id=["']site-nav-style["']/, file);
+    assert.match(html, /\.nav-links\{display:flex;align-items:center;gap:4px;flex-wrap:nowrap/, file);
+  }
+});
+
+test("upload does not retain its legacy header around the unified nav", () => {
+  assert.doesNotMatch(read("upload.html"), /<header\s+class=["']site-header["']/i);
+});
+
 test("homepage has the requested directory sections and popular tools", () => {
   const html = read("index.html");
   assert.match(html, /Free Online Tools for Everyday Work/);
