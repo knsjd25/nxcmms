@@ -42,6 +42,15 @@ test("key pages use the minimal footer", () => {
   }
 });
 
+test("language controls preserve current paths and localize internal links", () => {
+  for (const file of htmlFiles) {
+    const html = read(file);
+    for (const lang of ["en", "zh-CN", "de", "fr", "es"]) assert.match(html, new RegExp(`data-site-lang=["']${lang}["']`), `${file}: ${lang}`);
+    assert.match(html, /target\.searchParams\.set\(["']lang["'], selectedLang\)/, file);
+    assert.match(html, /link\.searchParams\.set\(["']lang["'], lang\)/, file);
+  }
+});
+
 test("homepage has the requested directory sections and popular tools", () => {
   const html = read("index.html");
   assert.match(html, /Free Online Tools for Everyday Work/);

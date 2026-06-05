@@ -253,7 +253,7 @@
       <div class="lang-group">
         <button class="lang-trigger" type="button" aria-haspopup="true"><span id="currentLangLabel">English</span></button>
         <div class="lang-dropdown" aria-label="Language">
-          <a href="?lang=en">English</a><a href="?lang=zh-CN">&#20013;&#25991;</a><a href="?lang=de">Deutsch</a><a href="?lang=fr">Fran&ccedil;ais</a><a href="?lang=es">Espa&ntilde;ol</a>
+          <button type="button" data-site-lang="en">English</button><button type="button" data-site-lang="zh-CN">&#20013;&#25991;</button><button type="button" data-site-lang="de">Deutsch</button><button type="button" data-site-lang="fr">Fran&ccedil;ais</button><button type="button" data-site-lang="es">Espa&ntilde;ol</button>
         </div>
         <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
       </div>
@@ -389,7 +389,7 @@
   <footer class="footer">
   <div class="wrap footer-inner">
     <div>漏 2026 Mini-Tools.uk</div>
-    <div class="footer-links"><a href="/">Home</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a></div>
+    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a></div>
   </div>
 </footer>
 
@@ -1105,6 +1105,9 @@
     };
   </script>
 
+
+
+
 <script id="site-nav-language">
 (() => {
   const labels = {
@@ -1116,11 +1119,37 @@
   };
   const raw = window.MINI_TOOLS_SERVER_LANG || new URLSearchParams(location.search).get("lang") || "en";
   const lang = raw === "zh" ? "zh-CN" : (labels[raw] ? raw : "en");
-  document.querySelectorAll("[data-site-nav]").forEach((item) => {
-    item.textContent = labels[lang][item.dataset.siteNav];
+  const localizeLinks = () => {
+    document.querySelectorAll("a[href]").forEach((anchor) => {
+      const rawHref = anchor.getAttribute("href");
+      if (!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) return;
+      const link = new URL(rawHref, location.origin);
+      if (link.origin !== location.origin) return;
+      if (lang === "en") link.searchParams.delete("lang");
+      else link.searchParams.set("lang", lang);
+      anchor.href = link.pathname + link.search + link.hash;
+    });
+  };
+  const applySiteLanguage = () => {
+    document.querySelectorAll("[data-site-nav]").forEach((item) => {
+      item.textContent = labels[lang][item.dataset.siteNav];
+    });
+    const current = document.getElementById("currentLangLabel");
+    if (current) current.textContent = labels[lang].language;
+    localizeLinks();
+  };
+  applySiteLanguage();
+  window.addEventListener("load", applySiteLanguage);
+  document.querySelectorAll("[data-site-lang]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.siteLang === lang);
+    button.addEventListener("click", () => {
+      const selectedLang = button.dataset.siteLang;
+      const target = new URL(location.href);
+      if (selectedLang === "en") target.searchParams.delete("lang");
+      else target.searchParams.set("lang", selectedLang);
+      location.assign(target.pathname + target.search + target.hash);
+    });
   });
-  const current = document.getElementById("currentLangLabel");
-  if (current) current.textContent = labels[lang].language;
 })();
 </script>
 </body>

@@ -37,9 +37,11 @@ foreach ($page in $publicPages) {
   $html = Read-SiteFile $page.Name
   Assert-True ($html -match 'data-site-nav="home"') "$($page.Name) misses translatable navigation"
   foreach ($language in @("en", "zh-CN", "de", "fr", "es")) {
-    Assert-True ($html.Contains("?lang=$language")) "$($page.Name) misses language option $language"
+    Assert-True ($html.Contains("data-site-lang=`"$language`"")) "$($page.Name) misses language option $language"
   }
   Assert-True ($html.Contains('id="site-nav-language"')) "$($page.Name) misses navigation language script"
+  Assert-True ($html.Contains('target.searchParams.set("lang", selectedLang)')) "$($page.Name) does not preserve the current path when switching language"
+  Assert-True ($html.Contains('link.searchParams.set("lang", lang)')) "$($page.Name) does not localize internal links"
 }
 
 foreach ($page in $toolPages) {
