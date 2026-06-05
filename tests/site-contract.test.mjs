@@ -67,7 +67,9 @@ test("upload does not retain its legacy header around the unified nav", () => {
 test("shared navigation keeps the main menu beside the brand", () => {
   const css = read("site-nav.css");
   assert.match(css, /justify-content:\s*flex-start\s*!important/);
-  assert.match(css, /margin-left:\s*auto\s*!important/);
+  assert.match(css, /right:\s*0\s*!important/);
+  assert.match(css, /justify-content:\s*center\s*!important/);
+  assert.match(css, /grid-template-columns:\s*1fr auto 1fr\s*!important/);
 });
 
 test("homepage has the requested directory sections and popular tools", () => {

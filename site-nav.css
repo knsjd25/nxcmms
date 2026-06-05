@@ -16,9 +16,10 @@
   min-height: 74px !important;
   margin: 0 auto !important;
   padding: 0 !important;
-  display: flex !important;
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr !important;
   align-items: center !important;
-  justify-content: flex-start !important;
+  justify-content: normal !important;
   gap: 14px !important;
   flex-wrap: nowrap !important;
 }
@@ -30,6 +31,7 @@
   flex: 0 0 auto !important;
   min-width: 0 !important;
   padding: 0 !important;
+  justify-self: start !important;
 }
 
 .nav .brand img {
@@ -64,8 +66,9 @@
   align-items: center !important;
   gap: 4px !important;
   flex-wrap: nowrap !important;
-  justify-content: flex-start !important;
-  flex: 1 1 auto !important;
+  justify-content: center !important;
+  justify-self: center !important;
+  position: static !important;
   min-width: 0 !important;
   width: auto !important;
   padding: 0 !important;
@@ -94,10 +97,12 @@
 
 .nav .lang-group {
   position: relative !important;
+  right: auto !important;
   flex: 0 0 auto !important;
-  margin-left: auto !important;
+  margin-left: 0 !important;
   padding-bottom: 14px !important;
   margin-bottom: -14px !important;
+  justify-self: end !important;
 }
 
 .nav .lang-dropdown {
@@ -132,6 +137,7 @@
   .nav .nav-inner {
     width: calc(100% - 28px) !important;
     align-items: flex-start !important;
+    display: flex !important;
     flex-direction: column !important;
     padding: 12px 0 !important;
   }
@@ -139,6 +145,7 @@
   .nav .nav-links {
     justify-content: flex-start !important;
     flex-wrap: wrap !important;
+    padding-right: 0 !important;
   }
 
   .nav .brand-subtitle {
@@ -147,6 +154,11 @@
 
   .nav .lang-dropdown {
     left: 0 !important;
+    right: auto !important;
+  }
+
+  .nav .lang-group {
+    position: relative !important;
     right: auto !important;
   }
 }

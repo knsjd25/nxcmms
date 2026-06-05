@@ -35,7 +35,9 @@ foreach ($page in $keyPages) {
 Assert-True ((Read-SiteFile "upload.html") -notmatch '<header\s+class=["'']site-header["'']') "upload.html still wraps the unified nav in its legacy header"
 $sharedNavCss = Read-SiteFile "site-nav.css"
 Assert-True ($sharedNavCss.Contains('justify-content: flex-start !important;')) "shared navigation does not align the main menu beside the brand"
-Assert-True ($sharedNavCss.Contains('margin-left: auto !important;')) "shared navigation does not keep only the language selector on the right"
+Assert-True ($sharedNavCss.Contains('right: 0 !important;')) "shared navigation does not keep the language selector on the right"
+Assert-True ($sharedNavCss.Contains('justify-content: center !important;')) "shared navigation does not center the main menu"
+Assert-True ($sharedNavCss.Contains('grid-template-columns: 1fr auto 1fr !important;')) "shared navigation does not use balanced three-column alignment"
 
 foreach ($page in $publicPages) {
   $html = Read-SiteFile $page.Name
