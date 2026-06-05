@@ -44,7 +44,8 @@ foreach ($page in $publicPages) {
     Assert-True ($html.Contains("data-site-lang=`"$language`"")) "$($page.Name) misses language option $language"
   }
   Assert-True ($html.Contains('id="site-nav-language"')) "$($page.Name) misses navigation language script"
-  Assert-True ($html.Contains('href="/site-nav.css"')) "$($page.Name) does not use the shared navigation stylesheet"
+  Assert-True ($html.Contains('href="site-nav.css"')) "$($page.Name) does not use the local-and-web compatible shared navigation stylesheet"
+  Assert-True ($html -notmatch 'href=["'']/site-nav\.css["'']') "$($page.Name) uses a root-relative stylesheet that breaks file:// previews"
   Assert-True ($html -notmatch 'id=["'']site-nav-style["'']') "$($page.Name) still contains copied inline navigation CSS"
   Assert-True ($html.Contains('target.searchParams.set("lang", selectedLang)')) "$($page.Name) does not preserve the current path when switching language"
   Assert-True ($html.Contains('link.searchParams.set("lang", lang)')) "$($page.Name) does not localize internal links"

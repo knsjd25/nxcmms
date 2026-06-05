@@ -54,7 +54,8 @@ test("language controls preserve current paths and localize internal links", () 
 test("all pages use the same shared navigation stylesheet", () => {
   for (const file of htmlFiles) {
     const html = read(file);
-    assert.match(html, /href=["']\/site-nav\.css["']/, file);
+    assert.match(html, /href=["']site-nav\.css["']/, file);
+    assert.doesNotMatch(html, /href=["']\/site-nav\.css["']/, file);
     assert.doesNotMatch(html, /id=["']site-nav-style["']/, file);
   }
 });

@@ -57,7 +57,8 @@
 
 
 
-<link rel="stylesheet" href="/site-nav.css">
+
+<link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
@@ -148,6 +149,7 @@
     document.querySelectorAll('[data-example-kg]').forEach(btn=>btn.addEventListener('click',()=>{inputKg.value=btn.dataset.exampleKg||'';calcFromMetric()}));
     window.addEventListener('load',()=>{inputSt.value='11';inputLbs.value='4';applyLanguage(getInitialLang(),false);calcFromImperial();});
   </script>
+
 
 
 

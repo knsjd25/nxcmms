@@ -170,8 +170,8 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
 
   $html = [regex]::Replace($html, '<script id=["'']site-nav-language["'']>[\s\S]*?</script>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<style id=["'']site-nav-style["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-  $html = [regex]::Replace($html, '<link\s+rel=["'']stylesheet["'']\s+href=["'']/site-nav\.css["'']\s*/?>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-  $html = $html.Replace('</head>', "<link rel=`"stylesheet`" href=`"/site-nav.css`">`r`n</head>")
+  $html = [regex]::Replace($html, '<link\s+rel=["'']stylesheet["'']\s+href=["'']/?site-nav\.css["'']\s*/?>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = $html.Replace('</head>', "<link rel=`"stylesheet`" href=`"site-nav.css`">`r`n</head>")
   $html = $html.Replace('</body>', "$siteNavScript`r`n</body>")
   $html = [regex]::Replace($html.Replace("`r`n", "`n"), '[ \t]+(?=\n)', '')
   [System.IO.File]::WriteAllText($file.FullName, $html, $utf8)
