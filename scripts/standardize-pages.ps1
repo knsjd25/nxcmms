@@ -3,10 +3,6 @@ $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 $excluded = @("image_admin.html", "map.html")
-$thinPages = @(
-  "mortgage.html", "ir35.html", "stamp-duty.html", "dividend.html", "password.html",
-  "image.html", "color-picker.html", "working-days.html", "fuel.html", "weight.html"
-)
 
 $nav = @'
 <nav class="nav" aria-label="Primary navigation">
@@ -16,25 +12,46 @@ $nav = @'
       <span class="brand-copy"><span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="brand-subtitle">Useful online tools</span></span>
     </a>
     <div class="nav-links">
-      <a class="nav-link" href="/">Home</a>
-      <a class="nav-link" href="/#search">Search</a>
-      <a class="nav-link" href="/#popular">Popular</a>
-      <a class="nav-link" href="/#uk-apps">UK Apps</a>
-      <a class="nav-link" href="/#developer-tools">Dev Tools</a>
-      <a class="nav-link" href="/#other-tools">Other</a>
-      <a class="nav-link" href="/about">About</a>
-      <a class="nav-link" href="/contact">Contact</a>
-      <a class="nav-link" href="/privacy">Privacy</a>
+      <a class="nav-link" href="/" data-site-nav="home">Home</a>
+      <a class="nav-link" href="/#search" data-site-nav="search">Search</a>
+      <a class="nav-link" href="/#popular" data-site-nav="popular">Popular</a>
+      <a class="nav-link" href="/#uk-apps" data-site-nav="ukApps">UK Apps</a>
+      <a class="nav-link" href="/#developer-tools" data-site-nav="devTools">Dev Tools</a>
+      <a class="nav-link" href="/#other-tools" data-site-nav="other">Other</a>
+      <a class="nav-link" href="/about" data-site-nav="about">About</a>
+      <a class="nav-link" href="/contact" data-site-nav="contact">Contact</a>
+      <a class="nav-link" href="/privacy" data-site-nav="privacy">Privacy</a>
       <div class="lang-group">
         <button class="lang-trigger" type="button" aria-haspopup="true"><span id="currentLangLabel">English</span></button>
         <div class="lang-dropdown" aria-label="Language">
-          <a href="?lang=en">English</a><a href="?lang=zh-CN">中文</a><a href="?lang=de">Deutsch</a><a href="?lang=fr">Français</a><a href="?lang=es">Español</a>
+          <a href="?lang=en">English</a><a href="?lang=zh-CN">&#20013;&#25991;</a><a href="?lang=de">Deutsch</a><a href="?lang=fr">Fran&ccedil;ais</a><a href="?lang=es">Espa&ntilde;ol</a>
         </div>
-        <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">中文</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option></select>
+        <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
       </div>
     </div>
   </div>
 </nav>
+'@
+
+$siteNavScript = @'
+<script id="site-nav-language">
+(() => {
+  const labels = {
+    en:{home:"Home",search:"Search",popular:"Popular",ukApps:"UK Apps",devTools:"Dev Tools",other:"Other",about:"About",contact:"Contact",privacy:"Privacy",language:"English"},
+    "zh-CN":{home:"\u9996\u9875",search:"\u641c\u7d22",popular:"\u70ed\u95e8",ukApps:"\u82f1\u56fd\u5e94\u7528",devTools:"\u5f00\u53d1\u8005\u5de5\u5177",other:"\u5176\u4ed6\u5de5\u5177",about:"\u5173\u4e8e",contact:"\u8054\u7cfb",privacy:"\u9690\u79c1\u653f\u7b56",language:"\u4e2d\u6587"},
+    de:{home:"Startseite",search:"Suchen",popular:"Beliebt",ukApps:"UK Apps",devTools:"Entwickler",other:"Weitere",about:"\u00dcber uns",contact:"Kontakt",privacy:"Datenschutz",language:"Deutsch"},
+    fr:{home:"Accueil",search:"Recherche",popular:"Populaires",ukApps:"Apps UK",devTools:"Outils dev",other:"Autres",about:"\u00c0 propos",contact:"Contact",privacy:"Confidentialit\u00e9",language:"Fran\u00e7ais"},
+    es:{home:"Inicio",search:"Buscar",popular:"Populares",ukApps:"Apps UK",devTools:"Herramientas dev",other:"Otros",about:"Acerca de",contact:"Contacto",privacy:"Privacidad",language:"Espa\u00f1ol"}
+  };
+  const raw = window.MINI_TOOLS_SERVER_LANG || new URLSearchParams(location.search).get("lang") || "en";
+  const lang = raw === "zh" ? "zh-CN" : (labels[raw] ? raw : "en");
+  document.querySelectorAll("[data-site-nav]").forEach((item) => {
+    item.textContent = labels[lang][item.dataset.siteNav];
+  });
+  const current = document.getElementById("currentLangLabel");
+  if (current) current.textContent = labels[lang].language;
+})();
+</script>
 '@
 
 $footer = @'
@@ -67,12 +84,10 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
   $html = [regex]::Replace($html, '\bAll Tools\b', 'Search Tools', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '\bSecurity\b', 'Safety', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
 
-  if ($thinPages -contains $file.Name) {
-    if ($html -match '<meta\s+name=["'']robots["'']') {
-      $html = [regex]::Replace($html, '<meta\s+name=["'']robots["'']\s+content=["''][^"'']*["'']\s*/?>', '<meta name="robots" content="noindex,follow,max-image-preview:large">', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-    } else {
-      $html = $html -replace '<head>', "<head>`r`n  <meta name=`"robots`" content=`"noindex,follow,max-image-preview:large`">"
-    }
+  if ($html -match '<meta\s+name=["'']robots["'']') {
+    $html = [regex]::Replace($html, '<meta\s+name=["'']robots["'']\s+content=["''][^"'']*["'']\s*/?>', '<meta name="robots" content="index,follow,max-image-preview:large">', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  } else {
+    $html = $html -replace '<head>', "<head>`r`n  <meta name=`"robots`" content=`"index,follow,max-image-preview:large`">"
   }
 
   if ($file.Name -eq "about.html") {
@@ -124,6 +139,8 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
 '@
   }
 
+  $html = [regex]::Replace($html, '<script id=["'']site-nav-language["'']>[\s\S]*?</script>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = $html.Replace('</body>', "$siteNavScript`r`n</body>")
   $html = [regex]::Replace($html.Replace("`r`n", "`n"), '[ \t]+(?=\n)', '')
   [System.IO.File]::WriteAllText($file.FullName, $html, $utf8)
 }

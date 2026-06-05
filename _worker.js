@@ -40,12 +40,6 @@ const INDEXABLE_PATHS = new Set([
   "/",
   "/tax",
   "/upload",
-  "/about",
-  "/contact",
-  "/privacy",
-]);
-
-const NOINDEX_PATH_PREFIXES = [
   "/vat",
   "/mortgage",
   "/stamp-duty",
@@ -58,11 +52,17 @@ const NOINDEX_PATH_PREFIXES = [
   "/token",
   "/image",
   "/pdf2img",
-  "/pdf",
   "/color-picker",
   "/qr",
   "/password",
   "/weight",
+  "/about",
+  "/contact",
+  "/privacy",
+]);
+
+const NOINDEX_PATH_PREFIXES = [
+  "/pdf",
   "/blog",
   "/blog/search",
   "/blog/tag",

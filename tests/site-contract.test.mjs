@@ -6,10 +6,7 @@ const root = new URL("../", import.meta.url);
 const read = (name) => readFileSync(new URL(name, root), "utf8");
 const htmlFiles = readdirSync(root).filter((name) => name.endsWith(".html") && !["image_admin.html", "map.html"].includes(name));
 const keyPages = ["index.html", "about.html", "upload.html", "tax.html", "contact.html", "privacy.html"];
-const thinPages = [
-  "mortgage.html", "ir35.html", "stamp-duty.html", "dividend.html", "password.html",
-  "image.html", "color-picker.html", "working-days.html", "fuel.html", "weight.html",
-];
+const toolPages = htmlFiles.filter((name) => !["index.html", "about.html", "contact.html", "privacy.html"].includes(name));
 
 function section(html, tag, className) {
   const pattern = new RegExp(`<${tag}\\b[^>]*class=["'][^"']*${className}[^"']*["'][^>]*>[\\s\\S]*?<\\/${tag}>`, "i");
@@ -84,8 +81,8 @@ test("contact, upload, and tax retain required operational guidance", () => {
   for (const phrase of ["estimates only", "not official tax advice", "not legal or financial advice"]) assert.match(tax, new RegExp(phrase, "i"), phrase);
 });
 
-test("thin pages are noindex follow", () => {
-  for (const file of thinPages) assert.match(read(file), /<meta\s+name=["']robots["']\s+content=["'][^"']*noindex\s*,?\s*follow/i, file);
+test("all public tools are index follow", () => {
+  for (const file of toolPages) assert.match(read(file), /<meta\s+name=["']robots["']\s+content=["'][^"']*index\s*,?\s*follow/i, file);
 });
 
 test("worker implements retired and legacy URL behavior", () => {
@@ -101,14 +98,10 @@ test("worker implements retired and legacy URL behavior", () => {
 
 test("sitemap contains only the approved complete clean URLs", () => {
   const locs = [...read("sitemap.xml").matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-  assert.deepEqual(locs, [
-    "https://mini-tools.uk/",
-    "https://mini-tools.uk/upload",
-    "https://mini-tools.uk/tax",
-    "https://mini-tools.uk/privacy",
-    "https://mini-tools.uk/contact",
-    "https://mini-tools.uk/about",
-  ]);
+  assert.equal(locs.length, 22);
+  for (const path of ["/", "/upload", "/tax", "/vat", "/json", "/diff", "/token", "/qr", "/pdf2img", "/mortgage", "/ir35", "/stamp-duty", "/dividend", "/password", "/image", "/color-picker", "/working-days", "/fuel", "/weight", "/about", "/contact", "/privacy"]) {
+    assert.ok(locs.includes(`https://mini-tools.uk${path}`), path);
+  }
   assert.equal(read("sitemap.xml").includes("?lang="), false);
 });
 
