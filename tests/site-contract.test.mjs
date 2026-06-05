@@ -60,12 +60,16 @@ test("all pages use the same shared navigation stylesheet", () => {
   }
 });
 
-test("upload does not retain its legacy header around the unified nav", () => {
-  assert.doesNotMatch(read("upload.html"), /<header\s+class=["']site-header["']/i);
+test("no public page retains a legacy header around the unified nav", () => {
+  for (const file of htmlFiles) {
+    assert.doesNotMatch(read(file), /<header\s+class=["']site-header["']/i, file);
+  }
 });
 
 test("shared navigation keeps the main menu beside the brand", () => {
   const css = read("site-nav.css");
+  assert.match(css, /--site-shell-width:\s*1180px/);
+  assert.match(css, /max-width:\s*var\(--site-shell-width\)\s*!important/);
   assert.match(css, /justify-content:\s*flex-start\s*!important/);
   assert.match(css, /right:\s*0\s*!important/);
   assert.match(css, /justify-content:\s*center\s*!important/);

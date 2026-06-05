@@ -1,3 +1,8 @@
+:root {
+  --site-shell-width: 1180px;
+  --site-shell-gutter: 40px;
+}
+
 .nav {
   position: sticky !important;
   top: 0 !important;
@@ -11,8 +16,8 @@
 }
 
 .nav .nav-inner {
-  max-width: 1180px !important;
-  width: calc(100% - 40px) !important;
+  max-width: var(--site-shell-width) !important;
+  width: calc(100% - var(--site-shell-gutter)) !important;
   min-height: 74px !important;
   margin: 0 auto !important;
   padding: 0 !important;
@@ -22,6 +27,14 @@
   justify-content: normal !important;
   gap: 14px !important;
   flex-wrap: nowrap !important;
+}
+
+body > main {
+  box-sizing: border-box !important;
+  max-width: var(--site-shell-width) !important;
+  width: calc(100% - var(--site-shell-gutter)) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .nav .brand {
@@ -140,6 +153,10 @@
     display: flex !important;
     flex-direction: column !important;
     padding: 12px 0 !important;
+  }
+
+  body > main {
+    width: calc(100% - 28px) !important;
   }
 
   .nav .nav-links {

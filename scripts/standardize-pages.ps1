@@ -98,9 +98,7 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
   if ($excluded -contains $file.Name) { continue }
   $html = [System.IO.File]::ReadAllText($file.FullName)
   $html = [regex]::Replace($html, '<nav\b[\s\S]*?</nav>', $nav, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-  if ($file.Name -eq "upload.html") {
-    $html = [regex]::Replace($html, '<header\s+class=["'']site-header["'']>[\s\S]*?(<nav\s+class=["'']nav["''][\s\S]*?</nav>)[\s\S]*?</header>', '$1', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-  }
+  $html = [regex]::Replace($html, '<header\s+class=["'']site-header["'']>[\s\S]*?(<nav\s+class=["'']nav["''][\s\S]*?</nav>)[\s\S]*?</header>', '$1', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<footer\b[\s\S]*?</footer>', $footer, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<a\b[^>]*href=["'']/(?:blog(?:/[^"'']*)?|terms/?|acceptable-use/?)["''][^>]*>[\s\S]*?</a>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = $html.Replace('/#featured-tools', '/#popular').Replace('/#all-tools', '/#search').Replace('/#uk-finance', '/#uk-apps').Replace('/#image-tools', '/#other-tools').Replace('/#security-tools', '/#other-tools')

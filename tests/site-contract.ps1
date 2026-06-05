@@ -32,8 +32,12 @@ foreach ($page in $keyPages) {
   Assert-True ($nav -notmatch 'Blog|Terms|Acceptable Use|All Tools|UK Finance|Image & PDF|Security|Categories') "$page nav has an old item"
   Assert-True ($footer -notmatch 'Blog|Terms|Acceptable Use|All Tools|Categories') "$page footer has an old item"
 }
-Assert-True ((Read-SiteFile "upload.html") -notmatch '<header\s+class=["'']site-header["'']') "upload.html still wraps the unified nav in its legacy header"
+foreach ($page in $publicPages) {
+  Assert-True ((Read-SiteFile $page.Name) -notmatch '<header\s+class=["'']site-header["'']') "$($page.Name) still wraps the unified nav in its legacy header"
+}
 $sharedNavCss = Read-SiteFile "site-nav.css"
+Assert-True ($sharedNavCss.Contains('--site-shell-width: 1180px;')) "shared navigation does not define the common page width"
+Assert-True ($sharedNavCss.Contains('max-width: var(--site-shell-width) !important;')) "shared navigation and content do not use the common page width"
 Assert-True ($sharedNavCss.Contains('justify-content: flex-start !important;')) "shared navigation does not align the main menu beside the brand"
 Assert-True ($sharedNavCss.Contains('right: 0 !important;')) "shared navigation does not keep the language selector on the right"
 Assert-True ($sharedNavCss.Contains('justify-content: center !important;')) "shared navigation does not center the main menu"
