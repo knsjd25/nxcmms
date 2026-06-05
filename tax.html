@@ -40,7 +40,7 @@
     gtag("config", "G-DR6V84JEZW");
   </script>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
 
   <script type="application/ld+json" id="software-schema">
   {
@@ -153,7 +153,7 @@
     }
 
     a{color:inherit;text-decoration:none}
-    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 
     .skip-link{
       position:absolute;
@@ -384,7 +384,7 @@
       grid-template-columns:repeat(3,1fr);
       gap:16px;
       margin:26px auto 10px;
-      max-width:1120px;
+      max-width:1180px;
     }
 
     .mini-card{
@@ -411,7 +411,7 @@
       grid-template-columns:minmax(0,560px) minmax(0,520px);
       gap:24px;
       margin:28px auto 40px;
-      max-width:1120px;
+      max-width:1180px;
       justify-content:center;
       align-items:start;
     }
@@ -593,9 +593,9 @@
 
     .content{
       margin:18px auto 56px;
-      max-width:1120px;
+      max-width:1180px;
       display:grid;
-      grid-template-columns:minmax(0,760px) 320px;
+      grid-template-columns:minmax(0,800px) 340px;
       gap:24px;
       justify-content:center;
     }
@@ -831,7 +831,7 @@
       <div class="nav-links">
         <a class="nav-link" href="/" data-i18n="navHome">Home</a>
         <a class="nav-link" href="/upload" data-i18n="navUpload">Image Hosting</a>
-        <a class="nav-link" href="/tax" data-i18n="navTax">UK Tax</a>
+        <a class="nav-link current" href="/tax" data-i18n="navTax">UK Tax</a>
         <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
         <a class="nav-link" href="/contact" data-i18n="navContact">Contact</a>
 
@@ -1183,6 +1183,15 @@
         </div>
 
         <div class="side-card">
+          <h3 data-i18n="sourceTitle">Rates checked</h3>
+          <ul>
+            <li data-i18n="source1">Income Tax and Personal Allowance assumptions follow the listed 2026/27 GOV.UK rates.</li>
+            <li data-i18n="source2">National Insurance and student loan thresholds are shown as transparent planning assumptions.</li>
+            <li data-i18n="source3">This page is an estimate only and is not payroll, legal, financial or tax advice.</li>
+          </ul>
+        </div>
+
+        <div class="side-card">
           <h3 data-i18n="relatedTitle">Related product</h3>
           <div class="related-links">
             <a href="/upload" data-i18n="relatedUpload">Free image hosting</a>
@@ -1339,6 +1348,10 @@
         trust1:"Calculation runs in your browser; salary input is not uploaded.",
         trust2:"2026/27 tax year assumptions are listed on this page.",
         trust3:"Estimate only, not HMRC, payroll, legal or tax advice.",
+        sourceTitle:"Rates checked",
+        source1:"Income Tax and Personal Allowance assumptions follow the listed 2026/27 GOV.UK rates.",
+        source2:"National Insurance and student loan thresholds are shown as transparent planning assumptions.",
+        source3:"This page is an estimate only and is not payroll, legal, financial or tax advice.",
         sideKeywordsTitle:"Before relying on the result",
         kw1:"Check your tax code",
         kw2:"Confirm pension type",
@@ -1370,6 +1383,8 @@
         skip:"跳到正文",
         brandSubtitle:"实用计算器和浏览器工具",
         navHome:"首页",
+        navUpload:"图床",
+        navTax:"英国个税",
         navTools:"全部工具",
         navCategories:"分类",
         navBlog:"博客",
@@ -1489,12 +1504,21 @@
         assumption2:"仅适用于雇员工资收入",
         assumption3:"仅适用于 2026/27 税年",
         assumption4:"年度化估算，不是工资单软件",
+        trustTitle:"信任说明",
+        trust1:"计算在浏览器本地运行，工资输入不会上传。",
+        trust2:"页面列出了 2026/27 税年的主要计算假设。",
+        trust3:"仅供估算参考，不是 HMRC、工资单、法律或税务建议。",
+        sourceTitle:"税率来源说明",
+        source1:"Income Tax 和 Personal Allowance 假设参考 GOV.UK 2026/27 税率说明。",
+        source2:"National Insurance 和学生贷款阈值作为透明的规划假设列出。",
+        source3:"本页仅为估算工具，不构成工资单、法律、财务或税务建议。",
         sideKeywordsTitle:"使用结果前先核对",
         kw1:"核对 tax code",
         kw2:"确认养老金类型",
         kw3:"检查奖金处理",
         kw4:"对照工资单",
         relatedTitle:"相关工具",
+        relatedUpload:"免费图床",
         relatedDividend:"工资 vs 股息计算器",
         relatedIr35:"IR35 计算器",
         relatedVat:"VAT 计算器",
@@ -1519,6 +1543,8 @@
         skip:"Zum Inhalt springen",
         brandSubtitle:"Praktische Rechner und Browser-Tools",
         navHome:"Startseite",
+        navUpload:"Bildhosting",
+        navTax:"UK Steuer",
         navTools:"Alle Tools",
         navCategories:"Kategorien",
         navBlog:"Blog",
@@ -1638,12 +1664,21 @@
         assumption2:"Nur Arbeitnehmergehalt",
         assumption3:"Nur Steuerjahr 2026/27",
         assumption4:"Annualisierte Schätzung, keine Payroll-Software",
+        trustTitle:"Vertrauenshinweise",
+        trust1:"Die Berechnung läuft im Browser; die Gehaltseingabe wird nicht hochgeladen.",
+        trust2:"Die Annahmen für das Steuerjahr 2026/27 sind auf dieser Seite aufgeführt.",
+        trust3:"Nur Schätzung, keine HMRC-, Payroll-, Rechts- oder Steuerberatung.",
+        sourceTitle:"Sätze geprüft",
+        source1:"Income-Tax- und Personal-Allowance-Annahmen folgen den aufgeführten GOV.UK-Sätzen 2026/27.",
+        source2:"National-Insurance- und Student-Loan-Schwellen werden als transparente Planungsannahmen gezeigt.",
+        source3:"Diese Seite ist nur eine Schätzung und keine Payroll-, Rechts-, Finanz- oder Steuerberatung.",
         sideKeywordsTitle:"Vor Nutzung prüfen",
         kw1:"Tax Code prüfen",
         kw2:"Pension-Typ klären",
         kw3:"Bonusbehandlung prüfen",
         kw4:"Mit Payslip vergleichen",
         relatedTitle:"Verwandte Tools",
+        relatedUpload:"Kostenloses Bildhosting",
         relatedDividend:"Gehalt vs Dividend Rechner",
         relatedIr35:"IR35 Rechner",
         relatedVat:"VAT Rechner",
@@ -1668,6 +1703,8 @@
         skip:"Aller au contenu",
         brandSubtitle:"Calculateurs pratiques et outils navigateur",
         navHome:"Accueil",
+        navUpload:"Hébergement image",
+        navTax:"Impôt UK",
         navTools:"Tous les outils",
         navCategories:"Catégories",
         navBlog:"Blog",
@@ -1787,12 +1824,21 @@
         assumption2:"Salaire employé uniquement",
         assumption3:"Année fiscale 2026/27 uniquement",
         assumption4:"Estimation annualisée, pas logiciel de paie",
+        trustTitle:"Signaux de confiance",
+        trust1:"Le calcul se fait dans le navigateur ; le salaire saisi n’est pas envoyé.",
+        trust2:"Les hypothèses de l’année fiscale 2026/27 sont listées sur cette page.",
+        trust3:"Estimation uniquement, pas un avis HMRC, paie, juridique ou fiscal.",
+        sourceTitle:"Taux vérifiés",
+        source1:"Les hypothèses Income Tax et Personal Allowance suivent les taux GOV.UK 2026/27 indiqués.",
+        source2:"Les seuils National Insurance et student loan sont affichés comme hypothèses transparentes.",
+        source3:"Cette page fournit uniquement une estimation et ne constitue pas un avis de paie, juridique, financier ou fiscal.",
         sideKeywordsTitle:"Avant de vous appuyer dessus",
         kw1:"Vérifier le tax code",
         kw2:"Confirmer la pension",
         kw3:"Vérifier les bonus",
         kw4:"Comparer à la fiche de paie",
         relatedTitle:"Outils liés",
+        relatedUpload:"Hébergement d’images gratuit",
         relatedDividend:"Calculateur salaire vs dividende",
         relatedIr35:"Calculateur IR35",
         relatedVat:"Calculateur VAT",
@@ -1817,6 +1863,8 @@
         skip:"Saltar al contenido",
         brandSubtitle:"Calculadoras prácticas y herramientas web",
         navHome:"Inicio",
+        navUpload:"Hosting de imágenes",
+        navTax:"Impuesto UK",
         navTools:"Todas las herramientas",
         navCategories:"Categorías",
         navBlog:"Blog",
@@ -1936,12 +1984,21 @@
         assumption2:"Solo salario empleado",
         assumption3:"Solo año fiscal 2026/27",
         assumption4:"Estimación anualizada, no software de nómina",
+        trustTitle:"Señales de confianza",
+        trust1:"El cálculo se ejecuta en el navegador; el salario no se sube.",
+        trust2:"Las hipótesis del año fiscal 2026/27 se muestran en esta página.",
+        trust3:"Solo estimación, no asesoramiento HMRC, nómina, legal o fiscal.",
+        sourceTitle:"Tasas verificadas",
+        source1:"Las hipótesis de Income Tax y Personal Allowance siguen las tasas GOV.UK 2026/27 indicadas.",
+        source2:"Los umbrales de National Insurance y student loan se muestran como supuestos transparentes.",
+        source3:"Esta página es solo una estimación y no es asesoramiento de nómina, legal, financiero o fiscal.",
         sideKeywordsTitle:"Antes de confiar en el resultado",
         kw1:"Revisar tax code",
         kw2:"Confirmar pensión",
         kw3:"Revisar bonus",
         kw4:"Comparar con nómina",
         relatedTitle:"Herramientas relacionadas",
+        relatedUpload:"Hosting gratuito de imágenes",
         relatedDividend:"Calculadora salario vs dividendo",
         relatedIr35:"Calculadora IR35",
         relatedVat:"Calculadora VAT",
@@ -2148,7 +2205,7 @@
     function incomeTaxRUK(taxableAfterAllowance){
       let tax = 0;
       const basicBand = 37700;
-      const higherCap = 125140 - 12570;
+      const higherCap = 125140;
 
       if (taxableAfterAllowance <= 0) return 0;
       if (taxableAfterAllowance <= basicBand) return taxableAfterAllowance * 0.20;
@@ -2165,27 +2222,26 @@
       return tax;
     }
 
-    function incomeTaxScotland(grossAfterSacrifice, allowance){
+    function incomeTaxScotland(taxableAfterAllowance){
       const bands = [
-        { upper: 16537, rate: 0.19 },
-        { upper: 29526, rate: 0.20 },
-        { upper: 43662, rate: 0.21 },
-        { upper: 75000, rate: 0.42 },
+        { upper: 3967, rate: 0.19 },
+        { upper: 16956, rate: 0.20 },
+        { upper: 31092, rate: 0.21 },
+        { upper: 62430, rate: 0.42 },
         { upper: 125140, rate: 0.45 },
         { upper: Infinity, rate: 0.48 }
       ];
 
       let tax = 0;
-      let lower = allowance;
+      let lower = 0;
 
       for (const band of bands) {
-        const upper = band.upper;
-        if (grossAfterSacrifice <= lower) break;
+        if (taxableAfterAllowance <= lower) break;
 
-        const taxableSlice = Math.min(grossAfterSacrifice, upper) - lower;
+        const taxableSlice = Math.min(taxableAfterAllowance, band.upper) - lower;
         if (taxableSlice > 0) tax += taxableSlice * band.rate;
 
-        lower = upper;
+        lower = band.upper;
       }
 
       return tax;
@@ -2263,7 +2319,7 @@
 
       let tax = 0;
       if (region === "scotland") {
-        tax = incomeTaxScotland(earningsAfterSacrifice, allowance);
+        tax = incomeTaxScotland(taxableAfterAllowance);
       } else {
         tax = incomeTaxRUK(taxableAfterAllowance);
       }

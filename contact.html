@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>Contact Mini-Tools.uk | Support, Feedback and Site Questions</title>
-  <meta name="description" content="Contact Mini-Tools.uk for support, feedback, bug reports, feature suggestions, business questions, policy questions or general site issues." />
-<meta name="robots" content="index,follow,max-image-preview:large" />
+  <title>Contact Mini-Tools.uk | Support, Image Removal and Site Feedback</title>
+  <meta name="description" content="Contact Mini-Tools.uk for tool support, bug reports, image removal requests, abuse reports, privacy questions, feature suggestions and site feedback." />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/contact" />
 
@@ -23,15 +23,15 @@
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
   <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
-  <meta property="og:title" content="Contact Mini-Tools.uk | Support, Feedback and Site Questions" />
-  <meta property="og:description" content="Get in touch about Mini-Tools.uk support, feedback, bug reports, feature suggestions, business questions or policy issues." />
+  <meta property="og:title" content="Contact Mini-Tools.uk | Support, Image Removal and Site Feedback" />
+  <meta property="og:description" content="Contact Mini-Tools.uk for support, bug reports, image removal requests, abuse reports, privacy questions and site feedback." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mini-tools.uk/contact" />
   <meta property="og:locale" content="en_GB" />
   <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Contact Mini-Tools.uk" />
-  <meta name="twitter:description" content="Support, feedback, bug reports, feature suggestions and site questions." />
+  <meta name="twitter:title" content="Contact Mini-Tools.uk | Support, Image Removal and Site Feedback" />
+  <meta name="twitter:description" content="Support, bug reports, image removal requests, abuse reports, feature suggestions and site questions." />
   <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
@@ -50,7 +50,8 @@
         "@type":"ContactPage",
         "name":"Contact Mini-Tools.uk",
         "url":"https://mini-tools.uk/contact",
-        "description":"Contact page for Mini-Tools.uk support, feedback, bug reports, feature suggestions, business questions and general site issues."
+        "description":"Contact page for Mini-Tools.uk support, feedback, image removal requests, abuse reports, privacy questions and general site issues.",
+        "inLanguage":"en-GB"
       },
       {
         "@type":"Organization",
@@ -61,13 +62,13 @@
         "contactPoint":[
           {
             "@type":"ContactPoint",
-            "contactType":"support",
+            "contactType":"support and bug reports",
             "email":"yuyananuu@gmail.com",
             "availableLanguage":["English","Chinese","German","French","Spanish"]
           },
           {
             "@type":"ContactPoint",
-            "contactType":"business and policy questions",
+            "contactType":"image removal and abuse reports",
             "email":"admin@mini-tools.uk",
             "availableLanguage":["English","Chinese","German","French","Spanish"]
           }
@@ -75,21 +76,22 @@
       },
       {
         "@type":"FAQPage",
+        "inLanguage":"en-GB",
         "mainEntity":[
           {
             "@type":"Question",
-            "name":"What can I contact Mini-Tools.uk about?",
-            "acceptedAnswer":{"@type":"Answer","text":"You can contact Mini-Tools.uk about bug reports, confusing tool behaviour, incorrect calculations, broken layouts, feature suggestions, business questions, policy questions or general site issues."}
+            "name":"How do I request removal of a hosted image?",
+            "acceptedAnswer":{"@type":"Answer","text":"Send the hosted image URL, the reason for removal and any relevant ownership or rights information. Do not include passwords, identity documents or sensitive material unless strictly necessary."}
           },
           {
             "@type":"Question",
             "name":"What should I include in a bug report?",
-            "acceptedAnswer":{"@type":"Answer","text":"Please include the page URL, what you expected, what actually happened, your browser or device if relevant, and a screenshot if it helps explain the issue."}
+            "acceptedAnswer":{"@type":"Answer","text":"Include the page URL, what you expected, what actually happened, your browser or device if relevant, and a screenshot if it helps explain the issue."}
           },
           {
             "@type":"Question",
             "name":"Should I email passwords or sensitive data?",
-            "acceptedAnswer":{"@type":"Answer","text":"No. Please do not send passwords, credentials, payment details or highly sensitive personal information by email."}
+            "acceptedAnswer":{"@type":"Answer","text":"No. Please do not send passwords, credentials, payment details, API keys or highly sensitive personal information by email."}
           }
         ]
       }
@@ -108,131 +110,82 @@
       --blue:#2563eb;
       --blue-2:#1d4ed8;
       --soft:#eff6ff;
-      --soft-2:#f1f5f9;
       --green:#166534;
       --green-bg:#dcfce7;
-      --red:#b91c1c;
-      --red-bg:#fef2f2;
       --amber:#92400e;
       --amber-bg:#fffbeb;
-      --shadow:none;
       --radius:22px;
+      --max:1180px;
       --sans:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      --mono:"JetBrains Mono","SFMono-Regular",Consolas,Monaco,monospace;
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:var(--sans);
-      background:var(--bg);
-      color:var(--ink);
-      line-height:1.55;
-    }
-
+    body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.55}
     a{color:inherit;text-decoration:none}
     button{font:inherit}
-    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
     .skip-link{position:absolute;left:14px;top:-48px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:12px;z-index:100}
     .skip-link:focus{top:14px}
 
     .nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
     .nav-inner{display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:18px}
     .brand{display:flex;align-items:center;gap:12px;font-weight:800;min-width:0}
-    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;box-shadow:none}
+    .brand img{width:40px;height:40px;border-radius:12px;background:#fff}
     .brand-copy{display:flex;flex-direction:column;line-height:1.05}
     .brand-title{font-size:1.06rem;letter-spacing:-.03em}
     .brand-subtitle{margin-top:4px;color:#64748b;font-size:.79rem;font-weight:600}
     .nav-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-    .nav-link,.nav-trigger,.lang-trigger{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border-radius:12px;color:#334155;font-weight:700;font-size:14px;border:1px solid transparent;background:transparent;cursor:pointer}
-    .nav-link:hover,.nav-trigger:hover,.nav-group:hover .nav-trigger,.lang-trigger:hover,.lang-group:hover .lang-trigger{background:#f8fafc;color:#0f172a}
+    .nav-link,.lang-trigger{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border-radius:12px;color:#334155;font-weight:700;font-size:14px;border:1px solid transparent;background:transparent;cursor:pointer}
+    .nav-link:hover,.lang-trigger:hover,.lang-group:hover .lang-trigger{background:#f8fafc;color:#0f172a}
     .nav-link.current{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
-    .nav-group,.lang-group{position:relative;padding-bottom:14px;margin-bottom:-14px}
-    .nav-trigger svg,.lang-trigger svg{width:14px;height:14px;transition:transform .2s ease}
-    .nav-group::after,.lang-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}
-    .nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg,.lang-group:hover .lang-trigger svg,.lang-group:focus-within .lang-trigger svg{transform:rotate(180deg)}
-    .dropdown,.lang-dropdown{position:absolute;top:calc(100% + 2px);right:0;min-width:220px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:none;padding:10px;display:none;z-index:40}
-    .nav-group .dropdown{left:0;right:auto;min-width:245px}
-    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown,.lang-group:hover .lang-dropdown,.lang-group:focus-within .lang-dropdown{display:block}
-    .dropdown a,.lang-dropdown button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:12px;color:#334155;font-size:14px;font-weight:700;border:0;background:transparent;cursor:pointer}
-    .dropdown a small{display:block;margin-top:2px;color:#64748b;font-size:12px;font-weight:600}
-    .dropdown a:hover,.lang-dropdown button:hover,.lang-dropdown button.active{background:#f8fafc;color:#0f172a}
+    .lang-group{position:relative;padding-bottom:14px;margin-bottom:-14px}
+    .lang-trigger svg{width:14px;height:14px;transition:transform .2s ease}
+    .lang-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px}
+    .lang-group:hover .lang-trigger svg,.lang-group:focus-within .lang-trigger svg{transform:rotate(180deg)}
+    .lang-dropdown{position:absolute;top:calc(100% + 2px);right:0;min-width:220px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px;display:none;z-index:40}
+    .lang-group:hover .lang-dropdown,.lang-group:focus-within .lang-dropdown{display:block}
+    .lang-dropdown button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:12px;color:#334155;font-size:14px;font-weight:700;border:0;background:transparent;cursor:pointer}
+    .lang-dropdown button:hover,.lang-dropdown button.active{background:#f8fafc;color:#0f172a}
 
     .hero{padding:56px 0 24px;text-align:center}
     .badge{display:inline-flex;align-items:center;gap:8px;background:var(--green-bg);color:var(--green);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
     .hero h1{margin:18px 0 14px;font-size:clamp(2rem,4vw,3.4rem);line-height:1.02;letter-spacing:-.03em}
     .hero p{margin:0 auto;max-width:860px;color:var(--muted);font-size:1.1rem}
-    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:26px auto 10px;max-width:1120px}
-    .mini-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:none;text-align:left}
+    .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:26px auto 10px;max-width:1080px}
+    .mini-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;text-align:left}
     .mini-card strong{display:block;margin-bottom:6px;font-size:.95rem}
     .mini-card span{color:var(--muted);font-size:.93rem}
 
-    .article-wrap{margin:32px auto 56px;max-width:1120px;display:grid;grid-template-columns:minmax(0,760px) 320px;gap:24px;justify-content:center}
-    .article{background:#fff;border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:none}
+    .article-wrap{margin:32px auto 56px;max-width:1080px;display:grid;grid-template-columns:minmax(0,720px) 320px;gap:24px;justify-content:center}
+    .article{background:#fff;border:1px solid var(--line);border-radius:24px;padding:32px}
     .article h2{font-size:1.7rem;line-height:1.15;margin:0 0 14px}
     .article h3{font-size:1.22rem;margin:30px 0 12px}
     .article p{color:var(--muted);margin:0 0 14px}
     .article ul{color:var(--muted);padding-left:20px}
     .article li{margin-bottom:10px}
     .contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:24px 0}
-    .contact-card{
-      background:#f8fafc;
-      border:1px solid var(--line);
-      border-radius:20px;
-      padding:22px;
-    }
-    .contact-icon{
-      width:54px;height:54px;border-radius:18px;background:#eff6ff;color:#1d4ed8;
-      display:flex;align-items:center;justify-content:center;font-size:1.45rem;margin-bottom:14px
-    }
+    .contact-card{background:#f8fafc;border:1px solid var(--line);border-radius:20px;padding:22px}
+    .contact-icon{width:54px;height:54px;border-radius:18px;background:#eff6ff;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-size:1.45rem;margin-bottom:14px}
     .contact-card h3{margin:0 0 8px;font-size:1.18rem}
     .contact-card p{font-size:.95rem;line-height:1.75}
-    .mail-link{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      margin-top:4px;
-      padding:11px 14px;
-      border-radius:14px;
-      border:1px dashed #bfdbfe;
-      background:#fff;
-      color:#1d4ed8;
-      font-weight:900;
-      word-break:break-all;
-    }
+    .mail-link{display:inline-flex;align-items:center;gap:8px;margin-top:4px;padding:11px 14px;border-radius:14px;border:1px dashed #bfdbfe;background:#fff;color:#1d4ed8;font-weight:900;word-break:break-all}
     .mail-link:hover{background:#eff6ff}
     .steps{display:grid;gap:12px;margin:18px 0 0}
-    .step{
-      display:grid;
-      grid-template-columns:36px 1fr;
-      gap:12px;
-      align-items:start;
-      background:#f8fafc;
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:16px;
-    }
+    .step{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start;background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:16px}
     .step-num{width:36px;height:36px;border-radius:12px;background:#eff6ff;color:#1d4ed8;font-weight:900;display:flex;align-items:center;justify-content:center}
     .step strong{display:block;color:#0f172a;margin-bottom:4px}
     .step span{display:block;color:#64748b;font-size:.92rem}
-    .note{
-      margin-top:18px;
-      padding:16px 18px;
-      border-radius:18px;
-      background:#fffbeb;
-      border:1px solid #fde68a;
-      color:#92400e;
-      font-size:.95rem;
-      font-weight:700;
-      line-height:1.7;
-    }
+    .note{margin-top:18px;padding:16px 18px;border-radius:18px;background:var(--amber-bg);border:1px solid #fde68a;color:var(--amber);font-size:.95rem;font-weight:700;line-height:1.7}
+    .policy-list{display:grid;gap:12px;margin:18px 0}
+    .policy-list li{margin-bottom:0}
     .faq{margin-top:24px;display:grid;gap:14px}
     .faq-item{border:1px solid var(--line);border-radius:18px;background:#f8fafc;padding:18px}
     .faq-item h4{margin:0 0 8px;font-size:1.03rem}
     .faq-item p{margin:0;color:var(--muted)}
+
     .side-info{display:grid;gap:16px;align-self:start;position:sticky;top:96px}
-    .side-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:none}
+    .side-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px}
     .side-card h3{margin:0 0 12px;font-size:1rem}
     .side-card p,.side-card li{color:var(--muted);font-size:.92rem}
     .side-card ul{margin:0;padding-left:18px}
@@ -256,7 +209,7 @@
       .mini-grid,.contact-grid{grid-template-columns:1fr}
       .article{padding:22px}
       .step{grid-template-columns:1fr}
-      .dropdown,.lang-dropdown{left:0;right:auto}
+      .lang-dropdown{left:0;right:auto}
       .footer-inner{align-items:flex-start;flex-direction:column}
     }
   </style>
@@ -277,24 +230,12 @@
 
       <div class="nav-links" aria-label="Primary navigation">
         <a class="nav-link" href="/" data-i18n="navHome">Home</a>
-        <a class="nav-link" href="/#featured-tools" data-i18n="navTools">All Tools</a>
-
-        <div class="nav-group">
-          <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-            <span data-i18n="navCategories">Categories</span>
-            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="dropdown" role="menu">
-            <a href="/#uk-finance"><span data-i18n="catFinance">UK Finance</span><small data-i18n="catFinanceSmall">Tax, VAT, mortgage and contractor tools</small></a>
-            <a href="/#developer-tools"><span data-i18n="catDev">Developer Tools</span><small data-i18n="catDevSmall">JSON, diff, image hosting and AI token estimation</small></a>
-            <a href="/#image-tools"><span data-i18n="catImage">Image & PDF</span><small data-i18n="catImageSmall">Compression, conversion and media utilities</small></a>
-            <a href="/password"><span data-i18n="catSecurity">Security</span><small data-i18n="catSecuritySmall">Password and privacy helpers</small></a>
-          </div>
-        </div>
-
-        <a class="nav-link" href="/blog" data-i18n="navBlog">Blog</a>
+        <a class="nav-link" href="/#uk-apps" data-i18n="navUkApps">UK Apps</a>
+        <a class="nav-link" href="/#developer-tools" data-i18n="navDeveloperTools">Developer Tools</a>
+        <a class="nav-link" href="/#other-tools" data-i18n="navOtherTools">Other Tools</a>
         <a class="nav-link" href="/about" data-i18n="navAbout">About</a>
         <a class="nav-link current" href="/contact" data-i18n="navContact">Contact</a>
+        <a class="nav-link" href="/privacy" data-i18n="privacy">Privacy</a>
 
         <div class="lang-group">
           <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false">
@@ -316,21 +257,21 @@
   <main id="main" class="wrap">
     <section class="hero">
       <span class="badge" data-i18n="badge">Contact Mini-Tools.uk</span>
-      <h1 data-i18n="heroTitle">Questions, bug reports and site feedback are welcome.</h1>
-      <p data-i18n="heroText">Use this page to report a broken tool, ask a site question, suggest a useful feature, or contact Mini-Tools.uk about business and policy matters.</p>
+      <h1 data-i18n="heroTitle">Support, image removal requests and site feedback.</h1>
+      <p data-i18n="heroText">Use this page to report a broken tool, ask a site question, suggest a useful feature, or request review of a hosted image link.</p>
 
       <div class="mini-grid">
         <div class="mini-card">
-          <strong data-i18n="mini1Title">Support and bug reports</strong>
-          <span data-i18n="mini1Text">Tell us when a calculator, browser tool, layout or download flow does not work as expected.</span>
+          <strong data-i18n="mini1Title">Tool support</strong>
+          <span data-i18n="mini1Text">Report calculator issues, broken layouts, failed uploads, copy-link problems or confusing tool behaviour.</span>
         </div>
         <div class="mini-card">
-          <strong data-i18n="mini2Title">Feature suggestions</strong>
-          <span data-i18n="mini2Text">Suggest practical tool ideas, missing settings or clearer explanations for existing pages.</span>
+          <strong data-i18n="mini2Title">Image removal and abuse reports</strong>
+          <span data-i18n="mini2Text">Request review of hosted images that may violate privacy, copyright, safety rules or applicable law.</span>
         </div>
         <div class="mini-card">
-          <strong data-i18n="mini3Title">Policy and site questions</strong>
-          <span data-i18n="mini3Text">Ask about privacy, hosted content handling, business questions or general administration.</span>
+          <strong data-i18n="mini3Title">Feature and site feedback</strong>
+          <span data-i18n="mini3Text">Suggest practical tools, clearer settings, better explanations or improvements to existing pages.</span>
         </div>
       </div>
     </section>
@@ -338,68 +279,95 @@
     <section class="article-wrap">
       <article class="article">
         <h2 data-i18n="articleTitle">Contact options</h2>
-        <p data-i18n="articleP1">Mini-Tools.uk is still evolving, and clear user feedback helps improve the tools. A useful message does not need to be long, but it should explain what page you used and what happened.</p>
-        <p data-i18n="articleP2">For faster handling, choose the contact address that best matches your question.</p>
+        <p data-i18n="articleP1">Mini-Tools.uk is a growing collection of browser tools, calculators and image-hosting utilities. Clear feedback helps identify broken pages, confusing results and policy issues.</p>
+        <p data-i18n="articleP2">Choose the contact address that best matches your question. Please keep messages focused and do not send passwords, API keys, payment details or private identity documents by email.</p>
 
         <div class="contact-grid">
           <section class="contact-card">
             <div class="contact-icon">💻</div>
-            <h3 data-i18n="supportTitle">Support and feedback</h3>
-            <p data-i18n="supportText">Use this contact for bug reports, confusing tool behaviour, broken layouts, incorrect calculations, feature suggestions or general site feedback.</p>
+            <h3 data-i18n="supportTitle">Support, bugs and feedback</h3>
+            <p data-i18n="supportText">Use this contact for broken tools, incorrect results, layout problems, feature suggestions and general site feedback.</p>
             <a class="mail-link" href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a>
           </section>
 
           <section class="contact-card">
-            <div class="contact-icon">🤝</div>
-            <h3 data-i18n="businessTitle">Business and policy questions</h3>
-            <p data-i18n="businessText">Use this address for business inquiries, policy questions, site administration issues or questions about hosted content handling.</p>
+            <div class="contact-icon">🛡️</div>
+            <h3 data-i18n="abuseTitle">Image removal and abuse reports</h3>
+            <p data-i18n="abuseText">Use this contact for hosted image removal requests, copyright concerns, privacy concerns, illegal content reports or unsafe content reports.</p>
             <a class="mail-link" href="mailto:admin@mini-tools.uk">admin@mini-tools.uk</a>
           </section>
         </div>
 
-        <h2 data-i18n="helpfulTitle">What to include in a helpful message</h2>
-        <p data-i18n="helpfulP">The clearer the message, the easier it is to investigate. If you are reporting a problem, please include details rather than only saying that something is broken.</p>
+        <h2 data-i18n="removalTitle">How to request hosted image removal</h2>
+        <p data-i18n="removalP">If you are reporting an image hosted by Mini-Tools.uk, include enough information to identify and review the content. Please do not attach extra private documents unless they are necessary to explain ownership or rights.</p>
 
         <div class="steps">
           <div class="step">
             <div class="step-num">1</div>
             <div>
-              <strong data-i18n="step1Title">The page name or URL</strong>
-              <span data-i18n="step1Text">This helps identify the exact tool or content page quickly.</span>
+              <strong data-i18n="removalStep1Title">Include the hosted image URL</strong>
+              <span data-i18n="removalStep1Text">Paste the exact Mini-Tools.uk image link or the page where the image appears.</span>
             </div>
           </div>
           <div class="step">
             <div class="step-num">2</div>
             <div>
-              <strong data-i18n="step2Title">What you expected and what happened</strong>
-              <span data-i18n="step2Text">A short before-and-after explanation makes bugs easier to reproduce.</span>
+              <strong data-i18n="removalStep2Title">Explain the reason</strong>
+              <span data-i18n="removalStep2Text">Examples include privacy concern, copyright issue, illegal content, unsafe content, impersonation or policy violation.</span>
             </div>
           </div>
           <div class="step">
             <div class="step-num">3</div>
             <div>
-              <strong data-i18n="step3Title">Device, browser or screenshot if relevant</strong>
-              <span data-i18n="step3Text">Some issues only appear on certain screens, browsers or file types.</span>
+              <strong data-i18n="removalStep3Title">Add relevant rights information</strong>
+              <span data-i18n="removalStep3Text">If the request is about ownership, copyright or personal privacy, briefly explain your connection to the image.</span>
+            </div>
+          </div>
+        </div>
+
+        <h2 data-i18n="bugTitle">What to include in a bug report</h2>
+        <p data-i18n="bugP">A useful bug report does not need to be long, but it should make the problem reproducible. If you are reporting a calculator issue, include the inputs and expected result. If you are reporting an upload issue, include the file type, approximate file size and browser if relevant.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div>
+              <strong data-i18n="bugStep1Title">The page URL or tool name</strong>
+              <span data-i18n="bugStep1Text">This helps identify whether the problem is on a calculator, developer tool, image tool or information page.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div>
+              <strong data-i18n="bugStep2Title">What you expected and what happened</strong>
+              <span data-i18n="bugStep2Text">A short before-and-after explanation makes bugs easier to reproduce.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div>
+              <strong data-i18n="bugStep3Title">Device, browser or screenshot if useful</strong>
+              <span data-i18n="bugStep3Text">Some issues only appear on certain screens, browsers, file types or language settings.</span>
             </div>
           </div>
         </div>
 
         <h2 data-i18n="sensitiveTitle">Before sending sensitive material</h2>
-        <p data-i18n="sensitiveP">Some Mini-Tools.uk pages process data locally in the browser, while other features may use remote services for uploads or sharing. Email is not the right place for secrets or highly sensitive personal information.</p>
-        <div class="note" data-i18n="noteText">Please do not send passwords, API keys, payment details, private documents, credentials or anything you would not want stored in plain email.</div>
+        <p data-i18n="sensitiveP">Some Mini-Tools.uk pages process data locally in the browser, while image hosting and sharing features may use remote services. Email is not the right place for secrets or highly sensitive personal information.</p>
+        <div class="note" data-i18n="noteText">Do not email passwords, API keys, payment details, identity documents, private financial documents, credentials or anything you would not want stored in a normal email inbox.</div>
 
         <div class="faq">
           <div class="faq-item">
-            <h4 data-i18n="faq1Q">Can I report a calculation issue?</h4>
-            <p data-i18n="faq1A">Yes. Include the page URL, the input values you used, the result you received and what result you expected.</p>
+            <h4 data-i18n="faq1Q">Can I request removal of a hosted image?</h4>
+            <p data-i18n="faq1A">Yes. Send the hosted image URL, the reason for removal and any relevant rights information to the image removal contact address.</p>
           </div>
           <div class="faq-item">
-            <h4 data-i18n="faq2Q">Can I suggest a new tool?</h4>
-            <p data-i18n="faq2A">Yes. Please describe the task, expected input, expected output and a simple example of how the tool should work.</p>
+            <h4 data-i18n="faq2Q">Can I report a calculation issue?</h4>
+            <p data-i18n="faq2A">Yes. Include the page URL, the input values you used, the result you received and what result you expected.</p>
           </div>
           <div class="faq-item">
             <h4 data-i18n="faq3Q">Should I email private data?</h4>
-            <p data-i18n="faq3A">No. Keep contact messages focused on the issue itself and avoid sending credentials, payment details or highly sensitive personal information.</p>
+            <p data-i18n="faq3A">No. Keep contact messages focused on the issue itself and avoid sending credentials, payment details, API keys or highly sensitive personal information.</p>
           </div>
         </div>
       </article>
@@ -409,19 +377,19 @@
           <h3 data-i18n="sideUseTitle">Contact reasons</h3>
           <div class="chips">
             <span class="tag" data-i18n="chip1">Bug report</span>
-            <span class="tag" data-i18n="chip2">Feature idea</span>
-            <span class="tag" data-i18n="chip3">Policy question</span>
-            <span class="tag" data-i18n="chip4">Site issue</span>
+            <span class="tag" data-i18n="chip2">Image removal</span>
+            <span class="tag" data-i18n="chip3">Abuse report</span>
+            <span class="tag" data-i18n="chip4">Feature idea</span>
           </div>
         </div>
 
         <div class="side-card">
-          <h3 data-i18n="sideTipsTitle">Helpful details</h3>
+          <h3 data-i18n="sideTipsTitle">Useful details</h3>
           <ul>
-            <li data-i18n="tip1">Page URL or tool name</li>
-            <li data-i18n="tip2">Input values if relevant</li>
-            <li data-i18n="tip3">Expected result</li>
-            <li data-i18n="tip4">Browser or screenshot if useful</li>
+            <li data-i18n="tip1">Page URL, tool name or hosted image URL</li>
+            <li data-i18n="tip2">Short explanation of the issue</li>
+            <li data-i18n="tip3">Expected result or requested action</li>
+            <li data-i18n="tip4">Browser, file type or screenshot if useful</li>
           </ul>
         </div>
 
@@ -430,7 +398,7 @@
           <div class="related-links">
             <a href="/about" data-i18n="relatedAbout">About</a>
             <a href="/privacy" data-i18n="relatedPrivacy">Privacy policy</a>
-            <a href="/blog" data-i18n="relatedBlog">Blog</a>
+            <a href="/upload" data-i18n="relatedUpload">Free image hosting</a>
             <a href="/#featured-tools" data-i18n="relatedTools">All tools</a>
           </div>
         </div>
@@ -439,9 +407,9 @@
           <h3 data-i18n="sidePopularTitle">Popular tools</h3>
           <div class="related-links">
             <a href="/tax" data-i18n="popularTax">UK tax calculator</a>
+            <a href="/upload" data-i18n="popularUpload">Free image hosting</a>
             <a href="/json" data-i18n="popularJson">JSON formatter</a>
-            <a href="/image" data-i18n="popularImage">Image resizer</a>
-            <a href="/qr" data-i18n="popularQr">QR code generator</a>
+            <a href="/diff" data-i18n="popularDiff">Text diff checker</a>
           </div>
         </div>
       </aside>
@@ -453,7 +421,6 @@
       <div>© 2026 Mini-Tools.uk</div>
       <div class="footer-links">
         <a href="/about" data-i18n="navAbout">About</a>
-        <a href="/blog" data-i18n="navBlog">Blog</a>
         <a href="/privacy" data-i18n="privacy">Privacy</a>
         <a href="/contact" data-i18n="navContact">Contact</a>
       </div>
@@ -465,382 +432,382 @@
       en: {
         htmlLang:"en-GB",
         langLabel:"English",
-        title:"Contact Mini-Tools.uk | Support, Feedback and Site Questions",
-        description:"Contact Mini-Tools.uk for support, feedback, bug reports, feature suggestions, business questions, policy questions or general site issues.",
+        title:"Contact Mini-Tools.uk | Support, Image Removal and Site Feedback",
+        description:"Contact Mini-Tools.uk for tool support, bug reports, image removal requests, abuse reports, privacy questions, feature suggestions and site feedback.",
         skip:"Skip to content",
         brandSubtitle:"Practical calculators and browser tools",
         navHome:"Home",
-        navTools:"All Tools",
-        navCategories:"Categories",
-        navBlog:"Blog",
+        navUkApps:"UK Apps",
+        navDeveloperTools:"Developer Tools",
+        navOtherTools:"Other Tools",
         navAbout:"About",
         navContact:"Contact",
         privacy:"Privacy",
-        catFinance:"UK Finance",
-        catFinanceSmall:"Tax, VAT, mortgage and contractor tools",
-        catDev:"Developer Tools",
-        catDevSmall:"JSON, diff, image hosting and AI token estimation",
-        catImage:"Image & PDF",
-        catImageSmall:"Compression, conversion and media utilities",
-        catSecurity:"Security",
-        catSecuritySmall:"Password and privacy helpers",
         badge:"Contact Mini-Tools.uk",
-        heroTitle:"Questions, bug reports and site feedback are welcome.",
-        heroText:"Use this page to report a broken tool, ask a site question, suggest a useful feature, or contact Mini-Tools.uk about business and policy matters.",
-        mini1Title:"Support and bug reports",
-        mini1Text:"Tell us when a calculator, browser tool, layout or download flow does not work as expected.",
-        mini2Title:"Feature suggestions",
-        mini2Text:"Suggest practical tool ideas, missing settings or clearer explanations for existing pages.",
-        mini3Title:"Policy and site questions",
-        mini3Text:"Ask about privacy, hosted content handling, business questions or general administration.",
+        heroTitle:"Support, image removal requests and site feedback.",
+        heroText:"Use this page to report a broken tool, ask a site question, suggest a useful feature, or request review of a hosted image link.",
+        mini1Title:"Tool support",
+        mini1Text:"Report calculator issues, broken layouts, failed uploads, copy-link problems or confusing tool behaviour.",
+        mini2Title:"Image removal and abuse reports",
+        mini2Text:"Request review of hosted images that may violate privacy, copyright, safety rules or applicable law.",
+        mini3Title:"Feature and site feedback",
+        mini3Text:"Suggest practical tools, clearer settings, better explanations or improvements to existing pages.",
         articleTitle:"Contact options",
-        articleP1:"Mini-Tools.uk is still evolving, and clear user feedback helps improve the tools. A useful message does not need to be long, but it should explain what page you used and what happened.",
-        articleP2:"For faster handling, choose the contact address that best matches your question.",
-        supportTitle:"Support and feedback",
-        supportText:"Use this contact for bug reports, confusing tool behaviour, broken layouts, incorrect calculations, feature suggestions or general site feedback.",
-        businessTitle:"Business and policy questions",
-        businessText:"Use this address for business inquiries, policy questions, site administration issues or questions about hosted content handling.",
-        helpfulTitle:"What to include in a helpful message",
-        helpfulP:"The clearer the message, the easier it is to investigate. If you are reporting a problem, please include details rather than only saying that something is broken.",
-        step1Title:"The page name or URL",
-        step1Text:"This helps identify the exact tool or content page quickly.",
-        step2Title:"What you expected and what happened",
-        step2Text:"A short before-and-after explanation makes bugs easier to reproduce.",
-        step3Title:"Device, browser or screenshot if relevant",
-        step3Text:"Some issues only appear on certain screens, browsers or file types.",
+        articleP1:"Mini-Tools.uk is a growing collection of browser tools, calculators and image-hosting utilities. Clear feedback helps identify broken pages, confusing results and policy issues.",
+        articleP2:"Choose the contact address that best matches your question. Please keep messages focused and do not send passwords, API keys, payment details or private identity documents by email.",
+        supportTitle:"Support, bugs and feedback",
+        supportText:"Use this contact for broken tools, incorrect results, layout problems, feature suggestions and general site feedback.",
+        abuseTitle:"Image removal and abuse reports",
+        abuseText:"Use this contact for hosted image removal requests, copyright concerns, privacy concerns, illegal content reports or unsafe content reports.",
+        removalTitle:"How to request hosted image removal",
+        removalP:"If you are reporting an image hosted by Mini-Tools.uk, include enough information to identify and review the content. Please do not attach extra private documents unless they are necessary to explain ownership or rights.",
+        removalStep1Title:"Include the hosted image URL",
+        removalStep1Text:"Paste the exact Mini-Tools.uk image link or the page where the image appears.",
+        removalStep2Title:"Explain the reason",
+        removalStep2Text:"Examples include privacy concern, copyright issue, illegal content, unsafe content, impersonation or policy violation.",
+        removalStep3Title:"Add relevant rights information",
+        removalStep3Text:"If the request is about ownership, copyright or personal privacy, briefly explain your connection to the image.",
+        bugTitle:"What to include in a bug report",
+        bugP:"A useful bug report does not need to be long, but it should make the problem reproducible. If you are reporting a calculator issue, include the inputs and expected result. If you are reporting an upload issue, include the file type, approximate file size and browser if relevant.",
+        bugStep1Title:"The page URL or tool name",
+        bugStep1Text:"This helps identify whether the problem is on a calculator, developer tool, image tool or information page.",
+        bugStep2Title:"What you expected and what happened",
+        bugStep2Text:"A short before-and-after explanation makes bugs easier to reproduce.",
+        bugStep3Title:"Device, browser or screenshot if useful",
+        bugStep3Text:"Some issues only appear on certain screens, browsers, file types or language settings.",
         sensitiveTitle:"Before sending sensitive material",
-        sensitiveP:"Some Mini-Tools.uk pages process data locally in the browser, while other features may use remote services for uploads or sharing. Email is not the right place for secrets or highly sensitive personal information.",
-        noteText:"Please do not send passwords, API keys, payment details, private documents, credentials or anything you would not want stored in plain email.",
-        faq1Q:"Can I report a calculation issue?",
-        faq1A:"Yes. Include the page URL, the input values you used, the result you received and what result you expected.",
-        faq2Q:"Can I suggest a new tool?",
-        faq2A:"Yes. Please describe the task, expected input, expected output and a simple example of how the tool should work.",
+        sensitiveP:"Some Mini-Tools.uk pages process data locally in the browser, while image hosting and sharing features may use remote services. Email is not the right place for secrets or highly sensitive personal information.",
+        noteText:"Do not email passwords, API keys, payment details, identity documents, private financial documents, credentials or anything you would not want stored in a normal email inbox.",
+        faq1Q:"Can I request removal of a hosted image?",
+        faq1A:"Yes. Send the hosted image URL, the reason for removal and any relevant rights information to the image removal contact address.",
+        faq2Q:"Can I report a calculation issue?",
+        faq2A:"Yes. Include the page URL, the input values you used, the result you received and what result you expected.",
         faq3Q:"Should I email private data?",
-        faq3A:"No. Keep contact messages focused on the issue itself and avoid sending credentials, payment details or highly sensitive personal information.",
+        faq3A:"No. Keep contact messages focused on the issue itself and avoid sending credentials, payment details, API keys or highly sensitive personal information.",
         sideUseTitle:"Contact reasons",
         chip1:"Bug report",
-        chip2:"Feature idea",
-        chip3:"Policy question",
-        chip4:"Site issue",
-        sideTipsTitle:"Helpful details",
-        tip1:"Page URL or tool name",
-        tip2:"Input values if relevant",
-        tip3:"Expected result",
-        tip4:"Browser or screenshot if useful",
+        chip2:"Image removal",
+        chip3:"Abuse report",
+        chip4:"Feature idea",
+        sideTipsTitle:"Useful details",
+        tip1:"Page URL, tool name or hosted image URL",
+        tip2:"Short explanation of the issue",
+        tip3:"Expected result or requested action",
+        tip4:"Browser, file type or screenshot if useful",
         sidePagesTitle:"Related pages",
         relatedAbout:"About",
         relatedPrivacy:"Privacy policy",
-        relatedBlog:"Blog",
+        relatedUpload:"Free image hosting",
         relatedTools:"All tools",
         sidePopularTitle:"Popular tools",
         popularTax:"UK tax calculator",
+        popularUpload:"Free image hosting",
         popularJson:"JSON formatter",
-        popularImage:"Image resizer",
-        popularQr:"QR code generator"
+        popularDiff:"Text diff checker"
       },
       "zh-CN": {
         htmlLang:"zh-CN",
         langLabel:"中文",
-        title:"联系 Mini-Tools.uk｜支持、反馈和网站问题",
-        description:"联系 Mini-Tools.uk，提交支持请求、反馈、bug 报告、功能建议、商务问题、政策问题或一般网站问题。",
+        title:"联系 Mini-Tools.uk｜支持、图片删除请求和网站反馈",
+        description:"联系 Mini-Tools.uk，提交工具支持、bug 报告、图片删除请求、违规内容举报、隐私问题、功能建议和网站反馈。",
         skip:"跳到正文",
         brandSubtitle:"实用计算器和浏览器工具",
         navHome:"首页",
-        navTools:"全部工具",
-        navCategories:"分类",
-        navBlog:"博客",
+        navUkApps:"英国应用",
+        navDeveloperTools:"开发者工具",
+        navOtherTools:"其他工具",
         navAbout:"关于",
         navContact:"联系",
         privacy:"隐私政策",
-        catFinance:"英国财务工具",
-        catFinanceSmall:"个税、VAT、房贷和承包商工具",
-        catDev:"开发者工具",
-        catDevSmall:"JSON、文本对比、图床和 AI Token 估算",
-        catImage:"图片与 PDF",
-        catImageSmall:"压缩、转换和媒体工具",
-        catSecurity:"安全工具",
-        catSecuritySmall:"密码和隐私相关工具",
         badge:"联系 Mini-Tools.uk",
-        heroTitle:"欢迎提交问题、bug 报告和网站反馈。",
-        heroText:"你可以通过此页面报告工具问题、咨询网站问题、提出实用功能建议，或联系 Mini-Tools.uk 处理商务和政策相关事项。",
-        mini1Title:"支持和 bug 报告",
-        mini1Text:"如果计算器、浏览器工具、页面布局或下载流程没有按预期工作，可以反馈。",
-        mini2Title:"功能建议",
-        mini2Text:"可以建议实用工具想法、缺少的设置，或让现有页面解释得更清楚。",
-        mini3Title:"政策和网站问题",
-        mini3Text:"可以咨询隐私、托管内容处理、商务问题或一般网站管理事项。",
+        heroTitle:"工具支持、图片删除请求和网站反馈。",
+        heroText:"你可以通过此页面报告工具问题、咨询网站问题、提出功能建议，或请求审核托管图片链接。",
+        mini1Title:"工具支持",
+        mini1Text:"报告计算器问题、页面布局问题、上传失败、复制链接问题或工具行为不清楚的问题。",
+        mini2Title:"图片删除和违规举报",
+        mini2Text:"请求审核可能违反隐私、版权、安全规则或适用法律的托管图片。",
+        mini3Title:"功能和网站反馈",
+        mini3Text:"建议实用工具、设置改进、更清楚的说明或现有页面改进。",
         articleTitle:"联系方式",
-        articleP1:"Mini-Tools.uk 仍在持续改进，清楚的用户反馈可以帮助工具变得更好。一条有用的信息不需要很长，但应该说明你使用了哪个页面，以及发生了什么。",
-        articleP2:"为了更快处理，请选择最符合问题类型的联系邮箱。",
-        supportTitle:"支持和反馈",
-        supportText:"用于 bug 报告、工具行为混乱、布局损坏、计算结果不正确、功能建议或一般网站反馈。",
-        businessTitle:"商务和政策问题",
-        businessText:"用于商务咨询、政策问题、网站管理事项或托管内容处理相关问题。",
-        helpfulTitle:"一条有用的信息应包含什么",
-        helpfulP:"信息越清楚，越容易排查。如果你在报告问题，请尽量提供细节，而不是只说某个功能坏了。",
-        step1Title:"页面名称或 URL",
-        step1Text:"这可以帮助快速定位具体工具或内容页面。",
-        step2Title:"你期望发生什么，实际发生了什么",
-        step2Text:"简短说明预期和实际结果，可以更容易复现问题。",
-        step3Title:"相关设备、浏览器或截图",
-        step3Text:"有些问题只会出现在特定屏幕、浏览器或文件类型上。",
+        articleP1:"Mini-Tools.uk 是一个持续完善中的浏览器工具、计算器和图床工具集合。清楚的反馈有助于发现页面问题、结果混乱和政策风险。",
+        articleP2:"请选择最匹配问题类型的联系邮箱。请让信息聚焦在问题本身，不要通过邮件发送密码、API key、支付信息或私人身份文件。",
+        supportTitle:"支持、bug 和反馈",
+        supportText:"用于报告工具损坏、结果不正确、布局问题、功能建议和一般网站反馈。",
+        abuseTitle:"图片删除和违规举报",
+        abuseText:"用于托管图片删除请求、版权问题、隐私问题、违法内容举报或不安全内容举报。",
+        removalTitle:"如何请求删除托管图片",
+        removalP:"如果你要举报 Mini-Tools.uk 托管的图片，请提供足够信息以便识别和审核内容。除非为了说明权属或权利确有必要，请不要附加额外私人文件。",
+        removalStep1Title:"提供托管图片 URL",
+        removalStep1Text:"粘贴准确的 Mini-Tools.uk 图片链接，或图片出现的页面。",
+        removalStep2Title:"说明原因",
+        removalStep2Text:"例如隐私问题、版权问题、违法内容、不安全内容、冒充或违反政策。",
+        removalStep3Title:"补充相关权利信息",
+        removalStep3Text:"如果请求涉及所有权、版权或个人隐私，请简要说明你与该图片的关系。",
+        bugTitle:"bug 报告应包含什么",
+        bugP:"有用的 bug 报告不需要很长，但应该能让问题复现。如果是计算器问题，请提供输入值和预期结果；如果是上传问题，请说明文件类型、大致大小和相关浏览器。",
+        bugStep1Title:"页面 URL 或工具名称",
+        bugStep1Text:"这有助于判断问题出现在计算器、开发者工具、图片工具还是信息页面。",
+        bugStep2Title:"你期望发生什么，实际发生了什么",
+        bugStep2Text:"简短说明预期和实际结果，可以更容易复现问题。",
+        bugStep3Title:"设备、浏览器或截图",
+        bugStep3Text:"有些问题只会出现在特定屏幕、浏览器、文件类型或语言设置下。",
         sensitiveTitle:"发送敏感材料前请注意",
-        sensitiveP:"Mini-Tools.uk 有些页面在浏览器本地处理数据，有些功能可能使用远程服务进行上传或分享。邮件不适合发送密钥或高度敏感个人信息。",
-        noteText:"请不要发送密码、API key、支付信息、私人文件、登录凭据，或任何你不希望保存在普通邮件中的内容。",
-        faq1Q:"可以报告计算问题吗？",
-        faq1A:"可以。请包含页面 URL、你输入的数值、得到的结果，以及你认为应该得到的结果。",
-        faq2Q:"可以建议新工具吗？",
-        faq2A:"可以。请说明任务、预期输入、预期输出，以及一个简单的使用示例。",
+        sensitiveP:"Mini-Tools.uk 有些页面在浏览器本地处理数据，而图床和分享功能可能使用远程服务。邮件不适合发送密钥或高度敏感个人信息。",
+        noteText:"请不要通过邮件发送密码、API key、支付信息、身份文件、私人财务文件、登录凭据，或任何你不希望保存在普通邮箱中的内容。",
+        faq1Q:"可以请求删除托管图片吗？",
+        faq1A:"可以。请将托管图片 URL、删除原因和相关权利信息发送到图片删除联系邮箱。",
+        faq2Q:"可以报告计算问题吗？",
+        faq2A:"可以。请包含页面 URL、你输入的数值、得到的结果，以及你认为应该得到的结果。",
         faq3Q:"应该通过邮件发送私人数据吗？",
-        faq3A:"不建议。联系信息应专注于问题本身，避免发送登录凭据、支付信息或高度敏感个人信息。",
+        faq3A:"不应该。联系信息应聚焦于问题本身，避免发送登录凭据、支付信息、API key 或高度敏感个人信息。",
         sideUseTitle:"联系原因",
         chip1:"bug 报告",
-        chip2:"功能想法",
-        chip3:"政策问题",
-        chip4:"网站问题",
+        chip2:"图片删除",
+        chip3:"违规举报",
+        chip4:"功能建议",
         sideTipsTitle:"有用细节",
-        tip1:"页面 URL 或工具名称",
-        tip2:"相关输入值",
-        tip3:"期望结果",
-        tip4:"浏览器或截图",
+        tip1:"页面 URL、工具名称或托管图片 URL",
+        tip2:"简短说明问题",
+        tip3:"预期结果或请求操作",
+        tip4:"浏览器、文件类型或截图",
         sidePagesTitle:"相关页面",
         relatedAbout:"关于",
         relatedPrivacy:"隐私政策",
-        relatedBlog:"博客",
+        relatedUpload:"免费图床",
         relatedTools:"全部工具",
-        sidePopularTitle:"常用工具",
+        sidePopularTitle:"热门工具",
         popularTax:"英国个税计算器",
+        popularUpload:"免费图床",
         popularJson:"JSON 格式化工具",
-        popularImage:"图片尺寸调整工具",
-        popularQr:"二维码生成器"
+        popularDiff:"文本对比工具"
       },
       de: {
         htmlLang:"de",
         langLabel:"Deutsch",
-        title:"Kontakt Mini-Tools.uk｜Support, Feedback und Website-Fragen",
-        description:"Kontaktieren Sie Mini-Tools.uk für Support, Feedback, Bug Reports, Feature-Vorschläge, Business-Fragen, Policy-Fragen oder Website-Probleme.",
+        title:"Kontakt Mini-Tools.uk | Support, Bildentfernung und Feedback",
+        description:"Kontaktieren Sie Mini-Tools.uk für Support, Bug Reports, Bildentfernungsanfragen, Abuse Reports, Datenschutzfragen, Feature-Vorschläge und Feedback.",
         skip:"Zum Inhalt springen",
         brandSubtitle:"Praktische Rechner und Browser-Tools",
         navHome:"Startseite",
-        navTools:"Alle Tools",
-        navCategories:"Kategorien",
-        navBlog:"Blog",
+        navUkApps:"UK Apps",
+        navDeveloperTools:"Developer Tools",
+        navOtherTools:"Weitere Tools",
         navAbout:"Über uns",
         navContact:"Kontakt",
         privacy:"Datenschutz",
-        catFinance:"UK Finanzen",
-        catFinanceSmall:"Steuer, VAT, Hypothek und Contractor-Tools",
-        catDev:"Developer Tools",
-        catDevSmall:"JSON, Diff, Bildhosting und AI-Token-Schätzung",
-        catImage:"Bild & PDF",
-        catImageSmall:"Komprimierung, Konvertierung und Medien",
-        catSecurity:"Sicherheit",
-        catSecuritySmall:"Passwort- und Datenschutzhelfer",
         badge:"Kontakt Mini-Tools.uk",
-        heroTitle:"Fragen, Bug Reports und Website-Feedback sind willkommen.",
-        heroText:"Nutzen Sie diese Seite für Tool-Probleme, Fragen, Feature-Vorschläge oder Business- und Policy-Themen.",
-        mini1Title:"Support und Bug Reports",
-        mini1Text:"Melden Sie Rechner-, Tool-, Layout- oder Download-Probleme.",
-        mini2Title:"Feature-Vorschläge",
-        mini2Text:"Schlagen Sie praktische Tool-Ideen, fehlende Einstellungen oder klarere Erklärungen vor.",
-        mini3Title:"Policy und Website-Fragen",
-        mini3Text:"Fragen zu Datenschutz, gehosteten Inhalten, Business oder Administration.",
+        heroTitle:"Support, Bildentfernung und Website-Feedback.",
+        heroText:"Nutzen Sie diese Seite, um defekte Tools zu melden, Fragen zu stellen, Features vorzuschlagen oder gehostete Bildlinks prüfen zu lassen.",
+        mini1Title:"Tool-Support",
+        mini1Text:"Melden Sie Rechnerprobleme, Layoutfehler, fehlgeschlagene Uploads, Copy-Link-Probleme oder unklare Tool-Funktion.",
+        mini2Title:"Bildentfernung und Abuse Reports",
+        mini2Text:"Fordern Sie die Prüfung gehosteter Bilder an, die Datenschutz, Urheberrecht, Sicherheit oder geltendes Recht verletzen könnten.",
+        mini3Title:"Feature- und Website-Feedback",
+        mini3Text:"Schlagen Sie praktische Tools, klarere Einstellungen, bessere Erklärungen oder Verbesserungen vor.",
         articleTitle:"Kontaktoptionen",
-        articleP1:"Mini-Tools.uk entwickelt sich weiter. Klares Feedback hilft, Tools zu verbessern.",
-        articleP2:"Wählen Sie die Adresse, die am besten zu Ihrer Frage passt.",
-        supportTitle:"Support und Feedback",
-        supportText:"Für Bug Reports, unklare Tool-Funktion, defekte Layouts, falsche Berechnungen, Feature-Vorschläge oder allgemeines Feedback.",
-        businessTitle:"Business und Policy-Fragen",
-        businessText:"Für Business-Anfragen, Policy-Fragen, Site Administration oder gehostete Inhalte.",
-        helpfulTitle:"Was eine hilfreiche Nachricht enthalten sollte",
-        helpfulP:"Je klarer die Nachricht, desto einfacher ist die Untersuchung.",
-        step1Title:"Page name oder URL",
-        step1Text:"Hilft, die richtige Tool- oder Content-Seite schnell zu finden.",
-        step2Title:"Erwartung und tatsächliches Ergebnis",
-        step2Text:"Eine kurze Gegenüberstellung erleichtert die Reproduktion.",
-        step3Title:"Gerät, Browser oder Screenshot",
-        step3Text:"Manche Probleme treten nur in bestimmten Umgebungen auf.",
+        articleP1:"Mini-Tools.uk ist eine wachsende Sammlung von Browser-Tools, Rechnern und Bildhosting-Utilities. Klares Feedback hilft, defekte Seiten, verwirrende Ergebnisse und Policy-Probleme zu finden.",
+        articleP2:"Wählen Sie die passende Kontaktadresse. Bitte senden Sie keine Passwörter, API Keys, Zahlungsdaten oder privaten Ausweisdokumente per E-Mail.",
+        supportTitle:"Support, Bugs und Feedback",
+        supportText:"Für defekte Tools, falsche Ergebnisse, Layoutprobleme, Feature-Vorschläge und allgemeines Feedback.",
+        abuseTitle:"Bildentfernung und Abuse Reports",
+        abuseText:"Für Bildentfernungsanfragen, Copyright-Probleme, Datenschutzfragen, illegale Inhalte oder unsichere Inhalte.",
+        removalTitle:"So beantragen Sie die Entfernung eines gehosteten Bildes",
+        removalP:"Wenn Sie ein von Mini-Tools.uk gehostetes Bild melden, senden Sie genügend Informationen zur Identifikation und Prüfung. Fügen Sie keine unnötigen privaten Dokumente an.",
+        removalStep1Title:"Gehostete Bild-URL angeben",
+        removalStep1Text:"Fügen Sie den exakten Mini-Tools.uk Bildlink oder die Seite ein, auf der das Bild erscheint.",
+        removalStep2Title:"Grund erklären",
+        removalStep2Text:"Beispiele: Datenschutz, Copyright, illegale Inhalte, unsichere Inhalte, Impersonation oder Policy-Verstoß.",
+        removalStep3Title:"Rechteinformationen ergänzen",
+        removalStep3Text:"Wenn es um Eigentum, Copyright oder Privatsphäre geht, erklären Sie kurz Ihre Verbindung zum Bild.",
+        bugTitle:"Was in einen Bug Report gehört",
+        bugP:"Ein guter Bug Report muss nicht lang sein, sollte aber reproduzierbar sein. Bei Rechnerproblemen: Eingaben und erwartetes Ergebnis. Bei Uploadproblemen: Dateityp, Größe und Browser.",
+        bugStep1Title:"Page URL oder Tool-Name",
+        bugStep1Text:"Hilft zu erkennen, ob das Problem in Rechner, Developer Tool, Image Tool oder Infoseite liegt.",
+        bugStep2Title:"Erwartung und tatsächliches Ergebnis",
+        bugStep2Text:"Eine kurze Gegenüberstellung erleichtert die Reproduktion.",
+        bugStep3Title:"Gerät, Browser oder Screenshot",
+        bugStep3Text:"Manche Probleme treten nur bei bestimmten Bildschirmen, Browsern, Dateitypen oder Sprachen auf.",
         sensitiveTitle:"Vor dem Senden sensibler Daten",
-        sensitiveP:"Einige Seiten verarbeiten lokal, andere nutzen Remote-Services. E-Mail ist nicht geeignet für Secrets.",
-        noteText:"Senden Sie keine Passwörter, API Keys, Zahlungsdaten, privaten Dokumente oder Credentials per E-Mail.",
-        faq1Q:"Kann ich Berechnungsprobleme melden?",
-        faq1A:"Ja. Senden Sie URL, Eingabewerte, erhaltenes Ergebnis und erwartetes Ergebnis.",
-        faq2Q:"Kann ich ein neues Tool vorschlagen?",
-        faq2A:"Ja. Beschreiben Sie Aufgabe, erwartete Eingabe, Ausgabe und ein Beispiel.",
+        sensitiveP:"Einige Seiten verarbeiten lokal, Bildhosting und Sharing können Remote-Services nutzen. E-Mail ist nicht für Secrets geeignet.",
+        noteText:"Senden Sie keine Passwörter, API Keys, Zahlungsdaten, Ausweise, Finanzdokumente, Credentials oder andere sensible Inhalte per E-Mail.",
+        faq1Q:"Kann ich die Entfernung eines gehosteten Bildes beantragen?",
+        faq1A:"Ja. Senden Sie Bild-URL, Entfernungsgrund und relevante Rechteinformationen an die Bildentfernungsadresse.",
+        faq2Q:"Kann ich ein Berechnungsproblem melden?",
+        faq2A:"Ja. Senden Sie Page URL, Eingaben, erhaltenes Ergebnis und erwartetes Ergebnis.",
         faq3Q:"Sollte ich private Daten mailen?",
-        faq3A:"Nein. Halten Sie Nachrichten auf das Problem fokussiert und vermeiden Sie sensible Daten.",
+        faq3A:"Nein. Halten Sie Nachrichten auf das Problem fokussiert und vermeiden Sie Credentials, Zahlungsdaten, API Keys oder sensible persönliche Daten.",
         sideUseTitle:"Kontaktgründe",
         chip1:"Bug Report",
-        chip2:"Feature-Idee",
-        chip3:"Policy-Frage",
-        chip4:"Site-Problem",
-        sideTipsTitle:"Hilfreiche Details",
-        tip1:"Page URL oder Tool Name",
-        tip2:"Eingabewerte falls relevant",
-        tip3:"Erwartetes Ergebnis",
-        tip4:"Browser oder Screenshot",
+        chip2:"Bildentfernung",
+        chip3:"Abuse Report",
+        chip4:"Feature-Idee",
+        sideTipsTitle:"Nützliche Details",
+        tip1:"Page URL, Tool Name oder Bild-URL",
+        tip2:"Kurze Problembeschreibung",
+        tip3:"Erwartetes Ergebnis oder gewünschte Aktion",
+        tip4:"Browser, Dateityp oder Screenshot",
         sidePagesTitle:"Verwandte Seiten",
         relatedAbout:"Über uns",
         relatedPrivacy:"Datenschutz",
-        relatedBlog:"Blog",
+        relatedUpload:"Kostenloses Bildhosting",
         relatedTools:"Alle Tools",
         sidePopularTitle:"Beliebte Tools",
         popularTax:"UK Tax Calculator",
+        popularUpload:"Kostenloses Bildhosting",
         popularJson:"JSON Formatter",
-        popularImage:"Image Resizer",
-        popularQr:"QR Code Generator"
+        popularDiff:"Text Diff Checker"
       },
       fr: {
         htmlLang:"fr",
         langLabel:"Français",
-        title:"Contact Mini-Tools.uk｜Support, feedback et questions site",
-        description:"Contactez Mini-Tools.uk pour support, feedback, bugs, suggestions, business, policy ou questions site.",
+        title:"Contact Mini-Tools.uk | Support, suppression d’image et feedback",
+        description:"Contactez Mini-Tools.uk pour support, bugs, demandes de suppression d’image, abus, confidentialité, suggestions et feedback.",
         skip:"Aller au contenu",
         brandSubtitle:"Calculateurs pratiques et outils navigateur",
         navHome:"Accueil",
-        navTools:"Tous les outils",
-        navCategories:"Catégories",
-        navBlog:"Blog",
+        navUkApps:"Applications UK",
+        navDeveloperTools:"Outils développeur",
+        navOtherTools:"Autres outils",
         navAbout:"À propos",
         navContact:"Contact",
         privacy:"Confidentialité",
-        catFinance:"Finance UK",
-        catFinanceSmall:"Impôt, VAT, prêt immobilier et contractor",
-        catDev:"Outils développeur",
-        catDevSmall:"JSON, diff, hébergement image et estimation tokens IA",
-        catImage:"Image & PDF",
-        catImageSmall:"Compression, conversion et médias",
-        catSecurity:"Sécurité",
-        catSecuritySmall:"Mot de passe et confidentialité",
         badge:"Contact Mini-Tools.uk",
-        heroTitle:"Questions, bugs et feedback sont bienvenus.",
-        heroText:"Utilisez cette page pour signaler un outil cassé, poser une question, suggérer une fonction ou contacter Mini-Tools.uk.",
-        mini1Title:"Support et bugs",
-        mini1Text:"Signalez un calculateur, outil, layout ou téléchargement qui ne fonctionne pas.",
-        mini2Title:"Suggestions",
-        mini2Text:"Proposez des idées d’outils, paramètres manquants ou explications plus claires.",
-        mini3Title:"Policy et questions site",
-        mini3Text:"Questions sur confidentialité, contenu hébergé, business ou administration.",
+        heroTitle:"Support, suppression d’image et feedback.",
+        heroText:"Utilisez cette page pour signaler un outil cassé, poser une question, suggérer une fonction ou demander l’examen d’un lien d’image hébergée.",
+        mini1Title:"Support outil",
+        mini1Text:"Signalez problèmes de calcul, layouts cassés, uploads échoués, liens copiés ou comportement confus.",
+        mini2Title:"Suppression d’image et abus",
+        mini2Text:"Demandez l’examen d’images hébergées pouvant violer vie privée, copyright, sécurité ou loi applicable.",
+        mini3Title:"Feedback fonction et site",
+        mini3Text:"Proposez outils pratiques, réglages plus clairs, meilleures explications ou améliorations.",
         articleTitle:"Options de contact",
-        articleP1:"Mini-Tools.uk évolue encore. Un feedback clair aide à améliorer les outils.",
-        articleP2:"Choisissez l’adresse qui correspond le mieux à votre question.",
-        supportTitle:"Support et feedback",
-        supportText:"Pour bugs, comportement confus, layouts cassés, calculs incorrects, suggestions ou feedback général.",
-        businessTitle:"Business et policy",
-        businessText:"Pour demandes business, policy, administration du site ou contenu hébergé.",
-        helpfulTitle:"Ce qu’un message utile doit inclure",
-        helpfulP:"Plus le message est clair, plus il est facile d’enquêter.",
-        step1Title:"Nom de page ou URL",
-        step1Text:"Permet d’identifier rapidement l’outil ou la page.",
-        step2Title:"Attendu et résultat réel",
-        step2Text:"Une courte comparaison aide à reproduire le bug.",
-        step3Title:"Appareil, navigateur ou capture",
-        step3Text:"Certains problèmes dépendent de l’environnement.",
+        articleP1:"Mini-Tools.uk est une collection croissante d’outils navigateur, calculateurs et hébergement d’images. Un feedback clair aide à identifier pages cassées, résultats confus et problèmes de policy.",
+        articleP2:"Choisissez l’adresse adaptée. Ne envoyez pas mots de passe, API keys, paiements ou documents d’identité privés par email.",
+        supportTitle:"Support, bugs et feedback",
+        supportText:"Pour outils cassés, résultats incorrects, problèmes de layout, suggestions et feedback général.",
+        abuseTitle:"Suppression d’image et signalements abus",
+        abuseText:"Pour demandes de suppression d’images, copyright, vie privée, contenu illégal ou dangereux.",
+        removalTitle:"Comment demander la suppression d’une image hébergée",
+        removalP:"Si vous signalez une image hébergée par Mini-Tools.uk, incluez assez d’informations pour l’identifier et l’examiner. N’ajoutez pas de documents privés inutiles.",
+        removalStep1Title:"Inclure l’URL de l’image",
+        removalStep1Text:"Collez le lien exact de l’image Mini-Tools.uk ou la page où elle apparaît.",
+        removalStep2Title:"Expliquer la raison",
+        removalStep2Text:"Exemples : vie privée, copyright, contenu illégal, dangereux, usurpation ou violation de policy.",
+        removalStep3Title:"Ajouter les informations de droits",
+        removalStep3Text:"Si la demande concerne propriété, copyright ou vie privée, expliquez brièvement votre lien avec l’image.",
+        bugTitle:"Que mettre dans un bug report",
+        bugP:"Un bug report utile doit permettre de reproduire le problème. Pour un calculateur, indiquez entrées et résultat attendu. Pour un upload, indiquez type de fichier, taille et navigateur.",
+        bugStep1Title:"URL ou nom de l’outil",
+        bugStep1Text:"Aide à savoir si le problème concerne calculateur, outil développeur, image ou page d’information.",
+        bugStep2Title:"Attendu et résultat réel",
+        bugStep2Text:"Une courte comparaison aide à reproduire le problème.",
+        bugStep3Title:"Appareil, navigateur ou capture",
+        bugStep3Text:"Certains problèmes dépendent de l’écran, navigateur, fichier ou langue.",
         sensitiveTitle:"Avant d’envoyer du contenu sensible",
-        sensitiveP:"Certaines pages sont locales, d’autres utilisent des services distants. L’email n’est pas adapté aux secrets.",
-        noteText:"N’envoyez pas mots de passe, API keys, paiements, documents privés ou identifiants par email.",
-        faq1Q:"Puis-je signaler un problème de calcul ?",
-        faq1A:"Oui. Incluez URL, valeurs saisies, résultat obtenu et résultat attendu.",
-        faq2Q:"Puis-je suggérer un outil ?",
-        faq2A:"Oui. Décrivez tâche, entrée attendue, sortie attendue et exemple simple.",
+        sensitiveP:"Certaines pages traitent localement, l’hébergement d’image et le partage peuvent utiliser des services distants. L’email n’est pas adapté aux secrets.",
+        noteText:"N’envoyez pas mots de passe, API keys, paiements, documents d’identité, documents financiers privés, identifiants ou données sensibles par email.",
+        faq1Q:"Puis-je demander la suppression d’une image hébergée ?",
+        faq1A:"Oui. Envoyez l’URL, la raison et les informations de droits pertinentes à l’adresse de suppression.",
+        faq2Q:"Puis-je signaler un problème de calcul ?",
+        faq2A:"Oui. Incluez URL, valeurs saisies, résultat reçu et résultat attendu.",
         faq3Q:"Dois-je envoyer des données privées ?",
-        faq3A:"Non. Gardez le message centré sur le problème et évitez les données sensibles.",
+        faq3A:"Non. Gardez le message centré sur le problème et évitez identifiants, paiements, API keys ou données sensibles.",
         sideUseTitle:"Raisons de contact",
         chip1:"Bug",
-        chip2:"Idée outil",
-        chip3:"Question policy",
-        chip4:"Problème site",
+        chip2:"Suppression image",
+        chip3:"Abus",
+        chip4:"Idée fonction",
         sideTipsTitle:"Détails utiles",
-        tip1:"URL ou nom d’outil",
-        tip2:"Valeurs d’entrée",
-        tip3:"Résultat attendu",
-        tip4:"Navigateur ou capture",
+        tip1:"URL de page, nom d’outil ou URL image",
+        tip2:"Courte explication",
+        tip3:"Résultat attendu ou action demandée",
+        tip4:"Navigateur, fichier ou capture",
         sidePagesTitle:"Pages liées",
         relatedAbout:"À propos",
         relatedPrivacy:"Confidentialité",
-        relatedBlog:"Blog",
+        relatedUpload:"Hébergement d’images",
         relatedTools:"Tous les outils",
         sidePopularTitle:"Outils populaires",
         popularTax:"UK tax calculator",
+        popularUpload:"Hébergement d’images",
         popularJson:"Formateur JSON",
-        popularImage:"Image resizer",
-        popularQr:"Générateur QR"
+        popularDiff:"Text diff checker"
       },
       es: {
         htmlLang:"es",
         langLabel:"Español",
-        title:"Contacto Mini-Tools.uk｜Soporte, feedback y preguntas",
-        description:"Contacta con Mini-Tools.uk para soporte, feedback, bugs, sugerencias, business, policy o problemas del sitio.",
+        title:"Contacto Mini-Tools.uk | Soporte, eliminación de imágenes y feedback",
+        description:"Contacta con Mini-Tools.uk para soporte, bugs, solicitudes de eliminación de imágenes, abuso, privacidad, sugerencias y feedback.",
         skip:"Saltar al contenido",
         brandSubtitle:"Calculadoras prácticas y herramientas web",
         navHome:"Inicio",
-        navTools:"Todas las herramientas",
-        navCategories:"Categorías",
-        navBlog:"Blog",
+        navUkApps:"Apps UK",
+        navDeveloperTools:"Herramientas developer",
+        navOtherTools:"Otras herramientas",
         navAbout:"Acerca de",
         navContact:"Contacto",
         privacy:"Privacidad",
-        catFinance:"Finanzas UK",
-        catFinanceSmall:"Impuestos, VAT, hipoteca y contractor",
-        catDev:"Herramientas developer",
-        catDevSmall:"JSON, diff, hosting de imágenes y tokens IA",
-        catImage:"Imagen y PDF",
-        catImageSmall:"Compresión, conversión y medios",
-        catSecurity:"Seguridad",
-        catSecuritySmall:"Contraseñas y privacidad",
         badge:"Contacto Mini-Tools.uk",
-        heroTitle:"Preguntas, bugs y feedback son bienvenidos.",
-        heroText:"Usa esta página para reportar una herramienta rota, hacer preguntas, sugerir funciones o contactar Mini-Tools.uk.",
-        mini1Title:"Soporte y bugs",
-        mini1Text:"Informa si una calculadora, herramienta, layout o descarga no funciona.",
-        mini2Title:"Sugerencias",
-        mini2Text:"Sugiere ideas de herramientas, ajustes faltantes o explicaciones más claras.",
-        mini3Title:"Policy y preguntas del sitio",
-        mini3Text:"Preguntas sobre privacidad, contenido alojado, business o administración.",
+        heroTitle:"Soporte, eliminación de imágenes y feedback.",
+        heroText:"Usa esta página para reportar una herramienta rota, hacer preguntas, sugerir funciones o pedir revisión de un enlace de imagen alojada.",
+        mini1Title:"Soporte de herramientas",
+        mini1Text:"Reporta problemas de calculadoras, layouts rotos, uploads fallidos, enlaces copiados o comportamiento confuso.",
+        mini2Title:"Eliminación de imágenes y abuso",
+        mini2Text:"Solicita revisión de imágenes alojadas que puedan violar privacidad, copyright, seguridad o ley aplicable.",
+        mini3Title:"Feedback de funciones y sitio",
+        mini3Text:"Sugiere herramientas prácticas, ajustes más claros, mejores explicaciones o mejoras.",
         articleTitle:"Opciones de contacto",
-        articleP1:"Mini-Tools.uk sigue evolucionando. Feedback claro ayuda a mejorar herramientas.",
-        articleP2:"Elige la dirección que mejor coincida con tu pregunta.",
-        supportTitle:"Soporte y feedback",
-        supportText:"Para bugs, comportamiento confuso, layouts rotos, cálculos incorrectos, sugerencias o feedback general.",
-        businessTitle:"Business y policy",
-        businessText:"Para business, policy, administración del sitio o contenido alojado.",
-        helpfulTitle:"Qué incluir en un mensaje útil",
-        helpfulP:"Cuanto más claro el mensaje, más fácil investigar.",
-        step1Title:"Nombre de página o URL",
-        step1Text:"Ayuda a identificar la herramienta o página exacta.",
-        step2Title:"Lo esperado y lo ocurrido",
-        step2Text:"Una breve comparación facilita reproducir bugs.",
-        step3Title:"Dispositivo, navegador o captura",
-        step3Text:"Algunos problemas dependen del entorno.",
+        articleP1:"Mini-Tools.uk es una colección creciente de herramientas web, calculadoras y hosting de imágenes. Feedback claro ayuda a encontrar páginas rotas, resultados confusos y problemas de policy.",
+        articleP2:"Elige la dirección adecuada. No envíes contraseñas, API keys, pagos o documentos privados de identidad por email.",
+        supportTitle:"Soporte, bugs y feedback",
+        supportText:"Para herramientas rotas, resultados incorrectos, problemas de layout, sugerencias y feedback general.",
+        abuseTitle:"Eliminación de imágenes y reportes de abuso",
+        abuseText:"Para solicitudes de eliminación, copyright, privacidad, contenido ilegal o inseguro.",
+        removalTitle:"Cómo solicitar eliminación de una imagen alojada",
+        removalP:"Si reportas una imagen alojada por Mini-Tools.uk, incluye información suficiente para identificarla y revisarla. No adjuntes documentos privados innecesarios.",
+        removalStep1Title:"Incluye la URL de imagen",
+        removalStep1Text:"Pega el enlace exacto de Mini-Tools.uk o la página donde aparece.",
+        removalStep2Title:"Explica el motivo",
+        removalStep2Text:"Ejemplos: privacidad, copyright, contenido ilegal, inseguro, suplantación o violación de policy.",
+        removalStep3Title:"Añade información de derechos",
+        removalStep3Text:"Si se trata de propiedad, copyright o privacidad personal, explica brevemente tu relación con la imagen.",
+        bugTitle:"Qué incluir en un bug report",
+        bugP:"Un bug report útil debe permitir reproducir el problema. Para calculadoras, incluye entradas y resultado esperado. Para uploads, tipo de archivo, tamaño y navegador.",
+        bugStep1Title:"URL o nombre de herramienta",
+        bugStep1Text:"Ayuda a identificar si el problema está en calculadora, developer tool, imagen o página informativa.",
+        bugStep2Title:"Lo esperado y lo ocurrido",
+        bugStep2Text:"Una comparación corta ayuda a reproducir bugs.",
+        bugStep3Title:"Dispositivo, navegador o captura",
+        bugStep3Text:"Algunos problemas dependen de pantalla, navegador, tipo de archivo o idioma.",
         sensitiveTitle:"Antes de enviar material sensible",
-        sensitiveP:"Algunas páginas son locales y otras usan servicios remotos. El email no es adecuado para secretos.",
-        noteText:"No envíes contraseñas, API keys, pagos, documentos privados o credenciales por email.",
-        faq1Q:"¿Puedo reportar un problema de cálculo?",
-        faq1A:"Sí. Incluye URL, valores de entrada, resultado recibido y resultado esperado.",
-        faq2Q:"¿Puedo sugerir una herramienta?",
-        faq2A:"Sí. Describe tarea, entrada esperada, salida esperada y ejemplo simple.",
+        sensitiveP:"Algunas páginas procesan localmente; hosting y compartir imágenes pueden usar servicios remotos. El email no es adecuado para secretos.",
+        noteText:"No envíes contraseñas, API keys, pagos, documentos de identidad, documentos financieros privados, credenciales o datos sensibles por email.",
+        faq1Q:"¿Puedo solicitar eliminar una imagen alojada?",
+        faq1A:"Sí. Envía URL, motivo e información de derechos relevante a la dirección de eliminación.",
+        faq2Q:"¿Puedo reportar un problema de cálculo?",
+        faq2A:"Sí. Incluye URL, valores de entrada, resultado recibido y resultado esperado.",
         faq3Q:"¿Debo enviar datos privados?",
-        faq3A:"No. Mantén el mensaje centrado en el problema y evita datos sensibles.",
+        faq3A:"No. Mantén el mensaje centrado en el problema y evita credenciales, pagos, API keys o datos sensibles.",
         sideUseTitle:"Motivos de contacto",
         chip1:"Bug",
-        chip2:"Idea de función",
-        chip3:"Policy",
-        chip4:"Problema sitio",
+        chip2:"Eliminar imagen",
+        chip3:"Abuso",
+        chip4:"Idea de función",
         sideTipsTitle:"Detalles útiles",
-        tip1:"URL o nombre de herramienta",
-        tip2:"Valores de entrada",
-        tip3:"Resultado esperado",
-        tip4:"Navegador o captura",
+        tip1:"URL de página, herramienta o imagen alojada",
+        tip2:"Explicación breve",
+        tip3:"Resultado esperado o acción solicitada",
+        tip4:"Navegador, tipo de archivo o captura",
         sidePagesTitle:"Páginas relacionadas",
         relatedAbout:"Acerca de",
         relatedPrivacy:"Privacidad",
-        relatedBlog:"Blog",
+        relatedUpload:"Hosting de imágenes",
         relatedTools:"Todas las herramientas",
         sidePopularTitle:"Herramientas populares",
         popularTax:"UK tax calculator",
+        popularUpload:"Hosting de imágenes",
         popularJson:"Formateador JSON",
-        popularImage:"Image resizer",
-        popularQr:"Generador QR"
+        popularDiff:"Text diff checker"
       }
     };
 
@@ -850,55 +817,26 @@
     const siteOrigin = "https://mini-tools.uk";
     let currentLang = defaultLang;
 
-    const localeMap = {
-      en: "en_GB",
-      "zh-CN": "zh_CN",
-      de: "de_DE",
-      fr: "fr_FR",
-      es: "es_ES"
-    };
+    const localeMap = { en:"en_GB", "zh-CN":"zh_CN", de:"de_DE", fr:"fr_FR", es:"es_ES" };
 
+    function normalizeLang(lang){ if(lang==="zh") return "zh-CN"; return allowedLangs.includes(lang) ? lang : defaultLang; }
     function getDict(){ return translations[currentLang] || translations.en; }
+    function getInitialLang(){ const params = new URLSearchParams(window.location.search); return normalizeLang(params.get("lang") || defaultLang); }
 
-    function normalizeLang(lang){
-      if (lang === "zh") return "zh-CN";
-      return allowedLangs.includes(lang) ? lang : defaultLang;
-    }
+    function setMeta(name, content){ const tag = document.querySelector(`meta[name="${name}"]`); if(tag) tag.setAttribute("content", content); }
+    function setOg(property, content){ const tag = document.querySelector(`meta[property="${property}"]`); if(tag) tag.setAttribute("content", content); }
+    function setTwitter(name, content){ const tag = document.querySelector(`meta[name="${name}"]`); if(tag) tag.setAttribute("content", content); }
 
-    function getInitialLang(){
-      const params = new URLSearchParams(window.location.search);
-      return normalizeLang(params.get("lang") || defaultLang);
-    }
-
-    function currentPageUrl(includeLang = true){
+    function pageUrl(includeLang){
       const url = new URL(siteOrigin + pagePath);
-      if (includeLang) url.searchParams.set("lang", currentLang);
+      if(includeLang && currentLang !== "en") url.searchParams.set("lang", currentLang);
       return url.toString();
     }
 
-    function setMeta(name, content){
-      const tag = document.querySelector(`meta[name="${name}"]`);
-      if (tag) tag.setAttribute("content", content);
-    }
-
-    function setOg(property, content){
-      const tag = document.querySelector(`meta[property="${property}"]`);
-      if (tag) tag.setAttribute("content", content);
-    }
-
-    function setTwitter(name, content){
-      const tag = document.querySelector(`meta[name="${name}"]`);
-      if (tag) tag.setAttribute("content", content);
-    }
-
     function setCanonicalAndSocialUrls(){
-      const params = new URLSearchParams(window.location.search);
-      const hasExplicitLang = params.has("lang");
-      const canonical = hasExplicitLang ? currentPageUrl(true) : `${siteOrigin}${pagePath}`;
-
+      const canonical = pageUrl(currentLang !== "en");
       const canonicalTag = document.querySelector('link[rel="canonical"]');
-      if (canonicalTag) canonicalTag.setAttribute("href", canonical);
-
+      if(canonicalTag) canonicalTag.setAttribute("href", canonical);
       setOg("og:url", canonical);
       setOg("og:locale", localeMap[currentLang] || "en_GB");
     }
@@ -906,93 +844,62 @@
     function updateInternalLinks(){
       document.querySelectorAll("a[href]").forEach(link => {
         const raw = link.getAttribute("href");
-        if (!raw || raw.startsWith("#") || raw.startsWith("mailto:") || raw.startsWith("tel:") || raw.startsWith("javascript:")) return;
+        if(!raw || raw.startsWith("#") || raw.startsWith("mailto:") || raw.startsWith("tel:") || raw.startsWith("javascript:")) return;
 
-        if (!link.dataset.baseHref) {
-          link.dataset.baseHref = raw;
-        }
+        if(!link.dataset.baseHref) link.dataset.baseHref = raw;
 
-        const baseHref = link.dataset.baseHref;
-        try {
-          const url = new URL(baseHref, window.location.origin);
-          if (url.origin !== window.location.origin) return;
-
+        try{
+          const url = new URL(link.dataset.baseHref, window.location.origin);
+          if(url.origin !== window.location.origin) return;
           url.pathname = url.pathname.replace(/\.html$/i, "");
-          if (url.pathname === "/index") url.pathname = "/";
-
-          url.searchParams.set("lang", currentLang);
+          if(url.pathname === "/index") url.pathname = "/";
+          if(currentLang !== "en") url.searchParams.set("lang", currentLang);
+          else url.searchParams.delete("lang");
           link.href = url.pathname + url.search + url.hash;
-        } catch (error) {
-          // Keep unusual links unchanged.
-        }
+        }catch(error){}
       });
     }
 
     function updateStructuredData(dict){
       const jsonLd = document.getElementById("structured-data");
-      if (!jsonLd) return;
-
-      const pageUrl = currentPageUrl(new URLSearchParams(window.location.search).has("lang"));
+      if(!jsonLd) return;
 
       const schema = {
-        "@context": "https://schema.org",
-        "@graph": [
+        "@context":"https://schema.org",
+        "@graph":[
           {
-            "@type": "ContactPage",
-            "name": dict.title,
-            "url": pageUrl,
-            "description": dict.description,
-            "inLanguage": dict.htmlLang || currentLang
+            "@type":"ContactPage",
+            "name":dict.title,
+            "url":pageUrl(currentLang !== "en"),
+            "description":dict.description,
+            "inLanguage":dict.htmlLang || currentLang
           },
           {
-            "@type": "Organization",
-            "name": "Mini-Tools.uk",
-            "url": "https://mini-tools.uk",
-            "logo": "https://assets.mini-tools.uk/image/icon-512x512.png",
-            "email": "yuyananuu@gmail.com",
-            "contactPoint": [
-              {
-                "@type": "ContactPoint",
-                "contactType": "support",
-                "email": "yuyananuu@gmail.com",
-                "availableLanguage": ["English", "Chinese", "German", "French", "Spanish"]
-              },
-              {
-                "@type": "ContactPoint",
-                "contactType": "business and policy questions",
-                "email": "admin@mini-tools.uk",
-                "availableLanguage": ["English", "Chinese", "German", "French", "Spanish"]
-              }
+            "@type":"Organization",
+            "name":"Mini-Tools.uk",
+            "url":"https://mini-tools.uk",
+            "logo":"https://assets.mini-tools.uk/image/icon-512x512.png",
+            "email":"yuyananuu@gmail.com",
+            "contactPoint":[
+              {"@type":"ContactPoint","contactType":"support and bug reports","email":"yuyananuu@gmail.com","availableLanguage":["English","Chinese","German","French","Spanish"]},
+              {"@type":"ContactPoint","contactType":"image removal and abuse reports","email":"admin@mini-tools.uk","availableLanguage":["English","Chinese","German","French","Spanish"]}
             ]
           },
           {
-            "@type": "FAQPage",
-            "inLanguage": dict.htmlLang || currentLang,
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": dict.faq1Q,
-                "acceptedAnswer": { "@type": "Answer", "text": dict.faq1A }
-              },
-              {
-                "@type": "Question",
-                "name": dict.faq2Q,
-                "acceptedAnswer": { "@type": "Answer", "text": dict.faq2A }
-              },
-              {
-                "@type": "Question",
-                "name": dict.faq3Q,
-                "acceptedAnswer": { "@type": "Answer", "text": dict.faq3A }
-              }
+            "@type":"FAQPage",
+            "inLanguage":dict.htmlLang || currentLang,
+            "mainEntity":[
+              {"@type":"Question","name":dict.faq1Q,"acceptedAnswer":{"@type":"Answer","text":dict.faq1A}},
+              {"@type":"Question","name":dict.faq2Q,"acceptedAnswer":{"@type":"Answer","text":dict.faq2A}},
+              {"@type":"Question","name":dict.faq3Q,"acceptedAnswer":{"@type":"Answer","text":dict.faq3A}}
             ]
           }
         ]
       };
-
       jsonLd.textContent = JSON.stringify(schema, null, 2);
     }
 
-    function applyLanguage(lang, updateUrl = true){
+    function applyLanguage(lang, updateUrl=true){
       currentLang = normalizeLang(lang);
       const dict = getDict();
 
@@ -1006,23 +913,25 @@
 
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
-        if (dict[key] !== undefined) el.textContent = dict[key];
+        if(dict[key] !== undefined) el.textContent = dict[key];
       });
 
       const label = document.getElementById("currentLangLabel");
-      if (label) label.textContent = dict.langLabel;
+      if(label) label.textContent = dict.langLabel;
 
       document.querySelectorAll("[data-lang-btn]").forEach(btn => {
         btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
       });
 
-      if (updateUrl) {
+      if(updateUrl){
         const url = new URL(window.location.href);
         url.pathname = pagePath;
-        url.searchParams.set("lang", currentLang);
+        if(currentLang !== "en") url.searchParams.set("lang", currentLang);
+        else url.searchParams.delete("lang");
         history.replaceState(null, "", url.toString());
       }
 
+      localStorage.setItem("miniToolsContactLang", currentLang);
       setCanonicalAndSocialUrls();
       updateInternalLinks();
       updateStructuredData(dict);
@@ -1032,12 +941,7 @@
       btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
     });
 
-    window.addEventListener("load", () => {
-      const params = new URLSearchParams(window.location.search);
-      const requestedLang = params.get("lang");
-      const normalizedLang = getInitialLang();
-      applyLanguage(normalizedLang, Boolean(requestedLang && requestedLang !== normalizedLang));
-    });
+    window.addEventListener("load", () => applyLanguage(getInitialLang(), false));
   </script>
 </body>
 </html>

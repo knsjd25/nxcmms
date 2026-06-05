@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Free Image Hosting for GitHub README, Markdown and Blogs | Mini-Tools.uk</title>
-  <meta name="description" content="Upload an image and get a shareable direct link. Free image hosting for GitHub README, Markdown, blogs and forums with direct URL, Markdown, HTML and BBCode output." />
+  <meta name="description" content="Upload an image and get direct URL, Markdown, HTML or BBCode links. Free image hosting for GitHub README files, blogs, forums and support tickets with clear retention and removal rules." />
 <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://mini-tools.uk/upload" />
 
   <meta property="og:title" content="Free Image Hosting for GitHub README, Markdown and Blogs" />
-  <meta property="og:description" content="Free image hosting with direct URL, Markdown, HTML and BBCode output for GitHub README, Markdown documents, blogs and forums." />
+  <meta property="og:description" content="Free image hosting with direct URL, Markdown, HTML and BBCode output for GitHub README files, blogs, forums and support tickets, with clear retention and removal rules." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mini-tools.uk/upload" />
 
@@ -53,7 +53,7 @@
           {
             "@type":"Question",
             "name":"How long are uploaded images kept?",
-            "acceptedAnswer":{"@type":"Answer","text":"Uploaded images may be stored for sharing and display. Do not upload private, sensitive or illegal content."}
+            "acceptedAnswer":{"@type":"Answer","text":"Images are kept according to the selected retention option: 1 day, 7 days, 30 days, or permanent storage when a valid approved storage code is used. Do not upload private, sensitive, illegal or infringing content."}
           },
           {
             "@type":"Question",
@@ -81,6 +81,7 @@
       --warning-text:#9a3412;
       --shadow:0 10px 25px -5px rgba(15,23,42,.08);
       --radius:22px;
+      --max:1180px;
       --sans:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
       --mono:"JetBrains Mono","SFMono-Regular",Consolas,Monaco,monospace;
     }
@@ -91,7 +92,7 @@
     a{text-decoration:none;color:inherit}
     button,input,textarea,select{font:inherit}
 
-    .container{width:min(1400px,calc(100% - 32px));margin:0 auto}
+    .container{width:min(var(--max),calc(100% - 32px));margin:0 auto}
 
     .site-header{
       position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);
@@ -148,10 +149,10 @@
     }
 
     .main-card{
-      background:#fff;border:1px solid var(--line);border-radius:32px;box-shadow:0 20px 40px rgba(15,23,42,.08);overflow:hidden;margin-top:18px
+      background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 16px 34px rgba(15,23,42,.08);overflow:hidden;margin-top:18px
     }
     .main-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:0}
-    .left-col,.right-col{padding:28px}
+    .left-col,.right-col{padding:24px}
     .left-col{border-right:1px solid #eef2f7}
 
     .field + .field{margin-top:24px}
@@ -284,7 +285,7 @@
     }
 
     .section-card{
-      margin:28px 0 0;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:28px
+      margin:28px 0 0;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:24px
     }
     .section-card h2{margin:0 0 12px;font-size:1.8rem;letter-spacing:-.03em}
     .section-card p{color:var(--muted);line-height:1.75}
@@ -292,6 +293,16 @@
     .faq-item{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:18px}
     .faq-item h3{margin:0 0 8px;font-size:1.05rem}
     .faq-item p{margin:0;font-size:.98rem}
+    .detail-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:16px}
+    .detail-item{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:16px}
+    .detail-item strong{display:block;margin-bottom:6px;color:#0f172a;font-size:.98rem}
+    .detail-item p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.6}
+    .policy-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0 0;padding:0;list-style:none}
+    .policy-list li{background:#fff7ed;border:1px solid #fed7aa;color:#7c2d12;border-radius:16px;padding:13px 14px;font-size:.92rem;font-weight:800;line-height:1.45}
+    .policy-note{margin-top:16px;padding:16px;border-radius:18px;background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;font-weight:750;line-height:1.65}
+    .related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}
+    .related-link{display:block;background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:15px;color:#0f172a;font-weight:900}
+    .related-link span{display:block;margin-top:5px;color:var(--muted);font-size:.88rem;font-weight:700;line-height:1.5}
 
     .site-footer{margin-top:40px;padding:28px 0;background:#fff;border-top:1px solid var(--line)}
     .footer-links{
@@ -309,7 +320,7 @@
       .nav{width:100%;overflow:auto;padding-bottom:4px;justify-content:flex-start}
     }
     @media (max-width: 640px){
-      .container{width:min(100% - 20px,1400px)}
+      .container{width:min(100% - 20px,var(--max))}
       .left-col,.right-col{padding:18px}
       .file-box{align-items:stretch}
       .file-trigger{display:flex;align-items:center}
@@ -339,10 +350,9 @@
           </button>
           <div class="dropdown-bridge" aria-hidden="true"></div>
           <div class="dropdown-menu" id="categoriesMenu" role="menu">
-            <a class="dropdown-item" href="/#uk-finance" id="navUkFinance">UK Finance</a>
-            <a class="dropdown-item" href="/#developer-tools" id="navDeveloperTools">Developer Tools</a>
-            <a class="dropdown-item" href="/#image-tools" id="navImagePdf">Image & PDF</a>
-            <a class="dropdown-item" href="/#image-tools" id="navMoreTools">More Tools</a>
+            <a class="dropdown-item" href="/#uk-applications" id="navUkFinance">UK applications</a>
+            <a class="dropdown-item" href="/#developer-tools" id="navDeveloperTools">Developer tools</a>
+            <a class="dropdown-item" href="/#other-tools" id="navImagePdf">Other tools</a>
           </div>
         </div>
 
@@ -486,9 +496,88 @@
     <section class="section-card">
       <h2 id="sectionTitle">Why use this free image hosting tool</h2>
       <p id="sectionIntro">
-        This is a server-backed free image hosting tool for creating direct image links. It works well for screenshots, blog content, marketplace listings, design feedback and general image sharing. Unlike local-only tools such as JSON or text utilities, this page uploads the selected file to the Mini-Tools service so a hosted image URL can be created with a chosen retention period.
+        This page uploads the selected file to the Mini-Tools.uk service so a hosted image URL can be created with the retention period you choose. It is useful for GitHub README files, Markdown documents, blog images, forum posts, support tickets, marketplace images and quick screenshot sharing.
       </p>
+      <div class="detail-grid" aria-label="Image hosting link formats">
+        <div class="detail-item">
+          <strong id="formatDirectTitle">Direct URL</strong>
+          <p id="formatDirectText">Copy the raw image link for messages, documents, previews and tools that ask for an image URL.</p>
+        </div>
+        <div class="detail-item">
+          <strong id="formatMarkdownTitle">Markdown</strong>
+          <p id="formatMarkdownText">Use the Markdown output in GitHub README files, documentation pages and issue comments.</p>
+        </div>
+        <div class="detail-item">
+          <strong id="formatHtmlTitle">HTML</strong>
+          <p id="formatHtmlText">Use the HTML image tag in websites, blog editors, CMS blocks and custom templates.</p>
+        </div>
+        <div class="detail-item">
+          <strong id="formatBbcodeTitle">BBCode</strong>
+          <p id="formatBbcodeText">Use BBCode for forums and communities that still support classic image tags.</p>
+        </div>
+      </div>
+    </section>
 
+    <section class="section-card">
+      <h2 id="retentionTitle">How image retention works</h2>
+      <p id="retentionIntro">
+        Choose a retention period before uploading. Temporary uploads are designed for short-term sharing, while permanent storage requires an approved long-term storage code.
+      </p>
+      <div class="detail-grid" aria-label="Image retention options">
+        <div class="detail-item">
+          <strong id="retentionOneTitle">Delete after 1 day</strong>
+          <p id="retentionOneText">Best for quick previews, temporary screenshots and short support conversations.</p>
+        </div>
+        <div class="detail-item">
+          <strong id="retentionSevenTitle">Delete after 7 days</strong>
+          <p id="retentionSevenText">Useful for drafts, feedback links and short project references.</p>
+        </div>
+        <div class="detail-item">
+          <strong id="retentionThirtyTitle">Delete after 30 days</strong>
+          <p id="retentionThirtyText">Useful for longer temporary references, blog drafts and review cycles.</p>
+        </div>
+        <div class="detail-item">
+          <strong id="retentionPermanentTitle">Permanent storage</strong>
+          <p id="retentionPermanentText">Requires a valid approved storage code and may still be removed if it violates upload rules.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card" id="upload-rules">
+      <h2 id="rulesTitle">What not to upload</h2>
+      <p id="rulesIntro">
+        Only upload images you are allowed to share through a public or semi-public link. Do not use this service for private, illegal, harmful or rights-infringing content.
+      </p>
+      <ul class="policy-list">
+        <li id="rulePrivate">Private IDs, passports, bank cards, financial documents or sensitive personal records.</li>
+        <li id="ruleIllegal">Illegal, adult, sexually explicit, violent, hateful, abusive or exploitative content.</li>
+        <li id="ruleCopyright">Copyrighted images, brand assets or artwork that you do not have permission to upload.</li>
+        <li id="ruleScam">Malware, phishing, scam screenshots, deceptive content or images used to support fraud.</li>
+        <li id="ruleMinors">Unsafe or exploitative images involving minors, schools or private family situations.</li>
+        <li id="ruleSensitive">Private screenshots, confidential work files or content that should not be accessible by link.</li>
+      </ul>
+    </section>
+
+    <section class="section-card">
+      <h2 id="removalTitle">Removal and abuse reports</h2>
+      <p id="removalIntro">
+        If an uploaded image violates privacy, copyright, safety rules or applicable law, contact us with the image URL and the reason for the request. We may remove hosted images that create legal, safety, abuse or policy risks.
+      </p>
+      <div class="policy-note" id="removalNote">
+        Send removal or abuse reports to yuyananuu@gmail.com. Please include the image URL, the issue, and any ownership or rights information if relevant.
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2 id="privacyNoteTitle">Privacy note for hosted uploads</h2>
+      <p id="privacyNoteText">
+        Unlike local browser-only tools, image hosting requires sending the selected image to the server so a hosted URL can be created. Avoid uploading sensitive files. Temporary images follow the selected retention option, and removal requests can be sent through the contact email.
+      </p>
+      <div class="related-grid">
+        <a class="related-link" href="/privacy" id="privacyRelated">Privacy Policy<span id="privacyRelatedText">Read how uploads, analytics, ads and contact requests are handled.</span></a>
+        <a class="related-link" href="/contact" id="contactRelated">Contact<span id="contactRelatedText">Request image removal, report abuse or send feedback.</span></a>
+        <a class="related-link" href="/#other-tools" id="toolsRelated">Other tools<span id="toolsRelatedText">Browse image, PDF, developer and everyday tools on Mini-Tools.uk.</span></a>
+      </div>
     </section>
 
     <section class="section-card">
@@ -567,6 +656,7 @@
         <a href="/blog" id="footerBlog">Blog</a>
         <a href="/about" id="footerAbout">About</a>
         <a href="/privacy" id="footerPrivacy">Privacy Policy</a>
+        <a href="#upload-rules" id="footerRules">Upload Rules</a>
         <a href="/contact" id="footerContact">Contact</a>
       </div>
       <div class="footer-note" id="footerNote">© 2026 Mini-Tools.uk — free image hosting with configurable retention</div>
@@ -580,25 +670,25 @@
       en: {
         htmlLang: "en",
         seoTitle: "Free Image Hosting for GitHub README, Markdown and Blogs | Mini-Tools.uk",
-        seoDescription: "Free image hosting with shareable image links, flexible retention periods, browser preview before upload, and optional long-term storage codes for approved use.",
+        seoDescription: "Free image hosting with direct URL, Markdown, HTML and BBCode links, selectable retention periods, upload rules, removal requests and browser preview before upload.",
         ogTitle: "Free Image Hosting | Mini-Tools",
-        ogDescription: "Free image hosting with shareable links, browser preview, selectable retention settings, and optional long-term storage codes.",
+        ogDescription: "Free image hosting with direct URL, Markdown, HTML and BBCode output, selectable retention settings and clear upload rules.",
         schemaAppName: "Mini-Tools Free Image Hosting",
-        schemaDescription: "Free image hosting for screenshots, blog images, product images and other shareable image links with selectable retention periods.",
+        schemaDescription: "Free image hosting for screenshots, README images, blog images and other shareable image links with selectable retention periods and clear upload rules.",
         schemaFaq1Title: "Is this image hosting tool free to use?",
         schemaFaq1Text: "Yes. You can upload images and copy direct links, Markdown, HTML or BBCode snippets for common publishing workflows.",
         schemaFaq2Title: "How long are uploaded images kept?",
-        schemaFaq2Text: "Uploaded images may be stored for sharing and display. Do not upload private, sensitive or illegal content.",
+        schemaFaq2Text: "Images are kept according to the selected retention option: 1 day, 7 days, 30 days, or permanent storage when a valid approved storage code is used. Do not upload private, sensitive, illegal or infringing content.",
         schemaFaq3Title: "Can I use it for blog images?",
         schemaFaq3Text: "Yes. You can copy Markdown or HTML embed code and paste it into blog posts, documentation or forum content.",
 
         navHome: "Home",
         navAllTools: "All Tools",
         navCategories: "Categories",
-        navUkFinance: "UK Finance",
+        navUkFinance: "UK applications",
         navDeveloperTools: "Developer Tools",
-        navImagePdf: "Image & PDF",
-        navMoreTools: "More Tools",
+        navImagePdf: "Other tools",
+        navMoreTools: "Other tools",
         navBlog: "Blog",
         navAbout: "About",
 
@@ -630,11 +720,48 @@
         logTitle: "Upload terminal",
 
         sectionTitle: "Why use this free image hosting tool",
-        sectionIntro: "This is a server-backed free image hosting tool for creating direct image links. It works well for screenshots, blog content, marketplace listings, design feedback and general image sharing. Unlike local-only tools such as JSON or text utilities, this page uploads the selected file to the Mini-Tools service so a hosted image URL can be created with a chosen retention period.",
+        sectionIntro: "This page uploads the selected file to the Mini-Tools.uk service so a hosted image URL can be created with the retention period you choose. It is useful for GitHub README files, Markdown documents, blog images, forum posts, support tickets, marketplace images and quick screenshot sharing.",
+        formatDirectTitle: "Direct URL",
+        formatDirectText: "Copy the raw image link for messages, documents, previews and tools that ask for an image URL.",
+        formatMarkdownTitle: "Markdown",
+        formatMarkdownText: "Use the Markdown output in GitHub README files, documentation pages and issue comments.",
+        formatHtmlTitle: "HTML",
+        formatHtmlText: "Use the HTML image tag in websites, blog editors, CMS blocks and custom templates.",
+        formatBbcodeTitle: "BBCode",
+        formatBbcodeText: "Use BBCode for forums and communities that still support classic image tags.",
+        retentionTitle: "How image retention works",
+        retentionIntro: "Choose a retention period before uploading. Temporary uploads are designed for short-term sharing, while permanent storage requires an approved long-term storage code.",
+        retentionOneTitle: "Delete after 1 day",
+        retentionOneText: "Best for quick previews, temporary screenshots and short support conversations.",
+        retentionSevenTitle: "Delete after 7 days",
+        retentionSevenText: "Useful for drafts, feedback links and short project references.",
+        retentionThirtyTitle: "Delete after 30 days",
+        retentionThirtyText: "Useful for longer temporary references, blog drafts and review cycles.",
+        retentionPermanentTitle: "Permanent storage",
+        retentionPermanentText: "Requires a valid approved storage code and may still be removed if it violates upload rules.",
+        rulesTitle: "What not to upload",
+        rulesIntro: "Only upload images you are allowed to share through a public or semi-public link. Do not use this service for private, illegal, harmful or rights-infringing content.",
+        rulePrivate: "Private IDs, passports, bank cards, financial documents or sensitive personal records.",
+        ruleIllegal: "Illegal, adult, sexually explicit, violent, hateful, abusive or exploitative content.",
+        ruleCopyright: "Copyrighted images, brand assets or artwork that you do not have permission to upload.",
+        ruleScam: "Malware, phishing, scam screenshots, deceptive content or images used to support fraud.",
+        ruleMinors: "Unsafe or exploitative images involving minors, schools or private family situations.",
+        ruleSensitive: "Private screenshots, confidential work files or content that should not be accessible by link.",
+        removalTitle: "Removal and abuse reports",
+        removalIntro: "If an uploaded image violates privacy, copyright, safety rules or applicable law, contact us with the image URL and the reason for the request. We may remove hosted images that create legal, safety, abuse or policy risks.",
+        removalNote: "Send removal or abuse reports to yuyananuu@gmail.com. Please include the image URL, the issue, and any ownership or rights information if relevant.",
+        privacyNoteTitle: "Privacy note for hosted uploads",
+        privacyNoteText: "Unlike local browser-only tools, image hosting requires sending the selected image to the server so a hosted URL can be created. Avoid uploading sensitive files. Temporary images follow the selected retention option, and removal requests can be sent through the contact email.",
+        privacyRelated: "Privacy Policy",
+        privacyRelatedText: "Read how uploads, analytics, ads and contact requests are handled.",
+        contactRelated: "Contact",
+        contactRelatedText: "Request image removal, report abuse or send feedback.",
+        toolsRelated: "Other tools",
+        toolsRelatedText: "Browse image, PDF, developer and everyday tools on Mini-Tools.uk.",
         faq1Title: "Is this image hosting tool free to use?",
         faq1Text: "Yes. You can upload images and copy direct links, Markdown, HTML or BBCode snippets for common publishing workflows.",
         faq2Title: "How long are uploaded images kept?",
-        faq2Text: "Uploaded images may be stored for sharing and display. Do not upload private, sensitive or illegal content.",
+        faq2Text: "Images are kept according to the selected retention option: 1 day, 7 days, 30 days, or permanent storage when a valid approved storage code is used. Do not upload private, sensitive, illegal or infringing content.",
         faq3Title: "What is the long-term storage code for?",
         faq3Text: "It is an optional code for approved long-term image hosting. Normal free image uploads can leave it blank.",
         faq4Title: "What can I use this free image host for?",
@@ -682,7 +809,8 @@
         footerAbout: "About",
         footerPrivacy: "Privacy Policy",
         footerContact: "Contact",
-        footerNote: "© 2026 Mini-Tools.uk — free image hosting with configurable retention",
+        footerRules: "Upload Rules",
+        footerNote: "© 2026 Mini-Tools.uk — free image hosting with configurable retention and clear upload rules",
 
         logReady: "Ready: waiting for image selection.",
         logFileTooLarge: "Error: file exceeds the 5 MB limit.",
@@ -718,17 +846,17 @@
         schemaFaq1Title: "这个图床工具可以免费使用吗？",
         schemaFaq1Text: "可以。你可以上传图片，并复制图片直链、Markdown、HTML 或 BBCode 片段，用于常见发布场景。",
         schemaFaq2Title: "上传的图片会保存多久？",
-        schemaFaq2Text: "上传的图片可能会被保存用于分享和展示。请不要上传私密、敏感或违法内容。",
+        schemaFaq2Text: "图片会按照上传前选择的保留时长保存：1天、7天、30天，或在使用有效长期存储码时永久保存。请不要上传私密、敏感、违法或侵权内容。",
         schemaFaq3Title: "可以用于博客图片吗？",
         schemaFaq3Text: "可以。你可以复制 Markdown 或 HTML 嵌入代码，并粘贴到博客文章、文档或论坛内容中。",
 
         navHome: "首页",
         navAllTools: "全部工具",
         navCategories: "分类",
-        navUkFinance: "英国财税",
+        navUkFinance: "英国应用",
         navDeveloperTools: "开发者工具",
-        navImagePdf: "图片与 PDF",
-        navMoreTools: "更多工具",
+        navImagePdf: "其他工具",
+        navMoreTools: "其他工具",
         navBlog: "博客",
         navAbout: "关于",
 
@@ -760,11 +888,48 @@
         logTitle: "上传终端",
 
         sectionTitle: "为什么使用这个免费图床",
-        sectionIntro: "这是一个基于服务器的免费图床工具，用于生成可直接访问的图片外链。它适合截图分享、博客配图、商品展示、设计反馈、论坛发帖和一般图片托管。与本地工具不同，这个页面会把所选图片上传到 Mini-Tools 服务端，并按你选择的时长生成图片链接。",
+        sectionIntro: "这个页面会把所选图片上传到 Mini-Tools.uk 服务端，并根据你选择的保留时长生成可访问的图片链接。它适合 GitHub README、Markdown 文档、博客配图、论坛发帖、工单截图、商品图片和临时截图分享。",
+        formatDirectTitle: "图片直链",
+        formatDirectText: "复制原始图片链接，可用于消息、文档、预览或需要图片 URL 的工具。",
+        formatMarkdownTitle: "Markdown",
+        formatMarkdownText: "用于 GitHub README、文档页面、Issue 评论和 Markdown 笔记。",
+        formatHtmlTitle: "HTML",
+        formatHtmlText: "用于网页、博客编辑器、CMS 内容块和自定义模板。",
+        formatBbcodeTitle: "BBCode",
+        formatBbcodeText: "用于仍支持传统图片标签的论坛和社区。",
+        retentionTitle: "图片保留时长说明",
+        retentionIntro: "上传前请选择保留时长。临时上传适合短期分享，永久保存需要已批准的长期存储码。",
+        retentionOneTitle: "1天后删除",
+        retentionOneText: "适合快速预览、临时截图和短期工单沟通。",
+        retentionSevenTitle: "7天后删除",
+        retentionSevenText: "适合草稿、反馈链接和短期项目参考。",
+        retentionThirtyTitle: "30天后删除",
+        retentionThirtyText: "适合较长周期的临时引用、博客草稿和审核流程。",
+        retentionPermanentTitle: "永久保存",
+        retentionPermanentText: "需要有效长期存储码；如违反上传规则，仍可能被删除。",
+        rulesTitle: "禁止上传的内容",
+        rulesIntro: "请只上传你有权分享、并且愿意通过链接访问的图片。不要把本站用于私密、违法、有害或侵权内容。",
+        rulePrivate: "身份证件、护照、银行卡、财务文件或敏感个人记录。",
+        ruleIllegal: "违法、成人、性露骨、暴力、仇恨、辱骂或剥削性内容。",
+        ruleCopyright: "未经许可的版权图片、品牌素材、艺术作品或他人内容。",
+        ruleScam: "恶意软件、钓鱼、诈骗截图、欺骗性内容或支持欺诈的图片。",
+        ruleMinors: "涉及未成年人、学校或私人家庭场景的不安全或剥削性图片。",
+        ruleSensitive: "私人截图、机密工作文件或不应通过链接访问的内容。",
+        removalTitle: "删除和违规举报",
+        removalIntro: "如果上传图片涉及隐私、版权、安全规则或法律问题，请提供图片 URL 和请求原因。我们可能会删除存在法律、安全、滥用或政策风险的托管图片。",
+        removalNote: "删除或违规举报请发送到 yuyananuu@gmail.com。请包含图片 URL、问题说明，以及必要的所有权或权利信息。",
+        privacyNoteTitle: "图床上传隐私说明",
+        privacyNoteText: "图床不同于纯本地工具，必须把所选图片发送到服务器才能生成托管链接。请避免上传敏感文件。临时图片按所选时长保留，删除请求可通过联系邮箱发送。",
+        privacyRelated: "隐私政策",
+        privacyRelatedText: "了解上传、统计、广告和联系请求如何处理。",
+        contactRelated: "联系",
+        contactRelatedText: "申请删除图片、举报滥用或发送反馈。",
+        toolsRelated: "其他工具",
+        toolsRelatedText: "浏览 Mini-Tools.uk 的图片、PDF、开发者和日常工具。",
         faq1Title: "这个图床工具可以免费使用吗？",
         faq1Text: "可以。你可以上传图片，并复制图片直链、Markdown、HTML 或 BBCode 片段，用于常见发布场景。",
         faq2Title: "上传的图片会保存多久？",
-        faq2Text: "上传的图片可能会被保存用于分享和展示。请不要上传私密、敏感或违法内容。",
+        faq2Text: "图片会按照上传前选择的保留时长保存：1天、7天、30天，或在使用有效长期存储码时永久保存。请不要上传私密、敏感、违法或侵权内容。",
         faq3Title: "长期存储码有什么用？",
         faq3Text: "它是用于长期图片托管的可选授权码。普通免费上传可以留空。",
         faq4Title: "这个免费图床适合用来做什么？",
@@ -812,7 +977,8 @@
         footerAbout: "关于",
         footerPrivacy: "隐私政策",
         footerContact: "联系",
-        footerNote: "© 2026 Mini-Tools.uk — 支持自定义保留时长的免费图床",
+        footerRules: "上传规则",
+        footerNote: "© 2026 Mini-Tools.uk — 支持自定义保留时长和清晰上传规则的免费图床",
 
         logReady: "就绪：等待选择图片。",
         logFileTooLarge: "错误：文件超过 5 MB 限制。",
@@ -848,17 +1014,17 @@
         schemaFaq1Title: "Ist dieses Bild-Hosting-Tool kostenlos nutzbar?",
         schemaFaq1Text: "Ja. Du kannst Bilder hochladen und Direktlinks, Markdown, HTML oder BBCode für typische Veröffentlichungsabläufe kopieren.",
         schemaFaq2Title: "Wie lange werden hochgeladene Bilder gespeichert?",
-        schemaFaq2Text: "Hochgeladene Bilder können zum Teilen und Anzeigen gespeichert werden. Lade keine privaten, sensiblen oder illegalen Inhalte hoch.",
+        schemaFaq2Text: "Bilder werden gemäß der gewählten Aufbewahrungsdauer gespeichert: 1 Tag, 7 Tage, 30 Tage oder dauerhaft mit gültigem genehmigtem Speicher-Code. Lade keine privaten, sensiblen, illegalen oder rechtsverletzenden Inhalte hoch.",
         schemaFaq3Title: "Kann ich es für Blogbilder verwenden?",
         schemaFaq3Text: "Ja. Du kannst Markdown- oder HTML-Einbettungscode kopieren und in Blogbeiträge, Dokumentation oder Foreninhalte einfügen.",
 
         navHome: "Start",
         navAllTools: "Alle Tools",
         navCategories: "Kategorien",
-        navUkFinance: "UK-Finanzen",
+        navUkFinance: "UK-Anwendungen",
         navDeveloperTools: "Entwickler-Tools",
-        navImagePdf: "Bilder & PDF",
-        navMoreTools: "Mehr Tools",
+        navImagePdf: "Weitere Tools",
+        navMoreTools: "Weitere Tools",
         navBlog: "Blog",
         navAbout: "Über uns",
 
@@ -890,11 +1056,48 @@
         logTitle: "Upload-Terminal",
 
         sectionTitle: "Warum dieses kostenlose Bild-Hosting nutzen?",
-        sectionIntro: "Dies ist ein servergestütztes kostenloses Bild-Hosting-Tool zum Erstellen direkter Bildlinks. Es eignet sich für Screenshots, Blog-Inhalte, Marktplatzbilder, Design-Feedback und allgemeines Teilen von Bildern. Anders als lokale Tools lädt diese Seite die ausgewählte Datei hoch, damit eine gehostete Bild-URL mit gewählter Aufbewahrungsdauer erstellt werden kann.",
+        sectionIntro: "Diese Seite lädt die ausgewählte Datei zum Mini-Tools.uk-Dienst hoch, damit eine gehostete Bild-URL mit der gewählten Aufbewahrungsdauer erstellt werden kann. Sie eignet sich für GitHub README, Markdown-Dokumente, Blogbilder, Forenbeiträge, Support-Tickets und Screenshot-Sharing.",
+        formatDirectTitle: "Direkt-URL",
+        formatDirectText: "Kopiere den rohen Bildlink für Nachrichten, Dokumente, Vorschauen und Tools, die eine Bild-URL benötigen.",
+        formatMarkdownTitle: "Markdown",
+        formatMarkdownText: "Nutze die Markdown-Ausgabe für GitHub README, Dokumentationsseiten und Issue-Kommentare.",
+        formatHtmlTitle: "HTML",
+        formatHtmlText: "Nutze das HTML-Bild-Tag für Websites, Blog-Editoren, CMS-Blöcke und Templates.",
+        formatBbcodeTitle: "BBCode",
+        formatBbcodeText: "Nutze BBCode für Foren und Communities mit klassischen Bild-Tags.",
+        retentionTitle: "So funktioniert die Bildaufbewahrung",
+        retentionIntro: "Wähle vor dem Upload eine Aufbewahrungsdauer. Temporäre Uploads sind für kurzfristiges Teilen gedacht; dauerhafte Speicherung benötigt einen genehmigten Code.",
+        retentionOneTitle: "Nach 1 Tag löschen",
+        retentionOneText: "Für schnelle Vorschauen, temporäre Screenshots und kurze Support-Gespräche.",
+        retentionSevenTitle: "Nach 7 Tagen löschen",
+        retentionSevenText: "Für Entwürfe, Feedback-Links und kurze Projektreferenzen.",
+        retentionThirtyTitle: "Nach 30 Tagen löschen",
+        retentionThirtyText: "Für längere temporäre Referenzen, Blog-Entwürfe und Review-Zyklen.",
+        retentionPermanentTitle: "Dauerhafte Speicherung",
+        retentionPermanentText: "Benötigt einen gültigen genehmigten Code und kann bei Regelverstößen entfernt werden.",
+        rulesTitle: "Was nicht hochgeladen werden darf",
+        rulesIntro: "Lade nur Bilder hoch, die du über einen öffentlichen oder halböffentlichen Link teilen darfst. Nutze den Dienst nicht für private, illegale, schädliche oder rechtsverletzende Inhalte.",
+        rulePrivate: "Private Ausweise, Pässe, Bankkarten, Finanzdokumente oder sensible persönliche Daten.",
+        ruleIllegal: "Illegale, erwachsene, sexuelle, gewalttätige, hasserfüllte, beleidigende oder ausbeuterische Inhalte.",
+        ruleCopyright: "Urheberrechtlich geschützte Bilder, Markenmaterial oder Kunstwerke ohne Erlaubnis.",
+        ruleScam: "Malware, Phishing, Scam-Screenshots, täuschende Inhalte oder Bilder zur Unterstützung von Betrug.",
+        ruleMinors: "Unsichere oder ausbeuterische Bilder mit Minderjährigen, Schulen oder privaten Familiensituationen.",
+        ruleSensitive: "Private Screenshots, vertrauliche Arbeitsdateien oder Inhalte, die nicht per Link zugänglich sein sollten.",
+        removalTitle: "Entfernung und Missbrauch melden",
+        removalIntro: "Wenn ein hochgeladenes Bild Datenschutz, Urheberrecht, Sicherheitsregeln oder geltendes Recht verletzt, kontaktiere uns mit der Bild-URL und dem Grund.",
+        removalNote: "Sende Lösch- oder Missbrauchsmeldungen an yuyananuu@gmail.com. Bitte gib Bild-URL, Problem und relevante Rechteinformationen an.",
+        privacyNoteTitle: "Datenschutzhinweis für gehostete Uploads",
+        privacyNoteText: "Bildhosting sendet die ausgewählte Datei an den Server, damit eine gehostete URL erstellt werden kann. Lade keine sensiblen Dateien hoch.",
+        privacyRelated: "Datenschutz",
+        privacyRelatedText: "Wie Uploads, Analytics, Werbung und Kontaktanfragen behandelt werden.",
+        contactRelated: "Kontakt",
+        contactRelatedText: "Bildentfernung anfragen, Missbrauch melden oder Feedback senden.",
+        toolsRelated: "Weitere Tools",
+        toolsRelatedText: "Bild-, PDF-, Entwickler- und Alltagstools auf Mini-Tools.uk durchsuchen.",
         faq1Title: "Ist dieses Bild-Hosting-Tool kostenlos nutzbar?",
         faq1Text: "Ja. Du kannst Bilder hochladen und Direktlinks, Markdown, HTML oder BBCode für typische Veröffentlichungsabläufe kopieren.",
         faq2Title: "Wie lange werden hochgeladene Bilder gespeichert?",
-        faq2Text: "Hochgeladene Bilder können zum Teilen und Anzeigen gespeichert werden. Lade keine privaten, sensiblen oder illegalen Inhalte hoch.",
+        faq2Text: "Bilder werden gemäß der gewählten Aufbewahrungsdauer gespeichert: 1 Tag, 7 Tage, 30 Tage oder dauerhaft mit gültigem genehmigtem Speicher-Code. Lade keine privaten, sensiblen, illegalen oder rechtsverletzenden Inhalte hoch.",
         faq3Title: "Wofür ist der Langzeitspeicher-Code?",
         faq3Text: "Er ist ein optionaler Code für genehmigtes langfristiges Bild-Hosting. Normale Uploads können ihn leer lassen.",
         faq4Title: "Wofür kann ich diesen kostenlosen Bildhoster nutzen?",
@@ -942,7 +1145,8 @@
         footerAbout: "Über uns",
         footerPrivacy: "Datenschutz",
         footerContact: "Kontakt",
-        footerNote: "© 2026 Mini-Tools.uk — kostenloses Bild-Hosting mit wählbarer Aufbewahrungsdauer",
+        footerRules: "Upload-Regeln",
+        footerNote: "© 2026 Mini-Tools.uk — kostenloses Bild-Hosting mit Aufbewahrung und klaren Upload-Regeln",
 
         logReady: "Bereit: Warte auf Bildauswahl.",
         logFileTooLarge: "Fehler: Die Datei überschreitet das Limit von 5 MB.",
@@ -978,17 +1182,17 @@
         schemaFaq1Title: "Cet outil d’hébergement d’images est-il gratuit ?",
         schemaFaq1Text: "Oui. Vous pouvez téléverser des images et copier des liens directs, des extraits Markdown, HTML ou BBCode pour les usages de publication courants.",
         schemaFaq2Title: "Combien de temps les images téléversées sont-elles conservées ?",
-        schemaFaq2Text: "Les images téléversées peuvent être conservées pour le partage et l’affichage. Ne téléversez pas de contenu privé, sensible ou illégal.",
+        schemaFaq2Text: "Les images sont conservées selon l’option choisie : 1 jour, 7 jours, 30 jours ou stockage permanent avec un code approuvé valide. Ne téléversez pas de contenu privé, sensible, illégal ou contrefaisant.",
         schemaFaq3Title: "Puis-je l’utiliser pour des images de blog ?",
         schemaFaq3Text: "Oui. Vous pouvez copier le code d’intégration Markdown ou HTML et le coller dans des articles de blog, de la documentation ou du contenu de forum.",
 
         navHome: "Accueil",
         navAllTools: "Tous les outils",
         navCategories: "Catégories",
-        navUkFinance: "Finance UK",
+        navUkFinance: "Applications UK",
         navDeveloperTools: "Outils développeur",
-        navImagePdf: "Image et PDF",
-        navMoreTools: "Plus d’outils",
+        navImagePdf: "Autres outils",
+        navMoreTools: "Autres outils",
         navBlog: "Blog",
         navAbout: "À propos",
 
@@ -1020,11 +1224,48 @@
         logTitle: "Terminal d’envoi",
 
         sectionTitle: "Pourquoi utiliser cet hébergement d’images gratuit ?",
-        sectionIntro: "Il s’agit d’un outil d’hébergement d’images gratuit côté serveur pour créer des liens image directs. Il convient aux captures d’écran, contenus de blog, annonces produit, retours de design et au partage général d’images. Contrairement aux outils locaux, cette page téléverse le fichier sélectionné afin de créer une URL d’image hébergée avec la durée choisie.",
+        sectionIntro: "Cette page téléverse le fichier sélectionné vers Mini-Tools.uk afin de créer une URL d’image hébergée avec la durée de conservation choisie. Elle convient aux README GitHub, documents Markdown, images de blog, forums, tickets de support et captures d’écran.",
+        formatDirectTitle: "URL directe",
+        formatDirectText: "Copiez le lien brut de l’image pour messages, documents, aperçus et outils demandant une URL d’image.",
+        formatMarkdownTitle: "Markdown",
+        formatMarkdownText: "Utilisez la sortie Markdown dans les README GitHub, pages de documentation et commentaires.",
+        formatHtmlTitle: "HTML",
+        formatHtmlText: "Utilisez la balise image HTML dans sites web, éditeurs de blog, blocs CMS et modèles.",
+        formatBbcodeTitle: "BBCode",
+        formatBbcodeText: "Utilisez BBCode pour les forums et communautés compatibles.",
+        retentionTitle: "Fonctionnement de la conservation",
+        retentionIntro: "Choisissez une durée avant l’envoi. Les envois temporaires servent au partage court; le stockage permanent exige un code approuvé.",
+        retentionOneTitle: "Supprimer après 1 jour",
+        retentionOneText: "Idéal pour aperçus rapides, captures temporaires et échanges support courts.",
+        retentionSevenTitle: "Supprimer après 7 jours",
+        retentionSevenText: "Utile pour brouillons, liens de retour et références de projet courtes.",
+        retentionThirtyTitle: "Supprimer après 30 jours",
+        retentionThirtyText: "Utile pour références temporaires plus longues, brouillons de blog et cycles de revue.",
+        retentionPermanentTitle: "Stockage permanent",
+        retentionPermanentText: "Nécessite un code approuvé valide et peut être supprimé en cas de violation des règles.",
+        rulesTitle: "Ce qu’il ne faut pas téléverser",
+        rulesIntro: "Téléversez uniquement des images que vous êtes autorisé à partager par lien. N’utilisez pas ce service pour du contenu privé, illégal, dangereux ou contrefaisant.",
+        rulePrivate: "Pièces d’identité, passeports, cartes bancaires, documents financiers ou données personnelles sensibles.",
+        ruleIllegal: "Contenu illégal, adulte, sexuel, violent, haineux, abusif ou exploiteur.",
+        ruleCopyright: "Images protégées, marques ou œuvres sans autorisation.",
+        ruleScam: "Malware, phishing, captures d’arnaque, contenu trompeur ou images liées à la fraude.",
+        ruleMinors: "Images dangereuses ou exploiteuses impliquant des mineurs, écoles ou situations familiales privées.",
+        ruleSensitive: "Captures privées, fichiers professionnels confidentiels ou contenu qui ne devrait pas être accessible par lien.",
+        removalTitle: "Suppression et signalement d’abus",
+        removalIntro: "Si une image viole la vie privée, le droit d’auteur, la sécurité ou la loi, contactez-nous avec l’URL et la raison.",
+        removalNote: "Envoyez les demandes à yuyananuu@gmail.com avec l’URL de l’image, le problème et les informations de droits utiles.",
+        privacyNoteTitle: "Note de confidentialité pour les uploads",
+        privacyNoteText: "L’hébergement d’images envoie le fichier sélectionné au serveur pour créer une URL hébergée. Évitez les fichiers sensibles.",
+        privacyRelated: "Confidentialité",
+        privacyRelatedText: "Découvrez comment uploads, analytics, publicités et demandes de contact sont traités.",
+        contactRelated: "Contact",
+        contactRelatedText: "Demander une suppression, signaler un abus ou envoyer un retour.",
+        toolsRelated: "Autres outils",
+        toolsRelatedText: "Parcourir les outils image, PDF, développeur et quotidiens de Mini-Tools.uk.",
         faq1Title: "Cet outil d’hébergement d’images est-il gratuit ?",
         faq1Text: "Oui. Vous pouvez téléverser des images et copier des liens directs, des extraits Markdown, HTML ou BBCode pour les usages de publication courants.",
         faq2Title: "Combien de temps les images téléversées sont-elles conservées ?",
-        faq2Text: "Les images téléversées peuvent être conservées pour le partage et l’affichage. Ne téléversez pas de contenu privé, sensible ou illégal.",
+        faq2Text: "Les images sont conservées selon l’option choisie : 1 jour, 7 jours, 30 jours ou stockage permanent avec un code approuvé valide. Ne téléversez pas de contenu privé, sensible, illégal ou contrefaisant.",
         faq3Title: "À quoi sert le code de stockage longue durée ?",
         faq3Text: "C’est un code facultatif pour un hébergement d’images longue durée approuvé. Les envois normaux peuvent le laisser vide.",
         faq4Title: "À quoi sert cet hébergeur d’images gratuit ?",
@@ -1072,7 +1313,8 @@
         footerAbout: "À propos",
         footerPrivacy: "Politique de confidentialité",
         footerContact: "Contact",
-        footerNote: "© 2026 Mini-Tools.uk — hébergement d’images gratuit avec durée configurable",
+        footerRules: "Règles d’upload",
+        footerNote: "© 2026 Mini-Tools.uk — hébergement d’images gratuit avec conservation et règles claires",
 
         logReady: "Prêt : en attente de la sélection d’une image.",
         logFileTooLarge: "Erreur : le fichier dépasse la limite de 5 Mo.",
@@ -1365,12 +1607,12 @@ updateProperty("og:title", texts.ogTitle);
         "retentionLabel","option1Day","option7Day","option30Day","optionPermanent","permanentNotice",
         "storageCodeTitle","storageCodeText","selectImageLabel","chooseFileText",
         "previewTitle","previewText","captchaLabel","logTitle",
-        "sectionTitle","sectionIntro",
+        "sectionTitle","sectionIntro","formatDirectTitle","formatDirectText","formatMarkdownTitle","formatMarkdownText","formatHtmlTitle","formatHtmlText","formatBbcodeTitle","formatBbcodeText","retentionTitle","retentionIntro","retentionOneTitle","retentionOneText","retentionSevenTitle","retentionSevenText","retentionThirtyTitle","retentionThirtyText","retentionPermanentTitle","retentionPermanentText","rulesTitle","rulesIntro","rulePrivate","ruleIllegal","ruleCopyright","ruleScam","ruleMinors","ruleSensitive","removalTitle","removalIntro","removalNote","privacyNoteTitle","privacyNoteText","privacyRelated","privacyRelatedText","contactRelated","contactRelatedText","toolsRelated","toolsRelatedText",
         "resultTitle","resultIntro","resultDirectLabel","resultDirectUse","resultMarkdownLabel","resultMarkdownUse","resultHtmlLabel","resultHtmlUse","resultBbcodeLabel","resultBbcodeUse",
         "copyDirectBtn","copyMarkdownBtn","copyHtmlBtn","copyBbcodeBtn",
         "examplesTitle","examplesIntro","readmeExampleTitle","readmeExampleText","markdownExampleTitle","markdownExampleText","htmlExampleTitle","htmlExampleText","bbcodeExampleTitle","bbcodeExampleText",
         "faqSectionTitle","faq1Title","faq1Text","faq2Title","faq2Text","faq3Title","faq3Text","faq4Title","faq4Text","faq5Title","faq5Text","faq6Title","faq6Text","faq7Title","faq7Text","faq8Title","faq8Text",
-        "footerHome","footerBlog","footerAbout","footerPrivacy","footerContact","footerNote"
+        "footerHome","footerBlog","footerAbout","footerPrivacy","footerRules","footerContact","footerNote"
       ];
 
       textIds.forEach((id) => {
