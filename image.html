@@ -9,7 +9,7 @@
 <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/image" />
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/image" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/image?lang=en" />
   <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/image?lang=zh-CN" />
   <link rel="alternate" hreflang="de" href="https://mini-tools.uk/image?lang=de" />
   <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/image?lang=fr" />
@@ -1448,7 +1448,7 @@ const allowedLangs = ["en","zh-CN","de","fr","es"];
       const link = document.createElement("link");
       link.setAttribute("rel", "alternate");
       link.setAttribute("hreflang", code);
-      link.setAttribute("href", code === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(code)}`);
+      link.setAttribute("href", `${cleanUrl}?lang=${encodeURIComponent(code)}`);
       document.head.appendChild(link);
     });
     const fallback = document.createElement("link");
@@ -1463,8 +1463,7 @@ const allowedLangs = ["en","zh-CN","de","fr","es"];
       if (!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) return;
       const link = new URL(rawHref, location.origin);
       if (link.origin !== location.origin) return;
-      if (lang === "en") link.searchParams.delete("lang");
-      else link.searchParams.set("lang", lang);
+      link.searchParams.set("lang", lang);
       anchor.href = link.pathname + link.search + link.hash;
     });
   };
@@ -1485,8 +1484,7 @@ const allowedLangs = ["en","zh-CN","de","fr","es"];
     button.addEventListener("click", () => {
       const selectedLang = button.dataset.siteLang;
       const target = new URL(location.href);
-      if (selectedLang === "en") target.searchParams.delete("lang");
-      else target.searchParams.set("lang", selectedLang);
+      target.searchParams.set("lang", selectedLang);
       location.assign(target.pathname + target.search + target.hash);
     });
   });

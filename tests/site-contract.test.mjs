@@ -163,7 +163,7 @@ test("canonical and hreflang tags use clean core URLs with language alternates",
     const esc = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     assert.match(html, new RegExp(`<link\\s+rel=["']canonical["']\\s+href=["']${esc(clean)}["']`), file);
     for (const lang of ["en", "zh-CN", "de", "fr", "es"]) {
-      const expected = lang === "en" ? clean : `${clean}?lang=${lang}`;
+      const expected = `${clean}?lang=${lang}`;
       assert.match(html, new RegExp(`<link\\s+rel=["']alternate["']\\s+hreflang=["']${lang}["']\\s+href=["']${esc(expected)}["']`), `${file}: ${lang}`);
     }
     assert.match(html, new RegExp(`<link\\s+rel=["']alternate["']\\s+hreflang=["']x-default["']\\s+href=["']${esc(clean)}["']`), file);

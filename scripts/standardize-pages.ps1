@@ -62,7 +62,7 @@ $siteNavScript = @'
       const link = document.createElement("link");
       link.setAttribute("rel", "alternate");
       link.setAttribute("hreflang", code);
-      link.setAttribute("href", code === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(code)}`);
+      link.setAttribute("href", `${cleanUrl}?lang=${encodeURIComponent(code)}`);
       document.head.appendChild(link);
     });
     const fallback = document.createElement("link");

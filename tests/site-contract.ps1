@@ -93,7 +93,7 @@ foreach ($entry in $canonicalPaths.GetEnumerator()) {
   $clean = "https://mini-tools.uk$($entry.Value)"
   Assert-True ($html -match ('<link\s+rel=["'']canonical["'']\s+href=["'']' + [regex]::Escape($clean) + '["'']')) "$($entry.Key) canonical is not the clean URL"
   foreach ($lang in @("en", "zh-CN", "de", "fr", "es")) {
-    $expected = if ($lang -eq "en") { $clean } else { "$clean`?lang=$lang" }
+    $expected = "$clean`?lang=$lang"
     Assert-True ($html -match ('<link\s+rel=["'']alternate["'']\s+hreflang=["'']' + [regex]::Escape($lang) + '["'']\s+href=["'']' + [regex]::Escape($expected) + '["'']')) "$($entry.Key) misses hreflang $lang"
   }
   Assert-True ($html -match ('<link\s+rel=["'']alternate["'']\s+hreflang=["'']x-default["'']\s+href=["'']' + [regex]::Escape($clean) + '["'']')) "$($entry.Key) misses x-default"

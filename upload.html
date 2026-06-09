@@ -8,7 +8,7 @@
   <meta name="description" content="Upload an image and get direct URL, Markdown, HTML or BBCode links. Free image hosting for GitHub README files, blogs, forums and support tickets with clear retention and removal rules." />
 <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://mini-tools.uk/upload" />
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/upload" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/upload?lang=en" />
   <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/upload?lang=zh-CN" />
   <link rel="alternate" hreflang="de" href="https://mini-tools.uk/upload?lang=de" />
   <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/upload?lang=fr" />
@@ -1900,7 +1900,7 @@ updateProperty("og:title", texts.ogTitle);
       const link = document.createElement("link");
       link.setAttribute("rel", "alternate");
       link.setAttribute("hreflang", code);
-      link.setAttribute("href", code === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(code)}`);
+      link.setAttribute("href", `${cleanUrl}?lang=${encodeURIComponent(code)}`);
       document.head.appendChild(link);
     });
     const fallback = document.createElement("link");
@@ -1915,8 +1915,7 @@ updateProperty("og:title", texts.ogTitle);
       if (!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) return;
       const link = new URL(rawHref, location.origin);
       if (link.origin !== location.origin) return;
-      if (lang === "en") link.searchParams.delete("lang");
-      else link.searchParams.set("lang", lang);
+      link.searchParams.set("lang", lang);
       anchor.href = link.pathname + link.search + link.hash;
     });
   };
@@ -1937,8 +1936,7 @@ updateProperty("og:title", texts.ogTitle);
     button.addEventListener("click", () => {
       const selectedLang = button.dataset.siteLang;
       const target = new URL(location.href);
-      if (selectedLang === "en") target.searchParams.delete("lang");
-      else target.searchParams.set("lang", selectedLang);
+      target.searchParams.set("lang", selectedLang);
       location.assign(target.pathname + target.search + target.hash);
     });
   });
