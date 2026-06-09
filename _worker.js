@@ -63,11 +63,6 @@ const INDEXABLE_PATHS = new Set([
 
 const NOINDEX_PATH_PREFIXES = [
   "/pdf",
-  "/blog",
-  "/blog/search",
-  "/blog/tag",
-  "/blog/editor",
-  "/blog/api",
   "/admin",
   "/image_admin",
   "/map",
@@ -83,7 +78,6 @@ const TRUSTED_EXTERNAL_DOMAINS = [
 
 const REMOVE_LINK_HREF_PARTS = [
   "github.com",
-  "/blog/editor",
   "/admin",
   "image_admin",
 ];
@@ -92,7 +86,6 @@ const LOCAL_STORAGE_LANG_KEYS = [
   "miniToolsLang",
   "miniToolsTaxLang",
   "miniToolsUploadLang",
-  "miniToolsBlogLang",
   "miniToolsToolLang",
   "miniToolsPreferredLang",
 ];
@@ -147,15 +140,6 @@ function shouldNoindex(url) {
 
   if (NOINDEX_PATH_PREFIXES.some((prefix) => path === prefix || path.startsWith(prefix + "/"))) {
     return true;
-  }
-
-  // Blog search, tag, sort and empty-language/filter pages should not be indexed.
-  if (path === "/blog" || path.startsWith("/blog/")) {
-    if (url.searchParams.has("sort")) return true;
-    if (url.searchParams.has("tag")) return true;
-    if (url.searchParams.has("search")) return true;
-    if (url.searchParams.has("q")) return true;
-    if (url.searchParams.get("lang") === "") return true;
   }
 
   // Tool result/filter URLs should not create many duplicate indexable pages.
@@ -878,13 +862,6 @@ export default {
 
     if (initialPathname === "/terms" || initialPathname === "/acceptable-use") {
       return Response.redirect(`${SITE_ORIGIN}/privacy`, 301);
-    }
-
-    if (initialPathname === "/blog" || initialPathname.startsWith("/blog/")) {
-      return new Response("Gone", {
-        status: 410,
-        headers: { "content-type": "text/plain; charset=utf-8", "X-Robots-Tag": "noindex, nofollow" },
-      });
     }
 
     const redirectTo = maybeRedirectNormalizedUrl(request.url);

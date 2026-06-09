@@ -17,17 +17,14 @@
   <meta name="twitter:title" content="Image Color Picker from Image | HEX, RGB, HSL Tool" />
   <meta name="twitter:description" content="Extract HEX, RGB and HSL colors from images and screenshots locally in your browser." />
   <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
-
   <link rel="canonical" href="https://mini-tools.uk/color-picker" />
-
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/color-picker?lang=en" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/color-picker" />
   <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/color-picker?lang=zh-CN" />
   <link rel="alternate" hreflang="de" href="https://mini-tools.uk/color-picker?lang=de" />
   <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/color-picker?lang=fr" />
   <link rel="alternate" hreflang="es" href="https://mini-tools.uk/color-picker?lang=es" />
   <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/color-picker" />
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -393,10 +390,20 @@
 
   </main>
 
-  <footer class="footer">
+  <section class="wrap tool-guidance" id="tool-guidance" style="margin:32px auto">
+  <div class="article">
+    <h2>Original notes for Color Picker</h2>
+    <p>Use this color picker to inspect and copy color values for design, documentation and small UI tasks. It helps move between HEX, RGB and visual swatches.</p>
+    <h3>Example</h3><p>Example: sample a color from an uploaded image and copy the HEX value into a CSS file.</p>
+    <h3>Limitations</h3><p>Colors can look different across screens, compression settings and color profiles.</p>
+    <h3>FAQ</h3><p><strong>Is a sampled color always exact? It is exact for the pixel read by the browser, but display and image processing can affect perception.</strong></p>
+    <h3>Related tools</h3><p><a href="/image">image</a> <a href="/qr">qr</a> <a href="/upload">upload</a></p>
+  </div>
+</section>
+<footer class="footer">
   <div class="wrap footer-inner">
-    <div>漏 2026 Mini-Tools.uk</div>
-    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a></div>
+    <div>© 2026 Mini-Tools.uk</div>
+    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
 
@@ -413,7 +420,6 @@
         dropText: "Click or Drag & Drop to upload an image",
         statusText: "100% Local processing. Your images never leave your device.",
         labelPalette: "Recent Palette",
-        navBlog: "Website & Guides", footerBlog: "Website",
         panHint: "💡 Tip: Right-click & drag to pan, use mouse wheel to zoom.",
         footerAbout: "About Us", footerPrivacy: "Privacy Policy", footerContact: "Contact Us",
         // 🌟 英文 SEO 文本
@@ -449,7 +455,6 @@
         dropText: "点击或拖拽图片到这里打开",
         statusText: "取色和裁剪在浏览器本地完成，适合处理截图、设计稿和网页配色。",
         labelPalette: "最近提取的颜色",
-        navBlog: "官方博客与教程", footerBlog: "官方博客",
         panHint: "💡 操作提示：按住鼠标右键拖拽可平移，滚动鼠标滚轮可缩放图片。",
         footerAbout: "关于", footerPrivacy: "隐私政策", footerContact: "联系",
         seoHtml: `
@@ -483,7 +488,6 @@
         dropText: "Haga clic o arrastre para subir una imagen",
         statusText: "Procesamiento 100% local. Sus imágenes nunca salen de su dispositivo.",
         labelPalette: "Paleta Reciente",
-        navBlog: "Website y Guías", footerBlog: "Website",
         panHint: "💡 Consejo: Haga clic derecho y arrastre para mover, use la rueda para acercar.",
         footerAbout: "Sobre Nosotros", footerPrivacy: "Privacidad", footerContact: "Contacto",
         seoHtml: `
@@ -511,7 +515,6 @@
         dropText: "Cliquez ou glissez-déposez une image",
         statusText: "Traitement 100% local. Vos images ne quittent jamais votre appareil.",
         labelPalette: "Palette Récente",
-        navBlog: "Website et Guides", footerBlog: "Website",
         panHint: "💡 Astuce : Clic droit et glissez pour déplacer, utilisez la molette pour zoomer.",
         footerAbout: "À Propos", footerPrivacy: "Confidentialité", footerContact: "Contact",
         seoHtml: `
@@ -539,7 +542,6 @@
         dropText: "Klicken oder ziehen, um ein Bild hochzuladen",
         statusText: "100% lokale Verarbeitung. Ihre Bilder verlassen niemals Ihr Gerät.",
         labelPalette: "Letzte Palette",
-        navBlog: "Website & Anleitungen", footerBlog: "Website",
         panHint: "💡 Tipp: Rechtsklick und ziehen zum Verschieben, Mausrad zum Zoomen.",
         footerAbout: "Über Uns", footerPrivacy: "Datenschutz", footerContact: "Kontakt",
         seoHtml: `
@@ -747,12 +749,6 @@
       document.getElementById('footer-contact').innerText = data.footerContact;
 
       // Update Nav Website Links
-      const navBlogText = document.getElementById('nav-Website-text');
-      if (navBlogText) navBlogText.innerText = data.navBlog || "Website & Guides";
-
-      const footerBlog = document.getElementById('footer-Website');
-      if (footerBlog) footerBlog.innerText = data.footerBlog || "Website";
-
       // 🌟 核心优化 4：动态注入对应的纯净 SEO 长文内容
       const seoContainer = document.getElementById('seo-container');
       if (data.seoHtml) {
@@ -1133,6 +1129,32 @@
   };
   const raw = window.MINI_TOOLS_SERVER_LANG || new URLSearchParams(location.search).get("lang") || "en";
   const lang = raw === "zh" ? "zh-CN" : (labels[raw] ? raw : "en");
+  const applyCanonicalHreflang = () => {
+    const supported = ["en", "zh-CN", "de", "fr", "es"];
+    const cleanPath = location.pathname === "/index.html" ? "/" : location.pathname.replace(/\.html$/, "");
+    const cleanUrl = location.origin + cleanPath;
+    const current = lang === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(lang)}`;
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", current);
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());
+    supported.forEach((code) => {
+      const link = document.createElement("link");
+      link.setAttribute("rel", "alternate");
+      link.setAttribute("hreflang", code);
+      link.setAttribute("href", code === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(code)}`);
+      document.head.appendChild(link);
+    });
+    const fallback = document.createElement("link");
+    fallback.setAttribute("rel", "alternate");
+    fallback.setAttribute("hreflang", "x-default");
+    fallback.setAttribute("href", cleanUrl);
+    document.head.appendChild(fallback);
+  };
   const localizeLinks = () => {
     document.querySelectorAll("a[href]").forEach((anchor) => {
       const rawHref = anchor.getAttribute("href");
@@ -1152,8 +1174,10 @@
     if (current) current.textContent = labels[lang].language;
     localizeLinks();
   };
+  applyCanonicalHreflang();
   applySiteLanguage();
-  window.addEventListener("load", applySiteLanguage);
+  window.addEventListener("load", () => { applyCanonicalHreflang(); applySiteLanguage(); });
+  setTimeout(applyCanonicalHreflang, 0);
   document.querySelectorAll("[data-site-lang]").forEach((button) => {
     button.classList.toggle("active", button.dataset.siteLang === lang);
     button.addEventListener("click", () => {

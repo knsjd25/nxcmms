@@ -13,6 +13,15 @@ $excluded = @("image_admin.html", "map.html")
 $publicPages = Get-ChildItem -LiteralPath $root -Filter "*.html" | Where-Object { $excluded -notcontains $_.Name }
 $keyPages = @("index.html", "about.html", "upload.html", "tax.html", "contact.html", "privacy.html")
 $toolPages = @("upload.html", "tax.html", "vat.html", "json.html", "diff.html", "token.html", "qr.html", "pdf2img.html", "mortgage.html", "ir35.html", "stamp-duty.html", "dividend.html", "password.html", "image.html", "color-picker.html", "working-days.html", "fuel.html", "weight.html")
+$ukTaxPages = @("tax.html", "vat.html", "ir35.html", "stamp-duty.html", "dividend.html")
+$canonicalPaths = @{
+  "index.html" = "/"; "upload.html" = "/upload"; "tax.html" = "/tax"; "vat.html" = "/vat";
+  "json.html" = "/json"; "diff.html" = "/diff"; "token.html" = "/token"; "qr.html" = "/qr";
+  "pdf2img.html" = "/pdf2img"; "mortgage.html" = "/mortgage"; "ir35.html" = "/ir35";
+  "stamp-duty.html" = "/stamp-duty"; "dividend.html" = "/dividend"; "password.html" = "/password";
+  "image.html" = "/image"; "color-picker.html" = "/color-picker"; "working-days.html" = "/working-days";
+  "fuel.html" = "/fuel"; "weight.html" = "/weight"; "about.html" = "/about"; "contact.html" = "/contact"; "privacy.html" = "/privacy"
+}
 $navLinks = @("/", "/#search", "/#popular", "/#uk-apps", "/#developer-tools", "/#other-tools", "/about", "/contact", "/privacy")
 $footerLinks = @("/", "/about", "/contact", "/privacy")
 
@@ -21,6 +30,10 @@ foreach ($page in $publicPages) {
   Assert-True ($html -notmatch 'href=["'']/(?:blog(?:/|["''])|terms/?["'']|acceptable-use/?["''])') "$($page.Name) has a retired link"
   Assert-True (([regex]::Matches($html, '<nav\b', "IgnoreCase")).Count -eq ([regex]::Matches($html, '</nav>', "IgnoreCase")).Count) "$($page.Name) has unbalanced nav markup"
   Assert-True (([regex]::Matches($html, '<footer\b', "IgnoreCase")).Count -eq ([regex]::Matches($html, '</footer>', "IgnoreCase")).Count) "$($page.Name) has unbalanced footer markup"
+  $restrictedAdAreas = [regex]::Matches($html, '<(?:nav|[^>]+\b(?:class|id)=["''][^"'']*(?:empty|error|upload-result|result)[^"'']*["''])\b[\s\S]*?</(?:nav|div|section|aside)>', "IgnoreCase")
+  foreach ($area in $restrictedAdAreas) {
+    Assert-True ($area.Value -notmatch 'adsbygoogle|data-ad-client|data-ad-slot|ad-container|ad-unit|ad-slot') "$($page.Name) places ad code in a restricted area"
+  }
 }
 
 foreach ($page in $keyPages) {
@@ -61,6 +74,36 @@ foreach ($page in $toolPages) {
   Assert-True ((Read-SiteFile $page) -match '<meta\s+name=["'']robots["'']\s+content=["''][^"'']*index\s*,?\s*follow') "$page is not index,follow"
 }
 
+foreach ($page in $toolPages) {
+  $html = Read-SiteFile $page
+  foreach ($phrase in @("Original notes", "Example", "Limitations", "FAQ", "Related tools")) {
+    Assert-True ($html -match [regex]::Escape($phrase)) "$page misses tool guidance section phrase: $phrase"
+  }
+}
+
+foreach ($page in $ukTaxPages) {
+  $html = Read-SiteFile $page
+  Assert-True ($html -match 'Official sources') "$page misses official sources"
+  Assert-True ($html -match 'Last checked: 9 June 2026') "$page misses Last checked date"
+  Assert-True ($html -match 'https://www\.gov\.uk/') "$page misses GOV.UK source link"
+}
+
+foreach ($entry in $canonicalPaths.GetEnumerator()) {
+  $html = Read-SiteFile $entry.Key
+  $clean = "https://mini-tools.uk$($entry.Value)"
+  Assert-True ($html -match ('<link\s+rel=["'']canonical["'']\s+href=["'']' + [regex]::Escape($clean) + '["'']')) "$($entry.Key) canonical is not the clean URL"
+  foreach ($lang in @("en", "zh-CN", "de", "fr", "es")) {
+    $expected = if ($lang -eq "en") { $clean } else { "$clean`?lang=$lang" }
+    Assert-True ($html -match ('<link\s+rel=["'']alternate["'']\s+hreflang=["'']' + [regex]::Escape($lang) + '["'']\s+href=["'']' + [regex]::Escape($expected) + '["'']')) "$($entry.Key) misses hreflang $lang"
+  }
+  Assert-True ($html -match ('<link\s+rel=["'']alternate["'']\s+hreflang=["'']x-default["'']\s+href=["'']' + [regex]::Escape($clean) + '["'']')) "$($entry.Key) misses x-default"
+}
+
+foreach ($page in $publicPages) {
+  $html = Read-SiteFile $page.Name
+  Assert-True ($html -match 'applyCanonicalHreflang') "$($page.Name) does not normalize language query canonical/hreflang"
+}
+
 $requiredContent = @{
   "about.html" = @("tool directory", "UK Apps", "Developer Tools", "Other Tools", "UK Tax Calculator", "VAT Calculator", "Mortgage Calculator", "IR35 Calculator", "Stamp Duty Calculator", "Dividend Calculator", "JSON Formatter", "Text Diff Checker", "AI Token Calculator", "QR Code Generator", "Password Generator", "Free Image Hosting", "Image Compressor", "PDF to Image", "Color Picker", "Working Days Calculator", "Fuel Cost Calculator", "Weight Converter", "without an account")
   "privacy.html" = @("browser", "remote service", "not private", "1 day", "7 days", "30 days", "approved code", "image URL", "illegal content", "adult content", "violent content", "hateful content", "copyrighted images", "private ID", "passport", "financial documents", "medical records", "malware", "phishing", "scam", "minors", "confidential screenshots", "Google Analytics", "advertising", "cookies", "localStorage")
@@ -75,9 +118,10 @@ foreach ($entry in $requiredContent.GetEnumerator()) {
 }
 
 $worker = Read-SiteFile "_worker.js"
-foreach ($pattern in @('initialPathname === "/terms"', 'initialPathname === "/acceptable-use"', 'initialPathname === "/blog"', 'initialPathname.startsWith("/blog/")', 'status: 410', 'url.pathname.endsWith(".html")')) {
+foreach ($pattern in @('initialPathname === "/terms"', 'initialPathname === "/acceptable-use"', 'url.pathname.endsWith(".html")')) {
   Assert-True ($worker.Contains($pattern)) "_worker.js misses $pattern"
 }
+Assert-True ($worker -notmatch '/blog|Blog|miniToolsBlogLang') "_worker.js still contains blog residue"
 
 $expectedRobots = "User-agent: *`nAllow: /`n`nSitemap: https://mini-tools.uk/sitemap.xml"
 Assert-True ((Read-SiteFile "robots.txt").Trim().Replace("`r`n", "`n") -eq $expectedRobots) "robots.txt differs from contract"

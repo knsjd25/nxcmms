@@ -45,6 +45,32 @@ $siteNavScript = @'
   };
   const raw = window.MINI_TOOLS_SERVER_LANG || new URLSearchParams(location.search).get("lang") || "en";
   const lang = raw === "zh" ? "zh-CN" : (labels[raw] ? raw : "en");
+  const applyCanonicalHreflang = () => {
+    const supported = ["en", "zh-CN", "de", "fr", "es"];
+    const cleanPath = location.pathname === "/index.html" ? "/" : location.pathname.replace(/\.html$/, "");
+    const cleanUrl = location.origin + cleanPath;
+    const current = lang === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(lang)}`;
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", current);
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());
+    supported.forEach((code) => {
+      const link = document.createElement("link");
+      link.setAttribute("rel", "alternate");
+      link.setAttribute("hreflang", code);
+      link.setAttribute("href", code === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(code)}`);
+      document.head.appendChild(link);
+    });
+    const fallback = document.createElement("link");
+    fallback.setAttribute("rel", "alternate");
+    fallback.setAttribute("hreflang", "x-default");
+    fallback.setAttribute("href", cleanUrl);
+    document.head.appendChild(fallback);
+  };
   const localizeLinks = () => {
     document.querySelectorAll("a[href]").forEach((anchor) => {
       const rawHref = anchor.getAttribute("href");
@@ -64,8 +90,10 @@ $siteNavScript = @'
     if (current) current.textContent = labels[lang].language;
     localizeLinks();
   };
+  applyCanonicalHreflang();
   applySiteLanguage();
-  window.addEventListener("load", applySiteLanguage);
+  window.addEventListener("load", () => { applyCanonicalHreflang(); applySiteLanguage(); });
+  setTimeout(applyCanonicalHreflang, 0);
   document.querySelectorAll("[data-site-lang]").forEach((button) => {
     button.classList.toggle("active", button.dataset.siteLang === lang);
     button.addEventListener("click", () => {
@@ -84,7 +112,7 @@ $footer = @'
 <footer class="footer">
   <div class="wrap footer-inner">
     <div>© 2026 Mini-Tools.uk</div>
-    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a></div>
+    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
 '@
@@ -104,7 +132,6 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
   $html = $html.Replace('/#featured-tools', '/#popular').Replace('/#all-tools', '/#search').Replace('/#uk-finance', '/#uk-apps').Replace('/#image-tools', '/#other-tools').Replace('/#security-tools', '/#other-tools')
   $html = [regex]::Replace($html, '\bFeatured Tool\b|\bMain Tool\b|\bPrimary Tool\b', 'Popular tool', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '\bAcceptable Use\b', 'Upload policy', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-  $html = [regex]::Replace($html, '\bBlog\b', 'Website', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '\bTerms\b', 'Policies', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '\bUK Finance\b', 'UK Apps', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '\bImage & PDF\b', 'Other Tools', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)

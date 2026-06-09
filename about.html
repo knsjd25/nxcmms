@@ -9,15 +9,13 @@
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/about" />
-
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/about?lang=en" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/about" />
   <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/about?lang=zh-CN" />
   <link rel="alternate" hreflang="de" href="https://mini-tools.uk/about?lang=de" />
   <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/about?lang=fr" />
   <link rel="alternate" hreflang="es" href="https://mini-tools.uk/about?lang=es" />
   <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/about" />
-
-  <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
+<link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="icon" type="image/png" sizes="16x16" href="https://assets.mini-tools.uk/image/icon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
@@ -42,8 +40,7 @@
   </script>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
-
-  <script id="structured-data" type="application/ld+json">
+<script id="structured-data" type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@graph":[
@@ -400,8 +397,8 @@
 </section>
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>漏 2026 Mini-Tools.uk</div>
-    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a></div>
+    <div>© 2026 Mini-Tools.uk</div>
+    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
 
@@ -417,7 +414,6 @@
         navHome:"Home",
         navTools:"Search Tools",
         navCategories:"Categories",
-        navBlog:"Website",
         navAbout:"About",
         navContact:"Contact",
         privacy:"Privacy",
@@ -482,7 +478,6 @@
         sidePagesTitle:"Important pages",
         relatedContact:"Contact",
         relatedPrivacy:"Privacy policy",
-        relatedBlog:"Website",
         relatedTools:"Search Tools",
         sideToolsTitle:"Popular tools",
         popularTax:"UK tax calculator",
@@ -500,7 +495,6 @@
         navHome:"首页",
         navTools:"全部工具",
         navCategories:"分类",
-        navBlog:"博客",
         navAbout:"关于",
         navContact:"联系",
         privacy:"隐私政策",
@@ -565,7 +559,6 @@
         sidePagesTitle:"重要页面",
         relatedContact:"联系",
         relatedPrivacy:"隐私政策",
-        relatedBlog:"博客",
         relatedTools:"全部工具",
         sideToolsTitle:"常用工具",
         popularTax:"英国个税计算器",
@@ -583,7 +576,6 @@
         navHome:"Startseite",
         navTools:"Alle Tools",
         navCategories:"Kategorien",
-        navBlog:"Website",
         navAbout:"Über uns",
         navContact:"Kontakt",
         privacy:"Datenschutz",
@@ -648,7 +640,6 @@
         sidePagesTitle:"Wichtige Seiten",
         relatedContact:"Kontakt",
         relatedPrivacy:"Datenschutz",
-        relatedBlog:"Website",
         relatedTools:"Alle Tools",
         sideToolsTitle:"Beliebte Tools",
         popularTax:"UK Tax Calculator",
@@ -666,7 +657,6 @@
         navHome:"Accueil",
         navTools:"Tous les outils",
         navCategories:"Catégories",
-        navBlog:"Website",
         navAbout:"À propos",
         navContact:"Contact",
         privacy:"Confidentialité",
@@ -731,7 +721,6 @@
         sidePagesTitle:"Pages importantes",
         relatedContact:"Contact",
         relatedPrivacy:"Confidentialité",
-        relatedBlog:"Website",
         relatedTools:"Tous les outils",
         sideToolsTitle:"Outils populaires",
         popularTax:"Calculateur impôt UK",
@@ -749,7 +738,6 @@
         navHome:"Inicio",
         navTools:"Todas las herramientas",
         navCategories:"Categorías",
-        navBlog:"Website",
         navAbout:"Acerca de",
         navContact:"Contacto",
         privacy:"Privacidad",
@@ -814,7 +802,6 @@
         sidePagesTitle:"Páginas importantes",
         relatedContact:"Contacto",
         relatedPrivacy:"Privacidad",
-        relatedBlog:"Website",
         relatedTools:"Todas las herramientas",
         sideToolsTitle:"Herramientas populares",
         popularTax:"Calculadora tax UK",
@@ -999,6 +986,32 @@
   };
   const raw = window.MINI_TOOLS_SERVER_LANG || new URLSearchParams(location.search).get("lang") || "en";
   const lang = raw === "zh" ? "zh-CN" : (labels[raw] ? raw : "en");
+  const applyCanonicalHreflang = () => {
+    const supported = ["en", "zh-CN", "de", "fr", "es"];
+    const cleanPath = location.pathname === "/index.html" ? "/" : location.pathname.replace(/\.html$/, "");
+    const cleanUrl = location.origin + cleanPath;
+    const current = lang === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(lang)}`;
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", current);
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());
+    supported.forEach((code) => {
+      const link = document.createElement("link");
+      link.setAttribute("rel", "alternate");
+      link.setAttribute("hreflang", code);
+      link.setAttribute("href", code === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(code)}`);
+      document.head.appendChild(link);
+    });
+    const fallback = document.createElement("link");
+    fallback.setAttribute("rel", "alternate");
+    fallback.setAttribute("hreflang", "x-default");
+    fallback.setAttribute("href", cleanUrl);
+    document.head.appendChild(fallback);
+  };
   const localizeLinks = () => {
     document.querySelectorAll("a[href]").forEach((anchor) => {
       const rawHref = anchor.getAttribute("href");
@@ -1018,8 +1031,10 @@
     if (current) current.textContent = labels[lang].language;
     localizeLinks();
   };
+  applyCanonicalHreflang();
   applySiteLanguage();
-  window.addEventListener("load", applySiteLanguage);
+  window.addEventListener("load", () => { applyCanonicalHreflang(); applySiteLanguage(); });
+  setTimeout(applyCanonicalHreflang, 0);
   document.querySelectorAll("[data-site-lang]").forEach((button) => {
     button.classList.toggle("active", button.dataset.siteLang === lang);
     button.addEventListener("click", () => {
