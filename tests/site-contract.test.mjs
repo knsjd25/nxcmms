@@ -62,6 +62,8 @@ test("language controls preserve current paths and localize internal links", () 
   for (const file of htmlFiles) {
     const html = read(file);
     for (const lang of ["en", "zh-CN", "de", "fr", "es"]) assert.match(html, new RegExp(`data-site-lang=["']${lang}["']`), `${file}: ${lang}`);
+    assert.match(html, /aria-expanded=["']false["']/, file);
+    assert.match(html, /navigator\.language/, file);
     assert.match(html, /target\.searchParams\.set\(["']lang["'], selectedLang\)/, file);
     assert.match(html, /link\.searchParams\.set\(["']lang["'], lang\)/, file);
   }
@@ -90,6 +92,15 @@ test("shared navigation keeps the main menu beside the brand", () => {
   assert.match(css, /right:\s*0\s*!important/);
   assert.match(css, /justify-content:\s*center\s*!important/);
   assert.match(css, /grid-template-columns:\s*1fr auto 1fr\s*!important/);
+  assert.doesNotMatch(css, /lang-group:hover\s+\.lang-dropdown/);
+  assert.match(css, /lang-group\.open\s+\.lang-dropdown/);
+});
+
+test("upload language defaults and guidance follow the selected/browser language", () => {
+  const html = read("upload.html");
+  assert.doesNotMatch(html, /miniToolsUploadLang/);
+  assert.match(html, /let currentLang = normalizeLang\(getUrlLang\(\) \|\| navigator\.language \|\| ["']en["']\)/);
+  assert.match(html, /applyUploadGuidanceLanguage/);
 });
 
 test("homepage has the requested directory sections and popular tools", () => {

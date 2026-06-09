@@ -144,7 +144,7 @@
     .nav-group:hover .nav-trigger svg,.nav-group:focus-within .nav-trigger svg,.lang-group:hover .lang-trigger svg,.lang-group:focus-within .lang-trigger svg{transform:rotate(180deg)}
     .dropdown,.lang-dropdown{position:absolute;top:calc(100% + 2px);right:0;min-width:220px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:none;padding:10px;display:none;z-index:40}
     .nav-group .dropdown{left:0;right:auto;min-width:245px}
-    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown,.lang-group:hover .lang-dropdown,.lang-group:focus-within .lang-dropdown{display:block}
+    .nav-group:hover .dropdown,.nav-group:focus-within .dropdown,.lang-group.open .lang-dropdown{display:block}
     .dropdown a,.lang-dropdown button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:12px;color:#334155;font-size:14px;font-weight:700;border:0;background:transparent;cursor:pointer}
     .dropdown a small{display:block;margin-top:2px;color:#64748b;font-size:12px;font-weight:600}
     .dropdown a:hover,.lang-dropdown button:hover,.lang-dropdown button.active{background:#f8fafc;color:#0f172a}
@@ -220,6 +220,9 @@
 
 
 
+
+
+
 <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
@@ -243,7 +246,7 @@
       <a class="nav-link" href="/privacy" data-site-nav="privacy">Privacy</a>
     </div>
     <div class="lang-group">
-      <button class="lang-trigger" type="button" aria-haspopup="true"><span id="currentLangLabel">English</span></button>
+      <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span></button>
       <div class="lang-dropdown" aria-label="Language">
         <button type="button" data-site-lang="en">English</button><button type="button" data-site-lang="zh-CN">&#20013;&#25991;</button><button type="button" data-site-lang="de">Deutsch</button><button type="button" data-site-lang="fr">Fran&ccedil;ais</button><button type="button" data-site-lang="es">Espa&ntilde;ol</button>
       </div>
@@ -397,7 +400,7 @@
 </section>
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>© 2026 Mini-Tools.uk</div>
+    <div>&copy; 2026 Mini-Tools.uk</div>
     <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
@@ -820,11 +823,7 @@
       const params = new URLSearchParams(window.location.search);
       let lang = params.get("lang");
       if (lang === "zh") lang = "zh-CN";
-      if (allowedLangs.includes(lang)) return lang;
-
-      // SEO rule: the x-default URL /about must be stable English content.
-      // Do not auto-switch /about by browser language or localStorage.
-      return "en";
+      if (allowedLangs.includes(lang)) return lang; let browserLang = navigator.language || "en"; if (String(browserLang).toLowerCase().startsWith("zh")) browserLang = "zh-CN"; else browserLang = String(browserLang).split("-")[0]; return allowedLangs.includes(browserLang) ? browserLang : "en";
     }
 
     function setMeta(name, content){
@@ -975,6 +974,9 @@
 
 
 
+
+
+
 <script id="site-nav-language">
 (() => {
   const labels = {
@@ -984,8 +986,17 @@
     fr:{home:"Accueil",search:"Recherche",popular:"Populaires",ukApps:"Apps UK",devTools:"Outils dev",other:"Autres",about:"\u00c0 propos",contact:"Contact",privacy:"Confidentialit\u00e9",language:"Fran\u00e7ais"},
     es:{home:"Inicio",search:"Buscar",popular:"Populares",ukApps:"Apps UK",devTools:"Herramientas dev",other:"Otros",about:"Acerca de",contact:"Contacto",privacy:"Privacidad",language:"Espa\u00f1ol"}
   };
-  const raw = window.MINI_TOOLS_SERVER_LANG || new URLSearchParams(location.search).get("lang") || "en";
-  const lang = raw === "zh" ? "zh-CN" : (labels[raw] ? raw : "en");
+  const normalizeLang = (value) => {
+    const rawValue = String(value || "").trim();
+    const lower = rawValue.toLowerCase().replace("_", "-");
+    if (lower.startsWith("zh")) return "zh-CN";
+    if (lower.startsWith("de")) return "de";
+    if (lower.startsWith("fr")) return "fr";
+    if (lower.startsWith("es")) return "es";
+    return labels[rawValue] ? rawValue : "en";
+  };
+  const params = new URLSearchParams(location.search);
+  const lang = normalizeLang(window.MINI_TOOLS_SERVER_LANG || params.get("lang") || navigator.language || "en");
   const applyCanonicalHreflang = () => {
     const supported = ["en", "zh-CN", "de", "fr", "es"];
     const cleanPath = location.pathname === "/index.html" ? "/" : location.pathname.replace(/\.html$/, "");
@@ -1022,6 +1033,27 @@
       anchor.href = link.pathname + link.search + link.hash;
     });
   };
+  const applyToolGuidanceLanguage = () => {
+    const guidance = document.getElementById("tool-guidance");
+    if (!guidance || document.getElementById("guidanceTitle")) return;
+    const guidanceLabels = {
+      en: { notes: "Original notes for", example: "Example", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
+      "zh-CN": { notes: "\u5de5\u5177\u8bf4\u660e\uff1a", example: "\u793a\u4f8b", limitations: "\u9650\u5236", faq: "\u5e38\u89c1\u95ee\u9898", related: "\u76f8\u5173\u5de5\u5177" },
+      de: { notes: "Hinweise zu", example: "Beispiel", limitations: "Einschr\u00e4nkungen", faq: "FAQ", related: "Verwandte Tools" },
+      fr: { notes: "Notes pour", example: "Exemple", limitations: "Limites", faq: "FAQ", related: "Outils lies" },
+      es: { notes: "Notas para", example: "Ejemplo", limitations: "Limitaciones", faq: "FAQ", related: "Herramientas relacionadas" }
+    };
+    const text = guidanceLabels[lang] || guidanceLabels.en;
+    const title = guidance.querySelector("h2");
+    if (title) title.textContent = title.textContent.replace(/^Original notes for\s*/i, text.notes + " ");
+    guidance.querySelectorAll("h3").forEach((heading) => {
+      const key = heading.textContent.trim().toLowerCase();
+      if (key === "example") heading.textContent = text.example;
+      if (key === "limitations") heading.textContent = text.limitations;
+      if (key === "faq") heading.textContent = text.faq;
+      if (key === "related tools") heading.textContent = text.related;
+    });
+  };
   const applySiteLanguage = () => {
     document.querySelectorAll("[data-site-nav]").forEach((item) => {
       item.textContent = labels[lang][item.dataset.siteNav];
@@ -1029,11 +1061,32 @@
     const current = document.getElementById("currentLangLabel");
     if (current) current.textContent = labels[lang].language;
     localizeLinks();
+    applyToolGuidanceLanguage();
   };
   applyCanonicalHreflang();
   applySiteLanguage();
   window.addEventListener("load", () => { applyCanonicalHreflang(); applySiteLanguage(); });
   setTimeout(applyCanonicalHreflang, 0);
+  const langGroup = document.querySelector(".lang-group");
+  const langTrigger = document.querySelector(".lang-trigger");
+  const setLangMenuOpen = (open) => {
+    if (!langGroup || !langTrigger) return;
+    langGroup.classList.toggle("open", open);
+    langTrigger.setAttribute("aria-expanded", open ? "true" : "false");
+  };
+  if (langTrigger) {
+    langTrigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setLangMenuOpen(!langGroup.classList.contains("open"));
+    });
+  }
+  document.addEventListener("click", (event) => {
+    if (langGroup && !langGroup.contains(event.target)) setLangMenuOpen(false);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setLangMenuOpen(false);
+  });
   document.querySelectorAll("[data-site-lang]").forEach((button) => {
     button.classList.toggle("active", button.dataset.siteLang === lang);
     button.addEventListener("click", () => {

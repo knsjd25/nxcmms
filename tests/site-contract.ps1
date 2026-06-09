@@ -66,9 +66,16 @@ foreach ($page in $publicPages) {
   Assert-True ($html.Contains('href="site-nav.css"')) "$($page.Name) does not use the local-and-web compatible shared navigation stylesheet"
   Assert-True ($html -notmatch 'href=["'']/site-nav\.css["'']') "$($page.Name) uses a root-relative stylesheet that breaks file:// previews"
   Assert-True ($html -notmatch 'id=["'']site-nav-style["'']') "$($page.Name) still contains copied inline navigation CSS"
+  Assert-True ($html.Contains('aria-expanded="false"')) "$($page.Name) language menu trigger is missing click-expanded state"
+  Assert-True ($html.Contains('navigator.language')) "$($page.Name) navigation does not fall back to browser language"
   Assert-True ($html.Contains('target.searchParams.set("lang", selectedLang)')) "$($page.Name) does not preserve the current path when switching language"
   Assert-True ($html.Contains('link.searchParams.set("lang", lang)')) "$($page.Name) does not localize internal links"
 }
+
+Assert-True ($sharedNavCss -notmatch 'lang-group:hover\s+\.lang-dropdown') "language dropdown still opens on hover"
+Assert-True ($sharedNavCss -match 'lang-group\.open\s+\.lang-dropdown') "language dropdown does not open by click state"
+Assert-True ((Read-SiteFile "upload.html").Contains("applyUploadGuidanceLanguage")) "upload page guidance is not translatable"
+Assert-True ((Read-SiteFile "upload.html") -notmatch 'miniToolsUploadLang') "upload page still lets stored language override browser language"
 
 foreach ($page in $toolPages) {
   Assert-True ((Read-SiteFile $page) -match '<meta\s+name=["'']robots["'']\s+content=["''][^"'']*index\s*,?\s*follow') "$page is not index,follow"

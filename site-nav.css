@@ -131,8 +131,7 @@ body > main {
   z-index: 80 !important;
 }
 
-.nav .lang-group:hover .lang-dropdown,
-.nav .lang-group:focus-within .lang-dropdown {
+.nav .lang-group.open .lang-dropdown {
   display: block !important;
 }
 

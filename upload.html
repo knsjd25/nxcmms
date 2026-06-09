@@ -339,6 +339,9 @@
 
 
 
+
+
+
 <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
@@ -360,7 +363,7 @@
       <a class="nav-link" href="/privacy" data-site-nav="privacy">Privacy</a>
     </div>
     <div class="lang-group">
-      <button class="lang-trigger" type="button" aria-haspopup="true"><span id="currentLangLabel">English</span></button>
+      <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span></button>
       <div class="lang-dropdown" aria-label="Language">
         <button type="button" data-site-lang="en">English</button><button type="button" data-site-lang="zh-CN">&#20013;&#25991;</button><button type="button" data-site-lang="de">Deutsch</button><button type="button" data-site-lang="fr">Fran&ccedil;ais</button><button type="button" data-site-lang="es">Espa&ntilde;ol</button>
       </div>
@@ -650,17 +653,17 @@
 
   <section class="wrap tool-guidance" id="tool-guidance" style="margin:32px auto">
   <div class="article">
-    <h2>Original notes for Free Image Hosting</h2>
-    <p>Use this image hosting page when you need a quick public image URL for documentation, issue reports, forum posts or lightweight sharing. It is designed for simple files where a direct link and copyable embed formats matter more than album management.</p>
-    <h3>Example</h3><p>Example: upload a screenshot for a GitHub issue, choose a short retention period, then copy the Markdown link into the issue description.</p>
-    <h3>Limitations</h3><p>Uploaded images are processed by a remote service and links are not private. Do not upload identity documents, confidential screenshots, copyrighted material you cannot share, or files that need access control.</p>
-    <h3>FAQ</h3><p><strong>Can I use it for private images? No. Treat hosted links as public to anyone who has the URL.</strong></p>
-    <h3>Related tools</h3><p><a href="/image">image</a> <a href="/pdf2img">pdf2img</a> <a href="/privacy">privacy</a></p>
+    <h2 id="guidanceTitle">Original notes for Free Image Hosting</h2>
+    <p id="guidanceNotes">Use this image hosting page when you need a quick public image URL for documentation, issue reports, forum posts or lightweight sharing. It is designed for simple files where a direct link and copyable embed formats matter more than album management.</p>
+    <h3 id="guidanceExampleTitle">Example</h3><p id="guidanceExampleText">Example: upload a screenshot for a GitHub issue, choose a short retention period, then copy the Markdown link into the issue description.</p>
+    <h3 id="guidanceLimitationsTitle">Limitations</h3><p id="guidanceLimitationsText">Uploaded images are processed by a remote service and links are not private. Do not upload identity documents, confidential screenshots, copyrighted material you cannot share, or files that need access control.</p>
+    <h3 id="guidanceFaqTitle">FAQ</h3><p><strong id="guidanceFaqText">Can I use it for private images? No. Treat hosted links as public to anyone who has the URL.</strong></p>
+    <h3 id="guidanceRelatedTitle">Related tools</h3><p><a href="/image" id="guidanceRelatedImage">Image Compressor</a> <a href="/pdf2img" id="guidanceRelatedPdf">PDF to Image</a> <a href="/privacy" id="guidanceRelatedPrivacy">Privacy</a></p>
   </div>
 </section>
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>© 2026 Mini-Tools.uk</div>
+    <div>&copy; 2026 Mini-Tools.uk</div>
     <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
@@ -1501,12 +1504,14 @@
       }
     }
 
+    let currentLang = normalizeLang(getUrlLang() || navigator.language || "en");
+
     function getLang() {
-      return normalizeLang(getUrlLang() || localStorage.getItem("miniToolsUploadLang") || navigator.language || "en");
+      return currentLang;
     }
 
     function setLang(lang) {
-      localStorage.setItem("miniToolsUploadLang", normalizeLang(lang));
+      currentLang = normalizeLang(lang);
     }
 
     function t() {
@@ -1559,6 +1564,87 @@
         ]
       };
       document.getElementById("appSchema").textContent = JSON.stringify(schema, null, 2);
+    }
+
+    const uploadGuidanceTranslations = {
+      en: {
+        guidanceTitle: "Original notes for Free Image Hosting",
+        guidanceNotes: "Use this image hosting page when you need a quick public image URL for documentation, issue reports, forum posts or lightweight sharing. It is designed for simple files where a direct link and copyable embed formats matter more than album management.",
+        guidanceExampleTitle: "Example",
+        guidanceExampleText: "Example: upload a screenshot for a GitHub issue, choose a short retention period, then copy the Markdown link into the issue description.",
+        guidanceLimitationsTitle: "Limitations",
+        guidanceLimitationsText: "Uploaded images are processed by a remote service and links are not private. Do not upload identity documents, confidential screenshots, copyrighted material you cannot share, or files that need access control.",
+        guidanceFaqTitle: "FAQ",
+        guidanceFaqText: "Can I use it for private images? No. Treat hosted links as public to anyone who has the URL.",
+        guidanceRelatedTitle: "Related tools",
+        guidanceRelatedImage: "Image Compressor",
+        guidanceRelatedPdf: "PDF to Image",
+        guidanceRelatedPrivacy: "Privacy"
+      },
+      zh: {
+        guidanceTitle: "免费图床原创说明",
+        guidanceNotes: "当你需要给文档、问题反馈、论坛帖子或轻量分享生成一个公开图片链接时，可以使用这个图床页面。它适合简单文件，更重视直链和可复制的嵌入格式，而不是相册管理。",
+        guidanceExampleTitle: "示例",
+        guidanceExampleText: "示例：为 GitHub issue 上传一张截图，选择较短保存时间，然后复制 Markdown 链接放进问题描述。",
+        guidanceLimitationsTitle: "限制",
+        guidanceLimitationsText: "上传图片会由远程服务处理，链接不是私密链接。不要上传身份证件、机密截图、无权分享的版权材料，或任何需要访问控制的文件。",
+        guidanceFaqTitle: "常见问题",
+        guidanceFaqText: "可以用于私密图片吗？不可以。请把托管链接视为任何拿到 URL 的人都能访问的公开链接。",
+        guidanceRelatedTitle: "相关工具",
+        guidanceRelatedImage: "图片压缩",
+        guidanceRelatedPdf: "PDF 转图片",
+        guidanceRelatedPrivacy: "隐私政策"
+      },
+      de: {
+        guidanceTitle: "Eigene Hinweise zum kostenlosen Bildhosting",
+        guidanceNotes: "Nutze diese Seite, wenn du schnell eine öffentliche Bild-URL für Dokumentation, Fehlermeldungen, Forenbeiträge oder einfache Freigaben brauchst. Sie ist für einfache Dateien gedacht, bei denen Direktlinks und kopierbare Einbettungsformate wichtiger sind als Albumverwaltung.",
+        guidanceExampleTitle: "Beispiel",
+        guidanceExampleText: "Beispiel: Lade einen Screenshot für ein GitHub-Issue hoch, wähle eine kurze Aufbewahrungsdauer und kopiere den Markdown-Link in die Beschreibung.",
+        guidanceLimitationsTitle: "Einschränkungen",
+        guidanceLimitationsText: "Hochgeladene Bilder werden von einem entfernten Dienst verarbeitet und Links sind nicht privat. Lade keine Ausweisdokumente, vertraulichen Screenshots, urheberrechtlich geschützten Inhalte ohne Freigabe oder Dateien hoch, die Zugriffskontrolle benötigen.",
+        guidanceFaqTitle: "FAQ",
+        guidanceFaqText: "Kann ich private Bilder verwenden? Nein. Behandle gehostete Links als öffentlich für alle Personen mit der URL.",
+        guidanceRelatedTitle: "Verwandte Tools",
+        guidanceRelatedImage: "Bildkompressor",
+        guidanceRelatedPdf: "PDF zu Bild",
+        guidanceRelatedPrivacy: "Datenschutz"
+      },
+      fr: {
+        guidanceTitle: "Notes originales pour l'hebergement gratuit d'images",
+        guidanceNotes: "Utilisez cette page lorsque vous avez besoin d'une URL publique rapide pour une documentation, un rapport de bug, un forum ou un partage simple. Elle est concue pour les fichiers simples ou les liens directs et les formats copiables comptent plus que la gestion d'albums.",
+        guidanceExampleTitle: "Exemple",
+        guidanceExampleText: "Exemple : importez une capture d'ecran pour une issue GitHub, choisissez une duree courte, puis copiez le lien Markdown dans la description.",
+        guidanceLimitationsTitle: "Limites",
+        guidanceLimitationsText: "Les images importees sont traitees par un service distant et les liens ne sont pas prives. N'importez pas de documents d'identite, captures confidentielles, contenus proteges sans autorisation ou fichiers qui exigent un controle d'acces.",
+        guidanceFaqTitle: "FAQ",
+        guidanceFaqText: "Puis-je l'utiliser pour des images privees ? Non. Considerez les liens heberges comme publics pour toute personne qui possede l'URL.",
+        guidanceRelatedTitle: "Outils lies",
+        guidanceRelatedImage: "Compresseur d'image",
+        guidanceRelatedPdf: "PDF vers image",
+        guidanceRelatedPrivacy: "Confidentialite"
+      },
+      es: {
+        guidanceTitle: "Notas originales para alojamiento gratuito de imagenes",
+        guidanceNotes: "Usa esta pagina cuando necesites una URL publica rapida para documentacion, informes de errores, foros o uso compartido ligero. Esta pensada para archivos simples donde importan mas el enlace directo y los formatos copiables que la gestion de albumes.",
+        guidanceExampleTitle: "Ejemplo",
+        guidanceExampleText: "Ejemplo: sube una captura para un issue de GitHub, elige un periodo corto de conservacion y copia el enlace Markdown en la descripcion.",
+        guidanceLimitationsTitle: "Limitaciones",
+        guidanceLimitationsText: "Las imagenes subidas se procesan mediante un servicio remoto y los enlaces no son privados. No subas documentos de identidad, capturas confidenciales, material con copyright que no puedas compartir ni archivos que necesiten control de acceso.",
+        guidanceFaqTitle: "FAQ",
+        guidanceFaqText: "Puedo usarlo para imagenes privadas? No. Trata los enlaces alojados como publicos para cualquiera que tenga la URL.",
+        guidanceRelatedTitle: "Herramientas relacionadas",
+        guidanceRelatedImage: "Compresor de imagenes",
+        guidanceRelatedPdf: "PDF a imagen",
+        guidanceRelatedPrivacy: "Privacidad"
+      }
+    };
+
+    function applyUploadGuidanceLanguage(lang) {
+      const texts = uploadGuidanceTranslations[normalizeLang(lang)] || uploadGuidanceTranslations.en;
+      Object.keys(texts).forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = texts[id];
+      });
     }
 
     async function fetchCaptcha() {
@@ -1619,6 +1705,7 @@ updateProperty("og:title", texts.ogTitle);
       previewImage.alt = texts.previewAlt;
       uploadBtn.textContent = texts.uploadBtn;
       updatePermanentNotice();
+      applyUploadGuidanceLanguage(lang);
       if (!fileInput.files[0]) {
         fileName.textContent = texts.noFileChosen;
         fileName.style.color = "#94a3b8";
@@ -1872,6 +1959,9 @@ updateProperty("og:title", texts.ogTitle);
 
 
 
+
+
+
 <script id="site-nav-language">
 (() => {
   const labels = {
@@ -1881,8 +1971,17 @@ updateProperty("og:title", texts.ogTitle);
     fr:{home:"Accueil",search:"Recherche",popular:"Populaires",ukApps:"Apps UK",devTools:"Outils dev",other:"Autres",about:"\u00c0 propos",contact:"Contact",privacy:"Confidentialit\u00e9",language:"Fran\u00e7ais"},
     es:{home:"Inicio",search:"Buscar",popular:"Populares",ukApps:"Apps UK",devTools:"Herramientas dev",other:"Otros",about:"Acerca de",contact:"Contacto",privacy:"Privacidad",language:"Espa\u00f1ol"}
   };
-  const raw = window.MINI_TOOLS_SERVER_LANG || new URLSearchParams(location.search).get("lang") || "en";
-  const lang = raw === "zh" ? "zh-CN" : (labels[raw] ? raw : "en");
+  const normalizeLang = (value) => {
+    const rawValue = String(value || "").trim();
+    const lower = rawValue.toLowerCase().replace("_", "-");
+    if (lower.startsWith("zh")) return "zh-CN";
+    if (lower.startsWith("de")) return "de";
+    if (lower.startsWith("fr")) return "fr";
+    if (lower.startsWith("es")) return "es";
+    return labels[rawValue] ? rawValue : "en";
+  };
+  const params = new URLSearchParams(location.search);
+  const lang = normalizeLang(window.MINI_TOOLS_SERVER_LANG || params.get("lang") || navigator.language || "en");
   const applyCanonicalHreflang = () => {
     const supported = ["en", "zh-CN", "de", "fr", "es"];
     const cleanPath = location.pathname === "/index.html" ? "/" : location.pathname.replace(/\.html$/, "");
@@ -1919,6 +2018,27 @@ updateProperty("og:title", texts.ogTitle);
       anchor.href = link.pathname + link.search + link.hash;
     });
   };
+  const applyToolGuidanceLanguage = () => {
+    const guidance = document.getElementById("tool-guidance");
+    if (!guidance || document.getElementById("guidanceTitle")) return;
+    const guidanceLabels = {
+      en: { notes: "Original notes for", example: "Example", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
+      "zh-CN": { notes: "\u5de5\u5177\u8bf4\u660e\uff1a", example: "\u793a\u4f8b", limitations: "\u9650\u5236", faq: "\u5e38\u89c1\u95ee\u9898", related: "\u76f8\u5173\u5de5\u5177" },
+      de: { notes: "Hinweise zu", example: "Beispiel", limitations: "Einschr\u00e4nkungen", faq: "FAQ", related: "Verwandte Tools" },
+      fr: { notes: "Notes pour", example: "Exemple", limitations: "Limites", faq: "FAQ", related: "Outils lies" },
+      es: { notes: "Notas para", example: "Ejemplo", limitations: "Limitaciones", faq: "FAQ", related: "Herramientas relacionadas" }
+    };
+    const text = guidanceLabels[lang] || guidanceLabels.en;
+    const title = guidance.querySelector("h2");
+    if (title) title.textContent = title.textContent.replace(/^Original notes for\s*/i, text.notes + " ");
+    guidance.querySelectorAll("h3").forEach((heading) => {
+      const key = heading.textContent.trim().toLowerCase();
+      if (key === "example") heading.textContent = text.example;
+      if (key === "limitations") heading.textContent = text.limitations;
+      if (key === "faq") heading.textContent = text.faq;
+      if (key === "related tools") heading.textContent = text.related;
+    });
+  };
   const applySiteLanguage = () => {
     document.querySelectorAll("[data-site-nav]").forEach((item) => {
       item.textContent = labels[lang][item.dataset.siteNav];
@@ -1926,11 +2046,32 @@ updateProperty("og:title", texts.ogTitle);
     const current = document.getElementById("currentLangLabel");
     if (current) current.textContent = labels[lang].language;
     localizeLinks();
+    applyToolGuidanceLanguage();
   };
   applyCanonicalHreflang();
   applySiteLanguage();
   window.addEventListener("load", () => { applyCanonicalHreflang(); applySiteLanguage(); });
   setTimeout(applyCanonicalHreflang, 0);
+  const langGroup = document.querySelector(".lang-group");
+  const langTrigger = document.querySelector(".lang-trigger");
+  const setLangMenuOpen = (open) => {
+    if (!langGroup || !langTrigger) return;
+    langGroup.classList.toggle("open", open);
+    langTrigger.setAttribute("aria-expanded", open ? "true" : "false");
+  };
+  if (langTrigger) {
+    langTrigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setLangMenuOpen(!langGroup.classList.contains("open"));
+    });
+  }
+  document.addEventListener("click", (event) => {
+    if (langGroup && !langGroup.contains(event.target)) setLangMenuOpen(false);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setLangMenuOpen(false);
+  });
   document.querySelectorAll("[data-site-lang]").forEach((button) => {
     button.classList.toggle("active", button.dataset.siteLang === lang);
     button.addEventListener("click", () => {

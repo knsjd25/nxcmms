@@ -23,7 +23,7 @@ $nav = @'
       <a class="nav-link" href="/privacy" data-site-nav="privacy">Privacy</a>
     </div>
     <div class="lang-group">
-      <button class="lang-trigger" type="button" aria-haspopup="true"><span id="currentLangLabel">English</span></button>
+      <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span></button>
       <div class="lang-dropdown" aria-label="Language">
         <button type="button" data-site-lang="en">English</button><button type="button" data-site-lang="zh-CN">&#20013;&#25991;</button><button type="button" data-site-lang="de">Deutsch</button><button type="button" data-site-lang="fr">Fran&ccedil;ais</button><button type="button" data-site-lang="es">Espa&ntilde;ol</button>
       </div>
@@ -43,8 +43,17 @@ $siteNavScript = @'
     fr:{home:"Accueil",search:"Recherche",popular:"Populaires",ukApps:"Apps UK",devTools:"Outils dev",other:"Autres",about:"\u00c0 propos",contact:"Contact",privacy:"Confidentialit\u00e9",language:"Fran\u00e7ais"},
     es:{home:"Inicio",search:"Buscar",popular:"Populares",ukApps:"Apps UK",devTools:"Herramientas dev",other:"Otros",about:"Acerca de",contact:"Contacto",privacy:"Privacidad",language:"Espa\u00f1ol"}
   };
-  const raw = window.MINI_TOOLS_SERVER_LANG || new URLSearchParams(location.search).get("lang") || "en";
-  const lang = raw === "zh" ? "zh-CN" : (labels[raw] ? raw : "en");
+  const normalizeLang = (value) => {
+    const rawValue = String(value || "").trim();
+    const lower = rawValue.toLowerCase().replace("_", "-");
+    if (lower.startsWith("zh")) return "zh-CN";
+    if (lower.startsWith("de")) return "de";
+    if (lower.startsWith("fr")) return "fr";
+    if (lower.startsWith("es")) return "es";
+    return labels[rawValue] ? rawValue : "en";
+  };
+  const params = new URLSearchParams(location.search);
+  const lang = normalizeLang(window.MINI_TOOLS_SERVER_LANG || params.get("lang") || navigator.language || "en");
   const applyCanonicalHreflang = () => {
     const supported = ["en", "zh-CN", "de", "fr", "es"];
     const cleanPath = location.pathname === "/index.html" ? "/" : location.pathname.replace(/\.html$/, "");
@@ -77,9 +86,29 @@ $siteNavScript = @'
       if (!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) return;
       const link = new URL(rawHref, location.origin);
       if (link.origin !== location.origin) return;
-      if (lang === "en") link.searchParams.delete("lang");
-      else link.searchParams.set("lang", lang);
+      link.searchParams.set("lang", lang);
       anchor.href = link.pathname + link.search + link.hash;
+    });
+  };
+  const applyToolGuidanceLanguage = () => {
+    const guidance = document.getElementById("tool-guidance");
+    if (!guidance || document.getElementById("guidanceTitle")) return;
+    const guidanceLabels = {
+      en: { notes: "Original notes for", example: "Example", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
+      "zh-CN": { notes: "\u5de5\u5177\u8bf4\u660e\uff1a", example: "\u793a\u4f8b", limitations: "\u9650\u5236", faq: "\u5e38\u89c1\u95ee\u9898", related: "\u76f8\u5173\u5de5\u5177" },
+      de: { notes: "Hinweise zu", example: "Beispiel", limitations: "Einschr\u00e4nkungen", faq: "FAQ", related: "Verwandte Tools" },
+      fr: { notes: "Notes pour", example: "Exemple", limitations: "Limites", faq: "FAQ", related: "Outils lies" },
+      es: { notes: "Notas para", example: "Ejemplo", limitations: "Limitaciones", faq: "FAQ", related: "Herramientas relacionadas" }
+    };
+    const text = guidanceLabels[lang] || guidanceLabels.en;
+    const title = guidance.querySelector("h2");
+    if (title) title.textContent = title.textContent.replace(/^Original notes for\s*/i, text.notes + " ");
+    guidance.querySelectorAll("h3").forEach((heading) => {
+      const key = heading.textContent.trim().toLowerCase();
+      if (key === "example") heading.textContent = text.example;
+      if (key === "limitations") heading.textContent = text.limitations;
+      if (key === "faq") heading.textContent = text.faq;
+      if (key === "related tools") heading.textContent = text.related;
     });
   };
   const applySiteLanguage = () => {
@@ -89,18 +118,38 @@ $siteNavScript = @'
     const current = document.getElementById("currentLangLabel");
     if (current) current.textContent = labels[lang].language;
     localizeLinks();
+    applyToolGuidanceLanguage();
   };
   applyCanonicalHreflang();
   applySiteLanguage();
   window.addEventListener("load", () => { applyCanonicalHreflang(); applySiteLanguage(); });
   setTimeout(applyCanonicalHreflang, 0);
+  const langGroup = document.querySelector(".lang-group");
+  const langTrigger = document.querySelector(".lang-trigger");
+  const setLangMenuOpen = (open) => {
+    if (!langGroup || !langTrigger) return;
+    langGroup.classList.toggle("open", open);
+    langTrigger.setAttribute("aria-expanded", open ? "true" : "false");
+  };
+  if (langTrigger) {
+    langTrigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setLangMenuOpen(!langGroup.classList.contains("open"));
+    });
+  }
+  document.addEventListener("click", (event) => {
+    if (langGroup && !langGroup.contains(event.target)) setLangMenuOpen(false);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setLangMenuOpen(false);
+  });
   document.querySelectorAll("[data-site-lang]").forEach((button) => {
     button.classList.toggle("active", button.dataset.siteLang === lang);
     button.addEventListener("click", () => {
       const selectedLang = button.dataset.siteLang;
       const target = new URL(location.href);
-      if (selectedLang === "en") target.searchParams.delete("lang");
-      else target.searchParams.set("lang", selectedLang);
+      target.searchParams.set("lang", selectedLang);
       location.assign(target.pathname + target.search + target.hash);
     });
   });
@@ -111,7 +160,7 @@ $siteNavScript = @'
 $footer = @'
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>© 2026 Mini-Tools.uk</div>
+    <div>&copy; 2026 Mini-Tools.uk</div>
     <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
