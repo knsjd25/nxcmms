@@ -44,7 +44,7 @@
         "name":"Mini-Tools Free Image Hosting",
         "applicationCategory":"UtilitiesApplication",
         "operatingSystem":"Web",
-        "description":"Free image hosting for screenshots, Website images, product images and other shareable image links with selectable retention periods.",
+        "description":"Free image hosting for screenshots, website images, product images and other shareable image links with selectable retention periods.",
         "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
       },
       {
@@ -62,8 +62,8 @@
           },
           {
             "@type":"Question",
-            "name":"Can I use it for Website images?",
-            "acceptedAnswer":{"@type":"Answer","text":"Yes. You can copy Markdown or HTML embed code and paste it into Website posts, documentation or forum content."}
+            "name":"Can I use it for website images?",
+            "acceptedAnswer":{"@type":"Answer","text":"Yes. You can copy Markdown or HTML embed code and paste it into website posts, documentation or forum content."}
           }
         ]
       }
@@ -325,69 +325,230 @@
 
 <link rel="stylesheet" href="site-nav.css">
 <style id="upload-page-nav-isolation">
-  /* Keep this page's tool styles from leaking into the shared top navigation. */
+  /* Match the homepage header and language switcher exactly, while keeping it isolated from upload tool styles. */
   body > nav.nav{
-    position:sticky;top:0;z-index:1000;width:100%;display:block;overflow:visible;
-    background:rgba(255,255,255,.94);backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--line);box-shadow:0 8px 24px rgba(15,23,42,.04);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    width:100%;
+    display:block;
+    overflow:visible;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(226,232,240,.88);
+    box-shadow:none;
   }
   body > nav.nav .nav-inner{
-    width:min(var(--max),calc(100% - 32px));margin:0 auto;min-height:72px;
-    display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;
+    width:min(1180px,100%);
+    max-width:1180px;
+    min-height:74px;
+    margin:0 auto;
+    padding:0 20px;
+    display:grid;
+    grid-template-columns:minmax(190px,1fr) auto minmax(190px,1fr);
+    align-items:center;
+    gap:18px;
   }
-  body > nav.nav .brand{display:flex;align-items:center;gap:10px;min-width:0;color:#0f172a;text-decoration:none;white-space:nowrap}
-  body > nav.nav .brand img{width:40px;height:40px;border-radius:12px;object-fit:contain;flex:0 0 auto}
-  body > nav.nav .brand-copy{display:flex;flex-direction:column;line-height:1.1;min-width:0}
-  body > nav.nav .brand-title{font-size:1.05rem;font-weight:900;letter-spacing:-.02em}
-  body > nav.nav .brand-subtitle{margin-top:3px;color:#64748b;font-size:.72rem;font-weight:800;letter-spacing:.02em}
+  body > nav.nav .brand{
+    display:flex;
+    align-items:center;
+    justify-self:start;
+    gap:12px;
+    min-width:max-content;
+    color:#0f172a;
+    text-decoration:none;
+    white-space:nowrap;
+    font-weight:850;
+  }
+  body > nav.nav .brand img{
+    width:40px;
+    height:40px;
+    flex:0 0 40px;
+    border-radius:12px;
+    object-fit:contain;
+    background:#fff;
+    box-shadow:0 10px 24px rgba(15,23,42,.08);
+  }
+  body > nav.nav .brand-copy{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    min-width:0;
+    line-height:1.08;
+  }
+  body > nav.nav .brand-title{
+    font-size:1.06rem;
+    font-weight:900;
+    letter-spacing:-.03em;
+    white-space:nowrap;
+  }
+  body > nav.nav .brand-subtitle{
+    margin-top:4px;
+    color:#64748b;
+    font-size:.79rem;
+    font-weight:650;
+    white-space:nowrap;
+  }
   body > nav.nav .nav-links{
-    min-width:0;display:flex;align-items:center;justify-content:center;gap:4px;
-    flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    justify-self:center;
+    gap:5px;
+    min-width:0;
+    max-width:100%;
+    flex-wrap:nowrap;
+    overflow:visible;
+    scrollbar-width:auto;
   }
-  body > nav.nav .nav-links::-webkit-scrollbar{display:none}
-  body > nav.nav .nav-link{
-    flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-height:38px;
-    padding:8px 9px;border-radius:12px;color:#334155;font-size:.84rem;font-weight:850;
-    line-height:1;text-decoration:none;white-space:nowrap;border:1px solid transparent;transition:background .18s,color .18s,border-color .18s;
-  }
-  body > nav.nav .nav-link:hover{background:#f1f5f9;color:#0f172a;border-color:#e2e8f0}
-  body > nav.nav .lang-group{position:relative;display:flex;align-items:center;justify-content:flex-end;flex:0 0 auto}
+  body > nav.nav .nav-link,
   body > nav.nav .lang-trigger{
-    min-width:116px;height:40px;display:inline-flex;align-items:center;justify-content:space-between;gap:8px;
-    border:1px solid #e2e8f0;border-radius:14px;background:#fff;color:#334155;padding:0 34px 0 13px;
-    font-size:.86rem;font-weight:900;cursor:pointer;position:relative;white-space:nowrap;box-shadow:0 4px 12px rgba(15,23,42,.04);
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    min-height:40px;
+    height:auto;
+    min-width:0;
+    padding:9px 9px;
+    border:1px solid transparent;
+    border-radius:13px;
+    background:transparent;
+    color:#334155;
+    box-shadow:none;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:760;
+    line-height:1;
+    white-space:nowrap;
+    text-decoration:none;
+    transition:background .18s,color .18s,border-color .18s;
+  }
+  body > nav.nav .nav-link:hover,
+  body > nav.nav .lang-trigger:hover,
+  body > nav.nav .lang-group:hover .lang-trigger,
+  body > nav.nav .lang-group.open .lang-trigger{
+    background:#fff;
+    color:#0f172a;
+    border-color:#e2e8f0;
+  }
+  body > nav.nav .lang-group{
+    position:relative;
+    display:block;
+    justify-self:end;
+    padding-bottom:14px;
+    margin-bottom:-14px;
+    flex:0 0 auto;
+  }
+  body > nav.nav .lang-group::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    top:100%;
+    height:14px;
+  }
+  body > nav.nav .lang-trigger{
+    position:relative;
+    padding-right:28px;
   }
   body > nav.nav .lang-trigger::after{
-    content:"";position:absolute;right:12px;top:50%;width:8px;height:8px;border-right:2px solid #64748b;border-bottom:2px solid #64748b;
-    transform:translateY(-65%) rotate(45deg);pointer-events:none;
+    content:"";
+    position:absolute;
+    right:11px;
+    top:50%;
+    width:7px;
+    height:7px;
+    border-right:2px solid #64748b;
+    border-bottom:2px solid #64748b;
+    transform:translateY(-65%) rotate(45deg);
+    pointer-events:none;
+    transition:transform .2s ease;
+  }
+  body > nav.nav .lang-group:hover .lang-trigger::after,
+  body > nav.nav .lang-group.open .lang-trigger::after,
+  body > nav.nav .lang-group:focus-within .lang-trigger::after{
+    transform:translateY(-35%) rotate(225deg);
   }
   body > nav.nav .lang-dropdown{
-    position:absolute;right:0;top:calc(100% + 10px);min-width:148px;padding:8px;background:#fff;border:1px solid #e2e8f0;
-    border-radius:16px;box-shadow:0 18px 38px rgba(15,23,42,.14);opacity:0;visibility:hidden;transform:translateY(6px);
-    transition:opacity .16s,transform .16s,visibility .16s;
+    position:absolute;
+    top:calc(100% + 2px);
+    right:0;
+    left:auto;
+    min-width:180px;
+    padding:10px;
+    display:none;
+    opacity:1;
+    visibility:visible;
+    transform:none;
+    z-index:1100;
+    background:#fff;
+    border:1px solid #e2e8f0;
+    border-radius:18px;
+    box-shadow:0 18px 42px rgba(15,23,42,.10);
+    transition:none;
   }
-  body > nav.nav .lang-group.open .lang-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+  body > nav.nav .lang-group.open .lang-dropdown{
+    display:block;
+  }
   body > nav.nav .lang-dropdown button{
-    width:100%;display:block;border:0;background:transparent;border-radius:11px;padding:10px 11px;text-align:left;color:#334155;
-    font-size:.88rem;font-weight:850;cursor:pointer;white-space:nowrap;
+    display:block;
+    width:100%;
+    padding:10px 12px;
+    border:0;
+    border-radius:12px;
+    background:transparent;
+    color:#334155;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:760;
+    line-height:1.2;
+    text-align:left;
+    white-space:nowrap;
   }
   body > nav.nav .lang-dropdown button:hover,
-  body > nav.nav .lang-dropdown button.active{background:#eff6ff;color:#1d4ed8}
-  @media (max-width:1080px){
+  body > nav.nav .lang-dropdown button.active{
+    background:#f8fafc;
+    color:#0f172a;
+  }
+  @media (max-width:1120px){
+    body > nav.nav .nav-inner{
+      grid-template-columns:minmax(150px,1fr) auto minmax(150px,1fr);
+      gap:12px;
+    }
     body > nav.nav .brand-subtitle{display:none}
-    body > nav.nav .nav-inner{gap:10px}
-    body > nav.nav .nav-link{padding:8px 7px;font-size:.8rem}
-    body > nav.nav .lang-trigger{min-width:104px;font-size:.8rem}
+    body > nav.nav .nav-link,
+    body > nav.nav .lang-trigger{
+      padding:8px 7px;
+      font-size:12.5px;
+    }
+    body > nav.nav .lang-trigger{padding-right:26px}
+    body > nav.nav .nav-links{gap:4px}
   }
-  @media (max-width:860px){
-    body > nav.nav .nav-inner{grid-template-columns:minmax(0,1fr) auto;min-height:auto;padding:10px 0}
-    body > nav.nav .nav-links{grid-column:1 / -1;grid-row:2;justify-content:flex-start;padding:2px 0 4px}
-    body > nav.nav .brand-title{font-size:1rem}
+  @media (max-width:980px){
+    body > nav.nav .nav-inner{
+      display:flex;
+      align-items:flex-start;
+      flex-direction:column;
+      padding:12px 20px;
+    }
+    body > nav.nav .brand,
+    body > nav.nav .lang-group{
+      justify-self:auto;
+    }
+    body > nav.nav .nav-links{
+      width:100%;
+      justify-content:flex-start;
+      justify-self:auto;
+      flex-wrap:wrap;
+    }
   }
-  @media (max-width:480px){
-    body > nav.nav .nav-inner{width:min(100% - 20px,var(--max))}
-    body > nav.nav .brand img{width:36px;height:36px}
-    body > nav.nav .lang-trigger{min-width:96px;height:38px;padding-left:11px}
+  @media (max-width:760px){
+    body > nav.nav .lang-dropdown{
+      left:0;
+      right:auto;
+    }
   }
 </style>
 
@@ -421,6 +582,59 @@
     body > footer.footer .footer-links a{min-height:32px;padding:7px 9px;font-size:.8rem}
   }
 </style>
+
+
+<style id="upload-final-review-fixes">
+  /* Final review fixes for AdSense-readiness: stable navigation, footer, FAQ cards and language overflow. */
+  body{overflow-x:hidden}
+  body > nav.nav .nav-inner{box-sizing:border-box}
+  body > nav.nav .nav-link,
+  body > nav.nav .lang-trigger{box-sizing:border-box}
+  body > nav.nav .lang-dropdown{z-index:1200}
+  .main-card,.section-card,.tool-guidance{max-width:100%}
+  .section-card p,.detail-item p,.faq-item p,.example-item p,.notice,.intro-text{overflow-wrap:anywhere}
+  .faq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;align-items:stretch}
+  .faq-item{min-height:100%;display:flex;flex-direction:column}
+  .faq-item h3{margin:0 0 8px;line-height:1.35}
+  .faq-item p{margin:0;line-height:1.7}
+  body > footer.footer .footer-copyright{font-weight:850;color:#64748b;white-space:nowrap}
+  @media (min-width:1121px){
+    body > nav.nav .nav-inner{grid-template-columns:minmax(180px,1fr) auto minmax(180px,1fr)}
+    body > nav.nav .brand{justify-self:start}
+    body > nav.nav .nav-links{justify-self:center;max-width:100%}
+    body > nav.nav .lang-group{justify-self:end}
+  }
+  @media (max-width:1120px){
+    body > nav.nav .nav-links{justify-content:flex-start;flex-wrap:wrap;overflow:visible}
+  }
+  @media (max-width:640px){
+    h1{font-size:clamp(1.9rem,10vw,2.5rem)}
+    .main-card{border-radius:20px}
+    .log-body{height:180px}
+    .faq-grid{grid-template-columns:1fr}
+  }
+</style>
+
+
+<style id="upload-language-arrow-unify">
+  /* Keep the upload page language switcher visually identical to the homepage: no dropdown triangle. */
+  body > nav.nav .lang-trigger{
+    padding-right:9px !important;
+  }
+  body > nav.nav .lang-trigger::after{
+    content:none !important;
+    display:none !important;
+    border:0 !important;
+    width:0 !important;
+    height:0 !important;
+  }
+  @media (max-width:1120px){
+    body > nav.nav .lang-trigger{
+      padding-right:7px !important;
+    }
+  }
+</style>
+
 </head>
 <body>
   <nav class="nav" aria-label="Primary navigation">
@@ -455,7 +669,7 @@
       <div class="eyebrow" id="eyebrowText">Free Image Hosting • Remote Storage</div>
       <h1 id="pageTitle">Free Image Hosting for GitHub README, Markdown and Docs</h1>
       <p class="intro-text" id="introText">
-        Upload an image, choose how long it should stay online, and get a shareable image link. This free image hosting page is useful for screenshots, Website images, product images and quick online sharing.
+        Upload an image, choose how long it should stay online, and get a shareable image link. This free image hosting page is useful for screenshots, website images, product images and quick online sharing.
       </p>
       <div class="notice" id="noticeText">
         Use this free image hosting page only for images you are comfortable uploading to the service. Simple math verification helps reduce abuse, and approved storage codes can be used for long-term image hosting.
@@ -555,7 +769,7 @@
           </div>
           <div class="result-item">
             <label id="resultHtmlLabel" for="htmlOutput">HTML</label>
-            <small class="format-use" id="resultHtmlUse">For web pages, Website editors and CMS templates.</small>
+            <small class="format-use" id="resultHtmlUse">For web pages, website editors and CMS templates.</small>
             <div class="copy-row">
               <textarea class="copy-field" id="htmlOutput" rows="2" readonly></textarea>
               <button class="copy-btn" id="copyHtmlBtn" type="button" data-copy-target="htmlOutput">Copy HTML</button>
@@ -576,7 +790,7 @@
     <section class="section-card">
       <h2 id="sectionTitle">Why use this free image hosting tool</h2>
       <p id="sectionIntro">
-        This page uploads the selected file to the Mini-Tools.uk service so a hosted image URL can be created with the retention period you choose. It is useful for GitHub README files, Markdown documents, Website images, forum posts, support tickets, marketplace images and quick screenshot sharing.
+        This page uploads the selected file to the Mini-Tools.uk service so a hosted image URL can be created with the retention period you choose. It is useful for GitHub README files, Markdown documents, website images, forum posts, support tickets, marketplace images and quick screenshot sharing.
       </p>
       <div class="detail-grid" aria-label="Image hosting link formats">
         <div class="detail-item">
@@ -589,7 +803,7 @@
         </div>
         <div class="detail-item">
           <strong id="formatHtmlTitle">HTML</strong>
-          <p id="formatHtmlText">Use the HTML image tag in websites, Website editors, CMS blocks and custom templates.</p>
+          <p id="formatHtmlText">Use the HTML image tag in websites, website editors, CMS blocks and custom templates.</p>
         </div>
         <div class="detail-item">
           <strong id="formatBbcodeTitle">BBCode</strong>
@@ -614,7 +828,7 @@
         </div>
         <div class="detail-item">
           <strong id="retentionThirtyTitle">Delete after 30 days</strong>
-          <p id="retentionThirtyText">Useful for longer temporary references, Website drafts and review cycles.</p>
+          <p id="retentionThirtyText">Useful for longer temporary references, website drafts and review cycles.</p>
         </div>
         <div class="detail-item">
           <strong id="retentionPermanentTitle">Permanent storage</strong>
@@ -673,7 +887,7 @@
         </article>
         <article class="example-item">
           <h3 id="markdownExampleTitle">Markdown</h3>
-          <p id="markdownExampleText">Use Markdown in docs, Website engines, issue comments and notes that support image embeds.</p>
+          <p id="markdownExampleText">Use Markdown in docs, website engines, issue comments and notes that support image embeds.</p>
           <pre class="example-code"><code>![Alt text](https://mini-tools.uk/example-image.webp)</code></pre>
         </article>
         <article class="example-item">
@@ -707,7 +921,7 @@
         </article>
         <article class="faq-item">
           <h3 id="faq4Title">What can I use this free image host for?</h3>
-          <p id="faq4Text">It is useful for screenshots, Website images, product photos, forum posts, support tickets and other simple image sharing tasks.</p>
+          <p id="faq4Text">It is useful for screenshots, website images, product photos, forum posts, support tickets and other simple image sharing tasks.</p>
         </article>
         <article class="faq-item">
           <h3 id="faq5Title">Can I use the link in a GitHub README?</h3>
@@ -718,8 +932,8 @@
           <p id="faq6Text">Use Direct URL for plain links, Markdown for README files and docs, HTML for web pages, and BBCode for forums.</p>
         </article>
         <article class="faq-item">
-          <h3 id="faq7Title">Can I use it for Website images?</h3>
-          <p id="faq7Text">Yes. You can copy Markdown or HTML embed code and paste it into Website posts, documentation or forum content.</p>
+          <h3 id="faq7Title">Can I use it for website images?</h3>
+          <p id="faq7Text">Yes. You can copy Markdown or HTML embed code and paste it into website posts, documentation or forum content.</p>
         </article>
         <article class="faq-item">
           <h3 id="faq8Title">Do I need a long-term storage code?</h3>
@@ -731,17 +945,21 @@
 
   <section class="container tool-guidance" id="tool-guidance">
   <div class="article">
-    <h2 id="guidanceTitle">Original notes for Free Image Hosting</h2>
-    <p id="guidanceNotes">Use this image hosting page when you need a quick public image URL for documentation, issue reports, forum posts or lightweight sharing. It is designed for simple files where a direct link and copyable embed formats matter more than album management.</p>
-    <h3 id="guidanceExampleTitle">Example</h3><p id="guidanceExampleText">Example: upload a screenshot for a GitHub issue, choose a short retention period, then copy the Markdown link into the issue description.</p>
-    <h3 id="guidanceLimitationsTitle">Limitations</h3><p id="guidanceLimitationsText">Uploaded images are processed by a remote service and links are not private. Do not upload identity documents, confidential screenshots, copyrighted material you cannot share, or files that need access control.</p>
-    <h3 id="guidanceFaqTitle">FAQ</h3><p><strong id="guidanceFaqText">Can I use it for private images? No. Treat hosted links as public to anyone who has the URL.</strong></p>
-    <h3 id="guidanceRelatedTitle">Related tools</h3><p><a href="/image" id="guidanceRelatedImage">Image Compressor</a> <a href="/pdf2img" id="guidanceRelatedPdf">PDF to Image</a> <a href="/privacy" id="guidanceRelatedPrivacy">Privacy</a></p>
+    <h2 id="guidanceTitle">How to use this image hosting tool safely</h2>
+    <p id="guidanceNotes">Use this image hosting page when you need a quick image URL for documentation, issue reports, forum posts or lightweight sharing. It is designed for simple files where a direct link and copyable embed formats matter more than album management.</p>
+    <h3 id="guidanceExampleTitle">Practical example</h3>
+    <p id="guidanceExampleText">Upload a screenshot for a GitHub issue, choose a short retention period, then copy the Markdown link into the issue description.</p>
+    <h3 id="guidanceLimitationsTitle">Important limits</h3>
+    <p id="guidanceLimitationsText">Uploaded images are processed by a remote service and links are not private. Do not upload identity documents, confidential screenshots, copyrighted material you cannot share, or files that need access control.</p>
+    <h3 id="guidanceFaqTitle">Safety FAQ</h3>
+    <p><strong id="guidanceFaqText">Can I use it for private images? No. Treat hosted links as public to anyone who has the URL.</strong></p>
+    <h3 id="guidanceRelatedTitle">Related tools</h3>
+    <p><a href="/image" id="guidanceRelatedImage">Image Compressor</a> <a href="/pdf2img" id="guidanceRelatedPdf">PDF to Image</a> <a href="/privacy" id="guidanceRelatedPrivacy">Privacy Policy</a></p>
   </div>
 </section>
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>&copy; 2026 Mini-Tools.uk</div>
+    <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
     <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
@@ -757,13 +975,13 @@
         ogTitle: "Free Image Hosting | Mini-Tools",
         ogDescription: "Free image hosting with direct URL, Markdown, HTML and BBCode output, selectable retention settings and clear upload rules.",
         schemaAppName: "Mini-Tools Free Image Hosting",
-        schemaDescription: "Free image hosting for screenshots, README images, Website images and other shareable image links with selectable retention periods and clear upload rules.",
+        schemaDescription: "Free image hosting for screenshots, README images, website images and other shareable image links with selectable retention periods and clear upload rules.",
         schemaFaq1Title: "Is this image hosting tool free to use?",
         schemaFaq1Text: "Yes. You can upload images and copy direct links, Markdown, HTML or BBCode snippets for common publishing workflows.",
         schemaFaq2Title: "How long are uploaded images kept?",
         schemaFaq2Text: "Images are kept according to the selected retention option: 1 day, 7 days, 30 days, or permanent storage when a valid approved storage code is used. Do not upload private, sensitive, illegal or infringing content.",
-        schemaFaq3Title: "Can I use it for Website images?",
-        schemaFaq3Text: "Yes. You can copy Markdown or HTML embed code and paste it into Website posts, documentation or forum content.",
+        schemaFaq3Title: "Can I use it for website images?",
+        schemaFaq3Text: "Yes. You can copy Markdown or HTML embed code and paste it into website posts, documentation or forum content.",
 
         navHome: "Home",
         navAllTools: "Search Tools",
@@ -776,7 +994,7 @@
 
         eyebrowText: "Free Image Hosting • Remote Storage",
         pageTitle: "Free Image Hosting for GitHub README, Markdown and Docs",
-        introText: "Upload an image, choose how long it should stay online, and get a shareable image link. This free image hosting page is useful for screenshots, Website images, product images and quick online sharing.",
+        introText: "Upload an image, choose how long it should stay online, and get a shareable image link. This free image hosting page is useful for screenshots, website images, product images and quick online sharing.",
         noticeText: "Use this free image hosting page only for images you are comfortable uploading to the service. Simple math verification helps reduce abuse, and approved storage codes can be used for long-term image hosting.",
 
         retentionLabel: "1. Retention period",
@@ -802,13 +1020,13 @@
         logTitle: "Upload terminal",
 
         sectionTitle: "Why use this free image hosting tool",
-        sectionIntro: "This page uploads the selected file to the Mini-Tools.uk service so a hosted image URL can be created with the retention period you choose. It is useful for GitHub README files, Markdown documents, Website images, forum posts, support tickets, marketplace images and quick screenshot sharing.",
+        sectionIntro: "This page uploads the selected file to the Mini-Tools.uk service so a hosted image URL can be created with the retention period you choose. It is useful for GitHub README files, Markdown documents, website images, forum posts, support tickets, marketplace images and quick screenshot sharing.",
         formatDirectTitle: "Direct URL",
         formatDirectText: "Copy the raw image link for messages, documents, previews and tools that ask for an image URL.",
         formatMarkdownTitle: "Markdown",
         formatMarkdownText: "Use the Markdown output in GitHub README files, documentation pages and issue comments.",
         formatHtmlTitle: "HTML",
-        formatHtmlText: "Use the HTML image tag in websites, Website editors, CMS blocks and custom templates.",
+        formatHtmlText: "Use the HTML image tag in websites, website editors, CMS blocks and custom templates.",
         formatBbcodeTitle: "BBCode",
         formatBbcodeText: "Use BBCode for forums and communities that still support classic image tags.",
         retentionTitle: "How image retention works",
@@ -818,7 +1036,7 @@
         retentionSevenTitle: "Delete after 7 days",
         retentionSevenText: "Useful for drafts, feedback links and short project references.",
         retentionThirtyTitle: "Delete after 30 days",
-        retentionThirtyText: "Useful for longer temporary references, Website drafts and review cycles.",
+        retentionThirtyText: "Useful for longer temporary references, website drafts and review cycles.",
         retentionPermanentTitle: "Permanent storage",
         retentionPermanentText: "Requires a valid approved storage code and may still be removed if it violates upload rules.",
         rulesTitle: "What not to upload",
@@ -847,7 +1065,7 @@
         faq3Title: "What is the long-term storage code for?",
         faq3Text: "It is an optional code for approved long-term image hosting. Normal free image uploads can leave it blank.",
         faq4Title: "What can I use this free image host for?",
-        faq4Text: "It is useful for screenshots, Website images, product photos, forum posts, support tickets and other simple image sharing tasks.",
+        faq4Text: "It is useful for screenshots, website images, product photos, forum posts, support tickets and other simple image sharing tasks.",
 
 
         resultTitle: "Your hosted image links",
@@ -857,7 +1075,7 @@
         resultMarkdownLabel: "Markdown",
         resultMarkdownUse: "For GitHub README, Markdown docs and issue comments.",
         resultHtmlLabel: "HTML",
-        resultHtmlUse: "For web pages, Website editors and CMS templates.",
+        resultHtmlUse: "For web pages, website editors and CMS templates.",
         resultBbcodeLabel: "BBCode",
         resultBbcodeUse: "For forums and communities that support BBCode.",
         copyDirectBtn: "Copy URL",
@@ -871,7 +1089,7 @@
         readmeExampleTitle: "GitHub README",
         readmeExampleText: "Paste the Markdown output into README.md to show the hosted image in a repository page.",
         markdownExampleTitle: "Markdown",
-        markdownExampleText: "Use Markdown in docs, Website engines, issue comments and notes that support image embeds.",
+        markdownExampleText: "Use Markdown in docs, website engines, issue comments and notes that support image embeds.",
         htmlExampleTitle: "HTML",
         htmlExampleText: "Use HTML when you need an image tag for a website, CMS block or custom template.",
         bbcodeExampleTitle: "BBCode",
@@ -882,8 +1100,8 @@
         faq5Text: "Yes. Upload the image, copy the Markdown output, and paste it into README.md or a GitHub issue comment.",
         faq6Title: "Which output format should I copy?",
         faq6Text: "Use Direct URL for plain links, Markdown for README files and docs, HTML for web pages, and BBCode for forums.",
-        faq7Title: "Can I use it for Website images?",
-        faq7Text: "Yes. You can copy Markdown or HTML embed code and paste it into Website posts, documentation or forum content.",
+        faq7Title: "Can I use it for website images?",
+        faq7Text: "Yes. You can copy Markdown or HTML embed code and paste it into website posts, documentation or forum content.",
         faq8Title: "Do I need a long-term storage code?",
         faq8Text: "Only permanent storage requires an approved long-term storage code. Normal 1 day, 7 day and 30 day uploads can leave it blank.",
         footerHome: "Home",
@@ -1140,7 +1358,7 @@
         formatMarkdownTitle: "Markdown",
         formatMarkdownText: "Nutze die Markdown-Ausgabe für GitHub README, Dokumentationsseiten und Issue-Kommentare.",
         formatHtmlTitle: "HTML",
-        formatHtmlText: "Nutze das HTML-Bild-Tag für Websites, Website-Editoren, CMS-Blöcke und Templates.",
+        formatHtmlText: "Nutze das HTML-Bild-Tag für websites, website-Editoren, CMS-Blöcke und Templates.",
         formatBbcodeTitle: "BBCode",
         formatBbcodeText: "Nutze BBCode für Foren und Communities mit klassischen Bild-Tags.",
         retentionTitle: "So funktioniert die Bildaufbewahrung",
@@ -1150,7 +1368,7 @@
         retentionSevenTitle: "Nach 7 Tagen löschen",
         retentionSevenText: "Für Entwürfe, Feedback-Links und kurze Projektreferenzen.",
         retentionThirtyTitle: "Nach 30 Tagen löschen",
-        retentionThirtyText: "Für längere temporäre Referenzen, Website-Entwürfe und Review-Zyklen.",
+        retentionThirtyText: "Für längere temporäre Referenzen, website-Entwürfe und Review-Zyklen.",
         retentionPermanentTitle: "Dauerhafte Speicherung",
         retentionPermanentText: "Benötigt einen gültigen genehmigten Code und kann bei Regelverstößen entfernt werden.",
         rulesTitle: "Was nicht hochgeladen werden darf",
@@ -1189,7 +1407,7 @@
         resultMarkdownLabel: "Markdown",
         resultMarkdownUse: "Für GitHub README, Markdown-Dokumente und Issue-Kommentare.",
         resultHtmlLabel: "HTML",
-        resultHtmlUse: "Für Webseiten, Website-Editoren und CMS-Templates.",
+        resultHtmlUse: "Für Webseiten, website-Editoren und CMS-Templates.",
         resultBbcodeLabel: "BBCode",
         resultBbcodeUse: "Für Foren und Communities, die BBCode unterstützen.",
         copyDirectBtn: "URL kopieren",
@@ -1203,7 +1421,7 @@
         readmeExampleTitle: "GitHub README",
         readmeExampleText: "Füge die Markdown-Ausgabe in README.md ein, um das gehostete Bild auf der Repository-Seite anzuzeigen.",
         markdownExampleTitle: "Markdown",
-        markdownExampleText: "Nutze Markdown in Dokumentationen, Website-Systemen, Issue-Kommentaren und Notizen mit Bildunterstützung.",
+        markdownExampleText: "Nutze Markdown in Dokumentationen, website-Systemen, Issue-Kommentaren und Notizen mit Bildunterstützung.",
         htmlExampleTitle: "HTML",
         htmlExampleText: "Nutze HTML, wenn du ein Bild-Tag für eine Webseite, ein CMS-Modul oder ein Template brauchst.",
         bbcodeExampleTitle: "BBCode",
@@ -1255,13 +1473,13 @@
         ogTitle: "Hébergement d’images gratuit | Mini-Tools",
         ogDescription: "Hébergement d’images gratuit avec liens partageables, aperçu dans le navigateur, durées de conservation au choix et codes optionnels de stockage longue durée.",
         schemaAppName: "Mini-Tools Hébergement d’images gratuit",
-        schemaDescription: "Hébergement d’images gratuit pour captures d’écran, images de Website, photos produits et autres liens d’images partageables avec durées de conservation au choix.",
+        schemaDescription: "Hébergement d’images gratuit pour captures d’écran, images de website, photos produits et autres liens d’images partageables avec durées de conservation au choix.",
         schemaFaq1Title: "Cet outil d’hébergement d’images est-il gratuit ?",
         schemaFaq1Text: "Oui. Vous pouvez téléverser des images et copier des liens directs, des extraits Markdown, HTML ou BBCode pour les usages de publication courants.",
         schemaFaq2Title: "Combien de temps les images téléversées sont-elles conservées ?",
         schemaFaq2Text: "Les images sont conservées selon l’option choisie : 1 jour, 7 jours, 30 jours ou stockage permanent avec un code approuvé valide. Ne téléversez pas de contenu privé, sensible, illégal ou contrefaisant.",
-        schemaFaq3Title: "Puis-je l’utiliser pour des images de Website ?",
-        schemaFaq3Text: "Oui. Vous pouvez copier le code d’intégration Markdown ou HTML et le coller dans des articles de Website, de la documentation ou du contenu de forum.",
+        schemaFaq3Title: "Puis-je l’utiliser pour des images de website ?",
+        schemaFaq3Text: "Oui. Vous pouvez copier le code d’intégration Markdown ou HTML et le coller dans des articles de website, de la documentation ou du contenu de forum.",
 
         navHome: "Accueil",
         navAllTools: "Tous les outils",
@@ -1274,7 +1492,7 @@
 
         eyebrowText: "Hébergement d’images gratuit • Stockage distant",
         pageTitle: "Hébergement d’images gratuit pour Markdown, README et blogs",
-        introText: "Téléversez une image, choisissez combien de temps elle reste en ligne et obtenez un lien image partageable. Cette page est utile pour les captures d’écran, les images de Website, les photos produits et le partage rapide.",
+        introText: "Téléversez une image, choisissez combien de temps elle reste en ligne et obtenez un lien image partageable. Cette page est utile pour les captures d’écran, les images de website, les photos produits et le partage rapide.",
         noticeText: "Utilisez cette page uniquement pour les images que vous acceptez d’envoyer au service. Une simple opération aide à réduire les abus, et des codes approuvés peuvent être utilisés pour le stockage longue durée.",
 
         retentionLabel: "1. Durée de conservation",
@@ -1300,13 +1518,13 @@
         logTitle: "Terminal d’envoi",
 
         sectionTitle: "Pourquoi utiliser cet hébergement d’images gratuit ?",
-        sectionIntro: "Cette page téléverse le fichier sélectionné vers Mini-Tools.uk afin de créer une URL d’image hébergée avec la durée de conservation choisie. Elle convient aux README GitHub, documents Markdown, images de Website, forums, tickets de support et captures d’écran.",
+        sectionIntro: "Cette page téléverse le fichier sélectionné vers Mini-Tools.uk afin de créer une URL d’image hébergée avec la durée de conservation choisie. Elle convient aux README GitHub, documents Markdown, images de website, forums, tickets de support et captures d’écran.",
         formatDirectTitle: "URL directe",
         formatDirectText: "Copiez le lien brut de l’image pour messages, documents, aperçus et outils demandant une URL d’image.",
         formatMarkdownTitle: "Markdown",
         formatMarkdownText: "Utilisez la sortie Markdown dans les README GitHub, pages de documentation et commentaires.",
         formatHtmlTitle: "HTML",
-        formatHtmlText: "Utilisez la balise image HTML dans sites web, éditeurs de Website, blocs CMS et modèles.",
+        formatHtmlText: "Utilisez la balise image HTML dans sites web, éditeurs de website, blocs CMS et modèles.",
         formatBbcodeTitle: "BBCode",
         formatBbcodeText: "Utilisez BBCode pour les forums et communautés compatibles.",
         retentionTitle: "Fonctionnement de la conservation",
@@ -1316,7 +1534,7 @@
         retentionSevenTitle: "Supprimer après 7 jours",
         retentionSevenText: "Utile pour brouillons, liens de retour et références de projet courtes.",
         retentionThirtyTitle: "Supprimer après 30 jours",
-        retentionThirtyText: "Utile pour références temporaires plus longues, brouillons de Website et cycles de revue.",
+        retentionThirtyText: "Utile pour références temporaires plus longues, brouillons de website et cycles de revue.",
         retentionPermanentTitle: "Stockage permanent",
         retentionPermanentText: "Nécessite un code approuvé valide et peut être supprimé en cas de violation des règles.",
         rulesTitle: "Ce qu’il ne faut pas téléverser",
@@ -1345,7 +1563,7 @@
         faq3Title: "À quoi sert le code de stockage longue durée ?",
         faq3Text: "C’est un code facultatif pour un hébergement d’images longue durée approuvé. Les envois normaux peuvent le laisser vide.",
         faq4Title: "À quoi sert cet hébergeur d’images gratuit ?",
-        faq4Text: "Il est utile pour les captures d’écran, images de Website, photos produits, messages de forum, tickets de support et autres partages d’images simples.",
+        faq4Text: "Il est utile pour les captures d’écran, images de website, photos produits, messages de forum, tickets de support et autres partages d’images simples.",
 
 
         resultTitle: "Vos liens d’image hébergée",
@@ -1355,7 +1573,7 @@
         resultMarkdownLabel: "Markdown",
         resultMarkdownUse: "Pour GitHub README, les documents Markdown et les commentaires d’issues.",
         resultHtmlLabel: "HTML",
-        resultHtmlUse: "Pour les pages web, éditeurs de Website et modèles CMS.",
+        resultHtmlUse: "Pour les pages web, éditeurs de website et modèles CMS.",
         resultBbcodeLabel: "BBCode",
         resultBbcodeUse: "Pour les forums et communautés qui prennent BBCode en charge.",
         copyDirectBtn: "Copier l’URL",
@@ -1369,7 +1587,7 @@
         readmeExampleTitle: "GitHub README",
         readmeExampleText: "Collez la sortie Markdown dans README.md pour afficher l’image hébergée sur la page du dépôt.",
         markdownExampleTitle: "Markdown",
-        markdownExampleText: "Utilisez Markdown dans les docs, moteurs de Website, commentaires d’issue et notes qui acceptent les images.",
+        markdownExampleText: "Utilisez Markdown dans les docs, moteurs de website, commentaires d’issue et notes qui acceptent les images.",
         htmlExampleTitle: "HTML",
         htmlExampleText: "Utilisez HTML lorsque vous avez besoin d’une balise image pour un site, un bloc CMS ou un modèle personnalisé.",
         bbcodeExampleTitle: "BBCode",
@@ -1380,8 +1598,8 @@
         faq5Text: "Oui. Téléversez l’image, copiez la sortie Markdown, puis collez-la dans README.md ou un commentaire d’issue GitHub.",
         faq6Title: "Quel format dois-je copier ?",
         faq6Text: "Utilisez l’URL directe pour les liens simples, Markdown pour les README et docs, HTML pour les pages web, et BBCode pour les forums.",
-        faq7Title: "Puis-je l’utiliser pour des images de Website ?",
-        faq7Text: "Oui. Vous pouvez copier le code d’intégration Markdown ou HTML et le coller dans des articles de Website, de la documentation ou du contenu de forum.",
+        faq7Title: "Puis-je l’utiliser pour des images de website ?",
+        faq7Text: "Oui. Vous pouvez copier le code d’intégration Markdown ou HTML et le coller dans des articles de website, de la documentation ou du contenu de forum.",
         faq8Title: "Ai-je besoin d’un code de stockage longue durée ?",
         faq8Text: "Seul le stockage permanent nécessite un code approuvé. Les envois de 1 jour, 7 jours et 30 jours peuvent le laisser vide.",
         footerHome: "Accueil",
@@ -1421,13 +1639,13 @@
         ogTitle: "Alojamiento gratuito de imágenes | Mini-Tools",
         ogDescription: "Alojamiento gratuito de imágenes con enlaces compartibles, vista previa en el navegador, tiempos de retención seleccionables y códigos opcionales para almacenamiento prolongado.",
         schemaAppName: "Mini-Tools Alojamiento gratuito de imágenes",
-        schemaDescription: "Alojamiento gratuito de imágenes para capturas, imágenes de Website, fotos de productos y otros enlaces de imagen compartibles con tiempos de retención seleccionables.",
+        schemaDescription: "Alojamiento gratuito de imágenes para capturas, imágenes de website, fotos de productos y otros enlaces de imagen compartibles con tiempos de retención seleccionables.",
         schemaFaq1Title: "¿Esta herramienta de alojamiento de imágenes es gratis?",
         schemaFaq1Text: "Sí. Puedes subir imágenes y copiar enlaces directos, fragmentos Markdown, HTML o BBCode para flujos habituales de publicación.",
         schemaFaq2Title: "¿Cuánto tiempo se conservan las imágenes subidas?",
-        schemaFaq2Text: "Las imágenes subidas pueden almacenarse para compartir y mostrar. No subas contenido privado, sensible o ilegal.",
-        schemaFaq3Title: "¿Puedo usarlo para imágenes de Website?",
-        schemaFaq3Text: "Sí. Puedes copiar código de inserción Markdown o HTML y pegarlo en entradas de Website, documentación o contenido de foros.",
+        schemaFaq2Text: "Las imágenes se conservan según la opción elegida: 1 día, 7 días, 30 días o almacenamiento permanente cuando se usa un código aprobado válido. No subas contenido privado, sensible, ilegal o que infrinja derechos.",
+        schemaFaq3Title: "¿Puedo usarlo para imágenes de website?",
+        schemaFaq3Text: "Sí. Puedes copiar código de inserción Markdown o HTML y pegarlo en entradas de website, documentación o contenido de foros.",
 
         navHome: "Inicio",
         navAllTools: "Todas las herramientas",
@@ -1440,7 +1658,7 @@
 
         eyebrowText: "Alojamiento gratuito de imágenes • Almacenamiento remoto",
         pageTitle: "Alojamiento gratuito de imágenes para Markdown, README y blogs",
-        introText: "Sube una imagen, elige cuánto tiempo debe permanecer en línea y obtén un enlace compartible. Esta página es útil para capturas de pantalla, imágenes de Website, fotos de productos y compartición rápida.",
+        introText: "Sube una imagen, elige cuánto tiempo debe permanecer en línea y obtén un enlace compartible. Esta página es útil para capturas de pantalla, imágenes de website, fotos de productos y compartición rápida.",
         noticeText: "Usa esta página solo para imágenes que aceptes subir al servicio. Una operación matemática sencilla ayuda a reducir abusos, y los códigos aprobados pueden utilizarse para almacenamiento prolongado.",
 
         retentionLabel: "1. Tiempo de retención",
@@ -1466,7 +1684,44 @@
         logTitle: "Terminal de subida",
 
         sectionTitle: "¿Por qué usar este alojamiento gratuito de imágenes?",
-        sectionIntro: "Esta es una herramienta de alojamiento gratuito de imágenes basada en servidor para crear enlaces directos. Funciona bien para capturas de pantalla, contenido de Website, listados de productos, comentarios de diseño y uso general. A diferencia de las herramientas locales, esta página sube el archivo seleccionado para crear una URL de imagen alojada con el tiempo de retención elegido.",
+        sectionIntro: "Esta página sube el archivo seleccionado al servicio de Mini-Tools.uk para crear una URL de imagen alojada con el tiempo de retención que elijas. Es útil para README de GitHub, documentos Markdown, imágenes de website, publicaciones en foros, tickets de soporte, imágenes de productos y capturas rápidas.",
+        formatDirectTitle: "URL directa",
+        formatDirectText: "Copia el enlace original de la imagen para mensajes, documentos, vistas previas y herramientas que piden una URL de imagen.",
+        formatMarkdownTitle: "Markdown",
+        formatMarkdownText: "Usa la salida Markdown en README de GitHub, páginas de documentación, comentarios de issues y notas técnicas.",
+        formatHtmlTitle: "HTML",
+        formatHtmlText: "Usa la etiqueta de imagen HTML en sitios web, editores web, bloques CMS y plantillas personalizadas.",
+        formatBbcodeTitle: "BBCode",
+        formatBbcodeText: "Usa BBCode en foros y comunidades que todavía admiten etiquetas clásicas de imagen.",
+        retentionTitle: "Cómo funciona la retención de imágenes",
+        retentionIntro: "Elige un tiempo de retención antes de subir la imagen. Las subidas temporales son para compartir a corto plazo, mientras que el almacenamiento permanente requiere un código aprobado.",
+        retentionOneTitle: "Eliminar después de 1 día",
+        retentionOneText: "Ideal para vistas previas rápidas, capturas temporales y conversaciones cortas de soporte.",
+        retentionSevenTitle: "Eliminar después de 7 días",
+        retentionSevenText: "Útil para borradores, enlaces de revisión y referencias breves de proyecto.",
+        retentionThirtyTitle: "Eliminar después de 30 días",
+        retentionThirtyText: "Útil para referencias temporales más largas, borradores de website y ciclos de revisión.",
+        retentionPermanentTitle: "Almacenamiento permanente",
+        retentionPermanentText: "Requiere un código aprobado válido y aun así puede eliminarse si viola las reglas de subida.",
+        rulesTitle: "Qué no debes subir",
+        rulesIntro: "Sube solo imágenes que tengas derecho a compartir mediante un enlace público o semipúblico. No uses este servicio para contenido privado, ilegal, dañino o que infrinja derechos.",
+        rulePrivate: "Documentos de identidad, pasaportes, tarjetas bancarias, documentos financieros o registros personales sensibles.",
+        ruleIllegal: "Contenido ilegal, adulto, sexualmente explícito, violento, de odio, abusivo o explotador.",
+        ruleCopyright: "Imágenes con copyright, recursos de marca u obras de arte que no tengas permiso para subir.",
+        ruleScam: "Malware, phishing, capturas de estafas, contenido engañoso o imágenes usadas para apoyar fraudes.",
+        ruleMinors: "Imágenes inseguras o explotadoras que involucren menores, escuelas o situaciones familiares privadas.",
+        ruleSensitive: "Capturas privadas, archivos de trabajo confidenciales o contenido que no debería ser accesible por enlace.",
+        removalTitle: "Eliminación y reportes de abuso",
+        removalIntro: "Si una imagen subida viola privacidad, derechos de autor, reglas de seguridad o la ley aplicable, contáctanos con la URL de la imagen y el motivo de la solicitud.",
+        removalNote: "Envía solicitudes de eliminación o reportes de abuso a yuyananuu@gmail.com. Incluye la URL de la imagen, el problema y cualquier información de propiedad o derechos si corresponde.",
+        privacyNoteTitle: "Nota de privacidad para subidas alojadas",
+        privacyNoteText: "A diferencia de las herramientas locales del navegador, el alojamiento de imágenes requiere enviar el archivo seleccionado al servidor para crear una URL alojada. Evita subir archivos sensibles.",
+        privacyRelated: "Política de privacidad",
+        privacyRelatedText: "Lee cómo se gestionan subidas, analíticas, anuncios y solicitudes de contacto.",
+        contactRelated: "Contacto",
+        contactRelatedText: "Solicita eliminación de imágenes, reporta abuso o envía comentarios.",
+        toolsRelated: "Otras herramientas",
+        toolsRelatedText: "Explora herramientas de imagen, PDF, desarrollo y uso diario en Mini-Tools.uk.",
         faq1Title: "¿Esta herramienta de alojamiento de imágenes es gratis?",
         faq1Text: "Sí. Puedes subir imágenes y copiar enlaces directos, fragmentos Markdown, HTML o BBCode para flujos habituales de publicación.",
         faq2Title: "¿Cuánto tiempo se conservan las imágenes subidas?",
@@ -1474,7 +1729,7 @@
         faq3Title: "¿Para qué sirve el código de almacenamiento prolongado?",
         faq3Text: "Es un código opcional para alojamiento prolongado de imágenes aprobado. Las subidas normales pueden dejarlo vacío.",
         faq4Title: "¿Para qué puedo usar este alojamiento gratuito de imágenes?",
-        faq4Text: "Es útil para capturas, imágenes de Website, fotos de productos, publicaciones en foros, tickets de soporte y otras tareas sencillas para compartir imágenes.",
+        faq4Text: "Es útil para capturas, imágenes de website, fotos de productos, publicaciones en foros, tickets de soporte y otras tareas sencillas para compartir imágenes.",
 
 
         resultTitle: "Tus enlaces de imagen alojada",
@@ -1484,7 +1739,7 @@
         resultMarkdownLabel: "Markdown",
         resultMarkdownUse: "Para GitHub README, documentos Markdown y comentarios de issues.",
         resultHtmlLabel: "HTML",
-        resultHtmlUse: "Para páginas web, editores de Website y plantillas CMS.",
+        resultHtmlUse: "Para páginas web, editores de website y plantillas CMS.",
         resultBbcodeLabel: "BBCode",
         resultBbcodeUse: "Para foros y comunidades que admiten BBCode.",
         copyDirectBtn: "Copiar URL",
@@ -1498,7 +1753,7 @@
         readmeExampleTitle: "GitHub README",
         readmeExampleText: "Pega la salida Markdown en README.md para mostrar la imagen alojada en la página del repositorio.",
         markdownExampleTitle: "Markdown",
-        markdownExampleText: "Usa Markdown en documentos, motores de Website, comentarios de issues y notas que admitan imágenes.",
+        markdownExampleText: "Usa Markdown en documentos, motores de website, comentarios de issues y notas que admitan imágenes.",
         htmlExampleTitle: "HTML",
         htmlExampleText: "Usa HTML cuando necesites una etiqueta de imagen para una web, bloque CMS o plantilla personalizada.",
         bbcodeExampleTitle: "BBCode",
@@ -1509,8 +1764,8 @@
         faq5Text: "Sí. Sube la imagen, copia la salida Markdown y pégala en README.md o en un comentario de GitHub issue.",
         faq6Title: "¿Qué formato debo copiar?",
         faq6Text: "Usa URL directa para enlaces simples, Markdown para README y documentos, HTML para páginas web y BBCode para foros.",
-        faq7Title: "¿Puedo usarlo para imágenes de Website?",
-        faq7Text: "Sí. Puedes copiar código de inserción Markdown o HTML y pegarlo en entradas de Website, documentación o contenido de foros.",
+        faq7Title: "¿Puedo usarlo para imágenes de website?",
+        faq7Text: "Sí. Puedes copiar código de inserción Markdown o HTML y pegarlo en entradas de website, documentación o contenido de foros.",
         faq8Title: "¿Necesito un código de almacenamiento prolongado?",
         faq8Text: "Solo el almacenamiento permanente requiere un código aprobado. Las subidas de 1 día, 7 días y 30 días pueden dejarlo vacío.",
         footerHome: "Inicio",
@@ -1646,27 +1901,27 @@
 
     const uploadGuidanceTranslations = {
       en: {
-        guidanceTitle: "Original notes for Free Image Hosting",
+        guidanceTitle: "How to use this image hosting tool safely",
         guidanceNotes: "Use this image hosting page when you need a quick public image URL for documentation, issue reports, forum posts or lightweight sharing. It is designed for simple files where a direct link and copyable embed formats matter more than album management.",
-        guidanceExampleTitle: "Example",
+        guidanceExampleTitle: "Practical example",
         guidanceExampleText: "Example: upload a screenshot for a GitHub issue, choose a short retention period, then copy the Markdown link into the issue description.",
-        guidanceLimitationsTitle: "Limitations",
+        guidanceLimitationsTitle: "Important limits",
         guidanceLimitationsText: "Uploaded images are processed by a remote service and links are not private. Do not upload identity documents, confidential screenshots, copyrighted material you cannot share, or files that need access control.",
-        guidanceFaqTitle: "FAQ",
+        guidanceFaqTitle: "FAQ de seguridad",
         guidanceFaqText: "Can I use it for private images? No. Treat hosted links as public to anyone who has the URL.",
         guidanceRelatedTitle: "Related tools",
         guidanceRelatedImage: "Image Compressor",
         guidanceRelatedPdf: "PDF to Image",
-        guidanceRelatedPrivacy: "Privacy"
+        guidanceRelatedPrivacy: "Privacy Policy"
       },
       zh: {
-        guidanceTitle: "免费图床原创说明",
+        guidanceTitle: "如何安全使用这个图床工具",
         guidanceNotes: "当你需要给文档、问题反馈、论坛帖子或轻量分享生成一个公开图片链接时，可以使用这个图床页面。它适合简单文件，更重视直链和可复制的嵌入格式，而不是相册管理。",
-        guidanceExampleTitle: "示例",
+        guidanceExampleTitle: "使用示例",
         guidanceExampleText: "示例：为 GitHub issue 上传一张截图，选择较短保存时间，然后复制 Markdown 链接放进问题描述。",
-        guidanceLimitationsTitle: "限制",
+        guidanceLimitationsTitle: "重要限制",
         guidanceLimitationsText: "上传图片会由远程服务处理，链接不是私密链接。不要上传身份证件、机密截图、无权分享的版权材料，或任何需要访问控制的文件。",
-        guidanceFaqTitle: "常见问题",
+        guidanceFaqTitle: "安全常见问题",
         guidanceFaqText: "可以用于私密图片吗？不可以。请把托管链接视为任何拿到 URL 的人都能访问的公开链接。",
         guidanceRelatedTitle: "相关工具",
         guidanceRelatedImage: "图片压缩",
@@ -1674,13 +1929,13 @@
         guidanceRelatedPrivacy: "隐私政策"
       },
       de: {
-        guidanceTitle: "Eigene Hinweise zum kostenlosen Bildhosting",
+        guidanceTitle: "So nutzt du dieses Bildhosting sicher",
         guidanceNotes: "Nutze diese Seite, wenn du schnell eine öffentliche Bild-URL für Dokumentation, Fehlermeldungen, Forenbeiträge oder einfache Freigaben brauchst. Sie ist für einfache Dateien gedacht, bei denen Direktlinks und kopierbare Einbettungsformate wichtiger sind als Albumverwaltung.",
-        guidanceExampleTitle: "Beispiel",
+        guidanceExampleTitle: "Praktisches Beispiel",
         guidanceExampleText: "Beispiel: Lade einen Screenshot für ein GitHub-Issue hoch, wähle eine kurze Aufbewahrungsdauer und kopiere den Markdown-Link in die Beschreibung.",
-        guidanceLimitationsTitle: "Einschränkungen",
+        guidanceLimitationsTitle: "Wichtige Grenzen",
         guidanceLimitationsText: "Hochgeladene Bilder werden von einem entfernten Dienst verarbeitet und Links sind nicht privat. Lade keine Ausweisdokumente, vertraulichen Screenshots, urheberrechtlich geschützten Inhalte ohne Freigabe oder Dateien hoch, die Zugriffskontrolle benötigen.",
-        guidanceFaqTitle: "FAQ",
+        guidanceFaqTitle: "FAQ de seguridad",
         guidanceFaqText: "Kann ich private Bilder verwenden? Nein. Behandle gehostete Links als öffentlich für alle Personen mit der URL.",
         guidanceRelatedTitle: "Verwandte Tools",
         guidanceRelatedImage: "Bildkompressor",
@@ -1688,13 +1943,13 @@
         guidanceRelatedPrivacy: "Datenschutz"
       },
       fr: {
-        guidanceTitle: "Notes originales pour l'hebergement gratuit d'images",
+        guidanceTitle: "Comment utiliser cet hébergement d’images en sécurité",
         guidanceNotes: "Utilisez cette page lorsque vous avez besoin d'une URL publique rapide pour une documentation, un rapport de bug, un forum ou un partage simple. Elle est concue pour les fichiers simples ou les liens directs et les formats copiables comptent plus que la gestion d'albums.",
-        guidanceExampleTitle: "Exemple",
+        guidanceExampleTitle: "Exemple pratique",
         guidanceExampleText: "Exemple : importez une capture d'ecran pour une issue GitHub, choisissez une duree courte, puis copiez le lien Markdown dans la description.",
-        guidanceLimitationsTitle: "Limites",
+        guidanceLimitationsTitle: "Limites importantes",
         guidanceLimitationsText: "Les images importees sont traitees par un service distant et les liens ne sont pas prives. N'importez pas de documents d'identite, captures confidentielles, contenus proteges sans autorisation ou fichiers qui exigent un controle d'acces.",
-        guidanceFaqTitle: "FAQ",
+        guidanceFaqTitle: "FAQ de seguridad",
         guidanceFaqText: "Puis-je l'utiliser pour des images privees ? Non. Considerez les liens heberges comme publics pour toute personne qui possede l'URL.",
         guidanceRelatedTitle: "Outils lies",
         guidanceRelatedImage: "Compresseur d'image",
@@ -1702,13 +1957,13 @@
         guidanceRelatedPrivacy: "Confidentialite"
       },
       es: {
-        guidanceTitle: "Notas originales para alojamiento gratuito de imagenes",
+        guidanceTitle: "Cómo usar este alojamiento de imágenes de forma segura",
         guidanceNotes: "Usa esta pagina cuando necesites una URL publica rapida para documentacion, informes de errores, foros o uso compartido ligero. Esta pensada para archivos simples donde importan mas el enlace directo y los formatos copiables que la gestion de albumes.",
-        guidanceExampleTitle: "Ejemplo",
+        guidanceExampleTitle: "Ejemplo práctico",
         guidanceExampleText: "Ejemplo: sube una captura para un issue de GitHub, elige un periodo corto de conservacion y copia el enlace Markdown en la descripcion.",
-        guidanceLimitationsTitle: "Limitaciones",
+        guidanceLimitationsTitle: "Límites importantes",
         guidanceLimitationsText: "Las imagenes subidas se procesan mediante un servicio remoto y los enlaces no son privados. No subas documentos de identidad, capturas confidenciales, material con copyright que no puedas compartir ni archivos que necesiten control de acceso.",
-        guidanceFaqTitle: "FAQ",
+        guidanceFaqTitle: "FAQ de seguridad",
         guidanceFaqText: "Puedo usarlo para imagenes privadas? No. Trata los enlaces alojados como publicos para cualquiera que tenga la URL.",
         guidanceRelatedTitle: "Herramientas relacionadas",
         guidanceRelatedImage: "Compresor de imagenes",

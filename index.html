@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mini-Tools.uk | Free Online Tools for Everyday Work</title>
-  <meta name="description" content="Mini-Tools.uk is a simple collection of free online tools for UK calculations, developer tasks, image utilities, PDF tools and everyday quick work." />
+  <title>Mini-Tools.uk | Free Online Calculators, Developer & Image Tools</title>
+  <meta name="description" content="Mini-Tools.uk offers free online calculators and utility tools for UK tax, VAT, mortgages, developer tasks, JSON formatting, image compression, PDF conversion and everyday work." />
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/" />
@@ -17,8 +17,8 @@
 <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg" />
   <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
-  <meta property="og:title" content="Mini-Tools.uk | Free Online Tools for Everyday Work" />
-  <meta property="og:description" content="A simple collection of useful online tools for UK calculations, developer tasks, image utilities, PDF tools and everyday quick work." />
+  <meta property="og:title" content="Mini-Tools.uk | Free Online Calculators, Developer & Image Tools" />
+  <meta property="og:description" content="Free online calculators and browser tools for UK finance, developer tasks, image utilities, PDF conversion and everyday work." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mini-tools.uk/" />
   <meta property="og:locale" content="en_GB" />
@@ -141,6 +141,16 @@
     .compact-tool strong{display:block;margin-bottom:3px;font-size:.96rem}
     .compact-tool span span{display:block;color:#64748b;font-size:.84rem;line-height:1.35}
     .why-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+
+    .info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .info-card,.note-panel{background:rgba(255,255,255,.92);border:1px solid rgba(226,232,240,.92);border-radius:24px;box-shadow:0 14px 34px rgba(15,23,42,.045)}
+    .info-card{padding:20px}
+    .info-card strong{display:block;margin-bottom:8px;font-size:1.02rem;letter-spacing:-.02em}
+    .info-card span{display:block;color:var(--muted);font-size:.94rem}
+    .note-panel{padding:24px}
+    .note-panel p{margin:0;color:var(--muted)}
+    .check-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .check-item{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:14px;color:#334155;font-size:.92rem;font-weight:700}
     .why-card{padding:20px;box-shadow:0 12px 28px rgba(15,23,42,.04)}
     .why-card strong{display:block;margin-bottom:8px;font-size:1rem}
     .why-card span{color:var(--muted);font-size:.92rem}
@@ -154,7 +164,7 @@
     .theme-blue{--c1:#2563eb;--c2:#60a5fa} .theme-indigo{--c1:#4f46e5;--c2:#818cf8} .theme-teal{--c1:#0f766e;--c2:#2dd4bf} .theme-amber{--c1:#d97706;--c2:#fbbf24} .theme-rose{--c1:#e11d48;--c2:#fb7185} .theme-violet{--c1:#7c3aed;--c2:#a78bfa} .theme-emerald{--c1:#059669;--c2:#34d399} .theme-cyan{--c1:#0891b2;--c2:#22d3ee} .theme-purple{--c1:#9333ea;--c2:#c084fc} .theme-fuchsia{--c1:#c026d3;--c2:#f0abfc} .theme-slate{--c1:#334155;--c2:#94a3b8} .theme-sky{--c1:#0284c7;--c2:#38bdf8} .theme-lime{--c1:#65a30d;--c2:#bef264} .theme-red{--c1:#dc2626;--c2:#f87171} .theme-orange{--c1:#ea580c;--c2:#fdba74} .theme-green{--c1:#16a34a;--c2:#86efac} .theme-yellow{--c1:#ca8a04;--c2:#fde047} .theme-stone{--c1:#57534e;--c2:#a8a29e}
     @media (max-width:1120px){.brand-subtitle{display:none}.nav-link,.lang-trigger{padding:8px 7px;font-size:12.5px}.nav-links{gap:4px}}
     @media (max-width:980px){.nav-inner{align-items:flex-start;flex-direction:column;padding:12px 0}.nav-links{justify-content:flex-start;flex-wrap:wrap}.search-results,.category-tools{grid-template-columns:repeat(2,minmax(0,1fr))}.why-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media (max-width:760px){.hero{padding-top:42px}.section-head{align-items:flex-start;flex-direction:column}.search-results,.popular-grid,.category-tools,.why-grid,.faq-grid{grid-template-columns:1fr}.category-header{flex-direction:column}.footer-inner{align-items:flex-start;flex-direction:column}.lang-dropdown{left:0;right:auto}}
+    @media (max-width:760px){.hero{padding-top:42px}.section-head{align-items:flex-start;flex-direction:column}.search-results,.popular-grid,.category-tools,.why-grid,.faq-grid,.info-grid,.check-list{grid-template-columns:1fr}.category-header{flex-direction:column}.footer-inner{align-items:flex-start;flex-direction:column}.lang-dropdown{left:0;right:auto}}
   </style>
 
 
@@ -423,6 +433,9 @@
 
 </head>
 <body>
+  <noscript>
+    <div class="wrap" style="margin-top:16px"><div class="note-panel">Mini-Tools.uk works best with JavaScript enabled. The homepage still lists all tools so you can open each page directly.</div></div>
+  </noscript>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
   <nav class="nav" aria-label="Primary navigation">
   <div class="wrap nav-inner">
@@ -453,38 +466,64 @@
   <main id="main" class="wrap">
     <section class="hero">
       <span class="badge" data-i18n="badge">Mini-Tools.uk directory</span>
-      <h1 data-i18n="heroTitle">Free Online Tools for Everyday Work</h1>
-      <p data-i18n="heroText">A simple collection of useful online tools for UK calculations, developer tasks, image utilities, PDF tools and everyday quick work.</p>
+      <h1 data-i18n="heroTitle">Free Online Calculators and Utility Tools</h1>
+      <p data-i18n="heroText">Free online calculators and browser tools for UK finance, developer tasks, image utilities, PDF conversion and everyday work.</p>
       <div class="hero-actions"><a class="btn primary" href="#search" data-i18n="heroSearch">Search tools</a><a class="btn" href="#categories" data-i18n="heroBrowse">Browse categories</a></div>
       <div class="stats"><span class="stat" data-i18n="statTools">18 tools</span><span class="stat" data-i18n="statCategories">3 categories</span><span class="stat" data-i18n="statSignup">No account for most tools</span></div>
     </section>
+    <section class="section" id="overview">
+      <div class="section-head">
+        <div><div class="section-kicker" data-i18n="overviewKicker">What you can do</div><h2 data-i18n="overviewTitle">One homepage for small, practical web tools</h2></div>
+        <p data-i18n="overviewText">Mini-Tools.uk is built as a focused directory of lightweight tools, not a blog archive. Use the search box or category groups to reach the exact task you need.</p>
+      </div>
+      <div class="info-grid">
+        <div class="info-card"><strong data-i18n="overview1Title">Calculate UK figures</strong><span data-i18n="overview1Text">Estimate tax, VAT, mortgage payments, stamp duty, dividends and contractor income with clearly labelled input fields.</span></div>
+        <div class="info-card"><strong data-i18n="overview2Title">Handle text and developer tasks</strong><span data-i18n="overview2Text">Format JSON, compare text, estimate AI tokens, create QR codes and generate passwords from simple browser pages.</span></div>
+        <div class="info-card"><strong data-i18n="overview3Title">Prepare files and everyday numbers</strong><span data-i18n="overview3Text">Compress images, convert PDF pages, host images, count working days, estimate fuel cost and convert common weight units.</span></div>
+      </div>
+    </section>
         <section class="section" id="search"><div class="section-head"><div><div class="section-kicker" data-i18n="searchKicker">Find a tool</div><h2 data-i18n="searchTitle">Search tools</h2></div><p data-i18n="searchText">Find a calculator, converter or browser tool by name or task. Search results are shown here as separate cards.</p></div><div class="search-panel"><label class="search-box" for="toolSearch"><span>Search</span><input id="toolSearch" type="search" autocomplete="off" data-i18n-placeholder="searchPlaceholder" placeholder="Search tax, image hosting, JSON, QR, PDF..." /></label><div class="search-results" id="searchResults"></div><div class="empty-state" id="emptyState" data-i18n="emptyState">No matching tools found. Try another keyword.</div></div></section>
-    <section class="section" id="popular"><div class="section-head"><div><div class="section-kicker" data-i18n="popularKicker">Tool directory</div><h2 data-i18n="popularTitle">Search Tools</h2></div><p data-i18n="popularText">All 18 public tools are rendered directly in the page HTML, so the homepage stays useful even before scripts run.</p></div><div class="popular-grid" id="popularTools">
-      <a class="tool-card theme-blue" href="/tax"><div class="tool-top"><div class="tool-icon">GBP</div><span class="tag">UK Apps</span></div><h3>UK Tax Calculator</h3><p>Estimate UK take-home pay, PAYE, National Insurance and common deductions.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-indigo" href="/vat"><div class="tool-top"><div class="tool-icon">VAT</div><span class="tag">UK Apps</span></div><h3>VAT Calculator</h3><p>Add or remove UK VAT from a price and compare net and gross amounts.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-teal" href="/mortgage"><div class="tool-top"><div class="tool-icon">M</div><span class="tag">UK Apps</span></div><h3>Mortgage Calculator</h3><p>Estimate monthly mortgage payments from loan amount, rate and term.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-amber" href="/ir35"><div class="tool-top"><div class="tool-icon">IR</div><span class="tag">UK Apps</span></div><h3>IR35 Calculator</h3><p>Compare inside and outside IR35 contractor income estimates.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-rose" href="/stamp-duty"><div class="tool-top"><div class="tool-icon">SD</div><span class="tag">UK Apps</span></div><h3>Stamp Duty Calculator</h3><p>Estimate UK property stamp duty from purchase price and buyer type.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-violet" href="/dividend"><div class="tool-top"><div class="tool-icon">DIV</div><span class="tag">UK Apps</span></div><h3>Dividend Calculator</h3><p>Estimate salary and dividend income scenarios for UK planning.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-emerald" href="/json"><div class="tool-top"><div class="tool-icon">{}</div><span class="tag">Developer Tools</span></div><h3>JSON Formatter</h3><p>Format, validate and read JSON data in a clean browser tool.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-cyan" href="/diff"><div class="tool-top"><div class="tool-icon">DIFF</div><span class="tag">Developer Tools</span></div><h3>Text Diff Checker</h3><p>Compare two text blocks and quickly see what changed.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-purple" href="/token"><div class="tool-top"><div class="tool-icon">AI</div><span class="tag">Developer Tools</span></div><h3>AI Token Calculator</h3><p>Estimate token counts for prompts, drafts and AI model inputs.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-fuchsia" href="/qr"><div class="tool-top"><div class="tool-icon">QR</div><span class="tag">Developer Tools</span></div><h3>QR Code Generator</h3><p>Generate QR codes for links, text and quick sharing.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-slate" href="/password"><div class="tool-top"><div class="tool-icon">PW</div><span class="tag">Developer Tools</span></div><h3>Password Generator</h3><p>Create random passwords with length and character options.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-sky" href="/upload"><div class="tool-top"><div class="tool-icon">UP</div><span class="tag">Other Tools</span></div><h3>Free Image Hosting</h3><p>Upload an image and copy Direct URL, Markdown, HTML or BBCode links.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-lime" href="/image"><div class="tool-top"><div class="tool-icon">IMG</div><span class="tag">Other Tools</span></div><h3>Image Compressor</h3><p>Compress or resize images for web, documents and quick sharing.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-red" href="/pdf2img"><div class="tool-top"><div class="tool-icon">PDF</div><span class="tag">Other Tools</span></div><h3>PDF to Image</h3><p>Convert PDF pages into image files for previews and sharing.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-orange" href="/color-picker"><div class="tool-top"><div class="tool-icon">HEX</div><span class="tag">Other Tools</span></div><h3>Color Picker</h3><p>Pick, convert and copy colors for simple design tasks.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-green" href="/working-days"><div class="tool-top"><div class="tool-icon">DAY</div><span class="tag">Other Tools</span></div><h3>Working Days Calculator</h3><p>Count working days between dates for planning and schedules.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-yellow" href="/fuel"><div class="tool-top"><div class="tool-icon">FUEL</div><span class="tag">Other Tools</span></div><h3>Fuel Cost Calculator</h3><p>Estimate trip fuel cost from distance, efficiency and price.</p><span class="tool-link">Open Tool</span></a>
-      <a class="tool-card theme-stone" href="/weight"><div class="tool-top"><div class="tool-icon">KG</div><span class="tag">Other Tools</span></div><h3>Weight Converter</h3><p>Convert between kilograms, pounds, stones and common weight units.</p><span class="tool-link">Open Tool</span></a>
+    <section class="section" id="popular"><div class="section-head"><div><div class="section-kicker" data-i18n="popularKicker">Tool directory</div><h2 data-i18n="popularTitle">All online tools</h2></div><p data-i18n="popularText">Browse every public tool from one place. Each card explains what the tool does before you open it.</p></div><div class="popular-grid" id="popularTools">
+      <a class="tool-card theme-blue" href="/tax"><div class="tool-top"><div class="tool-icon">GBP</div><span class="tag">UK Apps</span></div><h3>UK Tax Calculator</h3><p>Estimate UK take-home pay, PAYE, National Insurance and common deductions.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-indigo" href="/vat"><div class="tool-top"><div class="tool-icon">VAT</div><span class="tag">UK Apps</span></div><h3>VAT Calculator</h3><p>Add or remove UK VAT from a price and compare net and gross amounts.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-teal" href="/mortgage"><div class="tool-top"><div class="tool-icon">M</div><span class="tag">UK Apps</span></div><h3>Mortgage Calculator</h3><p>Estimate monthly mortgage payments from loan amount, rate and term.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-amber" href="/ir35"><div class="tool-top"><div class="tool-icon">IR</div><span class="tag">UK Apps</span></div><h3>IR35 Calculator</h3><p>Compare inside and outside IR35 contractor income estimates.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-rose" href="/stamp-duty"><div class="tool-top"><div class="tool-icon">SD</div><span class="tag">UK Apps</span></div><h3>Stamp Duty Calculator</h3><p>Estimate UK property stamp duty from purchase price and buyer type.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-violet" href="/dividend"><div class="tool-top"><div class="tool-icon">DIV</div><span class="tag">UK Apps</span></div><h3>Dividend Calculator</h3><p>Estimate salary and dividend income scenarios for UK planning.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-emerald" href="/json"><div class="tool-top"><div class="tool-icon">{}</div><span class="tag">Developer Tools</span></div><h3>JSON Formatter</h3><p>Format, validate and read JSON data in a clean browser tool.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-cyan" href="/diff"><div class="tool-top"><div class="tool-icon">DIFF</div><span class="tag">Developer Tools</span></div><h3>Text Diff Checker</h3><p>Compare two text blocks and quickly see what changed.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-purple" href="/token"><div class="tool-top"><div class="tool-icon">AI</div><span class="tag">Developer Tools</span></div><h3>AI Token Calculator</h3><p>Estimate token counts for prompts, drafts and AI model inputs.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-fuchsia" href="/qr"><div class="tool-top"><div class="tool-icon">QR</div><span class="tag">Developer Tools</span></div><h3>QR Code Generator</h3><p>Generate QR codes for links, text and quick sharing.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-slate" href="/password"><div class="tool-top"><div class="tool-icon">PW</div><span class="tag">Developer Tools</span></div><h3>Password Generator</h3><p>Create random passwords with length and character options.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-sky" href="/upload"><div class="tool-top"><div class="tool-icon">UP</div><span class="tag">Other Tools</span></div><h3>Free Image Hosting</h3><p>Upload an image and copy Direct URL, Markdown, HTML or BBCode links.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-lime" href="/image"><div class="tool-top"><div class="tool-icon">IMG</div><span class="tag">Other Tools</span></div><h3>Image Compressor</h3><p>Compress or resize images for web, documents and quick sharing.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-red" href="/pdf2img"><div class="tool-top"><div class="tool-icon">PDF</div><span class="tag">Other Tools</span></div><h3>PDF to Image</h3><p>Convert PDF pages into image files for previews and sharing.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-orange" href="/color-picker"><div class="tool-top"><div class="tool-icon">HEX</div><span class="tag">Other Tools</span></div><h3>Color Picker</h3><p>Pick, convert and copy colors for simple design tasks.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-green" href="/working-days"><div class="tool-top"><div class="tool-icon">DAY</div><span class="tag">Other Tools</span></div><h3>Working Days Calculator</h3><p>Count working days between dates for planning and schedules.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-yellow" href="/fuel"><div class="tool-top"><div class="tool-icon">FUEL</div><span class="tag">Other Tools</span></div><h3>Fuel Cost Calculator</h3><p>Estimate trip fuel cost from distance, efficiency and price.</p><span class="tool-link">Open tool</span></a>
+      <a class="tool-card theme-stone" href="/weight"><div class="tool-top"><div class="tool-icon">KG</div><span class="tag">Other Tools</span></div><h3>Weight Converter</h3><p>Convert between kilograms, pounds, stones and common weight units.</p><span class="tool-link">Open tool</span></a>
     </div></section>
     <section class="section" id="categories"><div class="section-head"><div><div class="section-kicker" data-i18n="categoryKicker">Tool directory</div><h2 data-i18n="categoryTitle">Browse tools by category</h2></div><p data-i18n="categoryText">Tools are grouped into three simple areas: UK Apps, Developer Tools and Other Tools.</p></div><div class="category-grid">
       <div class="category-card" id="uk-apps"><div class="category-header"><div><h3 data-i18n="ukAppsTitle">UK Apps</h3><p data-i18n="ukAppsText">Tools for UK salary, tax, VAT and practical finance calculations.</p></div><span class="tag" data-i18n="ukAppsTag">UK calculations</span></div><div class="category-tools" id="ukAppsTools"><a class="compact-tool theme-blue" href="/tax"><span class="compact-icon">GBP</span><span><strong>UK Tax Calculator</strong><span>Estimate UK take-home pay, PAYE, National Insurance and common deductions.</span></span></a><a class="compact-tool theme-indigo" href="/vat"><span class="compact-icon">VAT</span><span><strong>VAT Calculator</strong><span>Add or remove UK VAT from a price and compare net and gross amounts.</span></span></a><a class="compact-tool theme-teal" href="/mortgage"><span class="compact-icon">M</span><span><strong>Mortgage Calculator</strong><span>Estimate monthly mortgage payments from loan amount, rate and term.</span></span></a><a class="compact-tool theme-amber" href="/ir35"><span class="compact-icon">IR</span><span><strong>IR35 Calculator</strong><span>Compare inside and outside IR35 contractor income estimates.</span></span></a><a class="compact-tool theme-rose" href="/stamp-duty"><span class="compact-icon">SD</span><span><strong>Stamp Duty Calculator</strong><span>Estimate UK property stamp duty from purchase price and buyer type.</span></span></a><a class="compact-tool theme-violet" href="/dividend"><span class="compact-icon">DIV</span><span><strong>Dividend Calculator</strong><span>Estimate salary and dividend income scenarios for UK planning.</span></span></a></div></div>
       <div class="category-card" id="developer-tools"><div class="category-header"><div><h3 data-i18n="devToolsTitle">Developer Tools</h3><p data-i18n="devToolsText">Useful browser tools for formatting, comparing, encoding and working with text or data.</p></div><span class="tag" data-i18n="devToolsTag">Text and data</span></div><div class="category-tools" id="developerTools"><a class="compact-tool theme-emerald" href="/json"><span class="compact-icon">{}</span><span><strong>JSON Formatter</strong><span>Format, validate and read JSON data in a clean browser tool.</span></span></a><a class="compact-tool theme-cyan" href="/diff"><span class="compact-icon">DIFF</span><span><strong>Text Diff Checker</strong><span>Compare two text blocks and quickly see what changed.</span></span></a><a class="compact-tool theme-purple" href="/token"><span class="compact-icon">AI</span><span><strong>AI Token Calculator</strong><span>Estimate token counts for prompts, drafts and AI model inputs.</span></span></a><a class="compact-tool theme-fuchsia" href="/qr"><span class="compact-icon">QR</span><span><strong>QR Code Generator</strong><span>Generate QR codes for links, text and quick sharing.</span></span></a><a class="compact-tool theme-slate" href="/password"><span class="compact-icon">PW</span><span><strong>Password Generator</strong><span>Create random passwords with length and character options.</span></span></a></div></div>
       <div class="category-card" id="other-tools"><div class="category-header"><div><h3 data-i18n="otherToolsTitle">Other Tools</h3><p data-i18n="otherToolsText">Image, PDF, date, fuel, unit and everyday utilities.</p></div><span class="tag" data-i18n="otherToolsTag">Utilities</span></div><div class="category-tools" id="otherTools"><a class="compact-tool theme-sky" href="/upload"><span class="compact-icon">UP</span><span><strong>Free Image Hosting</strong><span>Upload an image and copy Direct URL, Markdown, HTML or BBCode links.</span></span></a><a class="compact-tool theme-lime" href="/image"><span class="compact-icon">IMG</span><span><strong>Image Compressor</strong><span>Compress or resize images for web, documents and quick sharing.</span></span></a><a class="compact-tool theme-red" href="/pdf2img"><span class="compact-icon">PDF</span><span><strong>PDF to Image</strong><span>Convert PDF pages into image files for previews and sharing.</span></span></a><a class="compact-tool theme-orange" href="/color-picker"><span class="compact-icon">HEX</span><span><strong>Color Picker</strong><span>Pick, convert and copy colors for simple design tasks.</span></span></a><a class="compact-tool theme-green" href="/working-days"><span class="compact-icon">DAY</span><span><strong>Working Days Calculator</strong><span>Count working days between dates for planning and schedules.</span></span></a><a class="compact-tool theme-yellow" href="/fuel"><span class="compact-icon">FUEL</span><span><strong>Fuel Cost Calculator</strong><span>Estimate trip fuel cost from distance, efficiency and price.</span></span></a><a class="compact-tool theme-stone" href="/weight"><span class="compact-icon">KG</span><span><strong>Weight Converter</strong><span>Convert between kilograms, pounds, stones and common weight units.</span></span></a></div></div>
-    </div></section>    <section class="section"><div class="section-head"><div><div class="section-kicker" data-i18n="whyKicker">Simple utility pages</div><h2 data-i18n="whyTitle">Why use Mini-Tools.uk?</h2></div></div><div class="why-grid"><div class="why-card"><strong data-i18n="why1Title">No account required for most tools</strong><span data-i18n="why1Text">Open the tool you need and use it directly.</span></div><div class="why-card"><strong data-i18n="why2Title">Simple tool pages</strong><span data-i18n="why2Text">Each page focuses on one practical task.</span></div><div class="why-card"><strong data-i18n="why3Title">Clear categories</strong><span data-i18n="why3Text">Tools are grouped into UK Apps, Developer Tools and Other Tools.</span></div><div class="why-card"><strong data-i18n="why4Title">Browser-first where possible</strong><span data-i18n="why4Text">Many tools run in your browser. Upload-based tools explain when a server is used.</span></div></div></section>
-    <section class="section"><div class="section-head"><div><div class="section-kicker" data-i18n="faqKicker">Questions</div><h2 data-i18n="faqTitle">FAQ</h2></div></div><div class="faq-grid"><div class="faq-item"><h3 data-i18n="faq1Q">What is Mini-Tools.uk?</h3><p data-i18n="faq1A">Mini-Tools.uk is a collection of simple online tools for calculations, developer tasks, image utilities, PDF tasks and everyday quick work.</p></div><div class="faq-item"><h3 data-i18n="faq2Q">Are Search Tools free?</h3><p data-i18n="faq2A">Most tools are free to use without an account.</p></div><div class="faq-item"><h3 data-i18n="faq3Q">Do Search Tools run in the browser?</h3><p data-i18n="faq3A">Many tools run in the browser. Some upload or hosting tools may use a remote service, and those pages explain how they work.</p></div><div class="faq-item"><h3 data-i18n="faq4Q">Why are some tools shown as popular?</h3><p data-i18n="faq4A">Popular tools are shown for quick access. They are not the only important tools on the site.</p></div><div class="faq-item"><h3 data-i18n="faq5Q">Can I suggest a new tool?</h3><p data-i18n="faq5A">Yes. Use the Contact page to send a tool idea or report a problem.</p></div></div></section>
+    </div></section>
+    <section class="section" id="quality-notes">
+      <div class="section-head">
+        <div><div class="section-kicker" data-i18n="qualityKicker">Quality notes</div><h2 data-i18n="qualityTitle">Clear pages, clear limits and no unnecessary clutter</h2></div>
+        <p data-i18n="qualityText">The site is organised around complete tool pages with direct navigation, visible contact information and simple explanations for how each tool should be used.</p>
+      </div>
+      <div class="note-panel">
+        <p data-i18n="qualityIntro">Calculators are provided for planning and educational use. Financial tools should be treated as estimates only, and each detailed tool page should list the assumptions or official sources used for that calculation.</p>
+        <div class="check-list">
+          <div class="check-item" data-i18n="quality1">Focused pages: each tool is linked from the homepage and serves one practical purpose.</div>
+          <div class="check-item" data-i18n="quality2">Privacy aware: browser-first tools avoid uploads where possible, while upload tools explain when remote storage is used.</div>
+          <div class="check-item" data-i18n="quality3">Site trust: About, Contact and Privacy pages are kept in the main navigation and footer.</div>
+        </div>
+      </div>
+    </section>
+    <section class="section"><div class="section-head"><div><div class="section-kicker" data-i18n="whyKicker">Simple utility pages</div><h2 data-i18n="whyTitle">Why use Mini-Tools.uk?</h2></div></div><div class="why-grid"><div class="why-card"><strong data-i18n="why1Title">No account required for most tools</strong><span data-i18n="why1Text">Open the tool you need and use it directly.</span></div><div class="why-card"><strong data-i18n="why2Title">Simple tool pages</strong><span data-i18n="why2Text">Each page focuses on one practical task.</span></div><div class="why-card"><strong data-i18n="why3Title">Clear categories</strong><span data-i18n="why3Text">Tools are grouped into UK Apps, Developer Tools and Other Tools.</span></div><div class="why-card"><strong data-i18n="why4Title">Browser-first where possible</strong><span data-i18n="why4Text">Many tools run in your browser. Upload-based tools explain when a server is used.</span></div></div></section>
+    <section class="section"><div class="section-head"><div><div class="section-kicker" data-i18n="faqKicker">Questions</div><h2 data-i18n="faqTitle">FAQ</h2></div></div><div class="faq-grid"><div class="faq-item"><h3 data-i18n="faq1Q">What is Mini-Tools.uk?</h3><p data-i18n="faq1A">Mini-Tools.uk is a collection of simple online tools for calculations, developer tasks, image utilities, PDF tasks and everyday quick work.</p></div><div class="faq-item"><h3 data-i18n="faq2Q">Are the tools free to use?</h3><p data-i18n="faq2A">Most tools are free to use without an account.</p></div><div class="faq-item"><h3 data-i18n="faq3Q">Do the tools run in the browser?</h3><p data-i18n="faq3A">Many tools run in the browser. Some upload or hosting tools may use a remote service, and those pages explain how they work.</p></div><div class="faq-item"><h3 data-i18n="faq4Q">Why are some tools shown as popular?</h3><p data-i18n="faq4A">Popular tools are shown for quick access. They are not the only important tools on the site.</p></div><div class="faq-item"><h3 data-i18n="faq5Q">Can I suggest a new tool?</h3><p data-i18n="faq5A">Yes. Use the Contact page to send a tool idea or report a problem.</p></div></div></section>
   </main>
   <footer class="footer">
   <div class="wrap footer-inner">
@@ -507,19 +546,28 @@
   const i18n = {
     en: {
       htmlLang:"en-GB",
-      title:"Mini-Tools.uk | Free Online Tools for Everyday Work",
-      description:"Mini-Tools.uk is a simple collection of free online tools for UK calculations, developer tasks, image utilities, PDF tools and everyday quick work.",
+      title:"Mini-Tools.uk | Free Online Calculators, Developer & Image Tools",
+      description:"Mini-Tools.uk offers free online calculators and utility tools for UK tax, VAT, mortgages, developer tasks, JSON formatting, image compression, PDF conversion and everyday work.",
       ogLocale:"en_GB",
-      skip:"Skip to content", badge:"Mini-Tools.uk directory", heroTitle:"Free Online Tools for Everyday Work",
-      heroText:"A simple collection of useful online tools for UK calculations, developer tasks, image utilities, PDF tools and everyday quick work.",
+      skip:"Skip to content", badge:"Mini-Tools.uk directory", heroTitle:"Free Online Calculators and Utility Tools",
+      heroText:"Free online calculators and browser tools for UK finance, developer tasks, image utilities, PDF conversion and everyday work.",
       heroSearch:"Search tools", heroBrowse:"Browse categories", statTools:"18 tools", statCategories:"3 categories", statSignup:"No account for most tools",
+      overviewKicker:"What you can do", overviewTitle:"One homepage for small, practical web tools", overviewText:"Mini-Tools.uk is built as a focused directory of lightweight tools, not a blog archive. Use the search box or category groups to reach the exact task you need.",
+      overview1Title:"Calculate UK figures", overview1Text:"Estimate tax, VAT, mortgage payments, stamp duty, dividends and contractor income with clearly labelled input fields.",
+      overview2Title:"Handle text and developer tasks", overview2Text:"Format JSON, compare text, estimate AI tokens, create QR codes and generate passwords from simple browser pages.",
+      overview3Title:"Prepare files and everyday numbers", overview3Text:"Compress images, convert PDF pages, host images, count working days, estimate fuel cost and convert common weight units.",
       searchKicker:"Find a tool", searchTitle:"Search tools", searchText:"Find a calculator, converter or browser tool by name or task. Search results are shown here as separate cards.",
       searchLabel:"Search", searchPlaceholder:"Search tax, image hosting, JSON, QR, PDF...", emptyState:"No matching tools found. Try another keyword.",
-      popularKicker:"Tool directory", popularTitle:"Search Tools", popularText:"All 18 public tools are rendered directly in the page HTML, so the homepage stays useful even before scripts run.",
+      popularKicker:"Tool directory", popularTitle:"Search Tools", popularText:"Browse every public tool from one place. Each card explains what the tool does before you open it.",
       categoryKicker:"Tool directory", categoryTitle:"Browse tools by category", categoryText:"Tools are grouped into three simple areas: UK Apps, Developer Tools and Other Tools.",
       ukAppsTitle:"UK Apps", ukAppsText:"Tools for UK salary, tax, VAT and practical finance calculations.", ukAppsTag:"UK calculations",
       devToolsTitle:"Developer Tools", devToolsText:"Useful browser tools for formatting, comparing, encoding and working with text or data.", devToolsTag:"Text and data",
       otherToolsTitle:"Other Tools", otherToolsText:"Image, PDF, date, fuel, unit and everyday utilities.", otherToolsTag:"Utilities",
+      qualityKicker:"Quality notes", qualityTitle:"Clear pages, clear limits and no unnecessary clutter", qualityText:"The site is organised around complete tool pages with direct navigation, visible contact information and simple explanations for how each tool should be used.",
+      qualityIntro:"Calculators are provided for planning and educational use. Financial tools should be treated as estimates only, and each detailed tool page should list the assumptions or official sources used for that calculation.",
+      quality1:"Focused pages: each tool is linked from the homepage and serves one practical purpose.",
+      quality2:"Privacy aware: browser-first tools avoid uploads where possible, while upload tools explain when remote storage is used.",
+      quality3:"Site trust: About, Contact and Privacy pages are kept in the main navigation and footer.",
       whyKicker:"Simple utility pages", whyTitle:"Why use Mini-Tools.uk?",
       why1Title:"No account required for most tools", why1Text:"Open the tool you need and use it directly.",
       why2Title:"Simple tool pages", why2Text:"Each page focuses on one practical task.",
@@ -527,11 +575,11 @@
       why4Title:"Browser-first where possible", why4Text:"Many tools run in your browser. Upload-based tools explain when a server is used.",
       faqKicker:"Questions", faqTitle:"FAQ",
       faq1Q:"What is Mini-Tools.uk?", faq1A:"Mini-Tools.uk is a collection of simple online tools for calculations, developer tasks, image utilities, PDF tasks and everyday quick work.",
-      faq2Q:"Are Search Tools free?", faq2A:"Most tools are free to use without an account.",
-      faq3Q:"Do Search Tools run in the browser?", faq3A:"Many tools run in the browser. Some upload or hosting tools may use a remote service, and those pages explain how they work.",
+      faq2Q:"Are the tools free to use?", faq2A:"Most tools are free to use without an account.",
+      faq3Q:"Do the tools run in the browser?", faq3A:"Many tools run in the browser. Some upload or hosting tools may use a remote service, and those pages explain how they work.",
       faq4Q:"Why are some tools shown as popular?", faq4A:"Popular tools are shown for quick access. They are not the only important tools on the site.",
       faq5Q:"Can I suggest a new tool?", faq5A:"Yes. Use the Contact page to send a tool idea or report a problem.",
-      openTool:"Open Tool", categories:{uk:"UK Apps",dev:"Developer Tools",other:"Other Tools"}
+      openTool:"Open tool", categories:{uk:"UK Apps",dev:"Developer Tools",other:"Other Tools"}
     },
     "zh-CN": {
       htmlLang:"zh-CN",
@@ -541,13 +589,22 @@
       skip:"跳到正文", badge:"Mini-Tools.uk 工具目录", heroTitle:"日常工作常用的免费在线工具",
       heroText:"一个简洁的免费在线工具合集，覆盖英国计算、开发者任务、图片处理、PDF 工具和日常快速工作。",
       heroSearch:"搜索工具", heroBrowse:"浏览分类", statTools:"18 个工具", statCategories:"3 个分类", statSignup:"大多数工具无需账号",
+      overviewKicker:"可以做什么", overviewTitle:"一个首页，集中访问常用小工具", overviewText:"Mini-Tools.uk 是一个轻量工具目录，不是博客归档。你可以通过搜索框或分类分组，直接进入需要完成的具体任务。",
+      overview1Title:"计算英国相关数据", overview1Text:"通过清晰的输入项估算税务、VAT、房贷、印花税、股息和承包商收入。",
+      overview2Title:"处理文本和开发任务", overview2Text:"在简单的浏览器页面中格式化 JSON、对比文本、估算 AI token、生成二维码和随机密码。",
+      overview3Title:"处理文件和日常数字", overview3Text:"压缩图片、转换 PDF 页面、托管图片、计算工作日、估算燃油费用并转换常见重量单位。",
       searchKicker:"查找工具", searchTitle:"搜索工具", searchText:"按工具名称或任务搜索计算器、转换器或浏览器工具，结果会以独立卡片显示。",
       searchLabel:"搜索", searchPlaceholder:"搜索 tax、图床、JSON、二维码、PDF...", emptyState:"没有找到匹配工具，请换一个关键词。",
-      popularKicker:"工具目录", popularTitle:"全部工具", popularText:"18 个公开工具直接渲染在首页 HTML 中，即使脚本未运行，首页也能保持可用。",
+      popularKicker:"工具目录", popularTitle:"全部在线工具", popularText:"从一个页面浏览全部公开工具。每张卡片都会在打开工具前说明这个工具能做什么。",
       categoryKicker:"工具目录", categoryTitle:"按分类浏览工具", categoryText:"工具分为三个清晰区域：英国应用、开发者工具和其他工具。",
       ukAppsTitle:"英国应用", ukAppsText:"用于英国工资、税务、VAT 和实用财务计算的工具。", ukAppsTag:"英国计算",
       devToolsTitle:"开发者工具", devToolsText:"用于格式化、对比、编码以及处理文本或数据的浏览器工具。", devToolsTag:"文本和数据",
       otherToolsTitle:"其他工具", otherToolsText:"图片、PDF、日期、燃油、单位和日常实用工具。", otherToolsTag:"实用工具",
+      qualityKicker:"质量说明", qualityTitle:"页面清晰、限制明确、减少无关内容", qualityText:"网站围绕完整工具页组织，提供直接导航、可见联系方式，并说明每个工具的使用方式。",
+      qualityIntro:"计算器仅用于计划和学习参考。财务类工具应视为估算结果，详细工具页应列明该计算使用的假设或官方来源。",
+      quality1:"页面聚焦：每个工具都从首页链接，并服务一个明确任务。",
+      quality2:"重视隐私：可本地运行的工具优先在浏览器中处理，上传类工具会说明何时使用远程存储。",
+      quality3:"站点可信：关于、联系和隐私页面保留在主导航和页脚中。",
       whyKicker:"简单实用页面", whyTitle:"为什么使用 Mini-Tools.uk？",
       why1Title:"大多数工具无需账号", why1Text:"打开需要的工具后即可直接使用。",
       why2Title:"页面简单清晰", why2Text:"每个页面聚焦一个明确的实用任务。",
@@ -569,13 +626,22 @@
       skip:"Zum Inhalt springen", badge:"Mini-Tools.uk Verzeichnis", heroTitle:"Kostenlose Online-Tools für die tägliche Arbeit",
       heroText:"Eine einfache Sammlung nützlicher Online-Tools für UK-Berechnungen, Entwickleraufgaben, Bildwerkzeuge, PDF-Tools und schnelle Alltagsarbeiten.",
       heroSearch:"Tools suchen", heroBrowse:"Kategorien ansehen", statTools:"18 Tools", statCategories:"3 Kategorien", statSignup:"Für die meisten Tools kein Konto nötig",
+      overviewKicker:"Was du hier tun kannst", overviewTitle:"Eine Startseite für kleine praktische Web-Tools", overviewText:"Mini-Tools.uk ist ein fokussiertes Verzeichnis leichter Tools, kein Blog-Archiv. Nutze Suche oder Kategorien, um direkt zur passenden Aufgabe zu gelangen.",
+      overview1Title:"UK-Zahlen berechnen", overview1Text:"Schätze Steuer, VAT, Hypothekenraten, Stamp Duty, Dividenden und Contractor-Einkommen mit klar beschrifteten Eingabefeldern.",
+      overview2Title:"Text- und Entwickleraufgaben erledigen", overview2Text:"Formatiere JSON, vergleiche Text, schätze AI-Tokens, erstelle QR-Codes und generiere Passwörter auf einfachen Browserseiten.",
+      overview3Title:"Dateien und Alltagswerte vorbereiten", overview3Text:"Komprimiere Bilder, konvertiere PDF-Seiten, hoste Bilder, zähle Arbeitstage, schätze Kraftstoffkosten und rechne Gewichtseinheiten um.",
       searchKicker:"Tool finden", searchTitle:"Tools suchen", searchText:"Finde Rechner, Konverter oder Browser-Tools nach Name oder Aufgabe. Ergebnisse erscheinen als einzelne Karten.",
       searchLabel:"Suche", searchPlaceholder:"Suche nach Steuer, Bildhosting, JSON, QR, PDF...", emptyState:"Keine passenden Tools gefunden. Versuche ein anderes Stichwort.",
-      popularKicker:"Tool-Verzeichnis", popularTitle:"Alle Tools", popularText:"Alle 18 öffentlichen Tools werden direkt im HTML der Startseite gerendert, damit die Seite auch vor dem Laden von Skripten nützlich bleibt.",
+      popularKicker:"Tool-Verzeichnis", popularTitle:"Alle Online-Tools", popularText:"Durchsuche alle öffentlichen Tools an einem Ort. Jede Karte erklärt vor dem Öffnen, wofür das Tool gedacht ist.",
       categoryKicker:"Tool-Verzeichnis", categoryTitle:"Tools nach Kategorie durchsuchen", categoryText:"Die Tools sind in drei Bereiche gruppiert: UK Apps, Entwickler-Tools und weitere Tools.",
       ukAppsTitle:"UK Apps", ukAppsText:"Tools für UK-Gehalt, Steuern, VAT und praktische Finanzberechnungen.", ukAppsTag:"UK-Berechnungen",
       devToolsTitle:"Entwickler-Tools", devToolsText:"Nützliche Browser-Tools zum Formatieren, Vergleichen, Codieren und Arbeiten mit Text oder Daten.", devToolsTag:"Text und Daten",
       otherToolsTitle:"Weitere Tools", otherToolsText:"Bild-, PDF-, Datums-, Kraftstoff-, Einheiten- und Alltagstools.", otherToolsTag:"Dienstprogramme",
+      qualityKicker:"Qualitätshinweise", qualityTitle:"Klare Seiten, klare Grenzen und kein unnötiger Ballast", qualityText:"Die Website ist um vollständige Tool-Seiten mit direkter Navigation, sichtbaren Kontaktdaten und einfachen Nutzungserklärungen organisiert.",
+      qualityIntro:"Rechner dienen der Planung und Information. Finanztools sind nur Schätzungen; jede Detailseite sollte Annahmen oder offizielle Quellen nennen.",
+      quality1:"Fokussierte Seiten: jedes Tool ist von der Startseite verlinkt und erfüllt einen klaren Zweck.",
+      quality2:"Datenschutzbewusst: Browser-first-Tools vermeiden Uploads, wenn möglich; Upload-Tools erklären Remote-Speicherung.",
+      quality3:"Vertrauen: Über uns, Kontakt und Datenschutz bleiben in Navigation und Footer sichtbar.",
       whyKicker:"Einfache Hilfsseiten", whyTitle:"Warum Mini-Tools.uk nutzen?",
       why1Title:"Für die meisten Tools kein Konto nötig", why1Text:"Öffne das gewünschte Tool und nutze es direkt.",
       why2Title:"Einfache Tool-Seiten", why2Text:"Jede Seite konzentriert sich auf eine praktische Aufgabe.",
@@ -597,13 +663,22 @@
       skip:"Aller au contenu", badge:"Annuaire Mini-Tools.uk", heroTitle:"Outils en ligne gratuits pour le travail quotidien",
       heroText:"Une collection simple d’outils utiles pour les calculs UK, les tâches développeur, les images, les PDF et les petites tâches du quotidien.",
       heroSearch:"Rechercher des outils", heroBrowse:"Parcourir les catégories", statTools:"18 outils", statCategories:"3 catégories", statSignup:"Pas de compte pour la plupart des outils",
+      overviewKicker:"Ce que vous pouvez faire", overviewTitle:"Une page d’accueil pour de petits outils web pratiques", overviewText:"Mini-Tools.uk est un annuaire ciblé d’outils légers, pas une archive de blog. Utilisez la recherche ou les catégories pour accéder directement à la tâche voulue.",
+      overview1Title:"Calculer des données UK", overview1Text:"Estimez impôts, VAT, mensualités de prêt, Stamp Duty, dividendes et revenus contractor avec des champs clairement indiqués.",
+      overview2Title:"Gérer le texte et les tâches développeur", overview2Text:"Formatez JSON, comparez du texte, estimez les tokens IA, créez des QR codes et générez des mots de passe sur des pages simples.",
+      overview3Title:"Préparer fichiers et chiffres du quotidien", overview3Text:"Compressez des images, convertissez des PDF, hébergez des images, comptez les jours ouvrés, estimez le carburant et convertissez les poids.",
       searchKicker:"Trouver un outil", searchTitle:"Rechercher des outils", searchText:"Trouvez un calculateur, un convertisseur ou un outil navigateur par nom ou par tâche. Les résultats s’affichent sous forme de cartes.",
       searchLabel:"Recherche", searchPlaceholder:"Rechercher taxe, hébergement d’image, JSON, QR, PDF...", emptyState:"Aucun outil correspondant. Essayez un autre mot-clé.",
-      popularKicker:"Annuaire d’outils", popularTitle:"Tous les outils", popularText:"Les 18 outils publics sont rendus directement dans le HTML de la page d’accueil afin qu’elle reste utile même avant l’exécution des scripts.",
+      popularKicker:"Annuaire d’outils", popularTitle:"Tous les outils en ligne", popularText:"Parcourez tous les outils publics au même endroit. Chaque carte explique l’utilité de l’outil avant son ouverture.",
       categoryKicker:"Annuaire d’outils", categoryTitle:"Parcourir les outils par catégorie", categoryText:"Les outils sont regroupés en trois zones : Apps UK, outils développeur et autres outils.",
       ukAppsTitle:"Apps UK", ukAppsText:"Outils pour salaire, impôts, VAT et calculs financiers pratiques au Royaume-Uni.", ukAppsTag:"Calculs UK",
       devToolsTitle:"Outils développeur", devToolsText:"Outils navigateur pour formater, comparer, encoder et travailler avec du texte ou des données.", devToolsTag:"Texte et données",
       otherToolsTitle:"Autres outils", otherToolsText:"Outils image, PDF, date, carburant, unités et utilitaires du quotidien.", otherToolsTag:"Utilitaires",
+      qualityKicker:"Notes de qualité", qualityTitle:"Pages claires, limites claires et moins de contenu inutile", qualityText:"Le site est organisé autour de pages d’outils complètes avec navigation directe, contact visible et explications simples.",
+      qualityIntro:"Les calculateurs sont fournis pour la planification et l’information. Les outils financiers restent des estimations et chaque page détaillée devrait indiquer ses hypothèses ou sources officielles.",
+      quality1:"Pages ciblées : chaque outil est lié depuis l’accueil et répond à une tâche précise.",
+      quality2:"Respect de la vie privée : les outils côté navigateur évitent les uploads quand c’est possible ; les outils d’upload expliquent le stockage distant.",
+      quality3:"Confiance : À propos, Contact et Confidentialité restent visibles dans la navigation et le pied de page.",
       whyKicker:"Pages utilitaires simples", whyTitle:"Pourquoi utiliser Mini-Tools.uk ?",
       why1Title:"Pas de compte pour la plupart des outils", why1Text:"Ouvrez l’outil dont vous avez besoin et utilisez-le directement.",
       why2Title:"Pages simples", why2Text:"Chaque page se concentre sur une tâche pratique.",
@@ -625,13 +700,22 @@
       skip:"Saltar al contenido", badge:"Directorio Mini-Tools.uk", heroTitle:"Herramientas online gratis para el trabajo diario",
       heroText:"Una colección sencilla de herramientas útiles para cálculos del Reino Unido, tareas de desarrollo, imágenes, PDF y trabajo rápido diario.",
       heroSearch:"Buscar herramientas", heroBrowse:"Ver categorías", statTools:"18 herramientas", statCategories:"3 categorías", statSignup:"Sin cuenta para la mayoría de herramientas",
+      overviewKicker:"Qué puedes hacer", overviewTitle:"Una portada para pequeñas herramientas web prácticas", overviewText:"Mini-Tools.uk es un directorio enfocado de herramientas ligeras, no un archivo de blog. Usa la búsqueda o las categorías para llegar a la tarea exacta.",
+      overview1Title:"Calcular cifras del Reino Unido", overview1Text:"Estima impuestos, VAT, hipoteca, Stamp Duty, dividendos e ingresos de contratista con campos de entrada claros.",
+      overview2Title:"Resolver tareas de texto y desarrollo", overview2Text:"Formatea JSON, compara texto, estima tokens de IA, crea códigos QR y genera contraseñas desde páginas simples del navegador.",
+      overview3Title:"Preparar archivos y números diarios", overview3Text:"Comprime imágenes, convierte PDF, aloja imágenes, cuenta días laborables, estima combustible y convierte unidades de peso.",
       searchKicker:"Encontrar una herramienta", searchTitle:"Buscar herramientas", searchText:"Encuentra una calculadora, conversor o herramienta del navegador por nombre o tarea. Los resultados se muestran como tarjetas.",
       searchLabel:"Buscar", searchPlaceholder:"Buscar impuestos, hosting de imágenes, JSON, QR, PDF...", emptyState:"No se encontraron herramientas. Prueba otra palabra clave.",
-      popularKicker:"Directorio de herramientas", popularTitle:"Todas las herramientas", popularText:"Las 18 herramientas públicas se renderizan directamente en el HTML de la portada para que siga siendo útil incluso antes de ejecutar scripts.",
+      popularKicker:"Directorio de herramientas", popularTitle:"Todas las herramientas online", popularText:"Explora todas las herramientas públicas desde un solo lugar. Cada tarjeta explica para qué sirve antes de abrirla.",
       categoryKicker:"Directorio de herramientas", categoryTitle:"Explorar herramientas por categoría", categoryText:"Las herramientas se agrupan en tres áreas: Apps UK, herramientas para desarrolladores y otras herramientas.",
       ukAppsTitle:"Apps UK", ukAppsText:"Herramientas para salario, impuestos, VAT y cálculos financieros prácticos del Reino Unido.", ukAppsTag:"Cálculos UK",
       devToolsTitle:"Herramientas para desarrolladores", devToolsText:"Herramientas del navegador para formatear, comparar, codificar y trabajar con texto o datos.", devToolsTag:"Texto y datos",
       otherToolsTitle:"Otras herramientas", otherToolsText:"Herramientas de imagen, PDF, fechas, combustible, unidades y utilidades diarias.", otherToolsTag:"Utilidades",
+      qualityKicker:"Notas de calidad", qualityTitle:"Páginas claras, límites claros y menos contenido innecesario", qualityText:"El sitio se organiza alrededor de páginas completas de herramientas con navegación directa, contacto visible y explicaciones simples.",
+      qualityIntro:"Las calculadoras se ofrecen para planificación e información. Las herramientas financieras deben tratarse como estimaciones y cada página detallada debería listar sus supuestos o fuentes oficiales.",
+      quality1:"Páginas enfocadas: cada herramienta está enlazada desde la portada y cumple un propósito práctico.",
+      quality2:"Privacidad: las herramientas del navegador evitan subidas cuando es posible; las de subida explican el almacenamiento remoto.",
+      quality3:"Confianza: Acerca de, Contacto y Privacidad se mantienen en la navegación y el pie.",
       whyKicker:"Páginas útiles simples", whyTitle:"¿Por qué usar Mini-Tools.uk?",
       why1Title:"Sin cuenta para la mayoría de herramientas", why1Text:"Abre la herramienta que necesitas y úsala directamente.",
       why2Title:"Páginas simples", why2Text:"Cada página se centra en una tarea práctica.",
@@ -778,7 +862,26 @@
           "description":texts.description,
           "potentialAction":{"@type":"SearchAction","target":"https://mini-tools.uk/?q={search_term_string}","query-input":"required name=search_term_string"}
         },
-        {"@type":"Organization","name":"Mini-Tools.uk","url":"https://mini-tools.uk/","logo":"https://assets.mini-tools.uk/image/icon-512x512.png","email":"yuyananuu@gmail.com"}
+        {"@type":"Organization","name":"Mini-Tools.uk","url":"https://mini-tools.uk/","logo":"https://assets.mini-tools.uk/image/icon-512x512.png","email":"yuyananuu@gmail.com"},
+        {
+          "@type":"ItemList",
+          "name":texts.popularTitle,
+          "itemListElement":toolCatalog.map((tool, index) => ({
+            "@type":"ListItem",
+            "position":index + 1,
+            "url":"https://mini-tools.uk" + tool.url,
+            "name":textFor(tool.name),
+            "description":textFor(tool.desc)
+          }))
+        },
+        {
+          "@type":"FAQPage",
+          "mainEntity":[1,2,3,4,5].map((num) => ({
+            "@type":"Question",
+            "name":texts[`faq${num}Q`],
+            "acceptedAnswer":{"@type":"Answer","text":texts[`faq${num}A`]}
+          }))
+        }
       ]
     };
     const el = document.getElementById("schema-json");
