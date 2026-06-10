@@ -86,7 +86,9 @@
 
 
 
-<link rel="stylesheet" href="/site-nav.css?v=20260610-footer-1">
+
+
+<link rel="stylesheet" href="/site-nav.css?v=20260610-nav-2">
 <style id="site-footer-style">
 .footer {
   margin-top: 46px !important;
@@ -273,6 +275,7 @@
     async function copyText(v,button,key){const d=dict(),original=d[key];try{await navigator.clipboard.writeText(v);button.textContent=d.copied;setTimeout(()=>button.textContent=original,1600)}catch(e){button.textContent=d.copyFailed;setTimeout(()=>button.textContent=original,1600)}}document.getElementById('copy-text').addEventListener('click',function(){copyText(getReceiptText(true),this,'copyReceipt')});document.getElementById('copy-summary').addEventListener('click',function(){copyText(getReceiptText(false),this,'copySummary')});
     window.addEventListener('load',()=>applyLanguage(getInitialLang(),false));
   </script>
+
 
 
 
