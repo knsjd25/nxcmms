@@ -5,26 +5,26 @@ $utf8 = New-Object System.Text.UTF8Encoding($false)
 $excluded = @("image_admin.html", "map.html")
 
 $nav = @'
-<nav class="nav" aria-label="Primary navigation">
-  <div class="wrap nav-inner">
-    <a class="brand" href="/">
+<nav class="site-nav" aria-label="Primary navigation">
+  <div class="site-nav-inner">
+    <a class="site-brand" href="/">
       <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo">
-      <span class="brand-copy"><span class="brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="brand-subtitle">Useful online tools</span></span>
+      <span class="site-brand-copy"><span class="site-brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="site-brand-subtitle">Useful online tools</span></span>
     </a>
-    <div class="nav-links">
-      <a class="nav-link" href="/" data-site-nav="home">Home</a>
-      <a class="nav-link" href="/#search" data-site-nav="search">Search</a>
-      <a class="nav-link" href="/#popular" data-site-nav="popular">Popular</a>
-      <a class="nav-link" href="/#uk-apps" data-site-nav="ukApps">UK Apps</a>
-      <a class="nav-link" href="/#developer-tools" data-site-nav="devTools">Dev Tools</a>
-      <a class="nav-link" href="/#other-tools" data-site-nav="other">Other</a>
-      <a class="nav-link" href="/about" data-site-nav="about">About</a>
-      <a class="nav-link" href="/contact" data-site-nav="contact">Contact</a>
-      <a class="nav-link" href="/privacy" data-site-nav="privacy">Privacy</a>
+    <div class="site-nav-links">
+      <a class="site-nav-link" href="/" data-site-nav="home">Home</a>
+      <a class="site-nav-link" href="/#search" data-site-nav="search">Search</a>
+      <a class="site-nav-link" href="/#popular" data-site-nav="popular">Popular</a>
+      <a class="site-nav-link" href="/#uk-apps" data-site-nav="ukApps">UK Apps</a>
+      <a class="site-nav-link" href="/#developer-tools" data-site-nav="devTools">Dev Tools</a>
+      <a class="site-nav-link" href="/#other-tools" data-site-nav="other">Other</a>
+      <a class="site-nav-link" href="/about" data-site-nav="about">About</a>
+      <a class="site-nav-link" href="/contact" data-site-nav="contact">Contact</a>
+      <a class="site-nav-link" href="/privacy" data-site-nav="privacy">Privacy</a>
     </div>
-    <div class="lang-group">
-      <button class="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span></button>
-      <div class="lang-dropdown" aria-label="Language">
+    <div class="site-lang-group">
+      <button class="site-lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span></button>
+      <div class="site-lang-dropdown" aria-label="Language">
         <button type="button" data-site-lang="en">English</button><button type="button" data-site-lang="zh-CN">&#20013;&#25991;</button><button type="button" data-site-lang="de">Deutsch</button><button type="button" data-site-lang="fr">Fran&ccedil;ais</button><button type="button" data-site-lang="es">Espa&ntilde;ol</button>
       </div>
       <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
@@ -293,8 +293,8 @@ $siteNavScript = @'
   applySiteLanguage();
   window.addEventListener("load", () => { applyCanonicalHreflang(); applySiteLanguage(); });
   setTimeout(applyCanonicalHreflang, 0);
-  const langGroup = document.querySelector(".lang-group");
-  const langTrigger = document.querySelector(".lang-trigger");
+  const langGroup = document.querySelector(".site-lang-group");
+  const langTrigger = document.querySelector(".site-lang-trigger");
   const setLangMenuOpen = (open) => {
     if (!langGroup || !langTrigger) return;
     langGroup.classList.toggle("open", open);
@@ -501,7 +501,7 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
   $html = [regex]::Replace($html, '<style id=["'']site-footer-style["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<style id=["''](?:home-nav-footer-layout-fixes|upload-page-nav-isolation|upload-page-footer-fix|upload-final-review-fixes|upload-language-arrow-unify)["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<link\s+rel=["'']stylesheet["'']\s+href=["'']/?site-nav\.css(?:\?[^"'']*)?["'']\s*/?>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-  $html = $html.Replace('</head>', "<link rel=`"stylesheet`" href=`"/site-nav.css?v=20260610-nav-3`">`r`n$footerStyle`r`n</head>")
+  $html = $html.Replace('</head>', "<link rel=`"stylesheet`" href=`"/site-nav.css?v=20260610-nav-4`">`r`n$footerStyle`r`n</head>")
   $html = $html.Replace('</body>', "$siteNavScript`r`n</body>")
   $html = [regex]::Replace($html, 'Original notes for\s+([^<"''`r`n]+)', 'How to use this $1', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<h3>\s*Example\s*</h3>', '<h3>Use cases</h3>', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
