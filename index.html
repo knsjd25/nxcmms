@@ -699,6 +699,7 @@
     langTrigger.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
+      event.stopImmediatePropagation();
       setLangMenuOpen(!langGroup.classList.contains("open"));
     });
   }
@@ -709,7 +710,10 @@
     if (event.key === "Escape") setLangMenuOpen(false);
   });
   document.querySelectorAll("[data-site-lang]").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
       currentLang = normalizeLang(button.dataset.siteLang);
       setUrlLang();
       setLangMenuOpen(false);
