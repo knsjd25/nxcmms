@@ -78,24 +78,31 @@ test("all public pages use the unified navigation and footer", () => {
     for (const legacyClass of ["nav", "nav-inner", "brand", "nav-links", "nav-link", "lang-group", "lang-trigger", "lang-dropdown"]) {
       assert.equal(navClassTokens.includes(legacyClass), false, `${file}: shared nav must not use legacy class ${legacyClass}`);
     }
+    assert.match(nav, /data-site-nav=["']privacy["'][^>]*>[^<]*<\/a>\s*<div class=["']site-lang-group["']>/, `${file}: language selector must stay inside the shared link row`);
     assert.equal(nav, homepageNav, `${file}: navigation markup must match homepage`);
 
     assert.match(footer, /Copyright 2026 Mini-Tools\.uk/, `${file}: footer copyright`);
     assert.match(footer, /mailto:yuyananuu@gmail\.com/, `${file}: footer email`);
     assert.equal(footer, homepageFooter, `${file}: footer markup must match homepage`);
     assert.match(html, /<style id=["']site-footer-style["']>/, `${file}: inline shared footer style`);
-    assert.match(html, /href=["']\/site-nav\.css\?v=20260610-nav-4["']/, `${file}: cache-busted shared CSS`);
+    assert.match(html, /href=["']\/site-nav\.css\?v=20260610-nav-5["']/, `${file}: cache-busted shared CSS`);
     assert.doesNotMatch(nav + footer, /Blog|All Tools|Categories|UK Finance|Image & PDF|Security|Acceptable Use|Terms/i, file);
   }
 });
 
 test("shared navigation gives long translated labels enough responsive space", () => {
   const css = read("site-nav.css");
+  assert.match(css, /\.site-nav,\s*\.site-nav \* \{[^}]*box-sizing: border-box !important;/, "shared navigation owns its box model");
   assert.match(css, /\.site-nav \.site-nav-inner \{[\s\S]*?display: flex !important;/, "desktop nav uses isolated flexible layout");
   assert.doesNotMatch(css, /grid-template-columns: 1fr auto 1fr !important;/, "nav must not use collision-prone three-column grid");
   assert.match(css, /\.site-nav \.site-nav-links \{[^}]*flex-wrap: wrap !important;/, "translated labels may wrap at any desktop width");
+  assert.doesNotMatch(css, /body\s*>\s*main/, "navigation stylesheet must not change page layout");
   assert.match(css, /@media \(max-width: 1280px\)[\s\S]*?\.site-nav \.site-nav-inner[\s\S]*?flex-direction: column !important;/, "long labels wrap before collision");
   assert.match(css, /@media \(max-width: 1280px\)[\s\S]*?\.site-nav \.site-nav-links[\s\S]*?flex-wrap: wrap !important;/, "translated nav buttons wrap safely");
+  assert.match(css, /\.site-nav \.site-nav-link,\s*\.site-nav \.site-lang-trigger \{[^}]*appearance: none !important;[^}]*font-family: [^;]+ !important;/, "language trigger has a complete shared reset");
+  assert.match(css, /\.site-nav \.site-lang-dropdown button \{[^}]*font-family: [^;]+ !important;/, "language menu buttons use the shared font");
+  assert.match(css, /\.site-nav \.site-lang-dropdown button \{[^}]*font-size: 13px !important;/, "language menu buttons use the shared size");
+  assert.match(css, /\.site-nav \.site-lang-dropdown button \{[^}]*border-radius: 6px !important;/, "language menu buttons use the shared shape");
 });
 
 test("language controls support five languages without arrow-only page patches", () => {

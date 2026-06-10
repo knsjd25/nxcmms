@@ -21,13 +21,13 @@ $nav = @'
       <a class="site-nav-link" href="/about" data-site-nav="about">About</a>
       <a class="site-nav-link" href="/contact" data-site-nav="contact">Contact</a>
       <a class="site-nav-link" href="/privacy" data-site-nav="privacy">Privacy</a>
-    </div>
-    <div class="site-lang-group">
-      <button class="site-lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span></button>
-      <div class="site-lang-dropdown" aria-label="Language">
-        <button type="button" data-site-lang="en">English</button><button type="button" data-site-lang="zh-CN">&#20013;&#25991;</button><button type="button" data-site-lang="de">Deutsch</button><button type="button" data-site-lang="fr">Fran&ccedil;ais</button><button type="button" data-site-lang="es">Espa&ntilde;ol</button>
+      <div class="site-lang-group">
+        <button class="site-lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span></button>
+        <div class="site-lang-dropdown" aria-label="Language">
+          <button type="button" data-site-lang="en">English</button><button type="button" data-site-lang="zh-CN">&#20013;&#25991;</button><button type="button" data-site-lang="de">Deutsch</button><button type="button" data-site-lang="fr">Fran&ccedil;ais</button><button type="button" data-site-lang="es">Espa&ntilde;ol</button>
+        </div>
+        <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
       </div>
-      <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
     </div>
   </div>
 </nav>
@@ -501,7 +501,7 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
   $html = [regex]::Replace($html, '<style id=["'']site-footer-style["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<style id=["''](?:home-nav-footer-layout-fixes|upload-page-nav-isolation|upload-page-footer-fix|upload-final-review-fixes|upload-language-arrow-unify)["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<link\s+rel=["'']stylesheet["'']\s+href=["'']/?site-nav\.css(?:\?[^"'']*)?["'']\s*/?>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-  $html = $html.Replace('</head>', "<link rel=`"stylesheet`" href=`"/site-nav.css?v=20260610-nav-4`">`r`n$footerStyle`r`n</head>")
+  $html = $html.Replace('</head>', "<link rel=`"stylesheet`" href=`"/site-nav.css?v=20260610-nav-5`">`r`n$footerStyle`r`n</head>")
   $html = $html.Replace('</body>', "$siteNavScript`r`n</body>")
   $html = [regex]::Replace($html, 'Original notes for\s+([^<"''`r`n]+)', 'How to use this $1', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<h3>\s*Example\s*</h3>', '<h3>Use cases</h3>', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
