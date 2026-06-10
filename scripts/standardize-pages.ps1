@@ -341,6 +341,71 @@ $footer = @'
 </footer>
 '@
 
+$footerStyle = @'
+<style id="site-footer-style">
+.footer {
+  margin-top: 46px !important;
+  border-top: 1px solid #e2e8f0 !important;
+  background: #fff !important;
+  padding: 28px 0 46px !important;
+}
+.footer .footer-inner {
+  box-sizing: border-box !important;
+  max-width: 1180px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 18px !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  color: #64748b !important;
+  font-size: .9rem !important;
+  text-align: left !important;
+}
+.footer .footer-copyright {
+  color: #64748b !important;
+  font-size: .9rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+}
+.footer .footer-links {
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  gap: 14px !important;
+  flex-wrap: wrap !important;
+  margin: 0 !important;
+  color: #334155 !important;
+  font-size: .9rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  text-align: left !important;
+}
+.footer .footer-links a {
+  color: #334155 !important;
+  font-size: .9rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+@media (max-width: 760px) {
+  .footer .footer-inner {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+  }
+  .footer .footer-links {
+    justify-content: flex-start !important;
+  }
+}
+</style>
+'@
+
 function Add-BeforeFooter([string]$html, [string]$marker, [string]$content) {
   if ($html.Contains($marker)) { return $html }
   return $html.Replace('<footer class="footer">', "$content`r`n<footer class=`"footer`">")
@@ -433,9 +498,10 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
 
   $html = [regex]::Replace($html, '<script id=["'']site-nav-language["'']>[\s\S]*?</script>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<style id=["'']site-nav-style["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = [regex]::Replace($html, '<style id=["'']site-footer-style["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<style id=["''](?:home-nav-footer-layout-fixes|upload-page-nav-isolation|upload-page-footer-fix|upload-final-review-fixes|upload-language-arrow-unify)["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-  $html = [regex]::Replace($html, '<link\s+rel=["'']stylesheet["'']\s+href=["'']/?site-nav\.css["'']\s*/?>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-  $html = $html.Replace('</head>', "<link rel=`"stylesheet`" href=`"site-nav.css`">`r`n</head>")
+  $html = [regex]::Replace($html, '<link\s+rel=["'']stylesheet["'']\s+href=["'']/?site-nav\.css(?:\?[^"'']*)?["'']\s*/?>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = $html.Replace('</head>', "<link rel=`"stylesheet`" href=`"/site-nav.css?v=20260610-footer-1`">`r`n$footerStyle`r`n</head>")
   $html = $html.Replace('</body>', "$siteNavScript`r`n</body>")
   $html = [regex]::Replace($html, 'Original notes for\s+([^<"''`r`n]+)', 'How to use this $1', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<h3>\s*Example\s*</h3>', '<h3>Use cases</h3>', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)

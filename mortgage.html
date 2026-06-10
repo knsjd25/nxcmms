@@ -266,7 +266,70 @@
 
 
 
-<link rel="stylesheet" href="site-nav.css">
+
+<link rel="stylesheet" href="/site-nav.css?v=20260610-footer-1">
+<style id="site-footer-style">
+.footer {
+  margin-top: 46px !important;
+  border-top: 1px solid #e2e8f0 !important;
+  background: #fff !important;
+  padding: 28px 0 46px !important;
+}
+.footer .footer-inner {
+  box-sizing: border-box !important;
+  max-width: 1180px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 18px !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  color: #64748b !important;
+  font-size: .9rem !important;
+  text-align: left !important;
+}
+.footer .footer-copyright {
+  color: #64748b !important;
+  font-size: .9rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+}
+.footer .footer-links {
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  gap: 14px !important;
+  flex-wrap: wrap !important;
+  margin: 0 !important;
+  color: #334155 !important;
+  font-size: .9rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  text-align: left !important;
+}
+.footer .footer-links a {
+  color: #334155 !important;
+  font-size: .9rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+@media (max-width: 760px) {
+  .footer .footer-inner {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+  }
+  .footer .footer-links {
+    justify-content: flex-start !important;
+  }
+}
+</style>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
@@ -1398,6 +1461,7 @@
       calculate();
     });
   </script>
+
 
 
 

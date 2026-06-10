@@ -58,6 +58,7 @@ async function fetchThroughWorker(path) {
 
 test("all public pages use the unified navigation and footer", () => {
   const navDestinations = ["/", "/#search", "/#popular", "/#uk-apps", "/#developer-tools", "/#other-tools", "/about", "/contact", "/privacy"];
+  const homepageFooter = section(read("index.html"), "footer", "footer");
 
   for (const file of htmlFiles) {
     const html = read(file);
@@ -70,6 +71,9 @@ test("all public pages use the unified navigation and footer", () => {
 
     assert.match(footer, /Copyright 2026 Mini-Tools\.uk/, `${file}: footer copyright`);
     assert.match(footer, /mailto:yuyananuu@gmail\.com/, `${file}: footer email`);
+    assert.equal(footer, homepageFooter, `${file}: footer markup must match homepage`);
+    assert.match(html, /<style id=["']site-footer-style["']>/, `${file}: inline shared footer style`);
+    assert.match(html, /href=["']\/site-nav\.css\?v=20260610-footer-1["']/, `${file}: cache-busted shared CSS`);
     assert.doesNotMatch(nav + footer, /Blog|All Tools|Categories|UK Finance|Image & PDF|Security|Acceptable Use|Terms/i, file);
   }
 });
