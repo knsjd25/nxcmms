@@ -123,47 +123,47 @@ $siteNavScript = @'
     },
     de: {
       notes: "Hinweise",
-      useCases: "Anwendungsfälle",
+      useCases: "Anwendungsf\u00e4lle",
       limitations: "Grenzen und Datenschutz",
       sources: "Quellen und Annahmen",
       faq: "FAQ",
       related: "Verwandte Tools",
-      how: (name) => `${name} ist für eine klare Aufgabe gedacht. Gib die Werte oder Inhalte auf der Seite ein, prüfe das Ergebnis und kopiere, lade oder nutze die Ausgabe danach nach Bedarf.`,
-      uses: (name) => `Nutze ${name} für schnelle Prüfungen, Planungen, Formatierungen oder Vorbereitungen direkt im Browser.`,
-      limits: "Ergebnisse und Ausgaben sollten vor der Nutzung geprüft werden. Browserbasierte Tools verarbeiten Daten meist lokal; Upload- oder Hosting-Tools erklären, wann entfernte Speicherung verwendet wird.",
-      finance: "Die Ergebnisse sind nur Schätzungen und keine Steuer-, Rechts-, Finanz- oder Buchhaltungsberatung. Prüfe die offiziellen GOV.UK-Hinweise und frage bei wichtigen Entscheidungen eine qualifizierte Fachperson.",
+      how: (name) => `${name} ist f\u00fcr eine klare Aufgabe gedacht. Gib die Werte oder Inhalte auf der Seite ein, pr\u00fcfe das Ergebnis und kopiere, lade oder nutze die Ausgabe danach nach Bedarf.`,
+      uses: (name) => `Nutze ${name} f\u00fcr schnelle Pr\u00fcfungen, Planungen, Formatierungen oder Vorbereitungen direkt im Browser.`,
+      limits: "Ergebnisse und Ausgaben sollten vor der Nutzung gepr\u00fcft werden. Browserbasierte Tools verarbeiten Daten meist lokal; Upload- oder Hosting-Tools erkl\u00e4ren, wann entfernte Speicherung verwendet wird.",
+      finance: "Die Ergebnisse sind nur Sch\u00e4tzungen und keine Steuer-, Rechts-, Finanz- oder Buchhaltungsberatung. Pr\u00fcfe die offiziellen GOV.UK-Hinweise und frage bei wichtigen Entscheidungen eine qualifizierte Fachperson.",
       faqQ: (name) => `Kann ich ${name} als offizielles Ergebnis verwenden?`,
-      faqA: "Nein. Behandle das Ergebnis als praktische Schätzung oder Hilfsausgabe und prüfe es vor der Nutzung.",
+      faqA: "Nein. Behandle das Ergebnis als praktische Sch\u00e4tzung oder Hilfsausgabe und pr\u00fcfe es vor der Nutzung.",
       checked: "Last checked: 9 June 2026"
     },
     fr: {
       notes: "Mode d'emploi",
       useCases: "Cas d'utilisation",
-      limitations: "Limites et confidentialité",
-      sources: "Sources et hypothèses",
+      limitations: "Limites et confidentialit\u00e9",
+      sources: "Sources et hypoth\u00e8ses",
       faq: "FAQ",
-      related: "Outils liés",
-      how: (name) => `${name} sert à une tâche précise. Saisissez les valeurs ou le contenu demandés, vérifiez le résultat, puis copiez, téléchargez ou utilisez la sortie selon vos besoins.`,
-      uses: (name) => `Utilisez ${name} pour des vérifications rapides, des estimations, du formatage ou de la préparation directement dans le navigateur.`,
-      limits: "Les résultats et sorties générées doivent être vérifiés avant utilisation. Les outils côté navigateur traitent généralement les données localement; les outils d'upload ou d'hébergement indiquent quand un stockage distant est utilisé.",
-      finance: "Les résultats sont des estimations uniquement et ne constituent pas un conseil fiscal, juridique, financier ou comptable. Consultez les sources officielles GOV.UK et demandez conseil à un professionnel qualifié pour les décisions importantes.",
-      faqQ: (name) => `Puis-je utiliser ${name} comme résultat officiel ?`,
-      faqA: "Non. Considérez le résultat comme une estimation pratique ou une aide, puis vérifiez-le avant de vous y fier.",
+      related: "Outils li\u00e9s",
+      how: (name) => `${name} sert \u00e0 une t\u00e2che pr\u00e9cise. Saisissez les valeurs ou le contenu demand\u00e9s, v\u00e9rifiez le r\u00e9sultat, puis copiez, t\u00e9l\u00e9chargez ou utilisez la sortie selon vos besoins.`,
+      uses: (name) => `Utilisez ${name} pour des v\u00e9rifications rapides, des estimations, du formatage ou de la pr\u00e9paration directement dans le navigateur.`,
+      limits: "Les r\u00e9sultats et sorties g\u00e9n\u00e9r\u00e9es doivent \u00eatre v\u00e9rifi\u00e9s avant utilisation. Les outils c\u00f4t\u00e9 navigateur traitent g\u00e9n\u00e9ralement les donn\u00e9es localement; les outils d'upload ou d'h\u00e9bergement indiquent quand un stockage distant est utilis\u00e9.",
+      finance: "Les r\u00e9sultats sont des estimations uniquement et ne constituent pas un conseil fiscal, juridique, financier ou comptable. Consultez les sources officielles GOV.UK et demandez conseil \u00e0 un professionnel qualifi\u00e9 pour les d\u00e9cisions importantes.",
+      faqQ: (name) => `Puis-je utiliser ${name} comme r\u00e9sultat officiel ?`,
+      faqA: "Non. Consid\u00e9rez le r\u00e9sultat comme une estimation pratique ou une aide, puis v\u00e9rifiez-le avant de vous y fier.",
       checked: "Last checked: 9 June 2026"
     },
     es: {
-      notes: "Cómo usarlo",
+      notes: "C\u00f3mo usarlo",
       useCases: "Casos de uso",
       limitations: "Limitaciones y privacidad",
       sources: "Fuentes y supuestos",
       faq: "FAQ",
       related: "Herramientas relacionadas",
-      how: (name) => `${name} está pensado para una tarea concreta. Introduce los valores o el contenido que pide la página, revisa el resultado y copia, descarga o usa la salida según lo necesites.`,
-      uses: (name) => `Usa ${name} para comprobaciones rápidas, estimaciones, formato o preparación de contenido directamente en el navegador.`,
-      limits: "Revisa los resultados y salidas generadas antes de usarlos. Las herramientas de navegador suelen procesar datos localmente; las herramientas de subida o alojamiento explican cuándo usan almacenamiento remoto.",
-      finance: "Los resultados son solo estimaciones y no son asesoramiento fiscal, legal, financiero ni contable. Consulta la guía oficial de GOV.UK y confirma decisiones importantes con un profesional cualificado.",
-      faqQ: (name) => `¿Puedo usar ${name} como resultado oficial?`,
-      faqA: "No. Trátalo como una estimación práctica o una salida de ayuda y revísalo antes de confiar en él.",
+      how: (name) => `${name} est\u00e1 pensado para una tarea concreta. Introduce los valores o el contenido que pide la p\u00e1gina, revisa el resultado y copia, descarga o usa la salida seg\u00fan lo necesites.`,
+      uses: (name) => `Usa ${name} para comprobaciones r\u00e1pidas, estimaciones, formato o preparaci\u00f3n de contenido directamente en el navegador.`,
+      limits: "Revisa los resultados y salidas generadas antes de usarlos. Las herramientas de navegador suelen procesar datos localmente; las herramientas de subida o alojamiento explican cu\u00e1ndo usan almacenamiento remoto.",
+      finance: "Los resultados son solo estimaciones y no son asesoramiento fiscal, legal, financiero ni contable. Consulta la gu\u00eda oficial de GOV.UK y confirma decisiones importantes con un profesional cualificado.",
+      faqQ: (name) => `\u00bfPuedo usar ${name} como resultado oficial?`,
+      faqA: "No. Tr\u00e1talo como una estimaci\u00f3n pr\u00e1ctica o una salida de ayuda y rev\u00edsalo antes de confiar en \u00e9l.",
       checked: "Last checked: 9 June 2026"
     }
   };
@@ -441,8 +441,8 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
   $html = [regex]::Replace($html, '<h3>\s*Example\s*</h3>', '<h3>Use cases</h3>', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<h3>\s*Official sources\s*</h3>', '<h3>Sources and assumptions</h3>', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '&copy;\s*2026\s+Mini-Tools\.uk', 'Copyright 2026 Mini-Tools.uk', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-  $html = [regex]::Replace($html, '©\s*2026\s+Mini-Tools\.uk\s*[—-]?\s*', 'Copyright 2026 Mini-Tools.uk - ', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-  $html = [regex]::Replace($html, '漏\s*2026\s+Mini-Tools\.uk', 'Copyright 2026 Mini-Tools.uk', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = [regex]::Replace($html, '漏\s*2026\s+Mini-Tools\.uk\s*[鈥?]?\s*', 'Copyright 2026 Mini-Tools.uk - ', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = [regex]::Replace($html, '婕廫s*2026\s+Mini-Tools\.uk', 'Copyright 2026 Mini-Tools.uk', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = $html.Replace([string][char]0x00A9, 'Copyright')
   $html = [regex]::Replace($html.Replace("`r`n", "`n"), '[ \t]+(?=\n)', '')
   [System.IO.File]::WriteAllText($file.FullName, $html, $utf8)

@@ -102,11 +102,13 @@ test("shared language script translates legacy bottom guidance FAQ", () => {
 });
 
 test("public pages have no development leftovers or retired public links", () => {
+  const mojibakeMarkers = /[茅猫脿莽锚谩驴]/;
   for (const file of htmlFiles) {
     const html = read(file);
     assert.doesNotMatch(html, /Original notes|Original notes for|lorem ipsum|placeholder text|test text/i, file);
     assert.doesNotMatch(html, /\b(?:TODO|FIXME)\b/, file);
     assert.doesNotMatch(html, /婕?2026|漏 2026|&copy;\s*2026|©\s*2026|admin@mini-tools\.uk/i, file);
+    assert.doesNotMatch(html, mojibakeMarkers, `${file}: mojibake marker in public text`);
     assert.equal(hrefs(html).some((href) => /^\/(?:blog(?:\/|$)|terms\/?$|acceptable-use\/?$)/i.test(href)), false, file);
   }
 });
