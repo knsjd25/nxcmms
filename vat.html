@@ -69,7 +69,6 @@
     .content{display:grid;grid-template-columns:minmax(0,770px) 310px;gap:24px;margin:0 auto 44px;max-width:1120px;justify-content:center}.article{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow)}.article h2{font-size:1.75rem;line-height:1.15;letter-spacing:-.03em;margin:0 0 16px}.article h3{font-size:1.16rem;margin:28px 0 10px}.article p,.article li{color:var(--muted)}.article ul{padding-left:20px}.article table{width:100%;border-collapse:collapse;margin:18px 0;border:1px solid var(--line);border-radius:18px;overflow:hidden}.article th,.article td{padding:14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.article th{background:#f8fafc;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em}.article tr:last-child td{border-bottom:none}.faq{margin-top:24px;display:grid;gap:14px}.faq-item{border:1px solid var(--line);border-radius:18px;padding:18px;background:#f8fafc}.faq-item h4{margin:0 0 8px;font-size:1.02rem}.faq-item p{margin:0}.side{position:sticky;top:94px;align-self:start;display:grid;gap:16px}.side-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 10px 24px rgba(15,23,42,.05)}.side-card h3{margin:0 0 10px;font-size:1rem}.side-card p{margin:0;color:var(--muted);font-size:.94rem}.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.chip{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;padding:8px 12px;font-size:.82rem;font-weight:800}.related-list{display:grid;gap:10px;margin-top:12px}.related-list a{display:block;padding:12px 13px;border:1px solid var(--line);border-radius:14px;background:#f8fafc;font-weight:700}.related-list a small{display:block;margin-top:3px;color:#64748b;font-weight:600}.footer{padding:18px 0 42px;color:#64748b}.footer-top{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px}.footer-links{display:flex;gap:16px;flex-wrap:wrap;font-weight:700;font-size:.94rem}.footer small{display:block;margin-top:8px}
     @media (max-width:960px){.mini-grid,.calculator-grid,.content{grid-template-columns:1fr}.side{position:static}}@media (max-width:760px){.mini-grid,.segmented,.actions,.rate-grid,.custom-rate{grid-template-columns:1fr}.panel.left,.article{padding:22px}.nav-inner{align-items:flex-start;flex-direction:column;padding:12px 0}.nav-links{justify-content:flex-start}.brand span{font-size:1rem}.receipt-head h2{font-size:2rem}.receipt-total .receipt-value{font-size:1.7rem}.dropdown,.lang-dropdown{left:0;right:auto}}
   </style>
-  <link rel="stylesheet" href="ui-refresh.css" />
 
 
 
@@ -94,7 +93,12 @@
 
 
 
-<link rel="stylesheet" href="/site-nav.css?v=20260610-nav-5">
+
+
+
+
+
+<link rel="stylesheet" href="site-nav.css">
 <style id="site-footer-style">
 .footer {
   margin-top: 46px !important;
@@ -176,13 +180,13 @@
       <a class="site-nav-link" href="/about" data-site-nav="about">About</a>
       <a class="site-nav-link" href="/contact" data-site-nav="contact">Contact</a>
       <a class="site-nav-link" href="/privacy" data-site-nav="privacy">Privacy</a>
-      <div class="site-lang-group">
-        <button class="site-lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span></button>
-        <div class="site-lang-dropdown" aria-label="Language">
-          <button type="button" data-site-lang="en">English</button><button type="button" data-site-lang="zh-CN">&#20013;&#25991;</button><button type="button" data-site-lang="de">Deutsch</button><button type="button" data-site-lang="fr">Fran&ccedil;ais</button><button type="button" data-site-lang="es">Espa&ntilde;ol</button>
-        </div>
-        <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
+    </div>
+    <div class="site-lang-group">
+      <button class="site-lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span></button>
+      <div class="site-lang-dropdown" aria-label="Language">
+        <button type="button" data-site-lang="en">English</button><button type="button" data-site-lang="zh-CN">&#20013;&#25991;</button><button type="button" data-site-lang="de">Deutsch</button><button type="button" data-site-lang="fr">Fran&ccedil;ais</button><button type="button" data-site-lang="es">Espa&ntilde;ol</button>
       </div>
+      <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
     </div>
   </div>
 </nav>
@@ -281,6 +285,8 @@
     async function copyText(v,button,key){const d=dict(),original=d[key];try{await navigator.clipboard.writeText(v);button.textContent=d.copied;setTimeout(()=>button.textContent=original,1600)}catch(e){button.textContent=d.copyFailed;setTimeout(()=>button.textContent=original,1600)}}document.getElementById('copy-text').addEventListener('click',function(){copyText(getReceiptText(true),this,'copyReceipt')});document.getElementById('copy-summary').addEventListener('click',function(){copyText(getReceiptText(false),this,'copySummary')});
     window.addEventListener('load',()=>applyLanguage(getInitialLang(),false));
   </script>
+
+
 
 
 

@@ -51,10 +51,9 @@ foreach ($page in $publicPages) {
 $sharedNavCss = Read-SiteFile "site-nav.css"
 Assert-True ($sharedNavCss.Contains('--site-shell-width: 1180px;')) "shared navigation does not define the common page width"
 Assert-True ($sharedNavCss.Contains('max-width: var(--site-shell-width) !important;')) "shared navigation and content do not use the common page width"
-Assert-True ($sharedNavCss.Contains('justify-content: flex-start !important;')) "shared navigation does not align the main menu beside the brand"
 Assert-True ($sharedNavCss.Contains('right: 0 !important;')) "shared navigation does not keep the language selector on the right"
-Assert-True ($sharedNavCss.Contains('justify-content: center !important;')) "shared navigation does not center the main menu"
-Assert-True ($sharedNavCss.Contains('grid-template-columns: 1fr auto 1fr !important;')) "shared navigation does not use balanced three-column alignment"
+Assert-True ($sharedNavCss.Contains('justify-content: space-between !important;')) "shared navigation does not use homepage alignment"
+Assert-True ($sharedNavCss.Contains('flex-direction: column !important;')) "shared navigation does not provide the responsive stacked layout"
 
 foreach ($page in $publicPages) {
   $html = Read-SiteFile $page.Name
@@ -64,16 +63,19 @@ foreach ($page in $publicPages) {
   }
   Assert-True ($html.Contains('id="site-nav-language"')) "$($page.Name) misses navigation language script"
   Assert-True ($html.Contains('href="site-nav.css"')) "$($page.Name) does not use the local-and-web compatible shared navigation stylesheet"
+  Assert-True (([regex]::Matches($html, '<link\b[^>]*href=["''][^"'']*site-nav\.css[^"'']*["''][^>]*>', "IgnoreCase")).Count -eq 1) "$($page.Name) must load site-nav.css exactly once"
+  Assert-True ($html -notmatch 'ui-refresh\.css') "$($page.Name) still loads the retired competing UI stylesheet"
   Assert-True ($html -notmatch 'href=["'']/site-nav\.css["'']') "$($page.Name) uses a root-relative stylesheet that breaks file:// previews"
   Assert-True ($html -notmatch 'id=["'']site-nav-style["'']') "$($page.Name) still contains copied inline navigation CSS"
   Assert-True ($html.Contains('aria-expanded="false"')) "$($page.Name) language menu trigger is missing click-expanded state"
   Assert-True ($html.Contains('navigator.language')) "$($page.Name) navigation does not fall back to browser language"
-  Assert-True ($html.Contains('target.searchParams.set("lang", selectedLang)')) "$($page.Name) does not preserve the current path when switching language"
+  Assert-True ($html.Contains('target.searchParams.set("lang", lang)')) "$($page.Name) does not preserve the current path when switching language"
+  Assert-True ($html.Contains('history.replaceState(null, "", target.pathname + target.search + target.hash)')) "$($page.Name) reloads instead of updating the language in place"
   Assert-True ($html.Contains('link.searchParams.set("lang", lang)')) "$($page.Name) does not localize internal links"
 }
 
-Assert-True ($sharedNavCss -notmatch 'lang-group:hover\s+\.lang-dropdown') "language dropdown still opens on hover"
-Assert-True ($sharedNavCss -match 'lang-group\.open\s+\.lang-dropdown') "language dropdown does not open by click state"
+Assert-True ($sharedNavCss -notmatch 'site-lang-group:hover\s+\.site-lang-dropdown') "language dropdown still opens on hover"
+Assert-True ($sharedNavCss -match 'site-lang-group\.open\s+\.site-lang-dropdown') "language dropdown does not open by click state"
 Assert-True ((Read-SiteFile "upload.html").Contains("applyUploadGuidanceLanguage")) "upload page guidance is not translatable"
 Assert-True ((Read-SiteFile "upload.html") -notmatch 'miniToolsUploadLang') "upload page still lets stored language override browser language"
 
@@ -83,14 +85,15 @@ foreach ($page in $toolPages) {
 
 foreach ($page in $toolPages) {
   $html = Read-SiteFile $page
-  foreach ($phrase in @("Original notes", "Example", "Limitations", "FAQ", "Related tools")) {
+  Assert-True ($html -notmatch 'Original notes') "$page still contains development notes"
+  foreach ($phrase in @("How to use", "Use cases", "Limitations", "FAQ", "Related tools")) {
     Assert-True ($html -match [regex]::Escape($phrase)) "$page misses tool guidance section phrase: $phrase"
   }
 }
 
 foreach ($page in $ukTaxPages) {
   $html = Read-SiteFile $page
-  Assert-True ($html -match 'Official sources') "$page misses official sources"
+  Assert-True ($html -match 'Sources and assumptions') "$page misses sources and assumptions"
   Assert-True ($html -match 'Last checked: 9 June 2026') "$page misses Last checked date"
   Assert-True ($html -match 'https://www\.gov\.uk/') "$page misses GOV.UK source link"
 }
