@@ -501,7 +501,7 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
   $html = [regex]::Replace($html, '<style id=["'']site-footer-style["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<style id=["''](?:home-nav-footer-layout-fixes|upload-page-nav-isolation|upload-page-footer-fix|upload-final-review-fixes|upload-language-arrow-unify)["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<link\s+rel=["'']stylesheet["'']\s+href=["'']/?site-nav\.css(?:\?[^"'']*)?["'']\s*/?>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-  $html = $html.Replace('</head>', "<link rel=`"stylesheet`" href=`"/site-nav.css?v=20260610-nav-2`">`r`n$footerStyle`r`n</head>")
+  $html = $html.Replace('</head>', "<link rel=`"stylesheet`" href=`"/site-nav.css?v=20260610-nav-3`">`r`n$footerStyle`r`n</head>")
   $html = $html.Replace('</body>', "$siteNavScript`r`n</body>")
   $html = [regex]::Replace($html, 'Original notes for\s+([^<"''`r`n]+)', 'How to use this $1', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<h3>\s*Example\s*</h3>', '<h3>Use cases</h3>', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)

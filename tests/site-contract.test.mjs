@@ -73,7 +73,7 @@ test("all public pages use the unified navigation and footer", () => {
     assert.match(footer, /mailto:yuyananuu@gmail\.com/, `${file}: footer email`);
     assert.equal(footer, homepageFooter, `${file}: footer markup must match homepage`);
     assert.match(html, /<style id=["']site-footer-style["']>/, `${file}: inline shared footer style`);
-    assert.match(html, /href=["']\/site-nav\.css\?v=20260610-nav-2["']/, `${file}: cache-busted shared CSS`);
+    assert.match(html, /href=["']\/site-nav\.css\?v=20260610-nav-3["']/, `${file}: cache-busted shared CSS`);
     assert.doesNotMatch(nav + footer, /Blog|All Tools|Categories|UK Finance|Image & PDF|Security|Acceptable Use|Terms/i, file);
   }
 });
@@ -82,6 +82,7 @@ test("shared navigation gives long translated labels enough responsive space", (
   const css = read("site-nav.css");
   assert.match(css, /\.nav \.nav-inner \{[\s\S]*?display: flex !important;/, "desktop nav uses flexible layout");
   assert.doesNotMatch(css, /grid-template-columns: 1fr auto 1fr !important;/, "nav must not use collision-prone three-column grid");
+  assert.match(css, /\.nav \.nav-links \{[^}]*flex-wrap: wrap !important;/, "translated labels may wrap at any desktop width");
   assert.match(css, /@media \(max-width: 1280px\)[\s\S]*?\.nav \.nav-inner[\s\S]*?flex-direction: column !important;/, "long labels wrap before collision");
   assert.match(css, /@media \(max-width: 1280px\)[\s\S]*?\.nav \.nav-links[\s\S]*?flex-wrap: wrap !important;/, "translated nav buttons wrap safely");
 });
