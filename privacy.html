@@ -212,6 +212,9 @@
 
 
 
+
+
+
 <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
@@ -382,7 +385,7 @@
 </section>
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>&copy; 2026 Mini-Tools.uk</div>
+    <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
     <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
@@ -766,6 +769,9 @@
 
 
 
+
+
+
 <script id="site-nav-language">
 (() => {
   const labels = {
@@ -826,7 +832,7 @@
     const guidance = document.getElementById("tool-guidance");
     if (!guidance || document.getElementById("guidanceTitle")) return;
     const guidanceLabels = {
-      en: { notes: "Original notes for", example: "Example", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
+      en: { notes: "How to use this", example: "Use cases", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
       "zh-CN": { notes: "\u5de5\u5177\u8bf4\u660e\uff1a", example: "\u793a\u4f8b", limitations: "\u9650\u5236", faq: "\u5e38\u89c1\u95ee\u9898", related: "\u76f8\u5173\u5de5\u5177" },
       de: { notes: "Hinweise zu", example: "Beispiel", limitations: "Einschr\u00e4nkungen", faq: "FAQ", related: "Verwandte Tools" },
       fr: { notes: "Notes pour", example: "Exemple", limitations: "Limites", faq: "FAQ", related: "Outils lies" },
@@ -834,10 +840,11 @@
     };
     const text = guidanceLabels[lang] || guidanceLabels.en;
     const title = guidance.querySelector("h2");
-    if (title) title.textContent = title.textContent.replace(/^Original notes for\s*/i, text.notes + " ");
+    if (title) title.textContent = title.textContent.replace(/^How to use this\s*/i, text.notes + " ");
     guidance.querySelectorAll("h3").forEach((heading) => {
       const key = heading.textContent.trim().toLowerCase();
       if (key === "example") heading.textContent = text.example;
+      if (key === "use cases") heading.textContent = text.example;
       if (key === "limitations") heading.textContent = text.limitations;
       if (key === "faq") heading.textContent = text.faq;
       if (key === "related tools") heading.textContent = text.related;

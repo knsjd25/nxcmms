@@ -224,6 +224,9 @@
 
 
 
+
+
+
 <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
@@ -379,9 +382,9 @@
 
   <section class="wrap tool-guidance" id="tool-guidance" style="margin:32px auto">
   <div class="article">
-    <h2>Original notes for Text Diff Checker</h2>
+    <h2>How to use this Text Diff Checker</h2>
     <p>Use this diff checker to compare two text blocks and spot changed words, lines or configuration values. It is helpful for drafts, JSON snippets, prompts and policy text.</p>
-    <h3>Example</h3><p>Example: paste an old prompt on the left and a revised prompt on the right to see exactly what changed.</p>
+    <h3>Use cases</h3><p>Example: paste an old prompt on the left and a revised prompt on the right to see exactly what changed.</p>
     <h3>Limitations</h3><p>Large documents may be harder to scan visually, and semantic meaning still needs human review.</p>
     <h3>FAQ</h3><p><strong>Can it compare code? Yes, but it is a quick text comparison rather than a full Git review tool.</strong></p>
     <h3>Related tools</h3><p><a href="/json">json</a> <a href="/token">token</a> <a href="/password">password</a></p>
@@ -389,7 +392,7 @@
 </section>
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>&copy; 2026 Mini-Tools.uk</div>
+    <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
     <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
@@ -453,7 +456,7 @@
         relatedTokenText:"Estimate prompt size and model cost before you call an API.",
         relatedMoreTitle:"More text tools",
         relatedMoreText:"Browse the rest of your text, conversion, and utility pages.",
-        footerNote:"© 2026 Mini-Tools.uk — local text utilities for everyday work",
+        footerNote:"Copyright 2026 Mini-Tools.uk — local text utilities for everyday work",
         sampleLeft:"The Open Source Initiative (OSI) is a California public benefit corporation, founded in 1998.\n\nIt promotes open-source software and maintains the Open Source Definition.",
         sampleRight:"The Open Source Initiative (OSI) is an American non-profit corporation, founded in 1998.\n\nIt promotes open-source software development and maintains the Open Source Definition framework."
       },
@@ -514,7 +517,7 @@
         relatedTokenText:"在调用 API 前估算提示词长度和模型成本。",
         relatedMoreTitle:"更多文本工具",
         relatedMoreText:"浏览其他文本、转换和实用工具页面。",
-        footerNote:"© 2026 Mini-Tools.uk — 适合日常工作的本地文本工具",
+        footerNote:"Copyright 2026 Mini-Tools.uk — 适合日常工作的本地文本工具",
         sampleLeft:"Mini-Tools 是一个实用在线工具网站。\n\n它提供 JSON 格式化、图片压缩和文本对比功能。",
         sampleRight:"Mini-Tools.uk 是一个实用在线工具网站。\n\n它提供 JSON 格式化、图片压缩、AI Token 估算和文本对比功能。"
       },
@@ -575,7 +578,7 @@
         relatedTokenText:"Promptgröße und Modellkosten vor einem API-Aufruf schätzen.",
         relatedMoreTitle:"Weitere Texttools",
         relatedMoreText:"Weitere Text-, Konvertierungs- und Utility-Seiten ansehen.",
-        footerNote:"© 2026 Mini-Tools.uk — lokale Texttools für den Alltag",
+        footerNote:"Copyright 2026 Mini-Tools.uk — lokale Texttools für den Alltag",
         sampleLeft:"Mini-Tools ist eine Website mit praktischen Online-Tools.\n\nSie bietet JSON-Formatierung, Bildkomprimierung und Textvergleich.",
         sampleRight:"Mini-Tools.uk ist eine Website mit praktischen Online-Tools.\n\nSie bietet JSON-Formatierung, Bildkomprimierung, AI-Token-Schätzung und Textvergleich."
       },
@@ -636,7 +639,7 @@
         relatedTokenText:"Estimer la taille du prompt et le coût avant un appel API.",
         relatedMoreTitle:"Autres outils texte",
         relatedMoreText:"Voir les autres pages texte, conversion et utilitaires.",
-        footerNote:"© 2026 Mini-Tools.uk — outils texte locaux pour le quotidien",
+        footerNote:"Copyright 2026 Mini-Tools.uk — outils texte locaux pour le quotidien",
         sampleLeft:"Mini-Tools est un site d’outils en ligne pratiques.\n\nIl propose le formatage JSON, la compression d’image et la comparaison de texte.",
         sampleRight:"Mini-Tools.uk est un site d’outils en ligne pratiques.\n\nIl propose le formatage JSON, la compression d’image, l’estimation de tokens IA et la comparaison de texte."
       },
@@ -697,7 +700,7 @@
         relatedTokenText:"Estimar tamaño de prompt y coste antes de una llamada API.",
         relatedMoreTitle:"Más herramientas de texto",
         relatedMoreText:"Ver otras páginas de texto, conversión y utilidades.",
-        footerNote:"© 2026 Mini-Tools.uk — herramientas locales de texto para el trabajo diario",
+        footerNote:"Copyright 2026 Mini-Tools.uk — herramientas locales de texto para el trabajo diario",
         sampleLeft:"Mini-Tools es un sitio de herramientas online prácticas.\n\nOfrece formato JSON, compresión de imágenes y comparación de texto.",
         sampleRight:"Mini-Tools.uk es un sitio de herramientas online prácticas.\n\nOfrece formato JSON, compresión de imágenes, estimación de tokens IA y comparación de texto."
       }
@@ -1070,6 +1073,9 @@
 
 
 
+
+
+
 <script id="site-nav-language">
 (() => {
   const labels = {
@@ -1130,7 +1136,7 @@
     const guidance = document.getElementById("tool-guidance");
     if (!guidance || document.getElementById("guidanceTitle")) return;
     const guidanceLabels = {
-      en: { notes: "Original notes for", example: "Example", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
+      en: { notes: "How to use this", example: "Use cases", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
       "zh-CN": { notes: "\u5de5\u5177\u8bf4\u660e\uff1a", example: "\u793a\u4f8b", limitations: "\u9650\u5236", faq: "\u5e38\u89c1\u95ee\u9898", related: "\u76f8\u5173\u5de5\u5177" },
       de: { notes: "Hinweise zu", example: "Beispiel", limitations: "Einschr\u00e4nkungen", faq: "FAQ", related: "Verwandte Tools" },
       fr: { notes: "Notes pour", example: "Exemple", limitations: "Limites", faq: "FAQ", related: "Outils lies" },
@@ -1138,10 +1144,11 @@
     };
     const text = guidanceLabels[lang] || guidanceLabels.en;
     const title = guidance.querySelector("h2");
-    if (title) title.textContent = title.textContent.replace(/^Original notes for\s*/i, text.notes + " ");
+    if (title) title.textContent = title.textContent.replace(/^How to use this\s*/i, text.notes + " ");
     guidance.querySelectorAll("h3").forEach((heading) => {
       const key = heading.textContent.trim().toLowerCase();
       if (key === "example") heading.textContent = text.example;
+      if (key === "use cases") heading.textContent = text.example;
       if (key === "limitations") heading.textContent = text.limitations;
       if (key === "faq") heading.textContent = text.faq;
       if (key === "related tools") heading.textContent = text.related;

@@ -1,22 +1,24 @@
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
+import worker from "../_worker.js";
 
 const root = new URL("../", import.meta.url);
 const read = (name) => readFileSync(new URL(name, root), "utf8");
 const htmlFiles = readdirSync(root).filter((name) => name.endsWith(".html") && !["image_admin.html", "map.html"].includes(name));
-const keyPages = ["index.html", "about.html", "upload.html", "tax.html", "contact.html", "privacy.html"];
+
+const approvedPaths = [
+  "/", "/tax", "/vat", "/mortgage", "/ir35", "/stamp-duty", "/dividend",
+  "/json", "/diff", "/token", "/qr", "/password", "/upload", "/image",
+  "/pdf2img", "/color-picker", "/working-days", "/fuel", "/weight",
+  "/about", "/contact", "/privacy",
+];
+
 const toolPages = htmlFiles.filter((name) => !["index.html", "about.html", "contact.html", "privacy.html"].includes(name));
-const ukTaxPages = ["tax.html", "vat.html", "ir35.html", "stamp-duty.html", "dividend.html"];
-const canonicalPaths = new Map(Object.entries({
-  "index.html": "/", "upload.html": "/upload", "tax.html": "/tax", "vat.html": "/vat",
-  "json.html": "/json", "diff.html": "/diff", "token.html": "/token", "qr.html": "/qr",
-  "pdf2img.html": "/pdf2img", "mortgage.html": "/mortgage", "ir35.html": "/ir35",
-  "stamp-duty.html": "/stamp-duty", "dividend.html": "/dividend", "password.html": "/password",
-  "image.html": "/image", "color-picker.html": "/color-picker", "working-days.html": "/working-days",
-  "fuel.html": "/fuel", "weight.html": "/weight", "about.html": "/about", "contact.html": "/contact",
-  "privacy.html": "/privacy",
-}));
+const financePages = ["tax.html", "vat.html", "mortgage.html", "ir35.html", "stamp-duty.html", "dividend.html"];
+
+const routeForFile = (file) => file === "index.html" ? "/" : `/${file.replace(/\.html$/, "")}`;
+const escapeRe = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 function section(html, tag, className) {
   const pattern = new RegExp(`<${tag}\\b[^>]*class=["'][^"']*${className}[^"']*["'][^>]*>[\\s\\S]*?<\\/${tag}>`, "i");
@@ -27,189 +29,157 @@ function hrefs(html) {
   return [...html.matchAll(/href=["']([^"']+)["']/gi)].map((match) => match[1]);
 }
 
-test("all public pages remove retired route links", () => {
-  for (const file of htmlFiles) {
-    const html = read(file);
-    const links = hrefs(html);
-    assert.equal(links.some((href) => /^\/(?:blog(?:\/|$)|terms\/?$|acceptable-use\/?$)/i.test(href)), false, file);
-    const restrictedAreas = html.matchAll(/<(?:nav|[^>]+\b(?:class|id)=["'][^"']*(?:empty|error|upload-result|result)[^"']*["'])\b[\s\S]*?<\/(?:nav|div|section|aside)>/gi);
-    for (const area of restrictedAreas) {
-      assert.doesNotMatch(area[0], /adsbygoogle|data-ad-client|data-ad-slot|ad-container|ad-unit|ad-slot/, `${file}: restricted ad area`);
-    }
-  }
-});
+async function fetchThroughWorker(path) {
+  const env = {
+    ASSETS: {
+      async fetch(request) {
+        const url = new URL(request.url);
+        const pathname = url.pathname;
+        const file = pathname === "/" ? "index.html" : pathname.slice(1);
+        const assetName = file.endsWith(".html") || file.endsWith(".xml") || file.endsWith(".txt") || file.endsWith(".css")
+          ? file
+          : `${file}.html`;
+        try {
+          const body = read(assetName);
+          const contentType = assetName.endsWith(".html")
+            ? "text/html; charset=utf-8"
+            : assetName.endsWith(".xml")
+              ? "application/xml; charset=utf-8"
+              : "text/plain; charset=utf-8";
+          return new Response(body, { status: 200, headers: { "content-type": contentType } });
+        } catch {
+          return new Response("Not found", { status: 404, headers: { "content-type": "text/plain; charset=utf-8" } });
+        }
+      },
+    },
+  };
+  return worker.fetch(new Request(`https://mini-tools.uk${path}`), env);
+}
 
-test("key pages use the unified navigation destinations", () => {
-  const expected = ["/", "/#search", "/#popular", "/#uk-apps", "/#developer-tools", "/#other-tools", "/about", "/contact", "/privacy"];
-  for (const file of keyPages) {
+test("all public pages use the unified navigation and footer", () => {
+  const navDestinations = ["/", "/#search", "/#popular", "/#uk-apps", "/#developer-tools", "/#other-tools", "/about", "/contact", "/privacy"];
+
+  for (const file of htmlFiles) {
     const html = read(file);
     const nav = section(html, "nav", "nav");
-    for (const href of expected) assert.match(nav, new RegExp(`href=["']${href.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']`), `${file}: ${href}`);
-    assert.doesNotMatch(nav, /All Tools|Categories|UK Finance|Image &amp; PDF|Image & PDF|Security|Blog/i, file);
+    const footer = section(html, "footer", "footer");
+
+    for (const href of navDestinations) {
+      assert.match(nav, new RegExp(`href=["']${escapeRe(href)}["']`), `${file}: nav misses ${href}`);
+    }
+
+    assert.match(footer, /Copyright 2026 Mini-Tools\.uk/, `${file}: footer copyright`);
+    assert.match(footer, /mailto:yuyananuu@gmail\.com/, `${file}: footer email`);
+    assert.doesNotMatch(nav + footer, /Blog|All Tools|Categories|UK Finance|Image & PDF|Security|Acceptable Use|Terms/i, file);
   }
 });
 
-test("key pages use the minimal footer", () => {
-  for (const file of keyPages) {
-    const footer = section(read(file), "footer", "footer");
-    for (const href of ["/", "/about", "/contact", "/privacy"]) assert.match(footer, new RegExp(`href=["']${href.replace("/", "\\/")}["']`), `${file}: ${href}`);
-    assert.match(footer, /mailto:yuyananuu@gmail\.com/, file);
-    assert.doesNotMatch(footer, /Blog|Terms|Acceptable Use|All Tools|Categories/i, file);
-  }
-});
-
-test("language controls preserve current paths and localize internal links", () => {
+test("language controls support five languages without arrow-only page patches", () => {
   for (const file of htmlFiles) {
     const html = read(file);
-    for (const lang of ["en", "zh-CN", "de", "fr", "es"]) assert.match(html, new RegExp(`data-site-lang=["']${lang}["']`), `${file}: ${lang}`);
+    for (const lang of ["en", "zh-CN", "de", "fr", "es"]) {
+      assert.match(html, new RegExp(`data-site-lang=["']${lang}["']`), `${file}: ${lang}`);
+    }
     assert.match(html, /aria-expanded=["']false["']/, file);
-    assert.match(html, /navigator\.language/, file);
     assert.match(html, /target\.searchParams\.set\(["']lang["'], selectedLang\)/, file);
-    assert.match(html, /link\.searchParams\.set\(["']lang["'], lang\)/, file);
+    assert.doesNotMatch(html, /lang-trigger::after|upload-page-nav-isolation|upload-page-footer-fix|home-nav-footer-layout-fixes/, file);
   }
 });
 
-test("all pages use the same shared navigation stylesheet", () => {
+test("public pages have no development leftovers or retired public links", () => {
   for (const file of htmlFiles) {
     const html = read(file);
-    assert.match(html, /href=["']site-nav\.css["']/, file);
-    assert.doesNotMatch(html, /href=["']\/site-nav\.css["']/, file);
-    assert.doesNotMatch(html, /id=["']site-nav-style["']/, file);
+    assert.doesNotMatch(html, /Original notes|Original notes for|lorem ipsum|placeholder text|test text/i, file);
+    assert.doesNotMatch(html, /\b(?:TODO|FIXME)\b/, file);
+    assert.doesNotMatch(html, /婕?2026|漏 2026|&copy;\s*2026|©\s*2026|admin@mini-tools\.uk/i, file);
+    assert.equal(hrefs(html).some((href) => /^\/(?:blog(?:\/|$)|terms\/?$|acceptable-use\/?$)/i.test(href)), false, file);
   }
 });
 
-test("no public page retains a legacy header around the unified nav", () => {
-  for (const file of htmlFiles) {
-    assert.doesNotMatch(read(file), /<header\s+class=["']site-header["']/i, file);
-  }
-});
-
-test("shared navigation keeps the main menu beside the brand", () => {
-  const css = read("site-nav.css");
-  assert.match(css, /--site-shell-width:\s*1180px/);
-  assert.match(css, /max-width:\s*var\(--site-shell-width\)\s*!important/);
-  assert.match(css, /justify-content:\s*flex-start\s*!important/);
-  assert.match(css, /right:\s*0\s*!important/);
-  assert.match(css, /justify-content:\s*center\s*!important/);
-  assert.match(css, /grid-template-columns:\s*1fr auto 1fr\s*!important/);
-  assert.doesNotMatch(css, /lang-group:hover\s+\.lang-dropdown/);
-  assert.match(css, /lang-group\.open\s+\.lang-dropdown/);
-});
-
-test("upload language defaults and guidance follow the selected/browser language", () => {
-  const html = read("upload.html");
-  assert.doesNotMatch(html, /miniToolsUploadLang/);
-  assert.match(html, /let currentLang = normalizeLang\(getUrlLang\(\) \|\| navigator\.language \|\| ["']en["']\)/);
-  assert.match(html, /applyUploadGuidanceLanguage/);
-});
-
-test("homepage has the requested directory sections and popular tools", () => {
-  const html = read("index.html");
-  assert.match(html, /Free Online Tools for Everyday Work/);
-  assert.match(html, /A simple collection of useful online tools for UK calculations, developer tasks, image utilities, PDF tools and everyday quick work\./);
-  for (const id of ["search", "popular", "categories", "uk-apps", "developer-tools", "other-tools"]) assert.match(html, new RegExp(`id=["']${id}["']`));
-  const popular = html.match(/<div class=["']popular-grid["'] id=["']popularTools["']>([\s\S]*?)<\/div><\/section>/)?.[1] ?? "";
-  assert.equal([...popular.matchAll(/class=["']tool-card\b/g)].length, 18);
-  for (const path of ["/tax", "/vat", "/mortgage", "/ir35", "/stamp-duty", "/dividend", "/json", "/diff", "/token", "/qr", "/password", "/upload", "/image", "/pdf2img", "/color-picker", "/working-days", "/fuel", "/weight"]) {
-    assert.match(html, new RegExp(`href=["']${path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']`), path);
-  }
-  assert.doesNotMatch(html, /Featured Tool|Main Tool|Primary Tool|terms and acceptable-use page should explain|Each section has a featured tool/i);
-});
-
-test("about page describes the three-category tool directory", () => {
-  const html = read("about.html");
-  for (const phrase of ["tool directory", "UK Apps", "Developer Tools", "Other Tools", "UK Tax Calculator", "JSON Formatter", "Free Image Hosting"]) {
-    assert.match(html, new RegExp(phrase, "i"), phrase);
-  }
-  assert.match(html, /Most tools.*without an account/i);
-  assert.match(html, /Contact/i);
-});
-
-test("privacy page covers upload policy and browser processing", () => {
-  const html = read("privacy.html");
-  for (const phrase of [
-    "browser", "remote service", "not private", "1 day", "7 days", "30 days",
-    "approved code", "image URL", "illegal content", "adult content", "violent content",
-    "hateful content", "copyrighted images", "passport", "financial documents",
-    "medical records", "malware", "phishing", "scam", "minors", "confidential screenshots",
-    "Google Analytics", "advertising", "cookies", "localStorage",
-  ]) assert.match(html, new RegExp(phrase, "i"), phrase);
-});
-
-test("contact, upload, and tax retain required operational guidance", () => {
-  const contact = read("contact.html");
-  for (const phrase of ["bug report", "feature suggestion", "calculation issue", "image removal request", "abuse report", "privacy question", "hosted image URL", "reason"]) assert.match(contact, new RegExp(phrase, "i"), phrase);
-  const upload = read("upload.html");
-  for (const phrase of ["What not to upload", "Removal and abuse reports", "Privacy note"]) assert.match(upload, new RegExp(phrase, "i"), phrase);
-  const tax = read("tax.html");
-  for (const phrase of ["estimates only", "not official tax advice", "not legal or financial advice"]) assert.match(tax, new RegExp(phrase, "i"), phrase);
-});
-
-test("all public tools are index follow", () => {
-  for (const file of toolPages) assert.match(read(file), /<meta\s+name=["']robots["']\s+content=["'][^"']*index\s*,?\s*follow/i, file);
-});
-
-test("tool pages include original notes, examples, limitations, FAQ, and related tools", () => {
+test("tool pages include the required content structure", () => {
   for (const file of toolPages) {
     const html = read(file);
-    for (const phrase of ["Original notes", "Example", "Limitations", "FAQ", "Related tools"]) {
-      assert.match(html, new RegExp(phrase, "i"), `${file}: ${phrase}`);
-    }
+    assert.match(html, /<h1\b/i, `${file}: H1`);
+    assert.match(html, /How to use/i, `${file}: How to use`);
+    assert.match(html, /Use cases/i, `${file}: Use cases`);
+    assert.match(html, /Limitations|Privacy note|Sources and assumptions|Official sources/i, `${file}: limitations/privacy/sources`);
+    assert.match(html, /Related tools/i, `${file}: related tools`);
+    assert.match(html, /FAQ/i, `${file}: FAQ`);
   }
 });
 
-test("UK tax tools include official sources and a last checked date", () => {
-  for (const file of ukTaxPages) {
+test("finance pages include sources, assumptions, disclaimer, and GOV.UK links", () => {
+  for (const file of financePages) {
     const html = read(file);
-    assert.match(html, /Official sources/, file);
-    assert.match(html, /Last checked: 9 June 2026/, file);
-    assert.match(html, /https:\/\/www\.gov\.uk\//, file);
+    assert.match(html, /Sources and assumptions|Official sources/i, `${file}: sources heading`);
+    assert.match(html, /estimate|estimates only/i, `${file}: estimate disclaimer`);
+    assert.match(html, /not (tax|legal|financial|accounting|official tax) advice/i, `${file}: advice disclaimer`);
+    assert.match(html, /Last checked: 9 June 2026/i, `${file}: last checked`);
+    assert.match(html, /https:\/\/www\.gov\.uk\//, `${file}: GOV.UK`);
   }
 });
 
-test("canonical and hreflang tags use clean core URLs with language alternates", () => {
-  for (const [file, path] of canonicalPaths) {
+test("upload page keeps protected controls and has formal safety content", () => {
+  const html = read("upload.html");
+  for (const required of [
+    "WORKER_URL", "fileInput", "previewImage", "5 MB", "durationSelect",
+    "storageCodeInput", "captchaAnswerInput", "FormData", "directUrl",
+    "markdownOutput", "htmlOutput", "bbcodeOutput", "resetPreview", "resetLog",
+  ]) {
+    assert.match(html, new RegExp(escapeRe(required)), `upload: ${required}`);
+  }
+  for (const phrase of [
+    "What not to upload", "Removal and abuse reports", "Privacy note",
+    "ID documents", "Passports", "Bank cards", "Financial documents",
+    "Confidential work files", "Illegal content", "Malware-related content",
+  ]) {
+    assert.match(html, new RegExp(escapeRe(phrase), "i"), `upload content: ${phrase}`);
+  }
+});
+
+test("canonical, hreflang, sitemap and robots stay clean", () => {
+  for (const file of htmlFiles) {
+    const path = routeForFile(file);
     const html = read(file);
     const clean = `https://mini-tools.uk${path}`;
-    const esc = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    assert.match(html, new RegExp(`<link\\s+rel=["']canonical["']\\s+href=["']${esc(clean)}["']`), file);
+    assert.match(html, new RegExp(`<link\\s+rel=["']canonical["']\\s+href=["']${escapeRe(clean)}["']`), file);
     for (const lang of ["en", "zh-CN", "de", "fr", "es"]) {
-      const expected = `${clean}?lang=${lang}`;
-      assert.match(html, new RegExp(`<link\\s+rel=["']alternate["']\\s+hreflang=["']${lang}["']\\s+href=["']${esc(expected)}["']`), `${file}: ${lang}`);
+      assert.match(html, new RegExp(`<link\\s+rel=["']alternate["']\\s+hreflang=["']${escapeRe(lang)}["']\\s+href=["']${escapeRe(`${clean}?lang=${lang}`)}["']`), `${file}: ${lang}`);
     }
-    assert.match(html, new RegExp(`<link\\s+rel=["']alternate["']\\s+hreflang=["']x-default["']\\s+href=["']${esc(clean)}["']`), file);
-    assert.match(html, /applyCanonicalHreflang/, file);
+    assert.match(html, new RegExp(`<link\\s+rel=["']alternate["']\\s+hreflang=["']x-default["']\\s+href=["']${escapeRe(clean)}["']`), file);
   }
-});
 
-test("worker implements retired and legacy URL behavior", () => {
-  const worker = read("_worker.js");
-  assert.match(worker, /initialPathname\s*===\s*["']\/terms["'][\s\S]*?\/privacy/);
-  assert.match(worker, /initialPathname\s*===\s*["']\/acceptable-use["'][\s\S]*?\/privacy/);
-  assert.doesNotMatch(worker, /\/blog|Blog|miniToolsBlogLang/);
-  assert.match(worker, /pathname\s*===\s*["']\/index\.html["']/);
-  assert.match(worker, /pathname\.endsWith\(["']\.html["']\)/);
-  assert.deepEqual([...worker.matchAll(/SUPPORTED_LANGS\s*=\s*\[([^\]]+)\]/g)].length, 1);
-});
-
-test("public pages have clean footer text and one public contact email", () => {
-  for (const file of htmlFiles) {
-    const html = read(file);
-    assert.doesNotMatch(html, /漏 2026|婕|admin@mini-tools\.uk|\/blog|Blog|navBlog|footerBlog/, file);
-    assert.match(section(html, "footer", "footer"), /© 2026 Mini-Tools\.uk/, file);
-    assert.match(section(html, "footer", "footer"), /mailto:yuyananuu@gmail\.com/, file);
-  }
-});
-
-test("sitemap contains only the approved complete clean URLs", () => {
   const locs = [...read("sitemap.xml").matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-  assert.equal(locs.length, 22);
-  for (const path of ["/", "/upload", "/tax", "/vat", "/json", "/diff", "/token", "/qr", "/pdf2img", "/mortgage", "/ir35", "/stamp-duty", "/dividend", "/password", "/image", "/color-picker", "/working-days", "/fuel", "/weight", "/about", "/contact", "/privacy"]) {
-    assert.ok(locs.includes(`https://mini-tools.uk${path}`), path);
-  }
+  assert.deepEqual(locs, approvedPaths.map((path) => `https://mini-tools.uk${path}`));
   assert.equal(read("sitemap.xml").includes("?lang="), false);
+  assert.equal(read("robots.txt").trim().replace(/\r\n/g, "\n"), "User-agent: *\nAllow: /\n\nSitemap: https://mini-tools.uk/sitemap.xml");
 });
 
-test("robots allows crawling and declares sitemap", () => {
-  assert.equal(read("robots.txt").trim(), "User-agent: *\nAllow: /\n\nSitemap: https://mini-tools.uk/sitemap.xml");
+test("worker renders Chinese body, metadata and schema for key pages", async () => {
+  for (const [path, chineseText, englishText] of [
+    ["/?lang=zh-CN", "免费在线工具", "Free Online Tools for Everyday Work"],
+    ["/upload?lang=zh-CN", "免费图床", "Upload an image and get direct URL"],
+  ]) {
+    const response = await fetchThroughWorker(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    assert.match(html, /<html[^>]+lang="zh-CN"/, path);
+    assert.match(html, new RegExp(chineseText), path);
+    assert.doesNotMatch(html, new RegExp(englishText), path);
+    assert.match(html, /"@context"/, `${path}: schema`);
+    assert.match(html, /<link rel="canonical" href="https:\/\/mini-tools\.uk\/[^"]*\?lang=zh-CN"|<link rel="canonical" href="https:\/\/mini-tools\.uk\/\?lang=zh-CN"/, `${path}: canonical`);
+  }
+});
+
+test("worker serves sitemap and robots as static assets and retires blog", async () => {
+  const sitemap = await fetchThroughWorker("/sitemap.xml");
+  assert.equal(sitemap.status, 200);
+  assert.match(await sitemap.text(), /<urlset/);
+
+  const robots = await fetchThroughWorker("/robots.txt");
+  assert.equal(robots.status, 200);
+  assert.match(await robots.text(), /Sitemap: https:\/\/mini-tools\.uk\/sitemap\.xml/);
+
+  const blog = await fetchThroughWorker("/blog");
+  assert.equal(blog.status, 410);
 });

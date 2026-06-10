@@ -61,6 +61,9 @@
 
 
 
+
+
+
 <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
@@ -116,9 +119,9 @@
   </div></main>
   <section class="wrap tool-guidance" id="tool-guidance" style="margin:32px auto">
   <div class="article">
-    <h2>Original notes for Weight Converter</h2>
+    <h2>How to use this Weight Converter</h2>
     <p>Use this converter to switch between kilograms, pounds, stones and common weight expressions. It is useful for UK forms, fitness notes and international references.</p>
-    <h3>Example</h3><p>Example: enter 12 stone 4 pounds to get the equivalent kilograms for a metric form.</p>
+    <h3>Use cases</h3><p>Example: enter 12 stone 4 pounds to get the equivalent kilograms for a metric form.</p>
     <h3>Limitations</h3><p>It converts units only. It does not assess health, BMI, medical risk or fitness goals.</p>
     <h3>FAQ</h3><p><strong>Is this medical advice? No. It is only a unit converter.</strong></p>
     <h3>Related tools</h3><p><a href="/fuel">fuel</a> <a href="/working-days">working days</a> <a href="/vat">vat</a></p>
@@ -126,7 +129,7 @@
 </section>
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>&copy; 2026 Mini-Tools.uk</div>
+    <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
     <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
@@ -157,6 +160,9 @@
     document.querySelectorAll('[data-example-kg]').forEach(btn=>btn.addEventListener('click',()=>{inputKg.value=btn.dataset.exampleKg||'';calcFromMetric()}));
     window.addEventListener('load',()=>{inputSt.value='11';inputLbs.value='4';applyLanguage(getInitialLang(),false);calcFromImperial();});
   </script>
+
+
+
 
 
 
@@ -231,7 +237,7 @@
     const guidance = document.getElementById("tool-guidance");
     if (!guidance || document.getElementById("guidanceTitle")) return;
     const guidanceLabels = {
-      en: { notes: "Original notes for", example: "Example", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
+      en: { notes: "How to use this", example: "Use cases", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
       "zh-CN": { notes: "\u5de5\u5177\u8bf4\u660e\uff1a", example: "\u793a\u4f8b", limitations: "\u9650\u5236", faq: "\u5e38\u89c1\u95ee\u9898", related: "\u76f8\u5173\u5de5\u5177" },
       de: { notes: "Hinweise zu", example: "Beispiel", limitations: "Einschr\u00e4nkungen", faq: "FAQ", related: "Verwandte Tools" },
       fr: { notes: "Notes pour", example: "Exemple", limitations: "Limites", faq: "FAQ", related: "Outils lies" },
@@ -239,10 +245,11 @@
     };
     const text = guidanceLabels[lang] || guidanceLabels.en;
     const title = guidance.querySelector("h2");
-    if (title) title.textContent = title.textContent.replace(/^Original notes for\s*/i, text.notes + " ");
+    if (title) title.textContent = title.textContent.replace(/^How to use this\s*/i, text.notes + " ");
     guidance.querySelectorAll("h3").forEach((heading) => {
       const key = heading.textContent.trim().toLowerCase();
       if (key === "example") heading.textContent = text.example;
+      if (key === "use cases") heading.textContent = text.example;
       if (key === "limitations") heading.textContent = text.limitations;
       if (key === "faq") heading.textContent = text.faq;
       if (key === "related tools") heading.textContent = text.related;

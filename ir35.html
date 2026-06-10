@@ -370,6 +370,9 @@
 
 
 
+
+
+
 <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
@@ -585,18 +588,18 @@
 
   <section class="wrap tool-guidance" id="tool-guidance" style="margin:32px auto">
   <div class="article">
-    <h2>Original notes for IR35 Calculator</h2>
+    <h2>How to use this IR35 Calculator</h2>
     <p>Use this page to compare broad inside-IR35 umbrella-style income with an outside-IR35 limited-company scenario. It is designed to make the assumptions visible rather than decide status.</p>
-    <h3>Example</h3><p>Example: compare the same day rate inside and outside IR35 to understand how employer costs, salary and dividends affect estimated take-home pay.</p>
+    <h3>Use cases</h3><p>Example: compare the same day rate inside and outside IR35 to understand how employer costs, salary and dividends affect estimated take-home pay.</p>
     <h3>Limitations</h3><p>The page does not determine IR35 status and does not replace contract review, working-practice evidence or professional advice.</p>
-      <h3>Official sources</h3><p><a href="https://www.gov.uk/guidance/understanding-off-payroll-working-ir35" rel="noopener noreferrer">https://www.gov.uk/guidance/understanding-off-payroll-working-ir35</a></p><p><strong>Last checked: 9 June 2026</strong></p>
+      <h3>Sources and assumptions</h3><p><a href="https://www.gov.uk/guidance/understanding-off-payroll-working-ir35" rel="noopener noreferrer">https://www.gov.uk/guidance/understanding-off-payroll-working-ir35</a></p><p><strong>Last checked: 9 June 2026</strong></p>
     <h3>FAQ</h3><p><strong>Can this decide whether I am inside IR35? No. It only compares numbers after you choose the scenario.</strong></p>
     <h3>Related tools</h3><p><a href="/tax">tax</a> <a href="/dividend">dividend</a> <a href="/vat">vat</a></p>
   </div>
 </section>
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>&copy; 2026 Mini-Tools.uk</div>
+    <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
     <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
@@ -689,7 +692,7 @@
         relatedDividendText:"Compare a common director salary and dividend mix.",
         relatedVatTitle:"VAT Calculator",
         relatedVatText:"Useful for contractor invoices and quick VAT checks.",
-        footerNote:"© 2026 Mini-Tools.uk · UK tax tools with clear assumptions."
+        footerNote:"Copyright 2026 Mini-Tools.uk · UK tax tools with clear assumptions."
       },
       "zh-CN": {
         htmlLang:"zh-CN",
@@ -777,7 +780,7 @@
         relatedDividendText:"比较常见的董事工资和股息组合。",
         relatedVatTitle:"VAT 计算器",
         relatedVatText:"适合承包商发票和快速 VAT 检查。",
-        footerNote:"© 2026 Mini-Tools.uk · 假设清晰的英国税务工具。"
+        footerNote:"Copyright 2026 Mini-Tools.uk · 假设清晰的英国税务工具。"
       },
       de: {
         htmlLang:"de",
@@ -865,7 +868,7 @@
         relatedDividendText:"Eine übliche Director Salary und Dividend Mischung vergleichen.",
         relatedVatTitle:"VAT Calculator",
         relatedVatText:"Nützlich für Contractor-Rechnungen und VAT Checks.",
-        footerNote:"© 2026 Mini-Tools.uk · UK tax tools with clear assumptions."
+        footerNote:"Copyright 2026 Mini-Tools.uk · UK tax tools with clear assumptions."
       },
       fr: {
         htmlLang:"fr",
@@ -953,7 +956,7 @@
         relatedDividendText:"Comparer une combinaison director salary et dividend courante.",
         relatedVatTitle:"Calculateur VAT",
         relatedVatText:"Utile pour les factures contractor et les vérifications VAT.",
-        footerNote:"© 2026 Mini-Tools.uk · outils fiscaux UK avec hypothèses claires."
+        footerNote:"Copyright 2026 Mini-Tools.uk · outils fiscaux UK avec hypothèses claires."
       },
       es: {
         htmlLang:"es",
@@ -1041,7 +1044,7 @@
         relatedDividendText:"Comparar una mezcla común de director salary y dividend.",
         relatedVatTitle:"Calculadora VAT",
         relatedVatText:"Útil para facturas contractor y revisiones rápidas de VAT.",
-        footerNote:"© 2026 Mini-Tools.uk · herramientas fiscales UK con supuestos claros."
+        footerNote:"Copyright 2026 Mini-Tools.uk · herramientas fiscales UK con supuestos claros."
       }
     };
 
@@ -1427,6 +1430,9 @@
 
 
 
+
+
+
 <script id="site-nav-language">
 (() => {
   const labels = {
@@ -1487,7 +1493,7 @@
     const guidance = document.getElementById("tool-guidance");
     if (!guidance || document.getElementById("guidanceTitle")) return;
     const guidanceLabels = {
-      en: { notes: "Original notes for", example: "Example", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
+      en: { notes: "How to use this", example: "Use cases", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
       "zh-CN": { notes: "\u5de5\u5177\u8bf4\u660e\uff1a", example: "\u793a\u4f8b", limitations: "\u9650\u5236", faq: "\u5e38\u89c1\u95ee\u9898", related: "\u76f8\u5173\u5de5\u5177" },
       de: { notes: "Hinweise zu", example: "Beispiel", limitations: "Einschr\u00e4nkungen", faq: "FAQ", related: "Verwandte Tools" },
       fr: { notes: "Notes pour", example: "Exemple", limitations: "Limites", faq: "FAQ", related: "Outils lies" },
@@ -1495,10 +1501,11 @@
     };
     const text = guidanceLabels[lang] || guidanceLabels.en;
     const title = guidance.querySelector("h2");
-    if (title) title.textContent = title.textContent.replace(/^Original notes for\s*/i, text.notes + " ");
+    if (title) title.textContent = title.textContent.replace(/^How to use this\s*/i, text.notes + " ");
     guidance.querySelectorAll("h3").forEach((heading) => {
       const key = heading.textContent.trim().toLowerCase();
       if (key === "example") heading.textContent = text.example;
+      if (key === "use cases") heading.textContent = text.example;
       if (key === "limitations") heading.textContent = text.limitations;
       if (key === "faq") heading.textContent = text.faq;
       if (key === "related tools") heading.textContent = text.related;

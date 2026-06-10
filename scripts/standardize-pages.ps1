@@ -94,7 +94,7 @@ $siteNavScript = @'
     const guidance = document.getElementById("tool-guidance");
     if (!guidance || document.getElementById("guidanceTitle")) return;
     const guidanceLabels = {
-      en: { notes: "Original notes for", example: "Example", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
+      en: { notes: "How to use this", example: "Use cases", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
       "zh-CN": { notes: "\u5de5\u5177\u8bf4\u660e\uff1a", example: "\u793a\u4f8b", limitations: "\u9650\u5236", faq: "\u5e38\u89c1\u95ee\u9898", related: "\u76f8\u5173\u5de5\u5177" },
       de: { notes: "Hinweise zu", example: "Beispiel", limitations: "Einschr\u00e4nkungen", faq: "FAQ", related: "Verwandte Tools" },
       fr: { notes: "Notes pour", example: "Exemple", limitations: "Limites", faq: "FAQ", related: "Outils lies" },
@@ -102,10 +102,11 @@ $siteNavScript = @'
     };
     const text = guidanceLabels[lang] || guidanceLabels.en;
     const title = guidance.querySelector("h2");
-    if (title) title.textContent = title.textContent.replace(/^Original notes for\s*/i, text.notes + " ");
+    if (title) title.textContent = title.textContent.replace(/^How to use this\s*/i, text.notes + " ");
     guidance.querySelectorAll("h3").forEach((heading) => {
       const key = heading.textContent.trim().toLowerCase();
       if (key === "example") heading.textContent = text.example;
+      if (key === "use cases") heading.textContent = text.example;
       if (key === "limitations") heading.textContent = text.limitations;
       if (key === "faq") heading.textContent = text.faq;
       if (key === "related tools") heading.textContent = text.related;
@@ -160,7 +161,7 @@ $siteNavScript = @'
 $footer = @'
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>&copy; 2026 Mini-Tools.uk</div>
+    <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
     <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
@@ -242,11 +243,33 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
 '@
   }
 
+  if ($file.Name -eq "mortgage.html") {
+    $html = Add-BeforeFooter $html 'id="mortgage-sources-assumptions"' @'
+<section class="wrap tool-guidance" id="mortgage-sources-assumptions" style="margin:32px auto">
+  <div class="article">
+    <h2>Sources and assumptions</h2>
+    <p>Results are estimates only and are not mortgage, legal, financial, tax or accounting advice. Mortgage offers, lender affordability checks, product fees, insurance, property details and exact SDLT treatment can change the final cost.</p>
+    <p>The SDLT estimate is for residential purchases in England and Northern Ireland only. Scotland and Wales use different property taxes.</p>
+    <p><a href="https://www.gov.uk/stamp-duty-land-tax" rel="noopener noreferrer">https://www.gov.uk/stamp-duty-land-tax</a> <a href="https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027" rel="noopener noreferrer">https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027</a></p>
+    <p><strong>Last checked: 9 June 2026</strong></p>
+  </div>
+</section>
+'@
+  }
+
   $html = [regex]::Replace($html, '<script id=["'']site-nav-language["'']>[\s\S]*?</script>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<style id=["'']site-nav-style["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = [regex]::Replace($html, '<style id=["''](?:home-nav-footer-layout-fixes|upload-page-nav-isolation|upload-page-footer-fix|upload-final-review-fixes|upload-language-arrow-unify)["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<link\s+rel=["'']stylesheet["'']\s+href=["'']/?site-nav\.css["'']\s*/?>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = $html.Replace('</head>', "<link rel=`"stylesheet`" href=`"site-nav.css`">`r`n</head>")
   $html = $html.Replace('</body>', "$siteNavScript`r`n</body>")
+  $html = [regex]::Replace($html, 'Original notes for\s+([^<"''`r`n]+)', 'How to use this $1', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = [regex]::Replace($html, '<h3>\s*Example\s*</h3>', '<h3>Use cases</h3>', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = [regex]::Replace($html, '<h3>\s*Official sources\s*</h3>', '<h3>Sources and assumptions</h3>', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = [regex]::Replace($html, '&copy;\s*2026\s+Mini-Tools\.uk', 'Copyright 2026 Mini-Tools.uk', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = [regex]::Replace($html, '©\s*2026\s+Mini-Tools\.uk\s*[—-]?\s*', 'Copyright 2026 Mini-Tools.uk - ', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = [regex]::Replace($html, '漏\s*2026\s+Mini-Tools\.uk', 'Copyright 2026 Mini-Tools.uk', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = $html.Replace([string][char]0x00A9, 'Copyright')
   $html = [regex]::Replace($html.Replace("`r`n", "`n"), '[ \t]+(?=\n)', '')
   [System.IO.File]::WriteAllText($file.FullName, $html, $utf8)
 }

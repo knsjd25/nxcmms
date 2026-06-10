@@ -214,6 +214,9 @@
 
 
 
+
+
+
 <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
@@ -375,18 +378,18 @@
 
   <section class="wrap tool-guidance" id="tool-guidance" style="margin:32px auto">
   <div class="article">
-    <h2>Original notes for Dividend Calculator</h2>
+    <h2>How to use this Dividend Calculator</h2>
     <p>Use this calculator to compare simple salary-and-dividend extraction scenarios for a UK limited-company director. It is intended for broad planning, not payroll filing or company accounts.</p>
-    <h3>Example</h3><p>Example: enter company profit and a director salary to estimate corporation tax, dividend tax and retained income.</p>
+    <h3>Use cases</h3><p>Example: enter company profit and a director salary to estimate corporation tax, dividend tax and retained income.</p>
     <h3>Limitations</h3><p>It simplifies allowances, timing, expenses, accounting periods and personal circumstances. Real company planning should be checked with an accountant.</p>
-      <h3>Official sources</h3><p><a href="https://www.gov.uk/tax-on-dividends" rel="noopener noreferrer">https://www.gov.uk/tax-on-dividends</a> <a href="https://www.gov.uk/government/publications/rates-and-allowances-corporation-tax/rates-and-allowances-corporation-tax" rel="noopener noreferrer">https://www.gov.uk/government/publications/rates-and-allowances-corporation-tax/rates-and-allowances-corporation-tax</a></p><p><strong>Last checked: 9 June 2026</strong></p>
+      <h3>Sources and assumptions</h3><p><a href="https://www.gov.uk/tax-on-dividends" rel="noopener noreferrer">https://www.gov.uk/tax-on-dividends</a> <a href="https://www.gov.uk/government/publications/rates-and-allowances-corporation-tax/rates-and-allowances-corporation-tax" rel="noopener noreferrer">https://www.gov.uk/government/publications/rates-and-allowances-corporation-tax/rates-and-allowances-corporation-tax</a></p><p><strong>Last checked: 9 June 2026</strong></p>
     <h3>FAQ</h3><p><strong>Does it submit payroll or corporation tax? No. It only estimates figures for planning.</strong></p>
     <h3>Related tools</h3><p><a href="/tax">tax</a> <a href="/ir35">ir35</a> <a href="/vat">vat</a></p>
   </div>
 </section>
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>&copy; 2026 Mini-Tools.uk</div>
+    <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
     <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
@@ -471,7 +474,7 @@
         relatedIr35Text:"Compare inside and outside IR35 contractor scenarios.",
         relatedVatTitle:"UK VAT calculator",
         relatedVatText:"Add or remove VAT from invoices and quotes.",
-        copyright:"© 2026 MINI-TOOLS.UK · UK Apps TOOLS WITH CLEAR ASSUMPTIONS"
+        copyright:"Copyright 2026 MINI-TOOLS.UK · UK Apps TOOLS WITH CLEAR ASSUMPTIONS"
       },
       "zh-CN": {
         htmlLang:"zh-CN",
@@ -551,7 +554,7 @@
         relatedIr35Text:"比较 inside 和 outside IR35 承包商场景。",
         relatedVatTitle:"英国 VAT 计算器",
         relatedVatText:"为发票和报价添加或反推 VAT。",
-        copyright:"© 2026 MINI-TOOLS.UK · 假设清晰的英国财务工具"
+        copyright:"Copyright 2026 MINI-TOOLS.UK · 假设清晰的英国财务工具"
       },
       de: {
         htmlLang:"de",
@@ -631,7 +634,7 @@
         relatedIr35Text:"Inside und outside IR35 Szenarien vergleichen.",
         relatedVatTitle:"UK VAT Rechner",
         relatedVatText:"VAT für Rechnungen und Angebote hinzufügen oder entfernen.",
-        copyright:"© 2026 MINI-TOOLS.UK · UK Apps TOOLS WITH CLEAR ASSUMPTIONS"
+        copyright:"Copyright 2026 MINI-TOOLS.UK · UK Apps TOOLS WITH CLEAR ASSUMPTIONS"
       },
       fr: {
         htmlLang:"fr",
@@ -711,7 +714,7 @@
         relatedIr35Text:"Comparer scénarios inside et outside IR35.",
         relatedVatTitle:"Calculateur VAT UK",
         relatedVatText:"Ajouter ou retirer la VAT sur factures et devis.",
-        copyright:"© 2026 MINI-TOOLS.UK · OUTILS FINANCE UK AVEC HYPOTHÈSES CLAIRES"
+        copyright:"Copyright 2026 MINI-TOOLS.UK · OUTILS FINANCE UK AVEC HYPOTHÈSES CLAIRES"
       },
       es: {
         htmlLang:"es",
@@ -791,7 +794,7 @@
         relatedIr35Text:"Comparar escenarios inside y outside IR35.",
         relatedVatTitle:"Calculadora VAT UK",
         relatedVatText:"Añadir o quitar VAT en facturas y presupuestos.",
-        copyright:"© 2026 MINI-TOOLS.UK · HERRAMIENTAS FINANCIERAS UK CON SUPUESTOS CLAROS"
+        copyright:"Copyright 2026 MINI-TOOLS.UK · HERRAMIENTAS FINANCIERAS UK CON SUPUESTOS CLAROS"
       }
     };
 
@@ -1119,6 +1122,9 @@
 
 
 
+
+
+
 <script id="site-nav-language">
 (() => {
   const labels = {
@@ -1179,7 +1185,7 @@
     const guidance = document.getElementById("tool-guidance");
     if (!guidance || document.getElementById("guidanceTitle")) return;
     const guidanceLabels = {
-      en: { notes: "Original notes for", example: "Example", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
+      en: { notes: "How to use this", example: "Use cases", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
       "zh-CN": { notes: "\u5de5\u5177\u8bf4\u660e\uff1a", example: "\u793a\u4f8b", limitations: "\u9650\u5236", faq: "\u5e38\u89c1\u95ee\u9898", related: "\u76f8\u5173\u5de5\u5177" },
       de: { notes: "Hinweise zu", example: "Beispiel", limitations: "Einschr\u00e4nkungen", faq: "FAQ", related: "Verwandte Tools" },
       fr: { notes: "Notes pour", example: "Exemple", limitations: "Limites", faq: "FAQ", related: "Outils lies" },
@@ -1187,10 +1193,11 @@
     };
     const text = guidanceLabels[lang] || guidanceLabels.en;
     const title = guidance.querySelector("h2");
-    if (title) title.textContent = title.textContent.replace(/^Original notes for\s*/i, text.notes + " ");
+    if (title) title.textContent = title.textContent.replace(/^How to use this\s*/i, text.notes + " ");
     guidance.querySelectorAll("h3").forEach((heading) => {
       const key = heading.textContent.trim().toLowerCase();
       if (key === "example") heading.textContent = text.example;
+      if (key === "use cases") heading.textContent = text.example;
       if (key === "limitations") heading.textContent = text.limitations;
       if (key === "faq") heading.textContent = text.faq;
       if (key === "related tools") heading.textContent = text.related;

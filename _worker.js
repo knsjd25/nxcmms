@@ -864,6 +864,16 @@ export default {
       return Response.redirect(`${SITE_ORIGIN}/privacy`, 301);
     }
 
+    if (initialPathname === "/blog" || initialPathname.startsWith("/blog/")) {
+      return new Response("Gone", {
+        status: 410,
+        headers: {
+          "content-type": "text/plain; charset=utf-8",
+          "X-Robots-Tag": "noindex, follow, max-image-preview:large",
+        },
+      });
+    }
+
     const redirectTo = maybeRedirectNormalizedUrl(request.url);
     if (redirectTo) {
       return Response.redirect(redirectTo, 301);

@@ -49,6 +49,9 @@
 
 
 
+
+
+
 <link rel="stylesheet" href="site-nav.css">
 </head>
 <body>
@@ -85,9 +88,9 @@
     <section class="article-wrap"><article class="article"><h2 data-i18n="articleTitle">How this AI token calculator works</h2><p data-i18n="articleP1">Large language model APIs usually bill by tokens rather than by words. This page estimates token usage from your prompt, adds the expected output length, and applies the selected model's per-million-token input and output prices.</p><p data-i18n="articleP2">The token count is an approximation. English text, code, punctuation, whitespace and CJK characters can be split differently by each provider's tokenizer, so the final billed number may not match this estimate exactly.</p><p data-i18n="articleP3">Use the estimate to compare prompt sizes, model choices and expected output length before sending production traffic. For final budgeting, check the provider's current pricing, tokenizer behaviour, caching rules and account-specific settings.</p><h3 data-i18n="privacyTitle">Local processing note</h3><p data-i18n="privacyText">The prompt estimate runs in your browser. This page does not require API keys and does not call the selected model to calculate the estimate.</p><h3 data-i18n="useTitle">Good use cases</h3><ul><li data-i18n="use1">Estimate whether a prompt is likely to fit within a model's context window.</li><li data-i18n="use2">Compare high-quality and low-cost models before building an API workflow.</li><li data-i18n="use3">Estimate the cost of a batch job with hundreds or thousands of similar calls.</li><li data-i18n="use4">Adjust expected output length to understand why generated text can dominate cost.</li></ul><div class="faq"><div class="faq-item"><h4 data-i18n="faq1Q">Is the token estimate exact?</h4><p data-i18n="faq1A">No. It is a planning estimate. Exact token counts depend on the model tokenizer, message format, system prompts, tool definitions and provider billing rules.</p></div><div class="faq-item"><h4 data-i18n="faq2Q">Why are output tokens often more expensive?</h4><p data-i18n="faq2A">Generating text is usually priced higher than reading input. That is why long answers can cost more than the prompt that triggered them.</p></div><div class="faq-item"><h4 data-i18n="faq3Q">Does this include cached tokens or batch discounts?</h4><p data-i18n="faq3A">No. The main calculation uses standard input and output token prices only. Cached tokens, batch mode, regional processing and tool usage can change the final cost.</p></div></div></article><aside class="side"><div class="side-card"><h3 data-i18n="sideUseTitle">Useful for</h3><div class="chips"><span class="chip" data-i18n="chip1">Prompt budgeting</span><span class="chip" data-i18n="chip2">API planning</span><span class="chip" data-i18n="chip3">Batch estimates</span><span class="chip" data-i18n="chip4">Model comparison</span></div></div><div class="side-card"><h3 data-i18n="sideFeaturesTitle">Features</h3><ul><li data-i18n="feature1">Input token estimate</li><li data-i18n="feature2">Expected output tokens</li><li data-i18n="feature3">Per-call cost</li><li data-i18n="feature4">1,000-call estimate</li><li data-i18n="feature5">OpenAI, Claude and Gemini options</li></ul></div><div class="side-card"><h3 data-i18n="sideKeywordsTitle">Before budgeting</h3><div class="chips"><span class="chip" data-i18n="kw1">Check live pricing</span><span class="chip" data-i18n="kw2">Review tokenizer rules</span><span class="chip" data-i18n="kw3">Estimate output length</span><span class="chip" data-i18n="kw4">Consider caching</span></div></div><div class="side-card"><h3 data-i18n="relatedTitle">Related tools</h3><div class="related-links"><a href="/json" data-i18n="relatedJson">JSON formatter</a><a href="/diff" data-i18n="relatedDiff">Text diff checker</a><a href="/password" data-i18n="relatedWord">Password generator</a></div></div></aside></section>
   </main><section class="wrap tool-guidance" id="tool-guidance" style="margin:32px auto">
   <div class="article">
-    <h2>Original notes for AI Token Calculator</h2>
+    <h2>How to use this AI Token Calculator</h2>
     <p>Use this token calculator to estimate prompt size before sending text to an AI model. It helps trim drafts, compare prompt variants and budget long context inputs.</p>
-    <h3>Example</h3><p>Example: paste a support transcript and prompt instructions to estimate whether the combined text is too large.</p>
+    <h3>Use cases</h3><p>Example: paste a support transcript and prompt instructions to estimate whether the combined text is too large.</p>
     <h3>Limitations</h3><p>Token counts vary by tokenizer and model, so results are estimates rather than exact billing or context guarantees.</p>
     <h3>FAQ</h3><p><strong>Why is the estimate different from another tool? Different models split text into tokens differently.</strong></p>
     <h3>Related tools</h3><p><a href="/json">json</a> <a href="/diff">diff</a> <a href="/password">password</a></p>
@@ -95,7 +98,7 @@
 </section>
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div>&copy; 2026 Mini-Tools.uk</div>
+    <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
     <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
@@ -877,6 +880,9 @@
 
 
 
+
+
+
 <script id="site-nav-language">
 (() => {
   const labels = {
@@ -937,7 +943,7 @@
     const guidance = document.getElementById("tool-guidance");
     if (!guidance || document.getElementById("guidanceTitle")) return;
     const guidanceLabels = {
-      en: { notes: "Original notes for", example: "Example", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
+      en: { notes: "How to use this", example: "Use cases", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
       "zh-CN": { notes: "\u5de5\u5177\u8bf4\u660e\uff1a", example: "\u793a\u4f8b", limitations: "\u9650\u5236", faq: "\u5e38\u89c1\u95ee\u9898", related: "\u76f8\u5173\u5de5\u5177" },
       de: { notes: "Hinweise zu", example: "Beispiel", limitations: "Einschr\u00e4nkungen", faq: "FAQ", related: "Verwandte Tools" },
       fr: { notes: "Notes pour", example: "Exemple", limitations: "Limites", faq: "FAQ", related: "Outils lies" },
@@ -945,10 +951,11 @@
     };
     const text = guidanceLabels[lang] || guidanceLabels.en;
     const title = guidance.querySelector("h2");
-    if (title) title.textContent = title.textContent.replace(/^Original notes for\s*/i, text.notes + " ");
+    if (title) title.textContent = title.textContent.replace(/^How to use this\s*/i, text.notes + " ");
     guidance.querySelectorAll("h3").forEach((heading) => {
       const key = heading.textContent.trim().toLowerCase();
       if (key === "example") heading.textContent = text.example;
+      if (key === "use cases") heading.textContent = text.example;
       if (key === "limitations") heading.textContent = text.limitations;
       if (key === "faq") heading.textContent = text.faq;
       if (key === "related tools") heading.textContent = text.related;

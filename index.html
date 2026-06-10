@@ -18,7 +18,7 @@
   <link rel="apple-touch-icon" sizes="512x512" href="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <meta property="og:title" content="Mini-Tools.uk | Free Online Calculators, Developer & Image Tools" />
-  <meta property="og:description" content="Free online calculators and browser tools for UK finance, developer tasks, image utilities, PDF conversion and everyday work." />
+  <meta property="og:description" content="Free online calculators and browser tools for UK Apps, developer tasks, image utilities, PDF conversion and everyday work." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mini-tools.uk/" />
   <meta property="og:locale" content="en_GB" />
@@ -175,266 +175,17 @@
 
 
 
+
+
+
+
+
+
 <link rel="stylesheet" href="site-nav.css">
-
-<style id="home-nav-footer-layout-fixes">
-  /*
-    Scoped layout fixes for the homepage.
-    Keep these rules after site-nav.css so global navigation/footer styles cannot
-    push the homepage header or copyright line out of place.
-    The desktop header uses a three-column grid so the menu stays visually centered.
-  */
-  body > nav.nav{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    width:100%;
-    background:rgba(255,255,255,.92);
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
-    border-bottom:1px solid rgba(226,232,240,.88);
-  }
-  body > nav.nav .nav-inner{
-    width:min(1180px,100%);
-    max-width:1180px;
-    min-height:74px;
-    margin:0 auto;
-    padding:0 20px;
-    display:grid;
-    grid-template-columns:minmax(190px,1fr) auto minmax(190px,1fr);
-    align-items:center;
-    gap:18px;
-  }
-  body > nav.nav .brand{
-    display:flex;
-    align-items:center;
-    justify-self:start;
-    gap:12px;
-    min-width:max-content;
-    font-weight:850;
-  }
-  body > nav.nav .brand img{
-    width:40px;
-    height:40px;
-    flex:0 0 40px;
-    border-radius:12px;
-    object-fit:contain;
-    background:#fff;
-    box-shadow:0 10px 24px rgba(15,23,42,.08);
-  }
-  body > nav.nav .brand-copy{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    min-width:0;
-    line-height:1.08;
-  }
-  body > nav.nav .brand-title{
-    font-size:1.06rem;
-    font-weight:900;
-    letter-spacing:-.03em;
-    white-space:nowrap;
-  }
-  body > nav.nav .brand-subtitle{
-    margin-top:4px;
-    color:#64748b;
-    font-size:.79rem;
-    font-weight:650;
-    white-space:nowrap;
-  }
-  body > nav.nav .nav-links{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    justify-self:center;
-    gap:5px;
-    min-width:0;
-    max-width:100%;
-    flex-wrap:nowrap;
-  }
-  body > nav.nav .nav-link,
-  body > nav.nav .lang-trigger{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:7px;
-    min-height:40px;
-    padding:9px 9px;
-    border:1px solid transparent;
-    border-radius:13px;
-    background:transparent;
-    color:#334155;
-    cursor:pointer;
-    font-size:13px;
-    font-weight:760;
-    line-height:1;
-    white-space:nowrap;
-  }
-  body > nav.nav .nav-link:hover,
-  body > nav.nav .lang-trigger:hover,
-  body > nav.nav .lang-group:hover .lang-trigger{
-    background:#fff;
-    color:#0f172a;
-    border-color:#e2e8f0;
-  }
-  body > nav.nav .lang-group{
-    position:relative;
-    justify-self:end;
-    padding-bottom:14px;
-    margin-bottom:-14px;
-  }
-  body > nav.nav .lang-dropdown{
-    position:absolute;
-    top:calc(100% + 2px);
-    right:0;
-    left:auto;
-    min-width:180px;
-    padding:10px;
-    display:none;
-    z-index:1100;
-    background:#fff;
-    border:1px solid #e2e8f0;
-    border-radius:18px;
-    box-shadow:0 18px 42px rgba(15,23,42,.10);
-  }
-  body > nav.nav .lang-group.open .lang-dropdown{
-    display:block;
-  }
-  body > nav.nav .lang-dropdown button{
-    display:block;
-    width:100%;
-    padding:10px 12px;
-    border:0;
-    border-radius:12px;
-    background:transparent;
-    color:#334155;
-    cursor:pointer;
-    font-size:14px;
-    font-weight:760;
-    text-align:left;
-  }
-  body > nav.nav .lang-dropdown button:hover,
-  body > nav.nav .lang-dropdown button.active{
-    background:#f8fafc;
-    color:#0f172a;
-  }
-
-  body > footer.footer{
-    position:relative;
-    z-index:1;
-    width:100%;
-    clear:both;
-    margin:46px 0 0;
-    padding:28px 0 46px;
-    background:#fff;
-    border-top:1px solid var(--line,#e2e8f0);
-  }
-  body > footer.footer .footer-inner{
-    width:min(1180px,100%);
-    max-width:1180px;
-    margin:0 auto;
-    padding:0 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:18px;
-    flex-wrap:wrap;
-    color:#64748b;
-    font-size:.9rem;
-    line-height:1.5;
-  }
-  body > footer.footer .footer-copyright{
-    flex:0 0 auto;
-    min-width:max-content;
-    color:#64748b;
-    font-weight:650;
-    white-space:nowrap;
-  }
-  body > footer.footer .footer-links{
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
-    gap:14px;
-    flex:1 1 auto;
-    min-width:260px;
-    margin:0;
-    padding:0;
-    flex-wrap:wrap;
-  }
-  body > footer.footer .footer-links a{
-    display:inline-flex;
-    align-items:center;
-    min-height:28px;
-    color:#334155;
-    font-weight:760;
-    white-space:nowrap;
-  }
-  body > footer.footer .footer-links a:hover{
-    color:#2563eb;
-  }
-
-  @media (max-width:1120px){
-    body > nav.nav .nav-inner{
-      grid-template-columns:minmax(150px,1fr) auto minmax(150px,1fr);
-      gap:12px;
-    }
-    body > nav.nav .brand-subtitle{display:none}
-    body > nav.nav .nav-link,
-    body > nav.nav .lang-trigger{
-      padding:8px 7px;
-      font-size:12.5px;
-    }
-    body > nav.nav .nav-links{gap:4px}
-  }
-  @media (max-width:980px){
-    body > nav.nav .nav-inner{
-      display:flex;
-      align-items:flex-start;
-      flex-direction:column;
-      padding:12px 20px;
-    }
-    body > nav.nav .brand,
-    body > nav.nav .lang-group{
-      justify-self:auto;
-    }
-    body > nav.nav .nav-links{
-      width:100%;
-      justify-content:flex-start;
-      justify-self:auto;
-      flex-wrap:wrap;
-    }
-  }
-  @media (max-width:760px){
-    body > nav.nav .lang-dropdown{
-      left:0;
-      right:auto;
-    }
-    body > footer.footer{
-      padding:24px 0 34px;
-    }
-    body > footer.footer .footer-inner{
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-    }
-    body > footer.footer .footer-copyright{
-      width:100%;
-      min-width:0;
-      white-space:normal;
-    }
-    body > footer.footer .footer-links{
-      width:100%;
-      min-width:0;
-      justify-content:center;
-      gap:10px 14px;
-    }
-  }
-</style>
-
 </head>
 <body>
   <noscript>
-    <div class="wrap" style="margin-top:16px"><div class="note-panel">Mini-Tools.uk works best with JavaScript enabled. The homepage still lists all tools so you can open each page directly.</div></div>
+    <div class="wrap" style="margin-top:16px"><div class="note-panel">Mini-Tools.uk works best with JavaScript enabled. The homepage still lists Search Tools so you can open each page directly.</div></div>
   </noscript>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
   <nav class="nav" aria-label="Primary navigation">
@@ -467,7 +218,7 @@
     <section class="hero">
       <span class="badge" data-i18n="badge">Mini-Tools.uk directory</span>
       <h1 data-i18n="heroTitle">Free Online Calculators and Utility Tools</h1>
-      <p data-i18n="heroText">Free online calculators and browser tools for UK finance, developer tasks, image utilities, PDF conversion and everyday work.</p>
+      <p data-i18n="heroText">Free online calculators and browser tools for UK Apps, developer tasks, image utilities, PDF conversion and everyday work.</p>
       <div class="hero-actions"><a class="btn primary" href="#search" data-i18n="heroSearch">Search tools</a><a class="btn" href="#categories" data-i18n="heroBrowse">Browse categories</a></div>
       <div class="stats"><span class="stat" data-i18n="statTools">18 tools</span><span class="stat" data-i18n="statCategories">3 categories</span><span class="stat" data-i18n="statSignup">No account for most tools</span></div>
     </section>
@@ -527,7 +278,7 @@
   </main>
   <footer class="footer">
   <div class="wrap footer-inner">
-    <div class="footer-copyright">&copy; 2026 Mini-Tools.uk</div>
+    <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
     <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
@@ -550,7 +301,7 @@
       description:"Mini-Tools.uk offers free online calculators and utility tools for UK tax, VAT, mortgages, developer tasks, JSON formatting, image compression, PDF conversion and everyday work.",
       ogLocale:"en_GB",
       skip:"Skip to content", badge:"Mini-Tools.uk directory", heroTitle:"Free Online Calculators and Utility Tools",
-      heroText:"Free online calculators and browser tools for UK finance, developer tasks, image utilities, PDF conversion and everyday work.",
+      heroText:"Free online calculators and browser tools for UK Apps, developer tasks, image utilities, PDF conversion and everyday work.",
       heroSearch:"Search tools", heroBrowse:"Browse categories", statTools:"18 tools", statCategories:"3 categories", statSignup:"No account for most tools",
       overviewKicker:"What you can do", overviewTitle:"One homepage for small, practical web tools", overviewText:"Mini-Tools.uk is built as a focused directory of lightweight tools, not a blog archive. Use the search box or category groups to reach the exact task you need.",
       overview1Title:"Calculate UK figures", overview1Text:"Estimate tax, VAT, mortgage payments, stamp duty, dividends and contractor income with clearly labelled input fields.",
@@ -975,6 +726,130 @@
   }
 
   applyLanguage();
+})();
+</script>
+
+
+<script id="site-nav-language">
+(() => {
+  const labels = {
+    en:{home:"Home",search:"Search",popular:"Popular",ukApps:"UK Apps",devTools:"Dev Tools",other:"Other",about:"About",contact:"Contact",privacy:"Privacy",language:"English"},
+    "zh-CN":{home:"\u9996\u9875",search:"\u641c\u7d22",popular:"\u70ed\u95e8",ukApps:"\u82f1\u56fd\u5e94\u7528",devTools:"\u5f00\u53d1\u8005\u5de5\u5177",other:"\u5176\u4ed6\u5de5\u5177",about:"\u5173\u4e8e",contact:"\u8054\u7cfb",privacy:"\u9690\u79c1\u653f\u7b56",language:"\u4e2d\u6587"},
+    de:{home:"Startseite",search:"Suchen",popular:"Beliebt",ukApps:"UK Apps",devTools:"Entwickler",other:"Weitere",about:"\u00dcber uns",contact:"Kontakt",privacy:"Datenschutz",language:"Deutsch"},
+    fr:{home:"Accueil",search:"Recherche",popular:"Populaires",ukApps:"Apps UK",devTools:"Outils dev",other:"Autres",about:"\u00c0 propos",contact:"Contact",privacy:"Confidentialit\u00e9",language:"Fran\u00e7ais"},
+    es:{home:"Inicio",search:"Buscar",popular:"Populares",ukApps:"Apps UK",devTools:"Herramientas dev",other:"Otros",about:"Acerca de",contact:"Contacto",privacy:"Privacidad",language:"Espa\u00f1ol"}
+  };
+  const normalizeLang = (value) => {
+    const rawValue = String(value || "").trim();
+    const lower = rawValue.toLowerCase().replace("_", "-");
+    if (lower.startsWith("zh")) return "zh-CN";
+    if (lower.startsWith("de")) return "de";
+    if (lower.startsWith("fr")) return "fr";
+    if (lower.startsWith("es")) return "es";
+    return labels[rawValue] ? rawValue : "en";
+  };
+  const params = new URLSearchParams(location.search);
+  const lang = normalizeLang(window.MINI_TOOLS_SERVER_LANG || params.get("lang") || navigator.language || "en");
+  const applyCanonicalHreflang = () => {
+    const supported = ["en", "zh-CN", "de", "fr", "es"];
+    const cleanPath = location.pathname === "/index.html" ? "/" : location.pathname.replace(/\.html$/, "");
+    const cleanUrl = location.origin + cleanPath;
+    const current = lang === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(lang)}`;
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", current);
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());
+    supported.forEach((code) => {
+      const link = document.createElement("link");
+      link.setAttribute("rel", "alternate");
+      link.setAttribute("hreflang", code);
+      link.setAttribute("href", `${cleanUrl}?lang=${encodeURIComponent(code)}`);
+      document.head.appendChild(link);
+    });
+    const fallback = document.createElement("link");
+    fallback.setAttribute("rel", "alternate");
+    fallback.setAttribute("hreflang", "x-default");
+    fallback.setAttribute("href", cleanUrl);
+    document.head.appendChild(fallback);
+  };
+  const localizeLinks = () => {
+    document.querySelectorAll("a[href]").forEach((anchor) => {
+      const rawHref = anchor.getAttribute("href");
+      if (!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) return;
+      const link = new URL(rawHref, location.origin);
+      if (link.origin !== location.origin) return;
+      link.searchParams.set("lang", lang);
+      anchor.href = link.pathname + link.search + link.hash;
+    });
+  };
+  const applyToolGuidanceLanguage = () => {
+    const guidance = document.getElementById("tool-guidance");
+    if (!guidance || document.getElementById("guidanceTitle")) return;
+    const guidanceLabels = {
+      en: { notes: "How to use this", example: "Use cases", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
+      "zh-CN": { notes: "\u5de5\u5177\u8bf4\u660e\uff1a", example: "\u793a\u4f8b", limitations: "\u9650\u5236", faq: "\u5e38\u89c1\u95ee\u9898", related: "\u76f8\u5173\u5de5\u5177" },
+      de: { notes: "Hinweise zu", example: "Beispiel", limitations: "Einschr\u00e4nkungen", faq: "FAQ", related: "Verwandte Tools" },
+      fr: { notes: "Notes pour", example: "Exemple", limitations: "Limites", faq: "FAQ", related: "Outils lies" },
+      es: { notes: "Notas para", example: "Ejemplo", limitations: "Limitaciones", faq: "FAQ", related: "Herramientas relacionadas" }
+    };
+    const text = guidanceLabels[lang] || guidanceLabels.en;
+    const title = guidance.querySelector("h2");
+    if (title) title.textContent = title.textContent.replace(/^How to use this\s*/i, text.notes + " ");
+    guidance.querySelectorAll("h3").forEach((heading) => {
+      const key = heading.textContent.trim().toLowerCase();
+      if (key === "example") heading.textContent = text.example;
+      if (key === "use cases") heading.textContent = text.example;
+      if (key === "limitations") heading.textContent = text.limitations;
+      if (key === "faq") heading.textContent = text.faq;
+      if (key === "related tools") heading.textContent = text.related;
+    });
+  };
+  const applySiteLanguage = () => {
+    document.querySelectorAll("[data-site-nav]").forEach((item) => {
+      item.textContent = labels[lang][item.dataset.siteNav];
+    });
+    const current = document.getElementById("currentLangLabel");
+    if (current) current.textContent = labels[lang].language;
+    localizeLinks();
+    applyToolGuidanceLanguage();
+  };
+  applyCanonicalHreflang();
+  applySiteLanguage();
+  window.addEventListener("load", () => { applyCanonicalHreflang(); applySiteLanguage(); });
+  setTimeout(applyCanonicalHreflang, 0);
+  const langGroup = document.querySelector(".lang-group");
+  const langTrigger = document.querySelector(".lang-trigger");
+  const setLangMenuOpen = (open) => {
+    if (!langGroup || !langTrigger) return;
+    langGroup.classList.toggle("open", open);
+    langTrigger.setAttribute("aria-expanded", open ? "true" : "false");
+  };
+  if (langTrigger) {
+    langTrigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setLangMenuOpen(!langGroup.classList.contains("open"));
+    });
+  }
+  document.addEventListener("click", (event) => {
+    if (langGroup && !langGroup.contains(event.target)) setLangMenuOpen(false);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setLangMenuOpen(false);
+  });
+  document.querySelectorAll("[data-site-lang]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.siteLang === lang);
+    button.addEventListener("click", () => {
+      const selectedLang = button.dataset.siteLang;
+      const target = new URL(location.href);
+      target.searchParams.set("lang", selectedLang);
+      location.assign(target.pathname + target.search + target.hash);
+    });
+  });
 })();
 </script>
 </body>
