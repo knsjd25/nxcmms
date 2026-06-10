@@ -82,7 +82,22 @@ test("language controls support five languages without arrow-only page patches",
     }
     assert.match(html, /aria-expanded=["']false["']/, file);
     assert.match(html, /target\.searchParams\.set\(["']lang["'], selectedLang\)/, file);
+    assert.match(html, /history\.replaceState\(null, ""/, `${file}: language switch should update URL in place`);
+    assert.match(html, /window\.applyLanguage/, `${file}: language switch should call page i18n when available`);
+    assert.doesNotMatch(html, /location\.assign\(/, `${file}: language switch must not reload or jump to top`);
     assert.doesNotMatch(html, /lang-trigger::after|upload-page-nav-isolation|upload-page-footer-fix|home-nav-footer-layout-fixes/, file);
+  }
+});
+
+test("shared language script translates legacy bottom guidance FAQ", () => {
+  for (const file of toolPages) {
+    const html = read(file);
+    assert.match(html, /renderToolGuidanceLanguage/, `${file}: shared guidance renderer`);
+    if (html.includes('id="tool-guidance"') && !html.includes('id="guidanceTitle"')) {
+      assert.match(html, /guidanceTranslations/, `${file}: guidance translations`);
+      assert.match(html, /faqQ/, `${file}: FAQ question translation`);
+      assert.match(html, /faqA/, `${file}: FAQ answer translation`);
+    }
   }
 });
 

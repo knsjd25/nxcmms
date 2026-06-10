@@ -53,7 +53,7 @@ $siteNavScript = @'
     return labels[rawValue] ? rawValue : "en";
   };
   const params = new URLSearchParams(location.search);
-  const lang = normalizeLang(window.MINI_TOOLS_SERVER_LANG || params.get("lang") || navigator.language || "en");
+  let lang = normalizeLang(window.MINI_TOOLS_SERVER_LANG || params.get("lang") || navigator.language || "en");
   const applyCanonicalHreflang = () => {
     const supported = ["en", "zh-CN", "de", "fr", "es"];
     const cleanPath = location.pathname === "/index.html" ? "/" : location.pathname.replace(/\.html$/, "");
@@ -90,6 +90,154 @@ $siteNavScript = @'
       anchor.href = link.pathname + link.search + link.hash;
     });
   };
+  const guidanceTranslations = {
+    en: {
+      notes: "How to use this",
+      useCases: "Use cases",
+      limitations: "Limitations and privacy",
+      sources: "Sources and assumptions",
+      faq: "FAQ",
+      related: "Related tools",
+      how: (name) => `${name} is designed for one focused task. Enter the values or content requested on the page, review the result, then copy, download or use the output as needed.`,
+      uses: (name) => `Use ${name} for quick checks, planning, formatting or preparation work when you need a browser-based helper rather than a full professional workflow.`,
+      limits: "Results and generated output should be reviewed before use. Browser-first tools usually process data locally; upload or hosting tools explain when remote storage is used.",
+      finance: "Results are estimates only and are not tax, legal, financial or accounting advice. Check the official GOV.UK guidance and confirm important decisions with a qualified adviser.",
+      faqQ: (name) => `Can I rely on ${name} as an official result?`,
+      faqA: "No. Treat the result as a practical estimate or helper output and review it before relying on it.",
+      checked: "Last checked: 9 June 2026"
+    },
+    "zh-CN": {
+      notes: "\u5de5\u5177\u8bf4\u660e",
+      useCases: "\u4f7f\u7528\u573a\u666f",
+      limitations: "\u9650\u5236\u548c\u9690\u79c1",
+      sources: "\u6765\u6e90\u548c\u5047\u8bbe",
+      faq: "\u5e38\u89c1\u95ee\u9898",
+      related: "\u76f8\u5173\u5de5\u5177",
+      how: (name) => `${name}\u7528\u4e8e\u5904\u7406\u4e00\u4e2a\u660e\u786e\u4efb\u52a1\u3002\u8f93\u5165\u9875\u9762\u8981\u6c42\u7684\u6570\u503c\u6216\u5185\u5bb9\uff0c\u68c0\u67e5\u7ed3\u679c\uff0c\u7136\u540e\u6309\u9700\u590d\u5236\u3001\u4e0b\u8f7d\u6216\u4f7f\u7528\u8f93\u51fa\u3002`,
+      uses: (name) => `\u5f53\u4f60\u9700\u8981\u5728\u6d4f\u89c8\u5668\u4e2d\u5feb\u901f\u68c0\u67e5\u3001\u4f30\u7b97\u3001\u683c\u5f0f\u5316\u6216\u6574\u7406\u5185\u5bb9\u65f6\uff0c\u53ef\u4ee5\u4f7f\u7528 ${name}\u3002`,
+      limits: "\u7ed3\u679c\u548c\u751f\u6210\u5185\u5bb9\u5728\u4f7f\u7528\u524d\u5e94\u81ea\u884c\u6838\u5bf9\u3002\u4f18\u5148\u672c\u5730\u5904\u7406\u7684\u5de5\u5177\u901a\u5e38\u5728\u6d4f\u89c8\u5668\u5185\u8fd0\u884c\uff1b\u4e0a\u4f20\u6216\u6258\u7ba1\u5de5\u5177\u4f1a\u5728\u9875\u9762\u4e2d\u8bf4\u660e\u4f55\u65f6\u4f7f\u7528\u8fdc\u7a0b\u5b58\u50a8\u3002",
+      finance: "\u7ed3\u679c\u4ec5\u4e3a\u4f30\u7b97\uff0c\u4e0d\u6784\u6210\u7a0e\u52a1\u3001\u6cd5\u5f8b\u3001\u8d22\u52a1\u6216\u4f1a\u8ba1\u5efa\u8bae\u3002\u91cd\u8981\u51b3\u7b56\u524d\u8bf7\u6838\u5bf9 GOV.UK \u5b98\u65b9\u8bf4\u660e\uff0c\u5e76\u54a8\u8be2\u5408\u683c\u4e13\u4e1a\u4eba\u58eb\u3002",
+      faqQ: (name) => `${name}\u53ef\u4ee5\u4f5c\u4e3a\u5b98\u65b9\u7ed3\u679c\u5417\uff1f`,
+      faqA: "\u4e0d\u53ef\u4ee5\u3002\u8bf7\u628a\u5b83\u89c6\u4e3a\u5b9e\u7528\u4f30\u7b97\u6216\u8f85\u52a9\u8f93\u51fa\uff0c\u5728\u4f9d\u8d56\u7ed3\u679c\u524d\u81ea\u884c\u590d\u6838\u3002",
+      checked: "\u6700\u540e\u68c0\u67e5\uff1a2026 \u5e74 6 \u6708 9 \u65e5"
+    },
+    de: {
+      notes: "Hinweise",
+      useCases: "Anwendungsfälle",
+      limitations: "Grenzen und Datenschutz",
+      sources: "Quellen und Annahmen",
+      faq: "FAQ",
+      related: "Verwandte Tools",
+      how: (name) => `${name} ist für eine klare Aufgabe gedacht. Gib die Werte oder Inhalte auf der Seite ein, prüfe das Ergebnis und kopiere, lade oder nutze die Ausgabe danach nach Bedarf.`,
+      uses: (name) => `Nutze ${name} für schnelle Prüfungen, Planungen, Formatierungen oder Vorbereitungen direkt im Browser.`,
+      limits: "Ergebnisse und Ausgaben sollten vor der Nutzung geprüft werden. Browserbasierte Tools verarbeiten Daten meist lokal; Upload- oder Hosting-Tools erklären, wann entfernte Speicherung verwendet wird.",
+      finance: "Die Ergebnisse sind nur Schätzungen und keine Steuer-, Rechts-, Finanz- oder Buchhaltungsberatung. Prüfe die offiziellen GOV.UK-Hinweise und frage bei wichtigen Entscheidungen eine qualifizierte Fachperson.",
+      faqQ: (name) => `Kann ich ${name} als offizielles Ergebnis verwenden?`,
+      faqA: "Nein. Behandle das Ergebnis als praktische Schätzung oder Hilfsausgabe und prüfe es vor der Nutzung.",
+      checked: "Last checked: 9 June 2026"
+    },
+    fr: {
+      notes: "Mode d'emploi",
+      useCases: "Cas d'utilisation",
+      limitations: "Limites et confidentialité",
+      sources: "Sources et hypothèses",
+      faq: "FAQ",
+      related: "Outils liés",
+      how: (name) => `${name} sert à une tâche précise. Saisissez les valeurs ou le contenu demandés, vérifiez le résultat, puis copiez, téléchargez ou utilisez la sortie selon vos besoins.`,
+      uses: (name) => `Utilisez ${name} pour des vérifications rapides, des estimations, du formatage ou de la préparation directement dans le navigateur.`,
+      limits: "Les résultats et sorties générées doivent être vérifiés avant utilisation. Les outils côté navigateur traitent généralement les données localement; les outils d'upload ou d'hébergement indiquent quand un stockage distant est utilisé.",
+      finance: "Les résultats sont des estimations uniquement et ne constituent pas un conseil fiscal, juridique, financier ou comptable. Consultez les sources officielles GOV.UK et demandez conseil à un professionnel qualifié pour les décisions importantes.",
+      faqQ: (name) => `Puis-je utiliser ${name} comme résultat officiel ?`,
+      faqA: "Non. Considérez le résultat comme une estimation pratique ou une aide, puis vérifiez-le avant de vous y fier.",
+      checked: "Last checked: 9 June 2026"
+    },
+    es: {
+      notes: "Cómo usarlo",
+      useCases: "Casos de uso",
+      limitations: "Limitaciones y privacidad",
+      sources: "Fuentes y supuestos",
+      faq: "FAQ",
+      related: "Herramientas relacionadas",
+      how: (name) => `${name} está pensado para una tarea concreta. Introduce los valores o el contenido que pide la página, revisa el resultado y copia, descarga o usa la salida según lo necesites.`,
+      uses: (name) => `Usa ${name} para comprobaciones rápidas, estimaciones, formato o preparación de contenido directamente en el navegador.`,
+      limits: "Revisa los resultados y salidas generadas antes de usarlos. Las herramientas de navegador suelen procesar datos localmente; las herramientas de subida o alojamiento explican cuándo usan almacenamiento remoto.",
+      finance: "Los resultados son solo estimaciones y no son asesoramiento fiscal, legal, financiero ni contable. Consulta la guía oficial de GOV.UK y confirma decisiones importantes con un profesional cualificado.",
+      faqQ: (name) => `¿Puedo usar ${name} como resultado oficial?`,
+      faqA: "No. Trátalo como una estimación práctica o una salida de ayuda y revísalo antes de confiar en él.",
+      checked: "Last checked: 9 June 2026"
+    }
+  };
+  const financeSourceLinks = {
+    tax: ["https://www.gov.uk/income-tax-rates", "https://www.gov.uk/national-insurance-rates-letters"],
+    vat: ["https://www.gov.uk/vat-rates", "https://www.gov.uk/vat-businesses"],
+    mortgage: ["https://www.gov.uk/stamp-duty-land-tax"],
+    ir35: ["https://www.gov.uk/guidance/understanding-off-payroll-working-ir35"],
+    "stamp-duty": ["https://www.gov.uk/stamp-duty-land-tax"],
+    dividend: ["https://www.gov.uk/tax-on-dividends"]
+  };
+  const toolNameFallbacks = {
+    tax: "UK Tax Calculator",
+    vat: "VAT Calculator",
+    mortgage: "Mortgage Calculator",
+    ir35: "IR35 Calculator",
+    "stamp-duty": "Stamp Duty Calculator",
+    dividend: "Dividend Calculator",
+    json: "JSON Formatter",
+    diff: "Text Diff Checker",
+    token: "AI Token Calculator",
+    qr: "QR Code Generator",
+    password: "Password Generator",
+    image: "Image Compressor",
+    pdf2img: "PDF to Image Converter",
+    "color-picker": "Color Picker",
+    "working-days": "Working Days Calculator",
+    fuel: "Fuel Cost Calculator",
+    weight: "Weight Converter"
+  };
+  const routeSlug = () => {
+    const last = location.pathname.split("/").filter(Boolean).pop() || "index";
+    return last.replace(/\.html$/i, "");
+  };
+  const escapeHtml = (value) => String(value || "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[char]));
+  const pageToolName = (slug) => {
+    const h1 = document.querySelector("h1");
+    const text = h1 ? h1.textContent.trim() : "";
+    return text || toolNameFallbacks[slug] || "this tool";
+  };
+  const relatedLinksHtml = (slug, label) => {
+    const links = Array.from(document.querySelectorAll("#tool-guidance a[href], main a[href]"))
+      .filter((anchor) => {
+        const href = anchor.getAttribute("href") || "";
+        return href.startsWith("/") && href.replace(/^\//, "").split(/[?#]/)[0] !== slug;
+      })
+      .slice(0, 4);
+    if (!links.length) return "";
+    const items = links.map((anchor) => {
+      const href = anchor.getAttribute("href");
+      const text = anchor.textContent.trim() || href;
+      return `<a href="${escapeHtml(href)}">${escapeHtml(text)}</a>`;
+    }).join(" ");
+    return `<h3>${escapeHtml(label.related)}</h3><p>${items}</p>`;
+  };
+  const renderToolGuidanceLanguage = () => {
+    const guidance = document.getElementById("tool-guidance");
+    if (!guidance || document.getElementById("guidanceTitle")) return;
+    const slug = routeSlug();
+    const text = guidanceTranslations[lang] || guidanceTranslations.en;
+    const name = pageToolName(slug);
+    const isFinance = Object.prototype.hasOwnProperty.call(financeSourceLinks, slug);
+    const sourceLinks = financeSourceLinks[slug] || [];
+    const sourceHtml = isFinance
+      ? `<h3>${escapeHtml(text.sources)}</h3><p>${escapeHtml(text.finance)}</p><p>${sourceLinks.map((href) => `<a href="${href}" rel="noopener noreferrer">${href}</a>`).join(" ")}</p><p><strong>${escapeHtml(text.checked)}</strong></p>`
+      : `<h3>${escapeHtml(text.limitations)}</h3><p>${escapeHtml(text.limits)}</p>`;
+    guidance.innerHTML = `<div class="article"><h2>${escapeHtml(text.notes)} ${escapeHtml(name)}</h2><p>${escapeHtml(text.how(name))}</p><h3>${escapeHtml(text.useCases)}</h3><p>${escapeHtml(text.uses(name))}</p>${sourceHtml}<h3>${escapeHtml(text.faq)}</h3><p><strong>${escapeHtml(text.faqQ(name))}</strong> ${escapeHtml(text.faqA)}</p>${relatedLinksHtml(slug, text)}</div>`;
+  };
   const applyToolGuidanceLanguage = () => {
     const guidance = document.getElementById("tool-guidance");
     if (!guidance || document.getElementById("guidanceTitle")) return;
@@ -111,6 +259,14 @@ $siteNavScript = @'
       if (key === "faq") heading.textContent = text.faq;
       if (key === "related tools") heading.textContent = text.related;
     });
+    renderToolGuidanceLanguage();
+  };
+  const syncLanguageControls = () => {
+    document.querySelectorAll("[data-site-lang]").forEach((button) => {
+      button.classList.toggle("active", normalizeLang(button.dataset.siteLang) === lang);
+    });
+    const select = document.getElementById("languageSelect");
+    if (select) select.value = lang;
   };
   const applySiteLanguage = () => {
     document.querySelectorAll("[data-site-nav]").forEach((item) => {
@@ -118,8 +274,20 @@ $siteNavScript = @'
     });
     const current = document.getElementById("currentLangLabel");
     if (current) current.textContent = labels[lang].language;
+    syncLanguageControls();
     localizeLinks();
     applyToolGuidanceLanguage();
+  };
+  const setLanguage = (selectedLang) => {
+    lang = normalizeLang(selectedLang);
+    const target = new URL(location.href);
+    target.searchParams.set("lang", lang);
+    history.replaceState(null, "", target.pathname + target.search + target.hash);
+    if (typeof window.applyLanguage === "function") {
+      window.applyLanguage(lang, true);
+    }
+    applyCanonicalHreflang();
+    applySiteLanguage();
   };
   applyCanonicalHreflang();
   applySiteLanguage();
@@ -146,14 +314,20 @@ $siteNavScript = @'
     if (event.key === "Escape") setLangMenuOpen(false);
   });
   document.querySelectorAll("[data-site-lang]").forEach((button) => {
-    button.classList.toggle("active", button.dataset.siteLang === lang);
-    button.addEventListener("click", () => {
+    button.classList.toggle("active", normalizeLang(button.dataset.siteLang) === lang);
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
       const selectedLang = button.dataset.siteLang;
-      const target = new URL(location.href);
-      target.searchParams.set("lang", selectedLang);
-      location.assign(target.pathname + target.search + target.hash);
+      setLanguage(selectedLang);
+      setLangMenuOpen(false);
     });
   });
+  const languageSelect = document.getElementById("languageSelect");
+  if (languageSelect) {
+    languageSelect.addEventListener("change", (event) => setLanguage(event.target.value));
+  }
 })();
 </script>
 '@
