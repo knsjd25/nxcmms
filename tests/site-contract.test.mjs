@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
+import { Worker } from "node:worker_threads";
 import worker from "../_worker.js";
 
 const root = new URL("../", import.meta.url);
@@ -54,6 +55,41 @@ async function fetchThroughWorker(path) {
     },
   };
   return worker.fetch(new Request(`https://mini-tools.uk${path}`), env);
+}
+
+async function fetchThroughIsolatedWorker(path, timeoutMs = 2000) {
+  const workerUrl = new URL("../_worker.js", import.meta.url).href;
+  const rootUrl = root.href;
+  const source = `
+    import { parentPort, workerData } from "node:worker_threads";
+    import { readFileSync } from "node:fs";
+    const worker = (await import(workerData.workerUrl)).default;
+    const root = new URL(workerData.rootUrl);
+    const env = { ASSETS: { async fetch(request) {
+      const url = new URL(request.url);
+      const file = url.pathname === "/" ? "index.html" : url.pathname.slice(1);
+      const assetName = /\\.(?:html|xml|txt|css)$/.test(file) ? file : file + ".html";
+      try {
+        const body = readFileSync(new URL(assetName, root), "utf8");
+        const contentType = assetName.endsWith(".html") ? "text/html; charset=utf-8" : "text/plain; charset=utf-8";
+        return new Response(body, { status: 200, headers: { "content-type": contentType } });
+      } catch {
+        return new Response("Not found", { status: 404, headers: { "content-type": "text/plain; charset=utf-8" } });
+      }
+    } } };
+    const response = await worker.fetch(new Request("https://mini-tools.uk" + workerData.path), env);
+    parentPort.postMessage({ status: response.status, body: await response.text() });
+  `;
+  const isolated = new Worker(source, { eval: true, type: "module", workerData: { workerUrl, rootUrl, path } });
+  try {
+    return await new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error(`${path}: Worker render exceeded ${timeoutMs} ms`)), timeoutMs);
+      isolated.once("message", (message) => { clearTimeout(timer); resolve(message); });
+      isolated.once("error", (error) => { clearTimeout(timer); reject(error); });
+    });
+  } finally {
+    await isolated.terminate();
+  }
 }
 
 test("all public pages use the unified navigation and footer", () => {
@@ -232,11 +268,21 @@ test("password and color picker use the shared five-language contract", () => {
   }
   assert.match(password, /<h1\b[^>]*data-i18n=["']heroTitle["']/, "password translated H1");
   assert.match(password, /function applyLanguage\s*\(/, "password page hook");
+  assert.match(password, /\.calculator-grid\s*>\s*\.panel\s*\{[^}]*padding:/, "password generator panels need visible inner spacing");
+  assert.match(password, /\.check\s*\{[^}]*display:\s*flex[^}]*align-items:\s*center/, "password options need aligned checkbox rows");
 
   const color = read("color-picker.html");
   assert.doesNotMatch(color, /getElementById\(["']lang-select["']\)/, "color picker must not bind a removed selector");
   assert.match(color, /function applyLanguage\s*\(/, "color picker page hook");
   assert.match(color, /data-i18n-html=["']seoHtml["']/, "color picker translated SEO body");
+});
+
+test("worker renders token and working-days pages without stalling on array translations", async () => {
+  for (const path of ["/token?lang=en", "/working-days?lang=zh-CN"]) {
+    const response = await fetchThroughIsolatedWorker(path);
+    assert.equal(response.status, 200, path);
+    assert.match(response.body, /<main\b/i, path);
+  }
 });
 
 test("canonical, hreflang, sitemap and robots stay clean", () => {

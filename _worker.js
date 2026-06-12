@@ -223,6 +223,14 @@ function parseJsString(source, start) {
 }
 
 function findMatchingBrace(source, openIndex) {
+  return findMatchingDelimiter(source, openIndex, "{", "}");
+}
+
+function findMatchingBracket(source, openIndex) {
+  return findMatchingDelimiter(source, openIndex, "[", "]");
+}
+
+function findMatchingDelimiter(source, openIndex, openChar, closeChar) {
   let depth = 0;
   let i = openIndex;
   let quote = null;
@@ -277,8 +285,8 @@ function findMatchingBrace(source, openIndex) {
       continue;
     }
 
-    if (ch === "{") depth += 1;
-    if (ch === "}") {
+    if (ch === openChar) depth += 1;
+    if (ch === closeChar) {
       depth -= 1;
       if (depth === 0) return i;
     }
@@ -405,8 +413,16 @@ function parseFlatStringMap(objectBody) {
       continue;
     }
 
+    if (valueStart === "[") {
+      const close = findMatchingBracket(objectBody, j);
+      i = close === -1 ? j + 1 : close + 1;
+      continue;
+    }
+
     // Skip non-string values.
+    i = j;
     while (i < objectBody.length && objectBody[i] !== "," && objectBody[i] !== "\n") i += 1;
+    if (i < objectBody.length) i += 1;
   }
 
   return dict;
