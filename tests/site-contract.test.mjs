@@ -171,6 +171,19 @@ test("tool pages include the required content structure", () => {
   for (const file of toolPages) {
     const html = read(file);
     assert.match(html, /<h1\b/i, `${file}: H1`);
+    if (file === "diff.html") {
+      assert.match(html, /data-i18n="contentTitle"/, `${file}: translated guidance`);
+      assert.match(html, /data-i18n="useTitle"/, `${file}: translated use cases`);
+      assert.match(html, /data-i18n="relatedTitle"/, `${file}: translated related tools`);
+      assert.doesNotMatch(html, /id=["']tool-guidance["']/, `${file}: duplicate English guidance`);
+      continue;
+    }
+    if (file === "color-picker.html") {
+      assert.match(html, /data-i18n-html="seoHtml"/, `${file}: translated guidance`);
+      assert.match(html, /Frequently asked questions/i, `${file}: FAQ`);
+      assert.doesNotMatch(html, /id=["']tool-guidance["']/, `${file}: duplicate English guidance`);
+      continue;
+    }
     assert.match(html, /How to use/i, `${file}: How to use`);
     assert.match(html, /Use cases/i, `${file}: Use cases`);
     assert.match(html, /Limitations|Privacy note|Sources and assumptions|Official sources/i, `${file}: limitations/privacy/sources`);
@@ -296,4 +309,37 @@ test("worker serves sitemap and robots as static assets and retires blog", async
 
   const blog = await fetchThroughWorker("/blog");
   assert.equal(blog.status, 410);
+});
+
+test("legacy image and PDF routes redirect directly to formal URLs", async () => {
+  for (const [legacy, target] of [
+    ["/image-compressor", "https://mini-tools.uk/image"],
+    ["/pdf-to-image", "https://mini-tools.uk/pdf2img"],
+  ]) {
+    const response = await fetchThroughWorker(legacy);
+    assert.equal(response.status, 301, legacy);
+    assert.equal(response.headers.get("location"), target, legacy);
+  }
+});
+
+test("AdSense cleanup removes construction copy and known mixed-language English keys", () => {
+  const homepage = read("index.html");
+  const about = read("about.html");
+  const image = read("image.html");
+  const stampDuty = read("stamp-duty.html");
+  const diff = read("diff.html");
+  const colorPicker = read("color-picker.html");
+  const homepageMarkup = homepage.slice(0, homepage.indexOf('<script id="homepage-language-and-tools">'));
+
+  assert.doesNotMatch(homepageMarkup, /homepage now gives priority|These tools are not removed|simply moved below/i);
+  assert.match(homepage, /Object\.assign\(i18n\.en,[\s\S]*ukText:"Use the UK calculator hub/);
+  assert.match(homepage, /Object\.assign\(i18n\["zh-CN"\],[\s\S]*ukText:"英国计算器区域/);
+  assert.doesNotMatch(about, /being improved page by page|逐页改进|Schritt für Schritt verbessert|amélioré page par page|mejora página por página/i);
+  assert.match(image, /heroTitle:"Image Compressor and Resizer"/);
+  assert.match(image, /feature1:"Resize by width and height"/);
+  assert.match(image, /relatedColor:"Image Color Picker"/);
+  assert.match(stampDuty, /priceLabel:"Property price"/);
+  assert.match(stampDuty, /sideKeywordsTitle:"Check before completion"/);
+  assert.equal((diff.match(/id=["']tool-guidance["']/g) || []).length, 0, "diff duplicate guidance");
+  assert.equal((colorPicker.match(/id=["']tool-guidance["']/g) || []).length, 0, "color picker duplicate guidance");
 });

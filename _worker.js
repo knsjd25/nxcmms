@@ -895,6 +895,14 @@ export default {
     const initialUrl = new URL(request.url);
     const initialPathname = initialUrl.pathname;
 
+    if (initialPathname === "/image-compressor") {
+      return Response.redirect(`${SITE_ORIGIN}/image${initialUrl.search}`, 301);
+    }
+
+    if (initialPathname === "/pdf-to-image") {
+      return Response.redirect(`${SITE_ORIGIN}/pdf2img${initialUrl.search}`, 301);
+    }
+
     if (initialPathname === "/terms" || initialPathname === "/acceptable-use") {
       return Response.redirect(`${SITE_ORIGIN}/privacy`, 301);
     }

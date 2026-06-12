@@ -91,6 +91,19 @@ foreach ($page in $toolPages) {
 foreach ($page in $toolPages) {
   $html = Read-SiteFile $page
   Assert-True ($html -notmatch 'Original notes') "$page still contains development notes"
+  if ($page -eq "diff.html") {
+    Assert-True ($html -match 'data-i18n="contentTitle"') "$page misses translated guidance content"
+    Assert-True ($html -match 'data-i18n="useTitle"') "$page misses translated use cases"
+    Assert-True ($html -match 'data-i18n="relatedTitle"') "$page misses translated related tools"
+    Assert-True ($html -notmatch 'id=["'']tool-guidance["'']') "$page still contains duplicate English guidance"
+    continue
+  }
+  if ($page -eq "color-picker.html") {
+    Assert-True ($html -match 'data-i18n-html="seoHtml"') "$page misses translated guidance content"
+    Assert-True ($html -match 'Frequently asked questions') "$page misses FAQ content"
+    Assert-True ($html -notmatch 'id=["'']tool-guidance["'']') "$page still contains duplicate English guidance"
+    continue
+  }
   foreach ($phrase in @("How to use", "Use cases", "Limitations", "FAQ", "Related tools")) {
     Assert-True ($html -match [regex]::Escape($phrase)) "$page misses tool guidance section phrase: $phrase"
   }
