@@ -306,9 +306,9 @@ function readJsKey(source, start) {
 }
 
 function extractTranslationsSource(html) {
-  const marker = "const translations";
-  const start = html.indexOf(marker);
-  if (start === -1) return null;
+  const marker = /(?:const\s+(?:translations|i18n)\s*=|window\.PAGE_TRANSLATIONS\s*=)/.exec(html);
+  if (!marker) return null;
+  const start = marker.index;
 
   const eq = html.indexOf("=", start);
   if (eq === -1) return null;
@@ -390,7 +390,7 @@ function parseFlatStringMap(objectBody) {
 
     const valueStart = objectBody[j];
 
-    if (valueStart === '"' || valueStart === "'") {
+    if (valueStart === '"' || valueStart === "'" || valueStart === "`") {
       const parsed = parseJsString(objectBody, j);
       if (parsed) {
         dict[keyInfo.key] = parsed.value;
@@ -412,14 +412,49 @@ function parseFlatStringMap(objectBody) {
   return dict;
 }
 
+function extractAssignedObjectBodies(html, lang) {
+  const bodies = [];
+  const acceptedTargets = new Set([
+    `translations.${lang}`,
+    `translations["${lang}"]`,
+    `translations['${lang}']`,
+    `i18n.${lang}`,
+    `i18n["${lang}"]`,
+    `i18n['${lang}']`,
+  ]);
+  let cursor = 0;
+
+  while ((cursor = html.indexOf("Object.assign(", cursor)) !== -1) {
+    const targetStart = cursor + "Object.assign(".length;
+    const comma = html.indexOf(",", targetStart);
+    if (comma === -1) break;
+    const target = html.slice(targetStart, comma).replace(/\s+/g, "");
+    cursor = comma + 1;
+    if (!acceptedTargets.has(target)) continue;
+
+    const open = html.indexOf("{", cursor);
+    if (open === -1) continue;
+    const close = findMatchingBrace(html, open);
+    if (close === -1) continue;
+    bodies.push(html.slice(open + 1, close));
+    cursor = close + 1;
+  }
+
+  return bodies;
+}
+
 function extractDictionary(html, lang) {
   const src = extractTranslationsSource(html);
   if (!src) return null;
 
-  const body = extractLangObjectBody(src, lang) || extractLangObjectBody(src, DEFAULT_LANG);
-  if (!body) return null;
-
-  const dict = parseFlatStringMap(body);
+  const languageKeys = lang === "zh-CN" ? ["zh-CN", "zh"] : [lang];
+  const defaultBody = extractLangObjectBody(src, DEFAULT_LANG);
+  const languageBody = languageKeys.map((key) => extractLangObjectBody(src, key)).find(Boolean);
+  const dict = defaultBody ? parseFlatStringMap(defaultBody) : {};
+  if (languageBody) Object.assign(dict, parseFlatStringMap(languageBody));
+  languageKeys.forEach((key) => {
+    extractAssignedObjectBodies(html, key).forEach((body) => Object.assign(dict, parseFlatStringMap(body)));
+  });
   return Object.keys(dict).length ? dict : null;
 }
 
@@ -561,8 +596,8 @@ function injectHeadSeo(html, pathname, lang, url, robots) {
 }
 
 function updateSeoForLang(html, dict, pathname, lang, url, robots) {
-  const title = dict?.title || dict?.seoTitle || dict?.ogTitle;
-  const description = dict?.description || dict?.seoDescription || dict?.ogDescription;
+  const title = dict?.seoTitle || dict?.metaTitle || dict?.title || dict?.ogTitle;
+  const description = dict?.seoDescription || dict?.metaDesc || dict?.description || dict?.ogDescription;
   const ogTitle = dict?.ogTitle || title;
   const ogDescription = dict?.ogDescription || description;
   const canonical = buildCanonical(pathname, lang, url);

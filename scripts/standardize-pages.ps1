@@ -5,11 +5,11 @@ $utf8 = New-Object System.Text.UTF8Encoding($false)
 $excluded = @("image_admin.html", "map.html")
 
 $nav = @'
-<nav class="site-nav" aria-label="Primary navigation">
+<nav class="site-nav" aria-label="Primary navigation" data-site-shell-aria="navigation">
   <div class="site-nav-inner">
     <a class="site-brand" href="/">
       <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo">
-      <span class="site-brand-copy"><span class="site-brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="site-brand-subtitle">Useful online tools</span></span>
+      <span class="site-brand-copy"><span class="site-brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="site-brand-subtitle" data-site-shell="subtitle">Useful online tools</span></span>
     </a>
     <div class="site-nav-links">
       <a class="site-nav-link" href="/" data-site-nav="home">Home</a>
@@ -24,10 +24,10 @@ $nav = @'
     </div>
     <div class="site-lang-group">
       <button class="site-lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span></button>
-      <div class="site-lang-dropdown" aria-label="Language">
+      <div class="site-lang-dropdown" aria-label="Language" data-site-shell-aria="language">
         <button type="button" data-site-lang="en">English</button><button type="button" data-site-lang="zh-CN">&#20013;&#25991;</button><button type="button" data-site-lang="de">Deutsch</button><button type="button" data-site-lang="fr">Fran&ccedil;ais</button><button type="button" data-site-lang="es">Espa&ntilde;ol</button>
       </div>
-      <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
+      <select id="languageSelect" aria-label="Language" data-site-shell-aria="language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
     </div>
   </div>
 </nav>
@@ -497,13 +497,15 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
   }
 
   $html = [regex]::Replace($html, '<script id=["'']site-nav-language["'']>[\s\S]*?</script>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = [regex]::Replace($html, '<script\s+src=["''](?:\.?/)?site-i18n\.js(?:\?[^"'']*)?["'']\s*></script>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<style id=["'']site-nav-style["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<style id=["'']site-footer-style["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<style id=["''](?:home-nav-footer-layout-fixes|upload-page-nav-isolation|upload-page-footer-fix|upload-final-review-fixes|upload-language-arrow-unify)["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<link\s+rel=["'']stylesheet["'']\s+href=["''](?:\.?/)?ui-refresh\.css(?:\?[^"'']*)?["'']\s*/?>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<link\s+rel=["'']stylesheet["'']\s+href=["'']/?site-nav\.css(?:\?[^"'']*)?["'']\s*/?>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $html = [regex]::Replace($html, '(?m)(const\s+(?:translations|i18n)\s*=\s*)(?!window\.PAGE_TRANSLATIONS\s*=\s*)\{', '$1window.PAGE_TRANSLATIONS = {', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = $html.Replace('</head>', "<link rel=`"stylesheet`" href=`"site-nav.css`">`r`n$footerStyle`r`n</head>")
-  $html = $html.Replace('</body>', "$siteNavScript`r`n</body>")
+  $html = $html.Replace('</body>', "<script src=`"site-i18n.js`"></script>`r`n</body>")
   $html = [regex]::Replace($html, 'Original notes for\s+([^<"''`r`n]+)', 'How to use this $1', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<h3>\s*Example\s*</h3>', '<h3>Use cases</h3>', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<h3>\s*Official sources\s*</h3>', '<h3>Sources and assumptions</h3>', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)

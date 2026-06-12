@@ -80,6 +80,10 @@
 
 
 
+
+
+
+
 <link rel="stylesheet" href="site-nav.css">
 <style id="site-footer-style">
 .footer {
@@ -146,11 +150,11 @@
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
-  <nav class="site-nav" aria-label="Primary navigation">
+  <nav class="site-nav" aria-label="Primary navigation" data-site-shell-aria="navigation">
   <div class="site-nav-inner">
     <a class="site-brand" href="/">
       <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo">
-      <span class="site-brand-copy"><span class="site-brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="site-brand-subtitle">Useful online tools</span></span>
+      <span class="site-brand-copy"><span class="site-brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="site-brand-subtitle" data-site-shell="subtitle">Useful online tools</span></span>
     </a>
     <div class="site-nav-links">
       <a class="site-nav-link" href="/" data-site-nav="home">Home</a>
@@ -165,10 +169,10 @@
     </div>
     <div class="site-lang-group">
       <button class="site-lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span></button>
-      <div class="site-lang-dropdown" aria-label="Language">
+      <div class="site-lang-dropdown" aria-label="Language" data-site-shell-aria="language">
         <button type="button" data-site-lang="en">English</button><button type="button" data-site-lang="zh-CN">&#20013;&#25991;</button><button type="button" data-site-lang="de">Deutsch</button><button type="button" data-site-lang="fr">Fran&ccedil;ais</button><button type="button" data-site-lang="es">Espa&ntilde;ol</button>
       </div>
-      <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
+      <select id="languageSelect" aria-label="Language" data-site-shell-aria="language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
     </div>
   </div>
 </nav>
@@ -212,7 +216,7 @@
   </div>
 </footer>
   <script>
-    const translations={"en":{"htmlLang":"en-GB","langLabel":"English","locale":"en-GB","title":"Stones to Kg Converter | Stones and Pounds to Kilograms | Mini-Tools.uk","description":"Convert stones and pounds to kilograms, or kilograms back to stones and pounds. Free UK weight converter with quick examples and exact formulas.","ogTitle":"Stones to Kg Converter | Mini-Tools.uk","ogDescription":"Convert UK body weight between stones, pounds and kilograms in your browser.","skip":"Skip to content","brandSubtitle":"Practical calculators and browser tools","navHome":"Home","navTools":"Search Tools","navCategories":"Categories","navAbout":"About","navContact":"Contact","privacy":"Privacy","catFinance":"UK Apps","catFinanceSmall":"Tax, VAT, mortgage and contractor tools","catDev":"Developer Tools","catDevSmall":"JSON, diff, tokens and prompt helpers","catImage":"Other Tools","catImageSmall":"Compression, conversion and quick utilities","catText":"Text & Conversion","catTextSmall":"Word, unit and everyday converters","catSecurity":"Safety & Privacy","catSecuritySmall":"Password and private client-side tools","badge":"UK imperial to metric converter","heroTitle":"Stones to Kg Converter for UK Weight","heroText":"Convert body weight between stones and pounds and kilograms instantly. The page updates both directions in real time for forms, fitness apps, medical notes and everyday UK weight references.","imperialTitle":"Imperial (UK)","imperialSub":"Stones & pounds","stonesLabel":"Stones","poundsLabel":"Pounds","totalPoundsLabel":"Total in pounds","metricTitle":"Metric","metricSub":"Kilograms","kgLabel":"Kilograms","metricSummary":"Use this value for forms, medical records and standard metric references.","stat1Key":"1 stone","stat1Val":"6.35029318 kg","stat2Key":"1 stone","stat2Val":"14 pounds","stat3Key":"10 stone","stat3Val":"63.50 kg","howTitle":"How to use this stones and pounds converter","howP1":"Enter stones and pounds on the left to convert to kilograms, or enter kilograms on the right to convert back to stones and pounds. The result updates immediately, so it is useful when filling out forms, checking a fitness app value or translating a UK body-weight measurement into metric units.","howP2":"You can use whole stones, decimal pounds or decimal kilograms. The converter is a unit tool only and does not assess whether a body weight is healthy or appropriate.","whyTitle":"Why the UK still uses stones","whyP1":"In everyday life, many people in the UK still describe body weight using stones and pounds. In healthcare, fitness apps and international contexts, the same value is usually recorded in kilograms.","whyP2":"This converter helps switch between the two systems quickly without rounding surprises. It is designed for conversion only, not health assessment or medical advice.","chartTitle":"Quick reference chart","chartCol1":"Stones & pounds","chartCol2":"Total pounds","chartCol3":"Kilograms","formulaTitle":"Formulas used","formula1":"1 stone = 14 pounds","formula2":"1 pound = 0.45359237 kilograms","formula3":"Total pounds = stones × 14 + pounds","formula4":"Kilograms = total pounds × 0.45359237","examplesTitle":"Common UK body-weight examples","examplesText":"Common checks such as 10 stone in kg, 11 stone in kg, 12 stone in kg and 13 stone in kg are all handled by the same stones-and-pounds formula. Enter the stone value and leave pounds as zero, or add extra pounds for a more precise conversion.","roundingTitle":"Rounding and accuracy","roundingText":"The calculation uses the exact international pound conversion of 0.45359237 kilograms. Displayed values are rounded for readability, so a long decimal kilogram result may look slightly shorter than the raw mathematical value.","faq1Q":"How many kilograms are in one stone?","faq1A":"One stone equals exactly 6.35029318 kilograms.","faq2Q":"How many pounds are in one stone?","faq2A":"One stone equals exactly 14 pounds.","faq3Q":"Can I convert kilograms back to stones and pounds?","faq3A":"Yes. Enter any kilogram value and the converter will show the equivalent stones, pounds and total pounds instantly.","faq4Q":"Who is this converter for?","faq4A":"It is useful for UK users who know body weight in stones and pounds but need kilograms for forms, apps, medical notes, travel documents or international references.","faq5Q":"Does this page give medical advice?","faq5A":"No. This is only a unit converter. It does not calculate BMI, diagnose health status or replace medical advice.","relatedTitle":"Related tools","relatedVat":"VAT Calculator","relatedVatText":"Add or remove UK VAT for quick everyday cost checks.","relatedFuel":"Fuel Cost Calculator","relatedFuelText":"Estimate journey fuel cost using UK miles, MPG and pence per litre.","relatedWorkingDays":"Working Days Calculator","relatedWorkingDaysText":"Count business days and plan UK work schedules quickly.","footerSmall":"Practical client-side web tools","inputStonePlaceholder":"0","inputPoundPlaceholder":"0","inputKgPlaceholder":"0"},"zh-CN":{"htmlLang":"zh-CN","langLabel":"中文","locale":"zh-CN","title":"英制体重换算器｜stone、pound 与 kg 换算｜Mini-Tools.uk","description":"免费英制体重换算器，支持 stones and pounds 转 kilograms，也支持 kg 反算为 stone 和 pound，适合英国体重、表格、健身应用和日常单位换算。","ogTitle":"英制体重换算器｜Mini-Tools.uk","ogDescription":"在浏览器中快速换算 stone、pound 和 kg。","skip":"跳到正文","brandSubtitle":"实用计算器和浏览器工具","navHome":"首页","navTools":"全部工具","navCategories":"分类","navAbout":"关于","navContact":"联系","privacy":"隐私政策","catFinance":"英国财务工具","catFinanceSmall":"个税、VAT、房贷和承包商工具","catDev":"开发者工具","catDevSmall":"JSON、文本对比、Token 和提示词辅助工具","catImage":"图片与 PDF","catImageSmall":"压缩、转换和常用媒体工具","catText":"文本与单位换算","catTextSmall":"字数、单位和日常换算工具","catSecurity":"安全与隐私","catSecuritySmall":"密码和本地隐私工具","badge":"英国英制体重转公制","heroTitle":"英制体重换算器：Stone、Pound 与 Kg 换算","heroText":"快速把英国常用的 stones and pounds 体重换算成 kilograms，也可以从 kg 反算为 stone 和 pound。适合填写表格、健身应用、医疗记录和日常英国体重单位换算。","imperialTitle":"英制（英国）","imperialSub":"Stone 与 Pound","stonesLabel":"Stone","poundsLabel":"Pound","totalPoundsLabel":"总磅数","metricTitle":"公制","metricSub":"千克","kgLabel":"千克","metricSummary":"这个 kg 数值适合用于表格、医疗记录、健身应用和标准公制场景。","stat1Key":"1 stone","stat1Val":"6.35029318 kg","stat2Key":"1 stone","stat2Val":"14 pounds","stat3Key":"10 stone","stat3Val":"63.50 kg","howTitle":"如何使用这个 stone 和 kg 换算器","howP1":"在左侧输入 stone 和 pound，即可换算为 kg；也可以在右侧输入 kg，反算为 stone、pound 和总磅数。结果会实时更新，适合把英国体重单位转换成公制单位。","howP2":"你可以输入整数 stone、小数 pound 或小数 kg。这个页面只做单位换算，不判断体重是否健康，也不提供医疗建议。","whyTitle":"为什么英国体重常用 stone","whyP1":"在英国日常交流中，很多人仍然习惯用 stones and pounds 描述体重。但在医疗、健身应用、国际表格和旅行资料中，体重通常需要使用 kilograms。","whyP2":"这个工具可以在两种单位之间快速换算，减少手动换算和四舍五入误差。它只用于单位转换，不用于健康评估。","chartTitle":"快速换算表","chartCol1":"Stone 与 pound","chartCol2":"总磅数","chartCol3":"千克","formulaTitle":"使用的换算公式","formula1":"1 stone = 14 pounds","formula2":"1 pound = 0.45359237 kilograms","formula3":"总磅数 = stone × 14 + pound","formula4":"千克 = 总磅数 × 0.45359237","examplesTitle":"常见英国体重换算示例","examplesText":"例如 10 stone in kg、11 stone in kg、12 stone in kg 和 13 stone in kg 都使用同一套 stone 与 pound 换算公式。输入 stone 数值并把 pound 留为 0，或加入额外 pound 得到更精确结果。","roundingTitle":"四舍五入和精度","roundingText":"计算使用国际磅的精确定义：1 pound = 0.45359237 kilograms。页面展示结果会为了可读性进行四舍五入，所以显示的小数位可能比原始数学结果短。","faq1Q":"1 stone 等于多少 kg？","faq1A":"1 stone 精确等于 6.35029318 kilograms。","faq2Q":"1 stone 等于多少 pounds？","faq2A":"1 stone 精确等于 14 pounds。","faq3Q":"可以把 kg 反算为 stone 和 pound 吗？","faq3A":"可以。输入任意 kg 数值，页面会立即显示对应的 stone、pound 和总磅数。","faq4Q":"这个换算器适合谁使用？","faq4A":"适合知道英国体重 stone/pound 表达，但需要 kg 数值用于表格、应用、医疗记录、旅行文件或国际参考的人。","faq5Q":"这个页面提供医疗建议吗？","faq5A":"不提供。它只是单位换算器，不计算 BMI，不判断健康状态，也不能替代医疗建议。","relatedTitle":"相关工具","relatedVat":"VAT 计算器","relatedVatText":"快速计算英国 VAT 加税和去税。","relatedFuel":"油费计算器","relatedFuelText":"按英国里程、MPG 和每升油价估算行程燃油成本。","relatedWorkingDays":"工作日计算器","relatedWorkingDaysText":"快速计算工作日和规划英国工作安排。","footerSmall":"实用的本地浏览器工具","inputStonePlaceholder":"0","inputPoundPlaceholder":"0","inputKgPlaceholder":"0"},"de":{"htmlLang":"de","langLabel":"Deutsch","locale":"de-DE","title":"Stones in Kg Rechner | Stone und Pounds in Kilogramm | Mini-Tools.uk","description":"Konvertieren Sie Stones und Pounds in Kilogramm oder Kilogramm zurück in Stones und Pounds. Kostenloser UK-Gewichtsumrechner mit Beispielen und Formeln.","ogTitle":"Stones in Kg Rechner | Mini-Tools.uk","ogDescription":"UK-Körpergewicht zwischen Stones, Pounds und Kilogramm umrechnen.","skip":"Zum Inhalt springen","brandSubtitle":"Praktische Rechner und Browser-Tools","navHome":"Startseite","navTools":"Alle Tools","navCategories":"Kategorien","navAbout":"Über uns","navContact":"Kontakt","privacy":"Datenschutz","catFinance":"UK Finanzen","catFinanceSmall":"Steuer, VAT, Hypothek und Contractor-Tools","catDev":"Developer Tools","catDevSmall":"JSON, Diff, Tokens und Prompt-Helfer","catImage":"Bild & PDF","catImageSmall":"Komprimierung, Konvertierung und schnelle Tools","catText":"Text & Umrechnung","catTextSmall":"Wörter, Einheiten und Alltagsumrechner","catSecurity":"Sicherheit & Datenschutz","catSecuritySmall":"Passwort- und lokale Datenschutztools","badge":"UK imperial zu metrisch","heroTitle":"Stones in Kg Rechner für UK-Gewicht","heroText":"Konvertieren Sie Körpergewicht zwischen Stones und Pounds und Kilogramm sofort. Die Seite rechnet in beide Richtungen für Formulare, Fitness-Apps, medizinische Notizen und UK-Gewichtsangaben.","imperialTitle":"Imperial (UK)","imperialSub":"Stones & Pounds","stonesLabel":"Stones","poundsLabel":"Pounds","totalPoundsLabel":"Gesamt in Pounds","metricTitle":"Metrisch","metricSub":"Kilogramm","kgLabel":"Kilogramm","metricSummary":"Verwenden Sie diesen Wert für Formulare, medizinische Unterlagen und metrische Referenzen.","stat1Key":"1 Stone","stat1Val":"6.35029318 kg","stat2Key":"1 Stone","stat2Val":"14 Pounds","stat3Key":"10 Stone","stat3Val":"63.50 kg","howTitle":"So verwenden Sie den Stones-und-Pounds-Rechner","howP1":"Geben Sie links Stones und Pounds ein, um Kilogramm zu erhalten, oder geben Sie rechts Kilogramm ein, um zurück in Stones und Pounds zu rechnen. Das Ergebnis aktualisiert sich sofort.","howP2":"Sie können ganze Stones, Dezimal-Pounds oder Dezimal-Kilogramm verwenden. Der Rechner ist nur ein Einheiten-Tool und bewertet kein Körpergewicht.","whyTitle":"Warum im UK noch Stones genutzt werden","whyP1":"Im Alltag beschreiben viele Menschen im Vereinigten Königreich Körpergewicht noch mit Stones und Pounds. In Gesundheitswesen, Fitness-Apps und internationalen Formularen wird derselbe Wert oft in Kilogramm verlangt.","whyP2":"Dieses Tool wechselt schnell zwischen beiden Systemen und reduziert Rundungsfehler. Es ist nur für Umrechnung gedacht, nicht für Gesundheitsbewertung.","chartTitle":"Schnelle Referenztabelle","chartCol1":"Stones & Pounds","chartCol2":"Gesamt-Pounds","chartCol3":"Kilogramm","formulaTitle":"Verwendete Formeln","formula1":"1 Stone = 14 Pounds","formula2":"1 Pound = 0.45359237 Kilogramm","formula3":"Gesamt-Pounds = Stones × 14 + Pounds","formula4":"Kilogramm = Gesamt-Pounds × 0.45359237","examplesTitle":"Häufige UK-Gewichtsbeispiele","examplesText":"Abfragen wie 10 stone in kg, 11 stone in kg, 12 stone in kg und 13 stone in kg nutzen dieselbe Formel. Geben Sie den Stone-Wert ein und lassen Sie Pounds auf null oder ergänzen Sie Pounds für mehr Genauigkeit.","roundingTitle":"Rundung und Genauigkeit","roundingText":"Die Berechnung nutzt die exakte internationale Pound-Definition von 0.45359237 Kilogramm. Angezeigte Werte werden für bessere Lesbarkeit gerundet.","faq1Q":"Wie viele Kilogramm sind ein Stone?","faq1A":"Ein Stone entspricht exakt 6.35029318 Kilogramm.","faq2Q":"Wie viele Pounds sind ein Stone?","faq2A":"Ein Stone entspricht exakt 14 Pounds.","faq3Q":"Kann ich Kilogramm zurück in Stones und Pounds umrechnen?","faq3A":"Ja. Geben Sie einen Kilogrammwert ein und der Rechner zeigt Stones, Pounds und Gesamt-Pounds sofort an.","faq4Q":"Für wen ist dieser Rechner nützlich?","faq4A":"Für Personen, die UK-Gewicht in Stones und Pounds kennen, aber Kilogramm für Formulare, Apps, medizinische Notizen oder internationale Referenzen brauchen.","faq5Q":"Gibt diese Seite medizinischen Rat?","faq5A":"Nein. Es ist nur ein Einheitenrechner. Er berechnet keinen BMI und ersetzt keine medizinische Beratung.","relatedTitle":"Verwandte Tools","relatedVat":"VAT Rechner","relatedVatText":"UK VAT schnell hinzufügen oder entfernen.","relatedFuel":"Kraftstoffkosten-Rechner","relatedFuelText":"Reisekosten mit UK miles, MPG und Pence pro Liter schätzen.","relatedWorkingDays":"Arbeitstage-Rechner","relatedWorkingDaysText":"Arbeitstage zählen und UK-Arbeitspläne planen.","footerSmall":"Praktische clientseitige Webtools","inputStonePlaceholder":"0","inputPoundPlaceholder":"0","inputKgPlaceholder":"0"},"fr":{"htmlLang":"fr","langLabel":"Français","locale":"fr-FR","title":"Convertisseur stones en kg | Stones, pounds et kilogrammes | Mini-Tools.uk","description":"Convertissez stones et pounds en kilogrammes, ou les kilogrammes en stones et pounds. Convertisseur de poids UK gratuit avec exemples et formules exactes.","ogTitle":"Convertisseur stones en kg | Mini-Tools.uk","ogDescription":"Convertir le poids UK entre stones, pounds et kilogrammes.","skip":"Aller au contenu","brandSubtitle":"Calculateurs pratiques et outils navigateur","navHome":"Accueil","navTools":"Tous les outils","navCategories":"Catégories","navAbout":"À propos","navContact":"Contact","privacy":"Confidentialité","catFinance":"Finance UK","catFinanceSmall":"Impôt, VAT, prêt immobilier et contractor","catDev":"Outils développeur","catDevSmall":"JSON, diff, tokens et prompts","catImage":"Other Tools","catImageSmall":"Compression, conversion et utilitaires","catText":"Texte & conversion","catTextSmall":"Mots, unités et convertisseurs courants","catSecurity":"Sécurité & confidentialité","catSecuritySmall":"Mots de passe et outils locaux","badge":"Impérial UK vers métrique","heroTitle":"Convertisseur stones en kg pour le poids UK","heroText":"Convertissez instantanément le poids entre stones, pounds et kilogrammes. La page fonctionne dans les deux sens pour formulaires, applications fitness, notes médicales et références de poids UK.","imperialTitle":"Impérial (UK)","imperialSub":"Stones & pounds","stonesLabel":"Stones","poundsLabel":"Pounds","totalPoundsLabel":"Total en pounds","metricTitle":"Métrique","metricSub":"Kilogrammes","kgLabel":"Kilogrammes","metricSummary":"Utilisez cette valeur pour formulaires, dossiers médicaux et références métriques.","stat1Key":"1 stone","stat1Val":"6.35029318 kg","stat2Key":"1 stone","stat2Val":"14 pounds","stat3Key":"10 stone","stat3Val":"63.50 kg","howTitle":"Comment utiliser ce convertisseur stones et pounds","howP1":"Entrez stones et pounds à gauche pour convertir en kilogrammes, ou entrez les kilogrammes à droite pour revenir en stones et pounds. Le résultat se met à jour immédiatement.","howP2":"Vous pouvez utiliser des stones entiers, des pounds décimaux ou des kilogrammes décimaux. Cet outil convertit seulement les unités et n’évalue pas la santé.","whyTitle":"Pourquoi le UK utilise encore les stones","whyP1":"Dans la vie quotidienne au Royaume-Uni, le poids corporel est souvent exprimé en stones et pounds. Dans les soins, les applications fitness et les formulaires internationaux, la valeur est souvent demandée en kilogrammes.","whyP2":"Ce convertisseur passe rapidement d’un système à l’autre et évite les erreurs d’arrondi. Il sert uniquement à la conversion.","chartTitle":"Table de référence rapide","chartCol1":"Stones & pounds","chartCol2":"Total pounds","chartCol3":"Kilogrammes","formulaTitle":"Formules utilisées","formula1":"1 stone = 14 pounds","formula2":"1 pound = 0.45359237 kilogrammes","formula3":"Total pounds = stones × 14 + pounds","formula4":"Kilogrammes = total pounds × 0.45359237","examplesTitle":"Exemples courants de poids UK","examplesText":"Les recherches comme 10 stone in kg, 11 stone in kg, 12 stone in kg et 13 stone in kg utilisent la même formule. Entrez la valeur en stones et laissez pounds à zéro, ou ajoutez des pounds pour plus de précision.","roundingTitle":"Arrondi et précision","roundingText":"Le calcul utilise la conversion exacte de la pound internationale : 0.45359237 kilogrammes. Les valeurs affichées sont arrondies pour la lisibilité.","faq1Q":"Combien de kilogrammes dans une stone ?","faq1A":"Une stone équivaut exactement à 6.35029318 kilogrammes.","faq2Q":"Combien de pounds dans une stone ?","faq2A":"Une stone équivaut exactement à 14 pounds.","faq3Q":"Puis-je convertir les kilogrammes en stones et pounds ?","faq3A":"Oui. Entrez une valeur en kilogrammes et le convertisseur affiche immédiatement stones, pounds et total pounds.","faq4Q":"À qui sert ce convertisseur ?","faq4A":"Il est utile aux personnes qui connaissent leur poids UK en stones et pounds mais doivent fournir des kilogrammes pour formulaires, applications, notes médicales ou références internationales.","faq5Q":"Cette page donne-t-elle un avis médical ?","faq5A":"Non. C’est seulement un convertisseur d’unités. Il ne calcule pas le BMI et ne remplace pas un avis médical.","relatedTitle":"Outils liés","relatedVat":"Calculateur VAT","relatedVatText":"Ajouter ou retirer rapidement la VAT UK.","relatedFuel":"Calculateur coût carburant","relatedFuelText":"Estimer le coût d’un trajet avec miles UK, MPG et pence par litre.","relatedWorkingDays":"Calculateur jours ouvrés","relatedWorkingDaysText":"Compter les jours ouvrés et planifier les horaires UK.","footerSmall":"Outils web pratiques côté navigateur","inputStonePlaceholder":"0","inputPoundPlaceholder":"0","inputKgPlaceholder":"0"},"es":{"htmlLang":"es","langLabel":"Español","locale":"es-ES","title":"Conversor stones a kg | Stones, pounds y kilogramos | Mini-Tools.uk","description":"Convierte stones y pounds a kilogramos, o kilogramos a stones y pounds. Conversor gratuito de peso UK con ejemplos y fórmulas exactas.","ogTitle":"Conversor stones a kg | Mini-Tools.uk","ogDescription":"Convierte peso UK entre stones, pounds y kilogramos.","skip":"Saltar al contenido","brandSubtitle":"Calculadoras prácticas y herramientas web","navHome":"Inicio","navTools":"Todas las herramientas","navCategories":"Categorías","navAbout":"Acerca de","navContact":"Contacto","privacy":"Privacidad","catFinance":"Finanzas UK","catFinanceSmall":"Impuestos, VAT, hipoteca y contractor","catDev":"Herramientas developer","catDevSmall":"JSON, diff, tokens y prompts","catImage":"Imagen y PDF","catImageSmall":"Compresión, conversión y utilidades","catText":"Texto y conversión","catTextSmall":"Palabras, unidades y conversores diarios","catSecurity":"Seguridad y privacidad","catSecuritySmall":"Contraseñas y herramientas locales","badge":"Imperial UK a métrico","heroTitle":"Conversor stones a kg para peso UK","heroText":"Convierte peso corporal entre stones, pounds y kilogramos al instante. La página funciona en ambos sentidos para formularios, apps fitness, notas médicas y referencias de peso UK.","imperialTitle":"Imperial (UK)","imperialSub":"Stones y pounds","stonesLabel":"Stones","poundsLabel":"Pounds","totalPoundsLabel":"Total en pounds","metricTitle":"Métrico","metricSub":"Kilogramos","kgLabel":"Kilogramos","metricSummary":"Usa este valor para formularios, registros médicos y referencias métricas.","stat1Key":"1 stone","stat1Val":"6.35029318 kg","stat2Key":"1 stone","stat2Val":"14 pounds","stat3Key":"10 stone","stat3Val":"63.50 kg","howTitle":"Cómo usar este conversor de stones y pounds","howP1":"Introduce stones y pounds a la izquierda para convertir a kilogramos, o introduce kilogramos a la derecha para volver a stones y pounds. El resultado se actualiza al instante.","howP2":"Puedes usar stones enteros, pounds decimales o kilogramos decimales. Este conversor solo cambia unidades y no evalúa si un peso es saludable.","whyTitle":"Por qué en UK se siguen usando stones","whyP1":"En el Reino Unido muchas personas siguen describiendo el peso corporal con stones y pounds. En salud, apps fitness y formularios internacionales, el mismo valor suele pedirse en kilogramos.","whyP2":"Esta herramienta cambia rápidamente entre ambos sistemas y reduce errores de redondeo. Solo sirve para conversión, no para evaluación médica.","chartTitle":"Tabla rápida de referencia","chartCol1":"Stones y pounds","chartCol2":"Total pounds","chartCol3":"Kilogramos","formulaTitle":"Fórmulas utilizadas","formula1":"1 stone = 14 pounds","formula2":"1 pound = 0.45359237 kilogramos","formula3":"Total pounds = stones × 14 + pounds","formula4":"Kilogramos = total pounds × 0.45359237","examplesTitle":"Ejemplos comunes de peso UK","examplesText":"Búsquedas como 10 stone in kg, 11 stone in kg, 12 stone in kg y 13 stone in kg usan la misma fórmula. Introduce el valor en stones y deja pounds en cero, o añade pounds para más precisión.","roundingTitle":"Redondeo y precisión","roundingText":"El cálculo usa la conversión exacta de la pound internacional: 0.45359237 kilogramos. Los valores mostrados se redondean para facilitar la lectura.","faq1Q":"¿Cuántos kilogramos hay en una stone?","faq1A":"Una stone equivale exactamente a 6.35029318 kilogramos.","faq2Q":"¿Cuántos pounds hay en una stone?","faq2A":"Una stone equivale exactamente a 14 pounds.","faq3Q":"¿Puedo convertir kilogramos a stones y pounds?","faq3A":"Sí. Introduce cualquier valor en kilogramos y el conversor mostrará stones, pounds y total pounds al instante.","faq4Q":"¿Para quién sirve este conversor?","faq4A":"Sirve a usuarios que conocen su peso UK en stones y pounds pero necesitan kilogramos para formularios, apps, notas médicas, documentos de viaje o referencias internacionales.","faq5Q":"¿Esta página da consejo médico?","faq5A":"No. Es solo un conversor de unidades. No calcula BMI, no diagnostica salud y no sustituye consejo médico.","relatedTitle":"Herramientas relacionadas","relatedVat":"Calculadora VAT","relatedVatText":"Añade o quita VAT UK para comprobaciones rápidas.","relatedFuel":"Calculadora coste combustible","relatedFuelText":"Estima coste de trayecto con miles UK, MPG y pence por litro.","relatedWorkingDays":"Calculadora días laborables","relatedWorkingDaysText":"Cuenta días laborables y planifica horarios UK.","footerSmall":"Herramientas web prácticas en el navegador","inputStonePlaceholder":"0","inputPoundPlaceholder":"0","inputKgPlaceholder":"0"}};
+    const translations=window.PAGE_TRANSLATIONS = {"en":{"htmlLang":"en-GB","langLabel":"English","locale":"en-GB","title":"Stones to Kg Converter | Stones and Pounds to Kilograms | Mini-Tools.uk","description":"Convert stones and pounds to kilograms, or kilograms back to stones and pounds. Free UK weight converter with quick examples and exact formulas.","ogTitle":"Stones to Kg Converter | Mini-Tools.uk","ogDescription":"Convert UK body weight between stones, pounds and kilograms in your browser.","skip":"Skip to content","brandSubtitle":"Practical calculators and browser tools","navHome":"Home","navTools":"Search Tools","navCategories":"Categories","navAbout":"About","navContact":"Contact","privacy":"Privacy","catFinance":"UK Apps","catFinanceSmall":"Tax, VAT, mortgage and contractor tools","catDev":"Developer Tools","catDevSmall":"JSON, diff, tokens and prompt helpers","catImage":"Other Tools","catImageSmall":"Compression, conversion and quick utilities","catText":"Text & Conversion","catTextSmall":"Word, unit and everyday converters","catSecurity":"Safety & Privacy","catSecuritySmall":"Password and private client-side tools","badge":"UK imperial to metric converter","heroTitle":"Stones to Kg Converter for UK Weight","heroText":"Convert body weight between stones and pounds and kilograms instantly. The page updates both directions in real time for forms, fitness apps, medical notes and everyday UK weight references.","imperialTitle":"Imperial (UK)","imperialSub":"Stones & pounds","stonesLabel":"Stones","poundsLabel":"Pounds","totalPoundsLabel":"Total in pounds","metricTitle":"Metric","metricSub":"Kilograms","kgLabel":"Kilograms","metricSummary":"Use this value for forms, medical records and standard metric references.","stat1Key":"1 stone","stat1Val":"6.35029318 kg","stat2Key":"1 stone","stat2Val":"14 pounds","stat3Key":"10 stone","stat3Val":"63.50 kg","howTitle":"How to use this stones and pounds converter","howP1":"Enter stones and pounds on the left to convert to kilograms, or enter kilograms on the right to convert back to stones and pounds. The result updates immediately, so it is useful when filling out forms, checking a fitness app value or translating a UK body-weight measurement into metric units.","howP2":"You can use whole stones, decimal pounds or decimal kilograms. The converter is a unit tool only and does not assess whether a body weight is healthy or appropriate.","whyTitle":"Why the UK still uses stones","whyP1":"In everyday life, many people in the UK still describe body weight using stones and pounds. In healthcare, fitness apps and international contexts, the same value is usually recorded in kilograms.","whyP2":"This converter helps switch between the two systems quickly without rounding surprises. It is designed for conversion only, not health assessment or medical advice.","chartTitle":"Quick reference chart","chartCol1":"Stones & pounds","chartCol2":"Total pounds","chartCol3":"Kilograms","formulaTitle":"Formulas used","formula1":"1 stone = 14 pounds","formula2":"1 pound = 0.45359237 kilograms","formula3":"Total pounds = stones × 14 + pounds","formula4":"Kilograms = total pounds × 0.45359237","examplesTitle":"Common UK body-weight examples","examplesText":"Common checks such as 10 stone in kg, 11 stone in kg, 12 stone in kg and 13 stone in kg are all handled by the same stones-and-pounds formula. Enter the stone value and leave pounds as zero, or add extra pounds for a more precise conversion.","roundingTitle":"Rounding and accuracy","roundingText":"The calculation uses the exact international pound conversion of 0.45359237 kilograms. Displayed values are rounded for readability, so a long decimal kilogram result may look slightly shorter than the raw mathematical value.","faq1Q":"How many kilograms are in one stone?","faq1A":"One stone equals exactly 6.35029318 kilograms.","faq2Q":"How many pounds are in one stone?","faq2A":"One stone equals exactly 14 pounds.","faq3Q":"Can I convert kilograms back to stones and pounds?","faq3A":"Yes. Enter any kilogram value and the converter will show the equivalent stones, pounds and total pounds instantly.","faq4Q":"Who is this converter for?","faq4A":"It is useful for UK users who know body weight in stones and pounds but need kilograms for forms, apps, medical notes, travel documents or international references.","faq5Q":"Does this page give medical advice?","faq5A":"No. This is only a unit converter. It does not calculate BMI, diagnose health status or replace medical advice.","relatedTitle":"Related tools","relatedVat":"VAT Calculator","relatedVatText":"Add or remove UK VAT for quick everyday cost checks.","relatedFuel":"Fuel Cost Calculator","relatedFuelText":"Estimate journey fuel cost using UK miles, MPG and pence per litre.","relatedWorkingDays":"Working Days Calculator","relatedWorkingDaysText":"Count business days and plan UK work schedules quickly.","footerSmall":"Practical client-side web tools","inputStonePlaceholder":"0","inputPoundPlaceholder":"0","inputKgPlaceholder":"0"},"zh-CN":{"htmlLang":"zh-CN","langLabel":"中文","locale":"zh-CN","title":"英制体重换算器｜stone、pound 与 kg 换算｜Mini-Tools.uk","description":"免费英制体重换算器，支持 stones and pounds 转 kilograms，也支持 kg 反算为 stone 和 pound，适合英国体重、表格、健身应用和日常单位换算。","ogTitle":"英制体重换算器｜Mini-Tools.uk","ogDescription":"在浏览器中快速换算 stone、pound 和 kg。","skip":"跳到正文","brandSubtitle":"实用计算器和浏览器工具","navHome":"首页","navTools":"全部工具","navCategories":"分类","navAbout":"关于","navContact":"联系","privacy":"隐私政策","catFinance":"英国财务工具","catFinanceSmall":"个税、VAT、房贷和承包商工具","catDev":"开发者工具","catDevSmall":"JSON、文本对比、Token 和提示词辅助工具","catImage":"图片与 PDF","catImageSmall":"压缩、转换和常用媒体工具","catText":"文本与单位换算","catTextSmall":"字数、单位和日常换算工具","catSecurity":"安全与隐私","catSecuritySmall":"密码和本地隐私工具","badge":"英国英制体重转公制","heroTitle":"英制体重换算器：Stone、Pound 与 Kg 换算","heroText":"快速把英国常用的 stones and pounds 体重换算成 kilograms，也可以从 kg 反算为 stone 和 pound。适合填写表格、健身应用、医疗记录和日常英国体重单位换算。","imperialTitle":"英制（英国）","imperialSub":"Stone 与 Pound","stonesLabel":"Stone","poundsLabel":"Pound","totalPoundsLabel":"总磅数","metricTitle":"公制","metricSub":"千克","kgLabel":"千克","metricSummary":"这个 kg 数值适合用于表格、医疗记录、健身应用和标准公制场景。","stat1Key":"1 stone","stat1Val":"6.35029318 kg","stat2Key":"1 stone","stat2Val":"14 pounds","stat3Key":"10 stone","stat3Val":"63.50 kg","howTitle":"如何使用这个 stone 和 kg 换算器","howP1":"在左侧输入 stone 和 pound，即可换算为 kg；也可以在右侧输入 kg，反算为 stone、pound 和总磅数。结果会实时更新，适合把英国体重单位转换成公制单位。","howP2":"你可以输入整数 stone、小数 pound 或小数 kg。这个页面只做单位换算，不判断体重是否健康，也不提供医疗建议。","whyTitle":"为什么英国体重常用 stone","whyP1":"在英国日常交流中，很多人仍然习惯用 stones and pounds 描述体重。但在医疗、健身应用、国际表格和旅行资料中，体重通常需要使用 kilograms。","whyP2":"这个工具可以在两种单位之间快速换算，减少手动换算和四舍五入误差。它只用于单位转换，不用于健康评估。","chartTitle":"快速换算表","chartCol1":"Stone 与 pound","chartCol2":"总磅数","chartCol3":"千克","formulaTitle":"使用的换算公式","formula1":"1 stone = 14 pounds","formula2":"1 pound = 0.45359237 kilograms","formula3":"总磅数 = stone × 14 + pound","formula4":"千克 = 总磅数 × 0.45359237","examplesTitle":"常见英国体重换算示例","examplesText":"例如 10 stone in kg、11 stone in kg、12 stone in kg 和 13 stone in kg 都使用同一套 stone 与 pound 换算公式。输入 stone 数值并把 pound 留为 0，或加入额外 pound 得到更精确结果。","roundingTitle":"四舍五入和精度","roundingText":"计算使用国际磅的精确定义：1 pound = 0.45359237 kilograms。页面展示结果会为了可读性进行四舍五入，所以显示的小数位可能比原始数学结果短。","faq1Q":"1 stone 等于多少 kg？","faq1A":"1 stone 精确等于 6.35029318 kilograms。","faq2Q":"1 stone 等于多少 pounds？","faq2A":"1 stone 精确等于 14 pounds。","faq3Q":"可以把 kg 反算为 stone 和 pound 吗？","faq3A":"可以。输入任意 kg 数值，页面会立即显示对应的 stone、pound 和总磅数。","faq4Q":"这个换算器适合谁使用？","faq4A":"适合知道英国体重 stone/pound 表达，但需要 kg 数值用于表格、应用、医疗记录、旅行文件或国际参考的人。","faq5Q":"这个页面提供医疗建议吗？","faq5A":"不提供。它只是单位换算器，不计算 BMI，不判断健康状态，也不能替代医疗建议。","relatedTitle":"相关工具","relatedVat":"VAT 计算器","relatedVatText":"快速计算英国 VAT 加税和去税。","relatedFuel":"油费计算器","relatedFuelText":"按英国里程、MPG 和每升油价估算行程燃油成本。","relatedWorkingDays":"工作日计算器","relatedWorkingDaysText":"快速计算工作日和规划英国工作安排。","footerSmall":"实用的本地浏览器工具","inputStonePlaceholder":"0","inputPoundPlaceholder":"0","inputKgPlaceholder":"0"},"de":{"htmlLang":"de","langLabel":"Deutsch","locale":"de-DE","title":"Stones in Kg Rechner | Stone und Pounds in Kilogramm | Mini-Tools.uk","description":"Konvertieren Sie Stones und Pounds in Kilogramm oder Kilogramm zurück in Stones und Pounds. Kostenloser UK-Gewichtsumrechner mit Beispielen und Formeln.","ogTitle":"Stones in Kg Rechner | Mini-Tools.uk","ogDescription":"UK-Körpergewicht zwischen Stones, Pounds und Kilogramm umrechnen.","skip":"Zum Inhalt springen","brandSubtitle":"Praktische Rechner und Browser-Tools","navHome":"Startseite","navTools":"Alle Tools","navCategories":"Kategorien","navAbout":"Über uns","navContact":"Kontakt","privacy":"Datenschutz","catFinance":"UK Finanzen","catFinanceSmall":"Steuer, VAT, Hypothek und Contractor-Tools","catDev":"Developer Tools","catDevSmall":"JSON, Diff, Tokens und Prompt-Helfer","catImage":"Bild & PDF","catImageSmall":"Komprimierung, Konvertierung und schnelle Tools","catText":"Text & Umrechnung","catTextSmall":"Wörter, Einheiten und Alltagsumrechner","catSecurity":"Sicherheit & Datenschutz","catSecuritySmall":"Passwort- und lokale Datenschutztools","badge":"UK imperial zu metrisch","heroTitle":"Stones in Kg Rechner für UK-Gewicht","heroText":"Konvertieren Sie Körpergewicht zwischen Stones und Pounds und Kilogramm sofort. Die Seite rechnet in beide Richtungen für Formulare, Fitness-Apps, medizinische Notizen und UK-Gewichtsangaben.","imperialTitle":"Imperial (UK)","imperialSub":"Stones & Pounds","stonesLabel":"Stones","poundsLabel":"Pounds","totalPoundsLabel":"Gesamt in Pounds","metricTitle":"Metrisch","metricSub":"Kilogramm","kgLabel":"Kilogramm","metricSummary":"Verwenden Sie diesen Wert für Formulare, medizinische Unterlagen und metrische Referenzen.","stat1Key":"1 Stone","stat1Val":"6.35029318 kg","stat2Key":"1 Stone","stat2Val":"14 Pounds","stat3Key":"10 Stone","stat3Val":"63.50 kg","howTitle":"So verwenden Sie den Stones-und-Pounds-Rechner","howP1":"Geben Sie links Stones und Pounds ein, um Kilogramm zu erhalten, oder geben Sie rechts Kilogramm ein, um zurück in Stones und Pounds zu rechnen. Das Ergebnis aktualisiert sich sofort.","howP2":"Sie können ganze Stones, Dezimal-Pounds oder Dezimal-Kilogramm verwenden. Der Rechner ist nur ein Einheiten-Tool und bewertet kein Körpergewicht.","whyTitle":"Warum im UK noch Stones genutzt werden","whyP1":"Im Alltag beschreiben viele Menschen im Vereinigten Königreich Körpergewicht noch mit Stones und Pounds. In Gesundheitswesen, Fitness-Apps und internationalen Formularen wird derselbe Wert oft in Kilogramm verlangt.","whyP2":"Dieses Tool wechselt schnell zwischen beiden Systemen und reduziert Rundungsfehler. Es ist nur für Umrechnung gedacht, nicht für Gesundheitsbewertung.","chartTitle":"Schnelle Referenztabelle","chartCol1":"Stones & Pounds","chartCol2":"Gesamt-Pounds","chartCol3":"Kilogramm","formulaTitle":"Verwendete Formeln","formula1":"1 Stone = 14 Pounds","formula2":"1 Pound = 0.45359237 Kilogramm","formula3":"Gesamt-Pounds = Stones × 14 + Pounds","formula4":"Kilogramm = Gesamt-Pounds × 0.45359237","examplesTitle":"Häufige UK-Gewichtsbeispiele","examplesText":"Abfragen wie 10 stone in kg, 11 stone in kg, 12 stone in kg und 13 stone in kg nutzen dieselbe Formel. Geben Sie den Stone-Wert ein und lassen Sie Pounds auf null oder ergänzen Sie Pounds für mehr Genauigkeit.","roundingTitle":"Rundung und Genauigkeit","roundingText":"Die Berechnung nutzt die exakte internationale Pound-Definition von 0.45359237 Kilogramm. Angezeigte Werte werden für bessere Lesbarkeit gerundet.","faq1Q":"Wie viele Kilogramm sind ein Stone?","faq1A":"Ein Stone entspricht exakt 6.35029318 Kilogramm.","faq2Q":"Wie viele Pounds sind ein Stone?","faq2A":"Ein Stone entspricht exakt 14 Pounds.","faq3Q":"Kann ich Kilogramm zurück in Stones und Pounds umrechnen?","faq3A":"Ja. Geben Sie einen Kilogrammwert ein und der Rechner zeigt Stones, Pounds und Gesamt-Pounds sofort an.","faq4Q":"Für wen ist dieser Rechner nützlich?","faq4A":"Für Personen, die UK-Gewicht in Stones und Pounds kennen, aber Kilogramm für Formulare, Apps, medizinische Notizen oder internationale Referenzen brauchen.","faq5Q":"Gibt diese Seite medizinischen Rat?","faq5A":"Nein. Es ist nur ein Einheitenrechner. Er berechnet keinen BMI und ersetzt keine medizinische Beratung.","relatedTitle":"Verwandte Tools","relatedVat":"VAT Rechner","relatedVatText":"UK VAT schnell hinzufügen oder entfernen.","relatedFuel":"Kraftstoffkosten-Rechner","relatedFuelText":"Reisekosten mit UK miles, MPG und Pence pro Liter schätzen.","relatedWorkingDays":"Arbeitstage-Rechner","relatedWorkingDaysText":"Arbeitstage zählen und UK-Arbeitspläne planen.","footerSmall":"Praktische clientseitige Webtools","inputStonePlaceholder":"0","inputPoundPlaceholder":"0","inputKgPlaceholder":"0"},"fr":{"htmlLang":"fr","langLabel":"Français","locale":"fr-FR","title":"Convertisseur stones en kg | Stones, pounds et kilogrammes | Mini-Tools.uk","description":"Convertissez stones et pounds en kilogrammes, ou les kilogrammes en stones et pounds. Convertisseur de poids UK gratuit avec exemples et formules exactes.","ogTitle":"Convertisseur stones en kg | Mini-Tools.uk","ogDescription":"Convertir le poids UK entre stones, pounds et kilogrammes.","skip":"Aller au contenu","brandSubtitle":"Calculateurs pratiques et outils navigateur","navHome":"Accueil","navTools":"Tous les outils","navCategories":"Catégories","navAbout":"À propos","navContact":"Contact","privacy":"Confidentialité","catFinance":"Finance UK","catFinanceSmall":"Impôt, VAT, prêt immobilier et contractor","catDev":"Outils développeur","catDevSmall":"JSON, diff, tokens et prompts","catImage":"Other Tools","catImageSmall":"Compression, conversion et utilitaires","catText":"Texte & conversion","catTextSmall":"Mots, unités et convertisseurs courants","catSecurity":"Sécurité & confidentialité","catSecuritySmall":"Mots de passe et outils locaux","badge":"Impérial UK vers métrique","heroTitle":"Convertisseur stones en kg pour le poids UK","heroText":"Convertissez instantanément le poids entre stones, pounds et kilogrammes. La page fonctionne dans les deux sens pour formulaires, applications fitness, notes médicales et références de poids UK.","imperialTitle":"Impérial (UK)","imperialSub":"Stones & pounds","stonesLabel":"Stones","poundsLabel":"Pounds","totalPoundsLabel":"Total en pounds","metricTitle":"Métrique","metricSub":"Kilogrammes","kgLabel":"Kilogrammes","metricSummary":"Utilisez cette valeur pour formulaires, dossiers médicaux et références métriques.","stat1Key":"1 stone","stat1Val":"6.35029318 kg","stat2Key":"1 stone","stat2Val":"14 pounds","stat3Key":"10 stone","stat3Val":"63.50 kg","howTitle":"Comment utiliser ce convertisseur stones et pounds","howP1":"Entrez stones et pounds à gauche pour convertir en kilogrammes, ou entrez les kilogrammes à droite pour revenir en stones et pounds. Le résultat se met à jour immédiatement.","howP2":"Vous pouvez utiliser des stones entiers, des pounds décimaux ou des kilogrammes décimaux. Cet outil convertit seulement les unités et n’évalue pas la santé.","whyTitle":"Pourquoi le UK utilise encore les stones","whyP1":"Dans la vie quotidienne au Royaume-Uni, le poids corporel est souvent exprimé en stones et pounds. Dans les soins, les applications fitness et les formulaires internationaux, la valeur est souvent demandée en kilogrammes.","whyP2":"Ce convertisseur passe rapidement d’un système à l’autre et évite les erreurs d’arrondi. Il sert uniquement à la conversion.","chartTitle":"Table de référence rapide","chartCol1":"Stones & pounds","chartCol2":"Total pounds","chartCol3":"Kilogrammes","formulaTitle":"Formules utilisées","formula1":"1 stone = 14 pounds","formula2":"1 pound = 0.45359237 kilogrammes","formula3":"Total pounds = stones × 14 + pounds","formula4":"Kilogrammes = total pounds × 0.45359237","examplesTitle":"Exemples courants de poids UK","examplesText":"Les recherches comme 10 stone in kg, 11 stone in kg, 12 stone in kg et 13 stone in kg utilisent la même formule. Entrez la valeur en stones et laissez pounds à zéro, ou ajoutez des pounds pour plus de précision.","roundingTitle":"Arrondi et précision","roundingText":"Le calcul utilise la conversion exacte de la pound internationale : 0.45359237 kilogrammes. Les valeurs affichées sont arrondies pour la lisibilité.","faq1Q":"Combien de kilogrammes dans une stone ?","faq1A":"Une stone équivaut exactement à 6.35029318 kilogrammes.","faq2Q":"Combien de pounds dans une stone ?","faq2A":"Une stone équivaut exactement à 14 pounds.","faq3Q":"Puis-je convertir les kilogrammes en stones et pounds ?","faq3A":"Oui. Entrez une valeur en kilogrammes et le convertisseur affiche immédiatement stones, pounds et total pounds.","faq4Q":"À qui sert ce convertisseur ?","faq4A":"Il est utile aux personnes qui connaissent leur poids UK en stones et pounds mais doivent fournir des kilogrammes pour formulaires, applications, notes médicales ou références internationales.","faq5Q":"Cette page donne-t-elle un avis médical ?","faq5A":"Non. C’est seulement un convertisseur d’unités. Il ne calcule pas le BMI et ne remplace pas un avis médical.","relatedTitle":"Outils liés","relatedVat":"Calculateur VAT","relatedVatText":"Ajouter ou retirer rapidement la VAT UK.","relatedFuel":"Calculateur coût carburant","relatedFuelText":"Estimer le coût d’un trajet avec miles UK, MPG et pence par litre.","relatedWorkingDays":"Calculateur jours ouvrés","relatedWorkingDaysText":"Compter les jours ouvrés et planifier les horaires UK.","footerSmall":"Outils web pratiques côté navigateur","inputStonePlaceholder":"0","inputPoundPlaceholder":"0","inputKgPlaceholder":"0"},"es":{"htmlLang":"es","langLabel":"Español","locale":"es-ES","title":"Conversor stones a kg | Stones, pounds y kilogramos | Mini-Tools.uk","description":"Convierte stones y pounds a kilogramos, o kilogramos a stones y pounds. Conversor gratuito de peso UK con ejemplos y fórmulas exactas.","ogTitle":"Conversor stones a kg | Mini-Tools.uk","ogDescription":"Convierte peso UK entre stones, pounds y kilogramos.","skip":"Saltar al contenido","brandSubtitle":"Calculadoras prácticas y herramientas web","navHome":"Inicio","navTools":"Todas las herramientas","navCategories":"Categorías","navAbout":"Acerca de","navContact":"Contacto","privacy":"Privacidad","catFinance":"Finanzas UK","catFinanceSmall":"Impuestos, VAT, hipoteca y contractor","catDev":"Herramientas developer","catDevSmall":"JSON, diff, tokens y prompts","catImage":"Imagen y PDF","catImageSmall":"Compresión, conversión y utilidades","catText":"Texto y conversión","catTextSmall":"Palabras, unidades y conversores diarios","catSecurity":"Seguridad y privacidad","catSecuritySmall":"Contraseñas y herramientas locales","badge":"Imperial UK a métrico","heroTitle":"Conversor stones a kg para peso UK","heroText":"Convierte peso corporal entre stones, pounds y kilogramos al instante. La página funciona en ambos sentidos para formularios, apps fitness, notas médicas y referencias de peso UK.","imperialTitle":"Imperial (UK)","imperialSub":"Stones y pounds","stonesLabel":"Stones","poundsLabel":"Pounds","totalPoundsLabel":"Total en pounds","metricTitle":"Métrico","metricSub":"Kilogramos","kgLabel":"Kilogramos","metricSummary":"Usa este valor para formularios, registros médicos y referencias métricas.","stat1Key":"1 stone","stat1Val":"6.35029318 kg","stat2Key":"1 stone","stat2Val":"14 pounds","stat3Key":"10 stone","stat3Val":"63.50 kg","howTitle":"Cómo usar este conversor de stones y pounds","howP1":"Introduce stones y pounds a la izquierda para convertir a kilogramos, o introduce kilogramos a la derecha para volver a stones y pounds. El resultado se actualiza al instante.","howP2":"Puedes usar stones enteros, pounds decimales o kilogramos decimales. Este conversor solo cambia unidades y no evalúa si un peso es saludable.","whyTitle":"Por qué en UK se siguen usando stones","whyP1":"En el Reino Unido muchas personas siguen describiendo el peso corporal con stones y pounds. En salud, apps fitness y formularios internacionales, el mismo valor suele pedirse en kilogramos.","whyP2":"Esta herramienta cambia rápidamente entre ambos sistemas y reduce errores de redondeo. Solo sirve para conversión, no para evaluación médica.","chartTitle":"Tabla rápida de referencia","chartCol1":"Stones y pounds","chartCol2":"Total pounds","chartCol3":"Kilogramos","formulaTitle":"Fórmulas utilizadas","formula1":"1 stone = 14 pounds","formula2":"1 pound = 0.45359237 kilogramos","formula3":"Total pounds = stones × 14 + pounds","formula4":"Kilogramos = total pounds × 0.45359237","examplesTitle":"Ejemplos comunes de peso UK","examplesText":"Búsquedas como 10 stone in kg, 11 stone in kg, 12 stone in kg y 13 stone in kg usan la misma fórmula. Introduce el valor en stones y deja pounds en cero, o añade pounds para más precisión.","roundingTitle":"Redondeo y precisión","roundingText":"El cálculo usa la conversión exacta de la pound internacional: 0.45359237 kilogramos. Los valores mostrados se redondean para facilitar la lectura.","faq1Q":"¿Cuántos kilogramos hay en una stone?","faq1A":"Una stone equivale exactamente a 6.35029318 kilogramos.","faq2Q":"¿Cuántos pounds hay en una stone?","faq2A":"Una stone equivale exactamente a 14 pounds.","faq3Q":"¿Puedo convertir kilogramos a stones y pounds?","faq3A":"Sí. Introduce cualquier valor en kilogramos y el conversor mostrará stones, pounds y total pounds al instante.","faq4Q":"¿Para quién sirve este conversor?","faq4A":"Sirve a usuarios que conocen su peso UK en stones y pounds pero necesitan kilogramos para formularios, apps, notas médicas, documentos de viaje o referencias internacionales.","faq5Q":"¿Esta página da consejo médico?","faq5A":"No. Es solo un conversor de unidades. No calcula BMI, no diagnostica salud y no sustituye consejo médico.","relatedTitle":"Herramientas relacionadas","relatedVat":"Calculadora VAT","relatedVatText":"Añade o quita VAT UK para comprobaciones rápidas.","relatedFuel":"Calculadora coste combustible","relatedFuelText":"Estima coste de trayecto con miles UK, MPG y pence por litro.","relatedWorkingDays":"Calculadora días laborables","relatedWorkingDaysText":"Cuenta días laborables y planifica horarios UK.","footerSmall":"Herramientas web prácticas en el navegador","inputStonePlaceholder":"0","inputPoundPlaceholder":"0","inputKgPlaceholder":"0"}};
     const allowedLangs=['en','zh-CN','de','fr','es'];
     const SITE_URL='https://mini-tools.uk/weight';
     let currentLang='en';
@@ -265,301 +269,8 @@
 
 
 
-<script id="site-nav-language">
-(() => {
-  const labels = {
-    en:{home:"Home",search:"Search",popular:"Popular",ukApps:"UK Apps",devTools:"Dev Tools",other:"Other",about:"About",contact:"Contact",privacy:"Privacy",language:"English"},
-    "zh-CN":{home:"\u9996\u9875",search:"\u641c\u7d22",popular:"\u70ed\u95e8",ukApps:"\u82f1\u56fd\u5e94\u7528",devTools:"\u5f00\u53d1\u8005\u5de5\u5177",other:"\u5176\u4ed6\u5de5\u5177",about:"\u5173\u4e8e",contact:"\u8054\u7cfb",privacy:"\u9690\u79c1\u653f\u7b56",language:"\u4e2d\u6587"},
-    de:{home:"Startseite",search:"Suchen",popular:"Beliebt",ukApps:"UK Apps",devTools:"Entwickler",other:"Weitere",about:"\u00dcber uns",contact:"Kontakt",privacy:"Datenschutz",language:"Deutsch"},
-    fr:{home:"Accueil",search:"Recherche",popular:"Populaires",ukApps:"Apps UK",devTools:"Outils dev",other:"Autres",about:"\u00c0 propos",contact:"Contact",privacy:"Confidentialit\u00e9",language:"Fran\u00e7ais"},
-    es:{home:"Inicio",search:"Buscar",popular:"Populares",ukApps:"Apps UK",devTools:"Herramientas dev",other:"Otros",about:"Acerca de",contact:"Contacto",privacy:"Privacidad",language:"Espa\u00f1ol"}
-  };
-  const normalizeLang = (value) => {
-    const rawValue = String(value || "").trim();
-    const lower = rawValue.toLowerCase().replace("_", "-");
-    if (lower.startsWith("zh")) return "zh-CN";
-    if (lower.startsWith("de")) return "de";
-    if (lower.startsWith("fr")) return "fr";
-    if (lower.startsWith("es")) return "es";
-    return labels[rawValue] ? rawValue : "en";
-  };
-  const params = new URLSearchParams(location.search);
-  let lang = normalizeLang(window.MINI_TOOLS_SERVER_LANG || params.get("lang") || navigator.language || "en");
-  const applyCanonicalHreflang = () => {
-    const supported = ["en", "zh-CN", "de", "fr", "es"];
-    const cleanPath = location.pathname === "/index.html" ? "/" : location.pathname.replace(/\.html$/, "");
-    const cleanUrl = location.origin + cleanPath;
-    const current = lang === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(lang)}`;
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", current);
-    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());
-    supported.forEach((code) => {
-      const link = document.createElement("link");
-      link.setAttribute("rel", "alternate");
-      link.setAttribute("hreflang", code);
-      link.setAttribute("href", `${cleanUrl}?lang=${encodeURIComponent(code)}`);
-      document.head.appendChild(link);
-    });
-    const fallback = document.createElement("link");
-    fallback.setAttribute("rel", "alternate");
-    fallback.setAttribute("hreflang", "x-default");
-    fallback.setAttribute("href", cleanUrl);
-    document.head.appendChild(fallback);
-  };
-  const localizeLinks = () => {
-    document.querySelectorAll("a[href]").forEach((anchor) => {
-      const rawHref = anchor.getAttribute("href");
-      if (!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) return;
-      const link = new URL(rawHref, location.origin);
-      if (link.origin !== location.origin) return;
-      link.searchParams.set("lang", lang);
-      anchor.href = link.pathname + link.search + link.hash;
-    });
-  };
-  const guidanceTranslations = {
-    en: {
-      notes: "How to use this",
-      useCases: "Use cases",
-      limitations: "Limitations and privacy",
-      sources: "Sources and assumptions",
-      faq: "FAQ",
-      related: "Related tools",
-      how: (name) => `${name} is designed for one focused task. Enter the values or content requested on the page, review the result, then copy, download or use the output as needed.`,
-      uses: (name) => `Use ${name} for quick checks, planning, formatting or preparation work when you need a browser-based helper rather than a full professional workflow.`,
-      limits: "Results and generated output should be reviewed before use. Browser-first tools usually process data locally; upload or hosting tools explain when remote storage is used.",
-      finance: "Results are estimates only and are not tax, legal, financial or accounting advice. Check the official GOV.UK guidance and confirm important decisions with a qualified adviser.",
-      faqQ: (name) => `Can I rely on ${name} as an official result?`,
-      faqA: "No. Treat the result as a practical estimate or helper output and review it before relying on it.",
-      checked: "Last checked: 9 June 2026"
-    },
-    "zh-CN": {
-      notes: "\u5de5\u5177\u8bf4\u660e",
-      useCases: "\u4f7f\u7528\u573a\u666f",
-      limitations: "\u9650\u5236\u548c\u9690\u79c1",
-      sources: "\u6765\u6e90\u548c\u5047\u8bbe",
-      faq: "\u5e38\u89c1\u95ee\u9898",
-      related: "\u76f8\u5173\u5de5\u5177",
-      how: (name) => `${name}\u7528\u4e8e\u5904\u7406\u4e00\u4e2a\u660e\u786e\u4efb\u52a1\u3002\u8f93\u5165\u9875\u9762\u8981\u6c42\u7684\u6570\u503c\u6216\u5185\u5bb9\uff0c\u68c0\u67e5\u7ed3\u679c\uff0c\u7136\u540e\u6309\u9700\u590d\u5236\u3001\u4e0b\u8f7d\u6216\u4f7f\u7528\u8f93\u51fa\u3002`,
-      uses: (name) => `\u5f53\u4f60\u9700\u8981\u5728\u6d4f\u89c8\u5668\u4e2d\u5feb\u901f\u68c0\u67e5\u3001\u4f30\u7b97\u3001\u683c\u5f0f\u5316\u6216\u6574\u7406\u5185\u5bb9\u65f6\uff0c\u53ef\u4ee5\u4f7f\u7528 ${name}\u3002`,
-      limits: "\u7ed3\u679c\u548c\u751f\u6210\u5185\u5bb9\u5728\u4f7f\u7528\u524d\u5e94\u81ea\u884c\u6838\u5bf9\u3002\u4f18\u5148\u672c\u5730\u5904\u7406\u7684\u5de5\u5177\u901a\u5e38\u5728\u6d4f\u89c8\u5668\u5185\u8fd0\u884c\uff1b\u4e0a\u4f20\u6216\u6258\u7ba1\u5de5\u5177\u4f1a\u5728\u9875\u9762\u4e2d\u8bf4\u660e\u4f55\u65f6\u4f7f\u7528\u8fdc\u7a0b\u5b58\u50a8\u3002",
-      finance: "\u7ed3\u679c\u4ec5\u4e3a\u4f30\u7b97\uff0c\u4e0d\u6784\u6210\u7a0e\u52a1\u3001\u6cd5\u5f8b\u3001\u8d22\u52a1\u6216\u4f1a\u8ba1\u5efa\u8bae\u3002\u91cd\u8981\u51b3\u7b56\u524d\u8bf7\u6838\u5bf9 GOV.UK \u5b98\u65b9\u8bf4\u660e\uff0c\u5e76\u54a8\u8be2\u5408\u683c\u4e13\u4e1a\u4eba\u58eb\u3002",
-      faqQ: (name) => `${name}\u53ef\u4ee5\u4f5c\u4e3a\u5b98\u65b9\u7ed3\u679c\u5417\uff1f`,
-      faqA: "\u4e0d\u53ef\u4ee5\u3002\u8bf7\u628a\u5b83\u89c6\u4e3a\u5b9e\u7528\u4f30\u7b97\u6216\u8f85\u52a9\u8f93\u51fa\uff0c\u5728\u4f9d\u8d56\u7ed3\u679c\u524d\u81ea\u884c\u590d\u6838\u3002",
-      checked: "\u6700\u540e\u68c0\u67e5\uff1a2026 \u5e74 6 \u6708 9 \u65e5"
-    },
-    de: {
-      notes: "Hinweise",
-      useCases: "Anwendungsf\u00e4lle",
-      limitations: "Grenzen und Datenschutz",
-      sources: "Quellen und Annahmen",
-      faq: "FAQ",
-      related: "Verwandte Tools",
-      how: (name) => `${name} ist f\u00fcr eine klare Aufgabe gedacht. Gib die Werte oder Inhalte auf der Seite ein, pr\u00fcfe das Ergebnis und kopiere, lade oder nutze die Ausgabe danach nach Bedarf.`,
-      uses: (name) => `Nutze ${name} f\u00fcr schnelle Pr\u00fcfungen, Planungen, Formatierungen oder Vorbereitungen direkt im Browser.`,
-      limits: "Ergebnisse und Ausgaben sollten vor der Nutzung gepr\u00fcft werden. Browserbasierte Tools verarbeiten Daten meist lokal; Upload- oder Hosting-Tools erkl\u00e4ren, wann entfernte Speicherung verwendet wird.",
-      finance: "Die Ergebnisse sind nur Sch\u00e4tzungen und keine Steuer-, Rechts-, Finanz- oder Buchhaltungsberatung. Pr\u00fcfe die offiziellen GOV.UK-Hinweise und frage bei wichtigen Entscheidungen eine qualifizierte Fachperson.",
-      faqQ: (name) => `Kann ich ${name} als offizielles Ergebnis verwenden?`,
-      faqA: "Nein. Behandle das Ergebnis als praktische Sch\u00e4tzung oder Hilfsausgabe und pr\u00fcfe es vor der Nutzung.",
-      checked: "Last checked: 9 June 2026"
-    },
-    fr: {
-      notes: "Mode d'emploi",
-      useCases: "Cas d'utilisation",
-      limitations: "Limites et confidentialit\u00e9",
-      sources: "Sources et hypoth\u00e8ses",
-      faq: "FAQ",
-      related: "Outils li\u00e9s",
-      how: (name) => `${name} sert \u00e0 une t\u00e2che pr\u00e9cise. Saisissez les valeurs ou le contenu demand\u00e9s, v\u00e9rifiez le r\u00e9sultat, puis copiez, t\u00e9l\u00e9chargez ou utilisez la sortie selon vos besoins.`,
-      uses: (name) => `Utilisez ${name} pour des v\u00e9rifications rapides, des estimations, du formatage ou de la pr\u00e9paration directement dans le navigateur.`,
-      limits: "Les r\u00e9sultats et sorties g\u00e9n\u00e9r\u00e9es doivent \u00eatre v\u00e9rifi\u00e9s avant utilisation. Les outils c\u00f4t\u00e9 navigateur traitent g\u00e9n\u00e9ralement les donn\u00e9es localement; les outils d'upload ou d'h\u00e9bergement indiquent quand un stockage distant est utilis\u00e9.",
-      finance: "Les r\u00e9sultats sont des estimations uniquement et ne constituent pas un conseil fiscal, juridique, financier ou comptable. Consultez les sources officielles GOV.UK et demandez conseil \u00e0 un professionnel qualifi\u00e9 pour les d\u00e9cisions importantes.",
-      faqQ: (name) => `Puis-je utiliser ${name} comme r\u00e9sultat officiel ?`,
-      faqA: "Non. Consid\u00e9rez le r\u00e9sultat comme une estimation pratique ou une aide, puis v\u00e9rifiez-le avant de vous y fier.",
-      checked: "Last checked: 9 June 2026"
-    },
-    es: {
-      notes: "C\u00f3mo usarlo",
-      useCases: "Casos de uso",
-      limitations: "Limitaciones y privacidad",
-      sources: "Fuentes y supuestos",
-      faq: "FAQ",
-      related: "Herramientas relacionadas",
-      how: (name) => `${name} est\u00e1 pensado para una tarea concreta. Introduce los valores o el contenido que pide la p\u00e1gina, revisa el resultado y copia, descarga o usa la salida seg\u00fan lo necesites.`,
-      uses: (name) => `Usa ${name} para comprobaciones r\u00e1pidas, estimaciones, formato o preparaci\u00f3n de contenido directamente en el navegador.`,
-      limits: "Revisa los resultados y salidas generadas antes de usarlos. Las herramientas de navegador suelen procesar datos localmente; las herramientas de subida o alojamiento explican cu\u00e1ndo usan almacenamiento remoto.",
-      finance: "Los resultados son solo estimaciones y no son asesoramiento fiscal, legal, financiero ni contable. Consulta la gu\u00eda oficial de GOV.UK y confirma decisiones importantes con un profesional cualificado.",
-      faqQ: (name) => `\u00bfPuedo usar ${name} como resultado oficial?`,
-      faqA: "No. Tr\u00e1talo como una estimaci\u00f3n pr\u00e1ctica o una salida de ayuda y rev\u00edsalo antes de confiar en \u00e9l.",
-      checked: "Last checked: 9 June 2026"
-    }
-  };
-  const financeSourceLinks = {
-    tax: ["https://www.gov.uk/income-tax-rates", "https://www.gov.uk/national-insurance-rates-letters"],
-    vat: ["https://www.gov.uk/vat-rates", "https://www.gov.uk/vat-businesses"],
-    mortgage: ["https://www.gov.uk/stamp-duty-land-tax"],
-    ir35: ["https://www.gov.uk/guidance/understanding-off-payroll-working-ir35"],
-    "stamp-duty": ["https://www.gov.uk/stamp-duty-land-tax"],
-    dividend: ["https://www.gov.uk/tax-on-dividends"]
-  };
-  const toolNameFallbacks = {
-    tax: "UK Tax Calculator",
-    vat: "VAT Calculator",
-    mortgage: "Mortgage Calculator",
-    ir35: "IR35 Calculator",
-    "stamp-duty": "Stamp Duty Calculator",
-    dividend: "Dividend Calculator",
-    json: "JSON Formatter",
-    diff: "Text Diff Checker",
-    token: "AI Token Calculator",
-    qr: "QR Code Generator",
-    password: "Password Generator",
-    image: "Image Compressor",
-    pdf2img: "PDF to Image Converter",
-    "color-picker": "Color Picker",
-    "working-days": "Working Days Calculator",
-    fuel: "Fuel Cost Calculator",
-    weight: "Weight Converter"
-  };
-  const routeSlug = () => {
-    const last = location.pathname.split("/").filter(Boolean).pop() || "index";
-    return last.replace(/\.html$/i, "");
-  };
-  const escapeHtml = (value) => String(value || "").replace(/[&<>"']/g, (char) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  }[char]));
-  const pageToolName = (slug) => {
-    const h1 = document.querySelector("h1");
-    const text = h1 ? h1.textContent.trim() : "";
-    return text || toolNameFallbacks[slug] || "this tool";
-  };
-  const relatedLinksHtml = (slug, label) => {
-    const links = Array.from(document.querySelectorAll("#tool-guidance a[href], main a[href]"))
-      .filter((anchor) => {
-        const href = anchor.getAttribute("href") || "";
-        return href.startsWith("/") && href.replace(/^\//, "").split(/[?#]/)[0] !== slug;
-      })
-      .slice(0, 4);
-    if (!links.length) return "";
-    const items = links.map((anchor) => {
-      const href = anchor.getAttribute("href");
-      const text = anchor.textContent.trim() || href;
-      return `<a href="${escapeHtml(href)}">${escapeHtml(text)}</a>`;
-    }).join(" ");
-    return `<h3>${escapeHtml(label.related)}</h3><p>${items}</p>`;
-  };
-  const renderToolGuidanceLanguage = () => {
-    const guidance = document.getElementById("tool-guidance");
-    if (!guidance || document.getElementById("guidanceTitle")) return;
-    const slug = routeSlug();
-    const text = guidanceTranslations[lang] || guidanceTranslations.en;
-    const name = pageToolName(slug);
-    const isFinance = Object.prototype.hasOwnProperty.call(financeSourceLinks, slug);
-    const sourceLinks = financeSourceLinks[slug] || [];
-    const sourceHtml = isFinance
-      ? `<h3>${escapeHtml(text.sources)}</h3><p>${escapeHtml(text.finance)}</p><p>${sourceLinks.map((href) => `<a href="${href}" rel="noopener noreferrer">${href}</a>`).join(" ")}</p><p><strong>${escapeHtml(text.checked)}</strong></p>`
-      : `<h3>${escapeHtml(text.limitations)}</h3><p>${escapeHtml(text.limits)}</p>`;
-    guidance.innerHTML = `<div class="article"><h2>${escapeHtml(text.notes)} ${escapeHtml(name)}</h2><p>${escapeHtml(text.how(name))}</p><h3>${escapeHtml(text.useCases)}</h3><p>${escapeHtml(text.uses(name))}</p>${sourceHtml}<h3>${escapeHtml(text.faq)}</h3><p><strong>${escapeHtml(text.faqQ(name))}</strong> ${escapeHtml(text.faqA)}</p>${relatedLinksHtml(slug, text)}</div>`;
-  };
-  const applyToolGuidanceLanguage = () => {
-    const guidance = document.getElementById("tool-guidance");
-    if (!guidance || document.getElementById("guidanceTitle")) return;
-    const guidanceLabels = {
-      en: { notes: "How to use this", example: "Use cases", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
-      "zh-CN": { notes: "\u5de5\u5177\u8bf4\u660e\uff1a", example: "\u793a\u4f8b", limitations: "\u9650\u5236", faq: "\u5e38\u89c1\u95ee\u9898", related: "\u76f8\u5173\u5de5\u5177" },
-      de: { notes: "Hinweise zu", example: "Beispiel", limitations: "Einschr\u00e4nkungen", faq: "FAQ", related: "Verwandte Tools" },
-      fr: { notes: "Notes pour", example: "Exemple", limitations: "Limites", faq: "FAQ", related: "Outils lies" },
-      es: { notes: "Notas para", example: "Ejemplo", limitations: "Limitaciones", faq: "FAQ", related: "Herramientas relacionadas" }
-    };
-    const text = guidanceLabels[lang] || guidanceLabels.en;
-    const title = guidance.querySelector("h2");
-    if (title) title.textContent = title.textContent.replace(/^How to use this\s*/i, text.notes + " ");
-    guidance.querySelectorAll("h3").forEach((heading) => {
-      const key = heading.textContent.trim().toLowerCase();
-      if (key === "example") heading.textContent = text.example;
-      if (key === "use cases") heading.textContent = text.example;
-      if (key === "limitations") heading.textContent = text.limitations;
-      if (key === "faq") heading.textContent = text.faq;
-      if (key === "related tools") heading.textContent = text.related;
-    });
-    renderToolGuidanceLanguage();
-  };
-  const syncLanguageControls = () => {
-    document.querySelectorAll("[data-site-lang]").forEach((button) => {
-      button.classList.toggle("active", normalizeLang(button.dataset.siteLang) === lang);
-    });
-    const select = document.getElementById("languageSelect");
-    if (select) select.value = lang;
-  };
-  const applySiteLanguage = () => {
-    document.querySelectorAll("[data-site-nav]").forEach((item) => {
-      item.textContent = labels[lang][item.dataset.siteNav];
-    });
-    const current = document.getElementById("currentLangLabel");
-    if (current) current.textContent = labels[lang].language;
-    syncLanguageControls();
-    localizeLinks();
-    applyToolGuidanceLanguage();
-  };
-  const setLanguage = (selectedLang) => {
-    lang = normalizeLang(selectedLang);
-    const target = new URL(location.href);
-    target.searchParams.set("lang", lang);
-    history.replaceState(null, "", target.pathname + target.search + target.hash);
-    if (typeof window.applyLanguage === "function") {
-      window.applyLanguage(lang, true);
-    }
-    applyCanonicalHreflang();
-    applySiteLanguage();
-  };
-  applyCanonicalHreflang();
-  applySiteLanguage();
-  window.addEventListener("load", () => { applyCanonicalHreflang(); applySiteLanguage(); });
-  setTimeout(applyCanonicalHreflang, 0);
-  const langGroup = document.querySelector(".site-lang-group");
-  const langTrigger = document.querySelector(".site-lang-trigger");
-  const setLangMenuOpen = (open) => {
-    if (!langGroup || !langTrigger) return;
-    langGroup.classList.toggle("open", open);
-    langTrigger.setAttribute("aria-expanded", open ? "true" : "false");
-  };
-  if (langTrigger) {
-    langTrigger.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      setLangMenuOpen(!langGroup.classList.contains("open"));
-    });
-  }
-  document.addEventListener("click", (event) => {
-    if (langGroup && !langGroup.contains(event.target)) setLangMenuOpen(false);
-  });
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setLangMenuOpen(false);
-  });
-  document.querySelectorAll("[data-site-lang]").forEach((button) => {
-    button.classList.toggle("active", normalizeLang(button.dataset.siteLang) === lang);
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-      const selectedLang = button.dataset.siteLang;
-      setLanguage(selectedLang);
-      setLangMenuOpen(false);
-    });
-  });
-  const languageSelect = document.getElementById("languageSelect");
-  if (languageSelect) {
-    languageSelect.addEventListener("change", (event) => setLanguage(event.target.value));
-  }
-})();
-</script>
+
+
+<script src="site-i18n.js"></script>
 </body>
 </html>

@@ -61,18 +61,23 @@ foreach ($page in $publicPages) {
   foreach ($language in @("en", "zh-CN", "de", "fr", "es")) {
     Assert-True ($html.Contains("data-site-lang=`"$language`"")) "$($page.Name) misses language option $language"
   }
-  Assert-True ($html.Contains('id="site-nav-language"')) "$($page.Name) misses navigation language script"
+  Assert-True (([regex]::Matches($html, '<script\b[^>]*src=["'']site-i18n\.js["''][^>]*></script>', "IgnoreCase")).Count -eq 1) "$($page.Name) must load site-i18n.js exactly once"
+  Assert-True ($html -notmatch 'id=["'']site-nav-language["'']') "$($page.Name) still contains the copied language runtime"
   Assert-True ($html.Contains('href="site-nav.css"')) "$($page.Name) does not use the local-and-web compatible shared navigation stylesheet"
   Assert-True (([regex]::Matches($html, '<link\b[^>]*href=["''][^"'']*site-nav\.css[^"'']*["''][^>]*>', "IgnoreCase")).Count -eq 1) "$($page.Name) must load site-nav.css exactly once"
   Assert-True ($html -notmatch 'ui-refresh\.css') "$($page.Name) still loads the retired competing UI stylesheet"
   Assert-True ($html -notmatch 'href=["'']/site-nav\.css["'']') "$($page.Name) uses a root-relative stylesheet that breaks file:// previews"
   Assert-True ($html -notmatch 'id=["'']site-nav-style["'']') "$($page.Name) still contains copied inline navigation CSS"
   Assert-True ($html.Contains('aria-expanded="false"')) "$($page.Name) language menu trigger is missing click-expanded state"
-  Assert-True ($html.Contains('navigator.language')) "$($page.Name) navigation does not fall back to browser language"
-  Assert-True ($html.Contains('target.searchParams.set("lang", lang)')) "$($page.Name) does not preserve the current path when switching language"
-  Assert-True ($html.Contains('history.replaceState(null, "", target.pathname + target.search + target.hash)')) "$($page.Name) reloads instead of updating the language in place"
-  Assert-True ($html.Contains('link.searchParams.set("lang", lang)')) "$($page.Name) does not localize internal links"
 }
+
+$sharedI18n = Read-SiteFile "site-i18n.js"
+Assert-True ($sharedI18n.Contains('window.MiniToolsI18n')) "shared i18n runtime does not expose its public API"
+Assert-True ($sharedI18n.Contains('navigator.language')) "shared i18n runtime does not fall back to browser language"
+Assert-True ($sharedI18n.Contains('history.replaceState(null, "", target.pathname + target.search + target.hash)')) "shared i18n runtime reloads instead of updating language in place"
+Assert-True ($sharedI18n -match 'searchParams\.set\(["'']lang["'']') "shared i18n runtime does not localize internal links"
+Assert-True ($sharedI18n.Contains('data-i18n-placeholder')) "shared i18n runtime does not translate placeholders"
+Assert-True ($sharedI18n.Contains('data-i18n-aria-label')) "shared i18n runtime does not translate aria labels"
 
 Assert-True ($sharedNavCss -notmatch 'site-lang-group:hover\s+\.site-lang-dropdown') "language dropdown still opens on hover"
 Assert-True ($sharedNavCss -match 'site-lang-group\.open\s+\.site-lang-dropdown') "language dropdown does not open by click state"
@@ -111,8 +116,9 @@ foreach ($entry in $canonicalPaths.GetEnumerator()) {
 
 foreach ($page in $publicPages) {
   $html = Read-SiteFile $page.Name
-  Assert-True ($html -match 'applyCanonicalHreflang') "$($page.Name) does not normalize language query canonical/hreflang"
+  Assert-True ($html -notmatch 'applyCanonicalHreflang') "$($page.Name) still copies canonical/hreflang runtime code"
 }
+Assert-True ($sharedI18n -match 'applyCanonicalHreflang') "shared i18n runtime does not normalize canonical/hreflang"
 
 $requiredContent = @{
   "about.html" = @("tool directory", "UK Apps", "Developer Tools", "Other Tools", "UK Tax Calculator", "VAT Calculator", "Mortgage Calculator", "IR35 Calculator", "Stamp Duty Calculator", "Dividend Calculator", "JSON Formatter", "Text Diff Checker", "AI Token Calculator", "QR Code Generator", "Password Generator", "Free Image Hosting", "Image Compressor", "PDF to Image", "Color Picker", "Working Days Calculator", "Fuel Cost Calculator", "Weight Converter", "without an account")
@@ -131,17 +137,18 @@ $worker = Read-SiteFile "_worker.js"
 foreach ($pattern in @('initialPathname === "/terms"', 'initialPathname === "/acceptable-use"', 'url.pathname.endsWith(".html")')) {
   Assert-True ($worker.Contains($pattern)) "_worker.js misses $pattern"
 }
-Assert-True ($worker -notmatch '/blog|Blog|miniToolsBlogLang') "_worker.js still contains blog residue"
+Assert-True ($worker -match 'initialPathname === "/blog"[\s\S]*?status:\s*410') "_worker.js does not retire Blog URLs with 410"
+Assert-True ($worker -notmatch 'miniToolsBlogLang') "_worker.js still contains obsolete Blog language state"
 
 $expectedRobots = "User-agent: *`nAllow: /`n`nSitemap: https://mini-tools.uk/sitemap.xml"
 Assert-True ((Read-SiteFile "robots.txt").Trim().Replace("`r`n", "`n") -eq $expectedRobots) "robots.txt differs from contract"
 $locs = [regex]::Matches((Read-SiteFile "sitemap.xml"), '<loc>([^<]+)</loc>') | ForEach-Object { $_.Groups[1].Value }
 $expectedLocs = @(
-  "https://mini-tools.uk/", "https://mini-tools.uk/upload", "https://mini-tools.uk/tax",
-  "https://mini-tools.uk/vat", "https://mini-tools.uk/json", "https://mini-tools.uk/diff",
-  "https://mini-tools.uk/token", "https://mini-tools.uk/qr", "https://mini-tools.uk/pdf2img",
+  "https://mini-tools.uk/", "https://mini-tools.uk/tax", "https://mini-tools.uk/vat",
   "https://mini-tools.uk/mortgage", "https://mini-tools.uk/ir35", "https://mini-tools.uk/stamp-duty",
-  "https://mini-tools.uk/dividend", "https://mini-tools.uk/password", "https://mini-tools.uk/image",
+  "https://mini-tools.uk/dividend", "https://mini-tools.uk/json", "https://mini-tools.uk/diff",
+  "https://mini-tools.uk/token", "https://mini-tools.uk/qr", "https://mini-tools.uk/password",
+  "https://mini-tools.uk/upload", "https://mini-tools.uk/image", "https://mini-tools.uk/pdf2img",
   "https://mini-tools.uk/color-picker", "https://mini-tools.uk/working-days", "https://mini-tools.uk/fuel",
   "https://mini-tools.uk/weight", "https://mini-tools.uk/about", "https://mini-tools.uk/contact",
   "https://mini-tools.uk/privacy"

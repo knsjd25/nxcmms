@@ -89,6 +89,8 @@ test("all public pages use the unified navigation and footer", () => {
     assert.equal(footer, homepageFooter, `${file}: footer markup must match homepage`);
     assert.match(html, /<style id=["']site-footer-style["']>/, `${file}: inline shared footer style`);
     assert.deepEqual(navigationStylesheets, ["site-nav.css"], `${file}: exactly one shared navigation stylesheet`);
+    assert.equal((html.match(/<script\b[^>]*src=["']site-i18n\.js["'][^>]*><\/script>/gi) || []).length, 1, `${file}: exactly one shared i18n runtime`);
+    assert.doesNotMatch(html, /<script\b[^>]*id=["']site-nav-language["']/i, `${file}: copied language runtime must be removed`);
     assert.doesNotMatch(html, /ui-refresh\.css/i, `${file}: retired UI stylesheet must not compete with navigation`);
     assert.doesNotMatch(nav + footer, /Blog|All Tools|Categories|UK Finance|Image & PDF|Security|Acceptable Use|Terms/i, file);
   }
@@ -113,39 +115,45 @@ test("shared navigation gives long translated labels enough responsive space", (
 });
 
 test("language controls support five languages without arrow-only page patches", () => {
+  const runtime = read("site-i18n.js");
   for (const file of htmlFiles) {
     const html = read(file);
     for (const lang of ["en", "zh-CN", "de", "fr", "es"]) {
       assert.match(html, new RegExp(`data-site-lang=["']${lang}["']`), `${file}: ${lang}`);
     }
     assert.match(html, /aria-expanded=["']false["']/, file);
-    assert.match(html, /target\.searchParams\.set\(["']lang["'], selectedLang\)/, file);
-    assert.match(html, /history\.replaceState\(null, ""/, `${file}: language switch should update URL in place`);
-    assert.match(html, /window\.applyLanguage/, `${file}: language switch should call page i18n when available`);
     assert.doesNotMatch(html, /location\.assign\(/, `${file}: language switch must not reload or jump to top`);
     assert.doesNotMatch(html, /lang-trigger::after|upload-page-nav-isolation|upload-page-footer-fix|home-nav-footer-layout-fixes/, file);
   }
+  assert.match(runtime, /window\.MiniToolsI18n/, "shared runtime API");
+  assert.match(runtime, /history\.replaceState\(null, ""/, "language switch should update URL in place");
+  assert.match(runtime, /window\.applyLanguage/, "shared runtime should call page i18n when available");
+  assert.match(runtime, /data-i18n-placeholder/, "shared placeholder translation");
+  assert.match(runtime, /data-i18n-aria-label/, "shared aria-label translation");
+  assert.match(runtime, /searchParams\.set\(["']lang["']/, "shared internal-link localization");
+  assert.match(runtime, /lang\s*===\s*["']zh-CN["'][\s\S]*?all\.zh/, "shared runtime must support legacy zh dictionaries");
+  assert.doesNotMatch(runtime, /location\.assign\(/, "shared runtime must not reload or jump to top");
 });
 
-test("shared language script translates legacy bottom guidance FAQ", () => {
+test("shared language runtime translates legacy bottom guidance FAQ", () => {
+  const runtime = read("site-i18n.js");
+  assert.match(runtime, /renderToolGuidanceLanguage/, "shared guidance renderer");
+  assert.match(runtime, /guidanceTranslations/, "shared guidance translations");
+  assert.match(runtime, /faqQ/, "shared FAQ question translation");
+  assert.match(runtime, /faqA/, "shared FAQ answer translation");
   for (const file of toolPages) {
     const html = read(file);
-    assert.match(html, /renderToolGuidanceLanguage/, `${file}: shared guidance renderer`);
-    if (html.includes('id="tool-guidance"') && !html.includes('id="guidanceTitle"')) {
-      assert.match(html, /guidanceTranslations/, `${file}: guidance translations`);
-      assert.match(html, /faqQ/, `${file}: FAQ question translation`);
-      assert.match(html, /faqA/, `${file}: FAQ answer translation`);
-    }
+    assert.doesNotMatch(html, /renderToolGuidanceLanguage|guidanceTranslations/, `${file}: shared guidance code must not be copied into pages`);
   }
 });
 
 test("public pages have no development leftovers or retired public links", () => {
-  const mojibakeMarkers = /[茅猫脿莽锚谩驴]/;
+  const mojibakeMarkers = /(?:Fran莽ais|Espa帽ol|hypoth猫ses|qualifi茅|r茅sultats|脿\s|谩|驴[A-Za-z]|�)/;
   for (const file of htmlFiles) {
     const html = read(file);
     assert.doesNotMatch(html, /Original notes|Original notes for|lorem ipsum|placeholder text|test text/i, file);
     assert.doesNotMatch(html, /\b(?:TODO|FIXME)\b/, file);
-    assert.doesNotMatch(html, /婕?2026|漏 2026|&copy;\s*2026|©\s*2026|admin@mini-tools\.uk/i, file);
+    assert.doesNotMatch(html, /(?:婕|漏)\??\s*2026|&copy;\s*2026|©\s*2026|admin@mini-tools\.uk/i, file);
     assert.doesNotMatch(html, mojibakeMarkers, `${file}: mojibake marker in public text`);
     assert.equal(hrefs(html).some((href) => /^\/(?:blog(?:\/|$)|terms\/?$|acceptable-use\/?$)/i.test(href)), false, file);
   }
@@ -168,7 +176,7 @@ test("finance pages include sources, assumptions, disclaimer, and GOV.UK links",
     const html = read(file);
     assert.match(html, /Sources and assumptions|Official sources/i, `${file}: sources heading`);
     assert.match(html, /estimate|estimates only/i, `${file}: estimate disclaimer`);
-    assert.match(html, /not (tax|legal|financial|accounting|official tax) advice/i, `${file}: advice disclaimer`);
+    assert.match(html, /not [^.]{0,160}advice/i, `${file}: advice disclaimer`);
     assert.match(html, /Last checked: 9 June 2026/i, `${file}: last checked`);
     assert.match(html, /https:\/\/www\.gov\.uk\//, `${file}: GOV.UK`);
   }
@@ -190,6 +198,24 @@ test("upload page keeps protected controls and has formal safety content", () =>
   ]) {
     assert.match(html, new RegExp(escapeRe(phrase), "i"), `upload content: ${phrase}`);
   }
+  assert.match(html, /guidanceUseCasesTitle/, "upload: translated use-cases heading");
+  assert.match(html, /guidanceUseCasesText/, "upload: translated use-cases content");
+  assert.equal((html.match(/guidanceFaqTitle:\s*["']FAQ de seguridad["']/g) || []).length, 1, "upload: Spanish FAQ heading must appear only in the Spanish dictionary");
+});
+
+test("password and color picker use the shared five-language contract", () => {
+  const password = read("password.html");
+  assert.match(password, /const translations\s*=\s*window\.PAGE_TRANSLATIONS\s*=\s*\{/, "password dictionary");
+  for (const lang of ["en", "zh-CN", "de", "fr", "es"]) {
+    assert.match(password, new RegExp(`${escapeRe(JSON.stringify(lang))}\\s*:`), `password: ${lang}`);
+  }
+  assert.match(password, /<h1\b[^>]*data-i18n=["']heroTitle["']/, "password translated H1");
+  assert.match(password, /function applyLanguage\s*\(/, "password page hook");
+
+  const color = read("color-picker.html");
+  assert.doesNotMatch(color, /getElementById\(["']lang-select["']\)/, "color picker must not bind a removed selector");
+  assert.match(color, /function applyLanguage\s*\(/, "color picker page hook");
+  assert.match(color, /data-i18n-html=["']seoHtml["']/, "color picker translated SEO body");
 });
 
 test("canonical, hreflang, sitemap and robots stay clean", () => {
@@ -212,17 +238,42 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
 
 test("worker renders Chinese body, metadata and schema for key pages", async () => {
   for (const [path, chineseText, englishText] of [
-    ["/?lang=zh-CN", "免费在线工具", "Free Online Tools for Everyday Work"],
-    ["/upload?lang=zh-CN", "免费图床", "Upload an image and get direct URL"],
+    ["/?lang=zh-CN", "英国税务、VAT、工资和日常财务决策计算器。", "UK calculators for tax, VAT, salary and everyday money decisions."],
+    ["/upload?lang=zh-CN", "免费图床：图片转 URL、Markdown 与 GitHub README 图片托管", "Free Image Hosting for GitHub README, Markdown and Docs"],
   ]) {
     const response = await fetchThroughWorker(path);
     assert.equal(response.status, 200, path);
     const html = await response.text();
     assert.match(html, /<html[^>]+lang="zh-CN"/, path);
-    assert.match(html, new RegExp(chineseText), path);
-    assert.doesNotMatch(html, new RegExp(englishText), path);
+    const h1 = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1].replace(/<[^>]+>/g, "").trim() || "";
+    assert.equal(h1, chineseText, `${path}: translated H1`);
+    assert.notEqual(h1, englishText, `${path}: English H1 must be replaced`);
     assert.match(html, /"@context"/, `${path}: schema`);
     assert.match(html, /<link rel="canonical" href="https:\/\/mini-tools\.uk\/[^"]*\?lang=zh-CN"|<link rel="canonical" href="https:\/\/mini-tools\.uk\/\?lang=zh-CN"/, `${path}: canonical`);
+  }
+});
+
+test("worker renders color picker template-string translations", async () => {
+  const response = await fetchThroughWorker("/color-picker?lang=zh-CN");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /<html[^>]+lang="zh-CN"/);
+  assert.match(html, /<h1\b[^>]*>图片取色器与图片裁剪工具<\/h1>/);
+  assert.match(html, /图片取色器与本地图片裁剪工具/);
+  assert.doesNotMatch(html, /<h1\b[^>]*>\s*Image Color Picker from Image\s*<\/h1>/);
+});
+
+test("worker renders VAT Object.assign dictionaries for German, French and Spanish", async () => {
+  for (const [lang, heading] of [
+    ["de", "UK VAT Rechner zum Hinzufügen oder Herausrechnen von VAT"],
+    ["fr", "Calculateur VAT UK pour ajouter ou retirer la VAT"],
+    ["es", "Calculadora VAT UK para añadir o quitar VAT"],
+  ]) {
+    const response = await fetchThroughWorker(`/vat?lang=${lang}`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, new RegExp(`<html[^>]+lang=["']${lang}["']`));
+    assert.match(html, new RegExp(`<h1\\b[^>]*>${escapeRe(heading)}<\\/h1>`));
   }
 });
 

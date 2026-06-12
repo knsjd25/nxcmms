@@ -98,6 +98,10 @@
 
 
 
+
+
+
+
 <link rel="stylesheet" href="site-nav.css">
 <style id="site-footer-style">
 .footer {
@@ -164,11 +168,11 @@
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
-  <nav class="site-nav" aria-label="Primary navigation">
+  <nav class="site-nav" aria-label="Primary navigation" data-site-shell-aria="navigation">
   <div class="site-nav-inner">
     <a class="site-brand" href="/">
       <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo">
-      <span class="site-brand-copy"><span class="site-brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="site-brand-subtitle">Useful online tools</span></span>
+      <span class="site-brand-copy"><span class="site-brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="site-brand-subtitle" data-site-shell="subtitle">Useful online tools</span></span>
     </a>
     <div class="site-nav-links">
       <a class="site-nav-link" href="/" data-site-nav="home">Home</a>
@@ -183,10 +187,10 @@
     </div>
     <div class="site-lang-group">
       <button class="site-lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span></button>
-      <div class="site-lang-dropdown" aria-label="Language">
+      <div class="site-lang-dropdown" aria-label="Language" data-site-shell-aria="language">
         <button type="button" data-site-lang="en">English</button><button type="button" data-site-lang="zh-CN">&#20013;&#25991;</button><button type="button" data-site-lang="de">Deutsch</button><button type="button" data-site-lang="fr">Fran&ccedil;ais</button><button type="button" data-site-lang="es">Espa&ntilde;ol</button>
       </div>
-      <select id="languageSelect" aria-label="Language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
+      <select id="languageSelect" aria-label="Language" data-site-shell-aria="language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
     </div>
   </div>
 </nav>
@@ -228,7 +232,7 @@
     <p>Use this VAT calculator to add VAT to a net price or remove VAT from a gross price. It is intended for quick invoice checks, quote preparation and understanding the arithmetic behind VAT-inclusive and VAT-exclusive prices.</p>
     <h3>Use cases</h3><p>Example: enter 120 as a gross amount and remove 20% VAT to see the net amount and VAT component.</p>
     <h3>Limitations</h3><p>The calculator handles arithmetic only. It does not decide whether a supply is standard-rated, reduced-rated, zero-rated, exempt or outside the scope of VAT.</p>
-      <h3>Sources and assumptions</h3><p><a href="https://www.gov.uk/vat-rates" rel="noopener noreferrer">https://www.gov.uk/vat-rates</a></p><p><strong>Last checked: 9 June 2026</strong></p>
+      <h3>Sources and assumptions</h3><p>Results are estimates only. They are not tax advice and do not constitute legal, financial or accounting advice. Confirm the VAT treatment with current GOV.UK guidance or a qualified adviser.</p><p><a href="https://www.gov.uk/vat-rates" rel="noopener noreferrer">https://www.gov.uk/vat-rates</a></p><p><strong>Last checked: 9 June 2026</strong></p>
     <h3>FAQ</h3><p><strong>Can I use a custom VAT rate? Yes, for arithmetic checks, but UK VAT treatment still depends on the supply and HMRC rules.</strong></p>
     <h3>Related tools</h3><p><a href="/tax">tax</a> <a href="/dividend">dividend</a> <a href="/stamp-duty">stamp duty</a></p>
   </div>
@@ -242,7 +246,7 @@
   </main>
 
   <script>
-    const translations={
+    const translations=window.PAGE_TRANSLATIONS = {
       en:{htmlLang:'en-GB',langLabel:'English',locale:'en-GB',title:'UK VAT Calculator | Add or Remove 20% VAT',description:'Add VAT to a net price or remove 20% VAT from a gross amount. Includes 20%, 5%, 0% and custom UK VAT rates with a clear invoice-style breakdown.',skip:'Skip to content',brandSubtitle:'Practical calculators and browser tools',navHome:'Home',navTools:'Search Tools',navCategories:'Categories',navAbout:'About',navContact:'Contact',privacy:'Privacy',catFinance:'UK Apps',catFinanceSmall:'Tax, VAT, mortgage and contractor tools',catDev:'Developer Tools',catDevSmall:'JSON, diff, image hosting and AI token estimation',catImage:'Other Tools',catImageSmall:'Compression, conversion and media utilities',catSecurity:'Safety',catSecuritySmall:'Password and privacy helpers',badge:'Aligned with current UK VAT rates',heroTitle:'UK VAT calculator for adding or removing VAT',heroText:'Use this page to add VAT to a net amount, remove VAT from a gross amount, and copy a clear invoice-style breakdown. It is designed for quick checks, invoices and planning, while making the underlying maths easier to follow.',mini1Title:'Built for invoice maths',mini1Text:'Switch between adding VAT and extracting VAT without doing the formula manually every time.',mini2Title:'Clear VAT context',mini2Text:'Understand standard, reduced and zero rates, and when the result is only an arithmetic check.',mini3Title:'Copyable breakdown',mini3Text:'Copy a short summary or an invoice-style VAT breakdown for notes, email drafts or bookkeeping checks.',inputTitle:'Calculator inputs',amountLabel:'Amount',amountHint:'Enter the number you want to treat as net or gross depending on the mode selected below.',modeLabel:'Calculation mode',modeAdd:'Add VAT to net amount',modeRemove:'Remove VAT from gross amount',rateLabel:'VAT rate',customRateBtn:'Custom',customPlaceholder:'Enter custom rate',useCustomRate:'Use custom rate',rateHint:'For most goods and services the UK standard rate is 20%. Use 5% where reduced rate treatment applies, or 0% where a supply is zero-rated.',calculateBtn:'Calculate',resetBtn:'Reset',formulaTitle:'Quick formulas',formulaAddLabel:'Add VAT',formulaAdd:'VAT = net × rate | gross = net + VAT',formulaRemoveLabel:'Remove VAT',formulaRemove:'net = gross ÷ (1 + rate) | VAT = gross - net',resultEyebrow:'Invoice-style breakdown',resultAddEyebrow:'VAT added breakdown',resultRemoveEyebrow:'VAT removed breakdown',resultModeLabel:'Mode',resultModeHint:'How the amount above was treated',resultModeAdd:'Add VAT',resultModeRemove:'Remove VAT',netLabel:'Net amount',netHint:'Amount before VAT',vatAmountLabel:'VAT amount',appliedRateLabel:'Applied rate:',grossTotalLabel:'Gross total',copyReceipt:'Copy receipt text',copySummary:'Copy short summary',copied:'Copied',copyFailed:'Copy failed',noteDefault:'This is an arithmetic VAT result only. Product classification, exemptions and filing treatment still depend on HMRC rules.',noteZero:'A 0% arithmetic result does not automatically mean a supply is zero-rated, exempt or outside scope for VAT purposes.',articleTitle:'How this UK VAT calculator works',articleP1:'VAT maths is simple once the starting point is clear. If you begin with a net amount, adding VAT means multiplying by the selected rate and then adding the tax amount to the original figure. If you begin with a gross amount, removing VAT means dividing by 1 plus the VAT rate, not just subtracting the percentage from the total.',articleP2:'This page is designed to make that difference obvious. It is useful for invoices, quotes, bookkeeping checks and quick comparisons, especially when you need a clean breakdown you can paste into notes or email drafts.',articleP3:'Use the result as an arithmetic check before preparing an invoice, reconciling a receipt or comparing VAT-inclusive and VAT-exclusive prices. If the question is whether a supply is standard-rated, reduced-rated, zero-rated, exempt or outside scope, confirm the VAT treatment separately.',ratesTitle:'Current UK VAT rates you will see most often',rateTypeHead:'Rate type',rateHead:'Rate',typicalUseHead:'Typical use',standardRate:'Standard rate',standardUse:'Most goods and services.',reducedRate:'Reduced rate',reducedUse:"Selected supplies such as some home energy and children's car seats.",zeroRate:'Zero rate',zeroUse:"Selected supplies such as most food and children's clothes.",zeroTitle:'Zero-rated is not the same as exempt',zeroText:'A 0% result in a calculator only means the arithmetic tax rate is zero. In VAT treatment, zero-rated, exempt and outside-scope supplies are different categories. This page helps with the numbers, but the classification still depends on the supply itself and HMRC rules.',thresholdTitle:'When businesses usually need to register for VAT',thresholdText:'Many small businesses use a VAT calculator before they register, simply to model future invoices or understand prices. Registration rules depend on taxable turnover over a rolling 12-month period, so the threshold matters if you are close to the limit.',faq1Q:'How do I remove 20% VAT from a VAT-inclusive amount?',faq1A:'Divide the gross amount by 1.20. For example, £120 gross becomes £100 net and £20 VAT.',faq2Q:'Can I use a custom VAT rate?',faq2A:'Yes. This is helpful for quick maths, international comparisons or checking edge cases, even though UK domestic invoices usually use the standard, reduced or zero rate.',faq3Q:'Does this page replace bookkeeping or tax advice?',faq3A:'No. This page is for calculation and explanation. It does not replace VAT registration rules, invoicing requirements or professional advice.',sideUseTitle:'Useful for',chip1:'Invoice checks',chip2:'Quote preparation',chip3:'VAT-inclusive prices',chip4:'Bookkeeping notes',relatedSearchTitle:'Before you use the figure',kw1:'Confirm VAT status',kw2:'Check the rate',kw3:'Keep invoice evidence',kw4:'Review HMRC rules',relatedTitle:'Related tools',relatedText:'Use these tools together for UK Apps planning, invoice checks and everyday calculations.',relatedTax:'UK Tax Calculator',relatedTaxSmall:'Estimate take-home pay and deductions',relatedIr35:'IR35 Calculator',relatedIr35Small:'Compare inside and outside IR35 estimates',relatedDividend:'Salary vs Dividend',relatedDividendSmall:'Compare director pay approaches',relatedMortgage:'Mortgage Calculator',relatedMortgageSmall:'Check repayments and affordability',scopeTitle:'Scope of this calculator',scopeText:'This tool helps with VAT arithmetic. It does not decide whether a sale is standard-rated, reduced-rated, zero-rated, exempt or outside the scope of VAT.',footerSmall:'Practical calculators and browser tools for work, study and everyday tasks.',receiptTitle:'VAT breakdown',receiptMode:'Mode',receiptRate:'Rate',receiptNet:'Net amount',receiptVat:'VAT amount',receiptGross:'Gross total',receiptGenerated:'Generated by Mini-Tools.uk'},
       'zh-CN':{htmlLang:'zh-CN',langLabel:'中文',locale:'zh-CN',title:'英国VAT计算器｜英国增值税计算器｜VAT加税和去税计算｜Mini-Tools.uk',description:'使用 Mini-Tools 英国VAT计算器，快速计算英国增值税 VAT，加 VAT、去 VAT、从含税价格反推税前金额，并复制清晰的发票式计算结果。支持 20%、5%、0% 和自定义税率。',skip:'跳到正文',brandSubtitle:'实用计算器和浏览器工具',navHome:'首页',navTools:'全部工具',navCategories:'分类',navAbout:'关于',navContact:'联系',privacy:'隐私政策',catFinance:'英国财务工具',catFinanceSmall:'个税、VAT、房贷和承包商收入工具',catDev:'开发者工具',catDevSmall:'JSON、文本对比、图床和 AI Token 估算',catImage:'图片与 PDF',catImageSmall:'压缩、转换和媒体工具',catSecurity:'安全工具',catSecuritySmall:'密码和隐私相关工具',badge:'适用于当前英国 VAT 税率',heroTitle:'英国VAT计算器：加 VAT、去 VAT 和含税价反推',heroText:'使用这个英国增值税计算器，可以把 VAT 加到税前金额上，也可以从含税总价中反推出税前金额和 VAT 金额。适合发票检查、报价、简单记账和日常价格核算。',mini1Title:'适合发票计算',mini1Text:'可在“加 VAT”和“去 VAT”之间切换，不需要每次手动写公式。',mini2Title:'解释 VAT 场景',mini2Text:'帮助理解标准税率、低税率和零税率，也说明什么时候结果只是数学计算。',mini3Title:'可复制结果',mini3Text:'可复制简短摘要或发票式 VAT 明细，用于邮件、备注或记账检查。',inputTitle:'计算器输入',amountLabel:'金额',amountHint:'根据下面选择的模式，这个金额会被视为税前金额或含税总价。',modeLabel:'计算模式',modeAdd:'给税前金额加 VAT',modeRemove:'从含税金额中去掉 VAT',rateLabel:'VAT 税率',customRateBtn:'自定义',customPlaceholder:'输入自定义税率',useCustomRate:'使用自定义税率',rateHint:'英国大多数商品和服务使用 20% 标准 VAT 税率。部分场景可能使用 5% 低税率或 0% 零税率。',calculateBtn:'计算',resetBtn:'重置',formulaTitle:'快速公式',formulaAddLabel:'加 VAT',formulaAdd:'VAT = 税前金额 × 税率 | 含税总价 = 税前金额 + VAT',formulaRemoveLabel:'去 VAT',formulaRemove:'税前金额 = 含税总价 ÷ (1 + 税率) | VAT = 含税总价 - 税前金额',resultEyebrow:'发票式计算明细',resultAddEyebrow:'已加 VAT 明细',resultRemoveEyebrow:'已去 VAT 明细',resultModeLabel:'模式',resultModeHint:'上方金额的处理方式',resultModeAdd:'加 VAT',resultModeRemove:'去 VAT',netLabel:'税前金额',netHint:'VAT 前的金额',vatAmountLabel:'VAT 金额',appliedRateLabel:'适用税率：',grossTotalLabel:'含税总价',copyReceipt:'复制发票明细',copySummary:'复制简短摘要',copied:'已复制',copyFailed:'复制失败',noteDefault:'这是 VAT 数学计算结果。商品或服务的具体分类、免税情况和申报处理仍需要根据 HMRC 规则判断。',noteZero:'0% 的数学结果不等于自动属于 zero-rated、exempt 或 outside scope，具体 VAT 处理仍取决于商品或服务类型。',articleTitle:'这个英国VAT计算器如何工作',articleP1:'VAT 计算的关键是先明确起点。如果从税前金额开始，加 VAT 就是用税前金额乘以税率，再把 VAT 加回原金额。如果从含税总价开始，去 VAT 应该用含税金额除以 1 加税率，而不是简单减去百分比。',articleP2:'这个页面适合发票、报价、记账检查和日常价格比较，尤其适合需要把结果复制到备注、邮件草稿或账务记录里的场景。',articleP3:'如果你正在搜索“英国VAT计算器”“英国增值税计算器”“英国VAT反推计算器”或“英国发票VAT计算器”，这个页面的核心用途就是计算加 VAT、去 VAT，并展示清晰的发票式拆分。',ratesTitle:'常见英国 VAT 税率',rateTypeHead:'税率类型',rateHead:'税率',typicalUseHead:'常见用途',standardRate:'标准税率',standardUse:'大多数商品和服务。',reducedRate:'低税率',reducedUse:'部分供应，例如一些家庭能源和儿童安全座椅。',zeroRate:'零税率',zeroUse:'部分供应，例如大多数食品和儿童服装。',zeroTitle:'Zero-rated 不等于 exempt',zeroText:'计算器里的 0% 只代表数学税率为零。在 VAT 处理上，zero-rated、exempt 和 outside scope 是不同分类。这个页面帮助你算数字，但具体分类仍取决于商品或服务本身以及 HMRC 规则。',thresholdTitle:'企业什么时候通常需要注册 VAT',thresholdText:'很多小企业即使还未注册 VAT，也会先用 VAT 计算器估算未来发票或理解价格。注册规则取决于滚动 12 个月 taxable turnover，因此接近门槛时需要特别注意。',faq1Q:'如何从含税价格中去掉 20% VAT？',faq1A:'把含税总价除以 1.20。例如 £120 含税价，去 VAT 后税前金额是 £100，VAT 金额是 £20。',faq2Q:'可以使用自定义 VAT 税率吗？',faq2A:'可以。自定义税率适合快速数学检查、国际比较或特殊场景。英国本地发票通常使用标准税率、低税率或零税率。',faq3Q:'这个页面可以替代记账或税务建议吗？',faq3A:'不可以。这个页面用于计算和解释，不替代 VAT 注册规则、发票要求、申报规则或专业建议。',sideUseTitle:'适合用于',chip1:'发票检查',chip2:'报价准备',chip3:'含税价格反推',chip4:'记账备注',relatedSearchTitle:'相关搜索词',kw1:'英国VAT计算器',kw2:'英国VAT去税计算器',kw3:'英国VAT反推计算器',kw4:'英国增值税计算器',relatedTitle:'相关工具',relatedText:'这些工具可以配合用于英国财务规划、发票核算和日常计算。',relatedTax:'英国个税计算器',relatedTaxSmall:'估算税后工资和扣款',relatedIr35:'IR35 计算器',relatedIr35Small:'比较 inside / outside IR35 收入',relatedDividend:'工资 vs 股息计算器',relatedDividendSmall:'比较董事薪酬方式',relatedMortgage:'房贷计算器',relatedMortgageSmall:'估算月供和负担能力',scopeTitle:'这个计算器的范围',scopeText:'这个工具帮助完成 VAT 数学计算，但不能判断某个销售是否属于标准税率、低税率、零税率、免税或 VAT 范围之外。',footerSmall:'适合工作、学习和日常任务的实用计算器和浏览器工具。',receiptTitle:'VAT 明细',receiptMode:'模式',receiptRate:'税率',receiptNet:'税前金额',receiptVat:'VAT 金额',receiptGross:'含税总价',receiptGenerated:'由 Mini-Tools.uk 生成'}
     };
@@ -312,301 +316,8 @@
 
 
 
-<script id="site-nav-language">
-(() => {
-  const labels = {
-    en:{home:"Home",search:"Search",popular:"Popular",ukApps:"UK Apps",devTools:"Dev Tools",other:"Other",about:"About",contact:"Contact",privacy:"Privacy",language:"English"},
-    "zh-CN":{home:"\u9996\u9875",search:"\u641c\u7d22",popular:"\u70ed\u95e8",ukApps:"\u82f1\u56fd\u5e94\u7528",devTools:"\u5f00\u53d1\u8005\u5de5\u5177",other:"\u5176\u4ed6\u5de5\u5177",about:"\u5173\u4e8e",contact:"\u8054\u7cfb",privacy:"\u9690\u79c1\u653f\u7b56",language:"\u4e2d\u6587"},
-    de:{home:"Startseite",search:"Suchen",popular:"Beliebt",ukApps:"UK Apps",devTools:"Entwickler",other:"Weitere",about:"\u00dcber uns",contact:"Kontakt",privacy:"Datenschutz",language:"Deutsch"},
-    fr:{home:"Accueil",search:"Recherche",popular:"Populaires",ukApps:"Apps UK",devTools:"Outils dev",other:"Autres",about:"\u00c0 propos",contact:"Contact",privacy:"Confidentialit\u00e9",language:"Fran\u00e7ais"},
-    es:{home:"Inicio",search:"Buscar",popular:"Populares",ukApps:"Apps UK",devTools:"Herramientas dev",other:"Otros",about:"Acerca de",contact:"Contacto",privacy:"Privacidad",language:"Espa\u00f1ol"}
-  };
-  const normalizeLang = (value) => {
-    const rawValue = String(value || "").trim();
-    const lower = rawValue.toLowerCase().replace("_", "-");
-    if (lower.startsWith("zh")) return "zh-CN";
-    if (lower.startsWith("de")) return "de";
-    if (lower.startsWith("fr")) return "fr";
-    if (lower.startsWith("es")) return "es";
-    return labels[rawValue] ? rawValue : "en";
-  };
-  const params = new URLSearchParams(location.search);
-  let lang = normalizeLang(window.MINI_TOOLS_SERVER_LANG || params.get("lang") || navigator.language || "en");
-  const applyCanonicalHreflang = () => {
-    const supported = ["en", "zh-CN", "de", "fr", "es"];
-    const cleanPath = location.pathname === "/index.html" ? "/" : location.pathname.replace(/\.html$/, "");
-    const cleanUrl = location.origin + cleanPath;
-    const current = lang === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(lang)}`;
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", current);
-    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());
-    supported.forEach((code) => {
-      const link = document.createElement("link");
-      link.setAttribute("rel", "alternate");
-      link.setAttribute("hreflang", code);
-      link.setAttribute("href", `${cleanUrl}?lang=${encodeURIComponent(code)}`);
-      document.head.appendChild(link);
-    });
-    const fallback = document.createElement("link");
-    fallback.setAttribute("rel", "alternate");
-    fallback.setAttribute("hreflang", "x-default");
-    fallback.setAttribute("href", cleanUrl);
-    document.head.appendChild(fallback);
-  };
-  const localizeLinks = () => {
-    document.querySelectorAll("a[href]").forEach((anchor) => {
-      const rawHref = anchor.getAttribute("href");
-      if (!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) return;
-      const link = new URL(rawHref, location.origin);
-      if (link.origin !== location.origin) return;
-      link.searchParams.set("lang", lang);
-      anchor.href = link.pathname + link.search + link.hash;
-    });
-  };
-  const guidanceTranslations = {
-    en: {
-      notes: "How to use this",
-      useCases: "Use cases",
-      limitations: "Limitations and privacy",
-      sources: "Sources and assumptions",
-      faq: "FAQ",
-      related: "Related tools",
-      how: (name) => `${name} is designed for one focused task. Enter the values or content requested on the page, review the result, then copy, download or use the output as needed.`,
-      uses: (name) => `Use ${name} for quick checks, planning, formatting or preparation work when you need a browser-based helper rather than a full professional workflow.`,
-      limits: "Results and generated output should be reviewed before use. Browser-first tools usually process data locally; upload or hosting tools explain when remote storage is used.",
-      finance: "Results are estimates only and are not tax, legal, financial or accounting advice. Check the official GOV.UK guidance and confirm important decisions with a qualified adviser.",
-      faqQ: (name) => `Can I rely on ${name} as an official result?`,
-      faqA: "No. Treat the result as a practical estimate or helper output and review it before relying on it.",
-      checked: "Last checked: 9 June 2026"
-    },
-    "zh-CN": {
-      notes: "\u5de5\u5177\u8bf4\u660e",
-      useCases: "\u4f7f\u7528\u573a\u666f",
-      limitations: "\u9650\u5236\u548c\u9690\u79c1",
-      sources: "\u6765\u6e90\u548c\u5047\u8bbe",
-      faq: "\u5e38\u89c1\u95ee\u9898",
-      related: "\u76f8\u5173\u5de5\u5177",
-      how: (name) => `${name}\u7528\u4e8e\u5904\u7406\u4e00\u4e2a\u660e\u786e\u4efb\u52a1\u3002\u8f93\u5165\u9875\u9762\u8981\u6c42\u7684\u6570\u503c\u6216\u5185\u5bb9\uff0c\u68c0\u67e5\u7ed3\u679c\uff0c\u7136\u540e\u6309\u9700\u590d\u5236\u3001\u4e0b\u8f7d\u6216\u4f7f\u7528\u8f93\u51fa\u3002`,
-      uses: (name) => `\u5f53\u4f60\u9700\u8981\u5728\u6d4f\u89c8\u5668\u4e2d\u5feb\u901f\u68c0\u67e5\u3001\u4f30\u7b97\u3001\u683c\u5f0f\u5316\u6216\u6574\u7406\u5185\u5bb9\u65f6\uff0c\u53ef\u4ee5\u4f7f\u7528 ${name}\u3002`,
-      limits: "\u7ed3\u679c\u548c\u751f\u6210\u5185\u5bb9\u5728\u4f7f\u7528\u524d\u5e94\u81ea\u884c\u6838\u5bf9\u3002\u4f18\u5148\u672c\u5730\u5904\u7406\u7684\u5de5\u5177\u901a\u5e38\u5728\u6d4f\u89c8\u5668\u5185\u8fd0\u884c\uff1b\u4e0a\u4f20\u6216\u6258\u7ba1\u5de5\u5177\u4f1a\u5728\u9875\u9762\u4e2d\u8bf4\u660e\u4f55\u65f6\u4f7f\u7528\u8fdc\u7a0b\u5b58\u50a8\u3002",
-      finance: "\u7ed3\u679c\u4ec5\u4e3a\u4f30\u7b97\uff0c\u4e0d\u6784\u6210\u7a0e\u52a1\u3001\u6cd5\u5f8b\u3001\u8d22\u52a1\u6216\u4f1a\u8ba1\u5efa\u8bae\u3002\u91cd\u8981\u51b3\u7b56\u524d\u8bf7\u6838\u5bf9 GOV.UK \u5b98\u65b9\u8bf4\u660e\uff0c\u5e76\u54a8\u8be2\u5408\u683c\u4e13\u4e1a\u4eba\u58eb\u3002",
-      faqQ: (name) => `${name}\u53ef\u4ee5\u4f5c\u4e3a\u5b98\u65b9\u7ed3\u679c\u5417\uff1f`,
-      faqA: "\u4e0d\u53ef\u4ee5\u3002\u8bf7\u628a\u5b83\u89c6\u4e3a\u5b9e\u7528\u4f30\u7b97\u6216\u8f85\u52a9\u8f93\u51fa\uff0c\u5728\u4f9d\u8d56\u7ed3\u679c\u524d\u81ea\u884c\u590d\u6838\u3002",
-      checked: "\u6700\u540e\u68c0\u67e5\uff1a2026 \u5e74 6 \u6708 9 \u65e5"
-    },
-    de: {
-      notes: "Hinweise",
-      useCases: "Anwendungsf\u00e4lle",
-      limitations: "Grenzen und Datenschutz",
-      sources: "Quellen und Annahmen",
-      faq: "FAQ",
-      related: "Verwandte Tools",
-      how: (name) => `${name} ist f\u00fcr eine klare Aufgabe gedacht. Gib die Werte oder Inhalte auf der Seite ein, pr\u00fcfe das Ergebnis und kopiere, lade oder nutze die Ausgabe danach nach Bedarf.`,
-      uses: (name) => `Nutze ${name} f\u00fcr schnelle Pr\u00fcfungen, Planungen, Formatierungen oder Vorbereitungen direkt im Browser.`,
-      limits: "Ergebnisse und Ausgaben sollten vor der Nutzung gepr\u00fcft werden. Browserbasierte Tools verarbeiten Daten meist lokal; Upload- oder Hosting-Tools erkl\u00e4ren, wann entfernte Speicherung verwendet wird.",
-      finance: "Die Ergebnisse sind nur Sch\u00e4tzungen und keine Steuer-, Rechts-, Finanz- oder Buchhaltungsberatung. Pr\u00fcfe die offiziellen GOV.UK-Hinweise und frage bei wichtigen Entscheidungen eine qualifizierte Fachperson.",
-      faqQ: (name) => `Kann ich ${name} als offizielles Ergebnis verwenden?`,
-      faqA: "Nein. Behandle das Ergebnis als praktische Sch\u00e4tzung oder Hilfsausgabe und pr\u00fcfe es vor der Nutzung.",
-      checked: "Last checked: 9 June 2026"
-    },
-    fr: {
-      notes: "Mode d'emploi",
-      useCases: "Cas d'utilisation",
-      limitations: "Limites et confidentialit\u00e9",
-      sources: "Sources et hypoth\u00e8ses",
-      faq: "FAQ",
-      related: "Outils li\u00e9s",
-      how: (name) => `${name} sert \u00e0 une t\u00e2che pr\u00e9cise. Saisissez les valeurs ou le contenu demand\u00e9s, v\u00e9rifiez le r\u00e9sultat, puis copiez, t\u00e9l\u00e9chargez ou utilisez la sortie selon vos besoins.`,
-      uses: (name) => `Utilisez ${name} pour des v\u00e9rifications rapides, des estimations, du formatage ou de la pr\u00e9paration directement dans le navigateur.`,
-      limits: "Les r\u00e9sultats et sorties g\u00e9n\u00e9r\u00e9es doivent \u00eatre v\u00e9rifi\u00e9s avant utilisation. Les outils c\u00f4t\u00e9 navigateur traitent g\u00e9n\u00e9ralement les donn\u00e9es localement; les outils d'upload ou d'h\u00e9bergement indiquent quand un stockage distant est utilis\u00e9.",
-      finance: "Les r\u00e9sultats sont des estimations uniquement et ne constituent pas un conseil fiscal, juridique, financier ou comptable. Consultez les sources officielles GOV.UK et demandez conseil \u00e0 un professionnel qualifi\u00e9 pour les d\u00e9cisions importantes.",
-      faqQ: (name) => `Puis-je utiliser ${name} comme r\u00e9sultat officiel ?`,
-      faqA: "Non. Consid\u00e9rez le r\u00e9sultat comme une estimation pratique ou une aide, puis v\u00e9rifiez-le avant de vous y fier.",
-      checked: "Last checked: 9 June 2026"
-    },
-    es: {
-      notes: "C\u00f3mo usarlo",
-      useCases: "Casos de uso",
-      limitations: "Limitaciones y privacidad",
-      sources: "Fuentes y supuestos",
-      faq: "FAQ",
-      related: "Herramientas relacionadas",
-      how: (name) => `${name} est\u00e1 pensado para una tarea concreta. Introduce los valores o el contenido que pide la p\u00e1gina, revisa el resultado y copia, descarga o usa la salida seg\u00fan lo necesites.`,
-      uses: (name) => `Usa ${name} para comprobaciones r\u00e1pidas, estimaciones, formato o preparaci\u00f3n de contenido directamente en el navegador.`,
-      limits: "Revisa los resultados y salidas generadas antes de usarlos. Las herramientas de navegador suelen procesar datos localmente; las herramientas de subida o alojamiento explican cu\u00e1ndo usan almacenamiento remoto.",
-      finance: "Los resultados son solo estimaciones y no son asesoramiento fiscal, legal, financiero ni contable. Consulta la gu\u00eda oficial de GOV.UK y confirma decisiones importantes con un profesional cualificado.",
-      faqQ: (name) => `\u00bfPuedo usar ${name} como resultado oficial?`,
-      faqA: "No. Tr\u00e1talo como una estimaci\u00f3n pr\u00e1ctica o una salida de ayuda y rev\u00edsalo antes de confiar en \u00e9l.",
-      checked: "Last checked: 9 June 2026"
-    }
-  };
-  const financeSourceLinks = {
-    tax: ["https://www.gov.uk/income-tax-rates", "https://www.gov.uk/national-insurance-rates-letters"],
-    vat: ["https://www.gov.uk/vat-rates", "https://www.gov.uk/vat-businesses"],
-    mortgage: ["https://www.gov.uk/stamp-duty-land-tax"],
-    ir35: ["https://www.gov.uk/guidance/understanding-off-payroll-working-ir35"],
-    "stamp-duty": ["https://www.gov.uk/stamp-duty-land-tax"],
-    dividend: ["https://www.gov.uk/tax-on-dividends"]
-  };
-  const toolNameFallbacks = {
-    tax: "UK Tax Calculator",
-    vat: "VAT Calculator",
-    mortgage: "Mortgage Calculator",
-    ir35: "IR35 Calculator",
-    "stamp-duty": "Stamp Duty Calculator",
-    dividend: "Dividend Calculator",
-    json: "JSON Formatter",
-    diff: "Text Diff Checker",
-    token: "AI Token Calculator",
-    qr: "QR Code Generator",
-    password: "Password Generator",
-    image: "Image Compressor",
-    pdf2img: "PDF to Image Converter",
-    "color-picker": "Color Picker",
-    "working-days": "Working Days Calculator",
-    fuel: "Fuel Cost Calculator",
-    weight: "Weight Converter"
-  };
-  const routeSlug = () => {
-    const last = location.pathname.split("/").filter(Boolean).pop() || "index";
-    return last.replace(/\.html$/i, "");
-  };
-  const escapeHtml = (value) => String(value || "").replace(/[&<>"']/g, (char) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  }[char]));
-  const pageToolName = (slug) => {
-    const h1 = document.querySelector("h1");
-    const text = h1 ? h1.textContent.trim() : "";
-    return text || toolNameFallbacks[slug] || "this tool";
-  };
-  const relatedLinksHtml = (slug, label) => {
-    const links = Array.from(document.querySelectorAll("#tool-guidance a[href], main a[href]"))
-      .filter((anchor) => {
-        const href = anchor.getAttribute("href") || "";
-        return href.startsWith("/") && href.replace(/^\//, "").split(/[?#]/)[0] !== slug;
-      })
-      .slice(0, 4);
-    if (!links.length) return "";
-    const items = links.map((anchor) => {
-      const href = anchor.getAttribute("href");
-      const text = anchor.textContent.trim() || href;
-      return `<a href="${escapeHtml(href)}">${escapeHtml(text)}</a>`;
-    }).join(" ");
-    return `<h3>${escapeHtml(label.related)}</h3><p>${items}</p>`;
-  };
-  const renderToolGuidanceLanguage = () => {
-    const guidance = document.getElementById("tool-guidance");
-    if (!guidance || document.getElementById("guidanceTitle")) return;
-    const slug = routeSlug();
-    const text = guidanceTranslations[lang] || guidanceTranslations.en;
-    const name = pageToolName(slug);
-    const isFinance = Object.prototype.hasOwnProperty.call(financeSourceLinks, slug);
-    const sourceLinks = financeSourceLinks[slug] || [];
-    const sourceHtml = isFinance
-      ? `<h3>${escapeHtml(text.sources)}</h3><p>${escapeHtml(text.finance)}</p><p>${sourceLinks.map((href) => `<a href="${href}" rel="noopener noreferrer">${href}</a>`).join(" ")}</p><p><strong>${escapeHtml(text.checked)}</strong></p>`
-      : `<h3>${escapeHtml(text.limitations)}</h3><p>${escapeHtml(text.limits)}</p>`;
-    guidance.innerHTML = `<div class="article"><h2>${escapeHtml(text.notes)} ${escapeHtml(name)}</h2><p>${escapeHtml(text.how(name))}</p><h3>${escapeHtml(text.useCases)}</h3><p>${escapeHtml(text.uses(name))}</p>${sourceHtml}<h3>${escapeHtml(text.faq)}</h3><p><strong>${escapeHtml(text.faqQ(name))}</strong> ${escapeHtml(text.faqA)}</p>${relatedLinksHtml(slug, text)}</div>`;
-  };
-  const applyToolGuidanceLanguage = () => {
-    const guidance = document.getElementById("tool-guidance");
-    if (!guidance || document.getElementById("guidanceTitle")) return;
-    const guidanceLabels = {
-      en: { notes: "How to use this", example: "Use cases", limitations: "Limitations", faq: "FAQ", related: "Related tools" },
-      "zh-CN": { notes: "\u5de5\u5177\u8bf4\u660e\uff1a", example: "\u793a\u4f8b", limitations: "\u9650\u5236", faq: "\u5e38\u89c1\u95ee\u9898", related: "\u76f8\u5173\u5de5\u5177" },
-      de: { notes: "Hinweise zu", example: "Beispiel", limitations: "Einschr\u00e4nkungen", faq: "FAQ", related: "Verwandte Tools" },
-      fr: { notes: "Notes pour", example: "Exemple", limitations: "Limites", faq: "FAQ", related: "Outils lies" },
-      es: { notes: "Notas para", example: "Ejemplo", limitations: "Limitaciones", faq: "FAQ", related: "Herramientas relacionadas" }
-    };
-    const text = guidanceLabels[lang] || guidanceLabels.en;
-    const title = guidance.querySelector("h2");
-    if (title) title.textContent = title.textContent.replace(/^How to use this\s*/i, text.notes + " ");
-    guidance.querySelectorAll("h3").forEach((heading) => {
-      const key = heading.textContent.trim().toLowerCase();
-      if (key === "example") heading.textContent = text.example;
-      if (key === "use cases") heading.textContent = text.example;
-      if (key === "limitations") heading.textContent = text.limitations;
-      if (key === "faq") heading.textContent = text.faq;
-      if (key === "related tools") heading.textContent = text.related;
-    });
-    renderToolGuidanceLanguage();
-  };
-  const syncLanguageControls = () => {
-    document.querySelectorAll("[data-site-lang]").forEach((button) => {
-      button.classList.toggle("active", normalizeLang(button.dataset.siteLang) === lang);
-    });
-    const select = document.getElementById("languageSelect");
-    if (select) select.value = lang;
-  };
-  const applySiteLanguage = () => {
-    document.querySelectorAll("[data-site-nav]").forEach((item) => {
-      item.textContent = labels[lang][item.dataset.siteNav];
-    });
-    const current = document.getElementById("currentLangLabel");
-    if (current) current.textContent = labels[lang].language;
-    syncLanguageControls();
-    localizeLinks();
-    applyToolGuidanceLanguage();
-  };
-  const setLanguage = (selectedLang) => {
-    lang = normalizeLang(selectedLang);
-    const target = new URL(location.href);
-    target.searchParams.set("lang", lang);
-    history.replaceState(null, "", target.pathname + target.search + target.hash);
-    if (typeof window.applyLanguage === "function") {
-      window.applyLanguage(lang, true);
-    }
-    applyCanonicalHreflang();
-    applySiteLanguage();
-  };
-  applyCanonicalHreflang();
-  applySiteLanguage();
-  window.addEventListener("load", () => { applyCanonicalHreflang(); applySiteLanguage(); });
-  setTimeout(applyCanonicalHreflang, 0);
-  const langGroup = document.querySelector(".site-lang-group");
-  const langTrigger = document.querySelector(".site-lang-trigger");
-  const setLangMenuOpen = (open) => {
-    if (!langGroup || !langTrigger) return;
-    langGroup.classList.toggle("open", open);
-    langTrigger.setAttribute("aria-expanded", open ? "true" : "false");
-  };
-  if (langTrigger) {
-    langTrigger.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      setLangMenuOpen(!langGroup.classList.contains("open"));
-    });
-  }
-  document.addEventListener("click", (event) => {
-    if (langGroup && !langGroup.contains(event.target)) setLangMenuOpen(false);
-  });
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setLangMenuOpen(false);
-  });
-  document.querySelectorAll("[data-site-lang]").forEach((button) => {
-    button.classList.toggle("active", normalizeLang(button.dataset.siteLang) === lang);
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-      const selectedLang = button.dataset.siteLang;
-      setLanguage(selectedLang);
-      setLangMenuOpen(false);
-    });
-  });
-  const languageSelect = document.getElementById("languageSelect");
-  if (languageSelect) {
-    languageSelect.addEventListener("change", (event) => setLanguage(event.target.value));
-  }
-})();
-</script>
+
+
+<script src="site-i18n.js"></script>
 </body>
 </html>
