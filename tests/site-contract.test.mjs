@@ -168,6 +168,7 @@ test("language controls support five languages without arrow-only page patches",
   assert.match(runtime, /data-i18n-aria-label/, "shared aria-label translation");
   assert.match(runtime, /searchParams\.set\(["']lang["']/, "shared internal-link localization");
   assert.match(runtime, /lang\s*===\s*["']zh-CN["'][\s\S]*?all\.zh/, "shared runtime must support legacy zh dictionaries");
+  assert.match(runtime, /window\.addEventListener\(["']load["'], applyLanguage, \{ once: true \}\)/, "shared runtime must win page-load language races");
   assert.doesNotMatch(runtime, /location\.assign\(/, "shared runtime must not reload or jump to top");
 });
 
@@ -183,12 +184,61 @@ test("shared language runtime translates legacy bottom guidance FAQ", () => {
   const runtime = read("site-i18n.js");
   assert.match(runtime, /renderToolGuidanceLanguage/, "shared guidance renderer");
   assert.match(runtime, /guidanceTranslations/, "shared guidance translations");
+  assert.match(runtime, /const TOOL_NAMES = \{/, "shared translated tool-name source");
+  assert.match(runtime, /localizedToolName/, "related links must use translated tool names");
+  assert.match(runtime, /guidance\.querySelectorAll\([^\n]*gov\.uk/, "guidance renderer must preserve page GOV.UK links");
   assert.match(runtime, /faqQ/, "shared FAQ question translation");
   assert.match(runtime, /faqA/, "shared FAQ answer translation");
   for (const file of toolPages) {
     const html = read(file);
     assert.doesNotMatch(html, /renderToolGuidanceLanguage|guidanceTranslations/, `${file}: shared guidance code must not be copied into pages`);
   }
+});
+
+test("stamp duty dynamic results use localized display labels without changing the bands", () => {
+  const html = read("stamp-duty.html");
+  for (const expected of [
+    'surchargeRow:"较高税率 / 附加税项目"',
+    'ftbRelief:"首次购房者减免"',
+    'rateOn:"适用于"',
+    'andAbove:"及以上"',
+    'ftbRelief:"Entlastung für Erstkäufer"',
+    'rateOn:"auf"',
+    'ftbRelief:"Réduction pour primo-accédant"',
+    'rateOn:"sur"',
+    'ftbRelief:"Desgravación para primera vivienda"',
+    'rateOn:"sobre"',
+  ]) {
+    assert.match(html, new RegExp(escapeRe(expected)), expected);
+  }
+  assert.match(html, /\$\{rateLabel\(row\.rate\)\} \$\{dict\.rateOn\}/, "band labels use the active language");
+  assert.match(html, /row\.to === "and above" \? dict\.andAbove/, "open-ended band label is localized");
+  assert.match(html, /const standardBands = \[[\s\S]*?limit: 125000, rate: 0[\s\S]*?limit: Infinity, rate: 0\.12/, "standard SDLT bands stay unchanged");
+});
+
+test("dividend dynamic result labels are translated in all non-English dictionaries", () => {
+  const html = read("dividend.html");
+  for (const expected of [
+    'employerNiRow:"雇主国民保险"',
+    'corpTaxRow:"公司税"',
+    'profitLabel:"Unternehmensgewinn vor Geschäftsführergehalt und Unternehmenssteuern"',
+    'assumptionBadge:"Planungsfall mit einem Geschäftsführer"',
+    'totalTaxRow:"Insgesamt gezahlte Steuern"',
+    'profitLabel:"Bénéfice de la société avant rémunération du dirigeant et impôts de la société"',
+    'employerNiRow:"Cotisations patronales à la National Insurance"',
+    'dividendTaxRow:"Impôt sur les dividendes"',
+    'assumptionBadge:"Cas de planification avec un seul dirigeant"',
+    'employerNiRow:"National Insurance a cargo de la empresa"',
+    'corpTaxRow:"Impuesto de sociedades"',
+    'dividendTaxRow:"Impuesto sobre dividendos"',
+  ]) {
+    assert.match(html, new RegExp(escapeRe(expected)), expected);
+  }
+});
+
+test("color picker keeps one static crop-quality FAQ fallback", () => {
+  const html = read("color-picker.html");
+  assert.equal((html.match(/Does cropping reduce quality\?/g) || []).length, 1);
 });
 
 test("public pages have no development leftovers or retired public links", () => {
@@ -298,8 +348,12 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   }
 
   const locs = [...read("sitemap.xml").matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  const lastmods = [...read("sitemap.xml").matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1]);
   assert.deepEqual(locs, approvedPaths.map((path) => `https://mini-tools.uk${path}`));
+  assert.equal(lastmods.length, locs.length, "every sitemap URL has a lastmod date");
+  assert.equal(lastmods.every((value) => value === "2026-06-12"), true, "sitemap lastmod date");
   assert.equal(read("sitemap.xml").includes("?lang="), false);
+  assert.doesNotMatch(read("sitemap.xml"), /blog/i);
   assert.equal(read("robots.txt").trim().replace(/\r\n/g, "\n"), "User-agent: *\nAllow: /\n\nSitemap: https://mini-tools.uk/sitemap.xml");
 });
 
@@ -324,10 +378,12 @@ test("worker renders color picker template-string translations", async () => {
   const response = await fetchThroughWorker("/color-picker?lang=zh-CN");
   assert.equal(response.status, 200);
   const html = await response.text();
+  const main = html.slice(html.indexOf('id="seo-container"'), html.indexOf("</main>"));
   assert.match(html, /<html[^>]+lang="zh-CN"/);
   assert.match(html, /<h1\b[^>]*>图片取色器与图片裁剪工具<\/h1>/);
   assert.match(html, /图片取色器与本地图片裁剪工具/);
   assert.doesNotMatch(html, /<h1\b[^>]*>\s*Image Color Picker from Image\s*<\/h1>/);
+  assert.equal((main.match(/裁剪图片会变模糊吗？/g) || []).length, 1, "one rendered crop-quality FAQ");
 });
 
 test("worker renders VAT Object.assign dictionaries for German, French and Spanish", async () => {

@@ -56,6 +56,23 @@
     "stamp-duty": ["https://www.gov.uk/stamp-duty-land-tax"],
     dividend: ["https://www.gov.uk/tax-on-dividends"]
   };
+  const TOOL_NAMES = {
+    en: {
+      tax: "UK Tax Calculator", vat: "VAT Calculator", mortgage: "Mortgage Calculator", ir35: "IR35 Calculator", "stamp-duty": "Stamp Duty Calculator", dividend: "Dividend Calculator", json: "JSON Formatter", diff: "Text Diff Checker", token: "AI Token Calculator", qr: "QR Code Generator", password: "Password Generator", upload: "Image Hosting", image: "Image Compressor", pdf2img: "PDF to Image Converter", "color-picker": "Color Picker", "working-days": "Working Days Calculator", fuel: "Fuel Cost Calculator", weight: "Weight Converter"
+    },
+    "zh-CN": {
+      tax: "\u82f1\u56fd\u4e2a\u7a0e\u8ba1\u7b97\u5668", vat: "VAT \u8ba1\u7b97\u5668", mortgage: "\u82f1\u56fd\u623f\u8d37\u8ba1\u7b97\u5668", ir35: "IR35 \u8ba1\u7b97\u5668", "stamp-duty": "\u82f1\u56fd\u5370\u82b1\u7a0e\u8ba1\u7b97\u5668", dividend: "\u5de5\u8d44\u4e0e\u80a1\u606f\u8ba1\u7b97\u5668", json: "JSON \u683c\u5f0f\u5316\u5de5\u5177", diff: "\u6587\u672c\u5bf9\u6bd4\u5de5\u5177", token: "AI Token \u8ba1\u7b97\u5668", qr: "\u4e8c\u7ef4\u7801\u751f\u6210\u5668", password: "\u5bc6\u7801\u751f\u6210\u5668", upload: "\u56fe\u7247\u6258\u7ba1", image: "\u56fe\u7247\u538b\u7f29\u5de5\u5177", pdf2img: "PDF \u8f6c\u56fe\u7247\u5de5\u5177", "color-picker": "\u56fe\u7247\u53d6\u8272\u5668", "working-days": "\u5de5\u4f5c\u65e5\u8ba1\u7b97\u5668", fuel: "\u6cb9\u8d39\u8ba1\u7b97\u5668", weight: "\u4f53\u91cd\u6362\u7b97\u5668"
+    },
+    de: {
+      tax: "UK-Einkommensteuerrechner", vat: "UK-Mehrwertsteuerrechner", mortgage: "UK-Hypothekenrechner", ir35: "IR35-Rechner", "stamp-duty": "Stamp-Duty-Rechner", dividend: "Gehalt-vs.-Dividende-Rechner", json: "JSON-Formatierer", diff: "Textvergleich", token: "KI-Token-Rechner", qr: "QR-Code-Generator", password: "Passwortgenerator", upload: "Bildhosting", image: "Bildkompressor", pdf2img: "PDF-zu-Bild-Konverter", "color-picker": "Farbpipette", "working-days": "Arbeitstagerechner", fuel: "Kraftstoffkostenrechner", weight: "Gewichtsumrechner"
+    },
+    fr: {
+      tax: "Calculateur d'imp\u00f4t UK", vat: "Calculateur de TVA UK", mortgage: "Calculateur de pr\u00eat immobilier UK", ir35: "Calculateur IR35", "stamp-duty": "Calculateur de Stamp Duty", dividend: "Calculateur salaire-dividendes", json: "Formateur JSON", diff: "Comparateur de texte", token: "Calculateur de jetons IA", qr: "G\u00e9n\u00e9rateur de QR code", password: "G\u00e9n\u00e9rateur de mots de passe", upload: "H\u00e9bergement d'images", image: "Compresseur d'images", pdf2img: "Convertisseur PDF en image", "color-picker": "S\u00e9lecteur de couleur", "working-days": "Calculateur de jours ouvr\u00e9s", fuel: "Calculateur de co\u00fbt du carburant", weight: "Convertisseur de poids"
+    },
+    es: {
+      tax: "Calculadora de impuestos UK", vat: "Calculadora de IVA UK", mortgage: "Calculadora de hipoteca UK", ir35: "Calculadora IR35", "stamp-duty": "Calculadora de Stamp Duty", dividend: "Calculadora de salario y dividendos", json: "Formateador JSON", diff: "Comparador de texto", token: "Calculadora de tokens de IA", qr: "Generador de c\u00f3digos QR", password: "Generador de contrase\u00f1as", upload: "Alojamiento de im\u00e1genes", image: "Compresor de im\u00e1genes", pdf2img: "Conversor de PDF a imagen", "color-picker": "Selector de color", "working-days": "Calculadora de d\u00edas laborables", fuel: "Calculadora de combustible", weight: "Conversor de peso"
+    }
+  };
   const toolNameFallbacks = {
     tax: "UK Tax Calculator", vat: "VAT Calculator", mortgage: "Mortgage Calculator", ir35: "IR35 Calculator", "stamp-duty": "Stamp Duty Calculator", dividend: "Dividend Calculator", json: "JSON Formatter", diff: "Text Diff Checker", token: "AI Token Calculator", qr: "QR Code Generator", password: "Password Generator", image: "Image Compressor", pdf2img: "PDF to Image Converter", "color-picker": "Color Picker", "working-days": "Working Days Calculator", fuel: "Fuel Cost Calculator", weight: "Weight Converter"
   };
@@ -169,18 +186,34 @@
   function pageToolName(slug) {
     const h1 = document.querySelector("h1");
     const text = h1 ? h1.textContent.trim() : "";
-    return text || toolNameFallbacks[slug] || "this tool";
+    return text || (TOOL_NAMES[currentLang] || TOOL_NAMES.en)[slug] || toolNameFallbacks[slug] || "this tool";
+  }
+
+  function linkSlug(rawHref) {
+    let link;
+    try { link = new URL(rawHref, location.origin); } catch { return ""; }
+    if (link.origin !== location.origin) return "";
+    return link.pathname.split("/").filter(Boolean).pop()?.replace(/\.html$/i, "") || "";
+  }
+
+  function localizedToolName(slug) {
+    const names = TOOL_NAMES[currentLang] || TOOL_NAMES.en;
+    return names[slug] || TOOL_NAMES.en[slug] || "";
   }
 
   function relatedLinksHtml(slug, labels) {
-    const links = Array.from(document.querySelectorAll("#tool-guidance a[href], main a[href]"))
-      .filter((anchor) => {
-        const href = anchor.getAttribute("href") || "";
-        return href.startsWith("/") && href.replace(/^\//, "").split(/[?#]/)[0] !== slug;
-      })
-      .slice(0, 4);
+    const seen = new Set();
+    const links = Array.from(document.querySelectorAll("#tool-guidance a[href], main a[href]")).filter((anchor) => {
+      const targetSlug = linkSlug(anchor.getAttribute("href") || "");
+      if (!targetSlug || targetSlug === slug || !localizedToolName(targetSlug) || seen.has(targetSlug)) return false;
+      seen.add(targetSlug);
+      return true;
+    }).slice(0, 4);
     if (!links.length) return "";
-    const items = links.map((anchor) => `<a href="${escapeHtml(anchor.getAttribute("href"))}">${escapeHtml(anchor.textContent.trim() || anchor.getAttribute("href"))}</a>`).join(" ");
+    const items = links.map((anchor) => {
+      const href = anchor.getAttribute("href") || "";
+      return `<a href="${escapeHtml(href)}">${escapeHtml(localizedToolName(linkSlug(href)))}</a>`;
+    }).join(" ");
     return `<h3>${escapeHtml(labels.related)}</h3><p>${items}</p>`;
   }
 
@@ -190,7 +223,8 @@
     const slug = routeSlug();
     const labels = guidanceTranslations[currentLang] || guidanceTranslations.en;
     const name = pageToolName(slug);
-    const sourceLinks = financeSourceLinks[slug] || [];
+    const pageSourceLinks = Array.from(guidance.querySelectorAll('a[href^="https://www.gov.uk/"]')).map((anchor) => anchor.getAttribute("href")).filter(Boolean);
+    const sourceLinks = pageSourceLinks.length ? pageSourceLinks : (financeSourceLinks[slug] || []);
     const notes = sourceLinks.length
       ? `<h3>${escapeHtml(labels.sources)}</h3><p>${escapeHtml(labels.finance)}</p><p>${sourceLinks.map((href) => `<a href="${href}" rel="noopener noreferrer">${href}</a>`).join(" ")}</p><p><strong>${escapeHtml(labels.checked)}</strong></p>`
       : `<h3>${escapeHtml(labels.limitations)}</h3><p>${escapeHtml(labels.limits)}</p>`;
@@ -292,6 +326,7 @@
     currentLang = normalizeLang(window.MINI_TOOLS_SERVER_LANG || params.get("lang") || navigator.language || "en");
     bindControls();
     applyLanguage();
+    if (document.readyState !== "complete") window.addEventListener("load", applyLanguage, { once: true });
   }
 
   window.MiniToolsI18n = {
