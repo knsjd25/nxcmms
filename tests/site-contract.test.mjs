@@ -135,6 +135,14 @@ test("language controls support five languages without arrow-only page patches",
   assert.doesNotMatch(runtime, /location\.assign\(/, "shared runtime must not reload or jump to top");
 });
 
+test("homepage delegates language control events to the shared runtime", () => {
+  const homepage = read("index.html");
+  const homepageScript = homepage.match(/<script id=["']homepage-language-and-tools["']>([\s\S]*?)<\/script>/i)?.[1] || "";
+  assert.match(homepageScript, /window\.applyLanguage\s*=\s*function/, "homepage exposes its body translation hook");
+  assert.doesNotMatch(homepageScript, /\[data-site-lang\][\s\S]*?addEventListener\(["']click["']/, "homepage must not duplicate shared language button listeners");
+  assert.doesNotMatch(homepageScript, /langTrigger\.addEventListener\(["']click["']/, "homepage must not duplicate shared menu trigger listeners");
+});
+
 test("shared language runtime translates legacy bottom guidance FAQ", () => {
   const runtime = read("site-i18n.js");
   assert.match(runtime, /renderToolGuidanceLanguage/, "shared guidance renderer");
