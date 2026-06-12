@@ -94,36 +94,192 @@
     .site-lang-group{position:relative}
     .site-lang-group.open .site-lang-dropdown{display:block}
 
-    .hero{padding:46px 0 34px;color:#07111f}
-    .hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);gap:28px;align-items:stretch}
+    /* Homepage first-screen redesign: visual-only changes; tool functionality remains unchanged. */
+    .hero{padding:36px 0 34px;color:#07111f}
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,.88fr) minmax(500px,1.22fr);
+      gap:22px;
+      align-items:stretch;
+    }
     .hero-copy{
-      position:relative;padding:44px;border-radius:36px;overflow:hidden;
-      background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(248,250,252,.88));
-      border:1px solid rgba(226,232,240,.92);
+      position:relative;
+      min-width:0;
+      min-height:560px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:44px 42px 38px;
+      border-radius:36px;
+      overflow:hidden;
+      background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(248,250,252,.92));
+      border:1px solid rgba(226,232,240,.95);
       box-shadow:0 22px 58px rgba(15,23,42,.08);
     }
-    .hero-copy:before{content:"";position:absolute;inset:auto -80px -100px auto;width:320px;height:320px;border-radius:999px;background:radial-gradient(circle,rgba(37,99,235,.15),transparent 65%)}
-    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:#1d4ed8;background:#eff6ff;border:1px solid rgba(37,99,235,.16);padding:8px 12px;border-radius:999px;font-size:.78rem;font-weight:950;text-transform:uppercase;letter-spacing:.08em}
-    .hero h1{position:relative;margin:20px 0 16px;font-size:clamp(2.55rem,5.4vw,5.25rem);line-height:.94;letter-spacing:-.075em;max-width:850px}
-    .hero p{position:relative;margin:0;max-width:750px;color:#475569;font-size:1.12rem}
-    .hero-actions{position:relative;display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:13px 18px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#10243d;font-weight:950;box-shadow:0 14px 34px rgba(15,23,42,.08)}
-    .btn.primary{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border-color:#1d4ed8}
-    .btn.ghost{background:#fff;border-color:#e2e8f0;color:#334155;box-shadow:none}
-    .hero-chips{position:relative;display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
-    .chip{display:inline-flex;align-items:center;gap:7px;border:1px solid #e2e8f0;background:#fff;color:#475569;padding:8px 11px;border-radius:999px;font-size:.84rem;font-weight:850}
+    .hero-copy:before{
+      content:"";
+      position:absolute;
+      right:-110px;
+      bottom:-130px;
+      width:350px;
+      height:350px;
+      border-radius:999px;
+      background:radial-gradient(circle,rgba(37,99,235,.16),transparent 66%);
+      pointer-events:none;
+    }
+    .hero-copy:after{
+      content:"";
+      position:absolute;
+      left:42px;
+      right:42px;
+      top:0;
+      height:3px;
+      border-radius:0 0 999px 999px;
+      background:linear-gradient(90deg,#2563eb,#7c3aed 62%,transparent);
+      opacity:.9;
+    }
+    .eyebrow{
+      position:relative;
+      width:max-content;
+      max-width:100%;
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      color:#1d4ed8;
+      background:#eff6ff;
+      border:1px solid rgba(37,99,235,.16);
+      padding:9px 13px;
+      border-radius:999px;
+      font-size:.8rem;
+      line-height:1.25;
+      font-weight:900;
+      letter-spacing:.01em;
+    }
+    .eyebrow-icon{
+      width:20px;
+      height:20px;
+      display:grid;
+      place-items:center;
+      flex:0 0 auto;
+      border-radius:7px;
+      color:#fff;
+      background:linear-gradient(135deg,#2563eb,#4f46e5);
+      box-shadow:0 7px 16px rgba(37,99,235,.22);
+    }
+    .eyebrow-icon svg{width:12px;height:12px;display:block}
+    .hero h1{
+      position:relative;
+      margin:22px 0 17px;
+      max-width:650px;
+      font-size:clamp(2.25rem,3.65vw,3.55rem);
+      line-height:1.07;
+      letter-spacing:-.058em;
+      text-wrap:balance;
+    }
+    .hero p{
+      position:relative;
+      margin:0;
+      max-width:680px;
+      color:#53627a;
+      font-size:1.02rem;
+      line-height:1.68;
+    }
+    .hero-actions{
+      position:relative;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:27px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:52px;
+      padding:13px 19px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:#10243d;
+      font-weight:900;
+      box-shadow:0 13px 30px rgba(15,23,42,.08);
+      transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 17px 34px rgba(15,23,42,.12)}
+    .btn svg{width:18px;height:18px;display:block;flex:0 0 auto}
+    .btn.primary{background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;border-color:#2563eb;box-shadow:0 14px 30px rgba(37,99,235,.24)}
+    .btn.ghost{background:#fff;border-color:#dbe3ef;color:#26364e;box-shadow:0 10px 24px rgba(15,23,42,.06)}
+    .hero-chips{
+      position:relative;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+      margin-top:28px;
+      padding-top:22px;
+      border-top:1px solid #e2e8f0;
+    }
+    .chip{
+      min-width:0;
+      min-height:62px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      padding:10px 11px;
+      border:1px solid #dbeafe;
+      border-radius:17px;
+      background:linear-gradient(145deg,#f8fbff,#eff6ff);
+      color:#31527c;
+      text-align:left;
+      font-size:.78rem;
+      line-height:1.28;
+      font-weight:850;
+    }
+    .chip:nth-child(2){border-color:#e4ddff;background:linear-gradient(145deg,#fbfaff,#f5f3ff);color:#5b4b8a}
+    .chip:nth-child(3){border-color:#ccefe4;background:linear-gradient(145deg,#f7fffc,#ecfdf5);color:#216b5c}
+    .chip-icon{
+      width:26px;
+      height:26px;
+      display:grid;
+      place-items:center;
+      flex:0 0 auto;
+      border-radius:9px;
+      background:#fff;
+      box-shadow:0 7px 16px rgba(15,23,42,.07);
+    }
+    .chip-icon svg{width:15px;height:15px;display:block}
+    .chip-text{min-width:0}
 
-    .quick-panel{border-radius:36px;padding:20px;background:#fff;color:#07111f;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.5)}
-    .panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;padding:4px 4px 0}
-    .panel-head h2{margin:0;font-size:1.25rem;letter-spacing:-.04em}
-    .panel-head span{color:#64748b;font-size:.84rem;font-weight:850}
-    .uk-mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .uk-mini{position:relative;overflow:hidden;border:1px solid rgba(15,23,42,.08);border-radius:23px;background:#f8fafc;padding:16px;min-height:132px;transition:.18s ease}
-    .uk-mini:before{content:"";position:absolute;right:-34px;top:-34px;width:108px;height:108px;border-radius:999px;background:linear-gradient(135deg,var(--c1),var(--c2));opacity:.13}
-    .uk-mini:hover{transform:translateY(-3px);background:#fff;box-shadow:0 18px 42px rgba(15,23,42,.09)}
-    .mini-icon{position:relative;width:42px;height:42px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;font-weight:950;font-size:.85rem;margin-bottom:12px}
-    .uk-mini strong{position:relative;display:block;margin-bottom:5px;font-size:.95rem;letter-spacing:-.02em}
-    .uk-mini span{position:relative;display:block;color:#64748b;font-size:.82rem;line-height:1.35;font-weight:650}
+    .hero-visual{
+      position:relative;
+      min-width:0;
+      min-height:560px;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      border-radius:36px;
+      background:
+        radial-gradient(circle at 50% 38%,rgba(99,102,241,.17),transparent 34%),
+        linear-gradient(145deg,rgba(255,255,255,.98),rgba(248,250,255,.9));
+      border:1px solid rgba(226,232,240,.95);
+      box-shadow:0 22px 58px rgba(15,23,42,.08);
+      isolation:isolate;
+    }
+    .hero-visual:before,
+    .hero-visual:after{
+      content:"";
+      position:absolute;
+      z-index:-1;
+      border-radius:999px;
+      filter:blur(2px);
+      pointer-events:none;
+    }
+    .hero-visual:before{width:360px;height:360px;left:25%;top:8%;background:rgba(96,165,250,.12)}
+    .hero-visual:after{width:260px;height:260px;right:-90px;bottom:-95px;background:rgba(139,92,246,.13)}
+    .hero-visual svg{display:block;width:100%;height:auto;max-height:530px;overflow:visible}
 
     .section{padding:38px 0}
     .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;margin-bottom:20px}
@@ -200,10 +356,10 @@
     .theme-blue{--c1:#2563eb;--c2:#60a5fa}.theme-indigo{--c1:#4f46e5;--c2:#818cf8}.theme-teal{--c1:#0f766e;--c2:#2dd4bf}.theme-amber{--c1:#d97706;--c2:#f6c85f}.theme-rose{--c1:#e11d48;--c2:#fb7185}.theme-violet{--c1:#7c3aed;--c2:#a78bfa}.theme-emerald{--c1:#059669;--c2:#34d399}.theme-cyan{--c1:#0891b2;--c2:#22d3ee}.theme-purple{--c1:#9333ea;--c2:#c084fc}.theme-fuchsia{--c1:#c026d3;--c2:#f0abfc}.theme-slate{--c1:#334155;--c2:#94a3b8}.theme-sky{--c1:#0284c7;--c2:#38bdf8}.theme-lime{--c1:#65a30d;--c2:#bef264}.theme-red{--c1:#dc2626;--c2:#f87171}.theme-orange{--c1:#ea580c;--c2:#fdba74}.theme-green{--c1:#16a34a;--c2:#86efac}.theme-yellow{--c1:#ca8a04;--c2:#fde047}.theme-stone{--c1:#57534e;--c2:#a8a29e}
 
     @media(max-width:1080px){
-      .hero-grid{grid-template-columns:1fr}.quick-panel{max-width:none}.uk-hub{grid-template-columns:repeat(2,minmax(0,1fr))}.feature-card.large{grid-column:span 2}.compact-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.site-nav-inner{align-items:flex-start;flex-direction:column}.site-nav-links{flex-wrap:wrap}
+      .hero-grid{grid-template-columns:1fr}.hero-copy{min-height:auto}.hero-visual{min-height:500px}.uk-hub{grid-template-columns:repeat(2,minmax(0,1fr))}.feature-card.large{grid-column:span 2}.compact-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.site-nav-inner{align-items:flex-start;flex-direction:column}.site-nav-links{flex-wrap:wrap}
     }
     @media(max-width:780px){
-      .wrap{width:min(100% - 28px,1188px)}.hero{padding-top:34px}.hero-copy{padding:30px;border-radius:28px}.quick-panel{border-radius:28px}.uk-mini-grid,.uk-hub,.search-results,.explainer,.check-list,.compact-grid,.faq-grid{grid-template-columns:1fr}.feature-card.large{grid-column:span 1}.section-head,.other-tools-head{align-items:flex-start;flex-direction:column}.hero h1{font-size:clamp(2.15rem,12vw,3.45rem)}.site-nav-link,.site-lang-trigger{font-size:12.5px;padding:8px 9px}.lang-dropdown{left:0;right:auto}.footer-inner{align-items:flex-start;flex-direction:column}
+      .wrap{width:min(100% - 28px,1188px)}.hero{padding-top:26px}.hero-copy{padding:32px 24px 26px;border-radius:28px}.hero-copy:after{left:24px;right:24px}.hero-visual{min-height:auto;padding:10px;border-radius:28px}.hero-visual svg{max-height:none}.hero-chips,.uk-hub,.search-results,.explainer,.check-list,.compact-grid,.faq-grid{grid-template-columns:1fr}.hero-actions{display:grid;grid-template-columns:1fr}.btn{width:100%}.chip{justify-content:flex-start;text-align:left}.feature-card.large{grid-column:span 1}.section-head,.other-tools-head{align-items:flex-start;flex-direction:column}.hero h1{font-size:clamp(2.1rem,10vw,2.85rem);letter-spacing:-.045em}.site-nav-link,.site-lang-trigger{font-size:12.5px;padding:8px 9px}.lang-dropdown{left:0;right:auto}.footer-inner{align-items:flex-start;flex-direction:column}
     }
   </style>
 <link rel="stylesheet" href="site-nav.css">
@@ -305,22 +461,190 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow" data-i18n="badge">Built for UK everyday calculations</span>
+          <span class="eyebrow">
+            <span class="eyebrow-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5c0 4.7-2.8 8-7 10-4.2-2-7-5.3-7-10V6l7-3Z" fill="currentColor"/><path d="m8.7 12 2.1 2.1 4.6-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span data-i18n="badge">Built for UK everyday calculations</span>
+          </span>
           <h1 data-i18n="heroTitle">UK calculators for tax, VAT, salary and everyday money decisions.</h1>
           <p data-i18n="heroText">Estimate UK take-home pay, VAT, mortgage payments, stamp duty, IR35 contractor income and dividends. Developer, image and everyday tools are still available below.</p>
           <div class="hero-actions">
-            <a class="btn primary" href="/tax" data-i18n="heroPrimary">Start with UK tax</a>
-            <a class="btn ghost" href="#search" data-i18n="heroSecondary">Search Search Tools</a>
+            <a class="btn primary" href="/tax">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="3" stroke="currentColor" stroke-width="2"/><path d="M8 7h8M8 11h2m4 0h2M8 15h2m4 0h2M8 18h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <span data-i18n="heroPrimary">Start with UK tax</span>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="m9 6 6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="btn ghost" href="#search">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <span data-i18n="heroSecondary">Search all tools</span>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="m9 6 6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
           </div>
           <div class="hero-chips">
-            <span class="chip" data-i18n="chip1">UK-focused calculators</span>
-            <span class="chip" data-i18n="chip2">Estimate-only guidance</span>
-            <span class="chip" data-i18n="chip3">No account for most tools</span>
+            <span class="chip">
+              <span class="chip-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5h16v13H4z" stroke="#2563eb" stroke-width="1.8"/><path d="M4 9h16M9 5.5v13" stroke="#2563eb" stroke-width="1.8"/><path d="M4 5.5 20 18.5M20 5.5 4 18.5" stroke="#ef4444" stroke-width="1.35"/></svg>
+              </span>
+              <span class="chip-text" data-i18n="chip1">UK-focused calculators</span>
+            </span>
+            <span class="chip">
+              <span class="chip-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#7c3aed" stroke-width="2"/><path d="M12 10.5V16m0-8.2v.2" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round"/></svg>
+              </span>
+              <span class="chip-text" data-i18n="chip2">Estimate-only guidance</span>
+            </span>
+            <span class="chip">
+              <span class="chip-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="#059669" stroke-width="2"/><path d="M8 10V8a4 4 0 0 1 8 0v2" stroke="#059669" stroke-width="2" stroke-linecap="round"/></svg>
+              </span>
+              <span class="chip-text" data-i18n="chip3">No account for most tools</span>
+            </span>
           </div>
         </div>
-        <aside class="quick-panel" aria-labelledby="quickPanelTitle">
-          <div class="panel-head"><h2 id="quickPanelTitle" data-i18n="quickTitle">Open a UK calculator</h2><span data-i18n="quickHint">Popular starting points</span></div>
-          <div class="uk-mini-grid" id="quickUkTools"></div>
+
+        <aside class="hero-visual" aria-hidden="true">
+          <svg viewBox="0 0 760 560" role="img" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="heroBlue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2563EB"/><stop offset="1" stop-color="#4F46E5"/></linearGradient>
+              <linearGradient id="heroSky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#DBEAFE"/><stop offset="1" stop-color="#EDE9FE"/></linearGradient>
+              <linearGradient id="heroScreen" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#F8FBFF"/><stop offset="1" stop-color="#EFF4FF"/></linearGradient>
+              <linearGradient id="heroGold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FBBF24"/><stop offset="1" stop-color="#F59E0B"/></linearGradient>
+              <filter id="heroShadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#1E3A8A" flood-opacity=".18"/></filter>
+              <filter id="heroSoftShadow" x="-40%" y="-40%" width="180%" height="200%"><feDropShadow dx="0" dy="9" stdDeviation="9" flood-color="#0F172A" flood-opacity=".14"/></filter>
+              <clipPath id="screenClip"><rect x="170" y="126" width="448" height="280" rx="17"/></clipPath>
+            </defs>
+
+            <circle cx="392" cy="258" r="202" fill="url(#heroSky)" opacity=".72"/>
+            <path d="M101 169c8-17 23-25 42-19 8-17 39-16 47 5 17-1 28 7 32 20H98c0-2 1-4 3-6Z" fill="#E7EEFC"/>
+            <path d="M571 106c7-15 19-22 35-17 7-15 33-14 40 5 15-1 24 6 28 17H569c0-2 1-3 2-5Z" fill="#DFE8FA"/>
+
+            <!-- Subtle UK landmark silhouettes -->
+            <g opacity=".25" fill="#8098D7">
+              <path d="M652 192h31v176h-31z"/><path d="m648 192 19-54 20 54z"/><rect x="658" y="212" width="18" height="22" rx="4" fill="#F8FAFF"/><circle cx="667" cy="223" r="6" fill="#8098D7"/><path d="M657 138h20l-3-17h-14z"/><path d="M665 121h4V98h-4z"/>
+              <circle cx="704" cy="260" r="48" fill="none" stroke="#8098D7" stroke-width="5"/><circle cx="704" cy="260" r="5"/><path d="M704 212v96M656 260h96M670 226l68 68M738 226l-68 68" stroke="#8098D7" stroke-width="3"/><path d="m690 308-18 62m46-62 18 62" stroke="#8098D7" stroke-width="5"/>
+            </g>
+
+            <!-- Pound badge -->
+            <g filter="url(#heroSoftShadow)">
+              <circle cx="91" cy="238" r="43" fill="url(#heroBlue)"/>
+              <text x="91" y="253" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="47" font-weight="850" fill="#fff">£</text>
+            </g>
+            <path d="M111 271c22 27 42 36 73 36" fill="none" stroke="#7EA6FF" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 8"/>
+
+            <!-- Laptop body -->
+            <g filter="url(#heroShadow)">
+              <rect x="145" y="99" width="500" height="340" rx="27" fill="#172554"/>
+              <rect x="156" y="111" width="478" height="314" rx="20" fill="#2348A7"/>
+              <rect x="170" y="126" width="448" height="280" rx="17" fill="url(#heroScreen)"/>
+              <circle cx="395" cy="112" r="3.5" fill="#6685D8"/>
+              <path d="M118 439h554l-31 44H149z" fill="#B8C7EB"/>
+              <path d="M154 439h482l-12 23H166z" fill="#DCE6FA"/>
+              <path d="M330 439h130l-13 17H343z" fill="#9FB1D8"/>
+              <path d="M111 483h568c-8 12-24 18-43 18H154c-20 0-35-6-43-18Z" fill="#8EA4D3"/>
+            </g>
+
+            <!-- Dashboard clipped into laptop screen -->
+            <g clip-path="url(#screenClip)">
+              <rect x="170" y="126" width="448" height="38" fill="url(#heroBlue)"/>
+              <circle cx="187" cy="145" r="4" fill="#F87171"/><circle cx="200" cy="145" r="4" fill="#FBBF24"/><circle cx="213" cy="145" r="4" fill="#34D399"/>
+              <rect x="236" y="136" width="132" height="19" rx="8" fill="#fff" opacity=".13"/>
+              <rect x="557" y="137" width="10" height="10" rx="3" fill="#fff" opacity=".75"/><rect x="576" y="137" width="10" height="10" rx="3" fill="#fff" opacity=".55"/><rect x="595" y="137" width="10" height="10" rx="3" fill="#fff" opacity=".75"/>
+
+              <rect x="188" y="177" width="27" height="27" rx="8" fill="url(#heroBlue)"/>
+              <path d="M195 184h6v6h-6zm9 0h5v6h-5zm-9 9h6v6h-6zm9 0h5v6h-5z" fill="#fff"/>
+              <text x="224" y="197" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="850" fill="#12234A">Mini-Tools<tspan fill="#4169E1">.uk</tspan></text>
+
+              <rect x="188" y="218" width="388" height="38" rx="12" fill="#fff" stroke="#D9E2F4"/>
+              <circle cx="208" cy="237" r="7" fill="none" stroke="#8295BD" stroke-width="2"/><path d="m213 242 5 5" stroke="#8295BD" stroke-width="2" stroke-linecap="round"/>
+              <rect x="232" y="233" width="150" height="8" rx="4" fill="#E3EAF6"/>
+              <rect x="532" y="218" width="44" height="38" rx="10" fill="url(#heroBlue)"/>
+              <path d="M548 232h12v12h-12zm3 3h6v6h-6z" fill="#fff" opacity=".9"/>
+
+              <g filter="url(#heroSoftShadow)">
+                <rect x="188" y="274" width="118" height="92" rx="13" fill="#fff"/>
+                <rect x="320" y="274" width="118" height="92" rx="13" fill="#fff"/>
+                <rect x="452" y="274" width="124" height="92" rx="13" fill="#fff"/>
+              </g>
+              <circle cx="208" cy="294" r="10" fill="#DBEAFE"/><path d="M203 298c5-10 8-10 11 0" fill="none" stroke="#2563EB" stroke-width="2"/><path d="M203 293h10" stroke="#2563EB" stroke-width="2"/>
+              <rect x="224" y="289" width="52" height="7" rx="3.5" fill="#334B78"/><rect x="224" y="301" width="39" height="5" rx="2.5" fill="#C8D4E9"/>
+              <path d="M202 345c13-7 18-18 29-11 10 6 16-19 28-13 11 6 15-16 33-21" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+              <path d="M202 348h91" stroke="#E4EAF4" stroke-width="2"/>
+
+              <circle cx="340" cy="294" r="10" fill="#EDE9FE"/><text x="340" y="299" text-anchor="middle" font-family="Inter,Arial" font-size="10" font-weight="900" fill="#6D4DE8">%</text>
+              <rect x="356" y="289" width="52" height="7" rx="3.5" fill="#334B78"/><rect x="356" y="301" width="39" height="5" rx="2.5" fill="#C8D4E9"/>
+              <text x="339" y="344" font-family="Inter,Arial" font-size="28" font-weight="900" fill="#3665E8">20%</text>
+              <rect x="397" y="322" width="24" height="5" rx="2.5" fill="#D8E2F3"/><rect x="397" y="335" width="18" height="5" rx="2.5" fill="#D8E2F3"/>
+
+              <circle cx="472" cy="294" r="10" fill="#DBF4FF"/><rect x="467" y="288" width="10" height="12" rx="2" fill="#0891B2"/>
+              <rect x="488" y="289" width="58" height="7" rx="3.5" fill="#334B78"/><rect x="488" y="301" width="43" height="5" rx="2.5" fill="#C8D4E9"/>
+              <rect x="474" y="337" width="10" height="17" rx="2" fill="#A7C4FF"/><rect x="490" y="326" width="10" height="28" rx="2" fill="#779DFF"/><rect x="506" y="316" width="10" height="38" rx="2" fill="#4F7CF3"/><rect x="522" y="329" width="10" height="25" rx="2" fill="#6D6AF2"/><rect x="538" y="307" width="10" height="47" rx="2" fill="#4F46E5"/>
+
+              <rect x="188" y="381" width="250" height="70" rx="13" fill="#fff"/>
+              <rect x="205" y="398" width="92" height="7" rx="3.5" fill="#334B78"/>
+              <circle cx="207" cy="420" r="8" fill="#DBEAFE"/><rect x="224" y="416" width="145" height="7" rx="3.5" fill="#D8E2F3"/><path d="m398 417 7 6-7 6" fill="none" stroke="#7D90B6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="207" cy="442" r="8" fill="#EDE9FE"/><rect x="224" y="438" width="126" height="7" rx="3.5" fill="#D8E2F3"/>
+            </g>
+
+            <!-- Floating calculator -->
+            <g transform="translate(67 318) rotate(-7 70 98)" filter="url(#heroShadow)">
+              <rect width="140" height="190" rx="23" fill="#2C4D91"/>
+              <rect x="12" y="14" width="116" height="42" rx="10" fill="#AFC1DE"/>
+              <rect x="20" y="22" width="100" height="25" rx="6" fill="#E6EDF8"/>
+              <text x="111" y="41" text-anchor="end" font-family="Inter,Arial" font-size="18" font-weight="850" fill="#20304F">1,250</text>
+              <g fill="#6885C0">
+                <rect x="14" y="69" width="24" height="22" rx="6"/><rect x="44" y="69" width="24" height="22" rx="6"/><rect x="74" y="69" width="24" height="22" rx="6"/><rect x="104" y="69" width="24" height="22" rx="6" fill="#F46A68"/>
+                <rect x="14" y="97" width="24" height="22" rx="6"/><rect x="44" y="97" width="24" height="22" rx="6"/><rect x="74" y="97" width="24" height="22" rx="6"/><rect x="104" y="97" width="24" height="22" rx="6" fill="#476FCF"/>
+                <rect x="14" y="125" width="24" height="22" rx="6"/><rect x="44" y="125" width="24" height="22" rx="6"/><rect x="74" y="125" width="24" height="22" rx="6"/><rect x="104" y="125" width="24" height="50" rx="7" fill="#2563EB"/>
+                <rect x="14" y="153" width="24" height="22" rx="6"/><rect x="44" y="153" width="54" height="22" rx="6"/>
+              </g>
+              <g fill="#fff" font-family="Inter,Arial" font-size="12" font-weight="800" text-anchor="middle">
+                <text x="26" y="85">%</text><text x="56" y="85">±</text><text x="86" y="85">÷</text><text x="116" y="85">C</text>
+                <text x="26" y="113">7</text><text x="56" y="113">8</text><text x="86" y="113">9</text><text x="116" y="113">×</text>
+                <text x="26" y="141">4</text><text x="56" y="141">5</text><text x="86" y="141">6</text><text x="116" y="141">+</text>
+                <text x="26" y="169">1</text><text x="71" y="169">0</text><text x="116" y="158">=</text>
+              </g>
+            </g>
+
+            <!-- Floating result card -->
+            <g transform="translate(548 274) rotate(3 86 64)" filter="url(#heroShadow)">
+              <rect width="172" height="128" rx="20" fill="#fff"/>
+              <rect x="18" y="20" width="68" height="7" rx="3.5" fill="#8EA0C1"/>
+              <text x="18" y="55" font-family="Inter,Arial" font-size="25" font-weight="900" fill="#172554">£1,850</text>
+              <path d="m20 76 10-11 10 7 13-16 11 6 16-21" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M111 79a29 29 0 1 0 20-27" fill="none" stroke="#E4E9F4" stroke-width="11"/>
+              <path d="M131 52a29 29 0 0 1 11 46" fill="none" stroke="url(#heroBlue)" stroke-width="11" stroke-linecap="round"/>
+            </g>
+
+            <!-- Payslip card -->
+            <g transform="translate(507 407) rotate(8 91 58)" filter="url(#heroSoftShadow)">
+              <rect width="182" height="116" rx="18" fill="#fff"/>
+              <rect x="17" y="19" width="72" height="8" rx="4" fill="#334B78"/>
+              <rect x="17" y="42" width="100" height="7" rx="3.5" fill="#CAD5E8"/><rect x="17" y="58" width="128" height="7" rx="3.5" fill="#D8E2F3"/><rect x="17" y="74" width="88" height="7" rx="3.5" fill="#D8E2F3"/>
+              <text x="151" y="92" text-anchor="middle" font-family="Inter,Arial" font-size="27" font-weight="900" fill="#7B8FC1">£</text>
+            </g>
+
+            <!-- Gold pound coin -->
+            <g filter="url(#heroSoftShadow)">
+              <circle cx="672" cy="484" r="38" fill="url(#heroGold)"/>
+              <circle cx="672" cy="484" r="29" fill="none" stroke="#FFF3C4" stroke-width="3" opacity=".9"/>
+              <text x="672" y="497" text-anchor="middle" font-family="Inter,Arial" font-size="37" font-weight="900" fill="#fff">£</text>
+            </g>
+
+            <!-- Magnifier -->
+            <g transform="translate(347 471) rotate(-25)" filter="url(#heroSoftShadow)">
+              <circle cx="0" cy="0" r="37" fill="#AFC6F6" fill-opacity=".55" stroke="#1E3A8A" stroke-width="8"/>
+              <path d="M29 29 65 65" stroke="#1E3A8A" stroke-width="13" stroke-linecap="round"/>
+              <path d="M-18-11c9-12 27-13 39-4" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".65"/>
+            </g>
+
+            <!-- Security badge -->
+            <g transform="translate(610 62)" filter="url(#heroSoftShadow)">
+              <path d="M29 0 55 10v19c0 17-10 29-26 37C13 58 3 46 3 29V10L29 0Z" fill="url(#heroBlue)"/>
+              <path d="m18 31 8 8 15-18" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <path d="M649 97c34 0 47 6 47 36v37" fill="none" stroke="#94AEF5" stroke-width="3" stroke-dasharray="8 8" stroke-linecap="round"/>
+          </svg>
         </aside>
       </div>
     </section>
