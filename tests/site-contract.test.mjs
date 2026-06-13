@@ -180,19 +180,44 @@ test("homepage delegates language control events to the shared runtime", () => {
   assert.doesNotMatch(homepageScript, /langTrigger\.addEventListener\(["']click["']/, "homepage must not duplicate shared menu trigger listeners");
 });
 
-test("shared language runtime translates legacy bottom guidance FAQ", () => {
+test("shared navigation uses the required five-language labels", () => {
   const runtime = read("site-i18n.js");
-  assert.match(runtime, /renderToolGuidanceLanguage/, "shared guidance renderer");
-  assert.match(runtime, /guidanceTranslations/, "shared guidance translations");
-  assert.match(runtime, /const TOOL_NAMES = \{/, "shared translated tool-name source");
-  assert.match(runtime, /localizedToolName/, "related links must use translated tool names");
-  assert.match(runtime, /guidance\.querySelectorAll\([^\n]*gov\.uk/, "guidance renderer must preserve page GOV.UK links");
-  assert.match(runtime, /faqQ/, "shared FAQ question translation");
-  assert.match(runtime, /faqA/, "shared FAQ answer translation");
+  for (const expected of [
+    'home: "首页", search: "搜索", popular: "热门工具", ukApps: "英国工具", devTools: "开发工具", other: "其他工具", about: "关于我们", contact: "联系我们", privacy: "隐私政策", language: "中文"',
+    'home: "Startseite", search: "Suche", popular: "Beliebt", ukApps: "UK-Tools", devTools: "Entwicklertools", other: "Weitere Tools", about: "Über uns", contact: "Kontakt", privacy: "Datenschutz", language: "Deutsch"',
+    'home: "Accueil", search: "Recherche", popular: "Populaires", ukApps: "Outils UK", devTools: "Outils développeur", other: "Autres outils", about: "À propos", contact: "Contact", privacy: "Confidentialité", language: "Français"',
+    'home: "Inicio", search: "Buscar", popular: "Populares", ukApps: "Herramientas UK", devTools: "Herramientas para desarrolladores", other: "Otras herramientas", about: "Acerca de", contact: "Contacto", privacy: "Privacidad", language: "Español"',
+  ]) {
+    assert.match(runtime, new RegExp(escapeRe(expected)), expected);
+  }
+});
+
+test("shared language runtime removes English-only guidance from non-English pages", () => {
+  const runtime = read("site-i18n.js");
+  assert.match(runtime, /syncEnglishToolGuidance/, "shared English-only guidance controller");
+  assert.match(runtime, /currentLang\s*!==\s*["']en["'][\s\S]*?\.remove\(\)/, "non-English guidance must be removed from the DOM");
+  assert.match(runtime, /currentLang\s*===\s*["']en["'][\s\S]*?insertBefore/, "English guidance must be restored when switching back");
   for (const file of toolPages) {
     const html = read(file);
-    assert.doesNotMatch(html, /renderToolGuidanceLanguage|guidanceTranslations/, `${file}: shared guidance code must not be copied into pages`);
+    assert.doesNotMatch(html, /syncEnglishToolGuidance/, `${file}: shared guidance code must not be copied into pages`);
   }
+});
+
+test("working days dynamic result labels stay localized", () => {
+  const html = read("working-days.html");
+  for (const expected of [
+    'regionNames: { ew: "英格兰和威尔士", sc: "苏格兰", ni: "北爱尔兰" }',
+    'bankHolidaysLabel: "Ausgeschlossene Feiertage"',
+    'excludedHolidaysTitle: "Ausgeschlossene Feiertage im Zeitraum"',
+    'bankHolidaysLabel: "Jours fériés exclus"',
+    'excludedHolidaysTitle: "Jours fériés exclus dans la période"',
+    'bankHolidaysLabel: "Festivos excluidos"',
+    'excludedHolidaysTitle: "Festivos excluidos en el intervalo"',
+  ]) {
+    assert.match(html, new RegExp(escapeRe(expected)), expected);
+  }
+  assert.match(html, /els\.selectedRegion\.textContent = d\.regionNames\[region\]/, "result region uses the active dictionary");
+  assert.match(html, /none\.textContent = d\.noneLabel/, "empty holiday result uses the active dictionary");
 });
 
 test("stamp duty dynamic results use localized display labels without changing the bands", () => {
@@ -216,6 +241,36 @@ test("stamp duty dynamic results use localized display labels without changing t
   assert.match(html, /const standardBands = \[[\s\S]*?limit: 125000, rate: 0[\s\S]*?limit: Infinity, rate: 0\.12/, "standard SDLT bands stay unchanged");
 });
 
+test("stamp duty German French and Spanish content has complete visible translations", () => {
+  const html = read("stamp-duty.html");
+  assert.match(html, /data-i18n-aria-label=["']calculatorAria["']/, "calculator aria label is translated");
+  assert.match(html, /data-i18n-aria-label=["']ratesAria["']/, "rates table aria label is translated");
+  assert.match(html, /data-i18n=["']tableFtbBand["']/, "first-time buyer rate text is translated");
+  assert.match(html, /data-i18n=["']tableNonResidentBand["']/, "non-resident rate text is translated");
+  for (const expected of [
+    'heroTitle:"Grunderwerbsteuer-Rechner 2026"',
+    'articleTitle:"So funktioniert die SDLT für Wohnimmobilien"',
+    'limitsTitle:"Wann dies nur eine grobe Orientierung ist"',
+    'noteStandard:"Diese Schätzung gilt nur für die SDLT auf Wohnimmobilien in England und Nordirland."',
+    'heroTitle:"Calculateur de droits de mutation 2026"',
+    'buyerFtb:"Primo-accédant"',
+    'articleTitle:"Fonctionnement de la SDLT résidentielle"',
+    'noteStandard:"Cette estimation concerne uniquement la SDLT résidentielle en Angleterre et en Irlande du Nord."',
+    'heroTitle:"Calculadora del impuesto de timbre 2026"',
+    'buyerFtb:"Comprador de primera vivienda"',
+    'articleTitle:"Cómo funciona el SDLT residencial"',
+    'noteStandard:"Esta estimación solo corresponde al SDLT residencial de Inglaterra e Irlanda del Norte."',
+    'tableFtbBand:"0% bis £300,000, danach 5% bis £500,000"',
+    'tableNonResidentBand:"+2 Prozentpunkte"',
+    'tableFtbBand:"0% jusqu’à £300,000, puis 5% jusqu’à £500,000"',
+    'tableNonResidentBand:"+2 points de pourcentage"',
+    'tableFtbBand:"0% hasta £300,000 y después 5% hasta £500,000"',
+    'tableNonResidentBand:"+2 puntos porcentuales"',
+  ]) {
+    assert.match(html, new RegExp(escapeRe(expected)), expected);
+  }
+});
+
 test("dividend dynamic result labels are translated in all non-English dictionaries", () => {
   const html = read("dividend.html");
   for (const expected of [
@@ -231,6 +286,24 @@ test("dividend dynamic result labels are translated in all non-English dictionar
     'employerNiRow:"National Insurance a cargo de la empresa"',
     'corpTaxRow:"Impuesto de sociedades"',
     'dividendTaxRow:"Impuesto sobre dividendos"',
+    'monthlyEquivalent:"月度折算："',
+    'monthlyEquivalent:"Monatlicher Gegenwert:"',
+    'monthlyEquivalent:"Équivalent mensuel :"',
+    'monthlyEquivalent:"Equivalente mensual:"',
+  ]) {
+    assert.match(html, new RegExp(escapeRe(expected)), expected);
+  }
+});
+
+test("PDF related tool names are translated", () => {
+  const html = read("pdf2img.html");
+  for (const expected of [
+    'relatedImage:"Bildgrößenänderer"',
+    'relatedColor:"Bildfarbwähler"',
+    'relatedImage:"Redimensionneur d’image"',
+    'relatedColor:"Sélecteur de couleur d’image"',
+    'relatedImage:"Redimensionador de imágenes"',
+    'relatedColor:"Selector de color de imagen"',
   ]) {
     assert.match(html, new RegExp(escapeRe(expected)), expected);
   }

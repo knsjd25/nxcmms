@@ -7,10 +7,10 @@
   const HTML_LANG = { en: "en-GB", "zh-CN": "zh-CN", de: "de", fr: "fr", es: "es" };
   const NAV_LABELS = {
     en: { home: "Home", search: "Search", popular: "Popular", ukApps: "UK Apps", devTools: "Dev Tools", other: "Other", about: "About", contact: "Contact", privacy: "Privacy", language: "English", subtitle: "Useful online tools", navigation: "Primary navigation", languageAria: "Language" },
-    "zh-CN": { home: "\u9996\u9875", search: "\u641c\u7d22", popular: "\u70ed\u95e8", ukApps: "\u82f1\u56fd\u5e94\u7528", devTools: "\u5f00\u53d1\u8005\u5de5\u5177", other: "\u5176\u4ed6\u5de5\u5177", about: "\u5173\u4e8e", contact: "\u8054\u7cfb", privacy: "\u9690\u79c1\u653f\u7b56", language: "\u4e2d\u6587", subtitle: "\u5b9e\u7528\u5728\u7ebf\u5de5\u5177", navigation: "\u4e3b\u5bfc\u822a", languageAria: "\u8bed\u8a00" },
-    de: { home: "Startseite", search: "Suchen", popular: "Beliebt", ukApps: "UK Apps", devTools: "Entwickler", other: "Weitere", about: "\u00dcber uns", contact: "Kontakt", privacy: "Datenschutz", language: "Deutsch", subtitle: "N\u00fctzliche Online-Tools", navigation: "Hauptnavigation", languageAria: "Sprache" },
-    fr: { home: "Accueil", search: "Recherche", popular: "Populaires", ukApps: "Apps UK", devTools: "Outils dev", other: "Autres", about: "\u00c0 propos", contact: "Contact", privacy: "Confidentialit\u00e9", language: "Fran\u00e7ais", subtitle: "Outils en ligne utiles", navigation: "Navigation principale", languageAria: "Langue" },
-    es: { home: "Inicio", search: "Buscar", popular: "Populares", ukApps: "Apps UK", devTools: "Herramientas dev", other: "Otros", about: "Acerca de", contact: "Contacto", privacy: "Privacidad", language: "Espa\u00f1ol", subtitle: "Herramientas en l\u00ednea \u00fatiles", navigation: "Navegaci\u00f3n principal", languageAria: "Idioma" }
+    "zh-CN": { home: "首页", search: "搜索", popular: "热门工具", ukApps: "英国工具", devTools: "开发工具", other: "其他工具", about: "关于我们", contact: "联系我们", privacy: "隐私政策", language: "中文", subtitle: "实用在线工具", navigation: "主导航", languageAria: "语言" },
+    de: { home: "Startseite", search: "Suche", popular: "Beliebt", ukApps: "UK-Tools", devTools: "Entwicklertools", other: "Weitere Tools", about: "Über uns", contact: "Kontakt", privacy: "Datenschutz", language: "Deutsch", subtitle: "Nützliche Online-Tools", navigation: "Hauptnavigation", languageAria: "Sprache" },
+    fr: { home: "Accueil", search: "Recherche", popular: "Populaires", ukApps: "Outils UK", devTools: "Outils développeur", other: "Autres outils", about: "À propos", contact: "Contact", privacy: "Confidentialité", language: "Français", subtitle: "Outils en ligne utiles", navigation: "Navigation principale", languageAria: "Langue" },
+    es: { home: "Inicio", search: "Buscar", popular: "Populares", ukApps: "Herramientas UK", devTools: "Herramientas para desarrolladores", other: "Otras herramientas", about: "Acerca de", contact: "Contacto", privacy: "Privacidad", language: "Español", subtitle: "Herramientas en línea útiles", navigation: "Navegación principal", languageAria: "Idioma" }
   };
   const guidanceTranslations = {
     en: {
@@ -79,6 +79,8 @@
 
   let currentLang = "en";
   let applyingPageHook = false;
+  let toolGuidanceNode = null;
+  let toolGuidanceAnchor = null;
 
   function normalizeLang(value) {
     const raw = String(value || "").trim();
@@ -231,6 +233,22 @@
     guidance.innerHTML = `<div class="article"><h2>${escapeHtml(labels.notes)} ${escapeHtml(name)}</h2><p>${escapeHtml(labels.how(name))}</p><h3>${escapeHtml(labels.useCases)}</h3><p>${escapeHtml(labels.uses(name))}</p>${notes}<h3>${escapeHtml(labels.faq)}</h3><p><strong>${escapeHtml(labels.faqQ(name))}</strong> ${escapeHtml(labels.faqA)}</p>${relatedLinksHtml(slug, labels)}</div>`;
   }
 
+  function syncEnglishToolGuidance() {
+    if (!toolGuidanceNode) {
+      toolGuidanceNode = document.getElementById("tool-guidance");
+      if (!toolGuidanceNode || !toolGuidanceNode.parentNode) return;
+      toolGuidanceAnchor = document.createComment("tool-guidance");
+      toolGuidanceNode.parentNode.insertBefore(toolGuidanceAnchor, toolGuidanceNode);
+    }
+    if (currentLang === "en") {
+      if (!toolGuidanceNode.isConnected && toolGuidanceAnchor?.parentNode) {
+        toolGuidanceAnchor.parentNode.insertBefore(toolGuidanceNode, toolGuidanceAnchor.nextSibling);
+      }
+      return;
+    }
+    if (currentLang !== "en" && toolGuidanceNode.isConnected) toolGuidanceNode.remove();
+  }
+
   function syncShell() {
     const labels = NAV_LABELS[currentLang];
     document.documentElement.lang = HTML_LANG[currentLang] || "en-GB";
@@ -260,7 +278,7 @@
     callPageHook();
     applyGenericDictionary(pageDictionary(currentLang));
     syncShell();
-    renderToolGuidanceLanguage();
+    syncEnglishToolGuidance();
     applyCanonicalHreflang();
     localizeLinks();
     window.dispatchEvent(new CustomEvent("mini-tools:languagechange", { detail: { lang: currentLang } }));

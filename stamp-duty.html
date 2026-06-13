@@ -411,7 +411,7 @@
       </div>
     </section>
 
-    <section class="calculator-grid" aria-label="Stamp Duty Land Tax calculator">
+    <section class="calculator-grid" aria-label="Stamp Duty Land Tax calculator" data-i18n-aria-label="calculatorAria">
       <div class="panel left">
         <h2 class="section-title" data-i18n="formTitle">Property details</h2>
 
@@ -500,7 +500,7 @@
         <p data-i18n="articleP2">First-time buyer relief currently applies only when the property price is £500,000 or less. If the property qualifies, SDLT is 0% up to £300,000 and 5% on the portion from £300,001 to £500,000.</p>
         <p data-i18n="articleP3">Use the estimate early in a property search to understand the cash needed at completion. Before exchange, confirm the buyer status, ownership history, non-resident position and any reliefs with your solicitor or tax adviser.</p>
 
-        <table class="rates-table" aria-label="Residential SDLT rates">
+        <table class="rates-table" aria-label="Residential SDLT rates" data-i18n-aria-label="ratesAria">
           <thead>
             <tr>
               <th data-i18n="ratesScenario">Scenario</th>
@@ -516,7 +516,7 @@
             </tr>
             <tr>
               <td data-i18n="tableFtb">First-time buyer relief</td>
-              <td>0% to £300,000, then 5% to £500,000</td>
+              <td data-i18n="tableFtbBand">0% to £300,000, then 5% to £500,000</td>
               <td data-i18n="tableFtbNote">No relief if the price is over £500,000</td>
             </tr>
             <tr>
@@ -526,7 +526,7 @@
             </tr>
             <tr>
               <td data-i18n="tableNonResident">Non-UK resident surcharge</td>
-              <td>+2 percentage points</td>
+              <td data-i18n="tableNonResidentBand">+2 percentage points</td>
               <td data-i18n="tableNonResidentNote">Applied on top when conditions are met</td>
             </tr>
           </tbody>
@@ -1197,6 +1197,183 @@
         relatedDividend:"Salario vs dividendos"
       }
     };
+    Object.assign(translations.de, {
+      title:"Grunderwerbsteuer-Rechner 2026 | SDLT England und Nordirland | Mini-Tools.uk",
+      description:"Schätzen Sie die SDLT für Wohnimmobilien in England und Nordirland mit Standardsätzen, Erstkäuferentlastung, höheren Sätzen für zusätzliche Immobilien und dem Zuschlag für Nichtansässige.",
+      catDev:"Entwicklertools",
+      badge:"Wohnimmobilien-SDLT für England und Nordirland",
+      heroTitle:"Grunderwerbsteuer-Rechner 2026",
+      heroText:"Schätzen Sie die SDLT für Wohnimmobilien in England und Nordirland. Wählen Sie den Käufertyp, fügen Sie bei Bedarf den Zuschlag für Nichtansässige hinzu und sehen Sie die Berechnung nach Steuerstufen.",
+      mini1Title:"Aktuelle Wohnimmobiliensätze",
+      mini1Text:"Verwendet die seit dem 1. April 2025 geltenden SDLT-Stufen für England und Nordirland.",
+      mini2Title:"Unterstützte Käufertypen",
+      mini2Text:"Berechnet Standardwohneigentum, Erstkäuferentlastung und höhere Sätze für zusätzliche Immobilien.",
+      mini3Title:"Zuschlag und Steuerstufen",
+      mini3Text:"Fügt den Zuschlag von 2% für Nichtansässige hinzu und zeigt jeden steuerpflichtigen Anteil getrennt.",
+      buyerAdditional:"Zusätzliche Immobilie / Vermietungsobjekt",
+      nonResidentTitle:"2% Zuschlag für Nichtansässige hinzufügen",
+      nonResidentText:"Für eine schnelle Planung. Der Zuschlag gilt zusätzlich zu den jeweiligen Wohnimmobiliensätzen, wenn die SDLT-Bedingungen für Nichtansässige erfüllt sind.",
+      importantText:"Diese Seite gilt nur für die SDLT auf Wohnimmobilien in England und Nordirland. Sie deckt Schottland, Wales, gemischt genutzte Immobilien, Pachtzinsberechnungen, Sonderfälle bei gemeinsamem Eigentum, besondere Gesellschaftssätze sowie nicht jede Entlastung oder Ausnahme ab.",
+      noteStandard:"Diese Schätzung gilt nur für die SDLT auf Wohnimmobilien in England und Nordirland.",
+      articleTitle:"So funktioniert die SDLT für Wohnimmobilien",
+      articleP1:"Bei Wohnimmobilien in England und Nordirland beginnt die Standard-SDLT ab £125,000. Die wichtigsten Sätze betragen 0%, 2%, 5%, 10% und 12% für den jeweiligen Anteil des Kaufpreises.",
+      articleP2:"Die Entlastung für Erstkäufer gilt nur bei einem Kaufpreis von höchstens £500,000. Bis £300,000 fallen 0% an, für den Anteil von £300,001 bis £500,000 gelten 5%.",
+      articleP3:"Nutzen Sie diese Schätzung früh bei der Immobiliensuche, um den Bargeldbedarf beim Abschluss einzuordnen. Prüfen Sie vor dem Vertragsaustausch Käufertyp, frühere Eigentumsverhältnisse, den Status als Nichtansässiger und mögliche Entlastungen mit einem Solicitor oder Steuerberater.",
+      tableFtb:"Entlastung für Erstkäufer",
+      tableNonResident:"Zuschlag für Nichtansässige",
+      limitsTitle:"Wann dies nur eine grobe Orientierung ist",
+      limitsText:"Die Immobilienbesteuerung kennt viele Ausnahmen. Behandeln Sie das Ergebnis nur als Planungshilfe, wenn Trusts, Gesellschaften, Pachtverträge, gemeinsames Eigentum, gemischte Nutzung oder eine komplizierte Eigentumshistorie betroffen sind.",
+      faq1Q:"Deckt dies Schottland oder Wales ab?",
+      faq1A:"Nein. Diese Seite schätzt ausschließlich die SDLT für England und Nordirland.",
+      faq2Q:"Gilt die Entlastung für Erstkäufer über £500,000?",
+      faq2A:"Nein. Stattdessen gelten die Standardsätze für Wohnimmobilien.",
+      faq3Q:"Wird der Zuschlag von 2% zu anderen Sätzen addiert?",
+      faq3A:"Ja. Er wird zusätzlich zu den jeweiligen Wohnimmobiliensätzen berechnet.",
+      sideUseTitle:"Geeignet für",
+      chip1:"Immobilienkäufer",
+      chip2:"Erstkäufer",
+      chip3:"Prüfung von Vermietungsobjekten",
+      chip4:"Planung für Nichtansässige",
+      sideFeaturesTitle:"Funktionen",
+      feature1:"Standard-SDLT für Wohnimmobilien",
+      feature2:"Entlastung für Erstkäufer",
+      feature3:"Höhere Sätze für zusätzliche Immobilien",
+      feature4:"2% Zuschlag für Nichtansässige",
+      feature5:"Aufschlüsselung nach Steuerstufen",
+      kw3:"Regeln für Nichtansässige",
+      kw4:"Entlastungen und Erstattungen"
+    });
+    Object.assign(translations.fr, {
+      title:"Calculateur de droits de mutation 2026 | SDLT Angleterre et Irlande du Nord | Mini-Tools.uk",
+      description:"Estimez la SDLT résidentielle en Angleterre et en Irlande du Nord avec les taux standard, l’allègement primo-accédant, les taux majorés pour bien supplémentaire et la majoration pour non-résident.",
+      catImage:"Outils image et PDF",
+      badge:"SDLT résidentielle en Angleterre et en Irlande du Nord",
+      heroTitle:"Calculateur de droits de mutation 2026",
+      heroText:"Estimez la SDLT résidentielle en Angleterre et en Irlande du Nord. Choisissez le type d’acheteur, ajoutez si nécessaire la majoration pour non-résident et consultez le détail par tranche.",
+      mini1Title:"Taux résidentiels actuels",
+      mini1Text:"Utilise les tranches de SDLT en vigueur depuis le 1er avril 2025 en Angleterre et en Irlande du Nord.",
+      mini2Title:"Types d’acheteurs pris en charge",
+      mini2Text:"Estime un achat résidentiel standard, l’allègement primo-accédant et les taux majorés pour bien supplémentaire.",
+      mini3Title:"Majoration et tranches",
+      mini3Text:"Ajoute la majoration de 2% pour non-résident et affiche séparément chaque tranche imposable.",
+      buyerFtb:"Primo-accédant",
+      buyerAdditional:"Bien supplémentaire / investissement locatif",
+      nonResidentTitle:"Ajouter la majoration de 2% pour non-résident",
+      nonResidentText:"Pour une planification rapide. Elle s’ajoute aux taux résidentiels applicables lorsque les conditions SDLT de non-résidence sont remplies.",
+      importantText:"Cette page concerne uniquement la SDLT résidentielle en Angleterre et en Irlande du Nord. Elle ne couvre pas l’Écosse, le pays de Galles, les biens mixtes, les calculs de loyer de bail, certains cas de propriété partagée, les taux spéciaux pour sociétés ni toutes les exonérations.",
+      noteStandard:"Cette estimation concerne uniquement la SDLT résidentielle en Angleterre et en Irlande du Nord.",
+      articleTitle:"Fonctionnement de la SDLT résidentielle",
+      articleP1:"Pour un bien résidentiel en Angleterre et en Irlande du Nord, la SDLT standard commence à £125,000. Les principaux taux sont 0%, 2%, 5%, 10% et 12% selon la tranche du prix d’achat.",
+      articleP2:"L’allègement primo-accédant s’applique uniquement si le prix ne dépasse pas £500,000. Le taux est de 0% jusqu’à £300,000, puis de 5% entre £300,001 et £500,000.",
+      articleP3:"Utilisez cette estimation au début de votre recherche immobilière pour prévoir les fonds nécessaires à la finalisation. Avant l’échange des contrats, vérifiez le statut de l’acheteur, l’historique de propriété, la situation de non-résidence et les éventuels allègements avec un solicitor ou un conseiller fiscal.",
+      tableFtb:"Allègement primo-accédant",
+      tableFtbNote:"Aucun allègement au-dessus de £500,000",
+      tableAdditional:"Bien supplémentaire",
+      tableAdditionalNote:"Taux résidentiels majorés",
+      tableNonResident:"Majoration pour non-résident",
+      limitsTitle:"Quand ce résultat n’est qu’une estimation approximative",
+      limitsText:"La fiscalité immobilière comporte de nombreuses exceptions. Considérez ce résultat comme une aide à la planification en présence de trusts, sociétés, baux, propriété partagée, usage mixte ou historique de propriété complexe.",
+      faq1Q:"Ce calcul couvre-t-il l’Écosse ou le pays de Galles ?",
+      faq1A:"Non. Cette page estime uniquement la SDLT en Angleterre et en Irlande du Nord.",
+      faq2Q:"L’allègement primo-accédant s’applique-t-il au-dessus de £500,000 ?",
+      faq2A:"Non. Les taux résidentiels standard s’appliquent à la place.",
+      faq3Q:"La majoration de 2% s’ajoute-t-elle aux autres taux ?",
+      faq3A:"Oui. Elle s’ajoute aux taux résidentiels applicables.",
+      sideUseTitle:"Utile pour",
+      chip1:"Acheteurs immobiliers",
+      chip2:"Primo-accédants",
+      chip3:"Vérification d’un investissement locatif",
+      chip4:"Planification pour non-résident",
+      sideFeaturesTitle:"Fonctions",
+      feature1:"SDLT résidentielle standard",
+      feature2:"Allègement primo-accédant",
+      feature3:"Taux majorés pour bien supplémentaire",
+      feature4:"Majoration de 2% pour non-résident",
+      feature5:"Détail par tranche",
+      kw4:"Allègements et remboursements",
+      relatedMortgage:"Calculateur de prêt immobilier UK",
+      relatedVat:"Calculateur de TVA"
+    });
+    Object.assign(translations.es, {
+      title:"Calculadora del impuesto de timbre 2026 | SDLT Inglaterra e Irlanda del Norte | Mini-Tools.uk",
+      description:"Estima el SDLT residencial de Inglaterra e Irlanda del Norte con tasas estándar, desgravación para primera vivienda, tasas superiores para propiedad adicional y recargo para no residentes.",
+      catDev:"Herramientas para desarrolladores",
+      heroTitle:"Calculadora del impuesto de timbre 2026",
+      heroText:"Estima el SDLT residencial de Inglaterra e Irlanda del Norte. Elige el tipo de comprador, añade si corresponde el recargo para no residentes y consulta el desglose por tramos.",
+      mini1Title:"Tasas residenciales actuales",
+      mini1Text:"Usa los tramos de SDLT vigentes desde el 1 de abril de 2025 en Inglaterra e Irlanda del Norte.",
+      mini2Title:"Tipos de comprador admitidos",
+      mini2Text:"Estima una compra residencial estándar, la desgravación para primera vivienda y las tasas superiores para propiedad adicional.",
+      mini3Title:"Recargo y tramos",
+      mini3Text:"Añade el recargo del 2% para no residentes y muestra por separado cada tramo imponible.",
+      buyerFtb:"Comprador de primera vivienda",
+      buyerAdditional:"Propiedad adicional / vivienda para alquilar",
+      nonResidentTitle:"Añadir el recargo del 2% para no residentes",
+      nonResidentText:"Para una planificación rápida. Se suma a las tasas residenciales aplicables cuando se cumplen las condiciones de no residencia del SDLT.",
+      importantText:"Esta página solo cubre el SDLT residencial de Inglaterra e Irlanda del Norte. No incluye Escocia, Gales, inmuebles de uso mixto, cálculos de renta de arrendamiento, determinados casos de propiedad compartida, tasas especiales para empresas ni todas las exenciones.",
+      noteStandard:"Esta estimación solo corresponde al SDLT residencial de Inglaterra e Irlanda del Norte.",
+      articleTitle:"Cómo funciona el SDLT residencial",
+      articleP1:"Para una propiedad residencial en Inglaterra e Irlanda del Norte, el SDLT estándar comienza en £125,000. Las tasas principales son 0%, 2%, 5%, 10% y 12% según el tramo del precio de compra.",
+      articleP2:"La desgravación para primera vivienda solo se aplica cuando el precio es de £500,000 o menos. Se aplica 0% hasta £300,000 y 5% entre £300,001 y £500,000.",
+      articleP3:"Usa esta estimación al principio de la búsqueda para calcular el efectivo necesario al completar la compra. Antes del intercambio de contratos, confirma el tipo de comprador, el historial de propiedad, la condición de no residente y las posibles desgravaciones con un solicitor o asesor fiscal.",
+      tableFtb:"Desgravación para primera vivienda",
+      tableFtbNote:"Sin desgravación por encima de £500,000",
+      tableAdditional:"Propiedad adicional",
+      tableAdditionalNote:"Tasas residenciales superiores",
+      tableNonResident:"Recargo para no residentes",
+      limitsTitle:"Cuándo esto es solo una orientación aproximada",
+      limitsText:"La fiscalidad inmobiliaria tiene muchas excepciones. Trata el resultado como una ayuda de planificación si intervienen trusts, empresas, arrendamientos, propiedad compartida, uso mixto o un historial de propiedad complejo.",
+      faq1Q:"¿Cubre Escocia o Gales?",
+      faq1A:"No. Esta página solo estima el SDLT de Inglaterra e Irlanda del Norte.",
+      faq2Q:"¿Se aplica la desgravación para primera vivienda por encima de £500,000?",
+      faq2A:"No. En su lugar se aplican las tasas residenciales estándar.",
+      faq3Q:"¿El recargo del 2% se suma a las demás tasas?",
+      faq3A:"Sí. Se añade a las tasas residenciales aplicables.",
+      sideUseTitle:"Útil para",
+      chip1:"Compradores de vivienda",
+      chip2:"Compradores de primera vivienda",
+      chip3:"Comprobaciones de vivienda para alquilar",
+      chip4:"Planificación para no residentes",
+      sideFeaturesTitle:"Funciones",
+      feature1:"SDLT residencial estándar",
+      feature2:"Desgravación para primera vivienda",
+      feature3:"Tasas superiores para propiedad adicional",
+      feature4:"Recargo del 2% para no residentes",
+      feature5:"Desglose por tramos",
+      kw3:"Reglas para no residentes",
+      kw4:"Desgravaciones y reembolsos",
+      relatedVat:"Calculadora de IVA"
+    });
+    Object.assign(translations.en, {
+      calculatorAria:"Stamp Duty Land Tax calculator",
+      ratesAria:"Residential SDLT rates",
+      tableFtbBand:"0% to £300,000, then 5% to £500,000",
+      tableNonResidentBand:"+2 percentage points"
+    });
+    Object.assign(translations["zh-CN"], {
+      calculatorAria:"印花税计算器",
+      ratesAria:"住宅 SDLT 税率",
+      tableFtbBand:"£300,000 以内为 0%，£300,001 至 £500,000 为 5%",
+      tableNonResidentBand:"增加 2 个百分点"
+    });
+    Object.assign(translations.de, {
+      calculatorAria:"Rechner für die Stamp Duty Land Tax",
+      ratesAria:"SDLT-Sätze für Wohnimmobilien",
+      tableFtbBand:"0% bis £300,000, danach 5% bis £500,000",
+      tableNonResidentBand:"+2 Prozentpunkte"
+    });
+    Object.assign(translations.fr, {
+      calculatorAria:"Calculateur de Stamp Duty Land Tax",
+      ratesAria:"Taux de SDLT résidentielle",
+      tableFtbBand:"0% jusqu’à £300,000, puis 5% jusqu’à £500,000",
+      tableNonResidentBand:"+2 points de pourcentage"
+    });
+    Object.assign(translations.es, {
+      calculatorAria:"Calculadora de Stamp Duty Land Tax",
+      ratesAria:"Tasas de SDLT residencial",
+      tableFtbBand:"0% hasta £300,000 y después 5% hasta £500,000",
+      tableNonResidentBand:"+2 puntos porcentuales"
+    });
     const allowedLangs = ["en", "zh-CN", "de", "fr", "es"];
     let currentLang = "en";
 
