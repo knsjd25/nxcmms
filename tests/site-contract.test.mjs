@@ -456,6 +456,18 @@ test("worker renders Chinese body, metadata and schema for key pages", async () 
   }
 });
 
+test("worker normalizes invalid languages to an explicit English URL", async () => {
+  const response = await fetchThroughWorker("/tax?lang=xx");
+  assert.equal(response.status, 301);
+  assert.equal(response.headers.get("location"), "https://mini-tools.uk/tax?lang=en");
+});
+
+test("worker renders upload English with the shared en-GB html language", async () => {
+  const response = await fetchThroughWorker("/upload?lang=en");
+  assert.equal(response.status, 200);
+  assert.match(await response.text(), /<html[^>]+lang=["']en-GB["']/);
+});
+
 test("worker renders color picker template-string translations", async () => {
   const response = await fetchThroughWorker("/color-picker?lang=zh-CN");
   assert.equal(response.status, 200);

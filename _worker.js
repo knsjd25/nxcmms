@@ -864,7 +864,7 @@ function maybeRedirectNormalizedUrl(requestUrl) {
       (normalized === "zh-CN" && ["zh", "zh-cn", "zh-hans", "cn"].includes(trimmed.toLowerCase()));
 
     if (!trimmed || !isSupportedVariant) {
-      url.searchParams.delete("lang");
+      url.searchParams.set("lang", DEFAULT_LANG);
       changed = true;
     } else if (rawLang !== normalized) {
       url.searchParams.set("lang", normalized);
