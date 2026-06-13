@@ -39,3 +39,13 @@ Automated contracts cover shared asset counts, identical navigation/footer, lang
 Browser checks cover key pages in all five languages at 390, 768, 1024, 1366, and 1920 pixels. Checks include overflow, navigation, footer, translated visible content, click switching without scroll reset, FAQ layout, and critical tool smoke tests.
 
 No commit, push, or deployment is performed.
+
+## 2026-06-14 Addendum
+
+The follow-up full-site pass extends the same architecture rather than replacing it. Language resolution is standardized to URL parameter, saved language, browser language, then English. Invalid URL language values fall back to English. The shared runtime remains the only owner of language resolution, navigation/footer labels, internal-link language retention, canonical/hreflang updates and common translated states.
+
+The formal route set remains the current public site and does not restore previously deleted tools. Retired `/game`, `/json2`, `/unit` and `/word` routes must not expose old English templates; their final redirect or 410 behavior is enforced in the Worker and excluded from sitemap.
+
+Page-specific dictionaries continue to own tool text and dynamic result labels. Tests cover the named mixed-language regressions for finance, developer, image/PDF and utility pages before implementation changes. Calculator formulas, tax thresholds, upload API/storage/captcha/FormData behavior, working download/export/copy logic, AdSense, Analytics and the public email remain protected.
+
+The footer keeps the repository's current `Copyright 2026 Mini-Tools.uk` text. The request to use the copyright symbol was explicitly superseded by the user on 14 June 2026.

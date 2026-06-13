@@ -192,6 +192,15 @@ test("shared navigation uses the required five-language labels", () => {
   }
 });
 
+test("shared language runtime owns the required language priority and persistence", () => {
+  const runtime = read("site-i18n.js");
+  assert.match(runtime, /const\s+SAVED_LANGUAGE_KEY\s*=\s*["']miniToolsLang["']/, "one shared saved-language key");
+  assert.match(runtime, /params\.has\(["']lang["']\)/, "URL language presence is handled explicitly");
+  assert.match(runtime, /localStorage\.getItem\(SAVED_LANGUAGE_KEY\)/, "saved language is read");
+  assert.match(runtime, /navigator\.languages|navigator\.language/, "browser language is considered");
+  assert.match(runtime, /localStorage\.setItem\(SAVED_LANGUAGE_KEY,\s*currentLang\)/, "selected language is persisted");
+});
+
 test("shared language runtime removes English-only guidance from non-English pages", () => {
   const runtime = read("site-i18n.js");
   assert.match(runtime, /syncEnglishToolGuidance/, "shared English-only guidance controller");
@@ -494,6 +503,14 @@ test("legacy image and PDF routes redirect directly to formal URLs", async () =>
     const response = await fetchThroughWorker(legacy);
     assert.equal(response.status, 301, legacy);
     assert.equal(response.headers.get("location"), target, legacy);
+  }
+});
+
+test("retired isolated routes do not expose legacy English templates", async () => {
+  for (const path of ["/game", "/json2", "/unit", "/word"]) {
+    const response = await fetchThroughWorker(path);
+    assert.equal(response.status, 410, path);
+    assert.match(response.headers.get("x-robots-tag") || "", /noindex/i, path);
   }
 });
 

@@ -82,13 +82,7 @@ const REMOVE_LINK_HREF_PARTS = [
   "image_admin",
 ];
 
-const LOCAL_STORAGE_LANG_KEYS = [
-  "miniToolsLang",
-  "miniToolsTaxLang",
-  "miniToolsUploadLang",
-  "miniToolsToolLang",
-  "miniToolsPreferredLang",
-];
+const RETIRED_PATHS = new Set(["/game", "/json2", "/unit", "/word"]);
 
 function normalizePathname(pathname) {
   if (!pathname || pathname === "/index.html") return "/";
@@ -734,13 +728,8 @@ function updateStructuredDataServerSide(html, dict, pathname, lang, url) {
 
 function injectServerLangScript(html, lang) {
   const safeLang = JSON.stringify(lang);
-  const localStorageWrites = LOCAL_STORAGE_LANG_KEYS
-    .map((key) => `try{localStorage.setItem(${JSON.stringify(key)},${safeLang});}catch(e){}`)
-    .join("");
-
   const script = `<script>
 window.MINI_TOOLS_SERVER_LANG=${safeLang};
-${localStorageWrites}
 </script>`;
 
   return html.replace(/<head\b[^>]*>/i, (m) => `${m}\n${script}`);
@@ -924,6 +913,16 @@ export default {
     }
 
     if (initialPathname === "/blog" || initialPathname.startsWith("/blog/")) {
+      return new Response("Gone", {
+        status: 410,
+        headers: {
+          "content-type": "text/plain; charset=utf-8",
+          "X-Robots-Tag": "noindex, follow, max-image-preview:large",
+        },
+      });
+    }
+
+    if (RETIRED_PATHS.has(normalizePathname(initialPathname))) {
       return new Response("Gone", {
         status: 410,
         headers: {

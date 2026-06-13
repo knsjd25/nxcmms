@@ -4,6 +4,7 @@
   if (window.MiniToolsI18n) return;
 
   const SUPPORTED = ["en", "zh-CN", "de", "fr", "es"];
+  const SAVED_LANGUAGE_KEY = "miniToolsLang";
   const HTML_LANG = { en: "en-GB", "zh-CN": "zh-CN", de: "de", fr: "fr", es: "es" };
   const NAV_LABELS = {
     en: { home: "Home", search: "Search", popular: "Popular", ukApps: "UK Apps", devTools: "Dev Tools", other: "Other", about: "About", contact: "Contact", privacy: "Privacy", language: "English", subtitle: "Useful online tools", navigation: "Primary navigation", languageAria: "Language" },
@@ -90,6 +91,38 @@
     if (lower.startsWith("fr")) return "fr";
     if (lower.startsWith("es")) return "es";
     return SUPPORTED.includes(raw) ? raw : "en";
+  }
+
+  function isSupportedLang(value) {
+    const raw = String(value || "").trim();
+    const lower = raw.toLowerCase().replace("_", "-");
+    return SUPPORTED.includes(raw) || ["zh", "zh-cn", "zh-hans", "cn", "de", "fr", "es", "en"].includes(lower);
+  }
+
+  function readSavedLanguage() {
+    try {
+      const saved = localStorage.getItem(SAVED_LANGUAGE_KEY);
+      return isSupportedLang(saved) ? normalizeLang(saved) : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function browserLanguage() {
+    const candidates = Array.isArray(navigator.languages) && navigator.languages.length
+      ? navigator.languages
+      : [navigator.language];
+    const match = candidates.find(isSupportedLang);
+    return match ? normalizeLang(match) : "en";
+  }
+
+  function resolveInitialLanguage() {
+    const params = new URLSearchParams(location.search);
+    if (params.has("lang")) {
+      const requested = params.get("lang");
+      return isSupportedLang(requested) ? normalizeLang(requested) : "en";
+    }
+    return readSavedLanguage() || browserLanguage() || "en";
   }
 
   function routeSlug() {
@@ -286,6 +319,7 @@
 
   function setLanguage(selectedLang, updateUrl = true) {
     currentLang = normalizeLang(selectedLang);
+    try { localStorage.setItem(SAVED_LANGUAGE_KEY, currentLang); } catch (_) {}
     const scrollX = window.scrollX;
     const scrollY = window.scrollY;
     if (updateUrl) {
@@ -340,8 +374,7 @@
   }
 
   function init() {
-    const params = new URLSearchParams(location.search);
-    currentLang = normalizeLang(window.MINI_TOOLS_SERVER_LANG || params.get("lang") || navigator.language || "en");
+    currentLang = resolveInitialLanguage();
     bindControls();
     applyLanguage();
     if (document.readyState !== "complete") window.addEventListener("load", applyLanguage, { once: true });
