@@ -7,11 +7,11 @@
   const SAVED_LANGUAGE_KEY = "miniToolsLang";
   const HTML_LANG = { en: "en-GB", "zh-CN": "zh-CN", de: "de", fr: "fr", es: "es" };
   const NAV_LABELS = {
-    en: { home: "Home", search: "Search", popular: "Popular", ukApps: "UK Apps", devTools: "Dev Tools", other: "Other", about: "About", contact: "Contact", privacy: "Privacy", language: "English", subtitle: "Useful online tools", navigation: "Primary navigation", languageAria: "Language" },
-    "zh-CN": { home: "首页", search: "搜索", popular: "热门工具", ukApps: "英国工具", devTools: "开发工具", other: "其他工具", about: "关于我们", contact: "联系我们", privacy: "隐私政策", language: "中文", subtitle: "实用在线工具", navigation: "主导航", languageAria: "语言" },
-    de: { home: "Startseite", search: "Suche", popular: "Beliebt", ukApps: "UK-Tools", devTools: "Entwicklertools", other: "Weitere Tools", about: "Über uns", contact: "Kontakt", privacy: "Datenschutz", language: "Deutsch", subtitle: "Nützliche Online-Tools", navigation: "Hauptnavigation", languageAria: "Sprache" },
-    fr: { home: "Accueil", search: "Recherche", popular: "Populaires", ukApps: "Outils UK", devTools: "Outils développeur", other: "Autres outils", about: "À propos", contact: "Contact", privacy: "Confidentialité", language: "Français", subtitle: "Outils en ligne utiles", navigation: "Navigation principale", languageAria: "Langue" },
-    es: { home: "Inicio", search: "Buscar", popular: "Populares", ukApps: "Herramientas UK", devTools: "Herramientas para desarrolladores", other: "Otras herramientas", about: "Acerca de", contact: "Contacto", privacy: "Privacidad", language: "Español", subtitle: "Herramientas en línea útiles", navigation: "Navegación principal", languageAria: "Idioma" }
+    en: { home: "Home", search: "Search", popular: "Popular", ukApps: "UK Calculators", devTools: "Dev Tools", other: "Other", about: "About", contact: "Contact", privacy: "Privacy", language: "English", subtitle: "Useful online tools", navigation: "Primary navigation", languageAria: "Language" },
+    "zh-CN": { home: "首页", search: "搜索", popular: "热门工具", ukApps: "英国计算器", devTools: "开发工具", other: "其他工具", about: "关于我们", contact: "联系我们", privacy: "隐私政策", language: "中文", subtitle: "实用在线工具", navigation: "主导航", languageAria: "语言" },
+    de: { home: "Startseite", search: "Suche", popular: "Beliebt", ukApps: "UK-Rechner", devTools: "Entwicklertools", other: "Weitere Tools", about: "Über uns", contact: "Kontakt", privacy: "Datenschutz", language: "Deutsch", subtitle: "Nützliche Online-Tools", navigation: "Hauptnavigation", languageAria: "Sprache" },
+    fr: { home: "Accueil", search: "Recherche", popular: "Populaires", ukApps: "Calculateurs britanniques", devTools: "Outils développeur", other: "Autres outils", about: "À propos", contact: "Contact", privacy: "Confidentialité", language: "Français", subtitle: "Outils en ligne utiles", navigation: "Navigation principale", languageAria: "Langue" },
+    es: { home: "Inicio", search: "Buscar", popular: "Populares", ukApps: "Calculadoras del Reino Unido", devTools: "Herramientas para desarrolladores", other: "Otras herramientas", about: "Acerca de", contact: "Contacto", privacy: "Privacidad", language: "Español", subtitle: "Herramientas en línea útiles", navigation: "Navegación principal", languageAria: "Idioma" }
   };
   const guidanceTranslations = {
     en: {
@@ -191,7 +191,7 @@
       const link = document.createElement("link");
       link.setAttribute("rel", "alternate");
       link.setAttribute("hreflang", code);
-      link.setAttribute("href", `${cleanUrl}?lang=${encodeURIComponent(code)}`);
+      link.setAttribute("href", code === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(code)}`);
       document.head.appendChild(link);
     });
     const fallback = document.createElement("link");
@@ -209,7 +209,8 @@
       let link;
       try { link = new URL(rawHref, location.origin); } catch { return; }
       if (link.origin !== location.origin) return;
-      link.searchParams.set("lang", currentLang);
+      if (currentLang === "en") link.searchParams.delete("lang");
+      else link.searchParams.set("lang", currentLang);
       anchor.setAttribute("href", link.pathname + link.search + link.hash);
     });
   }
@@ -324,7 +325,8 @@
     const scrollY = window.scrollY;
     if (updateUrl) {
       const target = new URL(location.href);
-      target.searchParams.set("lang", currentLang);
+      if (currentLang === "en") target.searchParams.delete("lang");
+      else target.searchParams.set("lang", currentLang);
       history.replaceState(null, "", target.pathname + target.search + target.hash);
     }
     applyLanguage();

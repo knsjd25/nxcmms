@@ -8,7 +8,7 @@
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/" />
-  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/?lang=en" />
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/" />
   <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/?lang=zh-CN" />
   <link rel="alternate" hreflang="de" href="https://mini-tools.uk/?lang=de" />
   <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/?lang=fr" />
@@ -440,7 +440,7 @@
       <a class="site-nav-link" href="/" data-site-nav="home">Home</a>
       <a class="site-nav-link" href="/#search" data-site-nav="search">Search</a>
       <a class="site-nav-link" href="/#popular" data-site-nav="popular">Popular</a>
-      <a class="site-nav-link" href="/#uk-apps" data-site-nav="ukApps">UK Apps</a>
+      <a class="site-nav-link" href="/#uk-apps" data-site-nav="ukApps">UK Calculators</a>
       <a class="site-nav-link" href="/#developer-tools" data-site-nav="devTools">Dev Tools</a>
       <a class="site-nav-link" href="/#other-tools" data-site-nav="other">Other</a>
       <a class="site-nav-link" href="/about" data-site-nav="about">About</a>
@@ -656,7 +656,14 @@
           <div><div class="kicker" data-i18n="ukKicker">UK calculator hub</div><h2 data-i18n="ukTitle">Popular UK calculators</h2></div>
           <p data-i18n="ukText">Use the UK calculator hub for salary, tax, VAT, property and contractor planning, with clear inputs and estimate-only guidance.</p>
         </div>
-        <div class="uk-hub" id="ukHubTools"></div>
+        <div class="uk-hub" id="ukHubTools">
+          <a class="feature-card large theme-blue" href="/tax"><div class="feature-body"><h3>UK Tax Calculator</h3><p>Estimate take-home pay, PAYE and National Insurance.</p></div></a>
+          <a class="feature-card theme-indigo" href="/vat"><div class="feature-body"><h3>VAT Calculator</h3><p>Add or remove UK VAT from a price.</p></div></a>
+          <a class="feature-card theme-teal" href="/mortgage"><div class="feature-body"><h3>Mortgage Calculator</h3><p>Estimate monthly repayments, interest and LTV.</p></div></a>
+          <a class="feature-card theme-amber" href="/ir35"><div class="feature-body"><h3>IR35 Calculator</h3><p>Compare inside and outside IR35 estimates.</p></div></a>
+          <a class="feature-card theme-rose" href="/stamp-duty"><div class="feature-body"><h3>Stamp Duty Calculator</h3><p>Estimate residential SDLT from price and buyer type.</p></div></a>
+          <a class="feature-card theme-violet" href="/dividend"><div class="feature-body"><h3>Dividend Calculator</h3><p>Compare salary and dividend planning scenarios.</p></div></a>
+        </div>
       </div>
     </section>
 
@@ -703,7 +710,20 @@
             <div><div class="kicker" style="color:#f6c85f" data-i18n="otherKicker">Other useful tools</div><h2 data-i18n="otherTitle">Developer, image, PDF and everyday utilities</h2></div>
             <p data-i18n="otherText">Developer, image, PDF and everyday utilities provide quick browser-based help for formatting, conversion, document preparation and common tasks.</p>
           </div>
-          <div class="compact-grid" id="otherToolsGrid"></div>
+          <div class="compact-grid" id="otherToolsGrid">
+            <a class="compact-tool theme-emerald" href="/json"><span><strong>JSON Formatter</strong><span>Format, validate and minify JSON.</span></span></a>
+            <a class="compact-tool theme-cyan" href="/diff"><span><strong>Text Diff Checker</strong><span>Compare two text blocks.</span></span></a>
+            <a class="compact-tool theme-purple" href="/token"><span><strong>AI Token Calculator</strong><span>Estimate token counts and costs.</span></span></a>
+            <a class="compact-tool theme-fuchsia" href="/qr"><span><strong>QR Code Generator</strong><span>Create QR codes for links and text.</span></span></a>
+            <a class="compact-tool theme-slate" href="/password"><span><strong>Password Generator</strong><span>Create random passwords in the browser.</span></span></a>
+            <a class="compact-tool theme-sky" href="/upload"><span><strong>Free Image Hosting</strong><span>Upload an image and copy sharing links.</span></span></a>
+            <a class="compact-tool theme-lime" href="/image"><span><strong>Image Compressor</strong><span>Resize and compress images locally.</span></span></a>
+            <a class="compact-tool theme-red" href="/pdf2img"><span><strong>PDF to Image</strong><span>Convert PDF pages into image files.</span></span></a>
+            <a class="compact-tool theme-orange" href="/color-picker"><span><strong>Colour Picker</strong><span>Pick and copy colours from images.</span></span></a>
+            <a class="compact-tool theme-green" href="/working-days"><span><strong>Working Days Calculator</strong><span>Count UK working days between dates.</span></span></a>
+            <a class="compact-tool theme-yellow" href="/fuel"><span><strong>Fuel Cost Calculator</strong><span>Estimate journey fuel costs.</span></span></a>
+            <a class="compact-tool theme-stone" href="/weight"><span><strong>Weight Converter</strong><span>Convert stones, pounds and kilograms.</span></span></a>
+          </div>
         </div>
       </div>
     </section>
@@ -733,11 +753,11 @@
 (() => {
   const supportedLangs = ["en", "zh-CN", "de", "fr", "es"];
   const navLabels = {
-    en:{home:"Home",search:"Search",popular:"Popular",ukApps:"UK Apps",devTools:"Dev Tools",other:"Other",about:"About",contact:"Contact",privacy:"Privacy",language:"English"},
-    "zh-CN":{home:"首页",search:"搜索",popular:"热门",ukApps:"英国应用",devTools:"开发者工具",other:"其他工具",about:"关于",contact:"联系",privacy:"隐私政策",language:"中文"},
-    de:{home:"Startseite",search:"Suchen",popular:"Beliebt",ukApps:"UK Apps",devTools:"Entwickler",other:"Weitere",about:"Über uns",contact:"Kontakt",privacy:"Datenschutz",language:"Deutsch"},
-    fr:{home:"Accueil",search:"Recherche",popular:"Populaires",ukApps:"Apps UK",devTools:"Outils dev",other:"Autres",about:"À propos",contact:"Contact",privacy:"Confidentialité",language:"Français"},
-    es:{home:"Inicio",search:"Buscar",popular:"Populares",ukApps:"Apps UK",devTools:"Herramientas dev",other:"Otros",about:"Acerca de",contact:"Contacto",privacy:"Privacidad",language:"Español"}
+    en:{home:"Home",search:"Search",popular:"Popular",ukApps:"UK Calculators",devTools:"Dev Tools",other:"Other",about:"About",contact:"Contact",privacy:"Privacy",language:"English"},
+    "zh-CN":{home:"首页",search:"搜索",popular:"热门",ukApps:"英国计算器",devTools:"开发者工具",other:"其他工具",about:"关于",contact:"联系",privacy:"隐私政策",language:"中文"},
+    de:{home:"Startseite",search:"Suchen",popular:"Beliebt",ukApps:"UK-Rechner",devTools:"Entwickler",other:"Weitere",about:"Über uns",contact:"Kontakt",privacy:"Datenschutz",language:"Deutsch"},
+    fr:{home:"Accueil",search:"Recherche",popular:"Populaires",ukApps:"Calculateurs britanniques",devTools:"Outils dev",other:"Autres",about:"À propos",contact:"Contact",privacy:"Confidentialité",language:"Français"},
+    es:{home:"Inicio",search:"Buscar",popular:"Populares",ukApps:"Calculadoras del Reino Unido",devTools:"Herramientas dev",other:"Otros",about:"Acerca de",contact:"Contacto",privacy:"Privacidad",language:"Español"}
   };
   const i18n = window.PAGE_TRANSLATIONS = {
     en:{htmlLang:"en-GB",title:"Mini-Tools.uk | UK Tax, VAT, Salary & Everyday Calculators",description:"Mini-Tools.uk provides UK-focused calculators for salary after tax, VAT, mortgages, stamp duty, IR35 and dividends, plus useful developer, image and everyday browser tools.",ogLocale:"en_GB",brandSub:"UK calculators and useful tools",skip:"Skip to content",badge:"Built for UK everyday calculations",heroTitle:"UK calculators for tax, VAT, salary and everyday money decisions.",heroText:"Estimate UK take-home pay, VAT, mortgage payments, stamp duty, IR35 contractor income and dividends. Developer, image and everyday tools are still available below.",heroPrimary:"Start with UK tax",heroSecondary:"Search all tools",chip1:"UK-focused calculators",chip2:"Estimate-only guidance",chip3:"No account for most tools",quickTitle:"Open a UK calculator",quickHint:"Popular starting points",ukKicker:"UK calculator hub",ukTitle:"Start with the UK tools people actually search for",ukText:"The homepage now gives priority to UK salary, tax, VAT, property and contractor calculators. These pages are better aligned with UK user intent than a general tool directory.",searchKicker:"Find any tool",searchTitle:"Search the full Mini-Tools directory",searchText:"Search UK calculators, developer tools, image utilities, PDF tools and everyday converters from one box.",searchLabel:"Search",searchPlaceholder:"Search tax, VAT, image hosting, JSON, PDF...",emptyState:"No matching tools found. Try another keyword.",trustKicker:"How to use these calculators",trustTitle:"Useful for planning, not a replacement for official advice",trustText:"Financial calculators are intended for quick estimates. Detailed pages should explain the assumptions used, and users should confirm important tax, payroll or property decisions with official guidance or a qualified adviser.",trust1:"Clear purpose: each UK calculator is linked from the homepage and solves one practical task.",trust2:"Transparent limits: tax and finance tools should be treated as estimates.",trust3:"Useful context: examples and FAQ sections help users understand the result.",trust4:"Site trust: About, Contact and Privacy pages remain visible.",why1Title:"UK-first homepage",why1Text:"The strongest pages are salary, VAT, mortgage, stamp duty, IR35 and dividend calculators.",why2Title:"Other tools are still available",why2Text:"Developer, image, PDF and everyday tools are kept below for existing users and search traffic.",why3Title:"Built for direct tasks",why3Text:"Open a tool, enter a value and get a quick result without navigating unrelated content.",otherKicker:"Other useful tools",otherTitle:"Developer, image, PDF and everyday utilities",otherText:"These tools are not removed. They are simply moved below the UK calculator hub so the homepage has a clearer UK-focused theme.",faqKicker:"Questions",faqTitle:"FAQ",faq1Q:"What is Mini-Tools.uk focused on?",faq1A:"The homepage focuses on UK calculators for tax, salary, VAT, property and contractor planning, while keeping other useful tools available.",faq2Q:"Are the UK calculator results official?",faq2A:"No. They are quick estimates for planning and education. For important financial decisions, check official guidance or speak to a qualified adviser.",faq3Q:"Where are the developer and image tools?",faq3A:"They are in the Other useful tools section and can also be found through the search box.",faq4Q:"Do I need an account?",faq4A:"Most tools can be opened and used without an account.",faq5Q:"Can I suggest a new tool?",faq5A:"Yes. Use the Contact page to send feedback, report a problem or suggest a new UK calculator or browser tool.",openTool:"Open tool",categories:{uk:"UK Calculator",dev:"Developer",other:"Utility"}},
@@ -834,9 +854,9 @@
   function updateMeta(name, value){ const el=document.querySelector(`meta[name="${name}"]`); if(el) el.setAttribute("content", value); }
   function updateProperty(property, value){ const el=document.querySelector(`meta[property="${property}"]`); if(el) el.setAttribute("content", value); }
   function cleanBaseUrl(){ const cleanPath = location.pathname === "/index.html" ? "/" : location.pathname.replace(/\.html$/, ""); return location.origin + cleanPath; }
-  function updateCanonicalHreflang(){ const cleanUrl=cleanBaseUrl(); const canonicalHref=currentLang==="en"?cleanUrl:`${cleanUrl}?lang=${encodeURIComponent(currentLang)}`; let canonical=document.querySelector('link[rel="canonical"]'); if(!canonical){ canonical=document.createElement("link"); canonical.setAttribute("rel","canonical"); document.head.appendChild(canonical); } canonical.setAttribute("href", canonicalHref); document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(node=>node.remove()); supportedLangs.forEach(code=>{ const link=document.createElement("link"); link.setAttribute("rel","alternate"); link.setAttribute("hreflang",code); link.setAttribute("href",`${cleanUrl}?lang=${encodeURIComponent(code)}`); document.head.appendChild(link); }); const fallback=document.createElement("link"); fallback.setAttribute("rel","alternate"); fallback.setAttribute("hreflang","x-default"); fallback.setAttribute("href", cleanUrl); document.head.appendChild(fallback); }
-  function localizeUrl(rawUrl){ const url=new URL(rawUrl, location.origin); if(url.origin!==location.origin) return rawUrl; url.searchParams.set("lang", currentLang); return url.pathname + url.search + url.hash; }
-  function localizeLinks(){ document.querySelectorAll("a[href]").forEach(anchor=>{ const rawHref=anchor.getAttribute("href"); if(!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) return; const url=new URL(rawHref, location.origin); if(url.origin!==location.origin) return; url.searchParams.set("lang", currentLang); anchor.setAttribute("href", url.pathname + url.search + url.hash); }); }
+  function updateCanonicalHreflang(){ const cleanUrl=cleanBaseUrl(); const canonicalHref=currentLang==="en"?cleanUrl:`${cleanUrl}?lang=${encodeURIComponent(currentLang)}`; let canonical=document.querySelector('link[rel="canonical"]'); if(!canonical){ canonical=document.createElement("link"); canonical.setAttribute("rel","canonical"); document.head.appendChild(canonical); } canonical.setAttribute("href", canonicalHref); document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(node=>node.remove()); supportedLangs.forEach(code=>{ const link=document.createElement("link"); link.setAttribute("rel","alternate"); link.setAttribute("hreflang",code); link.setAttribute("href",code==="en"?cleanUrl:`${cleanUrl}?lang=${encodeURIComponent(code)}`); document.head.appendChild(link); }); const fallback=document.createElement("link"); fallback.setAttribute("rel","alternate"); fallback.setAttribute("hreflang","x-default"); fallback.setAttribute("href", cleanUrl); document.head.appendChild(fallback); }
+  function localizeUrl(rawUrl){ const url=new URL(rawUrl, location.origin); if(url.origin!==location.origin) return rawUrl; if(currentLang==="en") url.searchParams.delete("lang"); else url.searchParams.set("lang", currentLang); return url.pathname + url.search + url.hash; }
+  function localizeLinks(){ document.querySelectorAll("a[href]").forEach(anchor=>{ const rawHref=anchor.getAttribute("href"); if(!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) return; const url=new URL(rawHref, location.origin); if(url.origin!==location.origin) return; if(currentLang==="en") url.searchParams.delete("lang"); else url.searchParams.set("lang", currentLang); anchor.setAttribute("href", url.pathname + url.search + url.hash); }); }
   function miniTool(tool){ return `<a class="uk-mini ${escapeHtml(tool.theme)}" href="${escapeHtml(localizeUrl(tool.url))}"><span class="mini-icon">${escapeHtml(tool.icon)}</span><strong>${escapeHtml(textFor(tool.name))}</strong><span>${escapeHtml(textFor(tool.desc))}</span></a>`; }
   function featureTool(tool, index){ const texts=tr(); return `<a class="feature-card ${index===0?"large":""} ${escapeHtml(tool.theme)}" href="${escapeHtml(localizeUrl(tool.url))}"><div><div class="feature-top"><span class="feature-icon">${escapeHtml(tool.icon)}</span><span class="feature-label">${escapeHtml(texts.categories.uk)}</span></div><div class="feature-body"><h3>${escapeHtml(textFor(tool.name))}</h3><p>${escapeHtml(textFor(tool.desc))}</p></div></div><div class="feature-foot"><span>${escapeHtml(texts.openTool)}</span><span aria-hidden="true">→</span></div></a>`; }
   function searchTool(tool){ const texts=tr(); const category = texts.categories[tool.group] || tool.group; return `<a class="tool-card ${escapeHtml(tool.theme)}" href="${escapeHtml(localizeUrl(tool.url))}"><div class="tool-top"><div class="tool-icon">${escapeHtml(tool.icon)}</div><span class="tag">${escapeHtml(category)}</span></div><h3>${escapeHtml(textFor(tool.name))}</h3><p>${escapeHtml(textFor(tool.desc))}</p><span class="tool-link">${escapeHtml(texts.openTool)} →</span></a>`; }

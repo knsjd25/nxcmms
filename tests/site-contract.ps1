@@ -121,7 +121,7 @@ foreach ($entry in $canonicalPaths.GetEnumerator()) {
   $clean = "https://mini-tools.uk$($entry.Value)"
   Assert-True ($html -match ('<link\s+rel=["'']canonical["'']\s+href=["'']' + [regex]::Escape($clean) + '["'']')) "$($entry.Key) canonical is not the clean URL"
   foreach ($lang in @("en", "zh-CN", "de", "fr", "es")) {
-    $expected = "$clean`?lang=$lang"
+    $expected = if ($lang -eq "en") { $clean } else { "$clean`?lang=$lang" }
     Assert-True ($html -match ('<link\s+rel=["'']alternate["'']\s+hreflang=["'']' + [regex]::Escape($lang) + '["'']\s+href=["'']' + [regex]::Escape($expected) + '["'']')) "$($entry.Key) misses hreflang $lang"
   }
   Assert-True ($html -match ('<link\s+rel=["'']alternate["'']\s+hreflang=["'']x-default["'']\s+href=["'']' + [regex]::Escape($clean) + '["'']')) "$($entry.Key) misses x-default"
@@ -134,7 +134,7 @@ foreach ($page in $publicPages) {
 Assert-True ($sharedI18n -match 'applyCanonicalHreflang') "shared i18n runtime does not normalize canonical/hreflang"
 
 $requiredContent = @{
-  "about.html" = @("tool directory", "UK Apps", "Developer Tools", "Other Tools", "UK Tax Calculator", "VAT Calculator", "Mortgage Calculator", "IR35 Calculator", "Stamp Duty Calculator", "Dividend Calculator", "JSON Formatter", "Text Diff Checker", "AI Token Calculator", "QR Code Generator", "Password Generator", "Free Image Hosting", "Image Compressor", "PDF to Image", "Color Picker", "Working Days Calculator", "Fuel Cost Calculator", "Weight Converter", "without an account")
+  "about.html" = @("tool directory", "UK Calculators", "Developer Tools", "Other Tools", "UK Tax Calculator", "VAT Calculator", "Mortgage Calculator", "IR35 Calculator", "Stamp Duty Calculator", "Dividend Calculator", "JSON Formatter", "Text Diff Checker", "AI Token Calculator", "QR Code Generator", "Password Generator", "Free Image Hosting", "Image Compressor", "PDF to Image", "Color Picker", "Working Days Calculator", "Fuel Cost Calculator", "Weight Converter", "without an account")
   "privacy.html" = @("browser", "remote service", "not private", "1 day", "7 days", "30 days", "approved code", "image URL", "illegal content", "adult content", "violent content", "hateful content", "copyrighted images", "private ID", "passport", "financial documents", "medical records", "malware", "phishing", "scam", "minors", "confidential screenshots", "Google Analytics", "advertising", "cookies", "localStorage")
   "contact.html" = @("bug report", "feature suggestion", "calculation issue", "image removal request", "abuse report", "privacy question", "hosted image URL", "reason", "rights details")
   "upload.html" = @("What not to upload", "Removal and abuse reports", "Privacy note")

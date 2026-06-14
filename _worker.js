@@ -155,7 +155,7 @@ function buildHreflang(pathname) {
   const path = normalizePathname(pathname);
   const links = SUPPORTED_LANGS.map((lang) => {
     const href = new URL(SITE_ORIGIN + path);
-    href.searchParams.set("lang", lang);
+    if (lang !== DEFAULT_LANG) href.searchParams.set("lang", lang);
     return `<link rel="alternate" hreflang="${lang}" href="${href.toString()}">`;
   });
   links.push(`<link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${path}">`);

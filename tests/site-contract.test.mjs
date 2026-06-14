@@ -167,6 +167,7 @@ test("language controls support five languages without arrow-only page patches",
   assert.match(runtime, /data-i18n-placeholder/, "shared placeholder translation");
   assert.match(runtime, /data-i18n-aria-label/, "shared aria-label translation");
   assert.match(runtime, /searchParams\.set\(["']lang["']/, "shared internal-link localization");
+  assert.match(runtime, /currentLang\s*===\s*["']en["'][\s\S]*?searchParams\.delete\(["']lang["']\)/, "English internal links must stay clean");
   assert.match(runtime, /lang\s*===\s*["']zh-CN["'][\s\S]*?all\.zh/, "shared runtime must support legacy zh dictionaries");
   assert.match(runtime, /window\.addEventListener\(["']load["'], applyLanguage, \{ once: true \}\)/, "shared runtime must win page-load language races");
   assert.doesNotMatch(runtime, /location\.assign\(/, "shared runtime must not reload or jump to top");
@@ -183,12 +184,20 @@ test("homepage delegates language control events to the shared runtime", () => {
 test("shared navigation uses the required five-language labels", () => {
   const runtime = read("site-i18n.js");
   for (const expected of [
-    'home: "首页", search: "搜索", popular: "热门工具", ukApps: "英国工具", devTools: "开发工具", other: "其他工具", about: "关于我们", contact: "联系我们", privacy: "隐私政策", language: "中文"',
-    'home: "Startseite", search: "Suche", popular: "Beliebt", ukApps: "UK-Tools", devTools: "Entwicklertools", other: "Weitere Tools", about: "Über uns", contact: "Kontakt", privacy: "Datenschutz", language: "Deutsch"',
-    'home: "Accueil", search: "Recherche", popular: "Populaires", ukApps: "Outils UK", devTools: "Outils développeur", other: "Autres outils", about: "À propos", contact: "Contact", privacy: "Confidentialité", language: "Français"',
-    'home: "Inicio", search: "Buscar", popular: "Populares", ukApps: "Herramientas UK", devTools: "Herramientas para desarrolladores", other: "Otras herramientas", about: "Acerca de", contact: "Contacto", privacy: "Privacidad", language: "Español"',
+    'en: { home: "Home", search: "Search", popular: "Popular", ukApps: "UK Calculators"',
+    'ukApps: "英国计算器"',
+    'ukApps: "UK-Rechner"',
+    'ukApps: "Calculateurs britanniques"',
+    'ukApps: "Calculadoras del Reino Unido"',
   ]) {
     assert.match(runtime, new RegExp(escapeRe(expected)), expected);
+  }
+});
+
+test("homepage exposes every formal route in initial HTML", () => {
+  const homepage = read("index.html");
+  for (const path of approvedPaths.filter((path) => path !== "/")) {
+    assert.match(homepage, new RegExp(`href=["']${escapeRe(path)}["']`), `index.html: static link ${path}`);
   }
 });
 
@@ -331,7 +340,22 @@ test("public pages have no development leftovers or retired public links", () =>
     assert.doesNotMatch(html, /\b(?:TODO|FIXME)\b/, file);
     assert.doesNotMatch(html, /(?:婕|漏)\??\s*2026|&copy;\s*2026|©\s*2026|admin@mini-tools\.uk/i, file);
     assert.doesNotMatch(html, mojibakeMarkers, `${file}: mojibake marker in public text`);
+    assert.doesNotMatch(html, /UK Apps/i, `${file}: obsolete category label`);
     assert.equal(hrefs(html).some((href) => /^\/(?:blog(?:\/|$)|terms\/?$|acceptable-use\/?$)/i.test(href)), false, file);
+  }
+  assert.doesNotMatch(read("site-i18n.js"), /UK Apps/i, "shared runtime: obsolete category label");
+});
+
+test("privacy policy discloses analytics, advertising, consent and actual external services", () => {
+  const html = read("privacy.html");
+  for (const phrase of [
+    "approximate location", "performance information", "cookies or similar identifiers",
+    "previous visits to this site or other websites", "personalised advertising",
+    "Google Ads Settings", "other third-party advertising vendors",
+    "consent management platform", "advertising and cookie choices",
+    "Google Analytics", "Google AdSense", "Cloudflare", "jsDelivr", "cdnjs", "Google Fonts",
+  ]) {
+    assert.match(html, new RegExp(escapeRe(phrase), "i"), `privacy disclosure: ${phrase}`);
   }
 });
 
@@ -423,7 +447,8 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
     const html = read(file);
     const clean = `https://mini-tools.uk${path}`;
     assert.match(html, new RegExp(`<link\\s+rel=["']canonical["']\\s+href=["']${escapeRe(clean)}["']`), file);
-    for (const lang of ["en", "zh-CN", "de", "fr", "es"]) {
+    assert.match(html, new RegExp(`<link\\s+rel=["']alternate["']\\s+hreflang=["']en["']\\s+href=["']${escapeRe(clean)}["']`), `${file}: en`);
+    for (const lang of ["zh-CN", "de", "fr", "es"]) {
       assert.match(html, new RegExp(`<link\\s+rel=["']alternate["']\\s+hreflang=["']${escapeRe(lang)}["']\\s+href=["']${escapeRe(`${clean}?lang=${lang}`)}["']`), `${file}: ${lang}`);
     }
     assert.match(html, new RegExp(`<link\\s+rel=["']alternate["']\\s+hreflang=["']x-default["']\\s+href=["']${escapeRe(clean)}["']`), file);
@@ -433,7 +458,7 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   const lastmods = [...read("sitemap.xml").matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1]);
   assert.deepEqual(locs, approvedPaths.map((path) => `https://mini-tools.uk${path}`));
   assert.equal(lastmods.length, locs.length, "every sitemap URL has a lastmod date");
-  assert.equal(lastmods.every((value) => value === "2026-06-12"), true, "sitemap lastmod date");
+  assert.equal(lastmods.every((value) => value === "2026-06-14"), true, "sitemap lastmod date");
   assert.equal(read("sitemap.xml").includes("?lang="), false);
   assert.doesNotMatch(read("sitemap.xml"), /blog/i);
   assert.equal(read("robots.txt").trim().replace(/\r\n/g, "\n"), "User-agent: *\nAllow: /\n\nSitemap: https://mini-tools.uk/sitemap.xml");
