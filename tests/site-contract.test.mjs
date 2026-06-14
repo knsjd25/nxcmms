@@ -17,6 +17,21 @@ const approvedPaths = [
 
 const toolPages = htmlFiles.filter((name) => !["index.html", "about.html", "contact.html", "privacy.html"].includes(name));
 const financePages = ["tax.html", "vat.html", "mortgage.html", "ir35.html", "stamp-duty.html", "dividend.html"];
+const bespokeGuidancePages = {
+  "dividend.html": ["howTitle", "usefulTitle", "relatedTitle"],
+  "fuel.html": ["articleTitle", "formulaTitle", "whyUsefulTitle"],
+  "ir35.html": ["contentTitle", "notDoTitle", "relatedTitle"],
+  "json.html": ["articleTitle", "privacyTitle", "useTitle"],
+  "mortgage.html": ["articleTitle", "stressTitle", "sideAssumptionsTitle"],
+  "pdf2img.html": ["articleTitle", "tipsTitle", "relatedTitle"],
+  "qr.html": ["articleTitle", "tipsTitle", "relatedTitle"],
+  "token.html": ["articleTitle", "privacyTitle", "useTitle"],
+  "tax.html": ["articleTitle", "excludeTitle", "sideAssumptionsTitle"],
+  "stamp-duty.html": ["articleTitle", "limitsTitle", "relatedTitle"],
+  "vat.html": ["articleTitle", "zeroTitle", "thresholdTitle"],
+  "weight.html": ["howTitle", "formulaTitle", "roundingTitle"],
+  "working-days.html": ["articleTitle", "howToTitle", "limitsTitle"],
+};
 
 const routeForFile = (file) => file === "index.html" ? "/" : `/${file.replace(/\.html$/, "")}`;
 const escapeRe = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -210,14 +225,15 @@ test("shared language runtime owns the required language priority and persistenc
   assert.match(runtime, /localStorage\.setItem\(SAVED_LANGUAGE_KEY,\s*currentLang\)/, "selected language is persisted");
 });
 
-test("shared language runtime removes English-only guidance from non-English pages", () => {
+test("shared language runtime keeps page-specific translated guidance in the DOM", () => {
   const runtime = read("site-i18n.js");
-  assert.match(runtime, /syncEnglishToolGuidance/, "shared English-only guidance controller");
-  assert.match(runtime, /currentLang\s*!==\s*["']en["'][\s\S]*?\.remove\(\)/, "non-English guidance must be removed from the DOM");
-  assert.match(runtime, /currentLang\s*===\s*["']en["'][\s\S]*?insertBefore/, "English guidance must be restored when switching back");
+  assert.doesNotMatch(runtime, /syncEnglishToolGuidance|toolGuidanceNode|toolGuidanceAnchor/, "shared runtime must not hide page content by language");
   for (const file of toolPages) {
     const html = read(file);
     assert.doesNotMatch(html, /syncEnglishToolGuidance/, `${file}: shared guidance code must not be copied into pages`);
+    if (/id=["']tool-guidance["']/.test(html)) {
+      assert.match(html, /id=["']guidanceTitle["']/, `${file}: retained guidance must use page-specific translation keys`);
+    }
   }
 });
 
@@ -363,17 +379,26 @@ test("tool pages include the required content structure", () => {
   for (const file of toolPages) {
     const html = read(file);
     assert.match(html, /<h1\b/i, `${file}: H1`);
+    if (/id=["']tool-guidance["']/.test(html)) {
+      assert.match(html, /id=["']guidanceTitle["']/, `${file}: tool guidance must be a page-specific translated module`);
+    }
+    if (bespokeGuidancePages[file]) {
+      for (const key of bespokeGuidancePages[file]) {
+        assert.match(html, new RegExp(`data-i18n=["']${escapeRe(key)}["']`), `${file}: bespoke content ${key}`);
+      }
+      assert.ok((html.match(/data-i18n=["']faq\d+Q["']/g) || []).length >= 3, `${file}: at least three page-specific FAQs`);
+      assert.match(html, /data-i18n=["']relatedTitle["']|aria-label=["']Related tools["']/i, `${file}: related tools`);
+      continue;
+    }
     if (file === "diff.html") {
       assert.match(html, /data-i18n="contentTitle"/, `${file}: translated guidance`);
       assert.match(html, /data-i18n="useTitle"/, `${file}: translated use cases`);
       assert.match(html, /data-i18n="relatedTitle"/, `${file}: translated related tools`);
-      assert.doesNotMatch(html, /id=["']tool-guidance["']/, `${file}: duplicate English guidance`);
       continue;
     }
     if (file === "color-picker.html") {
       assert.match(html, /data-i18n-html="seoHtml"/, `${file}: translated guidance`);
       assert.match(html, /Frequently asked questions/i, `${file}: FAQ`);
-      assert.doesNotMatch(html, /id=["']tool-guidance["']/, `${file}: duplicate English guidance`);
       continue;
     }
     assert.match(html, /How to use/i, `${file}: How to use`);
@@ -384,13 +409,20 @@ test("tool pages include the required content structure", () => {
   }
 });
 
-test("finance pages include sources, assumptions, disclaimer, and GOV.UK links", () => {
+test("shared tooling cannot regenerate the retired generic guidance template", () => {
+  for (const file of ["site-i18n.js", "scripts/standardize-pages.ps1"]) {
+    const source = read(file);
+    assert.doesNotMatch(source, /guidanceTranslations|renderToolGuidanceLanguage|applyToolGuidanceLanguage|syncEnglishToolGuidance/, file);
+    assert.doesNotMatch(source, /is designed for one focused task|for quick checks, planning, formatting or preparation work/i, file);
+  }
+});
+
+test("finance pages keep page-specific assumptions, disclaimers, and dated GOV.UK sources", () => {
   for (const file of financePages) {
     const html = read(file);
-    assert.match(html, /Sources and assumptions|Official sources/i, `${file}: sources heading`);
     assert.match(html, /estimate|estimates only/i, `${file}: estimate disclaimer`);
-    assert.match(html, /not [^.]{0,160}advice/i, `${file}: advice disclaimer`);
-    assert.match(html, /Last checked: 9 June 2026/i, `${file}: last checked`);
+    assert.match(html, /not [^.]{0,160}advice|professional advice|solicitor or tax adviser/i, `${file}: advice disclaimer`);
+    assert.match(html, /datetime=["']2026-06-09["']|Last checked: 9 June 2026/i, `${file}: source check date`);
     assert.match(html, /https:\/\/www\.gov\.uk\//, `${file}: GOV.UK`);
   }
 });
