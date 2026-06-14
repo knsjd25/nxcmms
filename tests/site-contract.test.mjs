@@ -539,6 +539,10 @@ test("404 page uses the shared shell without indexable SEO or ads", () => {
   assert.doesNotMatch(html, /rel=["']canonical["']/i);
   assert.doesNotMatch(html, /hreflang=/i);
   assert.doesNotMatch(html, /adsbygoogle|googlesyndication/i);
+  assert.match(html, /<style\s+id=["']site-shell-fallback["']>/i, "404 needs an inline shell fallback for error-route previews");
+  assert.match(html, /\.site-nav\s+\.site-nav-inner\s*\{[^}]*display\s*:\s*flex/i, "404 fallback must keep the desktop navigation aligned");
+  assert.match(html, /\.site-nav\s+\.site-nav-links\s*\{[^}]*display\s*:\s*flex/i, "404 fallback must keep navigation links aligned");
+  assert.match(html, /@media\s*\(max-width\s*:\s*1080px\)/i, "404 fallback must include the shared responsive breakpoint");
   assert.equal(section(html, "nav", "site-nav"), section(read("index.html"), "nav", "site-nav"));
   assert.equal(section(html, "footer", "footer"), section(read("index.html"), "footer", "footer"));
   assert.match(html, /data-i18n=["']heroTitle["'][^>]*>Page not found</i);

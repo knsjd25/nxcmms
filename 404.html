@@ -9,6 +9,32 @@
   <meta name="theme-color" content="#0f172a">
   <link rel="icon" type="image/svg+xml" href="https://assets.mini-tools.uk/image/favicon.svg">
   <link rel="stylesheet" href="/site-nav.css">
+  <style id="site-shell-fallback">
+    .site-nav,.site-nav *{box-sizing:border-box}
+    .site-nav{position:sticky;top:0;z-index:50;width:100%;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(226,232,240,.85);color:#0f172a;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.55}
+    .site-nav .site-nav-inner{width:calc(100% - 40px);max-width:1180px;min-height:74px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .site-nav .site-brand{display:flex;align-items:center;gap:12px;flex:0 0 auto;min-width:0;color:#0f172a;font-weight:850;text-decoration:none}
+    .site-nav .site-brand img{display:block;width:40px;height:40px;flex:0 0 auto;max-width:none;border:0;border-radius:12px;background:#fff;box-shadow:0 10px 24px rgba(15,23,42,.08);object-fit:cover}
+    .site-nav .site-brand-copy{display:flex;flex-direction:column;line-height:1.05}
+    .site-nav .site-brand-title{font-size:1.06rem;font-weight:850;white-space:nowrap;letter-spacing:-.03em}
+    .site-nav .site-brand-subtitle{display:block;margin-top:4px;color:#64748b;font-size:.79rem;font-weight:650;white-space:nowrap}
+    .site-nav .site-nav-links{display:flex;align-items:center;justify-content:flex-end;gap:5px;flex:1 1 auto;min-width:0;flex-wrap:nowrap}
+    .site-nav .site-nav-link,.site-nav .site-lang-trigger{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:0;padding:9px;border:1px solid transparent;border-radius:13px;background:transparent;color:#334155;font:760 13px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;white-space:nowrap;text-decoration:none;cursor:pointer}
+    .site-nav .site-nav-link:hover,.site-nav .site-lang-trigger:hover,.site-nav .site-lang-group.open .site-lang-trigger{border-color:#e2e8f0;background:#fff;color:#0f172a}
+    .site-nav .site-lang-group{position:relative;flex:0 0 auto;margin:0 0 -14px;padding:0 0 14px}
+    .site-nav .site-lang-dropdown{position:absolute;top:calc(100% + 2px);right:0;min-width:180px;display:none;padding:10px;background:#fff;border:1px solid #e2e8f0;border-radius:18px;box-shadow:0 18px 42px rgba(15,23,42,.08);z-index:60}
+    .site-nav .site-lang-group.open .site-lang-dropdown{display:block}
+    .site-nav .site-lang-dropdown button{appearance:none;display:block;width:100%;padding:10px 12px;border:0;border-radius:12px;background:transparent;color:#334155;font:760 14px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;text-align:left;white-space:nowrap;cursor:pointer}
+    .site-nav .site-lang-dropdown button:hover,.site-nav .site-lang-dropdown button.active{background:#f8fafc;color:#0f172a}
+    .footer{border-top:1px solid #e2e8f0;background:#fff;padding:28px 0 46px}
+    .footer .footer-inner{box-sizing:border-box;max-width:1180px;width:100%;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;color:#64748b;font-size:.9rem}
+    .footer .footer-copyright,.footer .footer-links,.footer .footer-links a{font-size:.9rem;font-weight:700}
+    .footer .footer-links{display:flex;justify-content:flex-end;align-items:center;gap:14px;flex-wrap:wrap;color:#334155}
+    .footer .footer-links a{color:#334155;text-decoration:none}
+    @media(max-width:1120px){.site-nav .site-brand-subtitle{display:none}.site-nav .site-nav-link,.site-nav .site-lang-trigger{padding:8px 7px;font-size:12.5px}.site-nav .site-nav-links{gap:4px}}
+    @media(max-width:1080px){.site-nav .site-nav-inner{align-items:flex-start;flex-direction:column;padding:12px 0}.site-nav .site-nav-links{width:100%;justify-content:flex-start;flex-wrap:wrap}.site-nav .site-lang-group{position:relative}}
+    @media(max-width:760px){.site-nav .site-lang-dropdown{left:0;right:auto}.footer .footer-inner{align-items:flex-start;flex-direction:column}.footer .footer-links{justify-content:flex-start}}
+  </style>
   <style>
     :root{--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--blue:#2563eb;--paper:#fff;--background:#f6f8fc;--sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
     *{box-sizing:border-box}
