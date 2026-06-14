@@ -27,6 +27,7 @@ const SITE_ORIGIN = "https://mini-tools.uk";
 
 const DEFAULT_LANG = "en";
 const SUPPORTED_LANGS = ["en", "zh-CN", "de", "fr", "es"];
+const NOT_FOUND_ROBOTS = "noindex, follow, max-image-preview:large";
 
 const HTML_LANG_FALLBACK = {
   en: "en-GB",
@@ -849,7 +850,8 @@ function maybeRedirectNormalizedUrl(requestUrl) {
   const url = new URL(requestUrl);
   let changed = false;
 
-  if (url.pathname === "/index.html" || url.pathname.endsWith(".html")) {
+  const normalizedPath = normalizePathname(url.pathname);
+  if (url.pathname === "/index.html" || (url.pathname.endsWith(".html") && INDEXABLE_PATHS.has(normalizedPath))) {
     url.pathname = normalizePathname(url.pathname);
     changed = true;
   }
@@ -895,6 +897,38 @@ function serverRenderHtml(html, requestUrl) {
   return { html, robots };
 }
 
+function removeIndexableSeoLinks(html) {
+  return html
+    .replace(/<link\b[^>]*\brel=(["'])canonical\1[^>]*>\s*/gi, "")
+    .replace(/<link\b[^>]*\brel=(["'])alternate\1[^>]*\bhreflang=(["'])[^"']+\2[^>]*>\s*/gi, "");
+}
+
+async function render404(request, env, status = 404) {
+  const requestUrl = new URL(request.url);
+  const notFoundUrl = new URL("/404.html", requestUrl.origin);
+  const assetResponse = await env.ASSETS.fetch(new Request(notFoundUrl.toString(), request));
+
+  if (!assetResponse.ok) {
+    return new Response("Not found", {
+      status,
+      headers: {
+        "content-type": "text/plain; charset=utf-8",
+        "X-Robots-Tag": NOT_FOUND_ROBOTS,
+      },
+    });
+  }
+
+  const rendered = serverRenderHtml(await assetResponse.text(), request.url);
+  const html = removeIndexableSeoLinks(rendered.html);
+  const headers = new Headers(assetResponse.headers);
+  headers.set("content-type", "text/html; charset=utf-8");
+  headers.set("X-Robots-Tag", NOT_FOUND_ROBOTS);
+  headers.set("Vary", "Accept-Encoding");
+  headers.delete("content-length");
+
+  return new Response(html, { status, headers });
+}
+
 export default {
   async fetch(request, env) {
     const initialUrl = new URL(request.url);
@@ -932,6 +966,14 @@ export default {
       });
     }
 
+    if (initialPathname === "/404.html") {
+      return render404(request, env, 200);
+    }
+
+    if (normalizePathname(initialPathname) === "/404") {
+      return render404(request, env);
+    }
+
     const redirectTo = maybeRedirectNormalizedUrl(request.url);
     if (redirectTo) {
       return Response.redirect(redirectTo, 301);
@@ -945,6 +987,9 @@ export default {
     }
 
     const assetResponse = await fetchAsset(request, env, pathname);
+    if (assetResponse.status === 404) {
+      return render404(request, env);
+    }
     const contentType = assetResponse.headers.get("content-type") || "";
 
     const robots = shouldNoindex(url)

@@ -9,7 +9,7 @@ function Assert-True([bool]$condition, [string]$message) {
   if (-not $condition) { throw $message }
 }
 
-$excluded = @("image_admin.html", "map.html")
+$excluded = @("404.html", "image_admin.html", "map.html")
 $publicPages = Get-ChildItem -LiteralPath $root -Filter "*.html" | Where-Object { $excluded -notcontains $_.Name }
 $keyPages = @("index.html", "about.html", "upload.html", "tax.html", "contact.html", "privacy.html")
 $toolPages = @("upload.html", "tax.html", "vat.html", "json.html", "diff.html", "token.html", "qr.html", "pdf2img.html", "mortgage.html", "ir35.html", "stamp-duty.html", "dividend.html", "password.html", "image.html", "color-picker.html", "working-days.html", "fuel.html", "weight.html")

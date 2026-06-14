@@ -6,7 +6,7 @@ import worker from "../_worker.js";
 
 const root = new URL("../", import.meta.url);
 const read = (name) => readFileSync(new URL(name, root), "utf8");
-const htmlFiles = readdirSync(root).filter((name) => name.endsWith(".html") && !["image_admin.html", "map.html"].includes(name));
+const htmlFiles = readdirSync(root).filter((name) => name.endsWith(".html") && !["404.html", "image_admin.html", "map.html"].includes(name));
 
 const approvedPaths = [
   "/", "/tax", "/vat", "/mortgage", "/ir35", "/stamp-duty", "/dividend",
@@ -530,6 +530,75 @@ test("worker serves sitemap and robots as static assets and retires blog", async
 
   const blog = await fetchThroughWorker("/blog");
   assert.equal(blog.status, 410);
+});
+
+test("404 page uses the shared shell without indexable SEO or ads", () => {
+  const html = read("404.html");
+  assert.match(html, /<title>Page Not Found \| Mini-Tools\.uk<\/title>/);
+  assert.match(html, /<meta\s+name=["']robots["']\s+content=["']noindex,follow["']/i);
+  assert.doesNotMatch(html, /rel=["']canonical["']/i);
+  assert.doesNotMatch(html, /hreflang=/i);
+  assert.doesNotMatch(html, /adsbygoogle|googlesyndication/i);
+  assert.equal(section(html, "nav", "site-nav"), section(read("index.html"), "nav", "site-nav"));
+  assert.equal(section(html, "footer", "footer"), section(read("index.html"), "footer", "footer"));
+  assert.match(html, /data-i18n=["']heroTitle["'][^>]*>Page not found</i);
+  assert.match(html, /href=["']\/["'][^>]*data-i18n=["']homeButton["']/i);
+  assert.match(html, /href=["']\/#search["'][^>]*data-i18n=["']searchButton["']/i);
+  for (const lang of ["en", "zh-CN", "de", "fr", "es"]) {
+    assert.match(html, new RegExp(`["']${escapeRe(lang)}["']\\s*:`), `404 dictionary: ${lang}`);
+  }
+  assert.equal(read("sitemap.xml").includes("/404"), false, "404 must not be in sitemap");
+});
+
+test("worker returns the unified HTML 404 for prompt and unknown pages", async () => {
+  for (const path of [
+    "/prompt",
+    "/prompt.html",
+    "/prompt/",
+    "/prompt?lang=zh-CN",
+    "/prompt?lang=de",
+    "/prompt.html?lang=fr",
+    "/this-page-does-not-exist",
+    "/random-test-page",
+  ]) {
+    const response = await fetchThroughWorker(path);
+    assert.equal(response.status, 404, path);
+    assert.match(response.headers.get("content-type") || "", /^text\/html\b/i, path);
+    assert.match(response.headers.get("x-robots-tag") || "", /noindex,\s*follow/i, path);
+    const html = await response.text();
+    assert.match(html, /class=["']site-nav["']/, path);
+    assert.match(html, /<meta\s+name=["']robots["']\s+content=["']noindex,\s*follow/i, path);
+    assert.doesNotMatch(html, /rel=["']canonical["']/i, path);
+    assert.doesNotMatch(html, /hreflang=/i, path);
+  }
+
+  const chinese = await fetchThroughWorker("/prompt?lang=zh-CN");
+  assert.match(await chinese.text(), /页面未找到/);
+});
+
+test("worker preserves 410, 301 and direct 200 routes around 404 handling", async () => {
+  for (const path of ["/blog", "/blog/", "/blog/old-post"]) {
+    const response = await fetchThroughWorker(path);
+    assert.equal(response.status, 410, path);
+    assert.match(response.headers.get("x-robots-tag") || "", /noindex,\s*follow/i, path);
+  }
+
+  for (const [path, target] of [
+    ["/tax.html", "https://mini-tools.uk/tax"],
+    ["/about.html", "https://mini-tools.uk/about"],
+    ["/image-compressor", "https://mini-tools.uk/image"],
+    ["/pdf-to-image", "https://mini-tools.uk/pdf2img"],
+    ["/terms", "https://mini-tools.uk/privacy"],
+  ]) {
+    const response = await fetchThroughWorker(path);
+    assert.equal(response.status, 301, path);
+    assert.equal(response.headers.get("location"), target, path);
+  }
+
+  for (const path of ["/", "/tax", "/token", "/about", "/privacy", "/404.html"]) {
+    const response = await fetchThroughWorker(path);
+    assert.equal(response.status, 200, path);
+  }
 });
 
 test("legacy image and PDF routes redirect directly to formal URLs", async () => {

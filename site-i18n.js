@@ -176,6 +176,11 @@
   }
 
   function applyCanonicalHreflang() {
+    const robots = document.querySelector('meta[name="robots"]')?.getAttribute("content") || "";
+    if (/\bnoindex\b/i.test(robots)) {
+      document.querySelectorAll('link[rel="canonical"], link[rel="alternate"][hreflang]').forEach((node) => node.remove());
+      return;
+    }
     const cleanPath = location.pathname === "/index.html" ? "/" : location.pathname.replace(/\.html$/, "");
     const cleanUrl = location.origin + cleanPath;
     const canonicalUrl = currentLang === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(currentLang)}`;
