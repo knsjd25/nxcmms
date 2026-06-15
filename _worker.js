@@ -903,6 +903,53 @@ function removeIndexableSeoLinks(html) {
     .replace(/<link\b[^>]*\brel=(["'])alternate\1[^>]*\bhreflang=(["'])[^"']+\2[^>]*>\s*/gi, "");
 }
 
+function buildFallback404Html(requestUrl) {
+  const url = new URL(requestUrl);
+  const lang = langFromUrl(url);
+  const copy = {
+    en: { title: "Page not found", text: "The page you requested does not exist, may have been removed, or the address may be incorrect.", home: "Return to homepage", search: "Search all tools", popular: "Popular tools", navHome: "Home", navSearch: "Search", navPopular: "Popular", navAbout: "About", navContact: "Contact", navPrivacy: "Privacy" },
+    "zh-CN": { title: "页面未找到", text: "你请求的页面不存在、可能已被删除，或地址输入有误。", home: "返回首页", search: "搜索全部工具", popular: "热门工具", navHome: "首页", navSearch: "搜索", navPopular: "热门工具", navAbout: "关于我们", navContact: "联系我们", navPrivacy: "隐私政策" },
+    de: { title: "Seite nicht gefunden", text: "Die angeforderte Seite existiert nicht, wurde möglicherweise entfernt oder die Adresse ist falsch.", home: "Zur Startseite", search: "Alle Tools durchsuchen", popular: "Beliebte Tools", navHome: "Startseite", navSearch: "Suche", navPopular: "Beliebt", navAbout: "Über uns", navContact: "Kontakt", navPrivacy: "Datenschutz" },
+    fr: { title: "Page introuvable", text: "La page demandée n’existe pas, a peut-être été supprimée ou l’adresse est incorrecte.", home: "Retour à l’accueil", search: "Rechercher tous les outils", popular: "Outils populaires", navHome: "Accueil", navSearch: "Recherche", navPopular: "Populaires", navAbout: "À propos", navContact: "Contact", navPrivacy: "Confidentialité" },
+    es: { title: "Página no encontrada", text: "La página solicitada no existe, puede haber sido eliminada o la dirección es incorrecta.", home: "Volver al inicio", search: "Buscar todas las herramientas", popular: "Herramientas populares", navHome: "Inicio", navSearch: "Buscar", navPopular: "Populares", navAbout: "Acerca de", navContact: "Contacto", navPrivacy: "Privacidad" },
+  }[lang];
+  const langLinks = SUPPORTED_LANGS.map((code) => {
+    const target = new URL(url.pathname, SITE_ORIGIN);
+    if (code !== DEFAULT_LANG) target.searchParams.set("lang", code);
+    const label = { en: "English", "zh-CN": "中文", de: "Deutsch", fr: "Français", es: "Español" }[code];
+    return `<a href="${escapeAttr(target.pathname + target.search)}">${label}</a>`;
+  }).join("");
+  const suffix = lang === DEFAULT_LANG ? "" : `?lang=${encodeURIComponent(lang)}`;
+  const homeHref = `/${suffix}`;
+  const searchHref = lang === DEFAULT_LANG ? "/#search" : `/${suffix}#search`;
+  const popularHref = lang === DEFAULT_LANG ? "/#popular" : `/${suffix}#popular`;
+
+  return `<!doctype html>
+<html lang="${HTML_LANG_FALLBACK[lang] || "en-GB"}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <title>${escapeHtml(copy.title)} | Mini-Tools.uk</title>
+  <link rel="stylesheet" href="/site-nav.css">
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f8fafc;color:#0f172a;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}.site-nav{background:#fff;border-bottom:1px solid #e2e8f0}.site-nav-inner,.error-wrap,.footer-inner{width:calc(100% - 40px);max-width:1180px;margin:0 auto}.site-nav-inner{min-height:74px;display:flex;align-items:center;gap:18px}.site-brand{display:flex;align-items:center;gap:10px;color:#0f172a;text-decoration:none;font-weight:850}.site-brand img{width:40px;height:40px;border-radius:12px}.site-nav-links,.language-links,.error-actions,.popular-tools,.footer-links{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.site-nav-links{margin-left:auto}.site-nav a,.footer a{color:#334155;text-decoration:none}.error-wrap{min-height:calc(100vh - 190px);display:grid;place-items:center;padding:64px 0}.error-card{width:100%;max-width:820px;padding:48px;border:1px solid #e2e8f0;border-radius:28px;background:#fff;box-shadow:0 18px 48px rgba(15,23,42,.08);text-align:center}.error-code{color:#2563eb;font-size:.9rem;font-weight:850;letter-spacing:.14em}.error-card h1{margin:12px 0;font-size:clamp(2rem,7vw,4.5rem)}.error-card>p{max-width:650px;margin:0 auto 26px;color:#64748b;font-size:1.05rem}.error-actions,.popular-tools,.language-links{justify-content:center}.button{padding:12px 18px;border-radius:14px;background:#2563eb!important;color:#fff!important;font-weight:800}.button.secondary{background:#eff6ff!important;color:#1d4ed8!important}.popular{margin-top:34px;padding-top:28px;border-top:1px solid #e2e8f0}.popular h2{font-size:1rem}.popular-tools a,.language-links a{padding:9px 12px;border:1px solid #e2e8f0;border-radius:12px;background:#f8fafc}.language-links{margin-top:24px}.footer{padding:28px 0 40px;border-top:1px solid #e2e8f0;background:#fff}.footer-inner{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:#64748b}@media(max-width:900px){.site-nav-inner{padding:14px 0;align-items:flex-start;flex-direction:column}.site-nav-links{margin-left:0}.error-card{padding:32px 22px}}
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary navigation"><div class="site-nav-inner">
+    <a class="site-brand" href="${homeHref}"><img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo"><span>Mini-Tools<span style="color:#2563eb">.uk</span></span></a>
+    <div class="site-nav-links"><a href="${homeHref}">${escapeHtml(copy.navHome)}</a><a href="${searchHref}">${escapeHtml(copy.navSearch)}</a><a href="${popularHref}">${escapeHtml(copy.navPopular)}</a><a href="/about${suffix}">${escapeHtml(copy.navAbout)}</a><a href="/contact${suffix}">${escapeHtml(copy.navContact)}</a><a href="/privacy${suffix}">${escapeHtml(copy.navPrivacy)}</a></div>
+  </div></nav>
+  <main class="error-wrap"><section class="error-card"><div class="error-code">404</div><h1>${escapeHtml(copy.title)}</h1><p>${escapeHtml(copy.text)}</p>
+    <div class="error-actions"><a class="button" href="${homeHref}">${escapeHtml(copy.home)}</a><a class="button secondary" href="${searchHref}">${escapeHtml(copy.search)}</a></div>
+    <div class="popular"><h2>${escapeHtml(copy.popular)}</h2><div class="popular-tools"><a href="/tax${suffix}">UK Tax Calculator</a><a href="/vat${suffix}">VAT Calculator</a><a href="/json${suffix}">JSON Formatter</a><a href="/image${suffix}">Image Compressor</a><a href="/qr${suffix}">QR Code Generator</a></div></div>
+    <div class="language-links">${langLinks}</div>
+  </section></main>
+  <footer class="footer"><div class="footer-inner"><span>Copyright 2026 Mini-Tools.uk</span><div class="footer-links"><a href="${homeHref}">${escapeHtml(copy.navHome)}</a><a href="/about${suffix}">${escapeHtml(copy.navAbout)}</a><a href="/contact${suffix}">${escapeHtml(copy.navContact)}</a><a href="/privacy${suffix}">${escapeHtml(copy.navPrivacy)}</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div></div></footer>
+</body></html>`;
+}
+
 async function render404(request, env, status = 404) {
   const requestUrl = new URL(request.url);
   const notFoundUrl = new URL("/404.html", requestUrl.origin);
@@ -911,11 +958,12 @@ async function render404(request, env, status = 404) {
   const assetBody = await assetResponse.text();
 
   if (!assetContentType.toLowerCase().includes("text/html") || !assetBody.trim()) {
-    return new Response("Not found", {
+    return new Response(buildFallback404Html(request.url), {
       status,
       headers: {
-        "content-type": "text/plain; charset=utf-8",
+        "content-type": "text/html; charset=utf-8",
         "X-Robots-Tag": NOT_FOUND_ROBOTS,
+        "Vary": "Accept-Encoding",
       },
     });
   }

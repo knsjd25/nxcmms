@@ -637,6 +637,31 @@ test("worker keeps the custom 404 body when the asset service returns it with st
   assert.match(await response.text(), /Page not found/i);
 });
 
+test("worker generates the unified HTML fallback when the 404 asset is unavailable", async () => {
+  const env = {
+    ASSETS: {
+      async fetch() {
+        return new Response("Not found", {
+          status: 404,
+          headers: { "content-type": "text/plain; charset=utf-8" },
+        });
+      },
+    },
+  };
+
+  const response = await worker.fetch(new Request("https://mini-tools.uk/blog?lang=zh-CN"), env);
+  assert.equal(response.status, 410);
+  assert.match(response.headers.get("content-type") || "", /text\/html/i);
+  assert.match(response.headers.get("x-robots-tag") || "", /noindex,\s*follow/i);
+  const html = await response.text();
+  assert.match(html, /<html[^>]+lang=["']zh-CN["']/i);
+  assert.match(html, /页面未找到/);
+  assert.match(html, /class=["']site-nav["']/);
+  assert.match(html, /href=["']\/\?lang=zh-CN["']/);
+  assert.match(html, /href=["']\/\?lang=zh-CN#search["']/);
+  assert.match(html, /class=["']footer["']/);
+});
+
 test("worker preserves 410, 301 and direct 200 routes around 404 handling", async () => {
   for (const path of ["/blog", "/blog/", "/blog/old-post"]) {
     const response = await fetchThroughWorker(path);
