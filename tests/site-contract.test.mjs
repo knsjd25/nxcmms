@@ -112,7 +112,8 @@ async function fetchThroughIsolatedWorker(path, timeoutMs = 2000) {
 }
 
 test("all public pages use the unified navigation and footer", () => {
-  const navDestinations = ["/", "/#search", "/#popular", "/#uk-apps", "/#developer-tools", "/#other-tools", "/about", "/contact", "/privacy"];
+  const navDestinations = ["/", "/#search", "/#popular", "/#uk-apps", "/#developer-tools", "/#other-tools"];
+  const footerOnlyDestinations = ["/about", "/contact", "/privacy"];
   const homepageNav = section(read("index.html"), "nav", "site-nav");
   const homepageFooter = section(read("index.html"), "footer", "footer");
 
@@ -129,6 +130,10 @@ test("all public pages use the unified navigation and footer", () => {
     for (const href of navDestinations) {
       assert.match(nav, new RegExp(`href=["']${escapeRe(href)}["']`), `${file}: nav misses ${href}`);
     }
+    for (const href of footerOnlyDestinations) {
+      assert.doesNotMatch(nav, new RegExp(`href=["']${escapeRe(href)}["']`), `${file}: nav must leave ${href} in the footer only`);
+      assert.match(footer, new RegExp(`href=["']${escapeRe(href)}["']`), `${file}: footer misses ${href}`);
+    }
 
     for (const requiredClass of ["site-nav", "site-nav-inner", "site-brand", "site-nav-links", "site-nav-link", "site-lang-group", "site-lang-trigger", "site-lang-dropdown"]) {
       assert.equal(navClassTokens.includes(requiredClass), true, `${file}: nav misses ${requiredClass}`);
@@ -136,7 +141,7 @@ test("all public pages use the unified navigation and footer", () => {
     for (const legacyClass of ["nav", "nav-inner", "brand", "nav-links", "nav-link", "lang-group", "lang-trigger", "lang-dropdown"]) {
       assert.equal(navClassTokens.includes(legacyClass), false, `${file}: shared nav must not use legacy class ${legacyClass}`);
     }
-    assert.match(nav, /data-site-nav=["']privacy["'][^>]*>[^<]*<\/a>\s*<\/div>\s*<div class=["']site-lang-group["']>/, `${file}: language selector must match the homepage structure`);
+    assert.match(nav, /data-site-nav=["']other["'][^>]*>[^<]*<\/a>\s*<\/div>\s*<div class=["']site-lang-group["']>/, `${file}: language selector must follow the final top-navigation link`);
     assert.equal(nav, homepageNav, `${file}: navigation markup must match homepage`);
 
     assert.match(footer, /Copyright 2026 Mini-Tools\.uk/, `${file}: footer copyright`);
@@ -148,6 +153,11 @@ test("all public pages use the unified navigation and footer", () => {
     assert.doesNotMatch(html, /<script\b[^>]*id=["']site-nav-language["']/i, `${file}: copied language runtime must be removed`);
     assert.doesNotMatch(html, /ui-refresh\.css/i, `${file}: retired UI stylesheet must not compete with navigation`);
     assert.doesNotMatch(nav + footer, /Blog|All Tools|Categories|UK Finance|Image & PDF|Security|Acceptable Use|Terms/i, file);
+  }
+
+  const standardizerNav = read("scripts/standardize-pages.ps1").match(/\$nav\s*=\s*@'[\s\S]*?'@/)?.[0] || "";
+  for (const href of footerOnlyDestinations) {
+    assert.doesNotMatch(standardizerNav, new RegExp(`href=["']${escapeRe(href)}["']`), `standardizer nav must not restore ${href}`);
   }
 });
 
@@ -199,12 +209,14 @@ test("homepage has one complete Twitter card metadata set", () => {
 
 test("shared navigation gives long translated labels enough responsive space", () => {
   const css = read("site-nav.css");
+  assert.match(css, /--site-shell-width: 1280px;/, "shared navigation uses the wider desktop shell");
   assert.match(css, /\.site-nav,\s*\.site-nav \* \{[^}]*box-sizing: border-box !important;/, "shared navigation owns its box model");
   assert.match(css, /\.site-nav \{[^}]*background: rgba\(255, 255, 255, \.88\) !important;[^}]*backdrop-filter: blur\(16px\) !important;/, "shared navigation keeps the homepage glass style");
   assert.match(css, /\.site-nav \.site-nav-inner \{[\s\S]*?display: flex !important;/, "desktop nav uses isolated flexible layout");
   assert.match(css, /\.site-nav \.site-nav-inner \{[^}]*gap: 18px !important;/, "shared navigation keeps the homepage spacing");
   assert.doesNotMatch(css, /grid-template-columns: 1fr auto 1fr !important;/, "nav must not use collision-prone three-column grid");
-  assert.match(css, /\.site-nav \.site-nav-links \{[^}]*gap: 5px !important;[^}]*flex-wrap: wrap !important;/, "desktop links wrap before translated labels overlap the brand");
+  assert.match(css, /\.site-nav \.site-nav-links \{[^}]*gap: 5px !important;[^}]*flex-wrap: nowrap !important;/, "shortened desktop navigation stays on one row");
+  assert.match(css, /@media \(max-width: 1200px\)[\s\S]*?\.site-nav \.site-brand-subtitle[\s\S]*?display: none !important;/, "medium desktop widths use the compact single-row navigation");
   assert.doesNotMatch(css, /body\s*>\s*main/, "navigation stylesheet must not change page layout");
   assert.match(css, /@media \(max-width: 1080px\)[\s\S]*?\.site-nav \.site-nav-inner[\s\S]*?flex-direction: column !important;/, "long labels wrap before collision");
   assert.match(css, /@media \(max-width: 1080px\)[\s\S]*?\.site-nav \.site-nav-links[\s\S]*?flex-wrap: wrap !important;/, "translated nav buttons wrap safely");

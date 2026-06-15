@@ -37,8 +37,10 @@ $canonicalPaths = @{
   "image.html" = "/image"; "color-picker.html" = "/color-picker"; "working-days.html" = "/working-days";
   "fuel.html" = "/fuel"; "weight.html" = "/weight"; "about.html" = "/about"; "contact.html" = "/contact"; "privacy.html" = "/privacy"
 }
-$navLinks = @("/", "/#search", "/#popular", "/#uk-apps", "/#developer-tools", "/#other-tools", "/about", "/contact", "/privacy")
+$navLinks = @("/", "/#search", "/#popular", "/#uk-apps", "/#developer-tools", "/#other-tools")
 $footerLinks = @("/", "/about", "/contact", "/privacy")
+$standardizerNav = [regex]::Match((Read-SiteFile "scripts/standardize-pages.ps1"), '\$nav\s*=\s*@''[\s\S]*?''@').Value
+foreach ($href in @("/about", "/contact", "/privacy")) { Assert-True ($standardizerNav -notmatch ('href=["'']' + [regex]::Escape($href) + '["'']')) "standardizer nav can restore $href" }
 
 foreach ($page in $publicPages) {
   $html = Read-SiteFile $page.Name
@@ -57,6 +59,7 @@ foreach ($page in $keyPages) {
   $footer = [regex]::Match($html, '<footer\b[\s\S]*?</footer>', "IgnoreCase").Value
   foreach ($href in $navLinks) { Assert-True ($nav -match ('href=["'']' + [regex]::Escape($href) + '["'']')) "$page nav misses $href" }
   foreach ($href in $footerLinks) { Assert-True ($footer -match ('href=["'']' + [regex]::Escape($href) + '["'']')) "$page footer misses $href" }
+  foreach ($href in @("/about", "/contact", "/privacy")) { Assert-True ($nav -notmatch ('href=["'']' + [regex]::Escape($href) + '["'']')) "$page nav must leave $href in the footer only" }
   Assert-True ($nav -notmatch 'Blog|Terms|Acceptable Use|All Tools|UK Finance|Image & PDF|Security|Categories') "$page nav has an old item"
   Assert-True ($footer -notmatch 'Blog|Terms|Acceptable Use|All Tools|Categories') "$page footer has an old item"
 }
@@ -64,11 +67,12 @@ foreach ($page in $publicPages) {
   Assert-True ((Read-SiteFile $page.Name) -notmatch '<header\s+class=["'']site-header["'']') "$($page.Name) still wraps the unified nav in its legacy header"
 }
 $sharedNavCss = Read-SiteFile "site-nav.css"
-Assert-True ($sharedNavCss.Contains('--site-shell-width: 1180px;')) "shared navigation does not define the common page width"
+Assert-True ($sharedNavCss.Contains('--site-shell-width: 1280px;')) "shared navigation does not use the wider desktop shell"
 Assert-True ($sharedNavCss.Contains('max-width: var(--site-shell-width) !important;')) "shared navigation and content do not use the common page width"
 Assert-True ($sharedNavCss.Contains('right: 0 !important;')) "shared navigation does not keep the language selector on the right"
 Assert-True ($sharedNavCss.Contains('justify-content: space-between !important;')) "shared navigation does not use homepage alignment"
-Assert-True ($sharedNavCss -match '(?s)\.site-nav \.site-nav-links \{[^}]*gap: 5px !important;[^}]*flex-wrap: wrap !important;[^}]*\}') "shared navigation does not let translated labels wrap before overlapping the brand"
+Assert-True ($sharedNavCss -match '(?s)\.site-nav \.site-nav-links \{[^}]*gap: 5px !important;[^}]*flex-wrap: nowrap !important;[^}]*\}') "shortened desktop navigation does not stay on one row"
+Assert-True ($sharedNavCss -match '(?s)@media \(max-width: 1200px\).*?\.site-nav \.site-brand-subtitle \{[^}]*display: none !important;') "medium desktop widths do not use the compact navigation"
 Assert-True ($sharedNavCss.Contains('flex-direction: column !important;')) "shared navigation does not provide the responsive stacked layout"
 
 foreach ($page in $publicPages) {

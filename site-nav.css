@@ -1,5 +1,5 @@
 :root {
-  --site-shell-width: 1180px;
+  --site-shell-width: 1280px;
   --site-shell-gutter: 40px;
 }
 
@@ -96,7 +96,7 @@
   display: flex !important;
   align-items: center !important;
   gap: 5px !important;
-  flex-wrap: wrap !important;
+  flex-wrap: nowrap !important;
   justify-content: flex-end !important;
   flex: 1 1 auto !important;
   position: static !important;
@@ -267,7 +267,7 @@
   text-transform: none !important;
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 1200px) {
   .site-nav .site-brand-subtitle {
     display: none !important;
   }
