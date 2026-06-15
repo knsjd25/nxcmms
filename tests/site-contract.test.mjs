@@ -204,7 +204,7 @@ test("shared navigation gives long translated labels enough responsive space", (
   assert.match(css, /\.site-nav \.site-nav-inner \{[\s\S]*?display: flex !important;/, "desktop nav uses isolated flexible layout");
   assert.match(css, /\.site-nav \.site-nav-inner \{[^}]*gap: 18px !important;/, "shared navigation keeps the homepage spacing");
   assert.doesNotMatch(css, /grid-template-columns: 1fr auto 1fr !important;/, "nav must not use collision-prone three-column grid");
-  assert.match(css, /\.site-nav \.site-nav-links \{[^}]*gap: 5px !important;[^}]*flex-wrap: nowrap !important;/, "desktop links match the homepage row");
+  assert.match(css, /\.site-nav \.site-nav-links \{[^}]*gap: 5px !important;[^}]*flex-wrap: wrap !important;/, "desktop links wrap before translated labels overlap the brand");
   assert.doesNotMatch(css, /body\s*>\s*main/, "navigation stylesheet must not change page layout");
   assert.match(css, /@media \(max-width: 1080px\)[\s\S]*?\.site-nav \.site-nav-inner[\s\S]*?flex-direction: column !important;/, "long labels wrap before collision");
   assert.match(css, /@media \(max-width: 1080px\)[\s\S]*?\.site-nav \.site-nav-links[\s\S]*?flex-wrap: wrap !important;/, "translated nav buttons wrap safely");

@@ -68,6 +68,7 @@ Assert-True ($sharedNavCss.Contains('--site-shell-width: 1180px;')) "shared navi
 Assert-True ($sharedNavCss.Contains('max-width: var(--site-shell-width) !important;')) "shared navigation and content do not use the common page width"
 Assert-True ($sharedNavCss.Contains('right: 0 !important;')) "shared navigation does not keep the language selector on the right"
 Assert-True ($sharedNavCss.Contains('justify-content: space-between !important;')) "shared navigation does not use homepage alignment"
+Assert-True ($sharedNavCss -match '(?s)\.site-nav \.site-nav-links \{[^}]*gap: 5px !important;[^}]*flex-wrap: wrap !important;[^}]*\}') "shared navigation does not let translated labels wrap before overlapping the brand"
 Assert-True ($sharedNavCss.Contains('flex-direction: column !important;')) "shared navigation does not provide the responsive stacked layout"
 
 foreach ($page in $publicPages) {
