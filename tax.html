@@ -850,7 +850,7 @@
             <div class="eyebrow" data-i18n="resultEyebrow">Estimated monthly take-home</div>
             <div class="big-result" id="monthlyTakeHome">£0.00</div>
           </div>
-          <div class="assumption-badge" id="regionBadge">England / NI</div>
+          <div class="assumption-badge" id="regionBadge" data-i18n="regionBadgeRuk">England / NI</div>
         </div>
 
         <table>
@@ -908,12 +908,12 @@
           </tbody>
         </table>
 
-        <div class="note-card" id="summaryNote">
+        <div class="note-card" id="summaryNote" data-i18n="initialSummaryNote">
           Uses standard 1257L personal allowance.
         </div>
 
         <div class="note-card" id="extraNote">
-          <strong data-i18n="employerNiTitle">Estimated employer NI cost:</strong> <span id="employerCost">£0.00 / year</span><br>
+          <strong data-i18n="employerNiTitle">Estimated employer NI cost:</strong> <span id="employerCost">£0.00 <span data-i18n="perYear">/ year</span></span><br>
           <span class="muted-on-dark" data-i18n="employerNiNote">Shown as extra context only. It is not deducted from your own take-home pay.</span>
         </div>
       </div>
@@ -962,8 +962,8 @@
             </thead>
             <tbody>
               <tr><td data-i18n="personalAllowance">Personal Allowance</td><td data-i18n="paRange">Up to £12,570</td><td>0%</td></tr>
-              <tr><td data-i18n="basicRate">Basic rate</td><td>£12,571 to £50,270</td><td>20%</td></tr>
-              <tr><td data-i18n="higherRate">Higher rate</td><td>£50,271 to £125,140</td><td>40%</td></tr>
+              <tr><td data-i18n="basicRate">Basic rate</td><td data-i18n="rukBasicRange">£12,571 to £50,270</td><td>20%</td></tr>
+              <tr><td data-i18n="higherRate">Higher rate</td><td data-i18n="rukHigherRange">£50,271 to £125,140</td><td>40%</td></tr>
               <tr><td data-i18n="additionalRate">Additional rate</td><td data-i18n="over125">Over £125,140</td><td>45%</td></tr>
             </tbody>
           </table>
@@ -981,11 +981,11 @@
             </thead>
             <tbody>
               <tr><td data-i18n="personalAllowance">Personal Allowance</td><td data-i18n="paRange">Up to £12,570</td><td>0%</td></tr>
-              <tr><td data-i18n="starterRate">Starter rate</td><td>£12,571 to £16,537</td><td>19%</td></tr>
-              <tr><td data-i18n="basicRate">Basic rate</td><td>£16,538 to £29,526</td><td>20%</td></tr>
-              <tr><td data-i18n="intermediateRate">Intermediate rate</td><td>£29,527 to £43,662</td><td>21%</td></tr>
-              <tr><td data-i18n="higherRate">Higher rate</td><td>£43,663 to £75,000</td><td>42%</td></tr>
-              <tr><td data-i18n="advancedRate">Advanced rate</td><td>£75,001 to £125,140</td><td>45%</td></tr>
+              <tr><td data-i18n="starterRate">Starter rate</td><td data-i18n="scotlandStarterRange">£12,571 to £16,537</td><td>19%</td></tr>
+              <tr><td data-i18n="basicRate">Basic rate</td><td data-i18n="scotlandBasicRange">£16,538 to £29,526</td><td>20%</td></tr>
+              <tr><td data-i18n="intermediateRate">Intermediate rate</td><td data-i18n="scotlandIntermediateRange">£29,527 to £43,662</td><td>21%</td></tr>
+              <tr><td data-i18n="higherRate">Higher rate</td><td data-i18n="scotlandHigherRange">£43,663 to £75,000</td><td>42%</td></tr>
+              <tr><td data-i18n="advancedRate">Advanced rate</td><td data-i18n="scotlandAdvancedRange">£75,001 to £125,140</td><td>45%</td></tr>
               <tr><td data-i18n="topRate">Top rate</td><td data-i18n="over125">Over £125,140</td><td>48%</td></tr>
             </tbody>
           </table>
@@ -1077,7 +1077,7 @@
             <li data-i18n="source3">This page is an estimate only and is not payroll, legal, financial or tax advice.</li>
           </ul>
           <p class="official-sources"><a href="https://www.gov.uk/income-tax-rates" rel="noopener noreferrer">GOV.UK Income Tax rates</a> · <a href="https://www.gov.uk/national-insurance-rates-letters" rel="noopener noreferrer">National Insurance rates</a></p>
-          <p><time datetime="2026-06-09">Last checked: 9 June 2026</time></p>
+          <p><span data-i18n="lastCheckedLabel">Last checked:</span> <time datetime="2026-06-09" data-i18n="lastCheckedDate">9 June 2026</time></p>
         </div>
 
         <div class="side-card">
@@ -1179,6 +1179,7 @@
         employerNiTitle:"Estimated employer NI cost:",
         employerNiNote:"Shown as extra context only. It is not deducted from your own take-home pay.",
         perYear:"/ year",
+        initialSummaryNote:"Uses the standard 1257L tax code and Personal Allowance for this estimate.",
         articleTitle:"What this UK salary after tax calculator includes",
         articleP1:"This free UK salary after tax calculator gives an annualised estimate for employee salary income in the 2026/27 tax year. It is designed for salary planning, job offer comparison, monthly budgeting and understanding how PAYE Income Tax, National Insurance and other common deductions affect take-home pay.",
         articleP2:"It includes the standard Personal Allowance, Income Tax, employee National Insurance, salary sacrifice pension, Student Loan Plans 1, 2, 4 and 5, plus an optional Postgraduate Loan deduction. You can also choose England, Wales, Northern Ireland or Scotland for region-aware income tax bands.",
@@ -1200,6 +1201,13 @@
         rateHead:"Rate",
         personalAllowance:"Personal Allowance",
         paRange:"Up to £12,570",
+        rukBasicRange:"£12,571 to £50,270",
+        rukHigherRange:"£50,271 to £125,140",
+        scotlandStarterRange:"£12,571 to £16,537",
+        scotlandBasicRange:"£16,538 to £29,526",
+        scotlandIntermediateRange:"£29,527 to £43,662",
+        scotlandHigherRange:"£43,663 to £75,000",
+        scotlandAdvancedRange:"£75,001 to £125,140",
         basicRate:"Basic rate",
         higherRate:"Higher rate",
         additionalRate:"Additional rate",
@@ -1240,6 +1248,8 @@
         source1:"Income Tax and Personal Allowance assumptions follow the listed 2026/27 GOV.UK rates.",
         source2:"National Insurance and student loan thresholds are shown as transparent planning assumptions.",
         source3:"This page is an estimate only and is not payroll, legal, financial or tax advice.",
+        lastCheckedLabel:"Last checked:",
+        lastCheckedDate:"9 June 2026",
         sideKeywordsTitle:"Before relying on the result",
         kw1:"Check your tax code",
         kw2:"Confirm pension type",
@@ -1342,6 +1352,7 @@
         employerNiTitle:"预计雇主 NI 成本：",
         employerNiNote:"仅作为额外参考，不会从你的税后工资中扣除。",
         perYear:"/ 年",
+        initialSummaryNote:"采用标准 1257L 税码和个人免税额进行估算。",
         articleTitle:"英国个人所得税计算器包含哪些计算内容",
         articleP1:"这个英国个税计算器用于估算 2026/27 税年雇员工资收入的税后结果。它适合英国工资规划、比较工作 offer、估算英国年薪税后收入、月薪到手工资，以及理解常见扣款如何影响实际收入。",
         articleP2:"计算内容包括标准个人免税额 Personal Allowance、英国个人所得税 Income Tax / PAYE、雇员 National Insurance、工资牺牲养老金 Salary Sacrifice Pension、Student Loan Plan 1/2/4/5，以及可选的 Postgraduate Loan。你也可以选择英格兰、威尔士、北爱尔兰或苏格兰，以便使用对应的英国税区规则。",
@@ -1363,6 +1374,13 @@
         rateHead:"税率",
         personalAllowance:"个人免税额",
         paRange:"最高 £12,570",
+        rukBasicRange:"£12,571 至 £50,270",
+        rukHigherRange:"£50,271 至 £125,140",
+        scotlandStarterRange:"£12,571 至 £16,537",
+        scotlandBasicRange:"£16,538 至 £29,526",
+        scotlandIntermediateRange:"£29,527 至 £43,662",
+        scotlandHigherRange:"£43,663 至 £75,000",
+        scotlandAdvancedRange:"£75,001 至 £125,140",
         basicRate:"基本税率",
         higherRate:"高税率",
         additionalRate:"额外税率",
@@ -1403,6 +1421,8 @@
         source1:"Income Tax 和 Personal Allowance 假设参考 GOV.UK 2026/27 税率说明。",
         source2:"National Insurance 和学生贷款阈值作为透明的规划假设列出。",
         source3:"本页仅为估算工具，不构成工资单、法律、财务或税务建议。",
+        lastCheckedLabel:"最后核对：",
+        lastCheckedDate:"2026年6月9日",
         sideKeywordsTitle:"使用结果前先核对",
         kw1:"核对 tax code",
         kw2:"确认养老金类型",
@@ -1501,6 +1521,7 @@
         employerNiTitle:"Geschätzte Employer-NI-Kosten:",
         employerNiNote:"Nur als Kontext. Es wird nicht vom Nettogehalt abgezogen.",
         perYear:"/ Jahr",
+        initialSummaryNote:"Diese Schätzung verwendet den Standard-Steuercode 1257L und den persönlichen Steuerfreibetrag.",
         articleTitle:"Was dieser UK Salary After Tax Rechner enthält",
         articleP1:"Dieser kostenlose UK Salary After Tax Rechner liefert eine annualisierte Schätzung für Arbeitnehmergehalt im Steuerjahr 2026/27. Er ist für Gehaltsplanung, Angebotsvergleich und Verständnis häufiger Abzüge wie PAYE Income Tax und National Insurance gedacht.",
         articleP2:"Enthalten sind Standard Personal Allowance, Income Tax, employee National Insurance, Salary-Sacrifice-Pension, Student Loan Plans 1, 2, 4 und 5 sowie ein optionaler Postgraduate Loan. Sie können auch England, Wales, Nordirland oder Schottland wählen.",
@@ -1522,6 +1543,13 @@
         rateHead:"Satz",
         personalAllowance:"Personal Allowance",
         paRange:"Bis £12,570",
+        rukBasicRange:"£12,571 bis £50,270",
+        rukHigherRange:"£50,271 bis £125,140",
+        scotlandStarterRange:"£12,571 bis £16,537",
+        scotlandBasicRange:"£16,538 bis £29,526",
+        scotlandIntermediateRange:"£29,527 bis £43,662",
+        scotlandHigherRange:"£43,663 bis £75,000",
+        scotlandAdvancedRange:"£75,001 bis £125,140",
         basicRate:"Basic rate",
         higherRate:"Higher rate",
         additionalRate:"Additional rate",
@@ -1562,6 +1590,8 @@
         source1:"Income-Tax- und Personal-Allowance-Annahmen folgen den aufgeführten GOV.UK-Sätzen 2026/27.",
         source2:"National-Insurance- und Student-Loan-Schwellen werden als transparente Planungsannahmen gezeigt.",
         source3:"Diese Seite ist nur eine Schätzung und keine Payroll-, Rechts-, Finanz- oder Steuerberatung.",
+        lastCheckedLabel:"Zuletzt geprüft:",
+        lastCheckedDate:"9. Juni 2026",
         sideKeywordsTitle:"Vor Nutzung prüfen",
         kw1:"Tax Code prüfen",
         kw2:"Pension-Typ klären",
@@ -1660,6 +1690,7 @@
         employerNiTitle:"Coût employer NI estimé :",
         employerNiNote:"Affiché seulement comme contexte. Il n’est pas déduit de votre salaire net.",
         perYear:"/ an",
+        initialSummaryNote:"Cette estimation utilise le code fiscal standard 1257L et l’abattement personnel.",
         articleTitle:"Ce que contient ce calculateur UK salary after tax",
         articleP1:"Ce calculateur gratuit donne une estimation annualisée du revenu salarial employé pour l’année fiscale 2026/27. Il sert à planifier un salaire, comparer des offres et comprendre PAYE Income Tax, National Insurance et les déductions courantes.",
         articleP2:"Il inclut personal allowance standard, Income Tax, employee National Insurance, pension salary sacrifice, Student Loan Plans 1, 2, 4 et 5, ainsi qu’un Postgraduate Loan optionnel. Vous pouvez aussi choisir la région fiscale.",
@@ -1681,6 +1712,13 @@
         rateHead:"Taux",
         personalAllowance:"Personal Allowance",
         paRange:"Jusqu’à £12,570",
+        rukBasicRange:"£12,571 à £50,270",
+        rukHigherRange:"£50,271 à £125,140",
+        scotlandStarterRange:"£12,571 à £16,537",
+        scotlandBasicRange:"£16,538 à £29,526",
+        scotlandIntermediateRange:"£29,527 à £43,662",
+        scotlandHigherRange:"£43,663 à £75,000",
+        scotlandAdvancedRange:"£75,001 à £125,140",
         basicRate:"Basic rate",
         higherRate:"Higher rate",
         additionalRate:"Additional rate",
@@ -1721,6 +1759,8 @@
         source1:"Les hypothèses Income Tax et Personal Allowance suivent les taux GOV.UK 2026/27 indiqués.",
         source2:"Les seuils National Insurance et student loan sont affichés comme hypothèses transparentes.",
         source3:"Cette page fournit uniquement une estimation et ne constitue pas un avis de paie, juridique, financier ou fiscal.",
+        lastCheckedLabel:"Dernière vérification :",
+        lastCheckedDate:"9 juin 2026",
         sideKeywordsTitle:"Avant de vous appuyer dessus",
         kw1:"Vérifier le tax code",
         kw2:"Confirmer la pension",
@@ -1819,6 +1859,7 @@
         employerNiTitle:"Coste employer NI estimado:",
         employerNiNote:"Solo como contexto. No se descuenta de tu salario neto.",
         perYear:"/ año",
+        initialSummaryNote:"Esta estimación utiliza el código fiscal estándar 1257L y la asignación personal.",
         articleTitle:"Qué incluye esta calculadora UK salary after tax",
         articleP1:"Esta calculadora gratuita ofrece una estimación anualizada de ingresos salariales de empleados para el año fiscal 2026/27. Sirve para planificar salario, comparar ofertas y entender PAYE Income Tax, National Insurance y deducciones comunes.",
         articleP2:"Incluye personal allowance estándar, Income Tax, employee National Insurance, pensión salary sacrifice, Student Loan Plans 1, 2, 4 y 5, y Postgraduate Loan opcional. También puedes elegir la región fiscal.",
@@ -1840,6 +1881,13 @@
         rateHead:"Tasa",
         personalAllowance:"Personal Allowance",
         paRange:"Hasta £12,570",
+        rukBasicRange:"£12,571 a £50,270",
+        rukHigherRange:"£50,271 a £125,140",
+        scotlandStarterRange:"£12,571 a £16,537",
+        scotlandBasicRange:"£16,538 a £29,526",
+        scotlandIntermediateRange:"£29,527 a £43,662",
+        scotlandHigherRange:"£43,663 a £75,000",
+        scotlandAdvancedRange:"£75,001 a £125,140",
         basicRate:"Basic rate",
         higherRate:"Higher rate",
         additionalRate:"Additional rate",
@@ -1880,6 +1928,8 @@
         source1:"Las hipótesis de Income Tax y Personal Allowance siguen las tasas GOV.UK 2026/27 indicadas.",
         source2:"Los umbrales de National Insurance y student loan se muestran como supuestos transparentes.",
         source3:"Esta página es solo una estimación y no es asesoramiento de nómina, legal, financiero o fiscal.",
+        lastCheckedLabel:"Última comprobación:",
+        lastCheckedDate:"9 de junio de 2026",
         sideKeywordsTitle:"Antes de confiar en el resultado",
         kw1:"Revisar tax code",
         kw2:"Confirmar pensión",

@@ -29,7 +29,7 @@
   function isSupportedLang(value) {
     const raw = String(value || "").trim();
     const lower = raw.toLowerCase().replace("_", "-");
-    return SUPPORTED.includes(raw) || ["zh", "zh-cn", "zh-hans", "cn", "de", "fr", "es", "en"].includes(lower);
+    return SUPPORTED.includes(raw) || lower === "cn" || ["zh", "de", "fr", "es", "en"].some((code) => lower === code || lower.startsWith(`${code}-`));
   }
 
   function readSavedLanguage() {
@@ -94,7 +94,7 @@
       if (typeof value === "string") node.setAttribute("title", value);
     });
     const title = dict.seoTitle || dict.metaTitle || dict.title;
-    const description = dict.seoDescription || dict.metaDesc || dict.metaDescription;
+    const description = dict.seoDescription || dict.metaDesc || dict.metaDescription || dict.description;
     if (title) document.title = title;
     setMeta('meta[name="description"]', description);
     setMeta('meta[property="og:title"]', dict.ogTitle || title);
@@ -241,6 +241,12 @@
 
   function init() {
     currentLang = resolveInitialLanguage();
+    const params = new URLSearchParams(location.search);
+    if (!params.has("lang") && currentLang !== "en") {
+      const target = new URL(location.href);
+      target.searchParams.set("lang", currentLang);
+      history.replaceState(null, "", target.pathname + target.search + target.hash);
+    }
     bindControls();
     applyLanguage();
     if (document.readyState !== "complete") window.addEventListener("load", applyLanguage, { once: true });

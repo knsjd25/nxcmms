@@ -30,135 +30,6 @@ $nav = @'
 </nav>
 '@
 
-$siteNavScript = @'
-<script id="site-nav-language">
-(() => {
-  const labels = {
-    en:{home:"Home",search:"Search",popular:"Popular",ukApps:"UK Calculators",devTools:"Developer Tools",other:"Other Tools",about:"About",contact:"Contact",privacy:"Privacy",language:"English"},
-    "zh-CN":{home:"\u9996\u9875",search:"\u641c\u7d22",popular:"\u70ed\u95e8",ukApps:"\u82f1\u56fd\u8ba1\u7b97\u5668",devTools:"\u5f00\u53d1\u8005\u5de5\u5177",other:"\u5176\u4ed6\u5de5\u5177",about:"\u5173\u4e8e",contact:"\u8054\u7cfb",privacy:"\u9690\u79c1\u653f\u7b56",language:"\u4e2d\u6587"},
-    de:{home:"Startseite",search:"Suchen",popular:"Beliebt",ukApps:"UK-Rechner",devTools:"Entwickler",other:"Weitere",about:"\u00dcber uns",contact:"Kontakt",privacy:"Datenschutz",language:"Deutsch"},
-    fr:{home:"Accueil",search:"Recherche",popular:"Populaires",ukApps:"Calculateurs britanniques",devTools:"Outils dev",other:"Autres",about:"\u00c0 propos",contact:"Contact",privacy:"Confidentialit\u00e9",language:"Fran\u00e7ais"},
-    es:{home:"Inicio",search:"Buscar",popular:"Populares",ukApps:"Calculadoras del Reino Unido",devTools:"Herramientas dev",other:"Otros",about:"Acerca de",contact:"Contacto",privacy:"Privacidad",language:"Espa\u00f1ol"}
-  };
-  const normalizeLang = (value) => {
-    const rawValue = String(value || "").trim();
-    const lower = rawValue.toLowerCase().replace("_", "-");
-    if (lower.startsWith("zh")) return "zh-CN";
-    if (lower.startsWith("de")) return "de";
-    if (lower.startsWith("fr")) return "fr";
-    if (lower.startsWith("es")) return "es";
-    return labels[rawValue] ? rawValue : "en";
-  };
-  const params = new URLSearchParams(location.search);
-  let lang = normalizeLang(window.MINI_TOOLS_SERVER_LANG || params.get("lang") || navigator.language || "en");
-  const applyCanonicalHreflang = () => {
-    const supported = ["en", "zh-CN", "de", "fr", "es"];
-    const cleanPath = location.pathname === "/index.html" ? "/" : location.pathname.replace(/\.html$/, "");
-    const cleanUrl = location.origin + cleanPath;
-    const current = lang === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(lang)}`;
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", current);
-    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((node) => node.remove());
-    supported.forEach((code) => {
-      const link = document.createElement("link");
-      link.setAttribute("rel", "alternate");
-      link.setAttribute("hreflang", code);
-      link.setAttribute("href", code === "en" ? cleanUrl : `${cleanUrl}?lang=${encodeURIComponent(code)}`);
-      document.head.appendChild(link);
-    });
-    const fallback = document.createElement("link");
-    fallback.setAttribute("rel", "alternate");
-    fallback.setAttribute("hreflang", "x-default");
-    fallback.setAttribute("href", cleanUrl);
-    document.head.appendChild(fallback);
-  };
-  const localizeLinks = () => {
-    document.querySelectorAll("a[href]").forEach((anchor) => {
-      const rawHref = anchor.getAttribute("href");
-      if (!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:")) return;
-      const link = new URL(rawHref, location.origin);
-      if (link.origin !== location.origin) return;
-      if (lang === "en") link.searchParams.delete("lang");
-      else link.searchParams.set("lang", lang);
-      anchor.href = link.pathname + link.search + link.hash;
-    });
-  };
-  const syncLanguageControls = () => {
-    document.querySelectorAll("[data-site-lang]").forEach((button) => {
-      button.classList.toggle("active", normalizeLang(button.dataset.siteLang) === lang);
-    });
-    const select = document.getElementById("languageSelect");
-    if (select) select.value = lang;
-  };
-  const applySiteLanguage = () => {
-    document.querySelectorAll("[data-site-nav]").forEach((item) => {
-      item.textContent = labels[lang][item.dataset.siteNav];
-    });
-    const current = document.getElementById("currentLangLabel");
-    if (current) current.textContent = labels[lang].language;
-    syncLanguageControls();
-    localizeLinks();
-  };
-  const setLanguage = (selectedLang) => {
-    lang = normalizeLang(selectedLang);
-    const target = new URL(location.href);
-    if (lang === "en") target.searchParams.delete("lang");
-    else target.searchParams.set("lang", lang);
-    history.replaceState(null, "", target.pathname + target.search + target.hash);
-    if (typeof window.applyLanguage === "function") {
-      window.applyLanguage(lang, true);
-    }
-    applyCanonicalHreflang();
-    applySiteLanguage();
-  };
-  applyCanonicalHreflang();
-  applySiteLanguage();
-  window.addEventListener("load", () => { applyCanonicalHreflang(); applySiteLanguage(); });
-  setTimeout(applyCanonicalHreflang, 0);
-  const langGroup = document.querySelector(".site-lang-group");
-  const langTrigger = document.querySelector(".site-lang-trigger");
-  const setLangMenuOpen = (open) => {
-    if (!langGroup || !langTrigger) return;
-    langGroup.classList.toggle("open", open);
-    langTrigger.setAttribute("aria-expanded", open ? "true" : "false");
-  };
-  if (langTrigger) {
-    langTrigger.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      setLangMenuOpen(!langGroup.classList.contains("open"));
-    });
-  }
-  document.addEventListener("click", (event) => {
-    if (langGroup && !langGroup.contains(event.target)) setLangMenuOpen(false);
-  });
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setLangMenuOpen(false);
-  });
-  document.querySelectorAll("[data-site-lang]").forEach((button) => {
-    button.classList.toggle("active", normalizeLang(button.dataset.siteLang) === lang);
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-      const selectedLang = button.dataset.siteLang;
-      setLanguage(selectedLang);
-      setLangMenuOpen(false);
-    });
-  });
-  const languageSelect = document.getElementById("languageSelect");
-  if (languageSelect) {
-    languageSelect.addEventListener("change", (event) => setLanguage(event.target.value));
-  }
-})();
-</script>
-'@
-
 $footer = @'
 <footer class="footer">
   <div class="wrap footer-inner">
@@ -233,11 +104,6 @@ $footerStyle = @'
 </style>
 '@
 
-function Add-BeforeFooter([string]$html, [string]$marker, [string]$content) {
-  if ($html.Contains($marker)) { return $html }
-  return $html.Replace('<footer class="footer">', "$content`r`n<footer class=`"footer`">")
-}
-
 foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
   if ($excluded -contains $file.Name) { continue }
   $html = [System.IO.File]::ReadAllText($file.FullName)
@@ -252,26 +118,12 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
   $html = [regex]::Replace($html, '\bUK Finance\b', 'UK Calculators', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '\bImage & PDF\b', 'Other Tools', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '\bAll Tools\b', 'Search Tools', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-  $html = [regex]::Replace($html, '\bSecurity\b', 'Safety', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-
   if ($html -match '<meta\s+name=["'']robots["'']') {
     $html = [regex]::Replace($html, '<meta\s+name=["'']robots["'']\s+content=["''][^"'']*["'']\s*/?>', '<meta name="robots" content="index,follow,max-image-preview:large">', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   } else {
     $html = $html -replace '<head>', "<head>`r`n  <meta name=`"robots`" content=`"index,follow,max-image-preview:large`">"
   }
 
-  if ($file.Name -eq "contact.html") {
-    $html = Add-BeforeFooter $html 'id="removal-request-details"' @'
-<section class="wrap" id="removal-request-details" style="margin:32px auto">
-  <div class="article">
-    <h2>Image removal request details</h2>
-    <p>Include the hosted image URL, the reason for removal, and copyright, privacy, or other rights details when relevant.</p>
-  </div>
-</section>
-'@
-  }
-
-  $html = [regex]::Replace($html, '<script id=["'']site-nav-language["'']>[\s\S]*?</script>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<script\s+src=["''](?:\.?/)?site-i18n\.js(?:\?[^"'']*)?["'']\s*></script>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<style id=["'']site-nav-style["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
   $html = [regex]::Replace($html, '<style id=["'']site-footer-style["'']>[\s\S]*?</style>', '', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)

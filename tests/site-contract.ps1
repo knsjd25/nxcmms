@@ -159,7 +159,7 @@ foreach ($page in $toolPages) {
 
 foreach ($page in $ukTaxPages) {
   $html = Read-SiteFile $page
-  Assert-True ($html -match 'Last checked:\s+\d{1,2}\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+20\d{2}') "$page misses a valid Last checked date"
+  Assert-True ($html -match 'Last checked:(?:</span>\s*<time\b[^>]*>)?\s*\d{1,2}\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+20\d{2}') "$page misses a valid Last checked date"
   Assert-True ($html -match 'https://www\.gov\.uk/') "$page misses GOV.UK source link"
 }
 
@@ -177,19 +177,49 @@ Assert-True ($tax -match 'seoDescription:\s*["''][^"'']*2026/27[^"'']*PAYE[^"'']
 Assert-True ($tax -match 'heroTitle:\s*["''][^"'']+["'']') "tax Chinese H1 translation is missing"
 Assert-True (([regex]::Matches($tax, '<h1\b', "IgnoreCase")).Count -eq 1) "tax must keep exactly one H1"
 Assert-True ($tax -notmatch '<meta\b[^>]*name="keywords"') "tax contains meta keywords"
+foreach ($key in @("regionBadgeRuk", "initialSummaryNote", "perYear", "rukBasicRange", "rukHigherRange", "scotlandStarterRange", "scotlandBasicRange", "scotlandIntermediateRange", "scotlandHigherRange", "scotlandAdvancedRange", "lastCheckedLabel", "lastCheckedDate")) {
+  Assert-True ($tax -match ('data-i18n="' + $key + '"')) "tax initial server-rendered content misses $key"
+}
+
+$contact = Read-SiteFile "contact.html"
+Assert-True ($contact -notmatch 'id=["'']removal-request-details["'']') "contact still contains the duplicate removal request module"
+
+$upload = Read-SiteFile "upload.html"
+Assert-True ($upload -match '<div class="file-name" id="fileName" data-i18n="noFileChosen">') "upload empty file state is not server translatable"
+Assert-True ($upload.Contains('noFileChosen: "Keine Datei ausgew' + [char]0x00E4 + 'hlt"')) "upload German empty file state is missing"
+$uploadGerman = [regex]::Match($upload, '\n\s*de:\s*\{[\s\S]*?\n\s*\},\n\s*fr:\s*\{', "IgnoreCase").Value
+Assert-True ($uploadGerman -cnotmatch 'Dokumentation, Dokumentation|\bwebsites\b|\bwebsite-(Editoren|Entw.rfe)\b') "upload German copy still contains known wording errors"
+
+$runtime = Read-SiteFile "site-i18n.js"
+Assert-True ($runtime -match 'dict\.seoDescription\s*\|\|\s*dict\.metaDesc\s*\|\|\s*dict\.metaDescription\s*\|\|\s*dict\.description') "site-i18n description fallback misses dict.description"
+Assert-True ($runtime -match '!params\.has\(["'']lang["'']\)[\s\S]*currentLang\s*!==\s*["'']en["''][\s\S]*history\.replaceState') "site-i18n does not sync inferred language to the URL"
+
+$image = Read-SiteFile "image.html"
+foreach ($key in @("guidanceTitle", "guidanceIntro", "guidanceUseTitle", "guidanceLimitationsTitle", "guidanceFaqTitle", "guidanceRelatedTitle")) {
+  Assert-True ($image -notmatch ('\b' + $key + '\s*:')) "image still contains retired translation key $key"
+}
+Assert-True ($image -notmatch 'id=["'']tool-guidance["'']') "image restored the retired guidance module"
 
 $mortgage = Read-SiteFile "mortgage.html"
 Assert-True ($mortgage -notmatch 'rates-and-thresholds-for-employers-2026-to-2027') "mortgage contains an unrelated employer-rates source"
 Assert-True ($mortgage -match 'https://www\.gov\.uk/stamp-duty-land-tax') "mortgage misses the SDLT source"
+$mortgageGerman = [regex]::Match($mortgage, '\n\s*de:\s*\{[\s\S]*?\n\s*\},\n\s*fr:\s*\{', "IgnoreCase").Value
+foreach ($translation in @('propertyPriceLabel:"Immobilienwert', 'mortgageAmountLabel:"Darlehensbetrag', 'depositLabel:"Eigenkapital', 'buyerTypeLabel:"K.ufertyp', 'breakdownHead:"Aufschl.sselung', 'amountHead:"Betrag')) {
+  Assert-True ($mortgageGerman -match $translation) "mortgage German interface misses $translation"
+}
+foreach ($untranslated in @('propertyPriceLabel:"Property value', 'mortgageAmountLabel:"Mortgage amount', 'buyerTypeLabel:"Buyer type', 'breakdownHead:"Breakdown', 'amountHead:"Amount')) {
+  Assert-True ($mortgageGerman -notmatch $untranslated) "mortgage German interface still contains $untranslated"
+}
 foreach ($key in @("sourcesTitle", "sourcesDisclaimer", "sourcesSdltScope", "sourcesFormulaNote", "lastCheckedLabel", "lastCheckedDate")) {
   Assert-True ($mortgage -match ('data-i18n="' + $key + '"')) "mortgage source module misses $key"
 }
 Assert-True ($mortgage.Contains('Mortgage repayments use a standard amortisation formula. The interest rate is entered by the user and is not a live lender rate.')) "mortgage misses the amortisation explanation"
 
 $standardizer = Read-SiteFile "scripts/standardize-pages.ps1"
-foreach ($retired in @("tool-guidance", "upload-policy-summary", "directory-overview", "calculator-disclaimer-summary", "uploadGuidanceTranslations", "rates-and-thresholds-for-employers-2026-to-2027")) {
+foreach ($retired in @("tool-guidance", "upload-policy-summary", "directory-overview", "calculator-disclaimer-summary", "uploadGuidanceTranslations", "rates-and-thresholds-for-employers-2026-to-2027", "removal-request-details", "site-nav-language")) {
   Assert-True ($standardizer -notmatch [regex]::Escape($retired)) "standardizer can regenerate $retired"
 }
+Assert-True ($standardizer -notmatch '\\bSecurity\\b') "standardizer still globally replaces Security"
 
 $colorPicker = Read-SiteFile "color-picker.html"
 Assert-True ($colorPicker -notmatch 'cdn\.tailwindcss\.com') "color-picker.html still loads the Tailwind runtime CDN"
@@ -228,7 +258,7 @@ Assert-True ($sharedI18n -match 'applyCanonicalHreflang') "shared i18n runtime d
 $requiredContent = @{
   "about.html" = @("What Mini-Tools.uk is", "How pages are designed", "How Mini-Tools.uk approaches privacy", "What kinds of tools are on the site", "UK calculators", "Developer tools", "Image and PDF tools", "Security & Privacy Tools", "Contact and feedback")
   "privacy.html" = @("browser", "remote service", "accessible to anyone", "1 day", "7 days", "30 days", "approved long-term storage code", "image URL", "illegal content", "adult content", "violent or hateful content", "copyrighted content", "identity documents", "financial files", "malware", "phishing", "scam-related content", "confidential work material", "sensitive screenshots", "Google Analytics", "advertising", "cookies", "localStorage")
-  "contact.html" = @("bug report", "feature suggestion", "calculation issue", "image removal request", "abuse report", "privacy question", "hosted image URL", "reason", "rights details")
+  "contact.html" = @("bug report", "feature suggestion", "calculation issue", "image removal request", "abuse report", "privacy question", "hosted image URL", "reason", "rights information")
   "upload.html" = @("What not to upload", "Removal and abuse reports", "Privacy note")
   "tax.html" = @("estimate only", "not payroll, legal, financial or tax advice")
 }

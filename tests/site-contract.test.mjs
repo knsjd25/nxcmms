@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
 import { Worker } from "node:worker_threads";
+import vm from "node:vm";
 import worker from "../_worker.js";
 
 const root = new URL("../", import.meta.url);
@@ -39,6 +40,66 @@ const escapeRe = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const inlineCss = (html) => [...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)]
   .map((match) => match[1])
   .join("\n");
+
+function runSharedI18n({ search = "", savedLanguage = null, browserLanguages = ["en-GB"] } = {}) {
+  const replacedUrls = [];
+  const location = {
+    href: `https://mini-tools.uk/tax${search}`,
+    origin: "https://mini-tools.uk",
+    pathname: "/tax",
+    search,
+    hash: "",
+  };
+  const noopNode = {
+    classList: { contains: () => false, toggle() {} },
+    dataset: {},
+    addEventListener() {},
+    appendChild() {},
+    getAttribute: () => null,
+    remove() {},
+    setAttribute() {},
+  };
+  const document = {
+    readyState: "complete",
+    documentElement: { lang: "en-GB" },
+    head: { appendChild() {} },
+    addEventListener() {},
+    createElement: () => ({ ...noopNode }),
+    getElementById: () => null,
+    querySelector: () => null,
+    querySelectorAll: () => [],
+  };
+  const window = {
+    MiniToolsI18n: null,
+    PAGE_TRANSLATIONS: null,
+    addEventListener() {},
+    dispatchEvent() {},
+    scrollTo() {},
+    scrollX: 0,
+    scrollY: 0,
+  };
+  const context = {
+    CustomEvent: class CustomEvent {},
+    URL,
+    URLSearchParams,
+    document,
+    history: {
+      replaceState(_state, _title, url) {
+        replacedUrls.push(url);
+      },
+    },
+    localStorage: {
+      getItem: (key) => key === "miniToolsLang" ? savedLanguage : null,
+      setItem() {},
+    },
+    location,
+    navigator: { language: browserLanguages[0], languages: browserLanguages },
+    requestAnimationFrame: (callback) => callback(),
+    window,
+  };
+  vm.runInNewContext(read("site-i18n.js"), context);
+  return { lang: window.MiniToolsI18n.getLanguage(), replacedUrls };
+}
 
 function section(html, tag, className) {
   const pattern = new RegExp(`<${tag}\\b[^>]*class=["'][^"']*${className}[^"']*["'][^>]*>[\\s\\S]*?<\\/${tag}>`, "i");
@@ -248,6 +309,28 @@ test("language controls support five languages without arrow-only page patches",
   assert.match(runtime, /lang\s*===\s*["']zh-CN["'][\s\S]*?all\.zh/, "shared runtime must support legacy zh dictionaries");
   assert.match(runtime, /window\.addEventListener\(["']load["'], applyLanguage, \{ once: true \}\)/, "shared runtime must win page-load language races");
   assert.doesNotMatch(runtime, /location\.assign\(/, "shared runtime must not reload or jump to top");
+});
+
+test("shared language runtime updates descriptions and syncs an inferred non-English language into the URL", () => {
+  const runtime = read("site-i18n.js");
+  assert.match(runtime, /dict\.seoDescription\s*\|\|\s*dict\.metaDesc\s*\|\|\s*dict\.metaDescription\s*\|\|\s*dict\.description/, "description fallback includes page dictionaries");
+  assert.match(runtime, /meta\[name=["']description["']\]/, "standard description metadata");
+  assert.match(runtime, /meta\[property=["']og:description["']\]/, "Open Graph description metadata");
+  assert.match(runtime, /meta\[name=["']twitter:description["']\]/, "Twitter description metadata");
+  assert.match(runtime, /!params\.has\(["']lang["']\)[\s\S]*?currentLang\s*!==\s*["']en["'][\s\S]*?history\.replaceState\(/, "inferred non-English language is written into the current URL");
+
+  assert.deepEqual(runSharedI18n({ savedLanguage: "zh-CN" }), {
+    lang: "zh-CN",
+    replacedUrls: ["/tax?lang=zh-CN"],
+  });
+  assert.deepEqual(runSharedI18n({ search: "?mode=compact", browserLanguages: ["de-DE"] }), {
+    lang: "de",
+    replacedUrls: ["/tax?mode=compact&lang=de"],
+  });
+  assert.deepEqual(runSharedI18n({ savedLanguage: "en" }), {
+    lang: "en",
+    replacedUrls: [],
+  });
 });
 
 test("homepage delegates language control events to the shared runtime", () => {
@@ -486,7 +569,7 @@ test("shared tooling cannot regenerate the retired generic guidance template", (
 });
 
 test("finance pages keep page-specific assumptions, disclaimers, and dated GOV.UK sources", () => {
-  const checkedDate = /Last checked:\s+\d{1,2}\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+20\d{2}/i;
+  const checkedDate = /Last checked:(?:<\/span>\s*<time\b[^>]*>)?\s*\d{1,2}\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+20\d{2}/i;
   for (const file of financePages) {
     const html = read(file);
     assert.match(html, /estimate|estimates only/i, `${file}: estimate disclaimer`);
@@ -584,6 +667,40 @@ test("worker renders Chinese body, metadata and schema for key pages", async () 
     assert.notEqual(h1, englishText, `${path}: English H1 must be replaced`);
     assert.match(html, /"@context"/, `${path}: schema`);
     assert.match(html, /<link rel="canonical" href="https:\/\/mini-tools\.uk\/[^"]*\?lang=zh-CN"|<link rel="canonical" href="https:\/\/mini-tools\.uk\/\?lang=zh-CN"/, `${path}: canonical`);
+  }
+});
+
+test("worker server-renders the Tax initial result and rates in Chinese", async () => {
+  const response = await fetchThroughWorker("/tax?lang=zh-CN");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  const regionBadge = html.match(/<div\b[^>]*id=["']regionBadge["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || "";
+  const summaryNote = html.match(/<div\b[^>]*id=["']summaryNote["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || "";
+  const employerCost = html.match(/<span\b[^>]*id=["']employerCost["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || "";
+  const rates = html.slice(html.indexOf('data-i18n="rukRatesTitle"'), html.indexOf('data-i18n="niLoanTitle"'));
+  const sources = html.slice(html.indexOf('data-i18n="sourceTitle"'), html.indexOf('data-i18n="relatedTitle"'));
+
+  assert.match(regionBadge, /英格兰\s*\/\s*北爱尔兰/);
+  assert.doesNotMatch(regionBadge, /England \/ NI/);
+  assert.match(summaryNote, /采用标准 1257L 税码和个人免税额进行估算/);
+  assert.doesNotMatch(summaryNote, /Uses standard 1257L personal allowance/);
+  assert.match(employerCost, /\/ 年/);
+  assert.doesNotMatch(employerCost, /\/ year/);
+  assert.match(rates, /£12,571 至 £50,270/);
+  assert.doesNotMatch(rates, /£[\d,]+ to £[\d,]+/);
+  assert.match(sources, /最后核对/);
+  assert.match(sources, /2026年6月9日/);
+  assert.doesNotMatch(sources, /Last checked:/);
+});
+
+test("worker server-renders the Upload empty file state in Chinese and German", async () => {
+  for (const [lang, expected] of [["zh-CN", "未选择文件"], ["de", "Keine Datei ausgewählt"]]) {
+    const response = await fetchThroughWorker(`/upload?lang=${lang}`);
+    assert.equal(response.status, 200, lang);
+    const html = await response.text();
+    const fileName = html.match(/<div\b[^>]*id=["']fileName["'][^>]*>([\s\S]*?)<\/div>/i)?.[1].trim() || "";
+    assert.equal(fileName, expected, lang);
+    assert.notEqual(fileName, "No file chosen", lang);
   }
 });
 
@@ -810,6 +927,7 @@ test("AdSense cleanup removes construction copy and known mixed-language English
 
 test("retired duplicate modules and upload guidance cannot return", () => {
   const checks = [
+    ["contact.html", /id=["']removal-request-details["']/i],
     ["image.html", /id=["']tool-guidance["']/i],
     ["privacy.html", /id=["']upload-policy-summary["']/i],
     ["about.html", /id=["']directory-overview["']/i],
@@ -825,6 +943,8 @@ test("retired duplicate modules and upload guidance cannot return", () => {
 
   const standardizer = read("scripts/standardize-pages.ps1");
   for (const retired of [
+    "removal-request-details",
+    "site-nav-language",
     "tool-guidance",
     "upload-policy-summary",
     "directory-overview",
@@ -833,6 +953,53 @@ test("retired duplicate modules and upload guidance cannot return", () => {
     "rates-and-thresholds-for-employers-2026-to-2027",
   ]) {
     assert.doesNotMatch(standardizer, new RegExp(escapeRe(retired), "i"), `standardizer: ${retired}`);
+  }
+  assert.doesNotMatch(standardizer, /\\bSecurity\\b/, "standardizer must not globally replace Security");
+});
+
+test("image translations do not retain keys for the retired guidance module", () => {
+  const html = read("image.html");
+  for (const key of [
+    "guidanceTitle", "guidanceIntro", "guidanceUseTitle", "guidanceUseText",
+    "guidanceLimitationsTitle", "guidanceLimitationsText", "guidanceFaqTitle", "guidanceFaqText",
+    "guidanceRelatedTitle", "guidanceRelatedUpload", "guidanceRelatedPdf", "guidanceRelatedColor",
+  ]) {
+    assert.doesNotMatch(html, new RegExp(`\\b${key}\\s*:`), key);
+  }
+  assert.doesNotMatch(html, /id=["']tool-guidance["']/i);
+});
+
+test("upload German copy uses natural capitalization without duplicated documentation wording", () => {
+  const html = read("upload.html");
+  const german = html.match(/\n\s*de:\s*\{[\s\S]*?\n\s*\},\n\s*fr:\s*\{/i)?.[0] || "";
+  assert.match(german, /formatHtmlText:\s*["'][^"']*Websites[^"']*Website-Editoren/);
+  assert.match(german, /retentionThirtyText:\s*["'][^"']*Website-Entwürfe/);
+  assert.match(german, /schemaFaq3Text:\s*["'][^"']*Dokumentationen oder Forenbeiträge/);
+  assert.match(german, /faq7Text:\s*["'][^"']*Dokumentationen oder Forenbeiträge/);
+  assert.doesNotMatch(german, /Dokumentation, Dokumentation|\bwebsites\b|\bwebsite-(?:Editoren|Entwürfe)\b/);
+});
+
+test("mortgage German interface translates ordinary labels", () => {
+  const html = read("mortgage.html");
+  const german = html.match(/\n\s*de:\s*\{[\s\S]*?\n\s*\},\n\s*fr:\s*\{/i)?.[0] || "";
+  for (const expected of [
+    'propertyPriceLabel:"Immobilienwert (£)"',
+    'mortgageAmountLabel:"Darlehensbetrag (£)"',
+    'depositLabel:"Eigenkapital (£)"',
+    'buyerTypeLabel:"Käufertyp für SDLT"',
+    'breakdownHead:"Aufschlüsselung"',
+    'amountHead:"Betrag"',
+  ]) {
+    assert.match(german, new RegExp(escapeRe(expected)), expected);
+  }
+  for (const untranslated of [
+    'propertyPriceLabel:"Property value (£)"',
+    'mortgageAmountLabel:"Mortgage amount (£)"',
+    'buyerTypeLabel:"Buyer type for SDLT"',
+    'breakdownHead:"Breakdown"',
+    'amountHead:"Amount"',
+  ]) {
+    assert.doesNotMatch(german, new RegExp(escapeRe(untranslated)), untranslated);
   }
 });
 
