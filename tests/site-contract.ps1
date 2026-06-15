@@ -112,8 +112,25 @@ foreach ($page in $toolPages) {
 foreach ($page in $ukTaxPages) {
   $html = Read-SiteFile $page
   Assert-True ($html -match 'Sources and assumptions') "$page misses sources and assumptions"
-  Assert-True ($html -match 'Last checked: 9 June 2026') "$page misses Last checked date"
+  Assert-True ($html -match 'Last checked:\s+\d{1,2}\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+20\d{2}') "$page misses a valid Last checked date"
   Assert-True ($html -match 'https://www\.gov\.uk/') "$page misses GOV.UK source link"
+}
+
+$colorPicker = Read-SiteFile "color-picker.html"
+Assert-True ($colorPicker -notmatch 'cdn\.tailwindcss\.com') "color-picker.html still loads the Tailwind runtime CDN"
+
+$homepage = Read-SiteFile "index.html"
+$twitterMeta = @{
+  card = 'summary_large_image'
+  title = 'Mini-Tools.uk | UK Tax, VAT, Salary & Everyday Calculators'
+  description = 'UK-focused calculators for salary after tax, VAT, mortgages, stamp duty, IR35 and dividends, plus useful browser tools.'
+  image = 'https://assets.mini-tools.uk/image/icon-512x512.png'
+}
+foreach ($entry in $twitterMeta.GetEnumerator()) {
+  $pattern = '<meta\b[^>]*name=["'']twitter:' + [regex]::Escape($entry.Key) + '["''][^>]*>'
+  $matches = [regex]::Matches($homepage, $pattern, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  Assert-True ($matches.Count -eq 1) "index.html twitter:$($entry.Key) must appear exactly once"
+  Assert-True ($matches[0].Value -match ('content=["'']' + [regex]::Escape($entry.Value) + '["'']')) "index.html twitter:$($entry.Key) content is incorrect"
 }
 
 foreach ($entry in $canonicalPaths.GetEnumerator()) {

@@ -113,23 +113,6 @@
     .skip-link{position:absolute;left:12px;top:-48px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:12px;z-index:100}
     .skip-link:focus{top:12px}
 
-    .site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-    .site-header-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:40px;height:40px;border-radius:12px;background:#fff;object-fit:contain;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-    .brand-title{font-weight:900;font-size:1.15rem;letter-spacing:-.02em}
-    .brand-title span{color:var(--brand)}
-    .nav{display:flex;align-items:center;gap:8px;position:relative;flex-wrap:wrap;justify-content:flex-end}
-    .nav-link,.nav-button,.lang-trigger{padding:10px 14px;border-radius:12px;font-size:.95rem;font-weight:800;color:#334155;transition:background .2s,color .2s;display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer}
-    .nav-link:hover,.nav-button:hover,.lang-trigger:hover,.dropdown:hover .nav-button,.lang-group:hover .lang-trigger{background:#f1f5f9;color:#0f172a}
-    .dropdown,.lang-group{position:relative;padding-bottom:12px;margin-bottom:-12px}
-    .dropdown::after,.lang-group::after{content:"";position:absolute;left:0;right:0;top:100%;height:12px}
-    .dropdown-menu,.lang-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:230px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px;box-shadow:0 20px 40px rgba(15,23,42,.12);opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s;z-index:60}
-    .dropdown .dropdown-menu{left:0;right:auto}
-    .dropdown.open .dropdown-menu,.dropdown:hover .dropdown-menu,.dropdown:focus-within .dropdown-menu,.lang-group.open .lang-menu{opacity:1;visibility:visible;transform:translateY(0)}
-    .dropdown-item,.lang-menu button{display:block;width:100%;text-align:left;padding:11px 12px;border-radius:12px;font-weight:700;color:#334155;border:0;background:transparent;cursor:pointer}
-    .dropdown-item:hover,.lang-menu button:hover,.lang-menu button.active{background:#f8fafc;color:#0f172a}
-
     .page-intro{padding:34px 0 18px}
     .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;border:1px solid #c7d2fe;background:#eef2ff;color:#4338ca;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
     h1{margin:14px 0 10px;font-size:clamp(2rem,4vw,3.1rem);line-height:1.05;letter-spacing:-.04em}
@@ -204,14 +187,11 @@
     @media (max-width:1080px){
       .workspace{grid-template-columns:1fr}
       .faq-grid,.related,.split-view.show{grid-template-columns:1fr}
-      .site-header-inner{flex-wrap:wrap;padding:10px 0}
-      .nav{width:100%;overflow:auto;padding-bottom:4px;justify-content:flex-start}
     }
     @media (max-width:640px){
       .container{width:min(100% - 20px,1200px)}
       .top-actions .btn{flex:1}
       .result-head{align-items:flex-start}
-      .dropdown-menu,.lang-menu{left:0;right:auto}
     }
   </style>
 

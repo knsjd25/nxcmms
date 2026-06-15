@@ -35,6 +35,9 @@ const bespokeGuidancePages = {
 
 const routeForFile = (file) => file === "index.html" ? "/" : `/${file.replace(/\.html$/, "")}`;
 const escapeRe = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const inlineCss = (html) => [...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)]
+  .map((match) => match[1])
+  .join("\n");
 
 function section(html, tag, className) {
   const pattern = new RegExp(`<${tag}\\b[^>]*class=["'][^"']*${className}[^"']*["'][^>]*>[\\s\\S]*?<\\/${tag}>`, "i");
@@ -145,6 +148,52 @@ test("all public pages use the unified navigation and footer", () => {
     assert.doesNotMatch(html, /ui-refresh\.css/i, `${file}: retired UI stylesheet must not compete with navigation`);
     assert.doesNotMatch(nav + footer, /Blog|All Tools|Categories|UK Finance|Image & PDF|Security|Acceptable Use|Terms/i, file);
   }
+});
+
+test("public pages do not retain unused legacy navigation CSS", () => {
+  const legacyClasses = [
+    "site-header", "site-header-inner", "nav", "nav-inner", "nav-row", "nav-item",
+    "brand", "brand-copy", "brand-title", "brand-subtitle", "brand-name", "brand-text",
+    "nav-links", "nav-link", "nav-button", "nav-trigger", "nav-group", "dropdown",
+    "dropdown-menu", "dropdown-item", "lang-group", "lang-trigger", "lang-menu",
+    "lang-dropdown", "menu", "menu-wrap", "menu-trigger",
+  ];
+
+  for (const file of htmlFiles) {
+    const css = inlineCss(read(file));
+    for (const className of legacyClasses) {
+      assert.doesNotMatch(
+        css,
+        new RegExp(`\\.${escapeRe(className)}(?![A-Za-z0-9_-])`),
+        `${file}: unused legacy navigation selector .${className}`,
+      );
+    }
+  }
+});
+
+test("colour picker uses local CSS instead of the Tailwind runtime CDN", () => {
+  const html = read("color-picker.html");
+  assert.doesNotMatch(html, /cdn\.tailwindcss\.com/i);
+});
+
+test("homepage has one complete Twitter card metadata set", () => {
+  const html = read("index.html");
+  const expected = {
+    card: "summary_large_image",
+    title: "Mini-Tools.uk | UK Tax, VAT, Salary & Everyday Calculators",
+    description: "UK-focused calculators for salary after tax, VAT, mortgages, stamp duty, IR35 and dividends, plus useful browser tools.",
+    image: "https://assets.mini-tools.uk/image/icon-512x512.png",
+  };
+
+  for (const [name, content] of Object.entries(expected)) {
+    const matches = [...html.matchAll(new RegExp(`<meta\\b[^>]*name=["']twitter:${name}["'][^>]*>`, "gi"))];
+    assert.equal(matches.length, 1, `index.html: twitter:${name} must appear exactly once`);
+    assert.match(matches[0][0], new RegExp(`content=["']${escapeRe(content)}["']`, "i"), `index.html: twitter:${name}`);
+  }
+
+  const homepageScript = html.match(/<script id=["']homepage-language-and-tools["']>([\s\S]*?)<\/script>/i)?.[1] || "";
+  assert.match(homepageScript, /updateMeta\(["']twitter:title["']/, "homepage updates translated Twitter titles");
+  assert.match(homepageScript, /updateMeta\(["']twitter:description["']/, "homepage updates translated Twitter descriptions");
 });
 
 test("shared navigation gives long translated labels enough responsive space", () => {
@@ -418,11 +467,12 @@ test("shared tooling cannot regenerate the retired generic guidance template", (
 });
 
 test("finance pages keep page-specific assumptions, disclaimers, and dated GOV.UK sources", () => {
+  const checkedDate = /Last checked:\s+\d{1,2}\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+20\d{2}/i;
   for (const file of financePages) {
     const html = read(file);
     assert.match(html, /estimate|estimates only/i, `${file}: estimate disclaimer`);
     assert.match(html, /not [^.]{0,160}advice|professional advice|solicitor or tax adviser/i, `${file}: advice disclaimer`);
-    assert.match(html, /datetime=["']2026-06-09["']|Last checked: 9 June 2026/i, `${file}: source check date`);
+    assert.match(html, checkedDate, `${file}: source check date`);
     assert.match(html, /https:\/\/www\.gov\.uk\//, `${file}: GOV.UK`);
   }
 });
