@@ -907,8 +907,10 @@ async function render404(request, env, status = 404) {
   const requestUrl = new URL(request.url);
   const notFoundUrl = new URL("/404.html", requestUrl.origin);
   const assetResponse = await env.ASSETS.fetch(new Request(notFoundUrl.toString(), request));
+  const assetContentType = assetResponse.headers.get("content-type") || "";
+  const assetBody = await assetResponse.text();
 
-  if (!assetResponse.ok) {
+  if (!assetContentType.toLowerCase().includes("text/html") || !assetBody.trim()) {
     return new Response("Not found", {
       status,
       headers: {
@@ -918,7 +920,7 @@ async function render404(request, env, status = 404) {
     });
   }
 
-  const rendered = serverRenderHtml(await assetResponse.text(), request.url);
+  const rendered = serverRenderHtml(assetBody, request.url);
   const html = removeIndexableSeoLinks(rendered.html);
   const headers = new Headers(assetResponse.headers);
   headers.set("content-type", "text/html; charset=utf-8");

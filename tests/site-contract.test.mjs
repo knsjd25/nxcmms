@@ -612,6 +612,31 @@ test("worker returns the unified HTML 404 for prompt and unknown pages", async (
   assert.match(await chinese.text(), /页面未找到/);
 });
 
+test("worker keeps the custom 404 body when the asset service returns it with status 404", async () => {
+  const env = {
+    ASSETS: {
+      async fetch(request) {
+        const pathname = new URL(request.url).pathname;
+        if (pathname === "/404.html") {
+          return new Response(read("404.html"), {
+            status: 404,
+            headers: { "content-type": "text/html; charset=utf-8" },
+          });
+        }
+        return new Response("Not found", {
+          status: 404,
+          headers: { "content-type": "text/plain; charset=utf-8" },
+        });
+      },
+    },
+  };
+
+  const response = await worker.fetch(new Request("https://mini-tools.uk/blog"), env);
+  assert.equal(response.status, 410);
+  assert.match(response.headers.get("content-type") || "", /text\/html/i);
+  assert.match(await response.text(), /Page not found/i);
+});
+
 test("worker preserves 410, 301 and direct 200 routes around 404 handling", async () => {
   for (const path of ["/blog", "/blog/", "/blog/old-post"]) {
     const response = await fetchThroughWorker(path);
