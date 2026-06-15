@@ -947,23 +947,11 @@ export default {
     }
 
     if (initialPathname === "/blog" || initialPathname.startsWith("/blog/")) {
-      return new Response("Gone", {
-        status: 410,
-        headers: {
-          "content-type": "text/plain; charset=utf-8",
-          "X-Robots-Tag": "noindex, follow, max-image-preview:large",
-        },
-      });
+      return render404(request, env, 410);
     }
 
     if (RETIRED_PATHS.has(normalizePathname(initialPathname))) {
-      return new Response("Gone", {
-        status: 410,
-        headers: {
-          "content-type": "text/plain; charset=utf-8",
-          "X-Robots-Tag": "noindex, follow, max-image-preview:large",
-        },
-      });
+      return render404(request, env, 410);
     }
 
     if (initialPathname === "/404.html") {

@@ -616,7 +616,9 @@ test("worker preserves 410, 301 and direct 200 routes around 404 handling", asyn
   for (const path of ["/blog", "/blog/", "/blog/old-post"]) {
     const response = await fetchThroughWorker(path);
     assert.equal(response.status, 410, path);
+    assert.match(response.headers.get("content-type") || "", /text\/html/i, path);
     assert.match(response.headers.get("x-robots-tag") || "", /noindex,\s*follow/i, path);
+    assert.match(await response.text(), /Page not found/i, path);
   }
 
   for (const [path, target] of [
@@ -648,11 +650,15 @@ test("legacy image and PDF routes redirect directly to formal URLs", async () =>
   }
 });
 
-test("retired isolated routes do not expose legacy English templates", async () => {
-  for (const path of ["/game", "/json2", "/unit", "/word"]) {
+test("all retired page routes use the unified error page while preserving 410", async () => {
+  for (const path of ["/game", "/game/", "/json2", "/unit.html?lang=de", "/word"]) {
     const response = await fetchThroughWorker(path);
     assert.equal(response.status, 410, path);
-    assert.match(response.headers.get("x-robots-tag") || "", /noindex/i, path);
+    assert.match(response.headers.get("content-type") || "", /text\/html/i, path);
+    assert.match(response.headers.get("x-robots-tag") || "", /noindex,\s*follow/i, path);
+    const html = await response.text();
+    assert.match(html, /class=["']site-nav["']/, path);
+    assert.match(html, /Page not found|Seite nicht gefunden/i, path);
   }
 });
 
