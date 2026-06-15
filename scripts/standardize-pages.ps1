@@ -16,8 +16,8 @@ $nav = @'
       <a class="site-nav-link" href="/#search" data-site-nav="search">Search</a>
       <a class="site-nav-link" href="/#popular" data-site-nav="popular">Popular</a>
       <a class="site-nav-link" href="/#uk-apps" data-site-nav="ukApps">UK Calculators</a>
-      <a class="site-nav-link" href="/#developer-tools" data-site-nav="devTools">Dev Tools</a>
-      <a class="site-nav-link" href="/#other-tools" data-site-nav="other">Other</a>
+      <a class="site-nav-link" href="/#developer-tools" data-site-nav="devTools">Developer Tools</a>
+      <a class="site-nav-link" href="/#other-tools" data-site-nav="other">Other Tools</a>
       <a class="site-nav-link" href="/about" data-site-nav="about">About</a>
       <a class="site-nav-link" href="/contact" data-site-nav="contact">Contact</a>
       <a class="site-nav-link" href="/privacy" data-site-nav="privacy">Privacy</a>
@@ -37,7 +37,7 @@ $siteNavScript = @'
 <script id="site-nav-language">
 (() => {
   const labels = {
-    en:{home:"Home",search:"Search",popular:"Popular",ukApps:"UK Calculators",devTools:"Dev Tools",other:"Other",about:"About",contact:"Contact",privacy:"Privacy",language:"English"},
+    en:{home:"Home",search:"Search",popular:"Popular",ukApps:"UK Calculators",devTools:"Developer Tools",other:"Other Tools",about:"About",contact:"Contact",privacy:"Privacy",language:"English"},
     "zh-CN":{home:"\u9996\u9875",search:"\u641c\u7d22",popular:"\u70ed\u95e8",ukApps:"\u82f1\u56fd\u8ba1\u7b97\u5668",devTools:"\u5f00\u53d1\u8005\u5de5\u5177",other:"\u5176\u4ed6\u5de5\u5177",about:"\u5173\u4e8e",contact:"\u8054\u7cfb",privacy:"\u9690\u79c1\u653f\u7b56",language:"\u4e2d\u6587"},
     de:{home:"Startseite",search:"Suchen",popular:"Beliebt",ukApps:"UK-Rechner",devTools:"Entwickler",other:"Weitere",about:"\u00dcber uns",contact:"Kontakt",privacy:"Datenschutz",language:"Deutsch"},
     fr:{home:"Accueil",search:"Recherche",popular:"Populaires",ukApps:"Calculateurs britanniques",devTools:"Outils dev",other:"Autres",about:"\u00c0 propos",contact:"Contact",privacy:"Confidentialit\u00e9",language:"Fran\u00e7ais"},
@@ -263,64 +263,12 @@ foreach ($file in Get-ChildItem -LiteralPath $root -Filter "*.html") {
     $html = $html -replace '<head>', "<head>`r`n  <meta name=`"robots`" content=`"index,follow,max-image-preview:large`">"
   }
 
-  if ($file.Name -eq "about.html") {
-    $html = Add-BeforeFooter $html 'id="directory-overview"' @'
-<section class="wrap" id="directory-overview" style="margin:32px auto">
-  <div class="article">
-    <h2>Mini-Tools.uk is a tool directory</h2>
-    <p>Mini-Tools.uk is a collection of focused online tools. Each tool page handles one practical task, categories are clear, and most tools can be used without an account. Many tools run locally in the browser; upload tools explain when they use a remote service. Feedback and requests can be sent through Contact.</p>
-    <h3>UK Calculators</h3><p>UK Tax Calculator, VAT Calculator, Mortgage Calculator, IR35 Calculator, Stamp Duty Calculator and Dividend Calculator.</p>
-    <h3>Developer Tools</h3><p>JSON Formatter, Text Diff Checker, AI Token Calculator, QR Code Generator and Password Generator.</p>
-    <h3>Other Tools</h3><p>Free Image Hosting, Image Compressor, PDF to Image, Color Picker, Working Days Calculator, Fuel Cost Calculator and Weight Converter.</p>
-  </div>
-</section>
-'@
-  }
-
-  if ($file.Name -eq "privacy.html") {
-    $html = Add-BeforeFooter $html 'id="upload-policy-summary"' @'
-<section class="wrap" id="upload-policy-summary" style="margin:32px auto">
-  <div class="article">
-    <h2>Upload storage and prohibited content</h2>
-    <p>The upload tool sends images to a remote service. Hosted images are not private and may be accessed by anyone with the image URL. Available retention choices are 1 day, 7 days, 30 days, or permanent storage with an approved code.</p>
-    <p>Do not upload illegal content, adult content, violent content, hateful content, copyrighted images without permission, private ID, passport files, financial documents, medical records, malware, phishing or scam-related content, unsafe minors-related content, or confidential screenshots.</p>
-    <p>Mini-Tools.uk may remove content that violates this policy. Send the hosted image URL and removal reason through Contact or email.</p>
-  </div>
-</section>
-'@
-  }
-
   if ($file.Name -eq "contact.html") {
     $html = Add-BeforeFooter $html 'id="removal-request-details"' @'
 <section class="wrap" id="removal-request-details" style="margin:32px auto">
   <div class="article">
     <h2>Image removal request details</h2>
     <p>Include the hosted image URL, the reason for removal, and copyright, privacy, or other rights details when relevant.</p>
-  </div>
-</section>
-'@
-  }
-
-  if ($file.Name -eq "tax.html") {
-    $html = Add-BeforeFooter $html 'id="calculator-disclaimer-summary"' @'
-<section class="wrap" id="calculator-disclaimer-summary" style="margin:32px auto">
-  <div class="article">
-    <h2>Calculator disclaimer</h2>
-    <p>Results are estimates only. This calculator is not official tax advice and is not legal or financial advice.</p>
-  </div>
-</section>
-'@
-  }
-
-  if ($file.Name -eq "mortgage.html") {
-    $html = Add-BeforeFooter $html 'id="mortgage-sources-assumptions"' @'
-<section class="wrap tool-guidance" id="mortgage-sources-assumptions" style="margin:32px auto">
-  <div class="article">
-    <h2>Sources and assumptions</h2>
-    <p>Results are estimates only and are not mortgage, legal, financial, tax or accounting advice. Mortgage offers, lender affordability checks, product fees, insurance, property details and exact SDLT treatment can change the final cost.</p>
-    <p>The SDLT estimate is for residential purchases in England and Northern Ireland only. Scotland and Wales use different property taxes.</p>
-    <p><a href="https://www.gov.uk/stamp-duty-land-tax" rel="noopener noreferrer">https://www.gov.uk/stamp-duty-land-tax</a> <a href="https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027" rel="noopener noreferrer">https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027</a></p>
-    <p><strong>Last checked: 9 June 2026</strong></p>
   </div>
 </section>
 '@

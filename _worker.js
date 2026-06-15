@@ -37,6 +37,14 @@ const HTML_LANG_FALLBACK = {
   es: "es",
 };
 
+const SITE_SHELL_LABELS = {
+  en: { home: "Home", search: "Search", popular: "Popular", ukApps: "UK Calculators", devTools: "Developer Tools", other: "Other Tools", about: "About", contact: "Contact", privacy: "Privacy", language: "English", subtitle: "Useful online tools", navigation: "Primary navigation", languageAria: "Language" },
+  "zh-CN": { home: "首页", search: "搜索", popular: "热门工具", ukApps: "英国计算器", devTools: "开发者工具", other: "其他工具", about: "关于我们", contact: "联系我们", privacy: "隐私政策", language: "中文", subtitle: "实用在线工具", navigation: "主导航", languageAria: "语言" },
+  de: { home: "Startseite", search: "Suche", popular: "Beliebt", ukApps: "UK-Rechner", devTools: "Entwicklertools", other: "Weitere Tools", about: "Über uns", contact: "Kontakt", privacy: "Datenschutz", language: "Deutsch", subtitle: "Nützliche Online-Tools", navigation: "Hauptnavigation", languageAria: "Sprache" },
+  fr: { home: "Accueil", search: "Recherche", popular: "Populaires", ukApps: "Calculateurs britanniques", devTools: "Outils de développement", other: "Autres outils", about: "À propos", contact: "Contact", privacy: "Confidentialité", language: "Français", subtitle: "Outils en ligne utiles", navigation: "Navigation principale", languageAria: "Langue" },
+  es: { home: "Inicio", search: "Buscar", popular: "Populares", ukApps: "Calculadoras del Reino Unido", devTools: "Herramientas para desarrolladores", other: "Otras herramientas", about: "Acerca de", contact: "Contacto", privacy: "Privacidad", language: "Español", subtitle: "Herramientas en línea útiles", navigation: "Navegación principal", languageAria: "Idioma" },
+};
+
 const INDEXABLE_PATHS = new Set([
   "/",
   "/tax",
@@ -542,6 +550,32 @@ function renderTranslatedBody(html, dict) {
   return html;
 }
 
+function renderTranslatedSiteShell(html, lang) {
+  const labels = SITE_SHELL_LABELS[lang] || SITE_SHELL_LABELS.en;
+  for (const key of ["home", "search", "popular", "ukApps", "devTools", "other", "about", "contact", "privacy"]) {
+    html = replaceElementInnerByAttribute(html, "data-site-nav", key, labels[key], false);
+  }
+  html = replaceElementInnerByAttribute(html, "data-site-shell", "subtitle", labels.subtitle, false);
+  html = setAttributeOnElementByAttribute(html, "data-site-shell-aria", "navigation", "aria-label", labels.navigation);
+  html = setAttributeOnElementByAttribute(html, "data-site-shell-aria", "language", "aria-label", labels.languageAria);
+  html = replaceElementInnerById(html, "currentLangLabel", labels.language);
+  return html;
+}
+
+function setAttributeOnElementByAttribute(html, selectorAttr, selectorValue, attrName, attrValue) {
+  const selector = escapeRegExp(selectorAttr);
+  const valuePattern = escapeRegExp(selectorValue);
+  const re = new RegExp(`<([A-Za-z][A-Za-z0-9:-]*)\\b([^>]*\\s${selector}=(["'])${valuePattern}\\3[^>]*)>`, "g");
+  return html.replace(re, (match, tag, attrs) => {
+    const value = escapeAttr(attrValue);
+    const attrRe = new RegExp(`\\s${escapeRegExp(attrName)}=(["'])[\\s\\S]*?\\1`, "i");
+    if (attrRe.test(attrs)) {
+      return `<${tag}${attrs.replace(attrRe, ` ${attrName}="${value}"`)}>`;
+    }
+    return `<${tag}${attrs} ${attrName}="${value}">`;
+  });
+}
+
 function removeSeoConflicts(html) {
   return html
     .replace(/<meta\b[^>]*\bname=(["'])keywords\1[^>]*>\s*/gi, "")
@@ -888,6 +922,7 @@ function serverRenderHtml(html, requestUrl) {
   const dict = extractDictionary(html, lang);
 
   html = renderTranslatedBody(html, dict);
+  html = renderTranslatedSiteShell(html, lang);
   html = updateSeoForLang(html, dict, pathname, lang, url, robots);
   html = updateStructuredDataServerSide(html, dict, pathname, lang, url);
   html = rewriteInternalLinks(html, lang);

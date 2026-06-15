@@ -13,6 +13,21 @@ $excluded = @("404.html", "image_admin.html", "map.html")
 $publicPages = Get-ChildItem -LiteralPath $root -Filter "*.html" | Where-Object { $excluded -notcontains $_.Name }
 $keyPages = @("index.html", "about.html", "upload.html", "tax.html", "contact.html", "privacy.html")
 $toolPages = @("upload.html", "tax.html", "vat.html", "json.html", "diff.html", "token.html", "qr.html", "pdf2img.html", "mortgage.html", "ir35.html", "stamp-duty.html", "dividend.html", "password.html", "image.html", "color-picker.html", "working-days.html", "fuel.html", "weight.html")
+$bespokeGuidancePages = @{
+  "dividend.html" = @("howTitle", "usefulTitle", "relatedTitle")
+  "fuel.html" = @("articleTitle", "formulaTitle", "whyUsefulTitle")
+  "ir35.html" = @("contentTitle", "notDoTitle", "relatedTitle")
+  "json.html" = @("articleTitle", "privacyTitle", "useTitle")
+  "mortgage.html" = @("articleTitle", "stressTitle", "sideAssumptionsTitle")
+  "pdf2img.html" = @("articleTitle", "tipsTitle", "relatedTitle")
+  "qr.html" = @("articleTitle", "tipsTitle", "relatedTitle")
+  "token.html" = @("articleTitle", "privacyTitle", "useTitle")
+  "tax.html" = @("articleTitle", "excludeTitle", "sideAssumptionsTitle")
+  "stamp-duty.html" = @("articleTitle", "limitsTitle", "relatedTitle")
+  "vat.html" = @("articleTitle", "zeroTitle", "thresholdTitle")
+  "weight.html" = @("howTitle", "formulaTitle", "roundingTitle")
+  "working-days.html" = @("articleTitle", "howToTitle", "limitsTitle")
+}
 $ukTaxPages = @("tax.html", "vat.html", "ir35.html", "stamp-duty.html", "dividend.html")
 $canonicalPaths = @{
   "index.html" = "/"; "upload.html" = "/upload"; "tax.html" = "/tax"; "vat.html" = "/vat";
@@ -81,8 +96,18 @@ Assert-True ($sharedI18n.Contains('data-i18n-aria-label')) "shared i18n runtime 
 
 Assert-True ($sharedNavCss -notmatch 'site-lang-group:hover\s+\.site-lang-dropdown') "language dropdown still opens on hover"
 Assert-True ($sharedNavCss -match 'site-lang-group\.open\s+\.site-lang-dropdown') "language dropdown does not open by click state"
-Assert-True ((Read-SiteFile "upload.html").Contains("applyUploadGuidanceLanguage")) "upload page guidance is not translatable"
+Assert-True ((Read-SiteFile "upload.html") -notmatch 'How to use this image hosting tool safely|uploadGuidanceTranslations|applyUploadGuidanceLanguage') "upload page still contains duplicate guidance"
 Assert-True ((Read-SiteFile "upload.html") -notmatch 'miniToolsUploadLang') "upload page still lets stored language override browser language"
+
+$retiredModules = @{
+  "image.html" = 'id="tool-guidance"'
+  "privacy.html" = 'id="upload-policy-summary"'
+  "about.html" = 'id="directory-overview"'
+  "tax.html" = 'id="calculator-disclaimer-summary"'
+}
+foreach ($entry in $retiredModules.GetEnumerator()) {
+  Assert-True ((Read-SiteFile $entry.Key) -notmatch $entry.Value) "$($entry.Key) still contains a retired duplicate module"
+}
 
 foreach ($page in $toolPages) {
   Assert-True ((Read-SiteFile $page) -match '<meta\s+name=["'']robots["'']\s+content=["''][^"'']*index\s*,?\s*follow') "$page is not index,follow"
@@ -91,6 +116,24 @@ foreach ($page in $toolPages) {
 foreach ($page in $toolPages) {
   $html = Read-SiteFile $page
   Assert-True ($html -notmatch 'Original notes') "$page still contains development notes"
+  if ($page -eq "upload.html") {
+    foreach ($id in @("retentionTitle", "faqSectionTitle", "removalTitle")) {
+      Assert-True ($html -match ('id="' + $id + '"')) "$page misses $id"
+    }
+    continue
+  }
+  if ($page -eq "image.html") {
+    foreach ($key in @("articleTitle", "useTitle", "relatedTitle")) {
+      Assert-True ($html -match ('data-i18n="' + $key + '"')) "$page misses $key"
+    }
+    continue
+  }
+  if ($bespokeGuidancePages.ContainsKey($page)) {
+    foreach ($key in $bespokeGuidancePages[$page]) {
+      Assert-True ($html -match ('data-i18n="' + $key + '"')) "$page misses $key"
+    }
+    continue
+  }
   if ($page -eq "diff.html") {
     Assert-True ($html -match 'data-i18n="contentTitle"') "$page misses translated guidance content"
     Assert-True ($html -match 'data-i18n="useTitle"') "$page misses translated use cases"
@@ -111,9 +154,36 @@ foreach ($page in $toolPages) {
 
 foreach ($page in $ukTaxPages) {
   $html = Read-SiteFile $page
-  Assert-True ($html -match 'Sources and assumptions') "$page misses sources and assumptions"
   Assert-True ($html -match 'Last checked:\s+\d{1,2}\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+20\d{2}') "$page misses a valid Last checked date"
   Assert-True ($html -match 'https://www\.gov\.uk/') "$page misses GOV.UK source link"
+}
+
+$tax = Read-SiteFile "tax.html"
+$taxRelated = [regex]::Match($tax, '<div class="side-card">\s*<h3 data-i18n="relatedTitle"[\s\S]*?</div>\s*</div>', "IgnoreCase").Value
+Assert-True ($taxRelated -notmatch 'href="/upload"') "tax related calculators still include upload"
+foreach ($path in @("/vat", "/dividend", "/ir35", "/mortgage", "/stamp-duty")) {
+  Assert-True ($taxRelated -match ('href="' + [regex]::Escape($path) + '"')) "tax related calculators miss $path"
+}
+foreach ($key in @("relatedTitle", "relatedVat", "relatedDividend", "relatedIr35", "relatedMortgage", "relatedStampDuty")) {
+  Assert-True ($tax -match ('data-i18n="' + $key + '"')) "tax related calculators miss $key"
+}
+Assert-True ($tax -match 'seoTitle:\s*["''][^"'']*2026/27[^"'']*Mini-Tools\.uk["'']') "tax Chinese SEO title is missing the required tax year and brand"
+Assert-True ($tax -match 'seoDescription:\s*["''][^"'']*2026/27[^"'']*PAYE[^"'']*National Insurance[^"'']*["'']') "tax Chinese SEO description is incomplete"
+Assert-True ($tax -match 'heroTitle:\s*["''][^"'']+["'']') "tax Chinese H1 translation is missing"
+Assert-True (([regex]::Matches($tax, '<h1\b', "IgnoreCase")).Count -eq 1) "tax must keep exactly one H1"
+Assert-True ($tax -notmatch '<meta\b[^>]*name="keywords"') "tax contains meta keywords"
+
+$mortgage = Read-SiteFile "mortgage.html"
+Assert-True ($mortgage -notmatch 'rates-and-thresholds-for-employers-2026-to-2027') "mortgage contains an unrelated employer-rates source"
+Assert-True ($mortgage -match 'https://www\.gov\.uk/stamp-duty-land-tax') "mortgage misses the SDLT source"
+foreach ($key in @("sourcesTitle", "sourcesDisclaimer", "sourcesSdltScope", "sourcesFormulaNote", "lastCheckedLabel", "lastCheckedDate")) {
+  Assert-True ($mortgage -match ('data-i18n="' + $key + '"')) "mortgage source module misses $key"
+}
+Assert-True ($mortgage.Contains('Mortgage repayments use a standard amortisation formula. The interest rate is entered by the user and is not a live lender rate.')) "mortgage misses the amortisation explanation"
+
+$standardizer = Read-SiteFile "scripts/standardize-pages.ps1"
+foreach ($retired in @("tool-guidance", "upload-policy-summary", "directory-overview", "calculator-disclaimer-summary", "uploadGuidanceTranslations", "rates-and-thresholds-for-employers-2026-to-2027")) {
+  Assert-True ($standardizer -notmatch [regex]::Escape($retired)) "standardizer can regenerate $retired"
 }
 
 $colorPicker = Read-SiteFile "color-picker.html"
@@ -151,11 +221,11 @@ foreach ($page in $publicPages) {
 Assert-True ($sharedI18n -match 'applyCanonicalHreflang') "shared i18n runtime does not normalize canonical/hreflang"
 
 $requiredContent = @{
-  "about.html" = @("tool directory", "UK Calculators", "Developer Tools", "Other Tools", "UK Tax Calculator", "VAT Calculator", "Mortgage Calculator", "IR35 Calculator", "Stamp Duty Calculator", "Dividend Calculator", "JSON Formatter", "Text Diff Checker", "AI Token Calculator", "QR Code Generator", "Password Generator", "Free Image Hosting", "Image Compressor", "PDF to Image", "Color Picker", "Working Days Calculator", "Fuel Cost Calculator", "Weight Converter", "without an account")
-  "privacy.html" = @("browser", "remote service", "not private", "1 day", "7 days", "30 days", "approved code", "image URL", "illegal content", "adult content", "violent content", "hateful content", "copyrighted images", "private ID", "passport", "financial documents", "medical records", "malware", "phishing", "scam", "minors", "confidential screenshots", "Google Analytics", "advertising", "cookies", "localStorage")
+  "about.html" = @("What Mini-Tools.uk is", "How pages are designed", "How Mini-Tools.uk approaches privacy", "What kinds of tools are on the site", "UK calculators", "Developer tools", "Image and PDF tools", "Security & Privacy Tools", "Contact and feedback")
+  "privacy.html" = @("browser", "remote service", "accessible to anyone", "1 day", "7 days", "30 days", "approved long-term storage code", "image URL", "illegal content", "adult content", "violent or hateful content", "copyrighted content", "identity documents", "financial files", "malware", "phishing", "scam-related content", "confidential work material", "sensitive screenshots", "Google Analytics", "advertising", "cookies", "localStorage")
   "contact.html" = @("bug report", "feature suggestion", "calculation issue", "image removal request", "abuse report", "privacy question", "hosted image URL", "reason", "rights details")
   "upload.html" = @("What not to upload", "Removal and abuse reports", "Privacy note")
-  "tax.html" = @("estimates only", "not official tax advice", "not legal or financial advice")
+  "tax.html" = @("estimate only", "not payroll, legal, financial or tax advice")
 }
 
 foreach ($entry in $requiredContent.GetEnumerator()) {
@@ -167,7 +237,7 @@ $worker = Read-SiteFile "_worker.js"
 foreach ($pattern in @('initialPathname === "/terms"', 'initialPathname === "/acceptable-use"', 'url.pathname.endsWith(".html")')) {
   Assert-True ($worker.Contains($pattern)) "_worker.js misses $pattern"
 }
-Assert-True ($worker -match 'initialPathname === "/blog"[\s\S]*?status:\s*410') "_worker.js does not retire Blog URLs with 410"
+Assert-True ($worker -match 'initialPathname === "/blog"[\s\S]*?render404\(request, env, 410\)') "_worker.js does not retire Blog URLs with 410"
 Assert-True ($worker -notmatch 'miniToolsBlogLang') "_worker.js still contains obsolete Blog language state"
 
 $expectedRobots = "User-agent: *`nAllow: /`n`nSitemap: https://mini-tools.uk/sitemap.xml"

@@ -21,6 +21,7 @@ const bespokeGuidancePages = {
   "dividend.html": ["howTitle", "usefulTitle", "relatedTitle"],
   "fuel.html": ["articleTitle", "formulaTitle", "whyUsefulTitle"],
   "ir35.html": ["contentTitle", "notDoTitle", "relatedTitle"],
+  "image.html": ["articleTitle", "useTitle", "relatedTitle"],
   "json.html": ["articleTitle", "privacyTitle", "useTitle"],
   "mortgage.html": ["articleTitle", "stressTitle", "sideAssumptionsTitle"],
   "pdf2img.html": ["articleTitle", "tipsTitle", "relatedTitle"],
@@ -428,6 +429,12 @@ test("tool pages include the required content structure", () => {
   for (const file of toolPages) {
     const html = read(file);
     assert.match(html, /<h1\b/i, `${file}: H1`);
+    if (file === "upload.html") {
+      for (const id of ["retentionTitle", "faqSectionTitle", "removalTitle"]) {
+        assert.match(html, new RegExp(`id=["']${id}["']`), `${file}: ${id}`);
+      }
+      continue;
+    }
     if (/id=["']tool-guidance["']/.test(html)) {
       assert.match(html, /id=["']guidanceTitle["']/, `${file}: tool guidance must be a page-specific translated module`);
     }
@@ -472,7 +479,12 @@ test("finance pages keep page-specific assumptions, disclaimers, and dated GOV.U
     const html = read(file);
     assert.match(html, /estimate|estimates only/i, `${file}: estimate disclaimer`);
     assert.match(html, /not [^.]{0,160}advice|professional advice|solicitor or tax adviser/i, `${file}: advice disclaimer`);
-    assert.match(html, checkedDate, `${file}: source check date`);
+    if (file === "mortgage.html") {
+      assert.match(html, /data-i18n=["']lastCheckedLabel["']/i, `${file}: translated source check label`);
+      assert.match(html, /<time\b[^>]*datetime=["']2026-06-09["'][^>]*data-i18n=["']lastCheckedDate["']/i, `${file}: source check date`);
+    } else {
+      assert.match(html, checkedDate, `${file}: source check date`);
+    }
     assert.match(html, /https:\/\/www\.gov\.uk\//, `${file}: GOV.UK`);
   }
 });
@@ -493,9 +505,9 @@ test("upload page keeps protected controls and has formal safety content", () =>
   ]) {
     assert.match(html, new RegExp(escapeRe(phrase), "i"), `upload content: ${phrase}`);
   }
-  assert.match(html, /guidanceUseCasesTitle/, "upload: translated use-cases heading");
-  assert.match(html, /guidanceUseCasesText/, "upload: translated use-cases content");
-  assert.equal((html.match(/guidanceFaqTitle:\s*["']FAQ de seguridad["']/g) || []).length, 1, "upload: Spanish FAQ heading must appear only in the Spanish dictionary");
+  for (const id of ["retentionTitle", "rulesTitle", "removalTitle", "privacyNoteTitle", "examplesTitle", "faqSectionTitle"]) {
+    assert.match(html, new RegExp(`id=["']${id}["']`), `upload: ${id}`);
+  }
 });
 
 test("password and color picker use the shared five-language contract", () => {
@@ -782,4 +794,82 @@ test("AdSense cleanup removes construction copy and known mixed-language English
   assert.match(stampDuty, /sideKeywordsTitle:"Check before completion"/);
   assert.equal((diff.match(/id=["']tool-guidance["']/g) || []).length, 0, "diff duplicate guidance");
   assert.equal((colorPicker.match(/id=["']tool-guidance["']/g) || []).length, 0, "color picker duplicate guidance");
+});
+
+test("retired duplicate modules and upload guidance cannot return", () => {
+  const checks = [
+    ["image.html", /id=["']tool-guidance["']/i],
+    ["privacy.html", /id=["']upload-policy-summary["']/i],
+    ["about.html", /id=["']directory-overview["']/i],
+    ["tax.html", /id=["']calculator-disclaimer-summary["']/i],
+  ];
+  for (const [file, pattern] of checks) {
+    assert.doesNotMatch(read(file), pattern, file);
+  }
+
+  const upload = read("upload.html");
+  assert.doesNotMatch(upload, /How to use this image hosting tool safely/i);
+  assert.doesNotMatch(upload, /uploadGuidanceTranslations|applyUploadGuidanceLanguage/);
+
+  const standardizer = read("scripts/standardize-pages.ps1");
+  for (const retired of [
+    "tool-guidance",
+    "upload-policy-summary",
+    "directory-overview",
+    "calculator-disclaimer-summary",
+    "uploadGuidanceTranslations",
+    "rates-and-thresholds-for-employers-2026-to-2027",
+  ]) {
+    assert.doesNotMatch(standardizer, new RegExp(escapeRe(retired), "i"), `standardizer: ${retired}`);
+  }
+});
+
+test("tax uses relevant UK calculator recommendations and Chinese SEO copy", () => {
+  const html = read("tax.html");
+  const related = html.match(/<div class=["']side-card["']>\s*<h3 data-i18n=["']relatedTitle["'][\s\S]*?<\/div>\s*<\/div>/i)?.[0] || "";
+  assert.doesNotMatch(related, /href=["']\/upload["']/i);
+  for (const path of ["/vat", "/dividend", "/ir35", "/mortgage", "/stamp-duty"]) {
+    assert.match(related, new RegExp(`href=["']${escapeRe(path)}["']`, "i"), path);
+  }
+  for (const key of ["relatedTitle", "relatedVat", "relatedDividend", "relatedIr35", "relatedMortgage", "relatedStampDuty"]) {
+    assert.match(html, new RegExp(`data-i18n=["']${key}["']`), key);
+  }
+
+  assert.match(html, /seoTitle:\s*["']英国个人所得税计算器 2026\/27｜英国个税计算器与税后工资计算｜Mini-Tools\.uk["']/);
+  assert.match(html, /seoDescription:\s*["']免费英国个人所得税计算器和英国个税计算器，适用于 2026\/27 税年。估算 PAYE 个人所得税、National Insurance、养老金、学生贷款、研究生贷款及年薪、月薪税后到手工资。["']/);
+  assert.match(html, /heroTitle:\s*["']英国个人所得税计算器与英国个税计算器["']/);
+  assert.match(html, /heroText:\s*["']使用这个英国个人所得税计算器，可以估算 2026\/27 税年的 PAYE/);
+  assert.equal((html.match(/<h1\b/gi) || []).length, 1, "tax must keep one H1");
+  assert.doesNotMatch(html, /<meta\b[^>]*name=["']keywords["']/i);
+});
+
+test("mortgage sources are relevant and translated in all five languages", () => {
+  const html = read("mortgage.html");
+  assert.doesNotMatch(html, /rates-and-thresholds-for-employers-2026-to-2027/);
+  assert.match(html, /https:\/\/www\.gov\.uk\/stamp-duty-land-tax/);
+  for (const key of ["sourcesTitle", "sourcesDisclaimer", "sourcesSdltScope", "sourcesFormulaNote", "lastCheckedLabel", "lastCheckedDate"]) {
+    assert.match(html, new RegExp(`data-i18n=["']${key}["']`), key);
+    for (const lang of ["en", "zh-CN", "de", "fr", "es"]) {
+      const languageBlock = html.match(new RegExp(`["']?${escapeRe(lang)}["']?\\s*:\\s*\\{[\\s\\S]*?(?=\\n\\s*(?:["']?(?:en|zh-CN|de|fr|es)["']?\\s*:\\s*\\{|\\}\\s*;))`))?.[0] || "";
+      assert.match(languageBlock, new RegExp(`${key}\\s*:`), `${lang}: ${key}`);
+    }
+  }
+  assert.match(html, /Mortgage repayments use a standard amortisation formula\. The interest rate is entered by the user and is not a live lender rate\./);
+  assert.match(html, /房贷月供使用标准等额还款公式进行估算。利率由用户自行输入，并非银行实时房贷利率。/);
+});
+
+test("worker server-renders the shared shell in every supported non-English language", async () => {
+  const expected = {
+    "zh-CN": ["首页", "搜索", "热门工具", "英国计算器", "开发者工具", "其他工具", "关于我们", "联系我们", "隐私政策", "实用在线工具", "主导航", "语言"],
+    de: ["Startseite", "Suche", "Beliebt", "UK-Rechner", "Entwicklertools", "Weitere Tools", "Über uns", "Kontakt", "Datenschutz", "Nützliche Online-Tools", "Hauptnavigation", "Sprache"],
+    fr: ["Accueil", "Recherche", "Populaires", "Calculateurs britanniques", "Outils de développement", "Autres outils", "À propos", "Contact", "Confidentialité", "Outils en ligne utiles", "Navigation principale", "Langue"],
+    es: ["Inicio", "Buscar", "Populares", "Calculadoras del Reino Unido", "Herramientas para desarrolladores", "Otras herramientas", "Acerca de", "Contacto", "Privacidad", "Herramientas en línea útiles", "Navegación principal", "Idioma"],
+  };
+
+  for (const [lang, labels] of Object.entries(expected)) {
+    const response = await fetchThroughWorker(`/tax?lang=${lang}`);
+    assert.equal(response.status, 200, lang);
+    const html = await response.text();
+    for (const label of labels) assert.match(html, new RegExp(escapeRe(label)), `${lang}: ${label}`);
+  }
 });

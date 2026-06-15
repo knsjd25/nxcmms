@@ -727,22 +727,6 @@
     </section>
   </main>
 
-  <section class="container tool-guidance" id="tool-guidance">
-  <div class="article">
-    <h2 id="guidanceTitle">How to use this image hosting tool safely</h2>
-    <p id="guidanceNotes">Use this image hosting page when you need a quick image URL for documentation, issue reports, forum posts or lightweight sharing. It is designed for simple files where a direct link and copyable embed formats matter more than album management.</p>
-    <h3 id="guidanceUseCasesTitle">Use cases</h3>
-    <p id="guidanceUseCasesText">Use it for public project screenshots, documentation images, support tickets and forum posts where a direct URL or embed snippet is required.</p>
-    <h3 id="guidanceExampleTitle">Practical example</h3>
-    <p id="guidanceExampleText">Upload a screenshot for a GitHub issue, choose a short retention period, then copy the Markdown link into the issue description.</p>
-    <h3 id="guidanceLimitationsTitle">Important limits</h3>
-    <p id="guidanceLimitationsText">Uploaded images are processed by a remote service and links are not private. Do not upload identity documents, confidential screenshots, copyrighted material you cannot share, or files that need access control.</p>
-    <h3 id="guidanceFaqTitle">Safety FAQ</h3>
-    <p><strong id="guidanceFaqText">Can I use it for private images? No. Treat hosted links as public to anyone who has the URL.</strong></p>
-    <h3 id="guidanceRelatedTitle">Related tools</h3>
-    <p><a href="/image" id="guidanceRelatedImage">Image Compressor</a> <a href="/pdf2img" id="guidanceRelatedPdf">PDF to Image</a> <a href="/privacy" id="guidanceRelatedPrivacy">Privacy Policy</a></p>
-  </div>
-</section>
 <footer class="footer">
   <div class="wrap footer-inner">
     <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
@@ -1685,99 +1669,6 @@
       document.getElementById("appSchema").textContent = JSON.stringify(schema, null, 2);
     }
 
-    const uploadGuidanceTranslations = {
-      en: {
-        guidanceTitle: "How to use this image hosting tool safely",
-        guidanceNotes: "Use this image hosting page when you need a quick public image URL for documentation, issue reports, forum posts or lightweight sharing. It is designed for simple files where a direct link and copyable embed formats matter more than album management.",
-        guidanceUseCasesTitle: "Use cases",
-        guidanceUseCasesText: "Use it for public project screenshots, documentation images, support tickets and forum posts where a direct URL or embed snippet is required.",
-        guidanceExampleTitle: "Practical example",
-        guidanceExampleText: "Example: upload a screenshot for a GitHub issue, choose a short retention period, then copy the Markdown link into the issue description.",
-        guidanceLimitationsTitle: "Important limits",
-        guidanceLimitationsText: "Uploaded images are processed by a remote service and links are not private. Do not upload identity documents, confidential screenshots, copyrighted material you cannot share, or files that need access control.",
-        guidanceFaqTitle: "Safety FAQ",
-        guidanceFaqText: "Can I use it for private images? No. Treat hosted links as public to anyone who has the URL.",
-        guidanceRelatedTitle: "Related tools",
-        guidanceRelatedImage: "Image Compressor",
-        guidanceRelatedPdf: "PDF to Image",
-        guidanceRelatedPrivacy: "Privacy Policy"
-      },
-      zh: {
-        guidanceTitle: "如何安全使用这个图床工具",
-        guidanceNotes: "当你需要给文档、问题反馈、论坛帖子或轻量分享生成一个公开图片链接时，可以使用这个图床页面。它适合简单文件，更重视直链和可复制的嵌入格式，而不是相册管理。",
-        guidanceUseCasesTitle: "使用场景",
-        guidanceUseCasesText: "适合公开的项目截图、文档图片、支持工单和论坛帖子，用于生成直链或嵌入代码。",
-        guidanceExampleTitle: "使用示例",
-        guidanceExampleText: "示例：为 GitHub issue 上传一张截图，选择较短保存时间，然后复制 Markdown 链接放进问题描述。",
-        guidanceLimitationsTitle: "重要限制",
-        guidanceLimitationsText: "上传图片会由远程服务处理，链接不是私密链接。不要上传身份证件、机密截图、无权分享的版权材料，或任何需要访问控制的文件。",
-        guidanceFaqTitle: "安全常见问题",
-        guidanceFaqText: "可以用于私密图片吗？不可以。请把托管链接视为任何拿到 URL 的人都能访问的公开链接。",
-        guidanceRelatedTitle: "相关工具",
-        guidanceRelatedImage: "图片压缩",
-        guidanceRelatedPdf: "PDF 转图片",
-        guidanceRelatedPrivacy: "隐私政策"
-      },
-      de: {
-        guidanceTitle: "So nutzt du dieses Bildhosting sicher",
-        guidanceNotes: "Nutze diese Seite, wenn du schnell eine öffentliche Bild-URL für Dokumentation, Fehlermeldungen, Forenbeiträge oder einfache Freigaben brauchst. Sie ist für einfache Dateien gedacht, bei denen Direktlinks und kopierbare Einbettungsformate wichtiger sind als Albumverwaltung.",
-        guidanceUseCasesTitle: "Anwendungsfälle",
-        guidanceUseCasesText: "Geeignet für öffentliche Projekt-Screenshots, Dokumentationsbilder, Support-Tickets und Forenbeiträge, die eine Direkt-URL oder einen Einbettungscode benötigen.",
-        guidanceExampleTitle: "Praktisches Beispiel",
-        guidanceExampleText: "Beispiel: Lade einen Screenshot für ein GitHub-Issue hoch, wähle eine kurze Aufbewahrungsdauer und kopiere den Markdown-Link in die Beschreibung.",
-        guidanceLimitationsTitle: "Wichtige Grenzen",
-        guidanceLimitationsText: "Hochgeladene Bilder werden von einem entfernten Dienst verarbeitet und Links sind nicht privat. Lade keine Ausweisdokumente, vertraulichen Screenshots, urheberrechtlich geschützten Inhalte ohne Freigabe oder Dateien hoch, die Zugriffskontrolle benötigen.",
-        guidanceFaqTitle: "Sicherheits-FAQ",
-        guidanceFaqText: "Kann ich private Bilder verwenden? Nein. Behandle gehostete Links als öffentlich für alle Personen mit der URL.",
-        guidanceRelatedTitle: "Verwandte Tools",
-        guidanceRelatedImage: "Bildkompressor",
-        guidanceRelatedPdf: "PDF zu Bild",
-        guidanceRelatedPrivacy: "Datenschutz"
-      },
-      fr: {
-        guidanceTitle: "Comment utiliser cet hébergement d’images en sécurité",
-        guidanceNotes: "Utilisez cette page lorsque vous avez besoin d'une URL publique rapide pour une documentation, un rapport de bug, un forum ou un partage simple. Elle est conçue pour les fichiers simples où les liens directs et les formats copiables comptent plus que la gestion d'albums.",
-        guidanceUseCasesTitle: "Cas d'utilisation",
-        guidanceUseCasesText: "Utilisez-la pour des captures de projet publiques, des images de documentation, des tickets d'assistance et des messages de forum nécessitant une URL directe ou un code d'intégration.",
-        guidanceExampleTitle: "Exemple pratique",
-        guidanceExampleText: "Exemple : importez une capture d'écran pour une issue GitHub, choisissez une durée courte, puis copiez le lien Markdown dans la description.",
-        guidanceLimitationsTitle: "Limites importantes",
-        guidanceLimitationsText: "Les images importees sont traitees par un service distant et les liens ne sont pas prives. N'importez pas de documents d'identite, captures confidentielles, contenus proteges sans autorisation ou fichiers qui exigent un controle d'acces.",
-        guidanceFaqTitle: "FAQ de sécurité",
-        guidanceFaqText: "Puis-je l'utiliser pour des images privees ? Non. Considerez les liens heberges comme publics pour toute personne qui possede l'URL.",
-        guidanceRelatedTitle: "Outils lies",
-        guidanceRelatedImage: "Compresseur d'image",
-        guidanceRelatedPdf: "PDF vers image",
-        guidanceRelatedPrivacy: "Confidentialite"
-      },
-      es: {
-        guidanceTitle: "Cómo usar este alojamiento de imágenes de forma segura",
-        guidanceNotes: "Usa esta pagina cuando necesites una URL publica rapida para documentacion, informes de errores, foros o uso compartido ligero. Esta pensada para archivos simples donde importan mas el enlace directo y los formatos copiables que la gestion de albumes.",
-        guidanceUseCasesTitle: "Casos de uso",
-        guidanceUseCasesText: "Úsalo para capturas públicas de proyectos, imágenes de documentación, tickets de soporte y publicaciones de foros que necesiten una URL directa o código para insertar.",
-        guidanceExampleTitle: "Ejemplo práctico",
-        guidanceExampleText: "Ejemplo: sube una captura para un issue de GitHub, elige un periodo corto de conservacion y copia el enlace Markdown en la descripcion.",
-        guidanceLimitationsTitle: "Límites importantes",
-        guidanceLimitationsText: "Las imagenes subidas se procesan mediante un servicio remoto y los enlaces no son privados. No subas documentos de identidad, capturas confidenciales, material con copyright que no puedas compartir ni archivos que necesiten control de acceso.",
-        guidanceFaqTitle: "FAQ de seguridad",
-        guidanceFaqText: "Puedo usarlo para imagenes privadas? No. Trata los enlaces alojados como publicos para cualquiera que tenga la URL.",
-        guidanceRelatedTitle: "Herramientas relacionadas",
-        guidanceRelatedImage: "Compresor de imagenes",
-        guidanceRelatedPdf: "PDF a imagen",
-        guidanceRelatedPrivacy: "Privacidad"
-      }
-    };
-
-    function applyUploadGuidanceLanguage(lang) {
-      const texts = uploadGuidanceTranslations[normalizeLang(lang)] || uploadGuidanceTranslations.en;
-      Object.keys(texts).forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = texts[id];
-      });
-    }
-
-    window.applyUploadGuidanceLanguage = applyUploadGuidanceLanguage;
-
     async function fetchCaptcha() {
       const texts = t();
       const response = await fetch(`${WORKER_URL}?action=captcha`);
@@ -1846,7 +1737,6 @@ updateProperty("og:title", texts.ogTitle);
       previewImage.alt = texts.previewAlt || translations.en.previewAlt;
       uploadBtn.textContent = texts.uploadBtn || translations.en.uploadBtn;
       updatePermanentNotice();
-      applyUploadGuidanceLanguage(lang);
       if (!fileInput.files[0]) {
         fileName.textContent = texts.noFileChosen;
         fileName.style.color = "#94a3b8";
