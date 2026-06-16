@@ -2,7 +2,11 @@ $ErrorActionPreference = "Stop"
 
 $root = Split-Path -Parent $PSScriptRoot
 $utf8 = New-Object System.Text.UTF8Encoding($false)
-$excluded = @("image_admin.html", "map.html")
+$excluded = @(
+  "404.html",
+  "image_admin.html",
+  "map.html"
+)
 
 $nav = @'
 <nav class="site-nav" aria-label="Primary navigation" data-site-shell-aria="navigation">
@@ -34,7 +38,7 @@ $footer = @'
 <footer class="footer">
   <div class="wrap footer-inner">
     <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
-    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
+    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com" data-cfemail="false">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
 '@

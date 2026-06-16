@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>IR35 Take-Home Pay Calculator 2026/27 | Inside vs Outside</title>
+  <title>IR35 Calculator for Inside vs Outside Take-Home</title>
   <meta name="description" content="Compare 2026/27 UK contractor take-home pay inside IR35 and outside IR35, including umbrella PAYE and simplified limited company assumptions." />
 <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#2563eb" />
@@ -517,17 +517,17 @@
             <div class="kpi inside">
               <div class="label" data-i18n="insideKpiLabel">Inside IR35 annual take-home</div>
               <div class="value" id="insideNetHeadline">£0</div>
-              <div class="sub" id="insideMonthlyHeadline">£0 per month</div>
+              <div class="sub" id="insideMonthlyHeadline" data-i18n="initialMonthly">£0 per month</div>
             </div>
             <div class="kpi outside">
               <div class="label" data-i18n="outsideKpiLabel">Outside IR35 annual take-home</div>
               <div class="value" id="outsideNetHeadline">£0</div>
-              <div class="sub" id="outsideMonthlyHeadline">£0 per month</div>
+              <div class="sub" id="outsideMonthlyHeadline" data-i18n="initialMonthly">£0 per month</div>
             </div>
           </div>
           <div class="impact">
             <div class="small" data-i18n="differenceLabel">Estimated difference</div>
-            <div class="big" id="differenceHeadline">£0 more outside IR35</div>
+            <div class="big" id="differenceHeadline" data-i18n="initialDifference">£0 more outside IR35</div>
           </div>
           <div class="footnote" data-i18n="summaryFootnote">
             Assumptions used here: England/Wales/Northern Ireland income tax bands, 2026/27 employee NI rates, 2026/27 employer NI rates, and standard dividend tax rates. Scottish income tax is different, so it is not included in this version.
@@ -610,7 +610,7 @@
           <li data-i18n="notDo3">It does not cover Scottish income tax, VAT, pension planning, or every umbrella charging model.</li>
         </ul>
         <p class="official-sources"><strong>GOV.UK:</strong> <a href="https://www.gov.uk/guidance/understanding-off-payroll-working-ir35" rel="noopener noreferrer">Understanding off-payroll working (IR35)</a></p>
-        <p><time datetime="2026-06-09">Last checked: 9 June 2026</time></p>
+        <p><span data-i18n="lastCheckedLabel">Last checked:</span> <time datetime="2026-06-09" data-i18n="lastCheckedDate">9 June 2026</time></p>
       </article>
 
       <article class="card content-card faq">
@@ -643,7 +643,7 @@
 <footer class="footer">
   <div class="wrap footer-inner">
     <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
-    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
+    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com" data-cfemail="false">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
 
@@ -917,7 +917,7 @@
         htmlLang:"fr",
         langLabel:"Français",
         locale:"fr-FR",
-        title:"Calculateur IR35 Take-Home 2026/27｜Inside vs Outside IR35｜Mini-Tools.uk",
+        title:"Calculateur IR35 inside vs outside",
         description:"Estimez le take-home pay UK contractor inside IR35 et outside IR35. Comparez umbrella PAYE avec un scénario limited company simplifié.",
         skip:"Aller au contenu",
         brandSubtitle:"Calculateurs pratiques et outils navigateur",
@@ -1005,7 +1005,7 @@
         htmlLang:"es",
         langLabel:"Español",
         locale:"es-ES",
-        title:"Calculadora IR35 Take-Home 2026/27｜Inside vs Outside IR35｜Mini-Tools.uk",
+        title:"Calculadora IR35 inside vs outside",
         description:"Estima take-home pay para contractor UK inside IR35 y outside IR35. Compara umbrella PAYE con un escenario simplificado de limited company.",
         skip:"Saltar al contenido",
         brandSubtitle:"Calculadoras prácticas y herramientas web",
@@ -1090,6 +1090,12 @@
         footerNote:"Copyright 2026 Mini-Tools.uk · herramientas fiscales UK con supuestos claros."
       }
     };
+
+    Object.assign(translations.en, {title:"IR35 Calculator for Inside vs Outside Take-Home",initialMonthly:"£0 per month",initialDifference:"£0 more outside IR35",noDifference:"No difference",lastCheckedLabel:"Last checked:",lastCheckedDate:"9 June 2026"});
+    Object.assign(translations["zh-CN"], {title:"英国IR35计算器：Inside 与 Outside 收入对比",initialMonthly:"£0 / 月",initialDifference:"outside IR35 多 £0",noDifference:"无差异",lastCheckedLabel:"最后核对：",lastCheckedDate:"2026年6月9日"});
+    Object.assign(translations.de, {initialMonthly:"£0 pro Monat",initialDifference:"£0 mehr outside IR35",noDifference:"Kein Unterschied",lastCheckedLabel:"Zuletzt geprüft:",lastCheckedDate:"9. Juni 2026"});
+    Object.assign(translations.fr, {initialMonthly:"£0 par mois",initialDifference:"£0 de plus outside IR35",noDifference:"Aucune différence",lastCheckedLabel:"Dernière vérification :",lastCheckedDate:"9 juin 2026"});
+    Object.assign(translations.es, {initialMonthly:"£0 por mes",initialDifference:"£0 más outside IR35",noDifference:"Sin diferencia",lastCheckedLabel:"Última comprobación:",lastCheckedDate:"9 de junio de 2026"});
 
     const allowedLangs = ["en","zh-CN","de","fr","es"];
     let currentLang = "en";
@@ -1402,7 +1408,7 @@
       document.getElementById("outsideNetHeadline").textContent = money(outsideNet);
       document.getElementById("outsideMonthlyHeadline").textContent = money(outsideNet / 12) + " " + dict.perMonth;
       document.getElementById("differenceHeadline").textContent =
-        diff >= 0 ? (money(diff) + " " + dict.moreOutside) : (money(Math.abs(diff)) + " " + dict.moreInside);
+        diff === 0 ? dict.noDifference : (diff > 0 ? (money(diff) + " " + dict.moreOutside) : (money(Math.abs(diff)) + " " + dict.moreInside));
 
       document.getElementById("inGross").textContent = money(revenue);
       document.getElementById("inUmbrella").textContent = "-" + money(annualUmbrella);

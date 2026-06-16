@@ -7,7 +7,8 @@ import worker from "../_worker.js";
 
 const root = new URL("../", import.meta.url);
 const read = (name) => readFileSync(new URL(name, root), "utf8");
-const htmlFiles = readdirSync(root).filter((name) => name.endsWith(".html") && !["404.html", "image_admin.html", "map.html"].includes(name));
+const titleHtmlFiles = readdirSync(root).filter((name) => name.endsWith(".html") && !["image_admin.html", "map.html"].includes(name));
+const htmlFiles = titleHtmlFiles.filter((name) => name !== "404.html");
 
 const approvedPaths = [
   "/", "/tax", "/vat", "/mortgage", "/ir35", "/stamp-duty", "/dividend",
@@ -40,6 +41,16 @@ const escapeRe = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const inlineCss = (html) => [...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)]
   .map((match) => match[1])
   .join("\n");
+const firstElementById = (html, id) => html.match(new RegExp(`<[^>]+id=["']${escapeRe(id)}["'][^>]*>`, "i"))?.[0] || "";
+const elementTextById = (html, id) => html.match(new RegExp(`<[^>]+id=["']${escapeRe(id)}["'][^>]*>([\\s\\S]*?)<\\/[^>]+>`, "i"))?.[1].replace(/<[^>]+>/g, "").trim() || "";
+
+function translationTitleValues(html) {
+  const values = [];
+  const pattern = /(?:^|[,{]\s*)(["']?(?:title|seoTitle|metaTitle|ogTitle|twitterTitle|schemaAppName)["']?)\s*:\s*(["'])(.*?)\2/gs;
+  let match;
+  while ((match = pattern.exec(html))) values.push({ key: match[1].replace(/["']/g, ""), value: match[3] });
+  return values;
+}
 
 function runSharedI18n({ search = "", savedLanguage = null, browserLanguages = ["en-GB"] } = {}) {
   const replacedUrls = [];
@@ -109,6 +120,119 @@ function section(html, tag, className) {
 function hrefs(html) {
   return [...html.matchAll(/href=["']([^"']+)["']/gi)].map((match) => match[1]);
 }
+
+test("all public page titles stay concise in static HTML and translations", () => {
+  for (const file of titleHtmlFiles) {
+    const html = read(file);
+    const staticTitle = html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1].trim() || "";
+    assert.notEqual(staticTitle, "", `${file}: static title must not be empty`);
+    assert.ok(staticTitle.length <= 70, `${file}: static title is ${staticTitle.length} characters: ${staticTitle}`);
+    assert.doesNotMatch(staticTitle, /\|\s*Mini-Tools\.uk$/i, `${file}: static title should use descriptive words instead of a brand suffix`);
+
+    const titleValues = translationTitleValues(html);
+    assert.ok(titleValues.length > 0, `${file}: PAGE_TRANSLATIONS title values must be present`);
+    for (const lang of ["en", "zh-CN", "de", "fr", "es"]) {
+      assert.match(html, new RegExp(`["']?${escapeRe(lang)}["']?\\s*:`), `${file}: PAGE_TRANSLATIONS misses ${lang}`);
+    }
+    for (const { key, value } of titleValues) {
+      assert.notEqual(value.trim(), "", `${file}: ${key} must not be empty`);
+      assert.ok(value.length <= 70, `${file}: ${key} is ${value.length} characters: ${value}`);
+      assert.doesNotMatch(value, /\|\s*Mini-Tools\.uk$/i, `${file}: ${key} should use descriptive words instead of a brand suffix`);
+    }
+  }
+
+  for (const file of ["upload.html", "qr.html", "mortgage.html", "weight.html"]) {
+    const html = read(file);
+    const staticTitle = html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1].trim() || "";
+    assert.ok(staticTitle.length <= 70, `${file}: focused title is ${staticTitle.length} characters`);
+  }
+});
+
+test("public source does not create Cloudflare email-protection crawl targets", () => {
+  const sourceFiles = [...titleHtmlFiles, "site-i18n.js", "_worker.js", "scripts/standardize-pages.ps1", "sitemap.xml", "robots.txt"];
+  for (const file of sourceFiles) {
+    const source = read(file);
+    assert.doesNotMatch(source, /cdn-cgi\/l\/email-protection/i, `${file}: must not link Cloudflare email protection`);
+  }
+
+  for (const file of titleHtmlFiles) {
+    const html = read(file);
+    for (const link of html.matchAll(/<a\b[^>]*href=["']mailto:yuyananuu@gmail\.com["'][^>]*>/gi)) {
+      assert.match(link[0], /data-cfemail=["']false["']/i, `${file}: email link must opt out of Cloudflare obfuscation`);
+    }
+  }
+
+  assert.match(read("scripts/standardize-pages.ps1"), /data-cfemail=["']false["']/, "standardizer footer email opt-out");
+  assert.match(read("robots.txt"), /^Disallow:\s*\/cdn-cgi\/$/mi, "robots.txt disallows Cloudflare system email-protection URLs");
+  assert.doesNotMatch(read("sitemap.xml"), /cdn-cgi|email-protection/i, "sitemap must not include Cloudflare system URLs");
+});
+
+test("finance pages use translated Last checked source dates", () => {
+  for (const file of financePages) {
+    const html = read(file);
+    assert.doesNotMatch(html, /<time\s+datetime=["']2026-06-09["']>\s*Last checked:\s*9 June 2026\s*<\/time>/i, `${file}: fixed English Last checked`);
+    assert.match(html, /data-i18n=["']lastCheckedLabel["']/, `${file}: lastCheckedLabel`);
+    assert.match(html, /data-i18n=["']lastCheckedDate["']/, `${file}: lastCheckedDate`);
+    assert.ok((html.match(/lastCheckedLabel\s*:/g) || []).length >= 5, `${file}: five lastCheckedLabel translations`);
+    assert.ok((html.match(/lastCheckedDate\s*:/g) || []).length >= 5, `${file}: five lastCheckedDate translations`);
+  }
+});
+
+test("finance result panels do not server-render fixed English initial states", () => {
+  const vat = read("vat.html");
+  assert.match(firstElementById(vat, "result-mode"), /data-i18n=["']resultModeAdd["']/, "vat result-mode is translatable");
+  assert.match(firstElementById(vat, "result-note"), /data-i18n=["']noteDefault["']/, "vat result-note is translatable");
+
+  const stampDuty = read("stamp-duty.html");
+  assert.match(firstElementById(stampDuty, "scenarioPill"), /data-i18n=["']standardResidential["']/, "stamp-duty scenarioPill is translatable");
+  assert.match(firstElementById(stampDuty, "surchargeSummary"), /data-i18n=["']noSurcharge["']/, "stamp-duty surchargeSummary is translatable");
+  assert.match(firstElementById(stampDuty, "resultNote"), /data-i18n=["']noteStandard["']/, "stamp-duty resultNote is translatable");
+
+  const ir35 = read("ir35.html");
+  for (const key of ["perMonth", "moreOutside", "moreInside", "noDifference", "initialMonthly", "initialDifference"]) {
+    assert.match(ir35, new RegExp(`${key}\\s*:`), `ir35: ${key}`);
+  }
+  assert.match(firstElementById(ir35, "insideMonthlyHeadline"), /data-i18n=["']initialMonthly["']/, "ir35 inside monthly initial state");
+  assert.match(firstElementById(ir35, "outsideMonthlyHeadline"), /data-i18n=["']initialMonthly["']/, "ir35 outside monthly initial state");
+  assert.match(firstElementById(ir35, "differenceHeadline"), /data-i18n=["']initialDifference["']/, "ir35 difference initial state");
+
+  const dividend = read("dividend.html");
+  assert.match(dividend, /monthlyEquivalent\s*:/, "dividend monthlyEquivalent translation key");
+  assert.match(firstElementById(dividend, "monthly-equivalent"), /data-i18n=["']initialMonthlyEquivalent["']/, "dividend monthly equivalent initial state");
+});
+
+test("vat page keeps English URLs clean while preserving non-English lang parameters", () => {
+  const html = read("vat.html");
+  assert.doesNotMatch(html, /searchParams\.set\(["']lang["']\s*,\s*["']en["']\)/, "vat must not force ?lang=en");
+  assert.match(html, /currentLang\s*===\s*["']en["'][\s\S]*?searchParams\.delete\(["']lang["']\)/, "vat English links delete lang");
+  assert.match(html, /else\s+u\.searchParams\.set\(["']lang["']\s*,\s*currentLang\)/, "vat non-English links preserve lang");
+  assert.match(html, /currentLang\s*===\s*["']en["'][\s\S]*?u\.searchParams\.delete\(["']lang["']\)[\s\S]*?history\.replaceState/, "vat English current URL deletes lang");
+});
+
+test("standardizer excludes the 404 page from indexable page rewrites", () => {
+  const standardizer = read("scripts/standardize-pages.ps1");
+  const html404 = read("404.html");
+  assert.match(standardizer, /\$excluded\s*=\s*@\([\s\S]*["']404\.html["'][\s\S]*\)/, "standardizer excludes 404.html");
+  assert.match(html404, /<meta\s+name=["']robots["']\s+content=["']noindex,follow["']/i, "404 remains noindex,follow");
+  assert.doesNotMatch(html404, /<meta\s+name=["']robots["']\s+content=["']index,follow,max-image-preview:large["']/i, "404 must not be indexable");
+});
+
+test("worker server-renders finance initial result states in Chinese", async () => {
+  const expectations = [
+    ["/vat?lang=zh-CN", [["result-mode", "加 VAT"], ["result-note", "这是 VAT 数学计算结果"]], [["result-mode", "Add VAT"], ["result-note", "This is an arithmetic VAT result only"]]],
+    ["/stamp-duty?lang=zh-CN", [["scenarioPill", "普通住宅"], ["surchargeSummary", "无"], ["resultNote", "英格兰或北爱尔兰住宅"]], [["scenarioPill", "Standard residential"], ["resultNote", "This is a residential SDLT estimate"]]],
+    ["/ir35?lang=zh-CN", [["insideMonthlyHeadline", "月"], ["outsideMonthlyHeadline", "月"], ["differenceHeadline", "outside IR35"]], [["insideMonthlyHeadline", "per month"], ["differenceHeadline", "more outside IR35"]]],
+    ["/dividend?lang=zh-CN", [["monthly-equivalent", "月度折算"]], [["monthly-equivalent", "Monthly equivalent"]]],
+  ];
+
+  for (const [path, translated, fixedEnglish] of expectations) {
+    const response = await fetchThroughWorker(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    for (const [id, expected] of translated) assert.match(elementTextById(html, id), new RegExp(escapeRe(expected)), `${path}: ${id}`);
+    for (const [id, unexpected] of fixedEnglish) assert.doesNotMatch(elementTextById(html, id), new RegExp(escapeRe(unexpected)), `${path}: ${id}`);
+  }
+});
 
 async function fetchThroughWorker(path) {
   const env = {
@@ -252,7 +376,7 @@ test("homepage has one complete Twitter card metadata set", () => {
   const html = read("index.html");
   const expected = {
     card: "summary_large_image",
-    title: "Mini-Tools.uk | UK Tax, VAT, Salary & Everyday Calculators",
+    title: "UK Tax, VAT, Salary and Everyday Calculators",
     description: "UK-focused calculators for salary after tax, VAT, mortgages, stamp duty, IR35 and dividends, plus useful browser tools.",
     image: "https://assets.mini-tools.uk/image/icon-512x512.png",
   };
@@ -647,10 +771,10 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   const lastmods = [...read("sitemap.xml").matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1]);
   assert.deepEqual(locs, approvedPaths.map((path) => `https://mini-tools.uk${path}`));
   assert.equal(lastmods.length, locs.length, "every sitemap URL has a lastmod date");
-  assert.equal(lastmods.every((value) => value === "2026-06-14"), true, "sitemap lastmod date");
+  assert.equal(lastmods.every((value) => value === "2026-06-14" || value === "2026-06-16"), true, "sitemap lastmod date");
   assert.equal(read("sitemap.xml").includes("?lang="), false);
   assert.doesNotMatch(read("sitemap.xml"), /blog/i);
-  assert.equal(read("robots.txt").trim().replace(/\r\n/g, "\n"), "User-agent: *\nAllow: /\n\nSitemap: https://mini-tools.uk/sitemap.xml");
+  assert.equal(read("robots.txt").trim().replace(/\r\n/g, "\n"), "User-agent: *\nAllow: /\nDisallow: /cdn-cgi/\n\nSitemap: https://mini-tools.uk/sitemap.xml");
 });
 
 test("worker renders Chinese body, metadata and schema for key pages", async () => {
@@ -757,7 +881,7 @@ test("worker serves sitemap and robots as static assets and retires blog", async
 
 test("404 page uses the shared shell without indexable SEO or ads", () => {
   const html = read("404.html");
-  assert.match(html, /<title>Page Not Found \| Mini-Tools\.uk<\/title>/);
+  assert.match(html, /<title>Page Not Found - Mini-Tools\.uk<\/title>/);
   assert.match(html, /<meta\s+name=["']robots["']\s+content=["']noindex,follow["']/i);
   assert.doesNotMatch(html, /rel=["']canonical["']/i);
   assert.doesNotMatch(html, /hreflang=/i);

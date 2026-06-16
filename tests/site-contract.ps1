@@ -9,7 +9,9 @@ function Assert-True([bool]$condition, [string]$message) {
   if (-not $condition) { throw $message }
 }
 
+$titleExcluded = @("image_admin.html", "map.html")
 $excluded = @("404.html", "image_admin.html", "map.html")
+$titlePages = Get-ChildItem -LiteralPath $root -Filter "*.html" | Where-Object { $titleExcluded -notcontains $_.Name }
 $publicPages = Get-ChildItem -LiteralPath $root -Filter "*.html" | Where-Object { $excluded -notcontains $_.Name }
 $keyPages = @("index.html", "about.html", "upload.html", "tax.html", "contact.html", "privacy.html")
 $toolPages = @("upload.html", "tax.html", "vat.html", "json.html", "diff.html", "token.html", "qr.html", "pdf2img.html", "mortgage.html", "ir35.html", "stamp-duty.html", "dividend.html", "password.html", "image.html", "color-picker.html", "working-days.html", "fuel.html", "weight.html")
@@ -41,6 +43,85 @@ $navLinks = @("/", "/#search", "/#popular", "/#uk-apps", "/#developer-tools", "/
 $footerLinks = @("/", "/about", "/contact", "/privacy")
 $standardizerNav = [regex]::Match((Read-SiteFile "scripts/standardize-pages.ps1"), '\$nav\s*=\s*@''[\s\S]*?''@').Value
 foreach ($href in @("/about", "/contact", "/privacy")) { Assert-True ($standardizerNav -notmatch ('href=["'']' + [regex]::Escape($href) + '["'']')) "standardizer nav can restore $href" }
+
+foreach ($page in $titlePages) {
+  $html = Read-SiteFile $page.Name
+  $staticTitle = [regex]::Match($html, '<title\b[^>]*>([\s\S]*?)</title>', "IgnoreCase").Groups[1].Value.Trim()
+  Assert-True ($staticTitle.Length -gt 0) "$($page.Name) static title is empty"
+  Assert-True ($staticTitle.Length -le 70) "$($page.Name) static title is $($staticTitle.Length) characters: $staticTitle"
+  Assert-True ($staticTitle -notmatch '\|\s*Mini-Tools\.uk$') "$($page.Name) static title uses a brand suffix instead of descriptive words"
+  $titleMatches = [regex]::Matches($html, '(?s)(?:^|[,{]\s*)(["'']?(?:title|seoTitle|metaTitle|ogTitle|twitterTitle|schemaAppName)["'']?)\s*:\s*(["''])(.*?)\2')
+  Assert-True ($titleMatches.Count -gt 0) "$($page.Name) has no translated title fields"
+  foreach ($lang in @("en", "zh-CN", "de", "fr", "es")) {
+    Assert-True ($html -match ('["'']?' + [regex]::Escape($lang) + '["'']?\s*:')) "$($page.Name) misses PAGE_TRANSLATIONS $lang"
+  }
+  foreach ($match in $titleMatches) {
+    $value = $match.Groups[3].Value
+    Assert-True ($value.Trim().Length -gt 0) "$($page.Name) has an empty title field"
+    Assert-True ($value.Length -le 70) "$($page.Name) title field is $($value.Length) characters: $value"
+    Assert-True ($value -notmatch '\|\s*Mini-Tools\.uk$') "$($page.Name) title field uses a brand suffix instead of descriptive words: $value"
+  }
+}
+foreach ($page in @("upload.html", "qr.html", "mortgage.html", "weight.html")) {
+  $html = Read-SiteFile $page
+  $staticTitle = [regex]::Match($html, '<title\b[^>]*>([\s\S]*?)</title>', "IgnoreCase").Groups[1].Value.Trim()
+  Assert-True ($staticTitle.Length -le 70) "$page focused title is $($staticTitle.Length) characters"
+}
+
+$emailProtectionFiles = @($titlePages | ForEach-Object { $_.Name }) + @("site-i18n.js", "_worker.js", "scripts/standardize-pages.ps1", "sitemap.xml", "robots.txt")
+foreach ($file in $emailProtectionFiles) {
+  Assert-True ((Read-SiteFile $file) -notmatch 'cdn-cgi/l/email-protection') "$file links Cloudflare email protection"
+}
+foreach ($page in $titlePages) {
+  $html = Read-SiteFile $page.Name
+  $emailLinks = [regex]::Matches($html, '<a\b[^>]*href=["'']mailto:yuyananuu@gmail\.com["''][^>]*>', "IgnoreCase")
+  foreach ($link in $emailLinks) {
+    Assert-True ($link.Value -match 'data-cfemail=["'']false["'']') "$($page.Name) email link does not opt out of Cloudflare obfuscation"
+  }
+}
+Assert-True ((Read-SiteFile "scripts/standardize-pages.ps1") -match 'data-cfemail=["'']false["'']') "standardizer footer email opt-out is missing"
+Assert-True ((Read-SiteFile "robots.txt") -match '(?m)^Disallow:\s*/cdn-cgi/$') "robots.txt does not disallow /cdn-cgi/"
+Assert-True ((Read-SiteFile "sitemap.xml") -notmatch 'cdn-cgi|email-protection') "sitemap includes Cloudflare system URLs"
+
+$financePages = @("tax.html", "vat.html", "mortgage.html", "ir35.html", "stamp-duty.html", "dividend.html")
+foreach ($page in $financePages) {
+  $html = Read-SiteFile $page
+  Assert-True ($html -notmatch '<time\s+datetime=["'']2026-06-09["'']>\s*Last checked:\s*9 June 2026\s*</time>') "$page has fixed English Last checked"
+  Assert-True ($html -match 'data-i18n=["'']lastCheckedLabel["'']') "$page misses lastCheckedLabel"
+  Assert-True ($html -match 'data-i18n=["'']lastCheckedDate["'']') "$page misses lastCheckedDate"
+  foreach ($key in @("lastCheckedLabel", "lastCheckedDate")) {
+    Assert-True ($html -match ($key + '\s*:')) "$page translation dictionary misses $key"
+  }
+}
+
+$vat = Read-SiteFile "vat.html"
+Assert-True ([regex]::Match($vat, '<[^>]+id=["'']result-mode["''][^>]*>', "IgnoreCase").Value -match 'data-i18n=["'']resultModeAdd["'']') "vat result-mode is not translatable"
+Assert-True ([regex]::Match($vat, '<[^>]+id=["'']result-note["''][^>]*>', "IgnoreCase").Value -match 'data-i18n=["'']noteDefault["'']') "vat result-note is not translatable"
+Assert-True ($vat -notmatch 'searchParams\.set\(["'']lang["'']\s*,\s*["'']en["'']\)') "vat forces ?lang=en"
+Assert-True ($vat -match 'currentLang\s*===\s*["'']en["''][\s\S]*?searchParams\.delete\(["'']lang["'']\)') "vat English links do not delete lang"
+
+$stampDuty = Read-SiteFile "stamp-duty.html"
+Assert-True ([regex]::Match($stampDuty, '<[^>]+id=["'']scenarioPill["''][^>]*>', "IgnoreCase").Value -match 'data-i18n=["'']standardResidential["'']') "stamp-duty scenarioPill is not translatable"
+Assert-True ([regex]::Match($stampDuty, '<[^>]+id=["'']surchargeSummary["''][^>]*>', "IgnoreCase").Value -match 'data-i18n=["'']noSurcharge["'']') "stamp-duty surchargeSummary is not translatable"
+Assert-True ([regex]::Match($stampDuty, '<[^>]+id=["'']resultNote["''][^>]*>', "IgnoreCase").Value -match 'data-i18n=["'']noteStandard["'']') "stamp-duty resultNote is not translatable"
+
+$ir35 = Read-SiteFile "ir35.html"
+foreach ($key in @("perMonth", "moreOutside", "moreInside", "noDifference", "initialMonthly", "initialDifference")) {
+  Assert-True ($ir35 -match ($key + '\s*:')) "ir35 misses $key"
+}
+Assert-True ([regex]::Match($ir35, '<[^>]+id=["'']insideMonthlyHeadline["''][^>]*>', "IgnoreCase").Value -match 'data-i18n=["'']initialMonthly["'']') "ir35 inside monthly initial state is not translatable"
+Assert-True ([regex]::Match($ir35, '<[^>]+id=["'']outsideMonthlyHeadline["''][^>]*>', "IgnoreCase").Value -match 'data-i18n=["'']initialMonthly["'']') "ir35 outside monthly initial state is not translatable"
+Assert-True ([regex]::Match($ir35, '<[^>]+id=["'']differenceHeadline["''][^>]*>', "IgnoreCase").Value -match 'data-i18n=["'']initialDifference["'']') "ir35 difference initial state is not translatable"
+
+$dividend = Read-SiteFile "dividend.html"
+Assert-True ($dividend -match 'monthlyEquivalent\s*:') "dividend misses monthlyEquivalent"
+Assert-True ([regex]::Match($dividend, '<[^>]+id=["'']monthly-equivalent["''][^>]*>', "IgnoreCase").Value -match 'data-i18n=["'']initialMonthlyEquivalent["'']') "dividend monthly equivalent initial state is not translatable"
+
+$standardizerSource = Read-SiteFile "scripts/standardize-pages.ps1"
+$html404 = Read-SiteFile "404.html"
+Assert-True ($standardizerSource -match '\$excluded\s*=\s*@\([\s\S]*["'']404\.html["''][\s\S]*\)') "standardize-pages.ps1 does not exclude 404.html"
+Assert-True ($html404 -match '<meta\s+name=["'']robots["'']\s+content=["'']noindex,follow["'']') "404.html does not keep noindex,follow"
+Assert-True ($html404 -notmatch '<meta\s+name=["'']robots["'']\s+content=["'']index,follow,max-image-preview:large["'']') "404.html is indexable"
 
 foreach ($page in $publicPages) {
   $html = Read-SiteFile $page.Name
@@ -227,7 +308,7 @@ Assert-True ($colorPicker -notmatch 'cdn\.tailwindcss\.com') "color-picker.html 
 $homepage = Read-SiteFile "index.html"
 $twitterMeta = @{
   card = 'summary_large_image'
-  title = 'Mini-Tools.uk | UK Tax, VAT, Salary & Everyday Calculators'
+  title = 'UK Tax, VAT, Salary and Everyday Calculators'
   description = 'UK-focused calculators for salary after tax, VAT, mortgages, stamp duty, IR35 and dividends, plus useful browser tools.'
   image = 'https://assets.mini-tools.uk/image/icon-512x512.png'
 }
@@ -275,7 +356,7 @@ foreach ($pattern in @('initialPathname === "/terms"', 'initialPathname === "/ac
 Assert-True ($worker -match 'initialPathname === "/blog"[\s\S]*?render404\(request, env, 410\)') "_worker.js does not retire Blog URLs with 410"
 Assert-True ($worker -notmatch 'miniToolsBlogLang') "_worker.js still contains obsolete Blog language state"
 
-$expectedRobots = "User-agent: *`nAllow: /`n`nSitemap: https://mini-tools.uk/sitemap.xml"
+$expectedRobots = "User-agent: *`nAllow: /`nDisallow: /cdn-cgi/`n`nSitemap: https://mini-tools.uk/sitemap.xml"
 Assert-True ((Read-SiteFile "robots.txt").Trim().Replace("`r`n", "`n") -eq $expectedRobots) "robots.txt differs from contract"
 $locs = [regex]::Matches((Read-SiteFile "sitemap.xml"), '<loc>([^<]+)</loc>') | ForEach-Object { $_.Groups[1].Value }
 $expectedLocs = @(

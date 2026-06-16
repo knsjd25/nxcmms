@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>Dividend Tax Calculator 2026/27 | Mini-Tools.uk</title>
+  <title>Salary vs Dividend Calculator for UK Directors</title>
   <meta name="description" content="Estimate 2026/27 UK limited company director take-home pay using salary and dividends, including Corporation Tax, Employer NI and dividend tax assumptions." />
 <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#4c1d95" />
@@ -364,7 +364,7 @@
           <div>
             <div class="eyebrow" data-i18n="resultEyebrow">Estimated take-home</div>
             <div class="big-result" id="take-home">£0</div>
-            <div class="muted-on-dark" id="monthly-equivalent">Monthly equivalent: £0</div>
+            <div class="muted-on-dark" id="monthly-equivalent" data-i18n="initialMonthlyEquivalent">Monthly equivalent: £0</div>
           </div>
           <div class="assumption-badge" data-i18n="assumptionBadge">Single-director planning case</div>
         </div>
@@ -404,7 +404,7 @@
         <li data-i18n="useful3">Understanding how Employer NI and Corporation Tax affect what is actually available to distribute.</li>
       </ul>
       <p class="official-sources"><strong>GOV.UK:</strong> <a href="https://www.gov.uk/tax-on-dividends" rel="noopener noreferrer">Tax on dividends</a> · <a href="https://www.gov.uk/government/publications/rates-and-allowances-corporation-tax/rates-and-allowances-corporation-tax" rel="noopener noreferrer">Corporation Tax rates and allowances</a></p>
-      <p><time datetime="2026-06-09">Last checked: 9 June 2026</time></p>
+      <p><span data-i18n="lastCheckedLabel">Last checked:</span> <time datetime="2026-06-09" data-i18n="lastCheckedDate">9 June 2026</time></p>
     </section>
 
     <section class="section-block faq">
@@ -435,7 +435,7 @@
 <footer class="footer">
   <div class="wrap footer-inner">
     <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
-    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com">yuyananuu@gmail.com</a></div>
+    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com" data-cfemail="false">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
 
@@ -445,7 +445,7 @@
         htmlLang:"en-GB",
         langLabel:"English",
         locale:"en-GB",
-        title:"Dividend Tax Calculator 2026/27 | Mini-Tools.uk",
+        title:"Salary vs Dividend Tax Calculator 2026/27",
         description:"Estimate 2026/27 UK limited company director take-home pay using salary and dividends, including Corporation Tax, Employer NI and dividend tax assumptions.",
         skip:"Skip to content",
         brandSubtitle:"UK calculator tools with clear assumptions",
@@ -605,7 +605,7 @@
         htmlLang:"de",
         langLabel:"Deutsch",
         locale:"de-DE",
-        title:"Gehalt vs Dividende Rechner UK 2026/27｜Limited Company Director｜Mini-Tools.uk",
+        title:"Gehalt vs Dividende Rechner für UK Directors",
         description:"Schätzen Sie Gehalt, Dividenden, Corporation Tax, Employer NI, Income Tax, Employee NI und Dividend Tax für UK Limited Company Directors 2026/27.",
         skip:"Zum Inhalt springen",
         brandSubtitle:"UK-Finanztools mit klaren Annahmen",
@@ -685,7 +685,7 @@
         htmlLang:"fr",
         langLabel:"Français",
         locale:"fr-FR",
-        title:"Calculateur salaire vs dividende UK 2026/27｜Director Limited Company｜Mini-Tools.uk",
+        title:"Calculateur salaire vs dividende UK",
         description:"Estimez salaire, dividendes, Corporation Tax, Employer NI, Income Tax, Employee NI et dividend tax pour un director de société UK en 2026/27.",
         skip:"Aller au contenu",
         brandSubtitle:"Outils finance UK avec hypothèses claires",
@@ -765,7 +765,7 @@
         htmlLang:"es",
         langLabel:"Español",
         locale:"es-ES",
-        title:"Calculadora salario vs dividendos UK 2026/27｜Limited Company Director｜Mini-Tools.uk",
+        title:"Calculadora salario vs dividendos UK",
         description:"Estima salario, dividendos, Corporation Tax, Employer NI, Income Tax, Employee NI e impuesto sobre dividendos para un director de empresa UK en 2026/27.",
         skip:"Saltar al contenido",
         brandSubtitle:"Herramientas financieras UK con supuestos claros",
@@ -842,6 +842,12 @@
         copyright:"Copyright 2026 MINI-TOOLS.UK · HERRAMIENTAS FINANCIERAS UK CON SUPUESTOS CLAROS"
       }
     };
+
+    Object.assign(translations.en, {title:"Salary vs Dividend Calculator for UK Directors",initialMonthlyEquivalent:"Monthly equivalent: £0",lastCheckedLabel:"Last checked:",lastCheckedDate:"9 June 2026"});
+    Object.assign(translations["zh-CN"], {title:"英国工资 vs 股息计算器：董事收入估算",initialMonthlyEquivalent:"月度折算： £0",lastCheckedLabel:"最后核对：",lastCheckedDate:"2026年6月9日"});
+    Object.assign(translations.de, {initialMonthlyEquivalent:"Monatlicher Gegenwert: £0",lastCheckedLabel:"Zuletzt geprüft:",lastCheckedDate:"9. Juni 2026"});
+    Object.assign(translations.fr, {initialMonthlyEquivalent:"Équivalent mensuel : £0",lastCheckedLabel:"Dernière vérification :",lastCheckedDate:"9 juin 2026"});
+    Object.assign(translations.es, {initialMonthlyEquivalent:"Equivalente mensual: £0",lastCheckedLabel:"Última comprobación:",lastCheckedDate:"9 de junio de 2026"});
 
     const fmtCache = {};
     const allowedLangs = ["en", "zh-CN", "de", "fr", "es"];
