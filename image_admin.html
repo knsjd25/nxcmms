@@ -147,7 +147,7 @@
   </div>
 </div>
 
-<div id="status-msg">请先输入密码并点击“刷新所有数据”...</div>
+<div id="status-msg">请先输入密码并点击“立即刷新”。切换卡片默认使用缓存，不会重复拉取接口。</div>
 
 <div id="image-view">
   <div class="control-panel">
@@ -295,6 +295,8 @@
   let autoRefreshTick = null;
   let refreshCountdown = Math.floor(AUTO_REFRESH_MS / 1000);
   let isFetching = false;
+  const pageCache = new Map();
+  let hasInitialFullRefresh = false;
 
   function h(v) {
     return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -429,6 +431,35 @@
     return url.toString();
   }
 
+  function currentCacheKey() {
+    return [
+      currentImageTab(),
+      currentPage,
+      document.getElementById('items-per-page').value || '16',
+      document.getElementById('sort-time').value || 'desc',
+      document.getElementById('filter-category').value || 'all',
+      document.getElementById('search-vip').value.trim(),
+      document.getElementById('search-ip').value.trim(),
+      document.getElementById('filter-ip').value || 'all',
+      document.getElementById('filter-risk').value || 'all'
+    ].join('|');
+  }
+
+  function applyPageCache(cache) {
+    if (!cache) return false;
+    globalImages = cache.images || [];
+    globalIpSummary = cache.ipSummary || globalIpSummary || [];
+    dashboardCounts = cache.dashboardCounts || dashboardCounts;
+    totalFiltered = Number(cache.totalFiltered || 0);
+    totalPages = Number(cache.totalPages || 1);
+    currentPage = Number(cache.currentPage || currentPage || 1);
+    updateCounts();
+    updateIpFilterOptions();
+    renderGallery();
+    updateAutoRefreshText();
+    return true;
+  }
+
   async function fetchBlockedIps(pwd) {
     const res = await fetch(WORKER_URL + '?action=blocked_ips', { headers: { 'X-Admin-Key': pwd } });
     if (!res.ok) return [];
@@ -474,15 +505,21 @@
     }, AUTO_REFRESH_MS);
   }
 
-  async function fetchPageData({ silent = false, isAuto = false } = {}) {
+  async function fetchPageData({ silent = false, isAuto = false, force = false } = {}) {
     const pwd = getPwd();
     if (!pwd) {
       if (!silent) alert('⚠️ 请先输入超级管理员密码！');
       return;
     }
+    const cacheKey = currentCacheKey();
+    if (!force && !isAuto && pageCache.has(cacheKey)) {
+      applyPageCache(pageCache.get(cacheKey));
+      return;
+    }
+
     if (isFetching) return;
     isFetching = true;
-    if (!silent) setStatusMessage('⏳ 正在按分页拉取当前页图片、黑名单和必要数据...');
+    if (!silent) setStatusMessage(force ? '⏳ 正在强制刷新当前页与管理数据...' : '⏳ 正在拉取当前页数据...');
 
     try {
       const headers = { 'X-Admin-Key': pwd };
@@ -509,6 +546,16 @@
       if (!isAuto) globalBlockedIps = Array.isArray(results[1]) ? results[1] : globalBlockedIps;
       if (needVip) globalVips = Array.isArray(results[isAuto ? 1 : 2]) ? results[isAuto ? 1 : 2] : globalVips;
 
+      pageCache.set(cacheKey, {
+        images: globalImages,
+        ipSummary: globalIpSummary,
+        dashboardCounts,
+        totalFiltered,
+        totalPages,
+        currentPage
+      });
+      hasInitialFullRefresh = true;
+
       updateCounts();
       updateIpFilterOptions();
 
@@ -527,7 +574,8 @@
   }
 
   async function fetchAllData() {
-    return fetchPageData({ silent: false, isAuto: false });
+    pageCache.clear();
+    return fetchPageData({ silent: false, isAuto: false, force: true });
   }
 
   function updateCounts() {
@@ -550,6 +598,14 @@
     if ([...select.options].some(o => o.value === old)) select.value = old;
   }
 
+  function showUnloadedImageTab() {
+    globalImages = [];
+    totalFiltered = 0;
+    totalPages = 1;
+    renderGallery();
+    setStatusMessage('ℹ️ 当前卡片未加载。为避免卡顿，点击卡片不会请求接口；需要查看时请点右上角“立即刷新”。');
+  }
+
   function switchTab(tab) {
     currentTab = tab;
     currentPage = 1;
@@ -561,9 +617,19 @@
     document.getElementById('ip-panel').style.display = tab === 'ip_blacklist' ? 'block' : 'none';
     document.getElementById('btn-batch-audit').style.display = tab === 'pending' ? 'inline-block' : 'none';
 
-    if (tab === 'vip_management' && globalVips.length) renderVipTable();
-    else if (tab === 'ip_blacklist') renderIpPanel();
-    else if (['pending','audited','personal'].includes(tab)) fetchPageData({ silent: false });
+    if (tab === 'vip_management') {
+      renderVipTable();
+      return;
+    }
+    if (tab === 'ip_blacklist') {
+      renderIpPanel();
+      return;
+    }
+    if (['pending','audited','personal'].includes(tab)) {
+      const cache = pageCache.get(currentCacheKey());
+      if (cache) applyPageCache(cache);
+      else showUnloadedImageTab();
+    }
   }
 
   function clearIpFilters() {
@@ -571,12 +637,16 @@
     document.getElementById('filter-ip').value = 'all';
     document.getElementById('filter-risk').value = 'all';
     currentPage = 1;
-    fetchPageData({ silent: false });
+    const cache = pageCache.get(currentCacheKey());
+    if (cache) applyPageCache(cache);
+    else showUnloadedImageTab();
   }
 
   function resetAndRenderGallery() {
     currentPage = 1;
-    fetchPageData({ silent: false });
+    const cache = pageCache.get(currentCacheKey());
+    if (cache) applyPageCache(cache);
+    else showUnloadedImageTab();
   }
 
   function createImageCard(item) {
@@ -632,7 +702,7 @@
     const paginationPanel = document.getElementById('pagination-panel');
     gallery.innerHTML = '';
     if (!globalImages.length) {
-      gallery.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#666;padding:40px;">当前页没有图片 🎉</p>`;
+      gallery.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#666;padding:40px;">当前页没有图片，或当前卡片还未加载。需要查看请点击“立即刷新”。</p>`;
       paginationPanel.style.display = 'none';
       return;
     }
@@ -800,7 +870,8 @@
     const data = await readJsonSafe(response);
     if (!response.ok) return alert('审核失败：' + (data.error || response.status));
     closeImageModal();
-    fetchPageData({ silent: false });
+    pageCache.clear();
+    fetchPageData({ silent: false, force: true });
   }
   async function deleteImageKey(key) {
     if (!confirm(`🚨 确定彻底物理删除这张图片吗？不可恢复！\n${key}`)) return;
@@ -812,7 +883,8 @@
     const data = await readJsonSafe(response);
     if (!response.ok) return alert('删除失败：' + (data.error || response.status));
     closeImageModal();
-    fetchPageData({ silent: false });
+    pageCache.clear();
+    fetchPageData({ silent: false, force: true });
   }
   function auditModalImage() { if (currentModalItem) auditImageKey(currentModalItem.key); }
   function deleteModalImage() { if (currentModalItem) deleteImageKey(currentModalItem.key); }
@@ -835,7 +907,9 @@
     const next = currentPage + delta;
     if (next < 1 || next > totalPages) return;
     currentPage = next;
-    fetchPageData({ silent: false });
+    const cache = pageCache.get(currentCacheKey());
+    if (cache) applyPageCache(cache);
+    else showUnloadedImageTab();
     document.getElementById('image-view').scrollIntoView({ behavior: 'smooth' });
   }
 
@@ -862,7 +936,8 @@
     });
     const data = await readJsonSafe(response);
     if (!response.ok) return alert('❌ 操作失败：' + (data.error || response.status));
-    fetchPageData({ silent: false });
+    pageCache.clear();
+    fetchPageData({ silent: false, force: true });
   }
   function batchAudit() { executeBatch('audit'); }
   function batchDelete() { executeBatch('delete'); }
@@ -880,7 +955,9 @@
     if (!response.ok || !result.success) return alert(`❌ 上传失败: ${result.error || response.status}`);
     alert(`🎉 私用图上传成功！\n链接：${result.url}`);
     fileInput.value = '';
-    if (currentTab !== 'personal') switchTab('personal'); else fetchPageData({ silent: false });
+    pageCache.clear();
+    if (currentTab !== 'personal') switchTab('personal');
+    else fetchPageData({ silent: false, force: true });
   }
 
   function searchVipImages(code) {
@@ -928,7 +1005,8 @@
     });
     const data = await readJsonSafe(response);
     if (!response.ok) return alert('拉黑失败：' + (data.error || response.status));
-    fetchPageData({ silent: false });
+    pageCache.clear();
+    fetchPageData({ silent: false, force: true });
   }
   async function blockFileIp(key) {
     const pwd = getPwd();
@@ -938,7 +1016,8 @@
     });
     const data = await readJsonSafe(response);
     if (!response.ok) return alert('拉黑失败：' + (data.error || response.status));
-    fetchPageData({ silent: false });
+    pageCache.clear();
+    fetchPageData({ silent: false, force: true });
   }
   async function unblockIp(ip, ipHash = '') {
     if (!confirm('确定解除这个 IP 的黑名单吗？')) return;
@@ -949,7 +1028,8 @@
     });
     const data = await readJsonSafe(response);
     if (!response.ok) return alert('解除失败：' + (data.error || response.status));
-    fetchPageData({ silent: false });
+    pageCache.clear();
+    fetchPageData({ silent: false, force: true });
   }
   function manualBlockIp() {
     const ip = document.getElementById('manual-ip').value.trim();
