@@ -1,527 +1,750 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <title>图床超级后台 - 资产与权限中心</title>
-    <meta name="robots" content="noindex,nofollow,noarchive">
-    <style>
-        body { font-family: sans-serif; padding: 20px; background: #f0f2f5; margin: 0; }
-        .header { background: #2c3e50; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; }
-        .header h2 { margin: 0; }
-        .auth-box { display: flex; gap: 10px; }
-        input[type="password"], input[type="file"], input[type="text"], select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; outline: none; }
-        button { padding: 10px 15px; cursor: pointer; border: none; border-radius: 5px; background: #3498db; color: white; font-weight: bold; transition: background 0.3s; }
-        button:hover { background: #2980b9; }
-        button:disabled { background: #bdc3c7; cursor: not-allowed; }
-        .btn-danger { background: #e74c3c; }
-        .btn-danger:hover { background: #c0392b; }
-        .btn-success { background: #2ecc71; }
-        .btn-success:hover { background: #27ae60; }
-        .btn-warning { background: #f39c12; }
-        .btn-warning:hover { background: #d68910; }
-        .btn-purple { background: #8e44ad; }
-        .btn-purple:hover { background: #732d91; }
-        /* 顶部看板 */
-        .dashboard-nav { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
-        .nav-card { flex: 1; min-width: 150px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
-        .nav-card.active { border-color: #3498db; background: #ebf5fb; }
-        .nav-card h3 { margin: 0 0 10px 0; color: #333; font-size: 1.1rem; }
-        .nav-card .count { font-size: 1.5rem; font-weight: bold; color: #3498db; }
+  <meta charset="UTF-8">
+  <title>图床超级后台 - 资产与权限中心</title>
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f0f2f5; margin: 0; }
+    .header { background: #2c3e50; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; }
+    .header h2 { margin: 0; }
+    .auth-box { display: flex; gap: 10px; }
+    input[type="password"], input[type="file"], input[type="text"], select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; outline: none; }
+    button { padding: 10px 15px; cursor: pointer; border: none; border-radius: 5px; background: #3498db; color: white; font-weight: bold; transition: background 0.3s; }
+    button:hover { background: #2980b9; }
+    button:disabled { background: #bdc3c7; cursor: not-allowed; }
+    .btn-danger { background: #e74c3c; }
+    .btn-danger:hover { background: #c0392b; }
+    .btn-success { background: #2ecc71; }
+    .btn-success:hover { background: #27ae60; }
+    .btn-warning { background: #f39c12; }
+    .btn-warning:hover { background: #d68910; }
+    .btn-purple { background: #8e44ad; }
+    .btn-purple:hover { background: #732d91; }
+    .btn-gray { background: #95a5a6; }
+    .btn-gray:hover { background: #7f8c8d; }
+    .btn-small { padding: 6px 8px; font-size: .78rem; }
 
-        /* 控制面板区域 */
-        .control-panel { background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-wrap: wrap; gap: 15px; align-items: center; justify-content: space-between; }
-        .filter-group { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
-        .admin-upload { display: flex; gap: 10px; align-items: center; border-left: 2px solid #eee; padding-left: 15px; }
+    .dashboard-nav { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+    .nav-card { flex: 1; min-width: 150px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+    .nav-card.active { border-color: #3498db; background: #ebf5fb; }
+    .nav-card h3 { margin: 0 0 10px 0; color: #333; font-size: 1.1rem; }
+    .nav-card .count { font-size: 1.5rem; font-weight: bold; color: #3498db; }
 
-        /* 图片网格区域 */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-        .card { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; position: relative; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); }
-        .card img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; cursor: pointer; border: 1px solid #eee; }
-        .checkbox-container { position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 10;}
-        .checkbox-container input { transform: scale(1.5); cursor: pointer; }
-        .badge { position: absolute; top: 20px; right: 20px; background: #95a5a6; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; z-index: 10;}
-        .badge.pending { background: #e74c3c; animation: pulse 2s infinite; }
-        .badge.audited { background: #2ecc71; }
-        .badge.personal { background: #8e44ad; }
-        .meta { font-size: 0.8rem; color: #555; margin-bottom: 12px; text-align: left; line-height: 1.4; word-break: break-all; background: #f9f9f9; padding: 8px; border-radius: 4px; }
-        .action-btns { display: flex; gap: 5px; }
-        .action-btns button { flex: 1; padding: 8px 5px; font-size: 0.85rem; }
-        
-        /* 🌟 分页控件区域 */
-        .pagination-panel { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 30px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .page-info { font-weight: bold; color: #333; }
-        
-        /* VIP 管理面板 */
-        #vip-panel { display: none; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .vip-form { display: flex; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background: #f8f9fa; color: #333; }
-        .vip-code { font-family: monospace; font-size: 1.1rem; color: #d35400; font-weight: bold; background: #fdf2e9; padding: 4px 8px; border-radius: 4px; }
-        
-        #status-msg { margin-top: 10px; color: #666; font-weight: bold; }
+    .control-panel { background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-wrap: wrap; gap: 15px; align-items: center; justify-content: space-between; }
+    .filter-group { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .admin-upload { display: flex; gap: 10px; align-items: center; border-left: 2px solid #eee; padding-left: 15px; }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
-        }
-    </style>
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+    .card { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; position: relative; transition: transform 0.2s; }
+    .card:hover { transform: translateY(-5px); }
+    .card.blocked-card { border: 2px solid #111827; }
+    .card.suspicious-card { border: 2px solid #f39c12; }
+    .card img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; cursor: pointer; border: 1px solid #eee; }
+    .checkbox-container { position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 10; }
+    .checkbox-container input { transform: scale(1.5); cursor: pointer; }
+    .badge { position: absolute; top: 20px; right: 20px; background: #95a5a6; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; z-index: 10; }
+    .badge.pending { background: #e74c3c; animation: pulse 2s infinite; }
+    .badge.audited { background: #2ecc71; }
+    .badge.personal { background: #8e44ad; }
+    .badge.suspicious { background: #f39c12; }
+    .badge.blocked { background: #111827; }
+    .meta { font-size: 0.78rem; color: #555; margin-bottom: 12px; text-align: left; line-height: 1.45; word-break: break-all; background: #f9f9f9; padding: 8px; border-radius: 4px; }
+    .meta b { color: #111827; }
+    .ip-line { background: #eef6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 6px; margin: 6px 0; }
+    .risk-line { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 6px; padding: 6px; margin: 6px 0; color: #9a3412; }
+    .blocked-line { background: #f3f4f6; border: 1px solid #111827; color: #111827; }
+    .action-btns { display: flex; gap: 5px; flex-wrap: wrap; }
+    .action-btns button { flex: 1 1 48%; padding: 8px 5px; font-size: 0.82rem; }
+
+    .pagination-panel { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 30px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .page-info { font-weight: bold; color: #333; }
+
+    #vip-panel, #ip-panel { display: none; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .vip-form, .ip-form { display: flex; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; flex-wrap: wrap; }
+    .ip-form input { min-width: 260px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #fff; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: top; }
+    th { background: #f8f9fa; color: #333; }
+    .vip-code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: bold; }
+    .vip-code { font-size: 1.1rem; color: #d35400; background: #fdf2e9; padding: 4px 8px; border-radius: 4px; }
+    .panel-note { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e3a8a; padding: 12px; border-radius: 8px; line-height: 1.6; margin-bottom: 16px; }
+    #status-msg { margin-top: 10px; color: #666; font-weight: bold; }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+    }
+  </style>
 </head>
 <body>
 
 <div class="header">
-    <h2>🛡️ 图床超级资产与权限中心</h2>
-    <div class="auth-box">
-        <input type="password" id="admin-pwd" placeholder="输入超级管理员密码">
-        <button onclick="fetchAllData()">刷新所有数据</button>
-    </div>
+  <h2>🛡️ 图床超级资产与权限中心</h2>
+  <div class="auth-box">
+    <input type="password" id="admin-pwd" placeholder="输入超级管理员密码">
+    <button onclick="fetchAllData()">刷新所有数据</button>
+  </div>
 </div>
 
 <div class="dashboard-nav">
-    <div class="nav-card active" onclick="switchTab('pending')" id="tab-pending">
-        <h3>🚨 待审核 (含VIP新图)</h3>
-        <div class="count" id="count-pending">0</div>
-    </div>
-    <div class="nav-card" onclick="switchTab('audited')" id="tab-audited">
-        <h3>✅ 已通过 (安全内容)</h3>
-        <div class="count" id="count-audited" style="color:#2ecc71;">0</div>
-    </div>
-    <div class="nav-card" onclick="switchTab('personal')" id="tab-personal">
-        <h3>👑 我的私用 (永久保存)</h3>
-        <div class="count" id="count-personal" style="color:#8e44ad;">0</div>
-    </div>
-    <div class="nav-card" onclick="switchTab('vip_management')" id="tab-vip_management" style="border-color: #f39c12; background: #fef9e7;">
-        <h3>💎 VIP 激活码管理</h3>
-        <div class="count" id="count-vip" style="color:#f39c12;">管理</div>
-    </div>
+  <div class="nav-card active" onclick="switchTab('pending')" id="tab-pending">
+    <h3>🚨 待审核 (含VIP新图)</h3>
+    <div class="count" id="count-pending">0</div>
+  </div>
+  <div class="nav-card" onclick="switchTab('audited')" id="tab-audited">
+    <h3>✅ 已通过 (安全内容)</h3>
+    <div class="count" id="count-audited" style="color:#2ecc71;">0</div>
+  </div>
+  <div class="nav-card" onclick="switchTab('personal')" id="tab-personal">
+    <h3>👑 我的私用 (永久保存)</h3>
+    <div class="count" id="count-personal" style="color:#8e44ad;">0</div>
+  </div>
+  <div class="nav-card" onclick="switchTab('vip_management')" id="tab-vip_management" style="border-color:#f39c12;background:#fef9e7;">
+    <h3>💎 VIP 激活码管理</h3>
+    <div class="count" id="count-vip" style="color:#f39c12;">管理</div>
+  </div>
+  <div class="nav-card" onclick="switchTab('ip_blacklist')" id="tab-ip_blacklist" style="border-color:#111827;background:#f3f4f6;">
+    <h3>⛔ IP 黑名单</h3>
+    <div class="count" id="count-blocked" style="color:#111827;">0</div>
+  </div>
 </div>
 
 <div id="status-msg">请先输入密码并点击“刷新所有数据”...</div>
 
 <div id="image-view">
-    <div class="control-panel">
-        <div class="filter-group">
-            <label><strong>分类过滤:</strong></label>
-            <select id="filter-category" onchange="resetAndRenderGallery()">
-                <option value="all">全部图片 (All)</option>
-                <option value="permanent">├─ 💎 VIP永久图 (permanent)</option>
-                <option value="1-day">├─ 1天销毁 (1-day)</option>
-                <option value="3-day">├─ 3天销毁 (3-day)</option>
-                <option value="7-day">├─ 7天销毁 (7-day)</option>
-                <option value="30-day">└─ 30天销毁 (30-day)</option>
-            </select>
-
-            <input type="text" id="search-vip" placeholder="🔍 搜索VIP码 (如 user_888)" onkeyup="resetAndRenderGallery()" style="width: 180px; padding: 8px;">
-
-            <label><strong>时间:</strong></label>
-            <select id="sort-time" onchange="resetAndRenderGallery()">
-                <option value="desc">最新在前</option>
-                <option value="asc">最旧在前</option>
-            </select>
-
-            <label><strong>每页显示:</strong></label>
-            <select id="items-per-page" onchange="resetAndRenderGallery()">
-                <option value="12">12 张</option>
-                <option value="24" selected>24 张</option>
-                <option value="48">48 张</option>
-                <option value="96">96 张</option>
-            </select>
-
-            <button onclick="selectAll()" style="background: #95a5a6;">全选本页</button>
-            <button onclick="batchAudit()" id="btn-batch-audit" class="btn-warning">✅ 批量通过</button>
-            <button onclick="batchDelete()" class="btn-danger">🚨 批量删除</button>
-        </div>
-
-        <div class="admin-upload">
-            <label><strong>👑 私人直传:</strong></label>
-            <input type="file" id="admin-file" accept="image/*">
-            <button onclick="adminUpload()" class="btn-success">直接上传</button>
-        </div>
+  <div class="control-panel">
+    <div class="filter-group">
+      <label><strong>分类过滤:</strong></label>
+      <select id="filter-category" onchange="resetAndRenderGallery()">
+        <option value="all">全部图片 (All)</option>
+        <option value="permanent">├─ 💎 VIP永久图 (permanent)</option>
+        <option value="1-day">├─ 1天销毁 (1-day)</option>
+        <option value="3-day">├─ 3天销毁 (3-day)</option>
+        <option value="7-day">├─ 7天销毁 (7-day)</option>
+        <option value="30-day">└─ 30天销毁 (30-day)</option>
+      </select>
+      <input type="text" id="search-vip" placeholder="🔍 搜索VIP码" onkeyup="resetAndRenderGallery()" style="width:160px;">
+      <input type="text" id="search-ip" placeholder="🔍 搜索IP / IP Hash" onkeyup="resetAndRenderGallery()" style="width:210px;">
+      <select id="filter-ip" onchange="resetAndRenderGallery()" style="min-width:190px;">
+        <option value="all">全部上传 IP</option>
+      </select>
+      <select id="filter-risk" onchange="resetAndRenderGallery()">
+        <option value="all">全部风险状态</option>
+        <option value="suspicious">只看可疑上传</option>
+        <option value="blocked">只看已拉黑IP</option>
+        <option value="missing_ip">旧图无IP记录</option>
+      </select>
+      <label><strong>时间:</strong></label>
+      <select id="sort-time" onchange="resetAndRenderGallery()">
+        <option value="desc">最新在前</option>
+        <option value="asc">最旧在前</option>
+      </select>
+      <label><strong>每页:</strong></label>
+      <select id="items-per-page" onchange="resetAndRenderGallery()">
+        <option value="12">12 张</option>
+        <option value="24" selected>24 张</option>
+        <option value="48">48 张</option>
+        <option value="96">96 张</option>
+      </select>
+      <button onclick="clearIpFilters()" class="btn-gray">清空IP筛选</button>
+      <button onclick="selectAll()" class="btn-gray">全选本页</button>
+      <button onclick="batchAudit()" id="btn-batch-audit" class="btn-warning">✅ 批量通过</button>
+      <button onclick="batchDelete()" class="btn-danger">🚨 批量删除</button>
     </div>
-
-    <div id="gallery" class="grid"></div>
-    
-    <div class="pagination-panel" id="pagination-panel" style="display: none;">
-        <button id="btn-prev-page" onclick="changePage(-1)">⬅️ 上一页</button>
-        <div class="page-info" id="page-info">第 1 / 1 页 (共 0 张)</div>
-        <button id="btn-next-page" onclick="changePage(1)">下一页 ➡️</button>
+    <div class="admin-upload">
+      <label><strong>👑 私人直传:</strong></label>
+      <input type="file" id="admin-file" accept="image/*">
+      <button onclick="adminUpload()" class="btn-success">直接上传</button>
     </div>
+  </div>
+
+  <div id="gallery" class="grid"></div>
+  <div class="pagination-panel" id="pagination-panel" style="display:none;">
+    <button id="btn-prev-page" onclick="changePage(-1)">⬅️ 上一页</button>
+    <div class="page-info" id="page-info">第 1 / 1 页 (共 0 张)</div>
+    <button id="btn-next-page" onclick="changePage(1)">下一页 ➡️</button>
+  </div>
 </div>
 
 <div id="vip-panel">
-    <h3>💎 生成新的 VIP 专属上传码</h3>
-    <div class="vip-form">
-        <input type="text" id="new-vip-code" placeholder="输入自定义 ID (如 user_888) 或留空自动生成" style="flex:1;">
-        <input type="text" id="new-vip-note" placeholder="备注信息 (例如: 张三的专用码)" style="flex:1;">
-        <button onclick="generateVipCode()" class="btn-warning">✨ 生成并保存</button>
-    </div>
-    
-    <h3>📋 已激活的 VIP 码列表</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>VIP 专属码 (固定 ID)</th>
-                <th>备注信息</th>
-                <th>创建时间</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody id="vip-list-body">
-            <tr><td colspan="4" style="text-align: center;">请先拉取数据...</td></tr>
-        </tbody>
-    </table>
+  <h3>💎 生成新的 VIP 专属上传码</h3>
+  <div class="vip-form">
+    <input type="text" id="new-vip-code" placeholder="输入自定义 ID (如 user_888) 或留空自动生成" style="flex:1;">
+    <input type="text" id="new-vip-note" placeholder="备注信息 (例如: 张三的专用码)" style="flex:1;">
+    <button onclick="generateVipCode()" class="btn-warning">✨ 生成并保存</button>
+  </div>
+  <h3>📋 已激活的 VIP 码列表</h3>
+  <table>
+    <thead><tr><th>VIP 专属码</th><th>备注信息</th><th>创建时间</th><th>操作</th></tr></thead>
+    <tbody id="vip-list-body"><tr><td colspan="4" style="text-align:center;">请先拉取数据...</td></tr></tbody>
+  </table>
+</div>
+
+<div id="ip-panel">
+  <h3>⛔ IP 黑名单与上传来源审核</h3>
+  <div class="panel-note">
+    这里依赖新版 Worker 返回的 <b>ip / ipHash / ipSummary / blockedIps</b> 字段。旧图片如果没有历史 IP 索引，会显示“旧图无IP记录”。
+  </div>
+  <div class="ip-form">
+    <input type="text" id="manual-ip" placeholder="输入要拉黑的 IP，例如 1.2.3.4">
+    <input type="text" id="manual-ip-hash" placeholder="或输入 IP Hash">
+    <input type="text" id="manual-ip-note" placeholder="拉黑原因备注" style="flex:1;min-width:240px;">
+    <button class="btn-danger" onclick="manualBlockIp()">加入黑名单</button>
+    <button class="btn-gray" onclick="fetchAllData()">刷新黑名单</button>
+  </div>
+
+  <h3>📊 上传 IP 汇总</h3>
+  <table>
+    <thead><tr><th>IP</th><th>IP Hash</th><th>地区</th><th>上传数</th><th>可疑数</th><th>最新上传</th><th>状态/操作</th></tr></thead>
+    <tbody id="ip-summary-body"><tr><td colspan="7" style="text-align:center;">请先刷新数据...</td></tr></tbody>
+  </table>
+
+  <h3 style="margin-top:28px;">🚫 当前黑名单</h3>
+  <table>
+    <thead><tr><th>IP</th><th>IP Hash</th><th>备注</th><th>创建时间</th><th>操作</th></tr></thead>
+    <tbody id="blocked-ip-body"><tr><td colspan="5" style="text-align:center;">暂无黑名单数据</td></tr></tbody>
+  </table>
 </div>
 
 <script>
-    // 🔴 极其重要：替换为你的真实 Worker 地址！
-    const WORKER_URL = "https://api.mini-tools.uk";
-    
-    let globalImages = [];
-    let globalVips = [];
-    let currentTab = 'pending'; 
-    
-    // 🌟 分页全局变量
-    let currentPage = 1;
+  const WORKER_URL = "https://api.mini-tools.uk";
 
-    async function fetchAllData() {
-        const pwd = document.getElementById('admin-pwd').value;
-        if (!pwd) return alert("⚠️ 请先输入超级管理员密码！");
-        
-        const statusMsg = document.getElementById('status-msg');
-        statusMsg.innerText = "⏳ 正在同时拉取图片数据和 VIP 配置...";
-        
-        try {
-            const imgRes = await fetch(WORKER_URL + "?action=list", { headers: { 'X-Admin-Key': pwd } });
-            if (!imgRes.ok) throw new Error("密码错误或请求失败");
-            const imgData = await imgRes.json();
-            globalImages = imgData.keys; 
-            
-            const vipRes = await fetch(WORKER_URL + "?action=vip_list", { headers: { 'X-Admin-Key': pwd } });
-            if (vipRes.ok) {
-                const vipData = await vipRes.json();
-                globalVips = vipData.vips || [];
-            }
-            
-            updateCounts();
-            
-            if (currentTab === 'vip_management') {
-                renderVipTable();
-            } else {
-                resetAndRenderGallery();
-            }
-            
-            statusMsg.innerText = `✅ 数据全量同步完成！图库: ${globalImages.length} 张 | 激活码: ${globalVips.length} 个`;
+  let globalImages = [];
+  let globalVips = [];
+  let globalIpSummary = [];
+  let globalBlockedIps = [];
+  let currentTab = 'pending';
+  let currentPage = 1;
 
-        } catch (error) {
-            statusMsg.innerHTML = `<span style="color:red;">❌ 拉取失败: ${error.message}</span>`;
-        }
+  function h(value) {
+    return String(value ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+  }
+
+  function getPwd() { return document.getElementById('admin-pwd').value; }
+
+  function normalizeKey(value) { return String(value || '').trim().toLowerCase(); }
+
+  function getIpValue(item) {
+    return item.ip || item.ipAddress || item.clientIp || '';
+  }
+
+  function getIpHashValue(item) {
+    return item.ipHash || item.ip_hash || '';
+  }
+
+  function isBlockedItem(item) {
+    if (item.ipBlocked === true || item.blocked === true) return true;
+    const ip = normalizeKey(getIpValue(item));
+    const hash = normalizeKey(getIpHashValue(item));
+    return globalBlockedIps.some(row => normalizeKey(row.ip) === ip || normalizeKey(row.ipHash || row.ip_hash) === hash);
+  }
+
+  function isSuspiciousItem(item) {
+    const risk = normalizeKey(item.risk || item.riskLevel || '');
+    const status = normalizeKey(item.status || '');
+    return item.suspicious === true || risk === 'suspicious' || risk === 'high' || status === 'suspicious' || (Array.isArray(item.riskReasons) && item.riskReasons.length > 0);
+  }
+
+  function buildIpSummary(images) {
+    const map = new Map();
+    images.forEach(img => {
+      const ip = getIpValue(img);
+      const ipHash = getIpHashValue(img);
+      const key = ip || ipHash || '旧图无IP记录';
+      if (!map.has(key)) {
+        map.set(key, { ip, ipHash, country: img.country || '', count: 0, pending: 0, suspicious: 0, latestUpload: img.uploaded || '', blocked: false });
+      }
+      const row = map.get(key);
+      row.count += 1;
+      if (img.status === 'pending') row.pending += 1;
+      if (isSuspiciousItem(img)) row.suspicious += 1;
+      if (!row.latestUpload || new Date(img.uploaded) > new Date(row.latestUpload)) row.latestUpload = img.uploaded;
+    });
+    return Array.from(map.values()).map(row => ({ ...row, blocked: globalBlockedIps.some(b => normalizeKey(b.ip) === normalizeKey(row.ip) || normalizeKey(b.ipHash || b.ip_hash) === normalizeKey(row.ipHash)) }));
+  }
+
+  async function readJsonSafe(response) {
+    try { return await response.json(); } catch (e) { return {}; }
+  }
+
+  async function fetchBlockedIps(pwd) {
+    try {
+      const res = await fetch(WORKER_URL + "?action=blocked_ips", { headers: { 'X-Admin-Key': pwd } });
+      if (!res.ok) return [];
+      const data = await res.json();
+      return data.blockedIps || data.blocked_ips || data.items || [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  async function fetchAllData() {
+    const pwd = getPwd();
+    if (!pwd) return alert("⚠️ 请先输入超级管理员密码！");
+
+    const statusMsg = document.getElementById('status-msg');
+    statusMsg.innerText = "⏳ 正在拉取图片、VIP、IP黑名单数据...";
+
+    try {
+      const imgRes = await fetch(WORKER_URL + "?action=list", { headers: { 'X-Admin-Key': pwd } });
+      if (!imgRes.ok) throw new Error("密码错误或图片列表请求失败");
+      const imgData = await imgRes.json();
+      globalImages = Array.isArray(imgData.keys) ? imgData.keys : [];
+
+      globalBlockedIps = await fetchBlockedIps(pwd);
+      globalIpSummary = Array.isArray(imgData.ipSummary) ? imgData.ipSummary : buildIpSummary(globalImages);
+      if (!Array.isArray(imgData.ipSummary)) globalIpSummary = buildIpSummary(globalImages);
+
+      const vipRes = await fetch(WORKER_URL + "?action=vip_list", { headers: { 'X-Admin-Key': pwd } });
+      if (vipRes.ok) {
+        const vipData = await vipRes.json();
+        globalVips = vipData.vips || [];
+      }
+
+      updateCounts();
+      updateIpFilterOptions();
+
+      if (currentTab === 'vip_management') renderVipTable();
+      else if (currentTab === 'ip_blacklist') renderIpPanel();
+      else resetAndRenderGallery();
+
+      statusMsg.innerText = `✅ 数据同步完成！图库: ${globalImages.length} 张 | 激活码: ${globalVips.length} 个 | 黑名单: ${globalBlockedIps.length} 个`;
+    } catch (error) {
+      statusMsg.innerHTML = `<span style="color:red;">❌ 拉取失败: ${h(error.message)}</span>`;
+    }
+  }
+
+  function updateCounts() {
+    const counts = { pending: 0, audited: 0, personal: 0 };
+    globalImages.forEach(img => {
+      if (counts[img.status] !== undefined) counts[img.status]++;
+    });
+    document.getElementById('count-pending').innerText = counts.pending;
+    document.getElementById('count-audited').innerText = counts.audited;
+    document.getElementById('count-personal').innerText = counts.personal;
+    document.getElementById('count-blocked').innerText = globalBlockedIps.length;
+  }
+
+  function updateIpFilterOptions() {
+    const select = document.getElementById('filter-ip');
+    const old = select.value;
+    const rows = globalIpSummary.length ? globalIpSummary : buildIpSummary(globalImages);
+    const options = ['<option value="all">全部上传 IP</option>'];
+    rows
+      .filter(row => row.ip || row.ipHash)
+      .sort((a, b) => (b.count || 0) - (a.count || 0))
+      .forEach(row => {
+        const label = `${row.ip || '无明文IP'} · ${row.count || 0}张${row.blocked ? ' · 已拉黑' : ''}`;
+        const value = row.ip || row.ipHash;
+        options.push(`<option value="${h(value)}">${h(label)}</option>`);
+      });
+    select.innerHTML = options.join('');
+    if ([...select.options].some(o => o.value === old)) select.value = old;
+  }
+
+  function switchTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.nav-card').forEach(el => el.classList.remove('active'));
+    const tabEl = document.getElementById(`tab-${tab}`);
+    if (tabEl) tabEl.classList.add('active');
+
+    document.getElementById('image-view').style.display = (tab === 'pending' || tab === 'audited' || tab === 'personal') ? 'block' : 'none';
+    document.getElementById('vip-panel').style.display = tab === 'vip_management' ? 'block' : 'none';
+    document.getElementById('ip-panel').style.display = tab === 'ip_blacklist' ? 'block' : 'none';
+
+    if (tab === 'vip_management') renderVipTable();
+    else if (tab === 'ip_blacklist') renderIpPanel();
+    else {
+      document.getElementById('btn-batch-audit').style.display = (tab === 'pending') ? 'inline-block' : 'none';
+      resetAndRenderGallery();
+    }
+  }
+
+  function clearIpFilters() {
+    document.getElementById('search-ip').value = '';
+    document.getElementById('filter-ip').value = 'all';
+    document.getElementById('filter-risk').value = 'all';
+    resetAndRenderGallery();
+  }
+
+  function resetAndRenderGallery() {
+    currentPage = 1;
+    renderGallery();
+  }
+
+  function passesIpFilters(item) {
+    const searchIp = normalizeKey(document.getElementById('search-ip').value);
+    const filterIp = document.getElementById('filter-ip').value;
+    const filterRisk = document.getElementById('filter-risk').value;
+    const ip = getIpValue(item);
+    const ipHash = getIpHashValue(item);
+    const haystack = normalizeKey(`${ip} ${ipHash} ${item.country || ''}`);
+
+    if (filterIp !== 'all' && normalizeKey(filterIp) !== normalizeKey(ip) && normalizeKey(filterIp) !== normalizeKey(ipHash)) return false;
+    if (searchIp && !haystack.includes(searchIp)) return false;
+    if (filterRisk === 'suspicious' && !isSuspiciousItem(item)) return false;
+    if (filterRisk === 'blocked' && !isBlockedItem(item)) return false;
+    if (filterRisk === 'missing_ip' && (ip || ipHash)) return false;
+    return true;
+  }
+
+  function renderGallery() {
+    const gallery = document.getElementById('gallery');
+    const paginationPanel = document.getElementById('pagination-panel');
+    const timeSort = document.getElementById('sort-time').value;
+    const categoryFilter = document.getElementById('filter-category').value;
+    const searchVip = document.getElementById('search-vip').value.trim().toLowerCase();
+    const itemsPerPage = parseInt(document.getElementById('items-per-page').value, 10);
+    gallery.innerHTML = "";
+
+    let filteredImages = globalImages.filter(img => img.status === currentTab);
+
+    if (categoryFilter !== 'all') {
+      filteredImages = filteredImages.filter(item => (item.key || '').split('/')[0] === categoryFilter);
     }
 
-    function updateCounts() {
-        const counts = { pending: 0, audited: 0, personal: 0 };
-        globalImages.forEach(img => counts[img.status]++);
-        document.getElementById('count-pending').innerText = counts.pending;
-        document.getElementById('count-audited').innerText = counts.audited;
-        document.getElementById('count-personal').innerText = counts.personal;
+    if (searchVip) {
+      filteredImages = filteredImages.filter(item => item.vipId && item.vipId.toLowerCase().includes(searchVip));
     }
 
-    function switchTab(tab) {
-        currentTab = tab;
-        document.querySelectorAll('.nav-card').forEach(el => el.classList.remove('active'));
-        document.getElementById(`tab-${tab}`).classList.add('active');
-        
-        if (tab === 'vip_management') {
-            document.getElementById('image-view').style.display = 'none';
-            document.getElementById('vip-panel').style.display = 'block';
-            renderVipTable();
-        } else {
-            document.getElementById('image-view').style.display = 'block';
-            document.getElementById('vip-panel').style.display = 'none';
-            document.getElementById('btn-batch-audit').style.display = (tab === 'pending') ? 'inline-block' : 'none';
-            resetAndRenderGallery();
-        }
+    filteredImages = filteredImages.filter(passesIpFilters);
+    const totalItems = filteredImages.length;
+
+    if (totalItems === 0) {
+      gallery.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#666;padding:40px;">当前分类或筛选下没有图片 🎉</p>`;
+      paginationPanel.style.display = 'none';
+      return;
     }
 
-    // 🌟 当条件改变时，重置回第一页并重新渲染
-    function resetAndRenderGallery() {
-        currentPage = 1;
+    filteredImages.sort((a, b) => {
+      const timeA = new Date(a.uploaded).getTime() || 0;
+      const timeB = new Date(b.uploaded).getTime() || 0;
+      return timeSort === 'desc' ? (timeB - timeA) : (timeA - timeB);
+    });
+
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const paginatedImages = filteredImages.slice(startIndex, startIndex + itemsPerPage);
+
+    paginatedImages.forEach(item => gallery.appendChild(createImageCard(item)));
+
+    paginationPanel.style.display = 'flex';
+    document.getElementById('page-info').innerText = `当前第 ${currentPage} / ${totalPages} 页 (共筛选出 ${totalItems} 张)`;
+    document.getElementById('btn-prev-page').disabled = currentPage === 1;
+    document.getElementById('btn-next-page').disabled = currentPage === totalPages;
+  }
+
+  function createImageCard(item) {
+    const uploadDate = item.uploaded ? new Date(item.uploaded).toLocaleString('zh-CN', { hour12: false }) : '-';
+    const imgUrl = `https://pub.mini-tools.uk/${item.key}`;
+    const prefix = (item.key || '').split('/')[0];
+    const ip = getIpValue(item);
+    const ipHash = getIpHashValue(item);
+    const blocked = isBlockedItem(item);
+    const suspicious = isSuspiciousItem(item);
+
+    let badgeClass = 'badge';
+    let badgeText = '';
+    if (blocked) { badgeClass += ' blocked'; badgeText = '⛔ 已拉黑IP'; }
+    else if (suspicious) { badgeClass += ' suspicious'; badgeText = '⚠️ 可疑上传'; }
+    else if (prefix === 'permanent') { badgeText = '💎 VIP上传'; badgeClass += item.status === 'pending' ? ' pending' : ' audited'; }
+    else if (item.status === 'pending') { badgeClass += ' pending'; badgeText = '🚨 待审核'; }
+    else if (item.status === 'audited') { badgeClass += ' audited'; badgeText = '✅ 已通过'; }
+    else { badgeClass += ' personal'; badgeText = '👑 私用图'; }
+
+    const vipHtml = item.vipId ? `<b style="color:#d35400;">👤 VIP归属:</b> ${h(item.vipId)}<br>` : '';
+    const riskReasons = Array.isArray(item.riskReasons) ? item.riskReasons.join('，') : (item.riskReason || '');
+    const riskHtml = suspicious || blocked ? `<div class="risk-line ${blocked ? 'blocked-line' : ''}"><b>风控:</b> ${blocked ? 'IP 已拉黑' : '可疑上传'}${riskReasons ? '<br><b>原因:</b> ' + h(riskReasons) : ''}</div>` : '';
+
+    const card = document.createElement('div');
+    card.className = `card ${blocked ? 'blocked-card' : suspicious ? 'suspicious-card' : ''}`;
+    card.innerHTML = `
+      <div class="checkbox-container"><input type="checkbox" class="img-checkbox" value="${h(item.key)}"></div>
+      <div class="${badgeClass}">${badgeText}</div>
+      <a href="${h(imgUrl)}" target="_blank"><img src="${h(imgUrl)}" alt="image" loading="lazy"></a>
+      <div class="meta">
+        <b>路径:</b> ${h(item.key)}<br>
+        <b>大小:</b> ${Number(item.size || 0) ? (Number(item.size) / 1024).toFixed(1) : '0.0'} KB<br>
+        ${vipHtml}
+        <b>时间:</b> ${h(uploadDate)}
+        <div class="ip-line">
+          <b>IP:</b> ${ip ? h(ip) : '<span style="color:#999;">旧图无IP记录</span>'}<br>
+          <b>IP Hash:</b> ${ipHash ? h(ipHash) : '-'}<br>
+          <b>地区:</b> ${h(item.country || '-')}<br>
+          <b>UA:</b> ${h(item.userAgent || item.ua || '-')}<br>
+          <b>来源:</b> ${h(item.origin || item.referer || '-')}
+        </div>
+        ${riskHtml}
+      </div>
+      <div class="action-btns">
+        ${item.status === 'pending' ? `<button class="btn-warning" onclick="singleAudit('${h(item.key)}')">✅ 通过</button>` : ''}
+        <button class="btn-gray" onclick="filterByIp('${h(ip || ipHash)}')">🔍 筛IP</button>
+        ${blocked ? `<button class="btn-success" onclick="unblockIp('${h(ip)}','${h(ipHash)}')">解除IP</button>` : `<button class="btn-danger" onclick="blockFileIp('${h(item.key)}')">拉黑IP</button>`}
+        <button class="btn-danger" onclick="singleDelete('${h(item.key)}')">🗑️ 删除</button>
+      </div>
+    `;
+    return card;
+  }
+
+  function filterByIp(value) {
+    if (!value) return alert('这张图没有 IP 记录，无法筛选。');
+    document.getElementById('search-ip').value = value;
+    if (currentTab === 'ip_blacklist' || currentTab === 'vip_management') switchTab('pending');
+    resetAndRenderGallery();
+  }
+
+  function changePage(delta) {
+    currentPage += delta;
+    renderGallery();
+    document.getElementById('image-view').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function selectAll() {
+    const checkboxes = document.querySelectorAll('.img-checkbox');
+    if (checkboxes.length === 0) return;
+    const isAllChecked = Array.from(checkboxes).every(cb => cb.checked);
+    checkboxes.forEach(cb => cb.checked = !isAllChecked);
+  }
+
+  async function executeBatch(actionType) {
+    const checkboxes = document.querySelectorAll('.img-checkbox:checked');
+    const keys = Array.from(checkboxes).map(cb => cb.value);
+    if (keys.length === 0) return alert("⚠️ 请先勾选图片！");
+    const confirmMsg = actionType === 'audit' ? `✅ 确定将这 ${keys.length} 张图片标记为“安全通过”吗？` : `🚨 警告：确定彻底物理删除这 ${keys.length} 张图片吗？不可恢复！`;
+    if (!confirm(confirmMsg)) return;
+
+    const pwd = getPwd();
+    try {
+      const url = WORKER_URL + (actionType === 'audit' ? "?action=audit" : "");
+      const method = actionType === 'audit' ? 'POST' : 'DELETE';
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
+        body: JSON.stringify({ keys })
+      });
+      if (response.ok) {
+        if (actionType === 'audit') globalImages.forEach(img => { if (keys.includes(img.key)) img.status = 'audited'; });
+        else globalImages = globalImages.filter(img => !keys.includes(img.key));
+        globalIpSummary = buildIpSummary(globalImages);
+        updateCounts();
+        updateIpFilterOptions();
         renderGallery();
+      } else {
+        const err = await readJsonSafe(response);
+        alert("❌ 操作失败: " + (err.error || response.status));
+      }
+    } catch (error) { alert("❌ 网络错误: " + error.message); }
+  }
+
+  function batchAudit() { executeBatch('audit'); }
+  function batchDelete() { executeBatch('delete'); }
+  function singleAudit(key) { const cb = document.querySelector(`.img-checkbox[value="${CSS.escape(key)}"]`); if (cb) cb.checked = true; batchAudit(); }
+  function singleDelete(key) { const cb = document.querySelector(`.img-checkbox[value="${CSS.escape(key)}"]`); if (cb) cb.checked = true; batchDelete(); }
+
+  async function adminUpload() {
+    const fileInput = document.getElementById('admin-file');
+    const file = fileInput.files[0];
+    const pwd = getPwd();
+    if (!pwd || !file) return alert("⚠️ 密码未输入或文件未选择！");
+    document.getElementById('status-msg').innerText = `⏳ 正在直传...`;
+    const formData = new FormData();
+    formData.append('file', file);
+    try {
+      const response = await fetch(WORKER_URL, { method: 'POST', headers: { 'X-Admin-Key': pwd }, body: formData });
+      const result = await readJsonSafe(response);
+      if (response.ok && result.success) {
+        alert(`🎉 私用图上传成功！\n链接：${result.url}`);
+        fileInput.value = "";
+        fetchAllData();
+      } else alert(`❌ 上传失败: ${result.error || response.status}`);
+    } catch (error) { alert(`❌ 网络错误: ${error.message}`); }
+  }
+
+  function renderVipTable() {
+    const tbody = document.getElementById('vip-list-body');
+    tbody.innerHTML = "";
+    if (globalVips.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#666;">暂无已激活的 VIP 码，请在上方生成。</td></tr>`;
+      return;
     }
+    [...globalVips].reverse().forEach(vip => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><span class="vip-code">${h(vip.code)}</span></td>
+        <td>${h(vip.note || '-')}</td>
+        <td>${h(vip.created_at || '-')}</td>
+        <td>
+          <button class="btn-warning btn-small" onclick="searchVipImages('${h(vip.code)}')">🔍 查他上传的图</button>
+          <button class="btn-danger btn-small" onclick="deleteVipCode('${h(vip.code)}')">🚨 销毁作废</button>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  }
 
-    // 🌟 核心分页渲染引擎
-    function renderGallery() {
-        const gallery = document.getElementById('gallery');
-        const paginationPanel = document.getElementById('pagination-panel');
-        const timeSort = document.getElementById('sort-time').value;
-        const categoryFilter = document.getElementById('filter-category').value;
-        const searchVip = document.getElementById('search-vip').value.trim().toLowerCase();
-        const itemsPerPage = parseInt(document.getElementById('items-per-page').value);
+  function searchVipImages(code) {
+    document.getElementById('search-vip').value = code;
+    switchTab('audited');
+  }
 
-        gallery.innerHTML = "";
-        
-        // 1. 获取当前状态栏下所有图片
-        let filteredImages = globalImages.filter(img => img.status === currentTab);
+  async function generateVipCode() {
+    const pwd = getPwd();
+    if (!pwd) return alert("⚠️ 请先输入超级管理员密码！");
+    let newCode = document.getElementById('new-vip-code').value.trim();
+    const note = document.getElementById('new-vip-note').value.trim();
+    if (!newCode) newCode = 'vip_' + Math.random().toString(36).slice(2, 8) + Math.floor(Date.now() / 1000).toString().slice(-4);
+    if (globalVips.find(v => v.code === newCode)) return alert("⚠️ 该 VIP 码已存在，请更换！");
+    try {
+      const response = await fetch(WORKER_URL + "?action=vip_add", {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify({ code: newCode, note })
+      });
+      if (response.ok) {
+        alert(`🎉 VIP 码 [${newCode}] 生成成功！`);
+        document.getElementById('new-vip-code').value = "";
+        document.getElementById('new-vip-note').value = "";
+        fetchAllData();
+      } else {
+        const err = await readJsonSafe(response);
+        alert("❌ 生成失败: " + (err.error || response.status));
+      }
+    } catch (error) { alert("❌ 网络错误: " + error.message); }
+  }
 
-        // 2. 目录前缀过滤
-        if (categoryFilter !== 'all') {
-            filteredImages = filteredImages.filter(item => {
-                const prefix = item.key.split('/')[0];
-                return prefix === categoryFilter;
-            });
-        }
+  async function deleteVipCode(code) {
+    if (!confirm(`🚨 确定要作废这个 VIP 码 [${code}] 吗？\n作废后，该用户无法再永久上传（但之前传的图不会被删）。`)) return;
+    const pwd = getPwd();
+    try {
+      const response = await fetch(WORKER_URL + "?action=vip_del", {
+        method: 'DELETE', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify({ code })
+      });
+      if (response.ok) {
+        alert(`🗑️ VIP 码已作废！`);
+        fetchAllData();
+      } else {
+        const err = await readJsonSafe(response);
+        alert("❌ 作废失败: " + (err.error || response.status));
+      }
+    } catch (error) { alert("❌ 网络错误: " + error.message); }
+  }
 
-        // 3. VIP 码精准搜索过滤
-        if (searchVip) {
-            filteredImages = filteredImages.filter(item => 
-                item.vipId && item.vipId.toLowerCase().includes(searchVip)
-            );
-        }
+  async function blockFileIp(key) {
+    if (!confirm(`确定拉黑这张图片的上传 IP？\n${key}`)) return;
+    const pwd = getPwd();
+    try {
+      const response = await fetch(WORKER_URL + "?action=block_file_ip", {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify({ key, note: '后台审核拉黑' })
+      });
+      const data = await readJsonSafe(response);
+      if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
+      alert('已拉黑该图片上传 IP');
+      await fetchAllData();
+    } catch (error) { alert('拉黑失败：' + error.message); }
+  }
 
-        const totalItems = filteredImages.length;
+  async function blockIp(ip, ipHash, note) {
+    const pwd = getPwd();
+    if (!pwd) return alert('请先输入管理员密码');
+    if (!ip && !ipHash) return alert('缺少 IP 或 IP Hash');
+    try {
+      const body = { note: note || '后台手动拉黑' };
+      if (ip) body.ip = ip;
+      if (ipHash) body.ip_hash = ipHash;
+      const response = await fetch(WORKER_URL + "?action=block_ip", {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify(body)
+      });
+      const data = await readJsonSafe(response);
+      if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
+      alert('已加入 IP 黑名单');
+      await fetchAllData();
+    } catch (error) { alert('拉黑失败：' + error.message); }
+  }
 
-        if (totalItems === 0) {
-            gallery.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #666; padding: 40px;">当前分类或搜索下没有图片 🎉</p>`;
-            paginationPanel.style.display = 'none';
-            return;
-        }
+  function manualBlockIp() {
+    const ip = document.getElementById('manual-ip').value.trim();
+    const ipHash = document.getElementById('manual-ip-hash').value.trim();
+    const note = document.getElementById('manual-ip-note').value.trim();
+    blockIp(ip, ipHash, note || '后台手动添加');
+  }
 
-        // 4. 排序
-        filteredImages.sort((a, b) => {
-            const timeA = new Date(a.uploaded).getTime();
-            const timeB = new Date(b.uploaded).getTime();
-            return timeSort === 'desc' ? (timeB - timeA) : (timeA - timeB);
-        });
+  async function unblockIp(ip, ipHash) {
+    if (!confirm('确定解除该 IP 黑名单？')) return;
+    const pwd = getPwd();
+    try {
+      const body = {};
+      if (ip) body.ip = ip;
+      if (ipHash) body.ip_hash = ipHash;
+      const response = await fetch(WORKER_URL + "?action=unblock_ip", {
+        method: 'DELETE', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify(body)
+      });
+      const data = await readJsonSafe(response);
+      if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
+      alert('已解除黑名单');
+      await fetchAllData();
+    } catch (error) { alert('解除失败：' + error.message); }
+  }
 
-        // 🌟 5. 精准内存切割 (分页核心)
-        const totalPages = Math.ceil(totalItems / itemsPerPage);
-        
-        // 防止删除当前页最后一张图时，页码越界
-        if (currentPage > totalPages) currentPage = totalPages;
-        if (currentPage < 1) currentPage = 1;
+  function renderIpPanel() {
+    renderIpSummaryTable();
+    renderBlockedIpTable();
+  }
 
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const paginatedImages = filteredImages.slice(startIndex, endIndex);
-
-        // 6. 渲染切割后的当前页图片
-        paginatedImages.forEach(item => {
-            const uploadDate = new Date(item.uploaded).toLocaleString('zh-CN', { hour12: false });
-            const imgUrl = `https://pub.mini-tools.uk/${item.key}`;
-            const prefix = item.key.split('/')[0];
-            
-            let badgeClass = 'badge';
-            let badgeText = '';
-            
-            if (prefix === 'permanent') {
-                badgeText = '💎 VIP上传';
-                badgeClass += (item.status === 'pending') ? ' pending' : ' audited';
-            } else {
-                if (item.status === 'pending') { badgeClass += ' pending'; badgeText = '🚨 待审核'; }
-                else if (item.status === 'audited') { badgeClass += ' audited'; badgeText = '✅ 已通过'; }
-                else { badgeClass += ' personal'; badgeText = '👑 私用图'; }
-            }
-
-            const vipHtml = item.vipId ? `<b style="color:#d35400;">👤 VIP归属: ${item.vipId}</b><br>` : '';
-
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <div class="checkbox-container"><input type="checkbox" class="img-checkbox" value="${item.key}"></div>
-                <div class="${badgeClass}">${badgeText}</div>
-                <a href="${imgUrl}" target="_blank"><img src="${imgUrl}" alt="image" loading="lazy"></a>
-                <div class="meta">
-                    <b>路径:</b> ${item.key}<br>
-                    <b>大小:</b> ${(item.size / 1024).toFixed(1)} KB<br>
-                    ${vipHtml}
-                    <b>时间:</b> ${uploadDate}
-                </div>
-                <div class="action-btns">
-                    ${item.status === 'pending' ? `<button class="btn-warning" onclick="singleAudit('${item.key}')">✅ 通过</button>` : ''}
-                    <button class="btn-danger" onclick="singleDelete('${item.key}')">🗑️ 删除</button>
-                </div>
-            `;
-            gallery.appendChild(card);
-        });
-
-        // 🌟 7. 更新底部翻页控件状态
-        paginationPanel.style.display = 'flex';
-        document.getElementById('page-info').innerText = `当前第 ${currentPage} / ${totalPages} 页 (共筛选出 ${totalItems} 张)`;
-        document.getElementById('btn-prev-page').disabled = (currentPage === 1);
-        document.getElementById('btn-next-page').disabled = (currentPage === totalPages);
+  function renderIpSummaryTable() {
+    const tbody = document.getElementById('ip-summary-body');
+    const rows = (globalIpSummary.length ? globalIpSummary : buildIpSummary(globalImages))
+      .slice()
+      .sort((a, b) => (b.count || 0) - (a.count || 0));
+    if (!rows.length) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#666;">暂无 IP 汇总数据。</td></tr>`;
+      return;
     }
+    tbody.innerHTML = rows.map(row => {
+      const ip = row.ip || '';
+      const ipHash = row.ipHash || row.ip_hash || '';
+      const blocked = row.blocked || globalBlockedIps.some(b => normalizeKey(b.ip) === normalizeKey(ip) || normalizeKey(b.ipHash || b.ip_hash) === normalizeKey(ipHash));
+      return `<tr>
+        <td class="mono">${ip ? h(ip) : '<span style="color:#999;">旧图无明文IP</span>'}</td>
+        <td class="mono">${h(ipHash || '-')}</td>
+        <td>${h(row.country || '-')}</td>
+        <td><b>${Number(row.count || 0)}</b></td>
+        <td style="color:${Number(row.suspicious || 0) > 0 ? '#e67e22' : '#666'};"><b>${Number(row.suspicious || 0)}</b></td>
+        <td>${row.latestUpload ? h(new Date(row.latestUpload).toLocaleString('zh-CN', { hour12: false })) : '-'}</td>
+        <td>
+          <button class="btn-warning btn-small" onclick="filterByIp('${h(ip || ipHash)}')">筛选图片</button>
+          ${blocked ? `<button class="btn-success btn-small" onclick="unblockIp('${h(ip)}','${h(ipHash)}')">解除拉黑</button>` : `<button class="btn-danger btn-small" onclick="blockIp('${h(ip)}','${h(ipHash)}','IP汇总拉黑')">拉黑</button>`}
+        </td>
+      </tr>`;
+    }).join('');
+  }
 
-    // 🌟 切换页面事件
-    function changePage(delta) {
-        currentPage += delta;
-        renderGallery();
-        // 翻页后页面自动平滑滚动回顶部
-        document.getElementById('image-view').scrollIntoView({ behavior: 'smooth' });
+  function renderBlockedIpTable() {
+    const tbody = document.getElementById('blocked-ip-body');
+    if (!globalBlockedIps.length) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:#666;">暂无黑名单数据。</td></tr>`;
+      return;
     }
+    tbody.innerHTML = globalBlockedIps.map(row => {
+      const ip = row.ip || '';
+      const ipHash = row.ipHash || row.ip_hash || '';
+      return `<tr>
+        <td class="mono">${h(ip || '-')}</td>
+        <td class="mono">${h(ipHash || '-')}</td>
+        <td>${h(row.note || '-')}</td>
+        <td>${h(row.createdAt || row.created_at || '-')}</td>
+        <td>
+          <button class="btn-warning btn-small" onclick="filterByIp('${h(ip || ipHash)}')">筛选图片</button>
+          <button class="btn-success btn-small" onclick="unblockIp('${h(ip)}','${h(ipHash)}')">解除拉黑</button>
+        </td>
+      </tr>`;
+    }).join('');
+  }
 
-    function selectAll() {
-        const checkboxes = document.querySelectorAll('.img-checkbox');
-        if (checkboxes.length === 0) return;
-        const isAllChecked = Array.from(checkboxes).every(cb => cb.checked);
-        checkboxes.forEach(cb => cb.checked = !isAllChecked);
-    }
-
-    async function executeBatch(actionType) {
-        const checkboxes = document.querySelectorAll('.img-checkbox:checked');
-        const keys = Array.from(checkboxes).map(cb => cb.value);
-
-        if (keys.length === 0) return alert("⚠️ 请先勾选图片！");
-        
-        let confirmMsg = actionType === 'audit' 
-            ? `✅ 确定将这 ${keys.length} 张图片标记为“安全通过”吗？`
-            : `🚨 警告：确定彻底物理删除这 ${keys.length} 张图片吗？不可恢复！`;
-            
-        if (!confirm(confirmMsg)) return;
-
-        const pwd = document.getElementById('admin-pwd').value;
-        try {
-            const url = WORKER_URL + (actionType === 'audit' ? "?action=audit" : "");
-            const method = actionType === 'audit' ? 'POST' : 'DELETE';
-            
-            const response = await fetch(url, {
-                method: method,
-                headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
-                body: JSON.stringify({ keys: keys })
-            });
-
-            if (response.ok) {
-                if (actionType === 'audit') {
-                    globalImages.forEach(img => { if (keys.includes(img.key)) img.status = 'audited'; });
-                } else {
-                    globalImages = globalImages.filter(img => !keys.includes(img.key));
-                }
-                updateCounts();
-                renderGallery(); // 处理完后重绘画廊，当前页面如果为空会自动跳回上一页
-            } else {
-                const err = await response.json();
-                alert("❌ 操作失败: " + err.error);
-            }
-        } catch (error) { alert("❌ 网络错误: " + error.message); }
-    }
-
-    function batchAudit() { executeBatch('audit'); }
-    function batchDelete() { executeBatch('delete'); }
-    function singleAudit(key) { document.querySelector(`.img-checkbox[value="${key}"]`).checked = true; batchAudit(); }
-    function singleDelete(key) { document.querySelector(`.img-checkbox[value="${key}"]`).checked = true; batchDelete(); }
-
-    async function adminUpload() {
-        const fileInput = document.getElementById('admin-file');
-        const file = fileInput.files[0];
-        const pwd = document.getElementById('admin-pwd').value;
-
-        if (!pwd || !file) return alert("⚠️ 密码未输入或文件未选择！");
-        document.getElementById('status-msg').innerText = `⏳ 正在直传...`;
-
-        const formData = new FormData();
-        formData.append('file', file);
-
-        try {
-            const response = await fetch(WORKER_URL, {
-                method: 'POST',
-                headers: { 'X-Admin-Key': pwd },
-                body: formData
-            });
-            const result = await response.json();
-            if (response.ok && result.success) {
-                alert(`🎉 私用图上传成功！\n链接：${result.url}`);
-                fileInput.value = "";
-                fetchAllData(); 
-            } else alert(`❌ 上传失败: ${result.error}`);
-        } catch (error) { alert(`❌ 网络错误: ${error.message}`); }
-    }
-
-    // ========== VIP 码管理引擎 ==========
-    function renderVipTable() {
-        const tbody = document.getElementById('vip-list-body');
-        tbody.innerHTML = "";
-        
-        if (globalVips.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #666;">暂无已激活的 VIP 码，请在上方生成。</td></tr>`;
-            return;
-        }
-        
-        const sortedVips = [...globalVips].reverse();
-        
-        sortedVips.forEach(vip => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><span class="vip-code">${vip.code}</span></td>
-                <td>${vip.note || '-'}</td>
-                <td>${vip.created_at}</td>
-                <td>
-                    <button class="btn-warning" onclick="searchVipImages('${vip.code}')" style="padding: 5px 10px; font-size: 0.8rem; margin-right: 5px;">🔍 查他上传的图</button>
-                    <button class="btn-danger" onclick="deleteVipCode('${vip.code}')" style="padding: 5px 10px; font-size: 0.8rem;">🚨 销毁作废</button>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
-    }
-
-    function searchVipImages(code) {
-        document.getElementById('search-vip').value = code;
-        switchTab('audited'); 
-    }
-
-    async function generateVipCode() {
-        const pwd = document.getElementById('admin-pwd').value;
-        if (!pwd) return alert("⚠️ 请先输入超级管理员密码！");
-        
-        let newCode = document.getElementById('new-vip-code').value.trim();
-        const note = document.getElementById('new-vip-note').value.trim();
-        
-        if (!newCode) {
-            newCode = 'vip_' + Math.random().toString(36).substr(2, 6) + Math.floor(Date.now() / 1000).toString().slice(-4);
-        }
-        
-        if (globalVips.find(v => v.code === newCode)) {
-            return alert("⚠️ 该 VIP 码已存在，请更换！");
-        }
-
-        try {
-            const response = await fetch(WORKER_URL + "?action=vip_add", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
-                body: JSON.stringify({ code: newCode, note: note })
-            });
-
-            if (response.ok) {
-                alert(`🎉 VIP 码 [${newCode}] 生成成功！赶快发给你的朋友吧！`);
-                document.getElementById('new-vip-code').value = "";
-                document.getElementById('new-vip-note').value = "";
-                fetchAllData(); 
-            } else {
-                const err = await response.json();
-                alert("❌ 生成失败: " + err.error);
-            }
-        } catch (error) { alert("❌ 网络错误: " + error.message); }
-    }
-
-    async function deleteVipCode(code) {
-        if (!confirm(`🚨 确定要作废这个 VIP 码 [${code}] 吗？\n作废后，该用户无法再永久上传（但之前传的图不会被删）。`)) return;
-        
-        const pwd = document.getElementById('admin-pwd').value;
-        try {
-            const response = await fetch(WORKER_URL + "?action=vip_del", {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
-                body: JSON.stringify({ code: code })
-            });
-
-            if (response.ok) {
-                alert(`🗑️ VIP 码已作废！`);
-                fetchAllData();
-            } else {
-                const err = await response.json();
-                alert("❌ 作废失败: " + err.error);
-            }
-        } catch (error) { alert("❌ 网络错误: " + error.message); }
-    }
+  // 本地双击打开也要先显示页面，不自动请求接口。
+  updateCounts();
+  updateIpFilterOptions();
 </script>
 </body>
 </html>
