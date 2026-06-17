@@ -90,7 +90,7 @@
 
 <div class="dashboard-nav">
   <div class="nav-card active" onclick="switchTab('pending')" id="tab-pending">
-    <h3>🚨 待审核 (含VIP新图)</h3>
+    <h3>🚨 待审核 (含可疑图/VIP新图)</h3>
     <div class="count" id="count-pending">0</div>
   </div>
   <div class="nav-card" onclick="switchTab('audited')" id="tab-audited">
@@ -195,8 +195,9 @@
   </div>
 
   <h3>📊 上传 IP 汇总</h3>
+  <p style="margin:8px 0 12px;color:#666;font-size:.9rem;line-height:1.6;">当前图片数=这个 IP 目前仍存在于 R2 的图片数量；可疑图片数=被风控标记为可疑、需要审核的图片数量。</p>
   <table>
-    <thead><tr><th>IP</th><th>位置</th><th>上传数</th><th>可疑数</th><th>最新上传</th><th>状态/操作</th></tr></thead>
+    <thead><tr><th>IP</th><th>位置</th><th>当前图片数</th><th>可疑图片数</th><th>最新上传</th><th>状态/操作</th></tr></thead>
     <tbody id="ip-summary-body"><tr><td colspan="6" style="text-align:center;">请先刷新数据...</td></tr></tbody>
   </table>
 
@@ -366,7 +367,8 @@
   function updateCounts() {
     const counts = { pending: 0, audited: 0, personal: 0 };
     globalImages.forEach(img => {
-      if (counts[img.status] !== undefined) counts[img.status]++;
+      if (img.status === 'suspicious') counts.pending += 1;
+      else if (counts[img.status] !== undefined) counts[img.status]++;
     });
     document.getElementById('count-pending').innerText = counts.pending;
     document.getElementById('count-audited').innerText = counts.audited;
@@ -446,7 +448,10 @@
     const itemsPerPage = parseInt(document.getElementById('items-per-page').value, 10);
     gallery.innerHTML = "";
 
-    let filteredImages = globalImages.filter(img => img.status === currentTab);
+    let filteredImages = globalImages.filter(img => {
+      if (currentTab === 'pending') return img.status === 'pending' || img.status === 'suspicious';
+      return img.status === currentTab;
+    });
 
     if (categoryFilter !== 'all') {
       filteredImages = filteredImages.filter(item => (item.key || '').split('/')[0] === categoryFilter);
