@@ -2087,7 +2087,8 @@ updateProperty("og:title", texts.ogTitle);
           fileName.style.color = "#94a3b8";
           storageCodeInput.value = "";
           resetPreview();
-          durationSelect.value = "1-day";
+          // Keep the selected retention period after a successful upload.
+          // Users may upload multiple images with the same 7-day/30-day/permanent choice.
           updatePermanentNotice();
 
           await fetchCaptcha();
