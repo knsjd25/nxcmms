@@ -126,7 +126,7 @@
         <option value="30-day">└─ 30天销毁 (30-day)</option>
       </select>
       <input type="text" id="search-vip" placeholder="🔍 搜索VIP码" onkeyup="resetAndRenderGallery()" style="width:160px;">
-      <input type="text" id="search-ip" placeholder="🔍 搜索IP / IP Hash" onkeyup="resetAndRenderGallery()" style="width:210px;">
+      <input type="text" id="search-ip" placeholder="🔍 搜索IP" onkeyup="resetAndRenderGallery()" style="width:170px;">
       <select id="filter-ip" onchange="resetAndRenderGallery()" style="min-width:190px;">
         <option value="all">全部上传 IP</option>
       </select>
@@ -185,11 +185,10 @@
 <div id="ip-panel">
   <h3>⛔ IP 黑名单与上传来源审核</h3>
   <div class="panel-note">
-    这里依赖新版 Worker 返回的 <b>ip / ipHash / ipSummary / blockedIps</b> 字段。旧图片如果没有历史 IP 索引，会显示“旧图无IP记录”。
+    这里依赖新版 Worker 返回的 IP 审核字段。后台会保留 IP Hash、UA、来源等审计信息，但页面默认只显示明文 IP 和中文位置，方便快速审核。
   </div>
   <div class="ip-form">
     <input type="text" id="manual-ip" placeholder="输入要拉黑的 IP，例如 1.2.3.4">
-    <input type="text" id="manual-ip-hash" placeholder="或输入 IP Hash">
     <input type="text" id="manual-ip-note" placeholder="拉黑原因备注" style="flex:1;min-width:240px;">
     <button class="btn-danger" onclick="manualBlockIp()">加入黑名单</button>
     <button class="btn-gray" onclick="fetchAllData()">刷新黑名单</button>
@@ -197,14 +196,14 @@
 
   <h3>📊 上传 IP 汇总</h3>
   <table>
-    <thead><tr><th>IP</th><th>IP Hash</th><th>地区</th><th>上传数</th><th>可疑数</th><th>最新上传</th><th>状态/操作</th></tr></thead>
-    <tbody id="ip-summary-body"><tr><td colspan="7" style="text-align:center;">请先刷新数据...</td></tr></tbody>
+    <thead><tr><th>IP</th><th>位置</th><th>上传数</th><th>可疑数</th><th>最新上传</th><th>状态/操作</th></tr></thead>
+    <tbody id="ip-summary-body"><tr><td colspan="6" style="text-align:center;">请先刷新数据...</td></tr></tbody>
   </table>
 
   <h3 style="margin-top:28px;">🚫 当前黑名单</h3>
   <table>
-    <thead><tr><th>IP</th><th>IP Hash</th><th>备注</th><th>创建时间</th><th>操作</th></tr></thead>
-    <tbody id="blocked-ip-body"><tr><td colspan="5" style="text-align:center;">暂无黑名单数据</td></tr></tbody>
+    <thead><tr><th>IP</th><th>备注</th><th>创建时间</th><th>操作</th></tr></thead>
+    <tbody id="blocked-ip-body"><tr><td colspan="4" style="text-align:center;">暂无黑名单数据</td></tr></tbody>
   </table>
 </div>
 
@@ -225,6 +224,54 @@
   function getPwd() { return document.getElementById('admin-pwd').value; }
 
   function normalizeKey(value) { return String(value || '').trim().toLowerCase(); }
+
+
+
+  function countryName(code) {
+    const value = String(code || '').trim().toUpperCase();
+    if (!value || value === 'XX') return '-';
+    const names = {
+      CN:'中国大陆', HK:'中国香港', MO:'中国澳门', TW:'中国台湾', SG:'新加坡', JP:'日本', KR:'韩国', US:'美国', GB:'英国', UK:'英国', DE:'德国', FR:'法国', ES:'西班牙', IT:'意大利', NL:'荷兰', CA:'加拿大', AU:'澳大利亚', NZ:'新西兰', IN:'印度', ID:'印度尼西亚', MY:'马来西亚', TH:'泰国', VN:'越南', PH:'菲律宾', BR:'巴西', MX:'墨西哥', RU:'俄罗斯', TR:'土耳其', AE:'阿联酋', SA:'沙特阿拉伯', ZA:'南非', IE:'爱尔兰', SE:'瑞典', NO:'挪威', DK:'丹麦', FI:'芬兰', PL:'波兰', CH:'瑞士', AT:'奥地利', BE:'比利时', PT:'葡萄牙', GR:'希腊', CZ:'捷克', RO:'罗马尼亚', HU:'匈牙利', UA:'乌克兰', IL:'以色列', AR:'阿根廷', CL:'智利', CO:'哥伦比亚', PE:'秘鲁', EG:'埃及', PK:'巴基斯坦', BD:'孟加拉国'
+    };
+    return names[value] || value;
+  }
+
+  function cityName(city) {
+    const raw = String(city || '').trim();
+    if (!raw) return '';
+    const key = raw.toLowerCase();
+    const names = {
+      'singapore':'新加坡市', 'hong kong':'香港', 'macau':'澳门', 'taipei':'台北', 'kaohsiung':'高雄', 'taichung':'台中',
+      'beijing':'北京', 'shanghai':'上海', 'guangzhou':'广州', 'shenzhen':'深圳', 'hangzhou':'杭州', 'chengdu':'成都', 'chongqing':'重庆', 'wuhan':'武汉', 'nanjing':'南京', 'xian':'西安', "xi'an":'西安', 'tianjin':'天津', 'suzhou':'苏州', 'qingdao':'青岛', 'zhengzhou':'郑州', 'changsha':'长沙', 'fuzhou':'福州', 'xiamen':'厦门', 'kunming':'昆明', 'hefei':'合肥', 'jinan':'济南', 'dalian':'大连', 'shenyang':'沈阳', 'harbin':'哈尔滨',
+      'tokyo':'东京', 'osaka':'大阪', 'seoul':'首尔', 'busan':'釜山', 'bangkok':'曼谷', 'kuala lumpur':'吉隆坡', 'jakarta':'雅加达', 'manila':'马尼拉', 'hanoi':'河内', 'ho chi minh city':'胡志明市',
+      'london':'伦敦', 'manchester':'曼彻斯特', 'paris':'巴黎', 'berlin':'柏林', 'frankfurt am main':'法兰克福', 'frankfurt':'法兰克福', 'madrid':'马德里', 'barcelona':'巴塞罗那', 'rome':'罗马', 'milan':'米兰', 'amsterdam':'阿姆斯特丹', 'dublin':'都柏林', 'zurich':'苏黎世', 'vienna':'维也纳', 'stockholm':'斯德哥尔摩', 'oslo':'奥斯陆', 'copenhagen':'哥本哈根', 'helsinki':'赫尔辛基', 'warsaw':'华沙', 'prague':'布拉格',
+      'new york':'纽约', 'los angeles':'洛杉矶', 'san francisco':'旧金山', 'chicago':'芝加哥', 'seattle':'西雅图', 'washington':'华盛顿', 'washington dc':'华盛顿', 'toronto':'多伦多', 'vancouver':'温哥华', 'montreal':'蒙特利尔', 'sydney':'悉尼', 'melbourne':'墨尔本', 'brisbane':'布里斯班', 'auckland':'奥克兰',
+      'dubai':'迪拜', 'abu dhabi':'阿布扎比', 'riyadh':'利雅得', 'tel aviv':'特拉维夫', 'istanbul':'伊斯坦布尔', 'moscow':'莫斯科', 'sao paulo':'圣保罗', 'mexico city':'墨西哥城', 'johannesburg':'约翰内斯堡', 'cape town':'开普敦'
+    };
+    return names[key] || raw;
+  }
+
+  function regionName(region, regionCode) {
+    const raw = String(region || regionCode || '').trim();
+    if (!raw) return '';
+    const key = raw.toLowerCase();
+    const names = {
+      'beijing':'北京', 'shanghai':'上海', 'guangdong':'广东', 'zhejiang':'浙江', 'jiangsu':'江苏', 'sichuan':'四川', 'hubei':'湖北', 'hunan':'湖南', 'fujian':'福建', 'shandong':'山东', 'henan':'河南', 'hebei':'河北', 'liaoning':'辽宁', 'heilongjiang':'黑龙江', 'taiwan':'台湾',
+      'california':'加利福尼亚州', 'new york':'纽约州', 'texas':'得克萨斯州', 'washington':'华盛顿州', 'ontario':'安大略省', 'british columbia':'不列颠哥伦比亚省', 'england':'英格兰', 'scotland':'苏格兰', 'wales':'威尔士', 'northern ireland':'北爱尔兰'
+    };
+    return names[key] || raw;
+  }
+
+  function locationText(itemOrRow) {
+    const country = countryName(itemOrRow.country);
+    const city = cityName(itemOrRow.city);
+    const region = regionName(itemOrRow.region, itemOrRow.regionCode || itemOrRow.region_code);
+    const parts = [];
+    if (country && country !== '-') parts.push(country);
+    if (region && region !== city) parts.push(region);
+    if (city) parts.push(city);
+    return parts.length ? parts.join(' · ') : '-';
+  }
 
   function getIpValue(item) {
     return item.ip || item.ipAddress || item.clientIp || '';
@@ -254,13 +301,13 @@
       const ipHash = getIpHashValue(img);
       const key = ip || ipHash || '旧图无IP记录';
       if (!map.has(key)) {
-        map.set(key, { ip, ipHash, country: img.country || '', count: 0, pending: 0, suspicious: 0, latestUpload: img.uploaded || '', blocked: false });
+        map.set(key, { ip, ipHash, country: img.country || '', region: img.region || '', regionCode: img.regionCode || img.region_code || '', city: img.city || '', count: 0, pending: 0, suspicious: 0, latestUpload: img.uploaded || '', blocked: false });
       }
       const row = map.get(key);
       row.count += 1;
       if (img.status === 'pending') row.pending += 1;
       if (isSuspiciousItem(img)) row.suspicious += 1;
-      if (!row.latestUpload || new Date(img.uploaded) > new Date(row.latestUpload)) row.latestUpload = img.uploaded;
+      if (!row.latestUpload || new Date(img.uploaded) > new Date(row.latestUpload)) { row.latestUpload = img.uploaded; row.country = img.country || row.country; row.region = img.region || row.region; row.regionCode = img.regionCode || img.region_code || row.regionCode; row.city = img.city || row.city; }
     });
     return Array.from(map.values()).map(row => ({ ...row, blocked: globalBlockedIps.some(b => normalizeKey(b.ip) === normalizeKey(row.ip) || normalizeKey(b.ipHash || b.ip_hash) === normalizeKey(row.ipHash)) }));
   }
@@ -336,7 +383,7 @@
       .filter(row => row.ip || row.ipHash)
       .sort((a, b) => (b.count || 0) - (a.count || 0))
       .forEach(row => {
-        const label = `${row.ip || '无明文IP'} · ${row.count || 0}张${row.blocked ? ' · 已拉黑' : ''}`;
+        const label = `${row.ip || '旧图无明文IP'} · ${locationText(row)} · ${row.count || 0}张${row.blocked ? ' · 已拉黑' : ''}`;
         const value = row.ip || row.ipHash;
         options.push(`<option value="${h(value)}">${h(label)}</option>`);
       });
@@ -380,7 +427,7 @@
     const filterRisk = document.getElementById('filter-risk').value;
     const ip = getIpValue(item);
     const ipHash = getIpHashValue(item);
-    const haystack = normalizeKey(`${ip} ${ipHash} ${item.country || ''}`);
+    const haystack = normalizeKey(`${ip} ${ipHash} ${item.country || ''} ${item.region || ''} ${item.regionCode || item.region_code || ''} ${item.city || ''}`);
 
     if (filterIp !== 'all' && normalizeKey(filterIp) !== normalizeKey(ip) && normalizeKey(filterIp) !== normalizeKey(ipHash)) return false;
     if (searchIp && !haystack.includes(searchIp)) return false;
@@ -474,10 +521,7 @@
         <b>时间:</b> ${h(uploadDate)}
         <div class="ip-line">
           <b>IP:</b> ${ip ? h(ip) : '<span style="color:#999;">旧图无IP记录</span>'}<br>
-          <b>IP Hash:</b> ${ipHash ? h(ipHash) : '-'}<br>
-          <b>地区:</b> ${h(item.country || '-')}<br>
-          <b>UA:</b> ${h(item.userAgent || item.ua || '-')}<br>
-          <b>来源:</b> ${h(item.origin || item.referer || '-')}
+          <b>位置:</b> ${h(locationText(item))}
         </div>
         ${riskHtml}
       </div>
@@ -665,9 +709,8 @@
 
   function manualBlockIp() {
     const ip = document.getElementById('manual-ip').value.trim();
-    const ipHash = document.getElementById('manual-ip-hash').value.trim();
     const note = document.getElementById('manual-ip-note').value.trim();
-    blockIp(ip, ipHash, note || '后台手动添加');
+    blockIp(ip, '', note || '后台手动添加');
   }
 
   async function unblockIp(ip, ipHash) {
@@ -698,7 +741,7 @@
       .slice()
       .sort((a, b) => (b.count || 0) - (a.count || 0));
     if (!rows.length) {
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#666;">暂无 IP 汇总数据。</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#666;">暂无 IP 汇总数据。</td></tr>`;
       return;
     }
     tbody.innerHTML = rows.map(row => {
@@ -707,8 +750,7 @@
       const blocked = row.blocked || globalBlockedIps.some(b => normalizeKey(b.ip) === normalizeKey(ip) || normalizeKey(b.ipHash || b.ip_hash) === normalizeKey(ipHash));
       return `<tr>
         <td class="mono">${ip ? h(ip) : '<span style="color:#999;">旧图无明文IP</span>'}</td>
-        <td class="mono">${h(ipHash || '-')}</td>
-        <td>${h(row.country || '-')}</td>
+        <td>${h(locationText(row))}</td>
         <td><b>${Number(row.count || 0)}</b></td>
         <td style="color:${Number(row.suspicious || 0) > 0 ? '#e67e22' : '#666'};"><b>${Number(row.suspicious || 0)}</b></td>
         <td>${row.latestUpload ? h(new Date(row.latestUpload).toLocaleString('zh-CN', { hour12: false })) : '-'}</td>
@@ -723,15 +765,14 @@
   function renderBlockedIpTable() {
     const tbody = document.getElementById('blocked-ip-body');
     if (!globalBlockedIps.length) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:#666;">暂无黑名单数据。</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#666;">暂无黑名单数据。</td></tr>`;
       return;
     }
     tbody.innerHTML = globalBlockedIps.map(row => {
       const ip = row.ip || '';
       const ipHash = row.ipHash || row.ip_hash || '';
       return `<tr>
-        <td class="mono">${h(ip || '-')}</td>
-        <td class="mono">${h(ipHash || '-')}</td>
+        <td class="mono">${h(ip || '仅Hash记录')}</td>
         <td>${h(row.note || '-')}</td>
         <td>${h(row.createdAt || row.created_at || '-')}</td>
         <td>
