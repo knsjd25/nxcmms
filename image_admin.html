@@ -35,15 +35,15 @@
     .filter-group { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
     .admin-upload { display: flex; gap: 10px; align-items: center; border-left: 2px solid #eee; padding-left: 15px; }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; align-items: start; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; align-items: start; }
     .card { background: white; padding: 10px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); text-align: center; position: relative; transition: none; content-visibility: auto; contain-intrinsic-size: 360px; }
     .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.10); }
     .card.blocked-card { border: 2px solid #111827; }
     .card.suspicious-card { border: 2px solid #f39c12; }
-    .thumb-wrap { width: 100%; height: 110px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; border: 1px solid #eee; background: linear-gradient(135deg,#f3f4f6,#e5e7eb); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .thumb-wrap { width: 100%; height: 160px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; border: 1px solid #eee; background: linear-gradient(135deg,#f3f4f6,#e5e7eb); display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .thumb-wrap::before { content: '图片预览'; color: #94a3b8; font-size: .78rem; font-weight: 700; }
     .thumb-wrap.loaded::before { content: ''; display: none; }
-    .card img { width: 100%; height: 110px; object-fit: cover; border-radius: 6px; cursor: pointer; display: block; opacity: 0; transition: opacity .12s ease; }
+    .card img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; cursor: pointer; display: block; opacity: 0; transition: opacity .12s ease; }
     .card img.is-loaded { opacity: 1; }
     .checkbox-container { position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 10; }
     .checkbox-container input { transform: scale(1.5); cursor: pointer; }
@@ -157,7 +157,8 @@
         <option value="all">全部图片 (All)</option>
         <option value="permanent">├─ 💎 VIP永久图 (permanent)</option>
         <option value="1-day">├─ 1天销毁 (1-day)</option>
-                <option value="7-day">├─ 7天销毁 (7-day)</option>
+        <option value="3-day">├─ 3天销毁 (3-day)</option>
+        <option value="7-day">├─ 7天销毁 (7-day)</option>
         <option value="30-day">└─ 30天销毁 (30-day)</option>
       </select>
       <input type="text" id="search-vip" placeholder="🔍 搜索VIP码" onkeyup="resetAndRenderGallery()" style="width:160px;">
@@ -199,7 +200,7 @@
   <div class="pagination-panel" id="pagination-panel" style="display:none;">
     <button id="btn-prev-page" onclick="changePage(-1)">⬅️ 上一页</button>
     <div class="page-info" id="page-info">第 1 / 1 页 (共 0 张)</div>
-    <div class="perf-note">性能模式：分页请求 + 自动刷新 + 缩略预览</div>
+    <div class="perf-note">性能模式：待审核首页自动刷新；点击弹窗加载原图</div>
     <button id="btn-next-page" onclick="changePage(1)">下一页 ➡️</button>
   </div>
 </div>
@@ -404,7 +405,7 @@
     try { return await response.json(); } catch (e) { return {}; }
   }
 
-  function buildListUrl() {
+  function buildListUrl({ isAuto = false } = {}) {
     const url = new URL(WORKER_URL);
     url.searchParams.set('action', 'list');
     url.searchParams.set('page', String(currentPage));
@@ -423,6 +424,7 @@
     if (ipQ) url.searchParams.set('ip_q', ipQ);
     if (ipExact && ipExact !== 'all') url.searchParams.set('ip', ipExact);
     if (risk && risk !== 'all') url.searchParams.set('risk', risk);
+    if (isAuto) url.searchParams.set('include_summary', '0');
 
     return url.toString();
   }
@@ -448,7 +450,9 @@
 
   function updateAutoRefreshText() {
     const extra = `（${refreshCountdown}s 后自动刷新，可手动刷新）`;
-    const base = `✅ 当前页 ${currentPage}/${totalPages}，当前筛选 ${totalFiltered} 张；总图库 ${dashboardCounts.total || 0} 张；自动刷新已开启`;
+    const base = currentTab === 'pending' && currentPage === 1
+      ? `✅ 待审核首页 ${currentPage}/${totalPages}，当前筛选 ${totalFiltered} 张；总图库 ${dashboardCounts.total || 0} 张；自动刷新新上传已开启`
+      : `✅ 当前页 ${currentPage}/${totalPages}，当前筛选 ${totalFiltered} 张；总图库 ${dashboardCounts.total || 0} 张；自动刷新暂停` ;
     setStatusMessage(`${base} ${extra}`);
   }
 
@@ -462,6 +466,8 @@
       if (!isFetching) updateAutoRefreshText();
     }, 1000);
     autoRefreshInterval = setInterval(() => {
+      // 自动刷新只看“待审核第一页”的新上传，避免已通过/私用图反复刷新造成卡顿。
+      if (currentTab !== 'pending' || currentPage !== 1) return;
       if (document.getElementById('image-modal-mask').classList.contains('show')) return;
       if (isFetching) return;
       fetchPageData({ silent: true, isAuto: true });
@@ -481,10 +487,10 @@
     try {
       const headers = { 'X-Admin-Key': pwd };
       const requests = [
-        fetch(buildListUrl(), { headers }),
-        fetchBlockedIps(pwd)
+        fetch(buildListUrl({ isAuto }), { headers })
       ];
-      const needVip = currentTab === 'vip_management' || globalVips.length === 0;
+      if (!isAuto) requests.push(fetchBlockedIps(pwd));
+      const needVip = !isAuto && (currentTab === 'vip_management' || globalVips.length === 0);
       if (needVip) requests.push(fetchVipList(pwd));
 
       const results = await Promise.all(requests);
@@ -500,8 +506,8 @@
       totalFiltered = Number(imgData.filtered || 0);
       currentPage = Number(imgData.page || 1);
       totalPages = Number(imgData.total_pages || 1);
-      globalBlockedIps = Array.isArray(results[1]) ? results[1] : [];
-      if (needVip) globalVips = Array.isArray(results[2]) ? results[2] : globalVips;
+      if (!isAuto) globalBlockedIps = Array.isArray(results[1]) ? results[1] : globalBlockedIps;
+      if (needVip) globalVips = Array.isArray(results[isAuto ? 1 : 2]) ? results[isAuto ? 1 : 2] : globalVips;
 
       updateCounts();
       updateIpFilterOptions();
@@ -600,7 +606,7 @@
     card.innerHTML = `
       <div class="checkbox-container"><input type="checkbox" class="img-checkbox" value="${h(item.key)}"></div>
       <div class="${badgeClass}">${badgeText}</div>
-      <div class="thumb-wrap" role="button" tabindex="0" onclick="openImageModalByKey(${jsArg(item.key)})" onkeydown="if(event.key==='Enter'){openImageModalByKey(${jsArg(item.key)})}">
+      <div class="thumb-wrap" role="button" tabindex="0" data-modal-key="${h(item.key)}">
         <img data-src="${h(thumbUrl)}" data-original-src="${h(imgUrl)}" alt="image" loading="lazy" decoding="async">
       </div>
       <div class="meta">
@@ -615,7 +621,7 @@
         ${riskHtml}
       </div>
       <div class="action-btns">
-        <button class="btn-gray modal-card-btn" onclick="openImageModalByKey(${jsArg(item.key)})">查看 / 操作</button>
+        <button class="btn-gray modal-card-btn" data-modal-key="${h(item.key)}">查看 / 操作</button>
       </div>
     `;
     return card;
@@ -637,7 +643,22 @@
     paginationPanel.style.display = 'flex';
     document.getElementById('page-info').innerText = `当前第 ${currentPage} / ${totalPages} 页 (当前筛选共 ${totalFiltered} 张)`;
     document.getElementById('btn-prev-page').disabled = currentPage <= 1;
-    document.getElementById('btn-next-page').disabled = currentPage >= totalPages;
+    bindModalOpeners();
+  }
+
+  function bindModalOpeners() {
+    document.querySelectorAll('[data-modal-key]').forEach(el => {
+      el.addEventListener('click', (event) => {
+        event.preventDefault();
+        openImageModalByKey(el.dataset.modalKey || '');
+      });
+      el.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          openImageModalByKey(el.dataset.modalKey || '');
+        }
+      });
+    });
   }
 
   function renderVipTable() {
