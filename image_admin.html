@@ -35,16 +35,20 @@
     .filter-group { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
     .admin-upload { display: flex; gap: 10px; align-items: center; border-left: 2px solid #eee; padding-left: 15px; }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
-    .card { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; position: relative; transition: transform 0.2s; }
-    .card:hover { transform: translateY(-5px); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; align-items: start; }
+    .card { background: white; padding: 10px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); text-align: center; position: relative; transition: none; content-visibility: auto; contain-intrinsic-size: 360px; }
+    .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.10); }
     .card.blocked-card { border: 2px solid #111827; }
     .card.suspicious-card { border: 2px solid #f39c12; }
-    .card img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; cursor: pointer; border: 1px solid #eee; }
+    .thumb-wrap { width: 100%; height: 122px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; border: 1px solid #eee; background: linear-gradient(135deg,#f3f4f6,#e5e7eb); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .thumb-wrap::before { content: '图片预览'; color: #94a3b8; font-size: .78rem; font-weight: 700; }
+    .thumb-wrap.loaded::before { content: ''; display: none; }
+    .card img { width: 100%; height: 122px; object-fit: cover; border-radius: 6px; cursor: pointer; display: block; opacity: 0; transition: opacity .12s ease; }
+    .card img.is-loaded { opacity: 1; }
     .checkbox-container { position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 10; }
     .checkbox-container input { transform: scale(1.5); cursor: pointer; }
     .badge { position: absolute; top: 20px; right: 20px; background: #95a5a6; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; z-index: 10; }
-    .badge.pending { background: #e74c3c; animation: pulse 2s infinite; }
+    .badge.pending { background: #e74c3c; }
     .badge.audited { background: #2ecc71; }
     .badge.personal { background: #8e44ad; }
     .badge.suspicious { background: #f39c12; }
@@ -57,8 +61,40 @@
     .action-btns { display: flex; gap: 5px; flex-wrap: wrap; }
     .action-btns button { flex: 1 1 48%; padding: 8px 5px; font-size: 0.82rem; }
 
+
+
+    /* 弹窗大图：列表只看缩略图，点击后才加载原图 */
+    .modal-mask { position: fixed; inset: 0; background: rgba(15,23,42,.78); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 22px; }
+    .modal-mask.show { display: flex; }
+    .image-modal { width: min(1180px, 96vw); max-height: 94vh; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,.35); display: flex; flex-direction: column; }
+    .modal-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; background: #111827; color: #fff; }
+    .modal-title { min-width: 0; font-size: .86rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .modal-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+    .modal-actions button, .modal-actions a { display: inline-flex; align-items: center; justify-content: center; min-height: 34px; padding: 7px 10px; border-radius: 7px; color: #fff; font-size: .78rem; font-weight: 900; text-decoration: none; white-space: nowrap; }
+    .modal-actions .modal-link { background: #3498db; }
+    .modal-actions .modal-close { background: #4b5563; }
+    .modal-body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 0; min-height: 0; }
+    .modal-image-wrap { min-height: 420px; max-height: calc(94vh - 64px); background: #0b1220; display: flex; align-items: center; justify-content: center; overflow: auto; position: relative; }
+    .modal-image-wrap::before { content: '点击后加载原图中...'; position: absolute; color: #94a3b8; font-weight: 800; }
+    .modal-image-wrap.loaded::before { content: ''; display: none; }
+    .modal-image { max-width: 100%; max-height: calc(94vh - 86px); object-fit: contain; display: none; }
+    .modal-image.show { display: block; }
+    .modal-side { padding: 14px; border-left: 1px solid #e5e7eb; overflow: auto; max-height: calc(94vh - 64px); }
+    .modal-side h4 { margin: 0 0 10px; font-size: 1rem; }
+    .modal-meta { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px; font-size: .82rem; color: #374151; line-height: 1.65; word-break: break-all; }
+    .modal-tip { margin-top: 10px; padding: 10px; border-radius: 10px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1e3a8a; font-size: .82rem; font-weight: 700; line-height: 1.55; }
+    .modal-card-btn { width: 100%; margin-top: 8px; }
+    @media (max-width: 860px) {
+      .modal-body { grid-template-columns: 1fr; }
+      .modal-side { max-height: 36vh; border-left: 0; border-top: 1px solid #e5e7eb; }
+      .modal-image-wrap { min-height: 320px; }
+      .modal-toolbar { align-items: flex-start; flex-direction: column; }
+      .modal-actions { justify-content: flex-start; }
+    }
+
     .pagination-panel { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 30px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
     .page-info { font-weight: bold; color: #333; }
+    .perf-note { color:#64748b; font-size:.86rem; font-weight:700; }
 
     #vip-panel, #ip-panel { display: none; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
     .vip-form, .ip-form { display: flex; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; flex-wrap: wrap; }
@@ -164,6 +200,7 @@
   <div class="pagination-panel" id="pagination-panel" style="display:none;">
     <button id="btn-prev-page" onclick="changePage(-1)">⬅️ 上一页</button>
     <div class="page-info" id="page-info">第 1 / 1 页 (共 0 张)</div>
+    <div class="perf-note">性能模式：列表加载缩略图，点击弹窗才加载原图</div>
     <button id="btn-next-page" onclick="changePage(1)">下一页 ➡️</button>
   </div>
 </div>
@@ -208,6 +245,34 @@
   </table>
 </div>
 
+
+<div id="image-modal-mask" class="modal-mask" onclick="onModalMaskClick(event)">
+  <div class="image-modal" role="dialog" aria-modal="true" aria-label="图片预览与审核操作">
+    <div class="modal-toolbar">
+      <div class="modal-title" id="modal-title">图片预览</div>
+      <div class="modal-actions" id="modal-actions">
+        <button type="button" class="modal-link" onclick="copyModalLink()">复制链接</button>
+        <a id="modal-open-link" class="modal-link" href="#" target="_blank" rel="noopener noreferrer">新标签打开</a>
+        <button type="button" class="btn-warning" id="modal-audit-btn" onclick="auditModalImage()">✅ 通过</button>
+        <button type="button" class="btn-gray" id="modal-filter-ip-btn" onclick="filterModalIp()">🔍 筛IP</button>
+        <button type="button" class="btn-danger" id="modal-block-ip-btn" onclick="blockModalIp()">拉黑IP</button>
+        <button type="button" class="btn-danger" id="modal-delete-btn" onclick="deleteModalImage()">🗑️ 删除</button>
+        <button type="button" class="modal-close" onclick="closeImageModal()">关闭</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-image-wrap" id="modal-image-wrap">
+        <img id="modal-image" class="modal-image" alt="大图预览">
+      </div>
+      <aside class="modal-side">
+        <h4>图片信息</h4>
+        <div class="modal-meta" id="modal-meta">-</div>
+        <div class="modal-tip">列表只加载缩略图；只有打开这个弹窗时，才会加载原始大图。</div>
+      </aside>
+    </div>
+  </div>
+</div>
+
 <script>
   const WORKER_URL = "https://api.mini-tools.uk";
 
@@ -217,9 +282,68 @@
   let globalBlockedIps = [];
   let currentTab = 'pending';
   let currentPage = 1;
+  let imageLazyObserver = null;
+  let currentModalItem = null;
+
+  // 如果 Cloudflare 图片缩放未启用，把这里改为 false，会退回懒加载原图。
+  const USE_CLOUDFLARE_THUMBNAILS = true;
+  const THUMBNAIL_WIDTH = 360;
+
+  function originalUrlForKey(key) {
+    return `https://pub.mini-tools.uk/${key}`;
+  }
+
+  function thumbnailUrlFor(originalUrl) {
+    if (!USE_CLOUDFLARE_THUMBNAILS) return originalUrl;
+    return `https://mini-tools.uk/cdn-cgi/image/width=${THUMBNAIL_WIDTH},quality=62,fit=cover/${originalUrl}`;
+  }
+
+  function setupLazyImages(container) {
+    const imgs = Array.from(container.querySelectorAll('img[data-src]'));
+    if (imageLazyObserver) imageLazyObserver.disconnect();
+
+    const loadImage = (img) => {
+      if (!img || img.dataset.loaded === '1') return;
+      const src = img.dataset.src;
+      if (!src) return;
+      img.dataset.loaded = '1';
+      img.onload = () => {
+        img.classList.add('is-loaded');
+        const wrap = img.closest('.thumb-wrap');
+        if (wrap) wrap.classList.add('loaded');
+      };
+      img.onerror = () => {
+        const wrap = img.closest('.thumb-wrap');
+        if (wrap) {
+          wrap.classList.add('loaded');
+          wrap.innerHTML = '<span style="color:#ef4444;font-size:.78rem;font-weight:800;">缩略图加载失败，点开看原图</span>';
+        }
+      };
+      img.src = src;
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      imgs.slice(0, 8).forEach(loadImage);
+      return;
+    }
+
+    imageLazyObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        loadImage(entry.target);
+        imageLazyObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: '360px 0px', threshold: 0.01 });
+
+    imgs.forEach((img) => imageLazyObserver.observe(img));
+  }
 
   function h(value) {
     return String(value ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+  }
+
+  function jsArg(value) {
+    return h(JSON.stringify(String(value ?? '')));
   }
 
   function getPwd() { return document.getElementById('admin-pwd').value; }
@@ -501,7 +625,10 @@
     const startIndex = (currentPage - 1) * itemsPerPage;
     const paginatedImages = filteredImages.slice(startIndex, startIndex + itemsPerPage);
 
-    paginatedImages.forEach(item => gallery.appendChild(createImageCard(item)));
+    const fragment = document.createDocumentFragment();
+    paginatedImages.forEach(item => fragment.appendChild(createImageCard(item)));
+    gallery.replaceChildren(fragment);
+    setupLazyImages(gallery);
 
     paginationPanel.style.display = 'flex';
     document.getElementById('page-info').innerText = `当前第 ${currentPage} / ${totalPages} 页 (共筛选出 ${totalItems} 张)`;
@@ -511,7 +638,8 @@
 
   function createImageCard(item) {
     const uploadDate = item.uploaded ? new Date(item.uploaded).toLocaleString('zh-CN', { hour12: false }) : '-';
-    const imgUrl = `https://pub.mini-tools.uk/${item.key}`;
+    const imgUrl = originalUrlForKey(item.key);
+    const thumbUrl = thumbnailUrlFor(imgUrl);
     const prefix = (item.key || '').split('/')[0];
     const ip = getIpValue(item);
     const ipHash = getIpHashValue(item);
@@ -536,7 +664,9 @@
     card.innerHTML = `
       <div class="checkbox-container"><input type="checkbox" class="img-checkbox" value="${h(item.key)}"></div>
       <div class="${badgeClass}">${badgeText}</div>
-      <a href="${h(imgUrl)}" target="_blank"><img src="${h(imgUrl)}" alt="image" loading="lazy"></a>
+      <div class="thumb-wrap" role="button" tabindex="0" onclick="openImageModalByKey(${jsArg(item.key)})" onkeydown="if(event.key==='Enter'){openImageModalByKey(${jsArg(item.key)})}">
+        <img data-src="${h(thumbUrl)}" data-original-src="${h(imgUrl)}" alt="image" loading="lazy" decoding="async">
+      </div>
       <div class="meta">
         <b>路径:</b> ${h(item.key)}<br>
         <b>大小:</b> ${Number(item.size || 0) ? (Number(item.size) / 1024).toFixed(1) : '0.0'} KB<br>
@@ -549,14 +679,192 @@
         ${riskHtml}
       </div>
       <div class="action-btns">
-        ${item.status === 'pending' ? `<button class="btn-warning" onclick="singleAudit('${h(item.key)}')">✅ 通过</button>` : ''}
-        <button class="btn-gray" onclick="filterByIp('${h(ip || ipHash)}')">🔍 筛IP</button>
-        ${blocked ? `<button class="btn-success" onclick="unblockIp('${h(ip)}','${h(ipHash)}')">解除IP</button>` : `<button class="btn-danger" onclick="blockFileIp('${h(item.key)}')">拉黑IP</button>`}
-        <button class="btn-danger" onclick="singleDelete('${h(item.key)}')">🗑️ 删除</button>
+        <button class="btn-gray modal-card-btn" onclick="openImageModalByKey(${jsArg(item.key)})">查看 / 操作</button>
       </div>
     `;
     return card;
   }
+
+
+  function openImageModalByKey(key) {
+    const item = globalImages.find(img => img.key === key);
+    if (!item) return alert('没有找到这张图片的数据，请刷新后重试。');
+    openImageModal(item);
+  }
+
+  function openImageModal(item) {
+    currentModalItem = item;
+    const mask = document.getElementById('image-modal-mask');
+    const modalImg = document.getElementById('modal-image');
+    const modalWrap = document.getElementById('modal-image-wrap');
+    const modalTitle = document.getElementById('modal-title');
+    const modalMeta = document.getElementById('modal-meta');
+    const openLink = document.getElementById('modal-open-link');
+    const auditBtn = document.getElementById('modal-audit-btn');
+    const blockBtn = document.getElementById('modal-block-ip-btn');
+
+    const originalUrl = originalUrlForKey(item.key);
+    const ip = getIpValue(item);
+    const ipHash = getIpHashValue(item);
+    const blocked = isBlockedItem(item);
+    const suspicious = isSuspiciousItem(item);
+    const uploadDate = item.uploaded ? new Date(item.uploaded).toLocaleString('zh-CN', { hour12: false }) : '-';
+    const riskReasons = getRiskReasonText(item);
+
+    modalTitle.textContent = item.key;
+    openLink.href = originalUrl;
+    auditBtn.style.display = (item.status === 'pending' || item.status === 'suspicious' || suspicious) ? 'inline-flex' : 'none';
+    blockBtn.textContent = blocked ? '解除IP' : '拉黑IP';
+    blockBtn.className = blocked ? 'btn-success' : 'btn-danger';
+
+    modalMeta.innerHTML = `
+      <b>路径：</b>${h(item.key)}<br>
+      <b>链接：</b><span class="mono">${h(originalUrl)}</span><br>
+      <b>大小：</b>${Number(item.size || 0) ? (Number(item.size) / 1024).toFixed(1) : '0.0'} KB<br>
+      <b>时间：</b>${h(uploadDate)}<br>
+      <b>IP：</b>${ip ? h(ip) : '<span style="color:#999;">旧图无IP记录</span>'}<br>
+      <b>位置：</b>${h(locationText(item))}<br>
+      ${item.vipId ? `<b>VIP归属：</b>${h(item.vipId)}<br>` : ''}
+      <b>状态：</b>${blocked ? 'IP 已拉黑' : suspicious ? '可疑上传' : h(item.status || '-')}<br>
+      ${riskReasons ? `<b>风险原因：</b>${h(riskReasons)}<br>` : ''}
+      <span style="display:none;">IP Hash: ${h(ipHash)}</span>
+    `;
+
+    modalWrap.classList.remove('loaded');
+    modalImg.classList.remove('show');
+    modalImg.removeAttribute('src');
+    modalImg.onload = () => {
+      modalWrap.classList.add('loaded');
+      modalImg.classList.add('show');
+    };
+    modalImg.onerror = () => {
+      modalWrap.classList.add('loaded');
+      modalImg.classList.remove('show');
+      alert('原图加载失败，可能文件已删除或访问被限制。');
+    };
+
+    mask.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    window.setTimeout(() => { modalImg.src = originalUrl; }, 30);
+  }
+
+  function closeImageModal() {
+    const mask = document.getElementById('image-modal-mask');
+    const modalImg = document.getElementById('modal-image');
+    mask.classList.remove('show');
+    modalImg.removeAttribute('src');
+    modalImg.classList.remove('show');
+    document.getElementById('modal-image-wrap').classList.remove('loaded');
+    document.body.style.overflow = '';
+    currentModalItem = null;
+  }
+
+  function onModalMaskClick(event) {
+    if (event.target && event.target.id === 'image-modal-mask') closeImageModal();
+  }
+
+  async function copyTextToClipboard(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (error) {
+      const input = document.createElement('textarea');
+      input.value = text;
+      input.style.position = 'fixed';
+      input.style.left = '-9999px';
+      document.body.appendChild(input);
+      input.focus();
+      input.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      input.remove();
+      if (!ok) window.prompt('复制失败，请手动复制：', text);
+      return ok;
+    }
+  }
+
+  async function copyModalLink() {
+    if (!currentModalItem) return;
+    const url = originalUrlForKey(currentModalItem.key);
+    const ok = await copyTextToClipboard(url);
+    if (ok) alert('链接已复制');
+  }
+
+  function filterModalIp() {
+    if (!currentModalItem) return;
+    const value = getIpValue(currentModalItem) || getIpHashValue(currentModalItem);
+    closeImageModal();
+    filterByIp(value);
+  }
+
+  async function auditImageKey(key) {
+    if (!confirm(`✅ 确定将这张图片标记为“安全通过”吗？\n${key}`)) return;
+    const pwd = getPwd();
+    try {
+      const response = await fetch(WORKER_URL + '?action=audit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
+        body: JSON.stringify({ keys: [key] })
+      });
+      const data = await readJsonSafe(response);
+      if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
+      globalImages.forEach(img => {
+        if (img.key === key) {
+          img.status = 'audited';
+          img.risk = 'normal';
+          img.riskReasons = [];
+          img.suspicious = false;
+        }
+      });
+      globalIpSummary = buildIpSummary(globalImages);
+      updateCounts();
+      updateIpFilterOptions();
+      renderGallery();
+      closeImageModal();
+    } catch (error) { alert('审核失败：' + error.message); }
+  }
+
+  async function deleteImageKey(key) {
+    if (!confirm(`🚨 确定彻底物理删除这张图片吗？不可恢复！\n${key}`)) return;
+    const pwd = getPwd();
+    try {
+      const response = await fetch(WORKER_URL, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
+        body: JSON.stringify({ keys: [key] })
+      });
+      const data = await readJsonSafe(response);
+      if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
+      globalImages = globalImages.filter(img => img.key !== key);
+      globalIpSummary = buildIpSummary(globalImages);
+      updateCounts();
+      updateIpFilterOptions();
+      renderGallery();
+      closeImageModal();
+    } catch (error) { alert('删除失败：' + error.message); }
+  }
+
+  function auditModalImage() {
+    if (!currentModalItem) return;
+    auditImageKey(currentModalItem.key);
+  }
+
+  function deleteModalImage() {
+    if (!currentModalItem) return;
+    deleteImageKey(currentModalItem.key);
+  }
+
+  function blockModalIp() {
+    if (!currentModalItem) return;
+    const item = currentModalItem;
+    if (isBlockedItem(item)) unblockIp(getIpValue(item), getIpHashValue(item));
+    else blockFileIp(item.key);
+    closeImageModal();
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && document.getElementById('image-modal-mask').classList.contains('show')) closeImageModal();
+  });
 
   function filterByIp(value) {
     if (!value) return alert('这张图没有 IP 记录，无法筛选。');
