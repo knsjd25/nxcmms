@@ -290,9 +290,28 @@
   }
 
   function isSuspiciousItem(item) {
-    const risk = normalizeKey(item.risk || item.riskLevel || '');
     const status = normalizeKey(item.status || '');
+    // 人工审核通过后，后台视为正常图片；即使旧索引里还残留 risk 字段，也不再显示为可疑。
+    if (status === 'audited' || status === 'personal') return false;
+
+    const risk = normalizeKey(item.risk || item.riskLevel || '');
     return item.suspicious === true || risk === 'suspicious' || risk === 'high' || status === 'suspicious' || (Array.isArray(item.riskReasons) && item.riskReasons.length > 0);
+  }
+
+  function riskReasonLabel(reason) {
+    const labels = {
+      missing_origin_referer: '缺少来源页面',
+      machine_interval_upload: '上传间隔异常，疑似脚本',
+      rate_limit_1m: '1分钟内上传过多',
+      rate_limit_10m: '10分钟内上传过多',
+      rate_limit_1d: '当天上传过多'
+    };
+    return labels[reason] || reason;
+  }
+
+  function getRiskReasonText(item) {
+    const reasons = Array.isArray(item.riskReasons) ? item.riskReasons : (item.riskReason ? [item.riskReason] : []);
+    return reasons.filter(reason => reason && reason !== 'large_public_file').map(riskReasonLabel).join('，');
   }
 
   function buildIpSummary(images) {
@@ -367,8 +386,7 @@
   function updateCounts() {
     const counts = { pending: 0, audited: 0, personal: 0 };
     globalImages.forEach(img => {
-      if (img.status === 'suspicious') counts.pending += 1;
-      else if (counts[img.status] !== undefined) counts[img.status]++;
+      if (counts[img.status] !== undefined) counts[img.status]++;
     });
     document.getElementById('count-pending').innerText = counts.pending;
     document.getElementById('count-audited').innerText = counts.audited;
@@ -510,7 +528,7 @@
     else { badgeClass += ' personal'; badgeText = '👑 私用图'; }
 
     const vipHtml = item.vipId ? `<b style="color:#d35400;">👤 VIP归属:</b> ${h(item.vipId)}<br>` : '';
-    const riskReasons = Array.isArray(item.riskReasons) ? item.riskReasons.join('，') : (item.riskReason || '');
+    const riskReasons = getRiskReasonText(item);
     const riskHtml = suspicious || blocked ? `<div class="risk-line ${blocked ? 'blocked-line' : ''}"><b>风控:</b> ${blocked ? 'IP 已拉黑' : '可疑上传'}${riskReasons ? '<br><b>原因:</b> ' + h(riskReasons) : ''}</div>` : '';
 
     const card = document.createElement('div');
