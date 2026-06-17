@@ -186,6 +186,11 @@
       font-size:1.1rem;font-weight:900;cursor:pointer
     }
     .math-refresh:hover{background:#cbd5e1}
+    .captcha-status{
+      min-height:20px;color:#64748b;font-size:.86rem;font-weight:800;line-height:1.45
+    }
+    .captcha-status.error{color:#dc2626}
+    .captcha-status.success{color:#16a34a}
 
     .upload-btn{
       width:100%;margin-top:18px;border:none;border-radius:20px;background:var(--brand);color:#fff;padding:18px 20px;
@@ -512,6 +517,7 @@
                 <button class="math-refresh" id="refreshCaptchaBtn" type="button" aria-label="Refresh verification question">↻</button>
               </div>
               <input class="text-input" type="text" id="captchaAnswerInput" inputmode="numeric" autocomplete="off" placeholder="Enter the result" />
+              <div class="captcha-status" id="captchaStatus" aria-live="polite"></div>
             </div>
           </div>
 
@@ -733,6 +739,10 @@
 
   <script>
     const WORKER_URL = "https://api.mini-tools.uk";
+    const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
+    const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    const CLIENT_UPLOAD_COOLDOWN_MS = 6000;
+    const LAST_UPLOAD_AT_KEY = "mini_tools_upload_last_success_at";
 
     const translations = window.PAGE_TRANSLATIONS = {
       en: {
@@ -893,6 +903,9 @@
         logUnknown: "Unknown error.",
         logNetwork: "Network error: {message}",
         logLoadCaptchaFailed: "Failed to load verification question. Please refresh and try again.",
+        captchaLoadingText: "Loading verification question…",
+        captchaReadyText: "Verification question loaded. Enter the result before uploading.",
+        captchaRetryText: "Verification could not be loaded. Click ↻ to retry.",
         retentionNames: {
           "1-day": "1 day",
           "7-day": "7 days",
@@ -1059,6 +1072,9 @@
         logUnknown: "未知错误。",
         logNetwork: "网络错误：{message}",
         logLoadCaptchaFailed: "验证码加载失败，请刷新页面后重试。",
+        captchaLoadingText: "正在加载验证题…",
+        captchaReadyText: "验证题已加载，请输入计算结果后上传。",
+        captchaRetryText: "验证题加载失败，请点击 ↻ 重新加载。",
         retentionNames: {
           "1-day": "1天",
           "7-day": "7天",
@@ -1225,6 +1241,9 @@
         logUnknown: "Unbekannter Fehler.",
         logNetwork: "Netzwerkfehler: {message}",
         logLoadCaptchaFailed: "Die Rechenaufgabe konnte nicht geladen werden. Bitte aktualisiere die Seite und versuche es erneut.",
+        captchaLoadingText: "Verifizierungsfrage wird geladen…",
+        captchaReadyText: "Verifizierungsfrage geladen. Gib das Ergebnis vor dem Upload ein.",
+        captchaRetryText: "Verifizierung konnte nicht geladen werden. Klicke zum Wiederholen auf ↻.",
         retentionNames: {
           "1-day": "1 Tag",
           "7-day": "7 Tage",
@@ -1391,6 +1410,9 @@
         logUnknown: "Erreur inconnue.",
         logNetwork: "Erreur réseau : {message}",
         logLoadCaptchaFailed: "Impossible de charger l’opération. Veuillez actualiser la page et réessayer.",
+        captchaLoadingText: "Chargement de la vérification…",
+        captchaReadyText: "Vérification chargée. Saisissez le résultat avant l’envoi.",
+        captchaRetryText: "La vérification n’a pas pu être chargée. Cliquez sur ↻ pour réessayer.",
         retentionNames: {
           "1-day": "1 jour",
           "7-day": "7 jours",
@@ -1556,6 +1578,9 @@
         logUnknown: "Error desconocido.",
         logNetwork: "Error de red: {message}",
         logLoadCaptchaFailed: "No se pudo cargar la operación. Actualiza la página e inténtalo de nuevo.",
+        captchaLoadingText: "Cargando verificación…",
+        captchaReadyText: "Verificación cargada. Introduce el resultado antes de subir.",
+        captchaRetryText: "No se pudo cargar la verificación. Haz clic en ↻ para reintentar.",
         retentionNames: {
           "1-day": "1 día",
           "7-day": "7 días",
@@ -1578,6 +1603,7 @@
     const captchaAnswerInput = document.getElementById("captchaAnswerInput");
     const mathQuestion = document.getElementById("mathQuestion");
     const refreshCaptchaBtn = document.getElementById("refreshCaptchaBtn");
+    const captchaStatus = document.getElementById("captchaStatus");
     const fixedPageTitle = "Free Image Hosting for GitHub README, Markdown and Docs";
     const resultPanel = document.getElementById("resultPanel");
     const directUrlOutput = document.getElementById("directUrlOutput");
@@ -1586,6 +1612,56 @@
     const bbcodeOutput = document.getElementById("bbcodeOutput");
 
     let captchaId = "";
+    let captchaLoading = false;
+    let uploadInFlight = false;
+
+    const securityMessages = {
+      en: {
+        logUnsupportedType: "Error: only JPG, PNG, GIF and WebP images are supported.",
+        logClientCooldown: "Please wait {seconds}s before uploading another image.",
+        logCaptchaRefreshing: "Refreshing verification question…",
+        logSecurityRejected: "Upload blocked by the security rules: {error}",
+        logTooManyRequests: "Upload too frequent. Please wait a moment and try again.",
+        logSessionExpired: "Upload session expired. Please refresh the verification question and try again.",
+        logFileBlocked: "This file was rejected by the server security checks."
+      },
+      zh: {
+        logUnsupportedType: "错误：仅支持 JPG、PNG、GIF 和 WebP 图片。",
+        logClientCooldown: "请等待 {seconds} 秒后再上传下一张图片。",
+        logCaptchaRefreshing: "正在刷新验证题…",
+        logSecurityRejected: "上传被安全规则拦截：{error}",
+        logTooManyRequests: "上传过于频繁，请稍后再试。",
+        logSessionExpired: "上传会话已失效，请刷新验证题后重试。",
+        logFileBlocked: "该文件未通过服务端安全检查。"
+      },
+      de: {
+        logUnsupportedType: "Fehler: Nur JPG-, PNG-, GIF- und WebP-Bilder werden unterstützt.",
+        logClientCooldown: "Bitte warte {seconds}s, bevor du ein weiteres Bild hochlädst.",
+        logCaptchaRefreshing: "Verifizierungsfrage wird aktualisiert…",
+        logSecurityRejected: "Upload durch Sicherheitsregeln blockiert: {error}",
+        logTooManyRequests: "Zu viele Uploads. Bitte warte kurz und versuche es erneut.",
+        logSessionExpired: "Upload-Sitzung abgelaufen. Bitte aktualisiere die Verifizierungsfrage und versuche es erneut.",
+        logFileBlocked: "Diese Datei wurde von den Sicherheitsprüfungen abgelehnt."
+      },
+      fr: {
+        logUnsupportedType: "Erreur : seuls les formats JPG, PNG, GIF et WebP sont pris en charge.",
+        logClientCooldown: "Veuillez attendre {seconds}s avant de téléverser une autre image.",
+        logCaptchaRefreshing: "Actualisation de la vérification…",
+        logSecurityRejected: "Envoi bloqué par les règles de sécurité : {error}",
+        logTooManyRequests: "Envois trop fréquents. Veuillez patienter puis réessayer.",
+        logSessionExpired: "Session d’envoi expirée. Veuillez actualiser la vérification puis réessayer.",
+        logFileBlocked: "Ce fichier a été refusé par les contrôles de sécurité du serveur."
+      },
+      es: {
+        logUnsupportedType: "Error: solo se admiten imágenes JPG, PNG, GIF y WebP.",
+        logClientCooldown: "Espera {seconds}s antes de subir otra imagen.",
+        logCaptchaRefreshing: "Actualizando la verificación…",
+        logSecurityRejected: "Subida bloqueada por reglas de seguridad: {error}",
+        logTooManyRequests: "Subidas demasiado frecuentes. Espera un momento e inténtalo de nuevo.",
+        logSessionExpired: "La sesión de subida expiró. Actualiza la verificación e inténtalo de nuevo.",
+        logFileBlocked: "Este archivo fue rechazado por las comprobaciones de seguridad del servidor."
+      }
+    };
 
     function normalizeLang(lang) {
       const value = String(lang || "").trim().toLowerCase().replace("_", "-");
@@ -1624,6 +1700,50 @@
         output = output.replaceAll(`{${key}}`, vars[key]);
       });
       return output;
+    }
+
+    function securityText(key, fallback = "") {
+      const lang = getLang();
+      return (securityMessages[lang] && securityMessages[lang][key]) || securityMessages.en[key] || fallback;
+    }
+
+    function getLastUploadAt() {
+      try {
+        return Number(window.localStorage.getItem(LAST_UPLOAD_AT_KEY) || 0);
+      } catch (error) {
+        return 0;
+      }
+    }
+
+    function rememberUploadSuccess() {
+      try {
+        window.localStorage.setItem(LAST_UPLOAD_AT_KEY, String(Date.now()));
+      } catch (error) {
+        // localStorage may be unavailable in private browsing; server-side limits still apply.
+      }
+    }
+
+    function getCooldownRemainingMs() {
+      const elapsed = Date.now() - getLastUploadAt();
+      return Math.max(0, CLIENT_UPLOAD_COOLDOWN_MS - elapsed);
+    }
+
+    function isAllowedImageType(file) {
+      return file && ALLOWED_IMAGE_TYPES.includes(file.type);
+    }
+
+    function getServerErrorMessage(response, result, texts) {
+      const serverError = result && result.error ? String(result.error) : "";
+      if (response.status === 429) return securityText("logTooManyRequests", serverError || texts.logRejected);
+      if (response.status === 403) {
+        return serverError
+          ? interpolate(securityText("logSecurityRejected", "Upload blocked by security rules: {error}"), { error: serverError })
+          : securityText("logSessionExpired", texts.logCompleteVerification);
+      }
+      if (response.status === 413) return texts.logFileTooLarge;
+      if (response.status === 415) return securityText("logUnsupportedType", "Unsupported image type.");
+      if (response.status >= 400 && response.status < 500) return serverError || securityText("logFileBlocked", texts.logUnknown);
+      return serverError || texts.logUnknown;
     }
 
     function updateMeta(name, content) {
@@ -1666,23 +1786,52 @@
       document.getElementById("appSchema").textContent = JSON.stringify(schema, null, 2);
     }
 
+    function setCaptchaStatus(message, type = "") {
+      if (!captchaStatus) return;
+      captchaStatus.textContent = message || "";
+      captchaStatus.classList.remove("error", "success");
+      if (type) captchaStatus.classList.add(type);
+    }
+
     async function fetchCaptcha() {
       const texts = t();
-      const response = await fetch(`${WORKER_URL}?action=captcha`);
-      let result = {};
+      if (captchaLoading) return;
+      captchaLoading = true;
+      refreshCaptchaBtn.disabled = true;
+      captchaId = "";
+      mathQuestion.textContent = "...";
+      setCaptchaStatus(texts.captchaLoadingText || securityText("logCaptchaRefreshing", "Loading verification question…"));
+
       try {
-        result = await response.json();
-      } catch (e) {
-        result = {};
-      }
+        const response = await fetch(`${WORKER_URL}?action=captcha&t=${Date.now()}`, {
+          method: "GET",
+          cache: "no-store"
+        });
 
-      if (!response.ok || !result.success || !result.captcha_id || !result.question) {
-        throw new Error(result.error || texts.logLoadCaptchaFailed);
-      }
+        let result = {};
+        try {
+          result = await response.json();
+        } catch (e) {
+          result = {};
+        }
 
-      captchaId = result.captcha_id;
-      mathQuestion.textContent = result.question;
-      captchaAnswerInput.value = "";
+        if (!response.ok || !result.success || !result.captcha_id || !result.question) {
+          throw new Error(result.error || texts.logLoadCaptchaFailed);
+        }
+
+        captchaId = result.captcha_id;
+        mathQuestion.textContent = result.question;
+        captchaAnswerInput.value = "";
+        setCaptchaStatus(texts.captchaReadyText || "Verification question loaded.", "success");
+      } catch (error) {
+        captchaId = "";
+        mathQuestion.textContent = "↻";
+        setCaptchaStatus(texts.captchaRetryText || error.message || texts.logLoadCaptchaFailed, "error");
+        throw error;
+      } finally {
+        captchaLoading = false;
+        refreshCaptchaBtn.disabled = false;
+      }
     }
 
     function applyLanguage(lang) {
@@ -1731,6 +1880,9 @@ updateProperty("og:title", texts.ogTitle);
       document.getElementById("storageCodeEmailText").innerHTML = texts.storageCodeEmailText || translations.en.storageCodeEmailText;
       storageCodeInput.placeholder = texts.storageCodePlaceholder || translations.en.storageCodePlaceholder;
       captchaAnswerInput.placeholder = texts.captchaPlaceholder || translations.en.captchaPlaceholder;
+      if (!captchaId && captchaStatus && captchaStatus.textContent) {
+        captchaStatus.textContent = texts.captchaRetryText || captchaStatus.textContent;
+      }
       previewImage.alt = texts.previewAlt || translations.en.previewAlt;
       uploadBtn.textContent = texts.uploadBtn || translations.en.uploadBtn;
       updatePermanentNotice();
@@ -1803,7 +1955,16 @@ updateProperty("og:title", texts.ogTitle);
         return;
       }
 
-      if (file.size > 5 * 1024 * 1024) {
+      if (!isAllowedImageType(file)) {
+        appendLog(securityText("logUnsupportedType", "Unsupported image type."), "error");
+        fileInput.value = "";
+        fileName.textContent = t().noFileChosen;
+        fileName.style.color = "#94a3b8";
+        resetPreview();
+        return;
+      }
+
+      if (file.size > MAX_UPLOAD_BYTES) {
         appendLog(t().logFileTooLarge, "error");
         fileInput.value = "";
         fileName.textContent = t().noFileChosen;
@@ -1825,6 +1986,8 @@ updateProperty("og:title", texts.ogTitle);
     }
 
     async function uploadFile() {
+      if (uploadInFlight) return;
+
       const texts = t();
       const file = fileInput.files[0];
       const wantsPermanent = durationSelect.value === "permanent";
@@ -1832,6 +1995,24 @@ updateProperty("og:title", texts.ogTitle);
 
       if (!file) {
         appendLog(texts.logChooseImage, "error");
+        return;
+      }
+
+      if (!isAllowedImageType(file)) {
+        appendLog(securityText("logUnsupportedType", "Unsupported image type."), "error");
+        return;
+      }
+
+      if (file.size > MAX_UPLOAD_BYTES) {
+        appendLog(texts.logFileTooLarge, "error");
+        return;
+      }
+
+      const cooldownRemaining = getCooldownRemainingMs();
+      if (cooldownRemaining > 0) {
+        appendLog(interpolate(securityText("logClientCooldown", "Please wait {seconds}s before uploading another image."), {
+          seconds: Math.ceil(cooldownRemaining / 1000)
+        }), "error");
         return;
       }
 
@@ -1847,7 +2028,10 @@ updateProperty("og:title", texts.ogTitle);
         return;
       }
 
+      uploadInFlight = true;
       uploadBtn.disabled = true;
+      refreshCaptchaBtn.disabled = true;
+      captchaAnswerInput.disabled = true;
       uploadBtn.textContent = texts.uploadingBtn;
       uploadLog.innerHTML = "";
       clearResultOutputs();
@@ -1855,16 +2039,25 @@ updateProperty("og:title", texts.ogTitle);
       appendLog(interpolate(texts.logSelectedFile, { name: file.name }));
       appendLog(interpolate(texts.logRetention, { value: texts.retentionNames[durationSelect.value] || durationSelect.value }));
 
+      const currentCaptchaId = captchaId;
+      const currentCaptchaAnswer = captchaAnswerInput.value.trim();
+      captchaId = "";
+
       try {
         const formData = new FormData();
         formData.append("file", file);
         formData.append("duration", durationSelect.value);
         formData.append("vip_id", vipCode);
-        formData.append("captcha_id", captchaId);
-        formData.append("captcha_answer", captchaAnswerInput.value.trim());
+        formData.append("captcha_id", currentCaptchaId);
+        formData.append("captcha_answer", currentCaptchaAnswer);
 
         const response = await fetch(WORKER_URL, {
           method: "POST",
+          mode: "cors",
+          cache: "no-store",
+          credentials: "omit",
+          redirect: "follow",
+          referrerPolicy: "strict-origin-when-cross-origin",
           body: formData
         });
 
@@ -1876,6 +2069,7 @@ updateProperty("og:title", texts.ogTitle);
         }
 
         if (response.ok && result.success) {
+          rememberUploadSuccess();
           appendLog(result.isVip ? texts.logSuccessVip : texts.logSuccessNormal, "success");
           appendLog(texts.logLinkCreated, "success");
 
@@ -1898,7 +2092,9 @@ updateProperty("og:title", texts.ogTitle);
 
           await fetchCaptcha();
         } else {
-          appendLog(interpolate(texts.logRejected, { error: result.error || texts.logUnknown }), "error");
+          appendLog(interpolate(texts.logRejected, {
+            error: getServerErrorMessage(response, result, texts)
+          }), "error");
           await fetchCaptcha();
         }
       } catch (error) {
@@ -1909,7 +2105,10 @@ updateProperty("og:title", texts.ogTitle);
           appendLog(e.message, "error");
         }
       } finally {
+        uploadInFlight = false;
         uploadBtn.disabled = false;
+        refreshCaptchaBtn.disabled = false;
+        captchaAnswerInput.disabled = false;
         uploadBtn.textContent = texts.uploadBtn;
       }
     }
