@@ -35,15 +35,15 @@
     .filter-group { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
     .admin-upload { display: flex; gap: 10px; align-items: center; border-left: 2px solid #eee; padding-left: 15px; }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; align-items: start; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; align-items: start; }
     .card { background: white; padding: 10px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); text-align: center; position: relative; transition: none; content-visibility: auto; contain-intrinsic-size: 360px; }
     .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.10); }
     .card.blocked-card { border: 2px solid #111827; }
     .card.suspicious-card { border: 2px solid #f39c12; }
-    .thumb-wrap { width: 100%; height: 122px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; border: 1px solid #eee; background: linear-gradient(135deg,#f3f4f6,#e5e7eb); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .thumb-wrap { width: 100%; height: 110px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; border: 1px solid #eee; background: linear-gradient(135deg,#f3f4f6,#e5e7eb); display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .thumb-wrap::before { content: '图片预览'; color: #94a3b8; font-size: .78rem; font-weight: 700; }
     .thumb-wrap.loaded::before { content: ''; display: none; }
-    .card img { width: 100%; height: 122px; object-fit: cover; border-radius: 6px; cursor: pointer; display: block; opacity: 0; transition: opacity .12s ease; }
+    .card img { width: 100%; height: 110px; object-fit: cover; border-radius: 6px; cursor: pointer; display: block; opacity: 0; transition: opacity .12s ease; }
     .card img.is-loaded { opacity: 1; }
     .checkbox-container { position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 10; }
     .checkbox-container input { transform: scale(1.5); cursor: pointer; }
@@ -120,7 +120,7 @@
   <h2>🛡️ 图床超级资产与权限中心</h2>
   <div class="auth-box">
     <input type="password" id="admin-pwd" placeholder="输入超级管理员密码">
-    <button onclick="fetchAllData()">刷新所有数据</button>
+    <button onclick="fetchAllData()">立即刷新</button>
   </div>
 </div>
 
@@ -157,8 +157,7 @@
         <option value="all">全部图片 (All)</option>
         <option value="permanent">├─ 💎 VIP永久图 (permanent)</option>
         <option value="1-day">├─ 1天销毁 (1-day)</option>
-        <option value="3-day">├─ 3天销毁 (3-day)</option>
-        <option value="7-day">├─ 7天销毁 (7-day)</option>
+                <option value="7-day">├─ 7天销毁 (7-day)</option>
         <option value="30-day">└─ 30天销毁 (30-day)</option>
       </select>
       <input type="text" id="search-vip" placeholder="🔍 搜索VIP码" onkeyup="resetAndRenderGallery()" style="width:160px;">
@@ -179,10 +178,10 @@
       </select>
       <label><strong>每页:</strong></label>
       <select id="items-per-page" onchange="resetAndRenderGallery()">
-        <option value="12">12 张</option>
-        <option value="24" selected>24 张</option>
+        <option value="16" selected>16 张</option>
+        <option value="24">24 张</option>
+        <option value="32">32 张</option>
         <option value="48">48 张</option>
-        <option value="96">96 张</option>
       </select>
       <button onclick="clearIpFilters()" class="btn-gray">清空IP筛选</button>
       <button onclick="selectAll()" class="btn-gray">全选本页</button>
@@ -200,7 +199,7 @@
   <div class="pagination-panel" id="pagination-panel" style="display:none;">
     <button id="btn-prev-page" onclick="changePage(-1)">⬅️ 上一页</button>
     <div class="page-info" id="page-info">第 1 / 1 页 (共 0 张)</div>
-    <div class="perf-note">性能模式：列表加载缩略图，点击弹窗才加载原图</div>
+    <div class="perf-note">性能模式：分页请求 + 自动刷新 + 缩略预览</div>
     <button id="btn-next-page" onclick="changePage(1)">下一页 ➡️</button>
   </div>
 </div>
@@ -273,29 +272,84 @@
   </div>
 </div>
 
+
 <script>
   const WORKER_URL = "https://api.mini-tools.uk";
+  const AUTO_REFRESH_MS = 60 * 1000;
+  const USE_CLOUDFLARE_THUMBNAILS = false;
+  const THUMBNAIL_WIDTH = 320;
 
   let globalImages = [];
   let globalVips = [];
   let globalIpSummary = [];
   let globalBlockedIps = [];
+  let dashboardCounts = { pending: 0, suspicious: 0, audited: 0, personal: 0, total: 0 };
   let currentTab = 'pending';
   let currentPage = 1;
+  let totalPages = 1;
+  let totalFiltered = 0;
   let imageLazyObserver = null;
   let currentModalItem = null;
+  let autoRefreshInterval = null;
+  let autoRefreshTick = null;
+  let refreshCountdown = Math.floor(AUTO_REFRESH_MS / 1000);
+  let isFetching = false;
 
-  // 如果 Cloudflare 图片缩放未启用，把这里改为 false，会退回懒加载原图。
-  const USE_CLOUDFLARE_THUMBNAILS = true;
-  const THUMBNAIL_WIDTH = 360;
-
-  function originalUrlForKey(key) {
-    return `https://pub.mini-tools.uk/${key}`;
+  function h(v) {
+    return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+  function jsArg(v) { return JSON.stringify(v ?? ''); }
+  function getPwd() { return document.getElementById('admin-pwd').value.trim(); }
+  function normalizeKey(v) { return String(v || '').trim().toLowerCase(); }
+  function currentImageTab() { return ['pending','audited','personal'].includes(currentTab) ? currentTab : 'pending'; }
+  function statusLabel(v) {
+    if (v === 'suspicious') return '⚠️ 可疑上传';
+    if (v === 'pending') return '🚨 待审核';
+    if (v === 'audited') return '✅ 已通过';
+    if (v === 'personal') return '👑 私用图';
+    return v || '-';
   }
 
+  const COUNTRY_ZH = {
+    CN: '中国大陆', HK: '中国香港', TW: '中国台湾', MO: '中国澳门', SG: '新加坡', US: '美国', GB: '英国', UK: '英国',
+    JP: '日本', KR: '韩国', DE: '德国', FR: '法国', CA: '加拿大', AU: '澳大利亚', NL: '荷兰', IN: '印度',
+    ID: '印度尼西亚', MY: '马来西亚', TH: '泰国', VN: '越南', PH: '菲律宾', RU: '俄罗斯', BR: '巴西', XX: '未知地区'
+  };
+  function countryZh(code) { return COUNTRY_ZH[String(code || '').toUpperCase()] || (code || '未知地区'); }
+  function locationText(item) {
+    const parts = [];
+    const country = countryZh(item.country);
+    if (country && country !== 'XX') parts.push(country);
+    if (item.region) parts.push(item.region);
+    if (item.city) parts.push(item.city);
+    return parts.filter(Boolean).join(' · ') || '未知位置';
+  }
+  function originalUrlForKey(key) { return `https://pub.mini-tools.uk/${key}`; }
   function thumbnailUrlFor(originalUrl) {
     if (!USE_CLOUDFLARE_THUMBNAILS) return originalUrl;
     return `https://mini-tools.uk/cdn-cgi/image/width=${THUMBNAIL_WIDTH},quality=62,fit=cover/${originalUrl}`;
+  }
+  function getIpValue(item) { return item?.ip || ''; }
+  function getIpHashValue(item) { return item?.ipHash || item?.ip_hash || ''; }
+  function isBlockedItem(item) {
+    if (item?.ipBlocked) return true;
+    const ip = normalizeKey(getIpValue(item));
+    const ipHash = normalizeKey(getIpHashValue(item));
+    return globalBlockedIps.some(row => normalizeKey(row.ip) === ip || normalizeKey(row.ip_hash || row.ipHash) === ipHash);
+  }
+  function isSuspiciousItem(item) {
+    return item?.status === 'suspicious' || String(item?.risk || '').toLowerCase() === 'suspicious';
+  }
+  const RISK_LABELS = {
+    missing_origin_referer: '缺少来源页面',
+    machine_interval_upload: '上传间隔异常，疑似脚本',
+    rate_limit_1m: '1分钟上传过快',
+    rate_limit_10m: '10分钟上传过快',
+    rate_limit_1d: '当天上传过多'
+  };
+  function getRiskReasonText(item) {
+    const reasons = Array.isArray(item?.riskReasons) ? item.riskReasons : [];
+    return reasons.map(r => RISK_LABELS[r] || r).join('、');
   }
 
   function setupLazyImages(container) {
@@ -313,10 +367,17 @@
         if (wrap) wrap.classList.add('loaded');
       };
       img.onerror = () => {
+        const fallback = img.dataset.originalSrc;
+        if (fallback && src !== fallback && img.dataset.fallbackTried !== '1') {
+          img.dataset.fallbackTried = '1';
+          img.dataset.loaded = '0';
+          img.src = fallback;
+          return;
+        }
         const wrap = img.closest('.thumb-wrap');
         if (wrap) {
           wrap.classList.add('loaded');
-          wrap.innerHTML = '<span style="color:#ef4444;font-size:.78rem;font-weight:800;">缩略图加载失败，点开看原图</span>';
+          wrap.innerHTML = '<span style="color:#ef4444;font-size:.78rem;font-weight:800;">图片加载失败</span>';
         }
       };
       img.src = src;
@@ -328,312 +389,188 @@
     }
 
     imageLazyObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        loadImage(entry.target);
-        imageLazyObserver.unobserve(entry.target);
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadImage(entry.target);
+          imageLazyObserver.unobserve(entry.target);
+        }
       });
-    }, { rootMargin: '360px 0px', threshold: 0.01 });
+    }, { rootMargin: '240px 0px' });
 
-    imgs.forEach((img) => imageLazyObserver.observe(img));
-  }
-
-  function h(value) {
-    return String(value ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
-  }
-
-  function jsArg(value) {
-    return h(JSON.stringify(String(value ?? '')));
-  }
-
-  function getPwd() { return document.getElementById('admin-pwd').value; }
-
-  function normalizeKey(value) { return String(value || '').trim().toLowerCase(); }
-
-
-
-  function countryName(code) {
-    const value = String(code || '').trim().toUpperCase();
-    if (!value || value === 'XX') return '-';
-    const names = {
-      CN:'中国大陆', HK:'中国香港', MO:'中国澳门', TW:'中国台湾', SG:'新加坡', JP:'日本', KR:'韩国', US:'美国', GB:'英国', UK:'英国', DE:'德国', FR:'法国', ES:'西班牙', IT:'意大利', NL:'荷兰', CA:'加拿大', AU:'澳大利亚', NZ:'新西兰', IN:'印度', ID:'印度尼西亚', MY:'马来西亚', TH:'泰国', VN:'越南', PH:'菲律宾', BR:'巴西', MX:'墨西哥', RU:'俄罗斯', TR:'土耳其', AE:'阿联酋', SA:'沙特阿拉伯', ZA:'南非', IE:'爱尔兰', SE:'瑞典', NO:'挪威', DK:'丹麦', FI:'芬兰', PL:'波兰', CH:'瑞士', AT:'奥地利', BE:'比利时', PT:'葡萄牙', GR:'希腊', CZ:'捷克', RO:'罗马尼亚', HU:'匈牙利', UA:'乌克兰', IL:'以色列', AR:'阿根廷', CL:'智利', CO:'哥伦比亚', PE:'秘鲁', EG:'埃及', PK:'巴基斯坦', BD:'孟加拉国'
-    };
-    return names[value] || value;
-  }
-
-  function cityName(city) {
-    const raw = String(city || '').trim();
-    if (!raw) return '';
-    const key = raw.toLowerCase();
-    const names = {
-      'singapore':'新加坡市', 'hong kong':'香港', 'macau':'澳门', 'taipei':'台北', 'kaohsiung':'高雄', 'taichung':'台中',
-      'beijing':'北京', 'shanghai':'上海', 'guangzhou':'广州', 'shenzhen':'深圳', 'hangzhou':'杭州', 'chengdu':'成都', 'chongqing':'重庆', 'wuhan':'武汉', 'nanjing':'南京', 'xian':'西安', "xi'an":'西安', 'tianjin':'天津', 'suzhou':'苏州', 'qingdao':'青岛', 'zhengzhou':'郑州', 'changsha':'长沙', 'fuzhou':'福州', 'xiamen':'厦门', 'kunming':'昆明', 'hefei':'合肥', 'jinan':'济南', 'dalian':'大连', 'shenyang':'沈阳', 'harbin':'哈尔滨',
-      'tokyo':'东京', 'osaka':'大阪', 'seoul':'首尔', 'busan':'釜山', 'bangkok':'曼谷', 'kuala lumpur':'吉隆坡', 'jakarta':'雅加达', 'manila':'马尼拉', 'hanoi':'河内', 'ho chi minh city':'胡志明市',
-      'london':'伦敦', 'manchester':'曼彻斯特', 'paris':'巴黎', 'berlin':'柏林', 'frankfurt am main':'法兰克福', 'frankfurt':'法兰克福', 'madrid':'马德里', 'barcelona':'巴塞罗那', 'rome':'罗马', 'milan':'米兰', 'amsterdam':'阿姆斯特丹', 'dublin':'都柏林', 'zurich':'苏黎世', 'vienna':'维也纳', 'stockholm':'斯德哥尔摩', 'oslo':'奥斯陆', 'copenhagen':'哥本哈根', 'helsinki':'赫尔辛基', 'warsaw':'华沙', 'prague':'布拉格',
-      'new york':'纽约', 'los angeles':'洛杉矶', 'san francisco':'旧金山', 'chicago':'芝加哥', 'seattle':'西雅图', 'washington':'华盛顿', 'washington dc':'华盛顿', 'toronto':'多伦多', 'vancouver':'温哥华', 'montreal':'蒙特利尔', 'sydney':'悉尼', 'melbourne':'墨尔本', 'brisbane':'布里斯班', 'auckland':'奥克兰',
-      'dubai':'迪拜', 'abu dhabi':'阿布扎比', 'riyadh':'利雅得', 'tel aviv':'特拉维夫', 'istanbul':'伊斯坦布尔', 'moscow':'莫斯科', 'sao paulo':'圣保罗', 'mexico city':'墨西哥城', 'johannesburg':'约翰内斯堡', 'cape town':'开普敦'
-    };
-    return names[key] || raw;
-  }
-
-  function regionName(region, regionCode) {
-    const raw = String(region || regionCode || '').trim();
-    if (!raw) return '';
-    const key = raw.toLowerCase();
-    const names = {
-      'beijing':'北京', 'shanghai':'上海', 'guangdong':'广东', 'zhejiang':'浙江', 'jiangsu':'江苏', 'sichuan':'四川', 'hubei':'湖北', 'hunan':'湖南', 'fujian':'福建', 'shandong':'山东', 'henan':'河南', 'hebei':'河北', 'liaoning':'辽宁', 'heilongjiang':'黑龙江', 'taiwan':'台湾',
-      'california':'加利福尼亚州', 'new york':'纽约州', 'texas':'得克萨斯州', 'washington':'华盛顿州', 'ontario':'安大略省', 'british columbia':'不列颠哥伦比亚省', 'england':'英格兰', 'scotland':'苏格兰', 'wales':'威尔士', 'northern ireland':'北爱尔兰'
-    };
-    return names[key] || raw;
-  }
-
-  function locationText(itemOrRow) {
-    const country = countryName(itemOrRow.country);
-    const city = cityName(itemOrRow.city);
-    const region = regionName(itemOrRow.region, itemOrRow.regionCode || itemOrRow.region_code);
-    const parts = [];
-    if (country && country !== '-') parts.push(country);
-    if (region && region !== city) parts.push(region);
-    if (city) parts.push(city);
-    return parts.length ? parts.join(' · ') : '-';
-  }
-
-  function getIpValue(item) {
-    return item.ip || item.ipAddress || item.clientIp || '';
-  }
-
-  function getIpHashValue(item) {
-    return item.ipHash || item.ip_hash || '';
-  }
-
-  function isBlockedItem(item) {
-    if (item.ipBlocked === true || item.blocked === true) return true;
-    const ip = normalizeKey(getIpValue(item));
-    const hash = normalizeKey(getIpHashValue(item));
-    return globalBlockedIps.some(row => normalizeKey(row.ip) === ip || normalizeKey(row.ipHash || row.ip_hash) === hash);
-  }
-
-  function isSuspiciousItem(item) {
-    const status = normalizeKey(item.status || '');
-    // 人工审核通过后，后台视为正常图片；即使旧索引里还残留 risk 字段，也不再显示为可疑。
-    if (status === 'audited' || status === 'personal') return false;
-
-    const risk = normalizeKey(item.risk || item.riskLevel || '');
-    return item.suspicious === true || risk === 'suspicious' || risk === 'high' || status === 'suspicious' || (Array.isArray(item.riskReasons) && item.riskReasons.length > 0);
-  }
-
-  function riskReasonLabel(reason) {
-    const labels = {
-      missing_origin_referer: '缺少来源页面',
-      machine_interval_upload: '上传间隔异常，疑似脚本',
-      rate_limit_1m: '1分钟内上传过多',
-      rate_limit_10m: '10分钟内上传过多',
-      rate_limit_1d: '当天上传过多'
-    };
-    return labels[reason] || reason;
-  }
-
-  function getRiskReasonText(item) {
-    const reasons = Array.isArray(item.riskReasons) ? item.riskReasons : (item.riskReason ? [item.riskReason] : []);
-    return reasons.filter(reason => reason && reason !== 'large_public_file').map(riskReasonLabel).join('，');
-  }
-
-  function buildIpSummary(images) {
-    const map = new Map();
-    images.forEach(img => {
-      const ip = getIpValue(img);
-      const ipHash = getIpHashValue(img);
-      const key = ip || ipHash || '旧图无IP记录';
-      if (!map.has(key)) {
-        map.set(key, { ip, ipHash, country: img.country || '', region: img.region || '', regionCode: img.regionCode || img.region_code || '', city: img.city || '', count: 0, pending: 0, suspicious: 0, latestUpload: img.uploaded || '', blocked: false });
-      }
-      const row = map.get(key);
-      row.count += 1;
-      if (img.status === 'pending') row.pending += 1;
-      if (isSuspiciousItem(img)) row.suspicious += 1;
-      if (!row.latestUpload || new Date(img.uploaded) > new Date(row.latestUpload)) { row.latestUpload = img.uploaded; row.country = img.country || row.country; row.region = img.region || row.region; row.regionCode = img.regionCode || img.region_code || row.regionCode; row.city = img.city || row.city; }
-    });
-    return Array.from(map.values()).map(row => ({ ...row, blocked: globalBlockedIps.some(b => normalizeKey(b.ip) === normalizeKey(row.ip) || normalizeKey(b.ipHash || b.ip_hash) === normalizeKey(row.ipHash)) }));
+    imgs.forEach(img => imageLazyObserver.observe(img));
   }
 
   async function readJsonSafe(response) {
     try { return await response.json(); } catch (e) { return {}; }
   }
 
-  async function fetchBlockedIps(pwd) {
-    try {
-      const res = await fetch(WORKER_URL + "?action=blocked_ips", { headers: { 'X-Admin-Key': pwd } });
-      if (!res.ok) return [];
-      const data = await res.json();
-      return data.blockedIps || data.blocked_ips || data.items || [];
-    } catch (e) {
-      return [];
-    }
+  function buildListUrl() {
+    const url = new URL(WORKER_URL);
+    url.searchParams.set('action', 'list');
+    url.searchParams.set('page', String(currentPage));
+    url.searchParams.set('page_size', document.getElementById('items-per-page').value || '16');
+    url.searchParams.set('sort', document.getElementById('sort-time').value || 'desc');
+    url.searchParams.set('status_group', currentImageTab());
+
+    const category = document.getElementById('filter-category').value;
+    const vip = document.getElementById('search-vip').value.trim();
+    const ipQ = document.getElementById('search-ip').value.trim();
+    const ipExact = document.getElementById('filter-ip').value;
+    const risk = document.getElementById('filter-risk').value;
+
+    if (category && category !== 'all') url.searchParams.set('category', category);
+    if (vip) url.searchParams.set('vip', vip);
+    if (ipQ) url.searchParams.set('ip_q', ipQ);
+    if (ipExact && ipExact !== 'all') url.searchParams.set('ip', ipExact);
+    if (risk && risk !== 'all') url.searchParams.set('risk', risk);
+
+    return url.toString();
   }
 
-  async function fetchAllData() {
-    const pwd = getPwd();
-    if (!pwd) return alert("⚠️ 请先输入超级管理员密码！");
+  async function fetchBlockedIps(pwd) {
+    const res = await fetch(WORKER_URL + '?action=blocked_ips', { headers: { 'X-Admin-Key': pwd } });
+    if (!res.ok) return [];
+    const data = await readJsonSafe(res);
+    return data.blocked || data.blockedIps || data.blocked_ips || [];
+  }
 
-    const statusMsg = document.getElementById('status-msg');
-    statusMsg.innerText = "⏳ 正在拉取图片、VIP、IP黑名单数据...";
+  async function fetchVipList(pwd) {
+    const res = await fetch(WORKER_URL + '?action=vip_list', { headers: { 'X-Admin-Key': pwd } });
+    if (!res.ok) return [];
+    const data = await readJsonSafe(res);
+    return data.vips || [];
+  }
+
+  function setStatusMessage(text, isError = false) {
+    const el = document.getElementById('status-msg');
+    el.innerHTML = isError ? `<span style="color:red;">${h(text)}</span>` : text;
+  }
+
+  function updateAutoRefreshText() {
+    const extra = `（${refreshCountdown}s 后自动刷新，可手动刷新）`;
+    const base = `✅ 当前页 ${currentPage}/${totalPages}，当前筛选 ${totalFiltered} 张；总图库 ${dashboardCounts.total || 0} 张；自动刷新已开启`;
+    setStatusMessage(`${base} ${extra}`);
+  }
+
+  function startAutoRefresh() {
+    if (autoRefreshInterval) clearInterval(autoRefreshInterval);
+    if (autoRefreshTick) clearInterval(autoRefreshTick);
+    refreshCountdown = Math.floor(AUTO_REFRESH_MS / 1000);
+    autoRefreshTick = setInterval(() => {
+      refreshCountdown -= 1;
+      if (refreshCountdown < 0) refreshCountdown = 0;
+      if (!isFetching) updateAutoRefreshText();
+    }, 1000);
+    autoRefreshInterval = setInterval(() => {
+      if (document.getElementById('image-modal-mask').classList.contains('show')) return;
+      if (isFetching) return;
+      fetchPageData({ silent: true, isAuto: true });
+    }, AUTO_REFRESH_MS);
+  }
+
+  async function fetchPageData({ silent = false, isAuto = false } = {}) {
+    const pwd = getPwd();
+    if (!pwd) {
+      if (!silent) alert('⚠️ 请先输入超级管理员密码！');
+      return;
+    }
+    if (isFetching) return;
+    isFetching = true;
+    if (!silent) setStatusMessage('⏳ 正在按分页拉取当前页图片、黑名单和必要数据...');
 
     try {
-      const imgRes = await fetch(WORKER_URL + "?action=list", { headers: { 'X-Admin-Key': pwd } });
-      if (!imgRes.ok) throw new Error("密码错误或图片列表请求失败");
-      const imgData = await imgRes.json();
-      globalImages = Array.isArray(imgData.keys) ? imgData.keys : [];
+      const headers = { 'X-Admin-Key': pwd };
+      const requests = [
+        fetch(buildListUrl(), { headers }),
+        fetchBlockedIps(pwd)
+      ];
+      const needVip = currentTab === 'vip_management' || globalVips.length === 0;
+      if (needVip) requests.push(fetchVipList(pwd));
 
-      globalBlockedIps = await fetchBlockedIps(pwd);
-      globalIpSummary = Array.isArray(imgData.ipSummary) ? imgData.ipSummary : buildIpSummary(globalImages);
-      if (!Array.isArray(imgData.ipSummary)) globalIpSummary = buildIpSummary(globalImages);
-
-      const vipRes = await fetch(WORKER_URL + "?action=vip_list", { headers: { 'X-Admin-Key': pwd } });
-      if (vipRes.ok) {
-        const vipData = await vipRes.json();
-        globalVips = vipData.vips || [];
+      const results = await Promise.all(requests);
+      const imgRes = results[0];
+      if (!imgRes.ok) {
+        const err = await readJsonSafe(imgRes);
+        throw new Error(err.error || '密码错误或列表请求失败');
       }
+      const imgData = await readJsonSafe(imgRes);
+      globalImages = Array.isArray(imgData.items) ? imgData.items : (Array.isArray(imgData.keys) ? imgData.keys : []);
+      globalIpSummary = Array.isArray(imgData.ipSummary) ? imgData.ipSummary : [];
+      dashboardCounts = imgData.dashboardCounts || dashboardCounts;
+      totalFiltered = Number(imgData.filtered || 0);
+      currentPage = Number(imgData.page || 1);
+      totalPages = Number(imgData.total_pages || 1);
+      globalBlockedIps = Array.isArray(results[1]) ? results[1] : [];
+      if (needVip) globalVips = Array.isArray(results[2]) ? results[2] : globalVips;
 
       updateCounts();
       updateIpFilterOptions();
 
       if (currentTab === 'vip_management') renderVipTable();
       else if (currentTab === 'ip_blacklist') renderIpPanel();
-      else resetAndRenderGallery();
+      else renderGallery();
 
-      statusMsg.innerText = `✅ 数据同步完成！图库: ${globalImages.length} 张 | 激活码: ${globalVips.length} 个 | 黑名单: ${globalBlockedIps.length} 个`;
+      refreshCountdown = Math.floor(AUTO_REFRESH_MS / 1000);
+      updateAutoRefreshText();
+      if (!autoRefreshInterval) startAutoRefresh();
     } catch (error) {
-      statusMsg.innerHTML = `<span style="color:red;">❌ 拉取失败: ${h(error.message)}</span>`;
+      setStatusMessage('❌ 拉取失败: ' + (error.message || '未知错误'), true);
+    } finally {
+      isFetching = false;
     }
   }
 
+  async function fetchAllData() {
+    return fetchPageData({ silent: false, isAuto: false });
+  }
+
   function updateCounts() {
-    const counts = { pending: 0, audited: 0, personal: 0 };
-    globalImages.forEach(img => {
-      if (counts[img.status] !== undefined) counts[img.status]++;
-    });
-    document.getElementById('count-pending').innerText = counts.pending;
-    document.getElementById('count-audited').innerText = counts.audited;
-    document.getElementById('count-personal').innerText = counts.personal;
+    document.getElementById('count-pending').innerText = dashboardCounts.pending || 0;
+    document.getElementById('count-audited').innerText = dashboardCounts.audited || 0;
+    document.getElementById('count-personal').innerText = dashboardCounts.personal || 0;
     document.getElementById('count-blocked').innerText = globalBlockedIps.length;
   }
 
   function updateIpFilterOptions() {
     const select = document.getElementById('filter-ip');
     const old = select.value;
-    const rows = globalIpSummary.length ? globalIpSummary : buildIpSummary(globalImages);
     const options = ['<option value="all">全部上传 IP</option>'];
-    rows
-      .filter(row => row.ip || row.ipHash)
-      .sort((a, b) => (b.count || 0) - (a.count || 0))
-      .forEach(row => {
-        const label = `${row.ip || '旧图无明文IP'} · ${locationText(row)} · ${row.count || 0}张${row.blocked ? ' · 已拉黑' : ''}`;
-        const value = row.ip || row.ipHash;
-        options.push(`<option value="${h(value)}">${h(label)}</option>`);
-      });
+    globalIpSummary.filter(row => row.ip || row.ipHash).forEach(row => {
+      const value = row.ip || row.ipHash;
+      const label = `${row.ip || '旧图无明文IP'} · ${locationText(row)} · ${row.count || 0}张${row.blocked ? ' · 已拉黑' : ''}`;
+      options.push(`<option value="${h(value)}">${h(label)}</option>`);
+    });
     select.innerHTML = options.join('');
     if ([...select.options].some(o => o.value === old)) select.value = old;
   }
 
   function switchTab(tab) {
     currentTab = tab;
+    currentPage = 1;
     document.querySelectorAll('.nav-card').forEach(el => el.classList.remove('active'));
     const tabEl = document.getElementById(`tab-${tab}`);
     if (tabEl) tabEl.classList.add('active');
-
-    document.getElementById('image-view').style.display = (tab === 'pending' || tab === 'audited' || tab === 'personal') ? 'block' : 'none';
+    document.getElementById('image-view').style.display = ['pending','audited','personal'].includes(tab) ? 'block' : 'none';
     document.getElementById('vip-panel').style.display = tab === 'vip_management' ? 'block' : 'none';
     document.getElementById('ip-panel').style.display = tab === 'ip_blacklist' ? 'block' : 'none';
+    document.getElementById('btn-batch-audit').style.display = tab === 'pending' ? 'inline-block' : 'none';
 
-    if (tab === 'vip_management') renderVipTable();
+    if (tab === 'vip_management' && globalVips.length) renderVipTable();
     else if (tab === 'ip_blacklist') renderIpPanel();
-    else {
-      document.getElementById('btn-batch-audit').style.display = (tab === 'pending') ? 'inline-block' : 'none';
-      resetAndRenderGallery();
-    }
+    else if (['pending','audited','personal'].includes(tab)) fetchPageData({ silent: false });
   }
 
   function clearIpFilters() {
     document.getElementById('search-ip').value = '';
     document.getElementById('filter-ip').value = 'all';
     document.getElementById('filter-risk').value = 'all';
-    resetAndRenderGallery();
+    currentPage = 1;
+    fetchPageData({ silent: false });
   }
 
   function resetAndRenderGallery() {
     currentPage = 1;
-    renderGallery();
-  }
-
-  function passesIpFilters(item) {
-    const searchIp = normalizeKey(document.getElementById('search-ip').value);
-    const filterIp = document.getElementById('filter-ip').value;
-    const filterRisk = document.getElementById('filter-risk').value;
-    const ip = getIpValue(item);
-    const ipHash = getIpHashValue(item);
-    const haystack = normalizeKey(`${ip} ${ipHash} ${item.country || ''} ${item.region || ''} ${item.regionCode || item.region_code || ''} ${item.city || ''}`);
-
-    if (filterIp !== 'all' && normalizeKey(filterIp) !== normalizeKey(ip) && normalizeKey(filterIp) !== normalizeKey(ipHash)) return false;
-    if (searchIp && !haystack.includes(searchIp)) return false;
-    if (filterRisk === 'suspicious' && !isSuspiciousItem(item)) return false;
-    if (filterRisk === 'blocked' && !isBlockedItem(item)) return false;
-    if (filterRisk === 'missing_ip' && (ip || ipHash)) return false;
-    return true;
-  }
-
-  function renderGallery() {
-    const gallery = document.getElementById('gallery');
-    const paginationPanel = document.getElementById('pagination-panel');
-    const timeSort = document.getElementById('sort-time').value;
-    const categoryFilter = document.getElementById('filter-category').value;
-    const searchVip = document.getElementById('search-vip').value.trim().toLowerCase();
-    const itemsPerPage = parseInt(document.getElementById('items-per-page').value, 10);
-    gallery.innerHTML = "";
-
-    let filteredImages = globalImages.filter(img => {
-      if (currentTab === 'pending') return img.status === 'pending' || img.status === 'suspicious';
-      return img.status === currentTab;
-    });
-
-    if (categoryFilter !== 'all') {
-      filteredImages = filteredImages.filter(item => (item.key || '').split('/')[0] === categoryFilter);
-    }
-
-    if (searchVip) {
-      filteredImages = filteredImages.filter(item => item.vipId && item.vipId.toLowerCase().includes(searchVip));
-    }
-
-    filteredImages = filteredImages.filter(passesIpFilters);
-    const totalItems = filteredImages.length;
-
-    if (totalItems === 0) {
-      gallery.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#666;padding:40px;">当前分类或筛选下没有图片 🎉</p>`;
-      paginationPanel.style.display = 'none';
-      return;
-    }
-
-    filteredImages.sort((a, b) => {
-      const timeA = new Date(a.uploaded).getTime() || 0;
-      const timeB = new Date(b.uploaded).getTime() || 0;
-      return timeSort === 'desc' ? (timeB - timeA) : (timeA - timeB);
-    });
-
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    if (currentPage > totalPages) currentPage = totalPages;
-    if (currentPage < 1) currentPage = 1;
-
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const paginatedImages = filteredImages.slice(startIndex, startIndex + itemsPerPage);
-
-    const fragment = document.createDocumentFragment();
-    paginatedImages.forEach(item => fragment.appendChild(createImageCard(item)));
-    gallery.replaceChildren(fragment);
-    setupLazyImages(gallery);
-
-    paginationPanel.style.display = 'flex';
-    document.getElementById('page-info').innerText = `当前第 ${currentPage} / ${totalPages} 页 (共筛选出 ${totalItems} 张)`;
-    document.getElementById('btn-prev-page').disabled = currentPage === 1;
-    document.getElementById('btn-next-page').disabled = currentPage === totalPages;
+    fetchPageData({ silent: false });
   }
 
   function createImageCard(item) {
@@ -642,7 +579,6 @@
     const thumbUrl = thumbnailUrlFor(imgUrl);
     const prefix = (item.key || '').split('/')[0];
     const ip = getIpValue(item);
-    const ipHash = getIpHashValue(item);
     const blocked = isBlockedItem(item);
     const suspicious = isSuspiciousItem(item);
 
@@ -685,15 +621,80 @@
     return card;
   }
 
+  function renderGallery() {
+    const gallery = document.getElementById('gallery');
+    const paginationPanel = document.getElementById('pagination-panel');
+    gallery.innerHTML = '';
+    if (!globalImages.length) {
+      gallery.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#666;padding:40px;">当前页没有图片 🎉</p>`;
+      paginationPanel.style.display = 'none';
+      return;
+    }
+    const fragment = document.createDocumentFragment();
+    globalImages.forEach(item => fragment.appendChild(createImageCard(item)));
+    gallery.replaceChildren(fragment);
+    setupLazyImages(gallery);
+    paginationPanel.style.display = 'flex';
+    document.getElementById('page-info').innerText = `当前第 ${currentPage} / ${totalPages} 页 (当前筛选共 ${totalFiltered} 张)`;
+    document.getElementById('btn-prev-page').disabled = currentPage <= 1;
+    document.getElementById('btn-next-page').disabled = currentPage >= totalPages;
+  }
+
+  function renderVipTable() {
+    const tbody = document.getElementById('vip-list-body');
+    if (!globalVips.length) {
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#666;">暂无已激活的 VIP 码，请在上方生成。</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = globalVips.slice().reverse().map(vip => `
+      <tr>
+        <td><span class="vip-code">${h(vip.code)}</span></td>
+        <td>${h(vip.note || '-')}</td>
+        <td>${h(vip.created_at || '-')}</td>
+        <td>
+          <button class="btn-warning btn-small" onclick="searchVipImages(${jsArg(vip.code)})">🔍 查他上传的图</button>
+          <button class="btn-danger btn-small" onclick="deleteVipCode(${jsArg(vip.code)})">🚨 销毁作废</button>
+        </td>
+      </tr>`).join('');
+  }
+
+  function renderIpPanel() {
+    const summaryBody = document.getElementById('ip-summary-body');
+    const blockedBody = document.getElementById('blocked-ip-body');
+    if (!globalIpSummary.length) {
+      summaryBody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#666;">暂无上传 IP 汇总数据</td></tr>`;
+    } else {
+      summaryBody.innerHTML = globalIpSummary.map(row => `
+        <tr>
+          <td>${h(row.ip || '旧图无明文IP')}</td>
+          <td>${h(locationText(row))}</td>
+          <td>${Number(row.count || 0)}</td>
+          <td>${Number(row.suspicious || 0)}</td>
+          <td>${h(row.latestUpload ? new Date(row.latestUpload).toLocaleString('zh-CN', { hour12: false }) : '-')}</td>
+          <td>
+            <button class="btn-gray btn-small" onclick="filterByIp(${jsArg(row.ip || row.ipHash || '')})">筛此IP</button>
+            ${row.blocked ? `<button class="btn-success btn-small" onclick="unblockIp(${jsArg(row.ip || '')}, ${jsArg(row.ipHash || '')})">解除</button>` : `<button class="btn-danger btn-small" onclick="blockIp(${jsArg(row.ip || '')}, ${jsArg(row.ipHash || '')})">拉黑</button>`}
+          </td>
+        </tr>`).join('');
+    }
+    if (!globalBlockedIps.length) {
+      blockedBody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#666;">暂无黑名单数据</td></tr>`;
+    } else {
+      blockedBody.innerHTML = globalBlockedIps.map(row => `
+        <tr>
+          <td>${h(row.ip || row.ip_hash || row.ipHash || '-')}</td>
+          <td>${h(row.note || '-')}</td>
+          <td>${h(row.created_at || '-')}</td>
+          <td><button class="btn-success btn-small" onclick="unblockIp(${jsArg(row.ip || '')}, ${jsArg(row.ip_hash || row.ipHash || '')})">解除拉黑</button></td>
+        </tr>`).join('');
+    }
+  }
 
   function openImageModalByKey(key) {
     const item = globalImages.find(img => img.key === key);
-    if (!item) return alert('没有找到这张图片的数据，请刷新后重试。');
-    openImageModal(item);
-  }
-
-  function openImageModal(item) {
+    if (!item) return alert('当前页没有找到这张图片，请刷新后重试。');
     currentModalItem = item;
+    const originalUrl = originalUrlForKey(item.key);
     const mask = document.getElementById('image-modal-mask');
     const modalImg = document.getElementById('modal-image');
     const modalWrap = document.getElementById('modal-image-wrap');
@@ -702,50 +703,34 @@
     const openLink = document.getElementById('modal-open-link');
     const auditBtn = document.getElementById('modal-audit-btn');
     const blockBtn = document.getElementById('modal-block-ip-btn');
-
-    const originalUrl = originalUrlForKey(item.key);
-    const ip = getIpValue(item);
-    const ipHash = getIpHashValue(item);
     const blocked = isBlockedItem(item);
-    const suspicious = isSuspiciousItem(item);
-    const uploadDate = item.uploaded ? new Date(item.uploaded).toLocaleString('zh-CN', { hour12: false }) : '-';
     const riskReasons = getRiskReasonText(item);
 
     modalTitle.textContent = item.key;
     openLink.href = originalUrl;
-    auditBtn.style.display = (item.status === 'pending' || item.status === 'suspicious' || suspicious) ? 'inline-flex' : 'none';
+    auditBtn.style.display = (item.status === 'pending' || item.status === 'suspicious') ? 'inline-flex' : 'none';
     blockBtn.textContent = blocked ? '解除IP' : '拉黑IP';
     blockBtn.className = blocked ? 'btn-success' : 'btn-danger';
-
     modalMeta.innerHTML = `
       <b>路径：</b>${h(item.key)}<br>
       <b>链接：</b><span class="mono">${h(originalUrl)}</span><br>
       <b>大小：</b>${Number(item.size || 0) ? (Number(item.size) / 1024).toFixed(1) : '0.0'} KB<br>
-      <b>时间：</b>${h(uploadDate)}<br>
-      <b>IP：</b>${ip ? h(ip) : '<span style="color:#999;">旧图无IP记录</span>'}<br>
+      <b>时间：</b>${h(item.uploaded ? new Date(item.uploaded).toLocaleString('zh-CN', { hour12: false }) : '-')}<br>
+      <b>IP：</b>${h(getIpValue(item) || '旧图无IP记录')}<br>
       <b>位置：</b>${h(locationText(item))}<br>
       ${item.vipId ? `<b>VIP归属：</b>${h(item.vipId)}<br>` : ''}
-      <b>状态：</b>${blocked ? 'IP 已拉黑' : suspicious ? '可疑上传' : h(item.status || '-')}<br>
+      <b>状态：</b>${blocked ? 'IP 已拉黑' : statusLabel(item.status)}<br>
       ${riskReasons ? `<b>风险原因：</b>${h(riskReasons)}<br>` : ''}
-      <span style="display:none;">IP Hash: ${h(ipHash)}</span>
     `;
 
     modalWrap.classList.remove('loaded');
     modalImg.classList.remove('show');
     modalImg.removeAttribute('src');
-    modalImg.onload = () => {
-      modalWrap.classList.add('loaded');
-      modalImg.classList.add('show');
-    };
-    modalImg.onerror = () => {
-      modalWrap.classList.add('loaded');
-      modalImg.classList.remove('show');
-      alert('原图加载失败，可能文件已删除或访问被限制。');
-    };
-
+    modalImg.onload = () => { modalWrap.classList.add('loaded'); modalImg.classList.add('show'); };
+    modalImg.onerror = () => { modalWrap.classList.add('loaded'); modalImg.classList.remove('show'); alert('原图加载失败，可能文件已删除或访问受限。'); };
     mask.classList.add('show');
     document.body.style.overflow = 'hidden';
-    window.setTimeout(() => { modalImg.src = originalUrl; }, 30);
+    setTimeout(() => { modalImg.src = originalUrl; }, 30);
   }
 
   function closeImageModal() {
@@ -758,38 +743,25 @@
     document.body.style.overflow = '';
     currentModalItem = null;
   }
-
-  function onModalMaskClick(event) {
-    if (event.target && event.target.id === 'image-modal-mask') closeImageModal();
-  }
+  function onModalMaskClick(event) { if (event.target && event.target.id === 'image-modal-mask') closeImageModal(); }
 
   async function copyTextToClipboard(text) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch (error) {
+    try { await navigator.clipboard.writeText(text); return true; }
+    catch {
       const input = document.createElement('textarea');
-      input.value = text;
-      input.style.position = 'fixed';
-      input.style.left = '-9999px';
-      document.body.appendChild(input);
-      input.focus();
-      input.select();
-      let ok = false;
-      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      input.value = text; input.style.position = 'fixed'; input.style.left = '-9999px';
+      document.body.appendChild(input); input.focus(); input.select();
+      let ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
       input.remove();
       if (!ok) window.prompt('复制失败，请手动复制：', text);
       return ok;
     }
   }
-
   async function copyModalLink() {
     if (!currentModalItem) return;
-    const url = originalUrlForKey(currentModalItem.key);
-    const ok = await copyTextToClipboard(url);
+    const ok = await copyTextToClipboard(originalUrlForKey(currentModalItem.key));
     if (ok) alert('链接已复制');
   }
-
   function filterModalIp() {
     if (!currentModalItem) return;
     const value = getIpValue(currentModalItem) || getIpHashValue(currentModalItem);
@@ -800,323 +772,181 @@
   async function auditImageKey(key) {
     if (!confirm(`✅ 确定将这张图片标记为“安全通过”吗？\n${key}`)) return;
     const pwd = getPwd();
-    try {
-      const response = await fetch(WORKER_URL + '?action=audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
-        body: JSON.stringify({ keys: [key] })
-      });
-      const data = await readJsonSafe(response);
-      if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
-      globalImages.forEach(img => {
-        if (img.key === key) {
-          img.status = 'audited';
-          img.risk = 'normal';
-          img.riskReasons = [];
-          img.suspicious = false;
-        }
-      });
-      globalIpSummary = buildIpSummary(globalImages);
-      updateCounts();
-      updateIpFilterOptions();
-      renderGallery();
-      closeImageModal();
-    } catch (error) { alert('审核失败：' + error.message); }
+    const response = await fetch(WORKER_URL + '?action=audit', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
+      body: JSON.stringify({ keys: [key] })
+    });
+    const data = await readJsonSafe(response);
+    if (!response.ok) return alert('审核失败：' + (data.error || response.status));
+    closeImageModal();
+    fetchPageData({ silent: false });
   }
-
   async function deleteImageKey(key) {
     if (!confirm(`🚨 确定彻底物理删除这张图片吗？不可恢复！\n${key}`)) return;
     const pwd = getPwd();
-    try {
-      const response = await fetch(WORKER_URL, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
-        body: JSON.stringify({ keys: [key] })
-      });
-      const data = await readJsonSafe(response);
-      if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
-      globalImages = globalImages.filter(img => img.key !== key);
-      globalIpSummary = buildIpSummary(globalImages);
-      updateCounts();
-      updateIpFilterOptions();
-      renderGallery();
-      closeImageModal();
-    } catch (error) { alert('删除失败：' + error.message); }
+    const response = await fetch(WORKER_URL, {
+      method: 'DELETE', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
+      body: JSON.stringify({ keys: [key] })
+    });
+    const data = await readJsonSafe(response);
+    if (!response.ok) return alert('删除失败：' + (data.error || response.status));
+    closeImageModal();
+    fetchPageData({ silent: false });
   }
-
-  function auditModalImage() {
-    if (!currentModalItem) return;
-    auditImageKey(currentModalItem.key);
-  }
-
-  function deleteModalImage() {
-    if (!currentModalItem) return;
-    deleteImageKey(currentModalItem.key);
-  }
-
+  function auditModalImage() { if (currentModalItem) auditImageKey(currentModalItem.key); }
+  function deleteModalImage() { if (currentModalItem) deleteImageKey(currentModalItem.key); }
   function blockModalIp() {
     if (!currentModalItem) return;
-    const item = currentModalItem;
-    if (isBlockedItem(item)) unblockIp(getIpValue(item), getIpHashValue(item));
-    else blockFileIp(item.key);
+    const ip = getIpValue(currentModalItem);
+    const ipHash = getIpHashValue(currentModalItem);
     closeImageModal();
+    if (isBlockedItem(currentModalItem)) unblockIp(ip, ipHash); else blockFileIp(currentModalItem.key);
   }
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && document.getElementById('image-modal-mask').classList.contains('show')) closeImageModal();
-  });
 
   function filterByIp(value) {
     if (!value) return alert('这张图没有 IP 记录，无法筛选。');
     document.getElementById('search-ip').value = value;
-    if (currentTab === 'ip_blacklist' || currentTab === 'vip_management') switchTab('pending');
-    resetAndRenderGallery();
+    if (!['pending','audited','personal'].includes(currentTab)) currentTab = 'pending';
+    switchTab('pending');
   }
 
   function changePage(delta) {
-    currentPage += delta;
-    renderGallery();
+    const next = currentPage + delta;
+    if (next < 1 || next > totalPages) return;
+    currentPage = next;
+    fetchPageData({ silent: false });
     document.getElementById('image-view').scrollIntoView({ behavior: 'smooth' });
   }
 
   function selectAll() {
     const checkboxes = document.querySelectorAll('.img-checkbox');
-    if (checkboxes.length === 0) return;
+    if (!checkboxes.length) return;
     const isAllChecked = Array.from(checkboxes).every(cb => cb.checked);
     checkboxes.forEach(cb => cb.checked = !isAllChecked);
   }
 
   async function executeBatch(actionType) {
-    const checkboxes = document.querySelectorAll('.img-checkbox:checked');
-    const keys = Array.from(checkboxes).map(cb => cb.value);
-    if (keys.length === 0) return alert("⚠️ 请先勾选图片！");
-    const confirmMsg = actionType === 'audit' ? `✅ 确定将这 ${keys.length} 张图片标记为“安全通过”吗？` : `🚨 警告：确定彻底物理删除这 ${keys.length} 张图片吗？不可恢复！`;
-    if (!confirm(confirmMsg)) return;
+    const keys = Array.from(document.querySelectorAll('.img-checkbox:checked')).map(cb => cb.value);
+    if (!keys.length) return alert('⚠️ 请先勾选图片！');
+    const ok = actionType === 'audit'
+      ? confirm(`✅ 确定将这 ${keys.length} 张图片标记为“安全通过”吗？`)
+      : confirm(`🚨 警告：确定彻底物理删除这 ${keys.length} 张图片吗？不可恢复！`);
+    if (!ok) return;
 
     const pwd = getPwd();
-    try {
-      const url = WORKER_URL + (actionType === 'audit' ? "?action=audit" : "");
-      const method = actionType === 'audit' ? 'POST' : 'DELETE';
-      const response = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
-        body: JSON.stringify({ keys })
-      });
-      if (response.ok) {
-        if (actionType === 'audit') globalImages.forEach(img => { if (keys.includes(img.key)) img.status = 'audited'; });
-        else globalImages = globalImages.filter(img => !keys.includes(img.key));
-        globalIpSummary = buildIpSummary(globalImages);
-        updateCounts();
-        updateIpFilterOptions();
-        renderGallery();
-      } else {
-        const err = await readJsonSafe(response);
-        alert("❌ 操作失败: " + (err.error || response.status));
-      }
-    } catch (error) { alert("❌ 网络错误: " + error.message); }
+    const response = await fetch(actionType === 'audit' ? (WORKER_URL + '?action=audit') : WORKER_URL, {
+      method: actionType === 'audit' ? 'POST' : 'DELETE',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
+      body: JSON.stringify({ keys })
+    });
+    const data = await readJsonSafe(response);
+    if (!response.ok) return alert('❌ 操作失败：' + (data.error || response.status));
+    fetchPageData({ silent: false });
   }
-
   function batchAudit() { executeBatch('audit'); }
   function batchDelete() { executeBatch('delete'); }
-  function singleAudit(key) { const cb = document.querySelector(`.img-checkbox[value="${CSS.escape(key)}"]`); if (cb) cb.checked = true; batchAudit(); }
-  function singleDelete(key) { const cb = document.querySelector(`.img-checkbox[value="${CSS.escape(key)}"]`); if (cb) cb.checked = true; batchDelete(); }
 
   async function adminUpload() {
     const fileInput = document.getElementById('admin-file');
     const file = fileInput.files[0];
     const pwd = getPwd();
-    if (!pwd || !file) return alert("⚠️ 密码未输入或文件未选择！");
-    document.getElementById('status-msg').innerText = `⏳ 正在直传...`;
+    if (!pwd || !file) return alert('⚠️ 密码未输入或文件未选择！');
+    setStatusMessage('⏳ 正在后台直传图片...');
     const formData = new FormData();
     formData.append('file', file);
-    try {
-      const response = await fetch(WORKER_URL, { method: 'POST', headers: { 'X-Admin-Key': pwd }, body: formData });
-      const result = await readJsonSafe(response);
-      if (response.ok && result.success) {
-        alert(`🎉 私用图上传成功！\n链接：${result.url}`);
-        fileInput.value = "";
-        fetchAllData();
-      } else alert(`❌ 上传失败: ${result.error || response.status}`);
-    } catch (error) { alert(`❌ 网络错误: ${error.message}`); }
-  }
-
-  function renderVipTable() {
-    const tbody = document.getElementById('vip-list-body');
-    tbody.innerHTML = "";
-    if (globalVips.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#666;">暂无已激活的 VIP 码，请在上方生成。</td></tr>`;
-      return;
-    }
-    [...globalVips].reverse().forEach(vip => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><span class="vip-code">${h(vip.code)}</span></td>
-        <td>${h(vip.note || '-')}</td>
-        <td>${h(vip.created_at || '-')}</td>
-        <td>
-          <button class="btn-warning btn-small" onclick="searchVipImages('${h(vip.code)}')">🔍 查他上传的图</button>
-          <button class="btn-danger btn-small" onclick="deleteVipCode('${h(vip.code)}')">🚨 销毁作废</button>
-        </td>`;
-      tbody.appendChild(tr);
-    });
+    const response = await fetch(WORKER_URL, { method: 'POST', headers: { 'X-Admin-Key': pwd }, body: formData });
+    const result = await readJsonSafe(response);
+    if (!response.ok || !result.success) return alert(`❌ 上传失败: ${result.error || response.status}`);
+    alert(`🎉 私用图上传成功！\n链接：${result.url}`);
+    fileInput.value = '';
+    if (currentTab !== 'personal') switchTab('personal'); else fetchPageData({ silent: false });
   }
 
   function searchVipImages(code) {
     document.getElementById('search-vip').value = code;
     switchTab('audited');
   }
-
   async function generateVipCode() {
     const pwd = getPwd();
-    if (!pwd) return alert("⚠️ 请先输入超级管理员密码！");
+    if (!pwd) return alert('⚠️ 请先输入超级管理员密码！');
     let newCode = document.getElementById('new-vip-code').value.trim();
     const note = document.getElementById('new-vip-note').value.trim();
-    if (!newCode) newCode = 'vip_' + Math.random().toString(36).slice(2, 8) + Math.floor(Date.now() / 1000).toString().slice(-4);
-    if (globalVips.find(v => v.code === newCode)) return alert("⚠️ 该 VIP 码已存在，请更换！");
-    try {
-      const response = await fetch(WORKER_URL + "?action=vip_add", {
-        method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify({ code: newCode, note })
-      });
-      if (response.ok) {
-        alert(`🎉 VIP 码 [${newCode}] 生成成功！`);
-        document.getElementById('new-vip-code').value = "";
-        document.getElementById('new-vip-note').value = "";
-        fetchAllData();
-      } else {
-        const err = await readJsonSafe(response);
-        alert("❌ 生成失败: " + (err.error || response.status));
-      }
-    } catch (error) { alert("❌ 网络错误: " + error.message); }
+    if (!newCode) newCode = 'vip_' + Math.random().toString(36).slice(2, 8) + String(Math.floor(Date.now() / 1000)).slice(-4);
+    if (globalVips.find(v => v.code === newCode)) return alert('⚠️ 该 VIP 码已存在，请更换！');
+    const response = await fetch(WORKER_URL + '?action=vip_add', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
+      body: JSON.stringify({ code: newCode, note })
+    });
+    const data = await readJsonSafe(response);
+    if (!response.ok) return alert('❌ 生成失败：' + (data.error || response.status));
+    document.getElementById('new-vip-code').value = '';
+    document.getElementById('new-vip-note').value = '';
+    globalVips = await fetchVipList(pwd);
+    renderVipTable();
+    alert(`🎉 VIP 码 [${newCode}] 生成成功！`);
   }
-
   async function deleteVipCode(code) {
-    if (!confirm(`🚨 确定要作废这个 VIP 码 [${code}] 吗？\n作废后，该用户无法再永久上传（但之前传的图不会被删）。`)) return;
+    if (!confirm(`🚨 确定要作废这个 VIP 码 [${code}] 吗？\n作废后该用户无法再永久上传。`)) return;
     const pwd = getPwd();
-    try {
-      const response = await fetch(WORKER_URL + "?action=vip_del", {
-        method: 'DELETE', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify({ code })
-      });
-      if (response.ok) {
-        alert(`🗑️ VIP 码已作废！`);
-        fetchAllData();
-      } else {
-        const err = await readJsonSafe(response);
-        alert("❌ 作废失败: " + (err.error || response.status));
-      }
-    } catch (error) { alert("❌ 网络错误: " + error.message); }
+    const response = await fetch(WORKER_URL + '?action=vip_del', {
+      method: 'DELETE', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
+      body: JSON.stringify({ code })
+    });
+    const data = await readJsonSafe(response);
+    if (!response.ok) return alert('❌ 作废失败：' + (data.error || response.status));
+    globalVips = await fetchVipList(pwd);
+    renderVipTable();
   }
 
+  async function blockIp(ip, ipHash = '') {
+    const pwd = getPwd();
+    const note = window.prompt('请输入拉黑原因备注：', '后台审核拉黑') || '';
+    const body = ip ? { ip, note } : { ip_hash: ipHash, note };
+    const response = await fetch(WORKER_URL + '?action=block_ip', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify(body)
+    });
+    const data = await readJsonSafe(response);
+    if (!response.ok) return alert('拉黑失败：' + (data.error || response.status));
+    fetchPageData({ silent: false });
+  }
   async function blockFileIp(key) {
-    if (!confirm(`确定拉黑这张图片的上传 IP？\n${key}`)) return;
     const pwd = getPwd();
-    try {
-      const response = await fetch(WORKER_URL + "?action=block_file_ip", {
-        method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify({ key, note: '后台审核拉黑' })
-      });
-      const data = await readJsonSafe(response);
-      if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
-      alert('已拉黑该图片上传 IP');
-      await fetchAllData();
-    } catch (error) { alert('拉黑失败：' + error.message); }
+    const note = window.prompt('请输入拉黑原因备注：', '根据图片审核拉黑') || '';
+    const response = await fetch(WORKER_URL + '?action=block_file_ip', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify({ key, note })
+    });
+    const data = await readJsonSafe(response);
+    if (!response.ok) return alert('拉黑失败：' + (data.error || response.status));
+    fetchPageData({ silent: false });
   }
-
-  async function blockIp(ip, ipHash, note) {
+  async function unblockIp(ip, ipHash = '') {
+    if (!confirm('确定解除这个 IP 的黑名单吗？')) return;
     const pwd = getPwd();
-    if (!pwd) return alert('请先输入管理员密码');
-    if (!ip && !ipHash) return alert('缺少 IP 或 IP Hash');
-    try {
-      const body = { note: note || '后台手动拉黑' };
-      if (ip) body.ip = ip;
-      if (ipHash) body.ip_hash = ipHash;
-      const response = await fetch(WORKER_URL + "?action=block_ip", {
-        method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify(body)
-      });
-      const data = await readJsonSafe(response);
-      if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
-      alert('已加入 IP 黑名单');
-      await fetchAllData();
-    } catch (error) { alert('拉黑失败：' + error.message); }
+    const body = ip ? { ip } : { ip_hash: ipHash };
+    const response = await fetch(WORKER_URL + '?action=unblock_ip', {
+      method: 'DELETE', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify(body)
+    });
+    const data = await readJsonSafe(response);
+    if (!response.ok) return alert('解除失败：' + (data.error || response.status));
+    fetchPageData({ silent: false });
   }
-
   function manualBlockIp() {
     const ip = document.getElementById('manual-ip').value.trim();
-    const note = document.getElementById('manual-ip-note').value.trim();
-    blockIp(ip, '', note || '后台手动添加');
+    if (!ip) return alert('请输入要拉黑的 IP');
+    blockIp(ip);
+    document.getElementById('manual-ip').value = '';
+    document.getElementById('manual-ip-note').value = '';
   }
 
-  async function unblockIp(ip, ipHash) {
-    if (!confirm('确定解除该 IP 黑名单？')) return;
-    const pwd = getPwd();
-    try {
-      const body = {};
-      if (ip) body.ip = ip;
-      if (ipHash) body.ip_hash = ipHash;
-      const response = await fetch(WORKER_URL + "?action=unblock_ip", {
-        method: 'DELETE', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify(body)
-      });
-      const data = await readJsonSafe(response);
-      if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
-      alert('已解除黑名单');
-      await fetchAllData();
-    } catch (error) { alert('解除失败：' + error.message); }
-  }
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && document.getElementById('image-modal-mask').classList.contains('show')) closeImageModal();
+  });
 
-  function renderIpPanel() {
-    renderIpSummaryTable();
-    renderBlockedIpTable();
-  }
-
-  function renderIpSummaryTable() {
-    const tbody = document.getElementById('ip-summary-body');
-    const rows = (globalIpSummary.length ? globalIpSummary : buildIpSummary(globalImages))
-      .slice()
-      .sort((a, b) => (b.count || 0) - (a.count || 0));
-    if (!rows.length) {
-      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#666;">暂无 IP 汇总数据。</td></tr>`;
-      return;
-    }
-    tbody.innerHTML = rows.map(row => {
-      const ip = row.ip || '';
-      const ipHash = row.ipHash || row.ip_hash || '';
-      const blocked = row.blocked || globalBlockedIps.some(b => normalizeKey(b.ip) === normalizeKey(ip) || normalizeKey(b.ipHash || b.ip_hash) === normalizeKey(ipHash));
-      return `<tr>
-        <td class="mono">${ip ? h(ip) : '<span style="color:#999;">旧图无明文IP</span>'}</td>
-        <td>${h(locationText(row))}</td>
-        <td><b>${Number(row.count || 0)}</b></td>
-        <td style="color:${Number(row.suspicious || 0) > 0 ? '#e67e22' : '#666'};"><b>${Number(row.suspicious || 0)}</b></td>
-        <td>${row.latestUpload ? h(new Date(row.latestUpload).toLocaleString('zh-CN', { hour12: false })) : '-'}</td>
-        <td>
-          <button class="btn-warning btn-small" onclick="filterByIp('${h(ip || ipHash)}')">筛选图片</button>
-          ${blocked ? `<button class="btn-success btn-small" onclick="unblockIp('${h(ip)}','${h(ipHash)}')">解除拉黑</button>` : `<button class="btn-danger btn-small" onclick="blockIp('${h(ip)}','${h(ipHash)}','IP汇总拉黑')">拉黑</button>`}
-        </td>
-      </tr>`;
-    }).join('');
-  }
-
-  function renderBlockedIpTable() {
-    const tbody = document.getElementById('blocked-ip-body');
-    if (!globalBlockedIps.length) {
-      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#666;">暂无黑名单数据。</td></tr>`;
-      return;
-    }
-    tbody.innerHTML = globalBlockedIps.map(row => {
-      const ip = row.ip || '';
-      const ipHash = row.ipHash || row.ip_hash || '';
-      return `<tr>
-        <td class="mono">${h(ip || '仅Hash记录')}</td>
-        <td>${h(row.note || '-')}</td>
-        <td>${h(row.createdAt || row.created_at || '-')}</td>
-        <td>
-          <button class="btn-warning btn-small" onclick="filterByIp('${h(ip || ipHash)}')">筛选图片</button>
-          <button class="btn-success btn-small" onclick="unblockIp('${h(ip)}','${h(ipHash)}')">解除拉黑</button>
-        </td>
-      </tr>`;
-    }).join('');
-  }
-
-  // 本地双击打开也要先显示页面，不自动请求接口。
-  updateCounts();
-  updateIpFilterOptions();
+  window.addEventListener('load', () => {
+    document.getElementById('items-per-page').value = '16';
+    startAutoRefresh();
+  });
 </script>
+
 </body>
 </html>
