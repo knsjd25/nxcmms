@@ -769,6 +769,7 @@
     const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
     const CLIENT_UPLOAD_COOLDOWN_MS = 6000;
     const LAST_UPLOAD_AT_KEY = "mini_tools_upload_last_success_at";
+    const CLIENT_DEVICE_ID_KEY = "mini_tools_upload_device_id";
     const CAPTCHA_MAX_AGE_MS = 4 * 60 * 1000;
     const CAPTCHA_REFRESH_ON_RETURN_MS = 10 * 1000;
 
@@ -1760,6 +1761,21 @@
       }
     }
 
+    function getClientDeviceId() {
+      try {
+        let id = window.localStorage.getItem(CLIENT_DEVICE_ID_KEY);
+        if (!id) {
+          id = (window.crypto && typeof window.crypto.randomUUID === "function")
+            ? window.crypto.randomUUID()
+            : "dev_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2);
+          window.localStorage.setItem(CLIENT_DEVICE_ID_KEY, id);
+        }
+        return id;
+      } catch (error) {
+        return "session_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2);
+      }
+    }
+
     function getCooldownRemainingMs() {
       const elapsed = Date.now() - getLastUploadAt();
       return Math.max(0, CLIENT_UPLOAD_COOLDOWN_MS - elapsed);
@@ -2148,6 +2164,7 @@ updateProperty("og:title", texts.ogTitle);
         formData.append("vip_id", vipCode);
         formData.append("captcha_id", currentCaptchaId);
         formData.append("captcha_answer", currentCaptchaAnswer);
+        formData.append("client_device_id", getClientDeviceId());
 
         const response = await fetch(WORKER_URL, {
           method: "POST",
