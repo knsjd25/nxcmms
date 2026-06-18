@@ -143,6 +143,32 @@
     .tip-card p{margin:0;color:#7c2d12;font-size:.9rem;line-height:1.65;font-weight:700}
     .tip-mail{margin-top:8px;font-size:.88rem;font-weight:800;color:#9a3412}
     .tip-mail a{color:#9a3412;text-decoration:underline;font-weight:900}
+    .tip-card.vip-attention{
+      border:2px solid #dc2626;
+      background:linear-gradient(180deg,#fef2f2 0%, #fff7ed 100%);
+      box-shadow:0 0 0 5px rgba(220,38,38,.10), 0 12px 24px rgba(220,38,38,.10);
+    }
+    .tip-card.vip-attention strong{color:#991b1b}
+    .tip-card.vip-attention p,.tip-card.vip-attention .tip-mail,.tip-card.vip-attention .tip-mail a{color:#991b1b}
+    .text-input.vip-required{
+      border:2px solid #dc2626;
+      background:#fff1f2;
+      box-shadow:0 0 0 5px rgba(220,38,38,.12);
+    }
+    .inline-notice.vip-attention{
+      background:#fef2f2;
+      border:2px solid #dc2626;
+      color:#991b1b;
+      box-shadow:0 0 0 4px rgba(220,38,38,.10);
+    }
+    .vip-shake{animation:vipShake .46s ease-in-out 0s 2}
+    @keyframes vipShake{
+      0%,100%{transform:translateX(0)}
+      18%{transform:translateX(-6px)}
+      36%{transform:translateX(6px)}
+      54%{transform:translateX(-4px)}
+      72%{transform:translateX(4px)}
+    }
 
     .file-box{
       display:flex;align-items:center;width:100%;border:2px solid var(--line);border-radius:20px;background:#fff;overflow:hidden;
@@ -477,7 +503,7 @@
           </div>
 
           <div class="field">
-            <div class="tip-card">
+            <div class="tip-card" id="storageCodeCard">
               <strong id="storageCodeTitle">Optional long-term storage code</strong>
               <p id="storageCodeText">Leave this blank for normal uploads. If you have an approved storage code, enter it here to request long-term retention.</p>
               <div class="tip-mail" id="storageCodeEmailText">For approved long-term storage access, contact <a href="mailto:yuyananuu@gmail.com" data-cfemail="false">yuyananuu@gmail.com</a></div>
@@ -743,6 +769,8 @@
     const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
     const CLIENT_UPLOAD_COOLDOWN_MS = 6000;
     const LAST_UPLOAD_AT_KEY = "mini_tools_upload_last_success_at";
+    const CAPTCHA_MAX_AGE_MS = 4 * 60 * 1000;
+    const CAPTCHA_REFRESH_ON_RETURN_MS = 10 * 1000;
 
     const translations = window.PAGE_TRANSLATIONS = {
       en: {
@@ -1594,6 +1622,7 @@
     const fileName = document.getElementById("fileName");
     const durationSelect = document.getElementById("durationSelect");
     const storageCodeInput = document.getElementById("storageCodeInput");
+    const storageCodeCard = document.getElementById("storageCodeCard");
     const previewImage = document.getElementById("previewImage");
     const previewPlaceholder = document.getElementById("previewPlaceholder");
     const uploadBtn = document.getElementById("uploadBtn");
@@ -1612,6 +1641,9 @@
     const bbcodeOutput = document.getElementById("bbcodeOutput");
 
     let captchaId = "";
+    let captchaIssuedAt = 0;
+    let pageHiddenAt = 0;
+    let captchaReturnRefreshInFlight = false;
     let captchaLoading = false;
     let uploadInFlight = false;
 
@@ -1623,7 +1655,8 @@
         logSecurityRejected: "Upload blocked by the security rules: {error}",
         logTooManyRequests: "Upload too frequent. Please wait a moment and try again.",
         logSessionExpired: "Upload session expired. Please refresh the verification question and try again.",
-        logFileBlocked: "This file was rejected by the server security checks."
+        logFileBlocked: "This file was rejected by the server security checks.",
+        logCaptchaAutoRefresh: "Verification refreshed automatically. Please enter the new result before uploading."
       },
       zh: {
         logUnsupportedType: "错误：仅支持 JPG、PNG、GIF 和 WebP 图片。",
@@ -1632,7 +1665,8 @@
         logSecurityRejected: "上传被安全规则拦截：{error}",
         logTooManyRequests: "上传过于频繁，请稍后再试。",
         logSessionExpired: "上传会话已失效，请刷新验证题后重试。",
-        logFileBlocked: "该文件未通过服务端安全检查。"
+        logFileBlocked: "该文件未通过服务端安全检查。",
+        logCaptchaAutoRefresh: "验证码已自动刷新，请输入新的计算结果后再上传。"
       },
       de: {
         logUnsupportedType: "Fehler: Nur JPG-, PNG-, GIF- und WebP-Bilder werden unterstützt.",
@@ -1641,7 +1675,8 @@
         logSecurityRejected: "Upload durch Sicherheitsregeln blockiert: {error}",
         logTooManyRequests: "Zu viele Uploads. Bitte warte kurz und versuche es erneut.",
         logSessionExpired: "Upload-Sitzung abgelaufen. Bitte aktualisiere die Verifizierungsfrage und versuche es erneut.",
-        logFileBlocked: "Diese Datei wurde von den Sicherheitsprüfungen abgelehnt."
+        logFileBlocked: "Diese Datei wurde von den Sicherheitsprüfungen abgelehnt.",
+        logCaptchaAutoRefresh: "Verifizierung wurde automatisch aktualisiert. Bitte gib das neue Ergebnis ein."
       },
       fr: {
         logUnsupportedType: "Erreur : seuls les formats JPG, PNG, GIF et WebP sont pris en charge.",
@@ -1650,7 +1685,8 @@
         logSecurityRejected: "Envoi bloqué par les règles de sécurité : {error}",
         logTooManyRequests: "Envois trop fréquents. Veuillez patienter puis réessayer.",
         logSessionExpired: "Session d’envoi expirée. Veuillez actualiser la vérification puis réessayer.",
-        logFileBlocked: "Ce fichier a été refusé par les contrôles de sécurité du serveur."
+        logFileBlocked: "Ce fichier a été refusé par les contrôles de sécurité du serveur.",
+        logCaptchaAutoRefresh: "La vérification a été actualisée automatiquement. Saisissez le nouveau résultat avant l’envoi."
       },
       es: {
         logUnsupportedType: "Error: solo se admiten imágenes JPG, PNG, GIF y WebP.",
@@ -1659,7 +1695,8 @@
         logSecurityRejected: "Subida bloqueada por reglas de seguridad: {error}",
         logTooManyRequests: "Subidas demasiado frecuentes. Espera un momento e inténtalo de nuevo.",
         logSessionExpired: "La sesión de subida expiró. Actualiza la verificación e inténtalo de nuevo.",
-        logFileBlocked: "Este archivo fue rechazado por las comprobaciones de seguridad del servidor."
+        logFileBlocked: "Este archivo fue rechazado por las comprobaciones de seguridad del servidor.",
+        logCaptchaAutoRefresh: "La verificación se actualizó automáticamente. Introduce el nuevo resultado antes de subir."
       }
     };
 
@@ -1820,17 +1857,41 @@
         }
 
         captchaId = result.captcha_id;
+        captchaIssuedAt = Date.now();
         mathQuestion.textContent = result.question;
         captchaAnswerInput.value = "";
         setCaptchaStatus(texts.captchaReadyText || "Verification question loaded.", "success");
       } catch (error) {
         captchaId = "";
+        captchaIssuedAt = 0;
         mathQuestion.textContent = "↻";
         setCaptchaStatus(texts.captchaRetryText || error.message || texts.logLoadCaptchaFailed, "error");
         throw error;
       } finally {
         captchaLoading = false;
         refreshCaptchaBtn.disabled = false;
+      }
+    }
+
+    function isCaptchaStale() {
+      if (!captchaId || !captchaIssuedAt) return true;
+      return Date.now() - captchaIssuedAt > CAPTCHA_MAX_AGE_MS;
+    }
+
+    async function refreshCaptchaAfterReturn(reason = "return") {
+      if (captchaReturnRefreshInFlight || captchaLoading || uploadInFlight) return;
+      captchaReturnRefreshInFlight = true;
+      try {
+        await fetchCaptcha();
+        const message = securityText("logCaptchaAutoRefresh", "Verification refreshed automatically. Please enter the new result before uploading.");
+        setCaptchaStatus(message, "success");
+        if (reason === "return" && uploadLog && uploadLog.children.length) {
+          appendLog(message, "normal");
+        }
+      } catch (error) {
+        if (uploadLog && uploadLog.children.length) appendLog(error.message, "error");
+      } finally {
+        captchaReturnRefreshInFlight = false;
       }
     }
 
@@ -1941,8 +2002,22 @@ updateProperty("og:title", texts.ogTitle);
       resultPanel.classList.add("show");
     }
 
+    function restartVipAttention() {
+      [storageCodeCard, storageCodeInput, permanentNotice].forEach((el) => {
+        if (!el) return;
+        el.classList.remove("vip-shake");
+        void el.offsetWidth;
+        el.classList.add("vip-shake");
+      });
+    }
+
     function updatePermanentNotice() {
-      permanentNotice.classList.toggle("show", durationSelect.value === "permanent");
+      const wantsPermanent = durationSelect.value === "permanent";
+      permanentNotice.classList.toggle("show", wantsPermanent);
+      permanentNotice.classList.toggle("vip-attention", wantsPermanent);
+      storageCodeInput.classList.toggle("vip-required", wantsPermanent);
+      if (storageCodeCard) storageCodeCard.classList.toggle("vip-attention", wantsPermanent);
+      if (wantsPermanent) restartVipAttention();
     }
 
     function setSelectedFile(file) {
@@ -2018,8 +2093,20 @@ updateProperty("og:title", texts.ogTitle);
 
       if (wantsPermanent && !vipCode) {
         updatePermanentNotice();
+        restartVipAttention();
         appendLog(texts.logPermanentCodeRequired, "error");
         storageCodeInput.focus();
+        return;
+      }
+
+      if (isCaptchaStale()) {
+        appendLog(securityText("logCaptchaAutoRefresh", "Verification refreshed automatically. Please enter the new result before uploading."), "error");
+        try {
+          await fetchCaptcha();
+        } catch (error) {
+          appendLog(error.message, "error");
+        }
+        captchaAnswerInput.focus();
         return;
       }
 
@@ -2118,7 +2205,36 @@ updateProperty("og:title", texts.ogTitle);
       setSelectedFile(e.target.files[0]);
     });
 
-    durationSelect.addEventListener("change", updatePermanentNotice);
+    durationSelect.addEventListener("change", () => {
+      updatePermanentNotice();
+      if (durationSelect.value === "permanent") {
+        window.setTimeout(() => storageCodeInput.focus(), 120);
+      }
+    });
+
+    storageCodeInput.addEventListener("input", () => {
+      if (durationSelect.value === "permanent" && storageCodeInput.value.trim()) {
+        storageCodeInput.classList.remove("vip-shake");
+      }
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        pageHiddenAt = Date.now();
+        return;
+      }
+
+      const hiddenFor = pageHiddenAt ? Date.now() - pageHiddenAt : 0;
+      if (hiddenFor >= CAPTCHA_REFRESH_ON_RETURN_MS || isCaptchaStale()) {
+        refreshCaptchaAfterReturn("return");
+      }
+    });
+
+    window.addEventListener("focus", () => {
+      if (document.visibilityState === "visible" && isCaptchaStale()) {
+        refreshCaptchaAfterReturn("focus");
+      }
+    });
 
     refreshCaptchaBtn.addEventListener("click", async () => {
       try {
