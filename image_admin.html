@@ -9,9 +9,36 @@
     .header { background: #2c3e50; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; }
     .header h2 { margin: 0; }
     .auth-box { display: flex; gap: 10px; }
-    input[type="password"], input[type="file"], input[type="text"], select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; outline: none; }
-    button { padding: 10px 15px; cursor: pointer; border: none; border-radius: 5px; background: #3498db; color: white; font-weight: bold; transition: background 0.3s; }
-    button:hover { background: #2980b9; }
+    input[type="password"], input[type="file"], input[type="text"], select {
+      height: 40px;
+      box-sizing: border-box;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      outline: none;
+      background: #fff;
+    }
+    button, .modal-link, .modal-close {
+      min-height: 40px;
+      box-sizing: border-box;
+      padding: 0 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background: #3498db;
+      color: white;
+      font-weight: 700;
+      font-size: .92rem;
+      line-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    }
+    button:hover, .modal-link:hover, .modal-close:hover { background: #2980b9; }
     button:disabled { background: #bdc3c7; cursor: not-allowed; }
     .btn-danger { background: #e74c3c; }
     .btn-danger:hover { background: #c0392b; }
@@ -21,19 +48,59 @@
     .btn-warning:hover { background: #d68910; }
     .btn-purple { background: #8e44ad; }
     .btn-purple:hover { background: #732d91; }
-    .btn-gray { background: #95a5a6; }
-    .btn-gray:hover { background: #7f8c8d; }
-    .btn-small { padding: 6px 8px; font-size: .78rem; }
+    .btn-gray { background: #64748b; }
+    .btn-gray:hover { background: #475569; }
+    .btn-small {
+      min-height: 32px;
+      height: 32px;
+      line-height: 32px;
+      padding: 0 10px;
+      font-size: .78rem;
+      border-radius: 7px;
+      margin: 2px 4px 2px 0;
+    }
 
-    .dashboard-nav { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
-    .nav-card { flex: 1; min-width: 150px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+    .dashboard-nav {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(150px, 1fr));
+      gap: 14px;
+      margin: 14px 0 18px;
+      align-items: stretch;
+    }
+    .nav-card {
+      min-height: 96px;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      padding: 16px 14px;
+      border-radius: 14px;
+      box-shadow: 0 8px 22px rgba(15,23,42,0.06);
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid #e5e7eb;
+      transition: all 0.18s;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+    .nav-card:hover { transform: translateY(-1px); box-shadow: 0 10px 26px rgba(15,23,42,0.09); }
     .nav-card.active { border-color: #3498db; background: #ebf5fb; }
-    .nav-card h3 { margin: 0 0 10px 0; color: #333; font-size: 1.1rem; }
-    .nav-card .count { font-size: 1.5rem; font-weight: bold; color: #3498db; }
+    .nav-card h3 { margin: 0; color: #334155; font-size: .95rem; line-height: 1.35; }
+    .nav-card .count { font-size: 1.65rem; line-height: 1; font-weight: 800; color: #3498db; }
 
-    .control-panel { background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-wrap: wrap; gap: 15px; align-items: center; justify-content: space-between; }
-    .filter-group { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-    .admin-upload { display: flex; gap: 10px; align-items: center; border-left: 2px solid #eee; padding-left: 15px; }
+    .control-panel {
+      background: white;
+      padding: 14px;
+      border-radius: 14px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 22px rgba(15,23,42,0.06);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .filter-group { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .admin-upload { display: flex; gap: 10px; align-items: center; border-left: 1px solid #e5e7eb; padding-left: 14px; flex-wrap: wrap; }
 
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; align-items: start; }
     .card { background: white; padding: 10px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); text-align: center; position: relative; transition: none; content-visibility: auto; contain-intrinsic-size: 360px; }
@@ -105,7 +172,29 @@
     .vip-code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: bold; }
     .vip-code { font-size: 1.1rem; color: #d35400; background: #fdf2e9; padding: 4px 8px; border-radius: 4px; }
     .panel-note { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e3a8a; padding: 12px; border-radius: 8px; line-height: 1.6; margin-bottom: 16px; }
-    #status-msg { margin-top: 10px; color: #666; font-weight: bold; }
+    #status-msg {
+      margin: 10px 0 16px;
+      color: #475569;
+      font-weight: 700;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-left: 4px solid #3498db;
+      border-radius: 10px;
+      padding: 12px 14px;
+      box-shadow: 0 4px 12px rgba(15,23,42,0.04);
+    }
+    .table-actions { display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+    @media (max-width: 980px) {
+      .dashboard-nav { grid-template-columns: repeat(2, minmax(150px, 1fr)); }
+      .header { align-items: stretch; }
+      .auth-box { width: 100%; flex-wrap: wrap; }
+      .admin-upload { border-left: 0; padding-left: 0; }
+    }
+    @media (max-width: 560px) {
+      .dashboard-nav { grid-template-columns: 1fr; }
+      button, .modal-link, .modal-close { width: 100%; }
+      .btn-small { width: auto; }
+    }
 
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
@@ -147,7 +236,7 @@
   </div>
 </div>
 
-<div id="status-msg">请先输入密码并点击“立即刷新”。切换卡片默认使用缓存，不会重复拉取接口。</div>
+<div id="status-msg">请先输入密码并点击“立即刷新”。当前版本使用 D1 分页查询。</div>
 
 <div id="image-view">
   <div class="control-panel">
@@ -222,7 +311,7 @@
 <div id="ip-panel">
   <h3>⛔ IP 黑名单与上传来源审核</h3>
   <div class="panel-note">
-    这里依赖新版 Worker 返回的 IP 审核字段。后台会保留 IP Hash、UA、来源等审计信息，但页面默认只显示明文 IP 和中文位置，方便快速审核。
+    这里依赖新版 Worker 返回的 IP 审核字段。后台会保留 IP Hash、UA、来源等审计信息，但页面默认只显示明文 IP 和中文位置；点击“筛全部”会跨待审核、已通过、私用图全部查询该 IP。
   </div>
   <div class="ip-form">
     <input type="text" id="manual-ip" placeholder="输入要拉黑的 IP，例如 1.2.3.4">
@@ -297,6 +386,7 @@
   let isFetching = false;
   const pageCache = new Map();
   let hasInitialFullRefresh = false;
+  let ipFilterAllStatuses = false;
 
   function h(v) {
     return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -304,7 +394,10 @@
   function jsArg(v) { return JSON.stringify(v ?? ''); }
   function getPwd() { return document.getElementById('admin-pwd').value.trim(); }
   function normalizeKey(v) { return String(v || '').trim().toLowerCase(); }
-  function currentImageTab() { return ['pending','audited','personal'].includes(currentTab) ? currentTab : 'pending'; }
+  function currentImageTab() {
+    if (ipFilterAllStatuses) return 'all';
+    return ['pending','audited','personal'].includes(currentTab) ? currentTab : 'pending';
+  }
   function statusLabel(v) {
     if (v === 'suspicious') return '⚠️ 可疑上传';
     if (v === 'pending') return '🚨 待审核';
@@ -480,29 +573,16 @@
   }
 
   function updateAutoRefreshText() {
-    const extra = `（${refreshCountdown}s 后自动刷新，可手动刷新）`;
-    const base = currentTab === 'pending' && currentPage === 1
-      ? `✅ 待审核首页 ${currentPage}/${totalPages}，当前筛选 ${totalFiltered} 张；总图库 ${dashboardCounts.total || 0} 张；自动刷新新上传已开启`
-      : `✅ 当前页 ${currentPage}/${totalPages}，当前筛选 ${totalFiltered} 张；总图库 ${dashboardCounts.total || 0} 张；自动刷新暂停` ;
-    setStatusMessage(`${base} ${extra}`);
+    const scope = ipFilterAllStatuses ? '；IP 筛选为全状态范围' : '';
+    setStatusMessage(`✅ 当前页 ${currentPage}/${totalPages}，当前筛选 ${totalFiltered} 张；总图库 ${dashboardCounts.total || 0} 张${scope}`);
   }
 
   function startAutoRefresh() {
+    // D1 分页版已关闭自动刷新，避免后台审核时反复请求接口。
     if (autoRefreshInterval) clearInterval(autoRefreshInterval);
     if (autoRefreshTick) clearInterval(autoRefreshTick);
-    refreshCountdown = Math.floor(AUTO_REFRESH_MS / 1000);
-    autoRefreshTick = setInterval(() => {
-      refreshCountdown -= 1;
-      if (refreshCountdown < 0) refreshCountdown = 0;
-      if (!isFetching) updateAutoRefreshText();
-    }, 1000);
-    autoRefreshInterval = setInterval(() => {
-      // 自动刷新只看“待审核第一页”的新上传，避免已通过/私用图反复刷新造成卡顿。
-      if (currentTab !== 'pending' || currentPage !== 1) return;
-      if (document.getElementById('image-modal-mask').classList.contains('show')) return;
-      if (isFetching) return;
-      fetchPageData({ silent: true, isAuto: true });
-    }, AUTO_REFRESH_MS);
+    autoRefreshInterval = null;
+    autoRefreshTick = null;
   }
 
   async function fetchPageData({ silent = false, isAuto = false, force = false } = {}) {
@@ -512,14 +592,10 @@
       return;
     }
     const cacheKey = currentCacheKey();
-    if (!force && !isAuto && pageCache.has(cacheKey)) {
-      applyPageCache(pageCache.get(cacheKey));
-      return;
-    }
 
     if (isFetching) return;
     isFetching = true;
-    if (!silent) setStatusMessage(force ? '⏳ 正在强制刷新当前页与管理数据...' : '⏳ 正在拉取当前页数据...');
+    if (!silent) setStatusMessage(force ? '⏳ 正在从 D1 分页查询当前页...' : '⏳ 正在从 D1 拉取当前页...');
 
     try {
       const headers = { 'X-Admin-Key': pwd };
@@ -563,9 +639,11 @@
       else if (currentTab === 'ip_blacklist') renderIpPanel();
       else renderGallery();
 
-      refreshCountdown = Math.floor(AUTO_REFRESH_MS / 1000);
+      if (!silent && imgData.source) {
+        setStatusMessage(`✅ 当前列表来源：${imgData.source === 'd1' ? 'D1 数据库分页' : 'R2 降级列表'}，共 ${totalFiltered} 张`);
+      }
+
       updateAutoRefreshText();
-      if (!autoRefreshInterval) startAutoRefresh();
     } catch (error) {
       setStatusMessage('❌ 拉取失败: ' + (error.message || '未知错误'), true);
     } finally {
@@ -579,7 +657,8 @@
   }
 
   function updateCounts() {
-    document.getElementById('count-pending').innerText = dashboardCounts.pending || 0;
+    const reviewCount = Number(dashboardCounts.review ?? (Number(dashboardCounts.pending || 0) + Number(dashboardCounts.suspicious || 0)));
+    document.getElementById('count-pending').innerText = reviewCount;
     document.getElementById('count-audited').innerText = dashboardCounts.audited || 0;
     document.getElementById('count-personal').innerText = dashboardCounts.personal || 0;
     document.getElementById('count-blocked').innerText = globalBlockedIps.length;
@@ -606,9 +685,12 @@
     setStatusMessage('ℹ️ 当前卡片未加载。为避免卡顿，点击卡片不会请求接口；需要查看时请点右上角“立即刷新”。');
   }
 
-  function switchTab(tab) {
+  function switchTab(tab, keepIpScope = false) {
     currentTab = tab;
     currentPage = 1;
+    if (!keepIpScope && ['pending','audited','personal'].includes(tab)) {
+      ipFilterAllStatuses = false;
+    }
     document.querySelectorAll('.nav-card').forEach(el => el.classList.remove('active'));
     const tabEl = document.getElementById(`tab-${tab}`);
     if (tabEl) tabEl.classList.add('active');
@@ -626,27 +708,22 @@
       return;
     }
     if (['pending','audited','personal'].includes(tab)) {
-      const cache = pageCache.get(currentCacheKey());
-      if (cache) applyPageCache(cache);
-      else showUnloadedImageTab();
+      fetchPageData({ silent: false, force: true });
     }
   }
 
   function clearIpFilters() {
+    ipFilterAllStatuses = false;
     document.getElementById('search-ip').value = '';
     document.getElementById('filter-ip').value = 'all';
     document.getElementById('filter-risk').value = 'all';
     currentPage = 1;
-    const cache = pageCache.get(currentCacheKey());
-    if (cache) applyPageCache(cache);
-    else showUnloadedImageTab();
+    fetchPageData({ silent: false, force: true });
   }
 
   function resetAndRenderGallery() {
     currentPage = 1;
-    const cache = pageCache.get(currentCacheKey());
-    if (cache) applyPageCache(cache);
-    else showUnloadedImageTab();
+    fetchPageData({ silent: false, force: true });
   }
 
   function createImageCard(item) {
@@ -702,7 +779,7 @@
     const paginationPanel = document.getElementById('pagination-panel');
     gallery.innerHTML = '';
     if (!globalImages.length) {
-      gallery.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#666;padding:40px;">当前页没有图片，或当前卡片还未加载。需要查看请点击“立即刷新”。</p>`;
+      gallery.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#666;padding:40px;">当前页没有图片。</p>`;
       paginationPanel.style.display = 'none';
       return;
     }
@@ -763,8 +840,10 @@
           <td>${Number(row.suspicious || 0)}</td>
           <td>${h(row.latestUpload ? new Date(row.latestUpload).toLocaleString('zh-CN', { hour12: false }) : '-')}</td>
           <td>
-            <button class="btn-gray btn-small" onclick="filterByIp(${jsArg(row.ip || row.ipHash || '')})">筛此IP</button>
-            ${row.blocked ? `<button class="btn-success btn-small" onclick="unblockIp(${jsArg(row.ip || '')}, ${jsArg(row.ipHash || '')})">解除</button>` : `<button class="btn-danger btn-small" onclick="blockIp(${jsArg(row.ip || '')}, ${jsArg(row.ipHash || '')})">拉黑</button>`}
+            <div class="table-actions">
+              <button class="btn-gray btn-small" onclick="filterByIp(${jsArg(row.ip || row.ipHash || '')}, true)">筛全部</button>
+              ${row.blocked ? `<button class="btn-success btn-small" onclick="unblockIp(${jsArg(row.ip || '')}, ${jsArg(row.ipHash || '')})">解除</button>` : `<button class="btn-danger btn-small" onclick="blockIp(${jsArg(row.ip || '')}, ${jsArg(row.ipHash || '')})">拉黑</button>`}
+            </div>
           </td>
         </tr>`).join('');
     }
@@ -776,7 +855,12 @@
           <td>${h(row.ip || row.ip_hash || row.ipHash || '-')}</td>
           <td>${h(row.note || '-')}</td>
           <td>${h(row.created_at || '-')}</td>
-          <td><button class="btn-success btn-small" onclick="unblockIp(${jsArg(row.ip || '')}, ${jsArg(row.ip_hash || row.ipHash || '')})">解除拉黑</button></td>
+          <td>
+            <div class="table-actions">
+              <button class="btn-gray btn-small" onclick="filterByIp(${jsArg(row.ip || row.ip_hash || row.ipHash || '')}, true)">筛全部</button>
+              <button class="btn-success btn-small" onclick="unblockIp(${jsArg(row.ip || '')}, ${jsArg(row.ip_hash || row.ipHash || '')})">解除拉黑</button>
+            </div>
+          </td>
         </tr>`).join('');
     }
   }
@@ -857,7 +941,7 @@
     if (!currentModalItem) return;
     const value = getIpValue(currentModalItem) || getIpHashValue(currentModalItem);
     closeImageModal();
-    filterByIp(value);
+    filterByIp(value, true);
   }
 
   async function auditImageKey(key) {
@@ -896,20 +980,20 @@
     if (isBlockedItem(currentModalItem)) unblockIp(ip, ipHash); else blockFileIp(currentModalItem.key);
   }
 
-  function filterByIp(value) {
+  function filterByIp(value, allStatuses = false) {
     if (!value) return alert('这张图没有 IP 记录，无法筛选。');
     document.getElementById('search-ip').value = value;
+    document.getElementById('filter-ip').value = 'all';
+    ipFilterAllStatuses = Boolean(allStatuses);
     if (!['pending','audited','personal'].includes(currentTab)) currentTab = 'pending';
-    switchTab('pending');
+    switchTab('pending', Boolean(allStatuses));
   }
 
   function changePage(delta) {
     const next = currentPage + delta;
     if (next < 1 || next > totalPages) return;
     currentPage = next;
-    const cache = pageCache.get(currentCacheKey());
-    if (cache) applyPageCache(cache);
-    else showUnloadedImageTab();
+    fetchPageData({ silent: false, force: true });
     document.getElementById('image-view').scrollIntoView({ behavior: 'smooth' });
   }
 
