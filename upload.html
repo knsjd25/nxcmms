@@ -2011,13 +2011,25 @@ updateProperty("og:title", texts.ogTitle);
       });
     }
 
+    function clearVipAttention() {
+      permanentNotice.classList.remove("vip-attention", "vip-shake");
+      storageCodeInput.classList.remove("vip-required", "vip-shake");
+      if (storageCodeCard) storageCodeCard.classList.remove("vip-attention", "vip-shake");
+    }
+
+    function showVipRequiredAttention() {
+      permanentNotice.classList.add("vip-attention");
+      storageCodeInput.classList.add("vip-required");
+      if (storageCodeCard) storageCodeCard.classList.add("vip-attention");
+      restartVipAttention();
+    }
+
     function updatePermanentNotice() {
       const wantsPermanent = durationSelect.value === "permanent";
       permanentNotice.classList.toggle("show", wantsPermanent);
-      permanentNotice.classList.toggle("vip-attention", wantsPermanent);
-      storageCodeInput.classList.toggle("vip-required", wantsPermanent);
-      if (storageCodeCard) storageCodeCard.classList.toggle("vip-attention", wantsPermanent);
-      if (wantsPermanent) restartVipAttention();
+      if (!wantsPermanent || storageCodeInput.value.trim()) {
+        clearVipAttention();
+      }
     }
 
     function setSelectedFile(file) {
@@ -2092,8 +2104,7 @@ updateProperty("og:title", texts.ogTitle);
       }
 
       if (wantsPermanent && !vipCode) {
-        updatePermanentNotice();
-        restartVipAttention();
+        showVipRequiredAttention();
         appendLog(texts.logPermanentCodeRequired, "error");
         storageCodeInput.focus();
         return;
@@ -2207,14 +2218,11 @@ updateProperty("og:title", texts.ogTitle);
 
     durationSelect.addEventListener("change", () => {
       updatePermanentNotice();
-      if (durationSelect.value === "permanent") {
-        window.setTimeout(() => storageCodeInput.focus(), 120);
-      }
     });
 
     storageCodeInput.addEventListener("input", () => {
-      if (durationSelect.value === "permanent" && storageCodeInput.value.trim()) {
-        storageCodeInput.classList.remove("vip-shake");
+      if (storageCodeInput.value.trim()) {
+        clearVipAttention();
       }
     });
 
