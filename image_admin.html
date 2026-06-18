@@ -137,7 +137,20 @@
     .modal-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; background: #111827; color: #fff; }
     .modal-title { min-width: 0; font-size: .86rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .modal-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
-    .modal-actions button, .modal-actions a { display: inline-flex; align-items: center; justify-content: center; min-height: 34px; padding: 7px 10px; border-radius: 7px; color: #fff; font-size: .78rem; font-weight: 900; text-decoration: none; white-space: nowrap; }
+    .modal-actions button, .modal-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 104px;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 9px;
+      color: #fff;
+      font-size: .86rem;
+      font-weight: 900;
+      text-decoration: none;
+      white-space: nowrap;
+    }
     .modal-actions .modal-link { background: #3498db; }
     .modal-actions .modal-close { background: #4b5563; }
     .modal-body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 0; min-height: 0; }
@@ -236,7 +249,7 @@
   </div>
 </div>
 
-<div id="status-msg">请先输入密码并点击“刷新全部数据”。图片审核区域可单独刷新当前列表。</div>
+<div id="status-msg">请先输入密码并点击“刷新全部数据”。图片审核区域可单独刷新当前列表；VIP/IP筛选会跨全状态查询。</div>
 
 <div id="image-view">
   <div class="control-panel">
@@ -388,6 +401,8 @@
   const pageCache = new Map();
   let hasInitialFullRefresh = false;
   let ipFilterAllStatuses = false;
+  let forcedIpExactValue = '';
+  let forcedIpHashExactValue = '';
 
   function h(v) {
     return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -395,6 +410,14 @@
   function jsArg(v) { return JSON.stringify(v ?? ''); }
   function getPwd() { return document.getElementById('admin-pwd').value.trim(); }
   function normalizeKey(v) { return String(v || '').trim().toLowerCase(); }
+  function looksLikeIpValue(v) {
+    const s = String(v || '').trim();
+    return /^\d{1,3}(\.\d{1,3}){3}$/.test(s) || s.includes(':');
+  }
+  function clearForcedExactFilters() {
+    forcedIpExactValue = '';
+    forcedIpHashExactValue = '';
+  }
   function currentImageTab() {
     if (ipFilterAllStatuses) return 'all';
     return ['pending','audited','personal'].includes(currentTab) ? currentTab : 'pending';
@@ -517,8 +540,10 @@
 
     if (category && category !== 'all') url.searchParams.set('category', category);
     if (vip) url.searchParams.set('vip', vip);
+    if (forcedIpExactValue) url.searchParams.set('ip', forcedIpExactValue);
+    if (forcedIpHashExactValue) url.searchParams.set('ip_hash', forcedIpHashExactValue);
     if (ipQ) url.searchParams.set('ip_q', ipQ);
-    if (ipExact && ipExact !== 'all') url.searchParams.set('ip', ipExact);
+    if (!forcedIpExactValue && ipExact && ipExact !== 'all') url.searchParams.set('ip', ipExact);
     if (risk && risk !== 'all') url.searchParams.set('risk', risk);
     if (isAuto) url.searchParams.set('include_summary', '0');
 
@@ -535,6 +560,9 @@
       document.getElementById('search-vip').value.trim(),
       document.getElementById('search-ip').value.trim(),
       document.getElementById('filter-ip').value || 'all',
+      forcedIpExactValue,
+      forcedIpHashExactValue,
+      ipFilterAllStatuses ? 'all-status' : 'tab-status',
       document.getElementById('filter-risk').value || 'all'
     ].join('|');
   }
@@ -726,6 +754,7 @@
 
   function clearIpFilters() {
     ipFilterAllStatuses = false;
+    clearForcedExactFilters();
     document.getElementById('search-ip').value = '';
     document.getElementById('filter-ip').value = 'all';
     document.getElementById('filter-risk').value = 'all';
@@ -735,6 +764,8 @@
 
   function resetAndRenderGallery() {
     currentPage = 1;
+    ipFilterAllStatuses = false;
+    clearForcedExactFilters();
     fetchPageData({ silent: false, force: true });
   }
 
@@ -853,7 +884,7 @@
           <td>${h(row.latestUpload ? new Date(row.latestUpload).toLocaleString('zh-CN', { hour12: false }) : '-')}</td>
           <td>
             <div class="table-actions">
-              <button class="btn-gray btn-small" onclick="filterByIp(${jsArg(row.ip || row.ipHash || '')}, true)">筛全部</button>
+              <button class="btn-gray btn-small" onclick="filterByIp(${jsArg(row.ip || row.ipHash || '')}, true, ${jsArg(row.ipHash || '')})">筛全部</button>
               ${row.blocked ? `<button class="btn-success btn-small" onclick="unblockIp(${jsArg(row.ip || '')}, ${jsArg(row.ipHash || '')})">解除</button>` : `<button class="btn-danger btn-small" onclick="blockIp(${jsArg(row.ip || '')}, ${jsArg(row.ipHash || '')})">拉黑</button>`}
             </div>
           </td>
@@ -869,7 +900,7 @@
           <td>${h(row.created_at || '-')}</td>
           <td>
             <div class="table-actions">
-              <button class="btn-gray btn-small" onclick="filterByIp(${jsArg(row.ip || row.ip_hash || row.ipHash || '')}, true)">筛全部</button>
+              <button class="btn-gray btn-small" onclick="filterByIp(${jsArg(row.ip || row.ip_hash || row.ipHash || '')}, true, ${jsArg(row.ip_hash || row.ipHash || '')})">筛全部</button>
               <button class="btn-success btn-small" onclick="unblockIp(${jsArg(row.ip || '')}, ${jsArg(row.ip_hash || row.ipHash || '')})">解除拉黑</button>
             </div>
           </td>
@@ -951,9 +982,10 @@
   }
   function filterModalIp() {
     if (!currentModalItem) return;
-    const value = getIpValue(currentModalItem) || getIpHashValue(currentModalItem);
+    const ip = getIpValue(currentModalItem);
+    const ipHash = getIpHashValue(currentModalItem);
     closeImageModal();
-    filterByIp(value, true);
+    filterByIp(ip || ipHash, true, ipHash);
   }
 
   async function auditImageKey(key) {
@@ -992,10 +1024,13 @@
     if (isBlockedItem(currentModalItem)) unblockIp(ip, ipHash); else blockFileIp(currentModalItem.key);
   }
 
-  function filterByIp(value, allStatuses = false) {
-    if (!value) return alert('这张图没有 IP 记录，无法筛选。');
-    document.getElementById('search-ip').value = value;
+  function filterByIp(value, allStatuses = false, ipHashValue = '') {
+    if (!value && !ipHashValue) return alert('这张图没有 IP 记录，无法筛选。');
+    const queryValue = value || ipHashValue;
+    document.getElementById('search-ip').value = queryValue;
     document.getElementById('filter-ip').value = 'all';
+    forcedIpExactValue = looksLikeIpValue(value) ? value : '';
+    forcedIpHashExactValue = ipHashValue || (!looksLikeIpValue(value) ? value : '');
     ipFilterAllStatuses = Boolean(allStatuses);
     if (!['pending','audited','personal'].includes(currentTab)) currentTab = 'pending';
     switchTab('pending', Boolean(allStatuses));
@@ -1057,8 +1092,14 @@
   }
 
   function searchVipImages(code) {
+    if (!code) return;
     document.getElementById('search-vip').value = code;
-    switchTab('audited');
+    document.getElementById('search-ip').value = '';
+    document.getElementById('filter-ip').value = 'all';
+    document.getElementById('filter-risk').value = 'all';
+    clearForcedExactFilters();
+    ipFilterAllStatuses = true;
+    switchTab('pending', true);
   }
   async function generateVipCode() {
     const pwd = getPwd();
