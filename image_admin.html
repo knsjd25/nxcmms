@@ -209,7 +209,7 @@
   <h2>🛡️ 图床超级资产与权限中心</h2>
   <div class="auth-box">
     <input type="password" id="admin-pwd" placeholder="输入超级管理员密码">
-    <button onclick="fetchAllData()">立即刷新</button>
+    <button onclick="refreshAllData()">刷新全部数据</button>
   </div>
 </div>
 
@@ -236,7 +236,7 @@
   </div>
 </div>
 
-<div id="status-msg">请先输入密码并点击“立即刷新”。当前版本使用 D1 分页查询。</div>
+<div id="status-msg">请先输入密码并点击“刷新全部数据”。图片审核区域可单独刷新当前列表。</div>
 
 <div id="image-view">
   <div class="control-panel">
@@ -274,6 +274,7 @@
         <option value="48">48 张</option>
       </select>
       <button onclick="clearIpFilters()" class="btn-gray">清空IP筛选</button>
+      <button onclick="refreshCurrentList()" class="btn-gray">刷新当前列表</button>
       <button onclick="selectAll()" class="btn-gray">全选本页</button>
       <button onclick="batchAudit()" id="btn-batch-audit" class="btn-warning">✅ 批量通过</button>
       <button onclick="batchDelete()" class="btn-danger">🚨 批量删除</button>
@@ -311,19 +312,19 @@
 <div id="ip-panel">
   <h3>⛔ IP 黑名单与上传来源审核</h3>
   <div class="panel-note">
-    这里依赖新版 Worker 返回的 IP 审核字段。后台会保留 IP Hash、UA、来源等审计信息，但页面默认只显示明文 IP 和中文位置；点击“筛全部”会跨待审核、已通过、私用图全部查询该 IP。
+    这里依赖新版 Worker 返回的 IP 审核字段。后台会保留 IP Hash、UA、来源等审计信息，但页面默认只显示明文 IP 和中文位置；IP 汇总固定统计全站未删除图片，点击“筛全部”会跨待审核、已通过、私用图全部查询该 IP。
   </div>
   <div class="ip-form">
     <input type="text" id="manual-ip" placeholder="输入要拉黑的 IP，例如 1.2.3.4">
     <input type="text" id="manual-ip-note" placeholder="拉黑原因备注" style="flex:1;min-width:240px;">
     <button class="btn-danger" onclick="manualBlockIp()">加入黑名单</button>
-    <button class="btn-gray" onclick="fetchAllData()">刷新黑名单</button>
+    <button class="btn-gray" onclick="refreshAllData()">刷新全部</button>
   </div>
 
   <h3>📊 上传 IP 汇总</h3>
-  <p style="margin:8px 0 12px;color:#666;font-size:.9rem;line-height:1.6;">当前图片数=这个 IP 目前仍存在于 R2 的图片数量；可疑图片数=被风控标记为可疑、需要审核的图片数量。</p>
+  <p style="margin:8px 0 12px;color:#666;font-size:.9rem;line-height:1.6;">当前图片数=这个 IP 在全站未删除图片中的总数；可疑图片数=其中被风控标记为可疑、需要审核的图片数量。</p>
   <table>
-    <thead><tr><th>IP</th><th>位置</th><th>当前图片数</th><th>可疑图片数</th><th>最新上传</th><th>状态/操作</th></tr></thead>
+    <thead><tr><th>IP</th><th>位置</th><th>全站图片数</th><th>可疑图片数</th><th>最新上传</th><th>状态/操作</th></tr></thead>
     <tbody id="ip-summary-body"><tr><td colspan="6" style="text-align:center;">请先刷新数据...</td></tr></tbody>
   </table>
 
@@ -603,7 +604,7 @@
         fetch(buildListUrl({ isAuto }), { headers })
       ];
       if (!isAuto) requests.push(fetchBlockedIps(pwd));
-      const needVip = !isAuto && (currentTab === 'vip_management' || globalVips.length === 0);
+      const needVip = !isAuto;
       if (needVip) requests.push(fetchVipList(pwd));
 
       const results = await Promise.all(requests);
@@ -640,7 +641,7 @@
       else renderGallery();
 
       if (!silent && imgData.source) {
-        setStatusMessage(`✅ 当前列表来源：${imgData.source === 'd1' ? 'D1 数据库分页' : 'R2 降级列表'}，共 ${totalFiltered} 张`);
+        setStatusMessage(`✅ 已刷新：${imgData.source === 'd1' ? 'D1 数据库分页' : 'R2 降级列表'}；当前筛选 ${totalFiltered} 张；全站 ${dashboardCounts.total || 0} 张；黑名单 ${globalBlockedIps.length} 个；VIP ${globalVips.length} 个`);
       }
 
       updateAutoRefreshText();
@@ -651,9 +652,20 @@
     }
   }
 
-  async function fetchAllData() {
+  async function refreshCurrentList() {
     pageCache.clear();
     return fetchPageData({ silent: false, isAuto: false, force: true });
+  }
+
+  async function refreshAllData() {
+    pageCache.clear();
+    setStatusMessage('⏳ 正在刷新全局统计、IP汇总、黑名单、VIP和当前列表...');
+    return fetchPageData({ silent: false, isAuto: false, force: true });
+  }
+
+  // 兼容旧按钮或浏览器缓存里的调用
+  async function fetchAllData() {
+    return refreshAllData();
   }
 
   function updateCounts() {
