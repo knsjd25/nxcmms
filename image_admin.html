@@ -542,8 +542,8 @@
     if (vip) url.searchParams.set('vip', vip);
     if (forcedIpExactValue) url.searchParams.set('ip', forcedIpExactValue);
     if (forcedIpHashExactValue) url.searchParams.set('ip_hash', forcedIpHashExactValue);
-    if (ipQ) url.searchParams.set('ip_q', ipQ);
-    if (!forcedIpExactValue && ipExact && ipExact !== 'all') url.searchParams.set('ip', ipExact);
+    if (!forcedIpExactValue && !forcedIpHashExactValue && ipQ) url.searchParams.set('ip_q', ipQ);
+    if (!forcedIpExactValue && !forcedIpHashExactValue && ipExact && ipExact !== 'all') url.searchParams.set('ip', ipExact);
     if (risk && risk !== 'all') url.searchParams.set('risk', risk);
     if (isAuto) url.searchParams.set('include_summary', '0');
 
@@ -851,6 +851,36 @@
     });
   }
 
+  function bindDynamicActionButtons(root = document) {
+    root.querySelectorAll('[data-admin-action]').forEach((btn) => {
+      if (btn.dataset.bound === '1') return;
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        const action = btn.dataset.adminAction;
+        if (action === 'vip-images') {
+          searchVipImages(btn.dataset.vipCode || '');
+          return;
+        }
+        if (action === 'vip-delete') {
+          deleteVipCode(btn.dataset.vipCode || '');
+          return;
+        }
+        if (action === 'filter-ip') {
+          filterByIp(btn.dataset.ip || btn.dataset.ipHash || '', btn.dataset.allStatuses === '1', btn.dataset.ipHash || '');
+          return;
+        }
+        if (action === 'block-ip') {
+          blockIp(btn.dataset.ip || '', btn.dataset.ipHash || '');
+          return;
+        }
+        if (action === 'unblock-ip') {
+          unblockIp(btn.dataset.ip || '', btn.dataset.ipHash || '');
+        }
+      });
+    });
+  }
+
   function renderVipTable() {
     const tbody = document.getElementById('vip-list-body');
     if (!globalVips.length) {
@@ -863,10 +893,13 @@
         <td>${h(vip.note || '-')}</td>
         <td>${h(vip.created_at || '-')}</td>
         <td>
-          <button class="btn-warning btn-small" onclick="searchVipImages(${jsArg(vip.code)})">🔍 查他上传的图</button>
-          <button class="btn-danger btn-small" onclick="deleteVipCode(${jsArg(vip.code)})">🚨 销毁作废</button>
+          <div class="table-actions">
+            <button type="button" class="btn-warning btn-small" data-admin-action="vip-images" data-vip-code="${h(vip.code)}">🔍 查看上传图</button>
+            <button type="button" class="btn-danger btn-small" data-admin-action="vip-delete" data-vip-code="${h(vip.code)}">🚨 销毁作废</button>
+          </div>
         </td>
       </tr>`).join('');
+    bindDynamicActionButtons(tbody);
   }
 
   function renderIpPanel() {
@@ -884,8 +917,8 @@
           <td>${h(row.latestUpload ? new Date(row.latestUpload).toLocaleString('zh-CN', { hour12: false }) : '-')}</td>
           <td>
             <div class="table-actions">
-              <button class="btn-gray btn-small" onclick="filterByIp(${jsArg(row.ip || row.ipHash || '')}, true, ${jsArg(row.ipHash || '')})">筛全部</button>
-              ${row.blocked ? `<button class="btn-success btn-small" onclick="unblockIp(${jsArg(row.ip || '')}, ${jsArg(row.ipHash || '')})">解除</button>` : `<button class="btn-danger btn-small" onclick="blockIp(${jsArg(row.ip || '')}, ${jsArg(row.ipHash || '')})">拉黑</button>`}
+              <button type="button" class="btn-gray btn-small" data-admin-action="filter-ip" data-ip="${h(row.ip || '')}" data-ip-hash="${h(row.ipHash || '')}" data-all-statuses="1">筛全部</button>
+              ${row.blocked ? `<button type="button" class="btn-success btn-small" data-admin-action="unblock-ip" data-ip="${h(row.ip || '')}" data-ip-hash="${h(row.ipHash || '')}">解除</button>` : `<button type="button" class="btn-danger btn-small" data-admin-action="block-ip" data-ip="${h(row.ip || '')}" data-ip-hash="${h(row.ipHash || '')}">拉黑</button>`}
             </div>
           </td>
         </tr>`).join('');
@@ -900,12 +933,13 @@
           <td>${h(row.created_at || '-')}</td>
           <td>
             <div class="table-actions">
-              <button class="btn-gray btn-small" onclick="filterByIp(${jsArg(row.ip || row.ip_hash || row.ipHash || '')}, true, ${jsArg(row.ip_hash || row.ipHash || '')})">筛全部</button>
-              <button class="btn-success btn-small" onclick="unblockIp(${jsArg(row.ip || '')}, ${jsArg(row.ip_hash || row.ipHash || '')})">解除拉黑</button>
+              <button type="button" class="btn-gray btn-small" data-admin-action="filter-ip" data-ip="${h(row.ip || '')}" data-ip-hash="${h(row.ip_hash || row.ipHash || '')}" data-all-statuses="1">筛全部</button>
+              <button type="button" class="btn-success btn-small" data-admin-action="unblock-ip" data-ip="${h(row.ip || '')}" data-ip-hash="${h(row.ip_hash || row.ipHash || '')}">解除拉黑</button>
             </div>
           </td>
         </tr>`).join('');
     }
+    bindDynamicActionButtons(document.getElementById('ip-panel'));
   }
 
   function openImageModalByKey(key) {
@@ -1029,11 +1063,15 @@
     const queryValue = value || ipHashValue;
     document.getElementById('search-ip').value = queryValue;
     document.getElementById('filter-ip').value = 'all';
+    document.getElementById('filter-risk').value = 'all';
+    document.getElementById('filter-category').value = 'all';
     forcedIpExactValue = looksLikeIpValue(value) ? value : '';
     forcedIpHashExactValue = ipHashValue || (!looksLikeIpValue(value) ? value : '');
     ipFilterAllStatuses = Boolean(allStatuses);
     if (!['pending','audited','personal'].includes(currentTab)) currentTab = 'pending';
+    setStatusMessage('⏳ 正在跨全部状态筛选 IP：' + h(queryValue));
     switchTab('pending', Boolean(allStatuses));
+    document.getElementById('image-view').scrollIntoView({ behavior: 'smooth' });
   }
 
   function changePage(delta) {
@@ -1092,14 +1130,17 @@
   }
 
   function searchVipImages(code) {
-    if (!code) return;
+    if (!code) return alert('VIP 码为空，无法查询。');
     document.getElementById('search-vip').value = code;
     document.getElementById('search-ip').value = '';
     document.getElementById('filter-ip').value = 'all';
     document.getElementById('filter-risk').value = 'all';
+    document.getElementById('filter-category').value = 'all';
     clearForcedExactFilters();
     ipFilterAllStatuses = true;
+    setStatusMessage('⏳ 正在跨全部状态查询 VIP 上传图：' + h(code));
     switchTab('pending', true);
+    document.getElementById('image-view').scrollIntoView({ behavior: 'smooth' });
   }
   async function generateVipCode() {
     const pwd = getPwd();
@@ -1121,17 +1162,22 @@
     alert(`🎉 VIP 码 [${newCode}] 生成成功！`);
   }
   async function deleteVipCode(code) {
+    if (!code) return;
     if (!confirm(`🚨 确定要作废这个 VIP 码 [${code}] 吗？\n作废后该用户无法再永久上传。`)) return;
     const pwd = getPwd();
     const response = await fetch(WORKER_URL + '?action=vip_del', {
-      method: 'DELETE', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
       body: JSON.stringify({ code })
     });
     const data = await readJsonSafe(response);
     if (!response.ok) return alert('❌ 作废失败：' + (data.error || response.status));
     globalVips = await fetchVipList(pwd);
     renderVipTable();
+    updateCounts();
+    setStatusMessage(`✅ VIP 码 [${code}] 已销毁作废`);
   }
+
 
   async function blockIp(ip, ipHash = '') {
     const pwd = getPwd();
