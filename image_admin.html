@@ -472,12 +472,23 @@
     const ipHash = normalizeKey(getIpHashValue(item));
     return globalBlockedIps.some(row => normalizeKey(row.ip) === ip || normalizeKey(row.ip_hash || row.ipHash) === ipHash);
   }
+  function isHighRiskItem(item) {
+    if (item?.highRiskUser) return true;
+    const ipHash = normalizeKey(getIpHashValue(item));
+    const ip = normalizeKey(getIpValue(item));
+    return globalHighRiskUsers.some(row => {
+      const rowIpHash = normalizeKey(row.ipHash || row.ip_hash);
+      const rowIp = normalizeKey(row.ip);
+      return (ipHash && rowIpHash === ipHash) || (ip && rowIp === ip);
+    });
+  }
   function isSuspiciousItem(item) {
     return item?.status === 'suspicious' || String(item?.risk || '').toLowerCase() === 'suspicious';
   }
   const RISK_LABELS = {
     missing_origin_referer: '缺少来源页面',
     machine_interval_upload: '上传间隔异常，疑似脚本',
+    high_risk_user: '命中高危用户库',
     rate_limit_1m: '1分钟上传过快',
     rate_limit_10m: '10分钟上传过快',
     rate_limit_1d: '当天上传过多'
