@@ -178,6 +178,12 @@
     .pagination-panel { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 30px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
     .page-info { font-weight: bold; color: #333; }
     .perf-note { color:#64748b; font-size:.86rem; font-weight:700; }
+    .cleanup-status { color:#991b1b; font-size:.86rem; font-weight:800; background:#fff7ed; border:1px solid #fed7aa; border-radius:8px; padding:8px 10px; min-height:40px; display:inline-flex; align-items:center; }
+    .ip-toolbar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:12px 0 10px; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:12px; }
+    .ip-toolbar input { min-width:260px; flex:1; }
+    .ip-toolbar select { min-width:130px; }
+    .ip-pagination { display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; margin:14px 0 8px; padding:12px; background:#ffffff; border:1px solid #e5e7eb; border-radius:10px; }
+    .ip-pagination .page-info { color:#334155; font-size:.9rem; }
 
     #vip-panel, #ip-panel { display: none; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
     .vip-form, .ip-form { display: flex; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; flex-wrap: wrap; }
@@ -293,6 +299,8 @@
       </select>
       <button onclick="clearIpFilters()" class="btn-gray">清空IP筛选</button>
       <button onclick="refreshCurrentList()" class="btn-gray">刷新当前列表</button>
+      <button onclick="cleanupExpiredImagesNow()" id="btn-cleanup-expired" class="btn-danger">🧹 清理过期图片</button>
+      <span id="cleanup-expired-status" class="cleanup-status" style="display:none;"></span>
       <button onclick="selectAll()" class="btn-gray">全选本页</button>
       <button onclick="batchAudit()" id="btn-batch-audit" class="btn-warning">✅ 批量通过</button>
       <button onclick="batchDelete()" class="btn-danger">🚨 批量删除</button>
@@ -340,11 +348,26 @@
   </div>
 
   <h3>📊 上传 IP 汇总</h3>
-  <p style="margin:8px 0 12px;color:#666;font-size:.9rem;line-height:1.6;">当前图片数=这个 IP 在全站未删除图片中的总数；可疑图片数=其中被风控标记为可疑、需要审核的图片数量。</p>
+  <p style="margin:8px 0 12px;color:#666;font-size:.9rem;line-height:1.6;">当前图片数=这个 IP 在全站未删除图片中的总数；可疑图片数=其中被风控标记为可疑、需要审核的图片数量。IP 汇总现在走分页接口，不再一次性堆满页面。</p>
+  <div class="ip-toolbar">
+    <input type="text" id="ip-summary-search" placeholder="搜索 IP / 国家 / 城市" oninput="onIpSummarySearchInput()">
+    <select id="ip-summary-blocked-filter" onchange="onIpSummaryBlockedFilterChange()">
+      <option value="0">全部 IP</option>
+      <option value="1">只看黑名单</option>
+    </select>
+    <select id="ip-summary-page-size" onchange="onIpSummaryPageSizeChange()">
+      <option value="20">每页 20 个</option>
+      <option value="30" selected>每页 30 个</option>
+      <option value="50">每页 50 个</option>
+      <option value="100">每页 100 个</option>
+    </select>
+    <button type="button" class="btn-gray" onclick="reloadIpSummary()">刷新 IP 汇总</button>
+  </div>
   <table>
     <thead><tr><th>IP</th><th>位置</th><th>全站图片数</th><th>可疑图片数</th><th>最新上传</th><th>状态/操作</th></tr></thead>
     <tbody id="ip-summary-body"><tr><td colspan="6" style="text-align:center;">请先刷新数据...</td></tr></tbody>
   </table>
+  <div id="ip-summary-pagination" class="ip-pagination" style="display:none;"></div>
 
   <h3 style="margin-top:28px;">🚫 当前黑名单</h3>
   <table>
@@ -400,6 +423,12 @@
   let globalImages = [];
   let globalVips = [];
   let globalIpSummary = [];
+  let globalIpSummaryPagination = { page: 1, page_size: 30, total: 0, total_pages: 1 };
+  let ipSummaryPage = 1;
+  let ipSummaryPageSize = 30;
+  let ipSummarySearch = '';
+  let ipSummaryBlockedOnly = false;
+  let ipSummarySearchTimer = null;
   let globalBlockedIps = [];
   let globalHighRiskUsers = [];
   let dashboardCounts = { pending: 0, suspicious: 0, audited: 0, personal: 0, total: 0 };
@@ -571,7 +600,17 @@
     if (!forcedIpExactValue && !forcedIpHashExactValue && ipQ) url.searchParams.set('ip_q', ipQ);
     if (!forcedIpExactValue && !forcedIpHashExactValue && ipExact && ipExact !== 'all') url.searchParams.set('ip', ipExact);
     if (risk && risk !== 'all') url.searchParams.set('risk', risk);
-    if (isAuto) url.searchParams.set('include_summary', '0');
+
+    if (isAuto) {
+      url.searchParams.set('include_summary', '0');
+    } else {
+      url.searchParams.set('ip_page', String(ipSummaryPage));
+      url.searchParams.set('ip_page_size', String(ipSummaryPageSize));
+      if (currentTab === 'ip_blacklist') {
+        if (ipSummarySearch) url.searchParams.set('ip_q', ipSummarySearch);
+        if (ipSummaryBlockedOnly) url.searchParams.set('ip_blocked', '1');
+      }
+    }
 
     return url.toString();
   }
@@ -589,7 +628,12 @@
       forcedIpExactValue,
       forcedIpHashExactValue,
       ipFilterAllStatuses ? 'all-status' : 'tab-status',
-      document.getElementById('filter-risk').value || 'all'
+      document.getElementById('filter-risk').value || 'all',
+      currentTab,
+      ipSummaryPage,
+      ipSummaryPageSize,
+      ipSummarySearch,
+      ipSummaryBlockedOnly ? 'ip-blocked' : 'ip-all'
     ].join('|');
   }
 
@@ -597,6 +641,7 @@
     if (!cache) return false;
     globalImages = cache.images || [];
     globalIpSummary = cache.ipSummary || globalIpSummary || [];
+    globalIpSummaryPagination = cache.ipSummaryPagination || globalIpSummaryPagination;
     dashboardCounts = cache.dashboardCounts || dashboardCounts;
     totalFiltered = Number(cache.totalFiltered || 0);
     totalPages = Number(cache.totalPages || 1);
@@ -679,7 +724,22 @@
       }
       const imgData = await readJsonSafe(imgRes);
       globalImages = Array.isArray(imgData.items) ? imgData.items : (Array.isArray(imgData.keys) ? imgData.keys : []);
-      globalIpSummary = Array.isArray(imgData.ipSummary) ? imgData.ipSummary : [];
+      const ipPager = imgData.ipSummaryPagination || {
+        items: Array.isArray(imgData.ipSummary) ? imgData.ipSummary : [],
+        page: 1,
+        page_size: Array.isArray(imgData.ipSummary) ? imgData.ipSummary.length : ipSummaryPageSize,
+        total: Array.isArray(imgData.ipSummary) ? imgData.ipSummary.length : 0,
+        total_pages: 1
+      };
+      globalIpSummary = Array.isArray(ipPager.items) ? ipPager.items : [];
+      globalIpSummaryPagination = {
+        page: Number(ipPager.page || ipSummaryPage || 1),
+        page_size: Number(ipPager.page_size || ipSummaryPageSize || 30),
+        total: Number(ipPager.total || globalIpSummary.length || 0),
+        total_pages: Number(ipPager.total_pages || 1),
+        items: globalIpSummary
+      };
+      ipSummaryPage = globalIpSummaryPagination.page;
       dashboardCounts = imgData.dashboardCounts || dashboardCounts;
       totalFiltered = Number(imgData.filtered || 0);
       currentPage = Number(imgData.page || 1);
@@ -693,6 +753,7 @@
       pageCache.set(cacheKey, {
         images: globalImages,
         ipSummary: globalIpSummary,
+        ipSummaryPagination: globalIpSummaryPagination,
         dashboardCounts,
         totalFiltered,
         totalPages,
@@ -728,6 +789,43 @@
     pageCache.clear();
     setStatusMessage('⏳ 正在刷新全局统计、IP汇总、黑名单、高危用户库、VIP和当前列表...');
     return fetchPageData({ silent: false, isAuto: false, force: true });
+  }
+
+  async function cleanupExpiredImagesNow() {
+    const pwd = getPwd();
+    if (!pwd) return alert('⚠️ 请先输入超级管理员密码！');
+    if (!confirm('确定立即清理所有已过期图片吗？\n会删除 R2 原图、审核标记、可疑标记、上传索引，并把 D1 记录标记为 deleted。')) return;
+
+    const btn = document.getElementById('btn-cleanup-expired');
+    const status = document.getElementById('cleanup-expired-status');
+    if (btn) btn.disabled = true;
+    if (status) {
+      status.style.display = 'inline-flex';
+      status.textContent = '正在清理过期图片...';
+    }
+
+    try {
+      const response = await fetch(WORKER_URL + '?action=cleanup_expired', {
+        method: 'POST',
+        headers: { 'X-Admin-Key': pwd }
+      });
+      const data = await readJsonSafe(response);
+      if (!response.ok || data.success === false) {
+        throw new Error(data.error || response.status || '清理失败');
+      }
+
+      const deleted = Number(data.deleted || 0);
+      const d1Deleted = Number(data.d1?.deleted || 0);
+      const r2Deleted = Number(data.r2?.deleted || 0);
+      if (status) status.textContent = `清理完成：共删除 ${deleted} 张，D1 ${d1Deleted}，R2 ${r2Deleted}`;
+      pageCache.clear();
+      await fetchPageData({ silent: false, isAuto: false, force: true });
+    } catch (error) {
+      if (status) status.textContent = '清理失败：' + (error.message || '未知错误');
+      alert('清理失败：' + (error.message || '未知错误'));
+    } finally {
+      if (btn) btn.disabled = false;
+    }
   }
 
   // 兼容旧按钮或浏览器缓存里的调用
@@ -783,7 +881,8 @@
       return;
     }
     if (tab === 'ip_blacklist') {
-      renderIpPanel();
+      if (hasInitialFullRefresh) renderIpPanel();
+      else fetchPageData({ silent: false, force: true });
       return;
     }
     if (['pending','audited','personal'].includes(tab)) {
@@ -877,6 +976,7 @@
     paginationPanel.style.display = 'flex';
     document.getElementById('page-info').innerText = `当前第 ${currentPage} / ${totalPages} 页 (当前筛选共 ${totalFiltered} 张)`;
     document.getElementById('btn-prev-page').disabled = currentPage <= 1;
+    document.getElementById('btn-next-page').disabled = currentPage >= totalPages;
     bindModalOpeners();
     bindDynamicActionButtons(gallery);
   }
@@ -960,10 +1060,78 @@
     bindDynamicActionButtons(tbody);
   }
 
+  function syncIpSummaryControls() {
+    const search = document.getElementById('ip-summary-search');
+    const blocked = document.getElementById('ip-summary-blocked-filter');
+    const pageSize = document.getElementById('ip-summary-page-size');
+    if (search && search.value !== ipSummarySearch) search.value = ipSummarySearch;
+    if (blocked) blocked.value = ipSummaryBlockedOnly ? '1' : '0';
+    if (pageSize) pageSize.value = String(ipSummaryPageSize);
+  }
+
+  function onIpSummarySearchInput() {
+    const input = document.getElementById('ip-summary-search');
+    clearTimeout(ipSummarySearchTimer);
+    ipSummarySearchTimer = setTimeout(() => {
+      ipSummarySearch = (input?.value || '').trim();
+      ipSummaryPage = 1;
+      pageCache.clear();
+      fetchPageData({ silent: false, force: true });
+    }, 300);
+  }
+
+  function onIpSummaryBlockedFilterChange() {
+    ipSummaryBlockedOnly = document.getElementById('ip-summary-blocked-filter')?.value === '1';
+    ipSummaryPage = 1;
+    pageCache.clear();
+    fetchPageData({ silent: false, force: true });
+  }
+
+  function onIpSummaryPageSizeChange() {
+    const value = Number(document.getElementById('ip-summary-page-size')?.value || 30);
+    ipSummaryPageSize = Math.min(Math.max(value, 10), 100);
+    ipSummaryPage = 1;
+    pageCache.clear();
+    fetchPageData({ silent: false, force: true });
+  }
+
+  function reloadIpSummary() {
+    ipSummaryPage = 1;
+    pageCache.clear();
+    fetchPageData({ silent: false, force: true });
+  }
+
+  function changeIpSummaryPage(delta) {
+    const total = Number(globalIpSummaryPagination.total_pages || 1);
+    const next = ipSummaryPage + delta;
+    if (next < 1 || next > total) return;
+    ipSummaryPage = next;
+    pageCache.clear();
+    fetchPageData({ silent: false, force: true });
+  }
+
+  function renderIpSummaryPagination() {
+    const box = document.getElementById('ip-summary-pagination');
+    if (!box) return;
+
+    const page = Number(globalIpSummaryPagination.page || ipSummaryPage || 1);
+    const totalPagesValue = Number(globalIpSummaryPagination.total_pages || 1);
+    const total = Number(globalIpSummaryPagination.total || 0);
+    const size = Number(globalIpSummaryPagination.page_size || ipSummaryPageSize || 30);
+
+    box.style.display = 'flex';
+    box.innerHTML = `
+      <button type="button" class="btn-gray btn-small" onclick="changeIpSummaryPage(-1)" ${page <= 1 ? 'disabled' : ''}>上一页</button>
+      <span class="page-info">第 ${page} / ${totalPagesValue} 页，共 ${total} 个 IP，每页 ${size} 个</span>
+      <button type="button" class="btn-gray btn-small" onclick="changeIpSummaryPage(1)" ${page >= totalPagesValue ? 'disabled' : ''}>下一页</button>
+    `;
+  }
+
   function renderIpPanel() {
     const summaryBody = document.getElementById('ip-summary-body');
     const blockedBody = document.getElementById('blocked-ip-body');
     const highRiskBody = document.getElementById('high-risk-body');
+    syncIpSummaryControls();
     if (!globalIpSummary.length) {
       summaryBody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#666;">暂无上传 IP 汇总数据</td></tr>`;
     } else {
@@ -983,6 +1151,8 @@
           </td>
         </tr>`).join('');
     }
+    renderIpSummaryPagination();
+
     if (!globalBlockedIps.length) {
       blockedBody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#666;">暂无黑名单数据</td></tr>`;
     } else {
@@ -1315,9 +1485,9 @@
   }
 
 
-  async function blockIp(ip, ipHash = '') {
+  async function blockIp(ip, ipHash = '', presetNote = null) {
     const pwd = getPwd();
-    const note = window.prompt('请输入拉黑原因备注：', '后台审核拉黑') || '';
+    const note = presetNote !== null ? presetNote : (window.prompt('请输入拉黑原因备注：', '后台审核拉黑') || '');
     const body = ip ? { ip, note } : { ip_hash: ipHash, note };
     const response = await fetch(WORKER_URL + '?action=block_ip', {
       method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd }, body: JSON.stringify(body)
@@ -1352,8 +1522,9 @@
   }
   function manualBlockIp() {
     const ip = document.getElementById('manual-ip').value.trim();
+    const note = document.getElementById('manual-ip-note').value.trim() || '手动加入黑名单';
     if (!ip) return alert('请输入要拉黑的 IP');
-    blockIp(ip);
+    blockIp(ip, '', note);
     document.getElementById('manual-ip').value = '';
     document.getElementById('manual-ip-note').value = '';
   }
