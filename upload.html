@@ -58,12 +58,27 @@
           {
             "@type":"Question",
             "name":"How long are uploaded images kept?",
-            "acceptedAnswer":{"@type":"Answer","text":"Images are kept according to the selected retention option: 1 day, 7 days, 30 days, or permanent storage when a valid approved storage code is used. Do not upload private, sensitive, illegal or infringing content."}
+            "acceptedAnswer":{"@type":"Answer","text":"Uploaded images may be stored for sharing and display. Do not upload private, sensitive or illegal content."}
           },
           {
             "@type":"Question",
-            "name":"Can I use it for website images?",
-            "acceptedAnswer":{"@type":"Answer","text":"Yes. You can copy Markdown or HTML embed code and paste it into website posts, documentation or forum content."}
+            "name":"What is the long-term storage code for?",
+            "acceptedAnswer":{"@type":"Answer","text":"It is an optional code for approved long-term image hosting. Normal free image uploads can leave it blank."}
+          },
+          {
+            "@type":"Question",
+            "name":"Can I use the link in a GitHub README?",
+            "acceptedAnswer":{"@type":"Answer","text":"Yes. Upload the image, copy the Markdown output, and paste it into README.md or a GitHub issue comment."}
+          },
+          {
+            "@type":"Question",
+            "name":"Which output format should I copy?",
+            "acceptedAnswer":{"@type":"Answer","text":"Use Direct URL for plain links, Markdown for README files and docs, HTML for web pages, and BBCode for forums."}
+          },
+          {
+            "@type":"Question",
+            "name":"Are uploaded images reviewed by a person?",
+            "acceptedAnswer":{"@type":"Answer","text":"Yes. The service uses manual review for hosted uploads, along with upload rules, retention settings and removal requests. Do not upload content you are not allowed to share."}
           }
         ]
       }
@@ -1913,11 +1928,8 @@
               {"@type":"Question","name":texts.faq1Title,"acceptedAnswer":{"@type":"Answer","text":texts.faq1Text}},
               {"@type":"Question","name":texts.faq2Title,"acceptedAnswer":{"@type":"Answer","text":texts.faq2Text}},
               {"@type":"Question","name":texts.faq3Title,"acceptedAnswer":{"@type":"Answer","text":texts.faq3Text}},
-              {"@type":"Question","name":texts.faq4Title,"acceptedAnswer":{"@type":"Answer","text":texts.faq4Text}},
               {"@type":"Question","name":texts.faq5Title,"acceptedAnswer":{"@type":"Answer","text":texts.faq5Text}},
               {"@type":"Question","name":texts.faq6Title,"acceptedAnswer":{"@type":"Answer","text":texts.faq6Text}},
-              {"@type":"Question","name":texts.faq7Title,"acceptedAnswer":{"@type":"Answer","text":texts.faq7Text}},
-              {"@type":"Question","name":texts.faq8Title,"acceptedAnswer":{"@type":"Answer","text":texts.faq8Text}},
               {"@type":"Question","name":texts.faq9Title,"acceptedAnswer":{"@type":"Answer","text":texts.faq9Text}}
             ]
           }
@@ -2031,7 +2043,7 @@ updateProperty("og:title", texts.ogTitle);
         "resultTitle","resultIntro","resultDirectLabel","resultDirectUse","resultMarkdownLabel","resultMarkdownUse","resultHtmlLabel","resultHtmlUse","resultBbcodeLabel","resultBbcodeUse",
         "copyDirectBtn","copyMarkdownBtn","copyHtmlBtn","copyBbcodeBtn",
         "examplesTitle","examplesIntro","readmeExampleTitle","readmeExampleText","markdownExampleTitle","markdownExampleText","htmlExampleTitle","htmlExampleText","bbcodeExampleTitle","bbcodeExampleText",
-        "faqSectionTitle","faq1Title","faq1Text","faq2Title","faq2Text","faq3Title","faq3Text","faq4Title","faq4Text","faq5Title","faq5Text","faq6Title","faq6Text","faq7Title","faq7Text","faq8Title","faq8Text","faq9Title","faq9Text",
+        "faqSectionTitle","faq1Title","faq1Text","faq2Title","faq2Text","faq3Title","faq3Text","faq5Title","faq5Text","faq6Title","faq6Text","faq9Title","faq9Text",
         "footerHome","footerAbout","footerPrivacy","footerRules","footerContact","footerNote"
       ];
 
