@@ -338,9 +338,9 @@ Assert-True ($sharedI18n -match 'applyCanonicalHreflang') "shared i18n runtime d
 
 $requiredContent = @{
   "about.html" = @("What Mini-Tools.uk is", "How pages are designed", "How Mini-Tools.uk approaches privacy", "What kinds of tools are on the site", "UK calculators", "Developer tools", "Image and PDF tools", "Security & Privacy Tools", "Contact and feedback")
-  "privacy.html" = @("browser", "remote service", "accessible to anyone", "1 day", "7 days", "30 days", "approved long-term storage code", "image URL", "illegal content", "adult content", "violent or hateful content", "copyrighted content", "identity documents", "financial files", "malware", "phishing", "scam-related content", "confidential work material", "sensitive screenshots", "Google Analytics", "advertising", "cookies", "localStorage")
+  "privacy.html" = @("browser", "remote service", "accessible to anyone", "1 day", "7 days", "30 days", "approved long-term storage code", "image URL", "illegal content", "adult content", "violent or hateful content", "copyrighted content", "identity documents", "financial files", "malware", "phishing", "scam-related content", "confidential work material", "sensitive screenshots", "manual review", "Google Analytics", "advertising", "cookies", "localStorage")
   "contact.html" = @("bug report", "feature suggestion", "calculation issue", "image removal request", "abuse report", "privacy question", "hosted image URL", "reason", "rights information")
-  "upload.html" = @("What not to upload", "Removal and abuse reports", "Privacy note")
+  "upload.html" = @("What not to upload", "How uploaded images are reviewed", "Common image hosting use cases", "Removal and abuse reports", "Privacy note")
   "tax.html" = @("estimate only", "not payroll, legal, financial or tax advice")
 }
 
@@ -350,22 +350,20 @@ foreach ($entry in $requiredContent.GetEnumerator()) {
 }
 
 $worker = Read-SiteFile "_worker.js"
-foreach ($pattern in @('initialPathname === "/terms"', 'initialPathname === "/acceptable-use"', 'url.pathname.endsWith(".html")')) {
+foreach ($pattern in @('initialPathname === "/terms"', 'initialPathname === "/acceptable-use"', 'url.pathname.endsWith(".html")', 'renderHomepageToolGrids')) {
   Assert-True ($worker.Contains($pattern)) "_worker.js misses $pattern"
 }
 Assert-True ($worker -match 'initialPathname === "/blog"[\s\S]*?render404\(request, env, 410\)') "_worker.js does not retire Blog URLs with 410"
 Assert-True ($worker -notmatch 'miniToolsBlogLang') "_worker.js still contains obsolete Blog language state"
 
-$expectedRobots = "User-agent: *`nAllow: /`nDisallow: /cdn-cgi/`n`nSitemap: https://mini-tools.uk/sitemap.xml"
+$expectedRobots = "User-agent: *`nAllow: /`nDisallow: /cdn-cgi/`nDisallow: /image_admin`nDisallow: /map`n`nSitemap: https://mini-tools.uk/sitemap.xml"
 Assert-True ((Read-SiteFile "robots.txt").Trim().Replace("`r`n", "`n") -eq $expectedRobots) "robots.txt differs from contract"
 $locs = [regex]::Matches((Read-SiteFile "sitemap.xml"), '<loc>([^<]+)</loc>') | ForEach-Object { $_.Groups[1].Value }
 $expectedLocs = @(
   "https://mini-tools.uk/", "https://mini-tools.uk/tax", "https://mini-tools.uk/vat",
   "https://mini-tools.uk/mortgage", "https://mini-tools.uk/ir35", "https://mini-tools.uk/stamp-duty",
-  "https://mini-tools.uk/dividend", "https://mini-tools.uk/json", "https://mini-tools.uk/diff",
-  "https://mini-tools.uk/token", "https://mini-tools.uk/qr", "https://mini-tools.uk/password",
-  "https://mini-tools.uk/upload", "https://mini-tools.uk/image", "https://mini-tools.uk/pdf2img",
-  "https://mini-tools.uk/color-picker", "https://mini-tools.uk/working-days", "https://mini-tools.uk/fuel",
+  "https://mini-tools.uk/dividend", "https://mini-tools.uk/upload", "https://mini-tools.uk/image",
+  "https://mini-tools.uk/pdf2img", "https://mini-tools.uk/working-days", "https://mini-tools.uk/fuel",
   "https://mini-tools.uk/weight", "https://mini-tools.uk/about", "https://mini-tools.uk/contact",
   "https://mini-tools.uk/privacy"
 )

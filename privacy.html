@@ -79,6 +79,11 @@
             "@type":"Question",
             "name":"Can I request removal of an uploaded image?",
             "acceptedAnswer":{"@type":"Answer","text":"Yes. Send the image URL and the reason for the request to the contact email listed on this policy page."}
+          },
+          {
+            "@type":"Question",
+            "name":"Are uploaded images reviewed manually?",
+            "acceptedAnswer":{"@type":"Answer","text":"Yes. Image hosting may use manual review and service safeguards. Reported, risky or policy-breaking images can be removed through the contact email listed on this policy page."}
           }
         ]
       }
@@ -344,7 +349,9 @@
           <li data-i18n="section2L1">The selected image is uploaded so a hosted URL can be created.</li>
           <li data-i18n="section2L2">The chosen retention period, optional long-term storage code and anti-bot verification data may be sent with the upload request.</li>
           <li data-i18n="section2L3">Hosted links may remain available after you close the browser tab, depending on the selected retention option.</li>
+          <li data-i18n="section2L4">Hosted uploads may be reviewed manually and can be removed if they breach upload rules or create safety, privacy, copyright or legal risks.</li>
         </ul>
+        <p data-i18n="section2P3">Mini-Tools.uk may use manual review and service-side safeguards for hosted uploads. Images can be rejected, hidden or removed if they appear to violate upload rules, privacy rights, copyright, safety requirements or applicable law, even when a link was already created.</p>
         <div class="warning-box">
           <strong data-i18n="uploadWarningTitle">Important upload reminder:</strong>
           <span data-i18n="uploadWarningText">Only upload images that you are comfortable sharing through a public or semi-public link. If you need an uploaded image removed, contact us with the image URL and the reason for the request.</span>
@@ -387,6 +394,7 @@
           <div class="faq-item"><h4 data-i18n="faq1Q">Which Mini-Tools.uk tools run locally in your browser?</h4><p data-i18n="faq1A">Many calculators and browser utilities process their main task locally, while image hosting and other remote features need server processing. Check the relevant tool page for specific behaviour.</p></div>
           <div class="faq-item"><h4 data-i18n="faq2Q">Does the image hosting page upload my file?</h4><p data-i18n="faq2A">Yes. The image hosting page sends the selected image and upload settings to a remote service so a hosted URL can be created.</p></div>
           <div class="faq-item"><h4 data-i18n="faq3Q">Can I request image removal?</h4><p data-i18n="faq3A">Yes. Send the image URL and removal reason to the contact email shown on this page.</p></div>
+          <div class="faq-item"><h4 data-i18n="faq4Q">Are uploaded images reviewed manually?</h4><p data-i18n="faq4A">Yes. Image hosting may use manual review and service safeguards. Reported, risky or policy-breaking images can be removed through the contact email shown on this page.</p></div>
         </div>
       </article>
 
@@ -408,6 +416,7 @@
             <li data-i18n="point2">Uploaded image links may be accessible to anyone with the link.</li>
             <li data-i18n="point3">Analytics and advertising partners may use their own technologies.</li>
             <li data-i18n="point4">Do not upload sensitive or illegal content.</li>
+            <li data-i18n="point5">Hosted images may be reviewed manually and removed if they breach upload rules.</li>
           </ul>
         </div>
 
@@ -467,7 +476,8 @@
         section2Title:"2. Image hosting and uploaded files",
         section2P1:"The free image hosting page at /upload cannot work as a local-only tool. To create a hosted image URL, the selected image file and required upload settings are sent to a remote endpoint.",
         section2P2:"Uploaded images may be accessible to anyone who has the generated link. Do not upload private documents, identity documents, financial files, confidential work material, sensitive screenshots, illegal content, adult content, violent or hateful content, copyrighted content without permission, malware, phishing or scam-related content.",
-        section2L1:"The selected image is uploaded so a hosted URL can be created.", section2L2:"The chosen retention period, optional long-term storage code and anti-bot verification data may be sent with the upload request.", section2L3:"Hosted links may remain available after you close the browser tab, depending on the selected retention option.",
+        section2L1:"The selected image is uploaded so a hosted URL can be created.", section2L2:"The chosen retention period, optional long-term storage code and anti-bot verification data may be sent with the upload request.", section2L3:"Hosted links may remain available after you close the browser tab, depending on the selected retention option.", section2L4:"Hosted uploads may be reviewed manually and can be removed if they breach upload rules or create safety, privacy, copyright or legal risks.",
+        section2P3:"Mini-Tools.uk may use manual review and service-side safeguards for hosted uploads. Images can be rejected, hidden or removed if they appear to violate upload rules, privacy rights, copyright, safety requirements or applicable law, even when a link was already created.",
         uploadWarningTitle:"Important upload reminder:", uploadWarningText:"Only upload images that you are comfortable sharing through a public or semi-public link. If you need an uploaded image removed, contact us with the image URL and the reason for the request.",
         section3Title:"3. Image retention and deletion requests",
         section3P1:"The image hosting tool may offer retention choices such as 1 day, 7 days, 30 days or permanent storage when an approved long-term storage code is used. The selected option controls how the service is intended to handle the hosted image.",
@@ -490,8 +500,9 @@
         faq1Q:"Which Mini-Tools.uk tools run locally in your browser?", faq1A:"Many calculators and browser utilities process their main task locally, while image hosting and other remote features need server processing. Check the relevant tool page for specific behaviour.",
         faq2Q:"Does the image hosting page upload my file?", faq2A:"Yes. The image hosting page sends the selected image and upload settings to a remote service so a hosted URL can be created.",
         faq3Q:"Can I request image removal?", faq3A:"Yes. Send the image URL and removal reason to the contact email shown on this page.",
+        faq4Q:"Are uploaded images reviewed manually?", faq4A:"Yes. Image hosting may use manual review and service safeguards. Reported, risky or policy-breaking images can be removed through the contact email shown on this page.",
         sideCoversTitle:"This policy covers", chip1:"Browser processing", chip2:"Image uploads", chip3:"Retention", chip4:"Analytics and ads",
-        sideImportantTitle:"Important points", point1:"Local tools and upload tools behave differently.", point2:"Uploaded image links may be accessible to anyone with the link.", point3:"Analytics and advertising partners may use their own technologies.", point4:"Do not upload sensitive or illegal content.",
+        sideImportantTitle:"Important points", point1:"Local tools and upload tools behave differently.", point2:"Uploaded image links may be accessible to anyone with the link.", point3:"Analytics and advertising partners may use their own technologies.", point4:"Do not upload sensitive or illegal content.", point5:"Hosted images may be reviewed manually and removed if they breach upload rules.",
         sidePagesTitle:"Related pages", relatedUpload:"Free image hosting", relatedTax:"UK tax calculator", relatedAbout:"About", relatedContact:"Contact",
         sideLocalTitle:"Examples of browser tools", localJson:"JSON formatter", localDiff:"Text diff checker", localToken:"AI token calculator", localVat:"VAT calculator"
       },
@@ -519,7 +530,8 @@
         section2Title:"2. 图床和上传文件",
         section2P1:"/upload 免费图床不能作为纯本地工具运行。为了创建托管图片 URL，所选图片文件和必要上传设置会发送到远程接口。",
         section2P2:"上传后的图片可能会被拥有链接的人访问。请不要上传私人文件、身份证件、财务文件、机密工作材料、敏感截图、违法内容、成人内容、暴力或仇恨内容、未经授权的版权内容、恶意软件、钓鱼或诈骗相关内容。",
-        section2L1:"所选图片会被上传，以便生成托管 URL。", section2L2:"选择的保存时长、可选长期存储码和防机器人验证数据可能会随上传请求一起发送。", section2L3:"根据你选择的保存选项，托管链接可能会在关闭浏览器标签后继续可访问。",
+        section2L1:"所选图片会被上传，以便生成托管 URL。", section2L2:"选择的保存时长、可选长期存储码和防机器人验证数据可能会随上传请求一起发送。", section2L3:"根据你选择的保存选项，托管链接可能会在关闭浏览器标签后继续可访问。", section2L4:"托管上传可能接受人工审核；如违反上传规则或带来安全、隐私、版权或法律风险，图片可能被删除。",
+        section2P3:"Mini-Tools.uk 可能对托管上传进行人工审核并配合服务端保护措施。即使链接已经生成，疑似违反上传规则、隐私权、版权、安全要求或适用法律的图片也可能被拒绝、隐藏或删除。",
         uploadWarningTitle:"重要上传提醒：", uploadWarningText:"请只上传你愿意通过公开或半公开链接分享的图片。如果你需要删除已上传图片，请提供图片 URL 和删除原因联系我们。",
         section3Title:"3. 图片保存和删除请求",
         section3P1:"图床工具可能提供 1 天、7 天、30 天，或在使用已批准长期存储码时永久保存等选项。所选选项用于控制服务应如何处理托管图片。",
@@ -537,8 +549,9 @@
         faq1Q:"所有工具都在本地运行吗？", faq1A:"不是。很多工具会本地运行，但图床、文件分享或其他远程功能可能需要服务器处理。请查看具体工具页面说明。",
         faq2Q:"图床页面会上传我的文件吗？", faq2A:"会。图床页面会把所选图片和上传设置发送到远程服务，以生成托管 URL。",
         faq3Q:"我可以请求删除图片吗？", faq3A:"可以。请把图片 URL 和删除原因发送到本页面显示的联系邮箱。",
+        faq4Q:"上传的图片会人工审核吗？", faq4A:"会。图床可能使用人工审核和服务端保护措施。被举报、存在风险或违反政策的图片，可通过本页面显示的联系邮箱申请删除。",
         sideCoversTitle:"本政策覆盖", chip1:"浏览器处理", chip2:"图片上传", chip3:"保存时长", chip4:"分析和广告",
-        sideImportantTitle:"重点说明", point1:"本地工具和上传工具行为不同。", point2:"拥有链接的人可能可以访问上传图片。", point3:"分析和广告合作方可能使用自己的技术。", point4:"不要上传敏感或违法内容。",
+        sideImportantTitle:"重点说明", point1:"本地工具和上传工具行为不同。", point2:"拥有链接的人可能可以访问上传图片。", point3:"分析和广告合作方可能使用自己的技术。", point4:"不要上传敏感或违法内容。", point5:"托管图片可能接受人工审核，违反上传规则的图片可能被删除。",
         sidePagesTitle:"相关页面", relatedUpload:"免费图床", relatedTax:"英国 Tax 计算器", relatedAbout:"关于", relatedContact:"联系",
         sideLocalTitle:"浏览器工具示例", localJson:"JSON 格式化", localDiff:"文本对比", localToken:"AI Token 计算器", localVat:"VAT 计算器"
       },
@@ -566,7 +579,8 @@
         section2Title:"2. Bildhosting und hochgeladene Dateien",
         section2P1:"Die kostenlose Bildhosting-Seite unter /upload kann nicht als reines lokales Tool funktionieren. Um eine gehostete Bild-URL zu erstellen, werden Datei und erforderliche Upload-Einstellungen an einen Remote-Endpunkt gesendet.",
         section2P2:"Hochgeladene Bilder können für jeden zugänglich sein, der den generierten Link besitzt. Laden Sie keine privaten Dokumente, Ausweise, Finanzdateien, vertrauliche Arbeitsmaterialien, sensiblen Screenshots, illegalen Inhalte, Adult Content, gewaltverherrlichenden oder hasserfüllten Inhalte, urheberrechtlich geschützten Inhalte ohne Erlaubnis, Malware, Phishing- oder Scam-Inhalte hoch.",
-        section2L1:"Das ausgewählte Bild wird hochgeladen, damit eine gehostete URL erstellt werden kann.", section2L2:"Gewählte Aufbewahrungsdauer, optionaler Langzeitspeicher-Code und Anti-Bot-Daten können mitgesendet werden.", section2L3:"Gehostete Links können nach dem Schließen des Browser-Tabs verfügbar bleiben, abhängig von der gewählten Option.",
+        section2L1:"Das ausgewählte Bild wird hochgeladen, damit eine gehostete URL erstellt werden kann.", section2L2:"Gewählte Aufbewahrungsdauer, optionaler Langzeitspeicher-Code und Anti-Bot-Daten können mitgesendet werden.", section2L3:"Gehostete Links können nach dem Schließen des Browser-Tabs verfügbar bleiben, abhängig von der gewählten Option.", section2L4:"Gehostete Uploads können manuell geprüft werden und entfernt werden, wenn sie gegen Upload-Regeln verstoßen oder Sicherheits-, Datenschutz-, Urheberrechts- oder Rechtsrisiken erzeugen.",
+        section2P3:"Mini-Tools.uk kann manuelle Prüfung und serverseitige Schutzmaßnahmen für gehostete Uploads verwenden. Bilder können abgelehnt, ausgeblendet oder entfernt werden, wenn sie gegen Upload-Regeln, Datenschutzrechte, Urheberrecht, Sicherheitsanforderungen oder geltendes Recht verstoßen, auch wenn ein Link bereits erstellt wurde.",
         uploadWarningTitle:"Wichtiger Upload-Hinweis:", uploadWarningText:"Laden Sie nur Bilder hoch, die Sie über einen öffentlichen oder halböffentlichen Link teilen möchten. Wenn ein Bild entfernt werden soll, kontaktieren Sie uns mit der Bild-URL und dem Grund.",
         section3Title:"3. Bildaufbewahrung und Löschanfragen",
         section3P1:"Das Bildhosting-Tool kann Optionen wie 1 Tag, 7 Tage, 30 Tage oder permanenten Speicher mit genehmigtem Langzeitspeicher-Code anbieten. Die ausgewählte Option steuert, wie der Service das Bild behandeln soll.",
@@ -584,8 +598,9 @@
         faq1Q:"Laufen alle Tools lokal?", faq1A:"Nein. Viele Tools laufen lokal, aber Bildhosting, Dateifreigabe oder andere Remote-Funktionen können Serververarbeitung benötigen.",
         faq2Q:"Lädt die Bildhosting-Seite meine Datei hoch?", faq2A:"Ja. Die Bildhosting-Seite sendet das ausgewählte Bild und Upload-Einstellungen an einen Remote-Service, um eine gehostete URL zu erstellen.",
         faq3Q:"Kann ich die Entfernung eines Bildes anfordern?", faq3A:"Ja. Senden Sie die Bild-URL und den Grund an die auf dieser Seite angegebene E-Mail-Adresse.",
+        faq4Q:"Werden hochgeladene Bilder manuell geprüft?", faq4A:"Ja. Bildhosting kann manuelle Prüfung und Service-Schutzmaßnahmen nutzen. Gemeldete, riskante oder regelwidrige Bilder können über die auf dieser Seite angegebene E-Mail entfernt werden.",
         sideCoversTitle:"Diese Richtlinie behandelt", chip1:"Browser-Verarbeitung", chip2:"Bild-Uploads", chip3:"Aufbewahrung", chip4:"Analytics und Ads",
-        sideImportantTitle:"Wichtige Punkte", point1:"Lokale Tools und Upload-Tools verhalten sich unterschiedlich.", point2:"Hochgeladene Links können für jeden mit Link zugänglich sein.", point3:"Analytics- und Werbepartner können eigene Technologien nutzen.", point4:"Keine sensiblen oder illegalen Inhalte hochladen.",
+        sideImportantTitle:"Wichtige Punkte", point1:"Lokale Tools und Upload-Tools verhalten sich unterschiedlich.", point2:"Hochgeladene Links können für jeden mit Link zugänglich sein.", point3:"Analytics- und Werbepartner können eigene Technologien nutzen.", point4:"Keine sensiblen oder illegalen Inhalte hochladen.", point5:"Gehostete Bilder können manuell geprüft und bei Regelverstößen entfernt werden.",
         sidePagesTitle:"Verwandte Seiten", relatedUpload:"Kostenloses Bildhosting", relatedTax:"UK Tax Rechner", relatedAbout:"Über uns", relatedContact:"Kontakt",
         sideLocalTitle:"Beispiele für Browser-Tools", localJson:"JSON Formatter", localDiff:"Text Diff Checker", localToken:"AI Token Rechner", localVat:"VAT Rechner"
       },
@@ -613,7 +628,8 @@
         section2Title:"2. Hébergement d’images et fichiers envoyés",
         section2P1:"La page d’hébergement d’images gratuite /upload ne peut pas fonctionner comme un outil uniquement local. Pour créer une URL d’image hébergée, le fichier sélectionné et les paramètres nécessaires sont envoyés à un endpoint distant.",
         section2P2:"Les images envoyées peuvent être accessibles à toute personne disposant du lien généré. Ne téléversez pas de documents privés, pièces d’identité, fichiers financiers, documents professionnels confidentiels, captures sensibles, contenu illégal, adulte, violent ou haineux, contenu sous copyright sans autorisation, malware, phishing ou arnaque.",
-        section2L1:"L’image sélectionnée est envoyée afin de créer une URL hébergée.", section2L2:"La durée de conservation, le code longue durée facultatif et la vérification anti-bot peuvent être envoyés avec la requête.", section2L3:"Les liens hébergés peuvent rester accessibles après fermeture de l’onglet selon l’option choisie.",
+        section2L1:"L’image sélectionnée est envoyée afin de créer une URL hébergée.", section2L2:"La durée de conservation, le code longue durée facultatif et la vérification anti-bot peuvent être envoyés avec la requête.", section2L3:"Les liens hébergés peuvent rester accessibles après fermeture de l’onglet selon l’option choisie.", section2L4:"Les envois hébergés peuvent être examinés manuellement et supprimés s’ils enfreignent les règles d’upload ou créent des risques de sécurité, de confidentialité, de droits d’auteur ou juridiques.",
+        section2P3:"Mini-Tools.uk peut utiliser un examen manuel et des protections côté service pour les envois hébergés. Les images peuvent être refusées, masquées ou supprimées si elles semblent violer les règles d’upload, la vie privée, le droit d’auteur, la sécurité ou la loi applicable, même lorsqu’un lien a déjà été créé.",
         uploadWarningTitle:"Rappel important :", uploadWarningText:"N’envoyez que des images que vous acceptez de partager via un lien public ou semi-public. Pour demander une suppression, contactez-nous avec l’URL de l’image et la raison.",
         section3Title:"3. Conservation et demandes de suppression",
         section3P1:"L’outil d’hébergement peut proposer 1 jour, 7 jours, 30 jours ou stockage permanent avec code approuvé. L’option choisie détermine l’intention de conservation du service.",
@@ -631,8 +647,9 @@
         faq1Q:"Tous les outils sont-ils locaux ?", faq1A:"Non. Beaucoup sont locaux, mais hébergement d’images, partage de fichiers ou fonctions distantes peuvent nécessiter un serveur.",
         faq2Q:"La page d’hébergement envoie-t-elle mon fichier ?", faq2A:"Oui. Elle envoie l’image sélectionnée et les paramètres d’upload à un service distant afin de créer une URL hébergée.",
         faq3Q:"Puis-je demander la suppression d’une image ?", faq3A:"Oui. Envoyez l’URL de l’image et la raison à l’adresse indiquée sur cette page.",
+        faq4Q:"Les images téléversées sont-elles examinées manuellement ?", faq4A:"Oui. L’hébergement d’images peut utiliser un examen manuel et des protections du service. Les images signalées, risquées ou contraires aux règles peuvent être supprimées via l’email indiqué sur cette page.",
         sideCoversTitle:"Cette politique couvre", chip1:"Traitement navigateur", chip2:"Uploads d’images", chip3:"Conservation", chip4:"Analytics et publicité",
-        sideImportantTitle:"Points importants", point1:"Outils locaux et outils d’upload fonctionnent différemment.", point2:"Les liens d’images peuvent être accessibles à toute personne ayant le lien.", point3:"Les partenaires analytics et publicité peuvent utiliser leurs technologies.", point4:"N’envoyez pas de contenu sensible ou illégal.",
+        sideImportantTitle:"Points importants", point1:"Outils locaux et outils d’upload fonctionnent différemment.", point2:"Les liens d’images peuvent être accessibles à toute personne ayant le lien.", point3:"Les partenaires analytics et publicité peuvent utiliser leurs technologies.", point4:"N’envoyez pas de contenu sensible ou illégal.", point5:"Les images hébergées peuvent être examinées manuellement et supprimées en cas de violation des règles.",
         sidePagesTitle:"Pages liées", relatedUpload:"Hébergement d’images gratuit", relatedTax:"Calculateur UK tax", relatedAbout:"À propos", relatedContact:"Contact",
         sideLocalTitle:"Exemples d’outils navigateur", localJson:"Formateur JSON", localDiff:"Text diff checker", localToken:"Calculateur AI token", localVat:"Calculateur VAT"
       },
@@ -660,7 +677,8 @@
         section2Title:"2. Hosting de imágenes y archivos subidos",
         section2P1:"La página gratuita /upload no puede funcionar como herramienta solo local. Para crear una URL alojada, la imagen seleccionada y los ajustes necesarios se envían a un endpoint remoto.",
         section2P2:"Las imágenes subidas pueden ser accesibles para cualquiera que tenga el enlace. No subas documentos privados, IDs, archivos financieros, material de trabajo confidencial, capturas sensibles, contenido ilegal, adulto, violento u odioso, copyright sin permiso, malware, phishing o estafas.",
-        section2L1:"La imagen seleccionada se sube para crear una URL alojada.", section2L2:"La retención elegida, código de almacenamiento opcional y verificación anti-bot pueden enviarse con la solicitud.", section2L3:"Los enlaces alojados pueden seguir disponibles después de cerrar la pestaña, según la opción elegida.",
+        section2L1:"La imagen seleccionada se sube para crear una URL alojada.", section2L2:"La retención elegida, código de almacenamiento opcional y verificación anti-bot pueden enviarse con la solicitud.", section2L3:"Los enlaces alojados pueden seguir disponibles después de cerrar la pestaña, según la opción elegida.", section2L4:"Las subidas alojadas pueden revisarse manualmente y eliminarse si incumplen las reglas de subida o generan riesgos de seguridad, privacidad, copyright o legales.",
+        section2P3:"Mini-Tools.uk puede usar revisión manual y protecciones del servicio para subidas alojadas. Las imágenes pueden rechazarse, ocultarse o eliminarse si parecen violar reglas de subida, derechos de privacidad, copyright, requisitos de seguridad o la ley aplicable, incluso cuando ya se creó un enlace.",
         uploadWarningTitle:"Recordatorio importante:", uploadWarningText:"Sube solo imágenes que aceptes compartir mediante un enlace público o semipúblico. Para eliminar una imagen, contáctanos con la URL y el motivo.",
         section3Title:"3. Retención y solicitudes de borrado",
         section3P1:"La herramienta puede ofrecer 1 día, 7 días, 30 días o almacenamiento permanente con código aprobado. La opción elegida controla la intención de retención del servicio.",
@@ -678,8 +696,9 @@
         faq1Q:"¿Todas las herramientas son locales?", faq1A:"No. Muchas son locales, pero hosting de imágenes, compartir archivos u otras funciones remotas pueden necesitar servidor.",
         faq2Q:"¿La página de hosting sube mi archivo?", faq2A:"Sí. Envía la imagen seleccionada y ajustes de subida a un servicio remoto para crear una URL alojada.",
         faq3Q:"¿Puedo solicitar eliminar una imagen?", faq3A:"Sí. Envía la URL y el motivo al email mostrado en esta página.",
+        faq4Q:"¿Las imágenes subidas se revisan manualmente?", faq4A:"Sí. El hosting de imágenes puede usar revisión manual y protecciones del servicio. Las imágenes reportadas, de riesgo o que incumplan las reglas pueden eliminarse mediante el email mostrado en esta página.",
         sideCoversTitle:"Esta política cubre", chip1:"Procesamiento navegador", chip2:"Subidas de imágenes", chip3:"Retención", chip4:"Analytics y anuncios",
-        sideImportantTitle:"Puntos importantes", point1:"Herramientas locales y uploads se comportan distinto.", point2:"Los enlaces de imágenes pueden ser accesibles para quien tenga el enlace.", point3:"Partners de analytics y anuncios pueden usar sus tecnologías.", point4:"No subas contenido sensible o ilegal.",
+        sideImportantTitle:"Puntos importantes", point1:"Herramientas locales y uploads se comportan distinto.", point2:"Los enlaces de imágenes pueden ser accesibles para quien tenga el enlace.", point3:"Partners de analytics y anuncios pueden usar sus tecnologías.", point4:"No subas contenido sensible o ilegal.", point5:"Las imágenes alojadas pueden revisarse manualmente y eliminarse si incumplen las reglas de subida.",
         sidePagesTitle:"Páginas relacionadas", relatedUpload:"Hosting gratuito de imágenes", relatedTax:"Calculadora UK tax", relatedAbout:"Acerca de", relatedContact:"Contacto",
         sideLocalTitle:"Ejemplos de herramientas web", localJson:"Formateador JSON", localDiff:"Text diff checker", localToken:"Calculadora AI token", localVat:"Calculadora VAT"
       }
@@ -789,7 +808,8 @@
           {"@type":"FAQPage","inLanguage":dict.htmlLang||"en-GB","mainEntity":[
             {"@type":"Question","name":dict.faq1Q,"acceptedAnswer":{"@type":"Answer","text":dict.faq1A}},
             {"@type":"Question","name":dict.faq2Q,"acceptedAnswer":{"@type":"Answer","text":dict.faq2A}},
-            {"@type":"Question","name":dict.faq3Q,"acceptedAnswer":{"@type":"Answer","text":dict.faq3A}}
+            {"@type":"Question","name":dict.faq3Q,"acceptedAnswer":{"@type":"Answer","text":dict.faq3A}},
+            {"@type":"Question","name":dict.faq4Q,"acceptedAnswer":{"@type":"Answer","text":dict.faq4A}}
           ]}
         ]
       };

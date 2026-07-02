@@ -6,7 +6,7 @@
 
   <title id="meta-title">Image Colour Picker and Cropper from Photos</title>
   <meta name="description" id="meta-desc" content="Pick HEX, RGB and HSL colors from an image or screenshot, build a small palette, and crop a selected area locally in your browser." />
-  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="robots" content="noindex,follow,max-image-preview:large">
   <meta name="theme-color" content="#0f172a" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Image Color Picker from Image | HEX, RGB, HSL Tool" />
@@ -80,12 +80,11 @@
   }
   </script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+    body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background-color: #f8fafc; color: #0f172a; line-height: 1.55; }
     h1, h2, h3, h4, p { margin: 0; }
     button, input { margin: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; }
     svg, canvas { display: block; }
@@ -683,10 +682,16 @@
             <li><strong>RGB:</strong> Define colores por la intensidad de luz roja, verde y azul.</li>
             <li><strong>HSL:</strong> Ideal para desarrolladores para crear temas de color programáticos.</li>
           </ul>
+          <h3>Historial de paleta reciente</h3>
+          <p>La paleta reciente guarda los últimos colores seleccionados para que pueda comparar tonos cercanos y volver a copiar valores sin reabrir la imagen.</p>
           <h2>Preguntas Frecuentes</h2>
           <div class="faq-box">
-            <h4>¿Son seguras mis imágenes confidenciales?</h4>
-            <p class="mb-0">Absolutamente. Este proceso se realiza utilizando HTML5 Canvas en la memoria de su dispositivo. Sus archivos <strong>nunca</strong> se transmiten por internet.</p>
+            <h4>¿Se suben mis imágenes?</h4>
+            <p class="mb-0">El selector y recortador usan Canvas en el navegador. En uso normal, la imagen se renderiza localmente y no se envía a Mini-Tools.uk.</p>
+          </div>
+          <div class="faq-box">
+            <h4>¿El recorte reduce la calidad?</h4>
+            <p class="mb-0">La exportación del recorte vuelve a mapear la selección a los píxeles originales, por lo que el PNG descargado usa el área real de la imagen fuente.</p>
           </div>`
       },
       fr: {
@@ -711,10 +716,16 @@
             <li><strong>RGB :</strong> Définit les couleurs par l'intensité de la lumière rouge, verte et bleue.</li>
             <li><strong>HSL :</strong> Idéal pour créer des thèmes de couleurs programmatiques.</li>
           </ul>
+          <h3>Historique de palette récente</h3>
+          <p>La palette récente conserve vos dernières couleurs sélectionnées afin de comparer les tons proches et de recopier les valeurs sans rouvrir l’image.</p>
           <h2>Foire Aux Questions</h2>
           <div class="faq-box">
-            <h4>Mes images confidentielles sont-elles en sécurité ?</h4>
-            <p class="mb-0">Absolument. Ce processus utilise HTML5 Canvas dans la mémoire de votre appareil. Vos fichiers ne sont <strong>jamais</strong> transmis sur internet.</p>
+            <h4>Mes images sont-elles téléversées ?</h4>
+            <p class="mb-0">Le sélecteur et le recadrage utilisent Canvas dans le navigateur. En usage normal, l’image est rendue localement et n’est pas envoyée à Mini-Tools.uk.</p>
+          </div>
+          <div class="faq-box">
+            <h4>Le recadrage réduit-il la qualité ?</h4>
+            <p class="mb-0">L’export recadre la sélection sur les pixels d’origine, donc le PNG téléchargé utilise la zone réelle de l’image source.</p>
           </div>`
       },
       de: {
@@ -739,10 +750,16 @@
             <li><strong>RGB:</strong> Definiert Farben durch die Intensität von rotem, grünem und blauem Licht.</li>
             <li><strong>HSL:</strong> Ideal für Entwickler, um programmatische Farbthemen zu erstellen.</li>
           </ul>
+          <h3>Letzte Farbpalette</h3>
+          <p>Die letzte Palette speichert zuletzt gewählte Farben, damit Sie ähnliche Töne vergleichen und Werte erneut kopieren können, ohne das Bild erneut zu öffnen.</p>
           <h2>Häufig Gestellte Fragen</h2>
           <div class="faq-box">
-            <h4>Sind meine vertraulichen Bilder sicher?</h4>
-            <p class="mb-0">Absolut. Dieser Prozess verwendet HTML5 Canvas im Speicher Ihres Geräts. Ihre Dateien werden <strong>niemals</strong> über das Internet übertragen.</p>
+            <h4>Werden meine Bilder hochgeladen?</h4>
+            <p class="mb-0">Farbpipette und Zuschneider nutzen Browser-Canvas. Bei normaler Nutzung wird das Bild lokal gerendert und nicht an Mini-Tools.uk gesendet.</p>
+          </div>
+          <div class="faq-box">
+            <h4>Verringert das Zuschneiden die Qualität?</h4>
+            <p class="mb-0">Der Export mappt die Auswahl zurück auf die Originalpixel, sodass das heruntergeladene PNG den Quellbereich statt einer niedrig aufgelösten Vorschau verwendet.</p>
           </div>`
       }
     };

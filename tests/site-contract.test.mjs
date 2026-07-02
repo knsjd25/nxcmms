@@ -12,8 +12,7 @@ const htmlFiles = titleHtmlFiles.filter((name) => name !== "404.html");
 
 const approvedPaths = [
   "/", "/tax", "/vat", "/mortgage", "/ir35", "/stamp-duty", "/dividend",
-  "/json", "/diff", "/token", "/qr", "/password", "/upload", "/image",
-  "/pdf2img", "/color-picker", "/working-days", "/fuel", "/weight",
+  "/upload", "/image", "/pdf2img", "/working-days", "/fuel", "/weight",
   "/about", "/contact", "/privacy",
 ];
 
@@ -718,13 +717,13 @@ test("upload page keeps protected controls and has formal safety content", () =>
     assert.match(html, new RegExp(escapeRe(required)), `upload: ${required}`);
   }
   for (const phrase of [
-    "What not to upload", "Removal and abuse reports", "Privacy note",
+    "What not to upload", "How uploaded images are reviewed", "Common image hosting use cases", "Removal and abuse reports", "Privacy note",
     "ID documents", "Passports", "Bank cards", "Financial documents",
     "Confidential work files", "Illegal content", "Malware-related content",
   ]) {
     assert.match(html, new RegExp(escapeRe(phrase), "i"), `upload content: ${phrase}`);
   }
-  for (const id of ["retentionTitle", "rulesTitle", "removalTitle", "privacyNoteTitle", "examplesTitle", "faqSectionTitle"]) {
+  for (const id of ["retentionTitle", "rulesTitle", "moderationTitle", "removalTitle", "privacyNoteTitle", "examplesTitle", "faqSectionTitle"]) {
     assert.match(html, new RegExp(`id=["']${id}["']`), `upload: ${id}`);
   }
 });
@@ -771,10 +770,10 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   const lastmods = [...read("sitemap.xml").matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1]);
   assert.deepEqual(locs, approvedPaths.map((path) => `https://mini-tools.uk${path}`));
   assert.equal(lastmods.length, locs.length, "every sitemap URL has a lastmod date");
-  assert.equal(lastmods.every((value) => value === "2026-06-14" || value === "2026-06-16"), true, "sitemap lastmod date");
+  assert.equal(lastmods.every((value) => value === "2026-06-14" || value === "2026-06-16" || value === "2026-07-02"), true, "sitemap lastmod date");
   assert.equal(read("sitemap.xml").includes("?lang="), false);
   assert.doesNotMatch(read("sitemap.xml"), /blog/i);
-  assert.equal(read("robots.txt").trim().replace(/\r\n/g, "\n"), "User-agent: *\nAllow: /\nDisallow: /cdn-cgi/\n\nSitemap: https://mini-tools.uk/sitemap.xml");
+  assert.equal(read("robots.txt").trim().replace(/\r\n/g, "\n"), "User-agent: *\nAllow: /\nDisallow: /cdn-cgi/\nDisallow: /image_admin\nDisallow: /map\n\nSitemap: https://mini-tools.uk/sitemap.xml");
 });
 
 test("worker renders Chinese body, metadata and schema for key pages", async () => {
@@ -791,6 +790,11 @@ test("worker renders Chinese body, metadata and schema for key pages", async () 
     assert.notEqual(h1, englishText, `${path}: English H1 must be replaced`);
     assert.match(html, /"@context"/, `${path}: schema`);
     assert.match(html, /<link rel="canonical" href="https:\/\/mini-tools\.uk\/[^"]*\?lang=zh-CN"|<link rel="canonical" href="https:\/\/mini-tools\.uk\/\?lang=zh-CN"/, `${path}: canonical`);
+    if (path === "/?lang=zh-CN") {
+      assert.match(html, /id=["']ukHubTools["'][\s\S]*?英国个人所得税计算器/, `${path}: SSR ukHubTools Chinese tool name`);
+      assert.match(html, /id=["']otherToolsGrid["'][\s\S]*?免费图床/, `${path}: SSR otherToolsGrid Chinese tool name`);
+      assert.doesNotMatch(html, /id=["']ukHubTools["'][\s\S]*?UK Tax Calculator/, `${path}: ukHubTools must not stay English-only in SSR`);
+    }
   }
 });
 

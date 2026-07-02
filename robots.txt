@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /cdn-cgi/
+Disallow: /image_admin
+Disallow: /map
 
 Sitemap: https://mini-tools.uk/sitemap.xml

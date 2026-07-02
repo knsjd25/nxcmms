@@ -56,14 +56,8 @@ const INDEXABLE_PATHS = new Set([
   "/dividend",
   "/fuel",
   "/working-days",
-  "/json",
-  "/diff",
-  "/token",
   "/image",
   "/pdf2img",
-  "/color-picker",
-  "/qr",
-  "/password",
   "/weight",
   "/about",
   "/contact",
@@ -911,6 +905,66 @@ function maybeRedirectNormalizedUrl(requestUrl) {
   return changed ? url.toString() : null;
 }
 
+function extractToolCatalog(html) {
+  const match = html.match(/const toolCatalog = (\[[\s\S]*?\n  \]);/);
+  if (!match) return null;
+  try {
+    return new Function(`return ${match[1]}`)();
+  } catch {
+    return null;
+  }
+}
+
+const HOME_CATEGORY_LABELS = {
+  en: { uk: "UK Calculator", dev: "Developer", other: "Utility" },
+  "zh-CN": { uk: "英国计算器", dev: "开发者", other: "实用工具" },
+  de: { uk: "UK-Rechner", dev: "Entwickler", other: "Tool" },
+  fr: { uk: "Calculateur UK", dev: "Développeur", other: "Outil" },
+  es: { uk: "Calculadora UK", dev: "Desarrollo", other: "Utilidad" },
+};
+
+function localizedHomeHref(url, lang) {
+  if (lang === DEFAULT_LANG) return url;
+  return `${url}?lang=${encodeURIComponent(lang)}`;
+}
+
+function toolTextForLang(map, lang) {
+  return (map && (map[lang] || map.en)) || "";
+}
+
+function renderHomepageToolGrids(html, lang, dict) {
+  const catalog = extractToolCatalog(html);
+  if (!catalog || !Array.isArray(catalog)) return html;
+
+  const openTool = dict.openTool || "Open tool";
+  const ukTools = catalog.filter((tool) => tool.group === "uk");
+  const otherTools = catalog.filter((tool) => tool.group !== "uk");
+  const categories = HOME_CATEGORY_LABELS[lang] || HOME_CATEGORY_LABELS.en;
+
+  const ukHtml = ukTools.map((tool, index) => {
+    const href = escapeAttr(localizedHomeHref(tool.url, lang));
+    const name = escapeHtml(toolTextForLang(tool.name, lang));
+    const desc = escapeHtml(toolTextForLang(tool.desc, lang));
+    const theme = escapeAttr(tool.theme || "");
+    const icon = escapeHtml(tool.icon || "");
+    const large = index === 0 ? " large" : "";
+    return `<a class="feature-card${large} ${theme}" href="${href}"><div><div class="feature-top"><span class="feature-icon">${icon}</span><span class="feature-label">${escapeHtml(categories.uk)}</span></div><div class="feature-body"><h3>${name}</h3><p>${desc}</p></div></div><div class="feature-foot"><span>${escapeHtml(openTool)}</span><span aria-hidden="true">→</span></div></a>`;
+  }).join("");
+
+  const otherHtml = otherTools.map((tool) => {
+    const href = escapeAttr(localizedHomeHref(tool.url, lang));
+    const name = escapeHtml(toolTextForLang(tool.name, lang));
+    const desc = escapeHtml(toolTextForLang(tool.desc, lang));
+    const theme = escapeAttr(tool.theme || "");
+    const icon = escapeHtml(tool.icon || "");
+    return `<a class="compact-tool ${theme}" href="${href}"><span class="compact-icon">${icon}</span><span><strong>${name}</strong><span>${desc}</span></span></a>`;
+  }).join("");
+
+  html = replaceElementInnerById(html, "ukHubTools", ukHtml);
+  html = replaceElementInnerById(html, "otherToolsGrid", otherHtml);
+  return html;
+}
+
 function serverRenderHtml(html, requestUrl) {
   const url = new URL(requestUrl);
   const pathname = normalizePathname(url.pathname);
@@ -923,6 +977,9 @@ function serverRenderHtml(html, requestUrl) {
 
   html = renderTranslatedBody(html, dict);
   html = renderTranslatedSiteShell(html, lang);
+  if (pathname === "/") {
+    html = renderHomepageToolGrids(html, lang, dict || {});
+  }
   html = updateSeoForLang(html, dict, pathname, lang, url, robots);
   html = updateStructuredDataServerSide(html, dict, pathname, lang, url);
   html = rewriteInternalLinks(html, lang);
