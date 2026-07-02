@@ -757,24 +757,12 @@
           <p id="faq3Text">It is an optional code for approved long-term image hosting. Normal free image uploads can leave it blank.</p>
         </article>
         <article class="faq-item">
-          <h3 id="faq4Title">What can I use this free image host for?</h3>
-          <p id="faq4Text">It is useful for screenshots, website images, product photos, forum posts, support tickets and other simple image sharing tasks.</p>
-        </article>
-        <article class="faq-item">
           <h3 id="faq5Title">Can I use the link in a GitHub README?</h3>
           <p id="faq5Text">Yes. Upload the image, copy the Markdown output, and paste it into README.md or a GitHub issue comment.</p>
         </article>
         <article class="faq-item">
           <h3 id="faq6Title">Which output format should I copy?</h3>
           <p id="faq6Text">Use Direct URL for plain links, Markdown for README files and docs, HTML for web pages, and BBCode for forums.</p>
-        </article>
-        <article class="faq-item">
-          <h3 id="faq7Title">Can I use it for website images?</h3>
-          <p id="faq7Text">Yes. You can copy Markdown or HTML embed code and paste it into website posts, documentation or forum content.</p>
-        </article>
-        <article class="faq-item">
-          <h3 id="faq8Title">Do I need a long-term storage code?</h3>
-          <p id="faq8Text">Only permanent storage requires an approved long-term storage code. Normal 1 day, 7 day and 30 day uploads can leave it blank.</p>
         </article>
         <article class="faq-item">
           <h3 id="faq9Title">Are uploaded images reviewed by a person?</h3>
@@ -985,7 +973,7 @@
         }
       },
 
-      zh: {
+      "zh-CN": {
         htmlLang: "zh-CN",
         seoTitle: "免费图床：图片 URL、Markdown 和 README 托管",
         seoDescription: "免费图床支持上传图片并生成可分享外链，可自定义保留时长，支持上传前预览、长期存储码和简单计算验证。",
@@ -1757,7 +1745,7 @@
         logFileBlocked: "This file was rejected by the server security checks.",
         logCaptchaAutoRefresh: "Verification refreshed automatically. Please enter the new result before uploading."
       },
-      zh: {
+      "zh-CN": {
         logUnsupportedType: "错误：仅支持 JPG、PNG、GIF 和 WebP 图片。",
         logClientCooldown: "请等待 {seconds} 秒后再上传下一张图片。",
         logCaptchaRefreshing: "正在刷新验证题…",
@@ -1801,7 +1789,7 @@
 
     function normalizeLang(lang) {
       const value = String(lang || "").trim().toLowerCase().replace("_", "-");
-      if (value.startsWith("zh")) return "zh";
+      if (value.startsWith("zh")) return "zh-CN";
       if (value.startsWith("de")) return "de";
       if (value.startsWith("fr")) return "fr";
       if (value.startsWith("es")) return "es";
@@ -2011,18 +1999,20 @@
     }
 
     function applyLanguage(lang) {
-      lang = normalizeLang(lang);
-      setLang(lang);
-      const texts = t();
+      const normalized = normalizeLang(
+        lang ?? (window.MiniToolsI18n && window.MiniToolsI18n.getLanguage()) ?? currentLang
+      );
+      setLang(normalized);
+      const texts = translations[normalized] || translations.en;
       document.documentElement.lang = texts.htmlLang;
-      const selectValue = lang === "zh" ? "zh-CN" : lang;
+      const selectValue = normalized === "zh-CN" ? "zh-CN" : normalized;
       if (languageSelect) languageSelect.value = selectValue;
       const currentLangLabel = document.getElementById("currentLangLabel");
-      const langNames = { en: "English", zh: "中文", de: "Deutsch", fr: "Français", es: "Español" };
-      if (currentLangLabel) currentLangLabel.textContent = langNames[lang] || langNames.en;
+      const langNames = { en: "English", "zh-CN": "中文", de: "Deutsch", fr: "Français", es: "Español" };
+      if (currentLangLabel) currentLangLabel.textContent = langNames[normalized] || langNames.en;
       document.querySelectorAll("[data-site-lang]").forEach((button) => {
         const buttonLang = normalizeLang(button.dataset.siteLang);
-        button.classList.toggle("active", buttonLang === lang);
+        button.classList.toggle("active", buttonLang === normalized);
       });
 
       updateMeta("description", texts.seoDescription);
@@ -2401,17 +2391,19 @@ updateProperty("og:title", texts.ogTitle);
     });
 
     languageSelect.addEventListener("change", (e) => {
-      applyLanguage(e.target.value);
-      resetLog();
+      if (window.MiniToolsI18n) window.MiniToolsI18n.setLanguage(e.target.value);
+      else applyLanguage(e.target.value);
     });
 
     window.applyLanguage = applyLanguage;
     window.resetLog = resetLog;
 
-    (async function init() {
-      applyLanguage(getLang());
-      resetPreview();
+    window.addEventListener("mini-tools:languagechange", () => {
       resetLog();
+    });
+
+    (async function init() {
+      resetPreview();
       try {
         await fetchCaptcha();
       } catch (error) {

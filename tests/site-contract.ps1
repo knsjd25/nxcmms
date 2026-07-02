@@ -268,7 +268,7 @@ Assert-True ($contact -notmatch 'id=["'']removal-request-details["'']') "contact
 $upload = Read-SiteFile "upload.html"
 Assert-True ($upload -match '<div class="file-name" id="fileName" data-i18n="noFileChosen">') "upload empty file state is not server translatable"
 Assert-True ($upload.Contains('noFileChosen: "Keine Datei ausgew' + [char]0x00E4 + 'hlt"')) "upload German empty file state is missing"
-$uploadGerman = [regex]::Match($upload, '\n\s*de:\s*\{[\s\S]*?\n\s*\},\n\s*fr:\s*\{', "IgnoreCase").Value
+$uploadGerman = [regex]::Match($upload, '\n\s*de:\s*\{[\s\S]*?\r?\n\s*\},\r?\n\s*fr:\s*\{', "IgnoreCase").Value
 Assert-True ($uploadGerman -cnotmatch 'Dokumentation, Dokumentation|\bwebsites\b|\bwebsite-(Editoren|Entw.rfe)\b') "upload German copy still contains known wording errors"
 
 $runtime = Read-SiteFile "site-i18n.js"
@@ -284,7 +284,7 @@ Assert-True ($image -notmatch 'id=["'']tool-guidance["'']') "image restored the 
 $mortgage = Read-SiteFile "mortgage.html"
 Assert-True ($mortgage -notmatch 'rates-and-thresholds-for-employers-2026-to-2027') "mortgage contains an unrelated employer-rates source"
 Assert-True ($mortgage -match 'https://www\.gov\.uk/stamp-duty-land-tax') "mortgage misses the SDLT source"
-$mortgageGerman = [regex]::Match($mortgage, '\n\s*de:\s*\{[\s\S]*?\n\s*\},\n\s*fr:\s*\{', "IgnoreCase").Value
+$mortgageGerman = [regex]::Match($mortgage, '\n\s*de:\s*\{[\s\S]*?\r?\n\s*\},\r?\n\s*fr:\s*\{', "IgnoreCase").Value
 foreach ($translation in @('propertyPriceLabel:"Immobilienwert', 'mortgageAmountLabel:"Darlehensbetrag', 'depositLabel:"Eigenkapital', 'buyerTypeLabel:"K.ufertyp', 'breakdownHead:"Aufschl.sselung', 'amountHead:"Betrag')) {
   Assert-True ($mortgageGerman -match $translation) "mortgage German interface misses $translation"
 }

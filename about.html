@@ -392,8 +392,8 @@
             <p data-i18n="faq1A">The public tools on Mini-Tools.uk are available to use in the browser. Some features may depend on browser capabilities, file size or third-party service limits.</p>
           </div>
           <div class="faq-item">
-            <h4 data-i18n="faq2Q">Do the tools process data locally?</h4>
-            <p data-i18n="faq2A">No. Many tools run locally, but features that create hosted files or shared links may need a remote service. Each tool should explain its own behaviour.</p>
+            <h4 data-i18n="faq2Q">Which tools send data to a server?</h4>
+            <p data-i18n="faq2A">Browser-only tools keep files on your device. Image hosting uploads a file so you can copy a public link. Each tool page explains what leaves the browser.</p>
           </div>
           <div class="faq-item">
             <h4 data-i18n="faq3Q">Can I suggest a new tool?</h4>
@@ -512,8 +512,8 @@
         contactBoxText:"For general questions, product feedback or site issues, contact:",
         faq1Q:"Are the tools free to use?",
         faq1A:"The public tools on Mini-Tools.uk are available to use in the browser. Some features may depend on browser capabilities, file size or third-party service limits.",
-        faq2Q:"Do the tools process data locally?",
-        faq2A:"No. Many tools run locally, but features that create hosted files or shared links may need a remote service. Each tool should explain its own behaviour.",
+        faq2Q:"Which tools send data to a server?",
+        faq2A:"Browser-only tools keep files on your device. Image hosting uploads a file so you can copy a public link. Each tool page explains what leaves the browser.",
         faq3Q:"Can I suggest a new tool?",
         faq3A:"Yes. Send the suggestion by email and include the task, expected input, expected output and any examples that would make the tool easier to design.",
         sideUseTitle:"Site focus",
@@ -593,8 +593,8 @@
         contactBoxText:"如有一般问题、产品反馈或网站问题，请联系：",
         faq1Q:"所有工具都可以免费使用吗？",
         faq1A:"Mini-Tools.uk 的公开工具可以在浏览器中使用。部分功能可能取决于浏览器能力、文件大小或第三方服务限制。",
-        faq2Q:"所有工具都会本地处理数据吗？",
-        faq2A:"不是。很多工具会本地运行，但创建托管文件或分享链接的功能可能需要远程服务。每个工具都应该说明自己的处理方式。",
+        faq2Q:"哪些工具会把数据发到服务器？",
+        faq2A:"纯浏览器工具会把文件留在你的设备上。图床需要上传文件才能生成公开链接。每个工具页都会说明是否会离开浏览器。",
         faq3Q:"可以建议新工具吗？",
         faq3A:"可以。请通过邮件说明任务、预期输入、预期输出，以及能帮助设计工具的例子。",
         sideUseTitle:"网站方向",
@@ -674,8 +674,8 @@
         contactBoxText:"Für Fragen, Feedback oder Website-Probleme:",
         faq1Q:"Sind alle Tools kostenlos?",
         faq1A:"Die öffentlichen Tools sind im Browser nutzbar. Einige Funktionen können von Browser, Dateigröße oder Drittanbieterlimits abhängen.",
-        faq2Q:"Verarbeiten alle Tools lokal?",
-        faq2A:"Nein. Viele laufen lokal, aber gehostete Dateien oder Sharing-Links können Remote-Services benötigen.",
+        faq2Q:"Welche Tools senden Daten an einen Server?",
+        faq2A:"Reine Browser-Tools behalten Dateien auf Ihrem Gerät. Bildhosting lädt eine Datei hoch, damit Sie einen öffentlichen Link kopieren können. Jede Tool-Seite erklärt, was den Browser verlässt.",
         faq3Q:"Kann ich ein neues Tool vorschlagen?",
         faq3A:"Ja. Senden Sie Aufgabe, Eingabe, Ausgabe und Beispiele per E-Mail.",
         sideUseTitle:"Website-Fokus",
@@ -755,8 +755,8 @@
         contactBoxText:"Pour questions, feedback ou problèmes du site :",
         faq1Q:"Tous les outils sont-ils gratuits ?",
         faq1A:"Les outils publics sont utilisables dans le navigateur. Certaines fonctions dépendent du navigateur, de la taille des fichiers ou de services tiers.",
-        faq2Q:"Tous les outils traitent-ils localement ?",
-        faq2A:"Non. Beaucoup fonctionnent localement, mais les fichiers hébergés ou liens partagés peuvent nécessiter un service distant.",
+        faq2Q:"Quels outils envoient des données à un serveur ?",
+        faq2A:"Les outils 100 % navigateur gardent les fichiers sur votre appareil. L’hébergement d’images téléverse un fichier pour obtenir un lien public. Chaque page d’outil précise ce qui quitte le navigateur.",
         faq3Q:"Puis-je proposer un nouvel outil ?",
         faq3A:"Oui. Envoyez la tâche, l’entrée attendue, la sortie attendue et des exemples par e-mail.",
         sideUseTitle:"Focus du site",
@@ -836,8 +836,8 @@
         contactBoxText:"Para preguntas, feedback o problemas del sitio:",
         faq1Q:"¿Todas las herramientas son gratis?",
         faq1A:"Las herramientas públicas se pueden usar en el navegador. Algunas funciones dependen del navegador, tamaño de archivo o servicios terceros.",
-        faq2Q:"¿Todas procesan localmente?",
-        faq2A:"No. Muchas funcionan localmente, pero archivos alojados o enlaces compartidos pueden necesitar servicio remoto.",
+        faq2Q:"¿Qué herramientas envían datos a un servidor?",
+        faq2A:"Las herramientas solo en el navegador mantienen los archivos en tu dispositivo. El alojamiento de imágenes sube un archivo para copiar un enlace público. Cada página explica qué sale del navegador.",
         faq3Q:"¿Puedo sugerir una herramienta?",
         faq3A:"Sí. Envía tarea, entrada esperada, salida esperada y ejemplos por email.",
         sideUseTitle:"Enfoque del sitio",
@@ -988,12 +988,7 @@
 
       const label = document.getElementById("currentLangLabel");
       if (label) label.textContent = dict.langLabel;
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
-      });
-
-      updateLocalizedInternalLinks();
+updateLocalizedInternalLinks();
 
       localStorage.setItem("miniToolsAboutLang", currentLang);
       if (updateUrl) {
@@ -1002,15 +997,12 @@
         history.replaceState(null, "", url.toString());
       }
     }
-
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
-    });
-
-    window.addEventListener("load", () => {
+window.addEventListener("load", () => {
       applyLanguage(getInitialLang(), false);
     });
-  </script>
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 

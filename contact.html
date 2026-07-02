@@ -974,12 +974,7 @@
 
       const label = document.getElementById("currentLangLabel");
       if(label) label.textContent = dict.langLabel;
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
-      });
-
-      if(updateUrl){
+if(updateUrl){
         const url = new URL(window.location.href);
         url.pathname = pagePath;
         if(currentLang !== "en") url.searchParams.set("lang", currentLang);
@@ -992,13 +987,10 @@
       updateInternalLinks();
       updateStructuredData(dict);
     }
-
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
-    });
-
-    window.addEventListener("load", () => applyLanguage(getInitialLang(), false));
-  </script>
+window.addEventListener("load", () => applyLanguage(getInitialLang(), false));
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 

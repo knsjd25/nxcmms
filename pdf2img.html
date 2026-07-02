@@ -629,7 +629,9 @@
     fileInput.addEventListener("change", e => { const file = e.target.files && e.target.files[0]; if (file) handlePdf(file); fileInput.value = ""; });
     zipBtn.addEventListener("click", downloadAllAsZip);
     window.addEventListener("load", () => applyLanguage(getInitialLang(), false));
-  </script>
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 

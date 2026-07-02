@@ -1513,12 +1513,7 @@
 
       const label = document.getElementById("currentLangLabel");
       if (label) label.textContent = dict.langLabel;
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
-      });
-
-      localStorage.setItem("miniToolsStampDutyLang", currentLang);
+localStorage.setItem("miniToolsStampDutyLang", currentLang);
       if (updateUrl) {
         const url = new URL(window.location.href);
         url.searchParams.set("lang", currentLang);
@@ -1528,12 +1523,7 @@
       updateSeo();
       calculate();
     }
-
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
-    });
-
-    function formatMoney(value) {
+function formatMoney(value) {
       return new Intl.NumberFormat(getDict().locale || "en-GB", {
         style: "currency",
         currency: "GBP",
@@ -1654,7 +1644,9 @@
     window.addEventListener("load", () => {
       applyLanguage(getInitialLang(), false);
     });
-  </script>
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 

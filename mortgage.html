@@ -1298,12 +1298,7 @@
 
       const label = document.getElementById("currentLangLabel");
       if (label) label.textContent = dict.langLabel;
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
-      });
-
-      localStorage.setItem("miniToolsMortgageLang", currentLang);
+localStorage.setItem("miniToolsMortgageLang", currentLang);
 
       if (updateUrl) {
         const url = new URL(window.location.href);
@@ -1313,12 +1308,7 @@
 
       calculate();
     }
-
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
-    });
-
-    function formatGBP(value) {
+function formatGBP(value) {
       return new Intl.NumberFormat(getDict().locale || "en-GB", {
         style: "currency",
         currency: "GBP",
@@ -1469,7 +1459,9 @@
       applyLanguage(getInitialLang(), false);
       calculate();
     });
-  </script>
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 

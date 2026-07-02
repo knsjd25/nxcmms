@@ -928,12 +928,7 @@
 
       const label = document.getElementById("currentLangLabel");
       if (label) label.textContent = dict.langLabel;
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
-      });
-
-      localStorage.setItem("miniToolsDiffLang", currentLang);
+localStorage.setItem("miniToolsDiffLang", currentLang);
 
       if (updateUrl) {
         const url = new URL(window.location.href);
@@ -945,12 +940,7 @@
       updateMetaCounts();
       if (currentDiff) renderDiff();
     }
-
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
-    });
-
-    function updateMetaCounts() {
+function updateMetaCounts() {
       const dict = getDict();
       leftMeta.textContent = `${textOne.value.length} ${dict.chars}`;
       rightMeta.textContent = `${textTwo.value.length} ${dict.chars}`;
@@ -1107,7 +1097,9 @@
     updateMetaCounts();
     setView("inline");
     applyLanguage(getInitialLang(), false);
-  </script>
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 

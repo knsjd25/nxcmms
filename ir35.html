@@ -1231,12 +1231,7 @@
 
       const label = document.getElementById("currentLangLabel");
       if (label) label.textContent = dict.langLabel;
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
-      });
-
-      localStorage.setItem("miniToolsIR35Lang", currentLang);
+localStorage.setItem("miniToolsIR35Lang", currentLang);
 
       if (updateUrl) {
         const url = new URL(window.location.href);
@@ -1251,12 +1246,7 @@
       updateInternalLinks();
       update();
     }
-
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
-    });
-
-    const TAX = {
+const TAX = {
       allowance: 12570,
       basicBand: 37700,
       higherThreshold: 125140
@@ -1464,7 +1454,9 @@
     window.addEventListener("load", () => {
       applyLanguage(getInitialLang(), false);
     });
-  </script>
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 

@@ -759,12 +759,7 @@
       });
 
       document.getElementById("currentLangLabel").textContent = dict.langLabel;
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
-      });
-
-      updateInternalLinks();
+updateInternalLinks();
 
       localStorage.setItem("miniToolsFuelLang", currentLang);
 
@@ -777,12 +772,7 @@
       updateTripBadge();
       calculate();
     }
-
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
-    });
-
-    const litresPerImperialGallon = 4.54609;
+const litresPerImperialGallon = 4.54609;
     let isReturnTrip = false;
 
     const distanceInput = document.getElementById("distance");
@@ -880,7 +870,9 @@
       applyLanguage(currentLang, false);
       calculate();
     });
-  </script>
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 

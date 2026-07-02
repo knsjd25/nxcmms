@@ -1236,19 +1236,9 @@
 
       const label = document.getElementById("currentLangLabel");
       if (label) label.textContent = dict.langLabel;
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
-      });
-
-      localStorage.setItem("miniToolsQrLang", currentLang);
+localStorage.setItem("miniToolsQrLang", currentLang);
     }
-
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
-    });
-
-    function setTemplate(template) {
+function setTemplate(template) {
       currentTemplate = template;
       tabButtons.forEach(btn => btn.classList.toggle("active", btn.dataset.template === template));
       Object.entries(forms).forEach(([key, el]) => {
@@ -1386,7 +1376,9 @@
       applyLanguage(getInitialLang(), false);
       setTemplate("text");
     });
-  </script>
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 

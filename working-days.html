@@ -1102,12 +1102,7 @@
 
       const label = document.getElementById("currentLangLabel");
       if (label) label.textContent = d.langLabel;
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
-      });
-
-      updateStructuredData();
+updateStructuredData();
       updateInternalLinks();
       countWorkingDays();
     }
@@ -1197,12 +1192,7 @@
         el.addEventListener("change", countWorkingDays);
         el.addEventListener("input", countWorkingDays);
       });
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
-      });
-
-      const menuWrap = document.getElementById("categoryMenu");
+const menuWrap = document.getElementById("categoryMenu");
       const trigger = menuWrap ? menuWrap.querySelector(".menu-trigger") : null;
       if (menuWrap && trigger) {
         trigger.addEventListener("click", () => {
@@ -1221,7 +1211,9 @@
     }
 
     init();
-  </script>
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 

@@ -62,10 +62,10 @@
         "mainEntity":[
           {
             "@type":"Question",
-            "name":"Is this JSON formatter private?",
+            "name":"Does pasted JSON get uploaded to Mini-Tools.uk?",
             "acceptedAnswer":{
               "@type":"Answer",
-              "text":"Yes. Formatting, parsing and validation run in your browser. Your JSON is not uploaded to Mini-Tools.uk."
+              "text":"No. Formatting, parsing and validation run in your browser. Your JSON is not uploaded to Mini-Tools.uk."
             }
           },
           {
@@ -461,8 +461,8 @@
 
         <div class="faq">
           <div class="faq-item">
-            <h4 data-i18n="faq1Q">Is this JSON formatter private?</h4>
-            <p data-i18n="faq1A">Yes. Formatting and validation run in your browser. Your JSON is not uploaded to Mini-Tools.uk.</p>
+            <h4 data-i18n="faq1Q">Does pasted JSON get uploaded to Mini-Tools.uk?</h4>
+            <p data-i18n="faq1A">No. Formatting and validation run in your browser. Your JSON is not uploaded to Mini-Tools.uk.</p>
           </div>
           <div class="faq-item">
             <h4 data-i18n="faq2Q">Can it validate broken JSON?</h4>
@@ -695,7 +695,7 @@
         articleTitle:"这个 JSON 工具包含哪些功能",
         articleP1:"这个 JSON格式化工具可以把压缩或难以阅读的 JSON 转换成清晰结构，适合查看 API 返回、配置文件、Webhook 数据、调试日志和代码示例。",
         articleP2:"你可以格式化 JSON、压缩 JSON、校验语法、查看嵌套树形结构、复制格式化结果，也可以把树形视图导出为 PNG 图片，用于文档、工单或截图说明。",
-        articleP3:"如果你正在搜索 JSON格式化工具、JSON校验工具、JSON压缩工具 或 JSON树形查看器，这个页面就是面向这些常见开发场景设计的。",
+        articleP3:"适合 API 调试、配置文件检查、Webhook 载荷预览，以及导出截图前整理 JSON 结构。",
         privacyTitle:"本地处理说明",
         privacyText:"格式化、解析和校验在浏览器中完成。正常使用时，你粘贴到编辑器里的 JSON 不会上传到 Mini-Tools.uk。",
         useTitle:"常见使用场景",
@@ -1201,22 +1201,12 @@
 
       const label = document.getElementById("currentLangLabel");
       if (label) label.textContent = dict.langLabel;
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
-      });
-
-      localStorage.setItem("miniToolsJsonLang", currentLang);
+localStorage.setItem("miniToolsJsonLang", currentLang);
 
       updateStats();
       if (!parsedData) setStatus("ready", dict.readyStatus, dict.noJsonMeta);
     }
-
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
-    });
-
-    function setStatus(type, text, meta) {
+function setStatus(type, text, meta) {
       statusPill.className = "status-pill " + type;
       statusPill.textContent = text;
       statusMeta.textContent = meta || "";
@@ -1475,7 +1465,9 @@
     updateStats();
     clearOutput();
     applyLanguage(getInitialLang(), false);
-  </script>
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>UK Income Tax Calculator 2026/27 for PAYE and NI</title>
+  <title>UK Take-Home Pay Calculator 2026/27 | PAYE and NI</title>
   <meta name="description" content="Calculate UK take-home pay for 2026/27. Estimate PAYE Income Tax, National Insurance, pension, Student Loan deductions and monthly net pay." />
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#0f172a" />
@@ -853,6 +853,7 @@
           <div class="assumption-badge" id="regionBadge" data-i18n="regionBadgeRuk">England / NI</div>
         </div>
 
+        <div class="table-wrap">
         <table>
           <thead>
             <tr>
@@ -907,6 +908,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <div class="note-card" id="summaryNote" data-i18n="initialSummaryNote">
           Uses standard 1257L personal allowance.
@@ -1107,7 +1109,7 @@
         htmlLang:"en-GB",
         langLabel:"English",
         locale:"en-GB",
-        title:"UK Income Tax Calculator 2026/27 for PAYE and NI",
+        title:"UK Take-Home Pay Calculator 2026/27 | PAYE and NI",
         description:"Calculate UK take-home pay for 2026/27. Estimate PAYE Income Tax, National Insurance, pension, Student Loan deductions and monthly net pay.",
         skip:"Skip to content",
         brandSubtitle:"Practical calculators and browser tools",
@@ -1276,7 +1278,7 @@
         htmlLang:"zh-CN",
         langLabel:"中文",
         locale:"zh-CN",
-        title:"英国个人所得税计算器 2026/27｜英国个税计算器与税后工资计算｜Mini-Tools.uk",
+        title:"英国税后工资计算器 2026/27",
         seoTitle:"英国个人所得税计算器 2026/27｜英国个税计算器与税后工资计算｜Mini-Tools.uk",
         description:"免费英国个人所得税计算器和英国个税计算器，适用于 2026/27 税年。估算 PAYE 个人所得税、National Insurance、养老金、学生贷款、研究生贷款及年薪、月薪税后到手工资。",
         seoDescription:"免费英国个人所得税计算器和英国个税计算器，适用于 2026/27 税年。估算 PAYE 个人所得税、National Insurance、养老金、学生贷款、研究生贷款及年薪、月薪税后到手工资。",
@@ -1301,7 +1303,7 @@
         catSecurity:"安全工具",
         catSecuritySmall:"密码和隐私相关工具",
         badge:"适用于 2026/27 税年",
-        heroTitle:"英国个人所得税计算器与英国个税计算器",
+        heroTitle:"英国税后工资计算器 2026/27",
         heroText:"使用这个英国个人所得税计算器，可以估算 2026/27 税年的 PAYE 个人所得税、National Insurance、工资牺牲养老金、学生贷款、研究生贷款和税后到手工资。这个英国个税计算器支持英格兰、威尔士、北爱尔兰和苏格兰，适合英国上班族、留学生、求职者以及比较工作 offer 时参考。",
         mini1Title:"支持英格兰、威尔士、北爱尔兰和苏格兰",
         mini1Text:"根据不同英国税区估算个人所得税，而不是用一个通用税率粗略计算。",
@@ -2081,17 +2083,12 @@
 
       const label = document.getElementById("currentLangLabel");
       if (label) label.textContent = dict.langLabel;
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
-      });
-
-      localStorage.setItem("miniToolsTaxLang", currentLang);
+localStorage.setItem("miniToolsTaxLang", currentLang);
 
       if (updateUrl) {
         const url = new URL(window.location.href);
         if (currentLang === "en") {
-          url.searchParams.set("lang", "en");
+          url.searchParams.delete("lang");
         } else {
           url.searchParams.set("lang", currentLang);
         }
@@ -2100,12 +2097,7 @@
 
       calculate();
     }
-
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
-    });
-
-    const taxRules = {
+const taxRules = {
       allowanceBase: 12570,
       allowanceTaperStart: 100000,
       allowanceTaperEnd: 125140,
@@ -2338,7 +2330,9 @@
       applyLanguage(getInitialLang(), false);
       calculate();
     });
-  </script>
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 

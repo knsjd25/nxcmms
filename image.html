@@ -243,7 +243,7 @@
     }
     .field input:focus{border-color:#93c5fd;box-shadow:0 0 0 4px rgba(37,99,235,.1)}
     .toggle{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:.88rem;font-weight:800;color:#475569}
-    .toggle input{width:18px;height:18px;accent-color:#2563eb}
+    .toggle input{width:22px;height:22px;min-width:22px;min-height:22px;accent-color:#2563eb}
     .main-btn{
       width:100%;
       margin-top:18px;
@@ -671,6 +671,9 @@
         originalLabel:"Original",
         optimizedLabel:"Optimized",
         savedLabel:"Saved",
+        byteUnitBytes:"Bytes",
+        byteUnitKb:"KB",
+        byteUnitMb:"MB",
         heavierLabel:"Heavier",
         resultLabel:"Result",
         aspectTitle:"Aspect ratio",
@@ -756,6 +759,9 @@
         originalLabel:"原图",
         optimizedLabel:"优化后",
         savedLabel:"节省",
+        byteUnitBytes:"字节",
+        byteUnitKb:"KB",
+        byteUnitMb:"MB",
         heavierLabel:"变大",
         resultLabel:"结果",
         aspectTitle:"裁剪比例",
@@ -841,6 +847,9 @@
         originalLabel:"Original",
         optimizedLabel:"Optimiert",
         savedLabel:"Gespart",
+        byteUnitBytes:"Bytes",
+        byteUnitKb:"KB",
+        byteUnitMb:"MB",
         heavierLabel:"Größer",
         resultLabel:"Ergebnis",
         aspectTitle:"Seitenverhältnis",
@@ -926,6 +935,9 @@
         originalLabel:"Original",
         optimizedLabel:"Optimisé",
         savedLabel:"Économisé",
+        byteUnitBytes:"octets",
+        byteUnitKb:"Ko",
+        byteUnitMb:"Mo",
         heavierLabel:"Plus lourd",
         resultLabel:"Résultat",
         aspectTitle:"Ratio",
@@ -1011,6 +1023,9 @@
         originalLabel:"Original",
         optimizedLabel:"Optimizado",
         savedLabel:"Ahorrado",
+        byteUnitBytes:"bytes",
+        byteUnitKb:"KB",
+        byteUnitMb:"MB",
         heavierLabel:"Más pesado",
         resultLabel:"Resultado",
         aspectTitle:"Ratio",
@@ -1206,12 +1221,7 @@ const allowedLangs = ["en","zh-CN","de","fr","es"];
 
       const label = document.getElementById("currentLangLabel");
       if (label) label.textContent = dict.langLabel;
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang-btn") === currentLang);
-      });
-
-      localStorage.setItem("miniToolsImageLang", currentLang);
+localStorage.setItem("miniToolsImageLang", currentLang);
       if (updateUrl) {
         const url = new URL(window.location.href);
         url.searchParams.set("lang", currentLang);
@@ -1220,14 +1230,10 @@ const allowedLangs = ["en","zh-CN","de","fr","es"];
 
       updateSavingText();
     }
-
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.getAttribute("data-lang-btn")));
-    });
-
     function formatBytes(bytes) {
-      if (!bytes) return "0 KB";
-      const units = ["Bytes", "KB", "MB"];
+      if (!bytes) return "0 " + (getDict().byteUnitKb || "KB");
+      const dict = getDict();
+      const units = [dict.byteUnitBytes || "Bytes", dict.byteUnitKb || "KB", dict.byteUnitMb || "MB"];
       const i = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
       const value = bytes / Math.pow(1024, i);
       return (i === 0 ? value.toFixed(0) : value.toFixed(2)) + " " + units[i];
@@ -1457,7 +1463,9 @@ const allowedLangs = ["en","zh-CN","de","fr","es"];
     window.addEventListener("load", () => {
       applyLanguage(getInitialLang(), false);
     });
-  </script>
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 

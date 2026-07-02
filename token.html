@@ -838,12 +838,7 @@
 
       const label = document.getElementById("currentLangLabel");
       if (label) label.textContent = dict.langLabel || "English";
-
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.langBtn === currentLang);
-      });
-
-      if (updateUrl) {
+if (updateUrl) {
         const url = new URL(window.location.href);
         url.searchParams.set("lang", currentLang);
         history.replaceState(null, "", url.toString());
@@ -852,12 +847,7 @@
       updateInternalLinks();
       updateCalc();
     }
-
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => applyLanguage(btn.dataset.langBtn));
-    });
-
-    function usd4(value){
+function usd4(value){
       return new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
@@ -933,7 +923,9 @@
     window.addEventListener("load", () => {
       applyLanguage(getInitialLang(), false);
     });
-  </script>
+  
+    window.applyLanguage = applyLanguage;
+</script>
 
 
 
