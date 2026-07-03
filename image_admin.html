@@ -157,11 +157,38 @@
     .modal-actions .modal-link { background: #3498db; }
     .modal-actions .modal-close { background: #4b5563; }
     .modal-body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 0; min-height: 0; }
-    .modal-image-wrap { min-height: 420px; max-height: calc(94vh - 64px); background: #0b1220; display: flex; align-items: center; justify-content: center; overflow: auto; position: relative; }
-    .modal-image-wrap::before { content: '点击后加载原图中...'; position: absolute; color: #94a3b8; font-weight: 800; }
+    .modal-image-wrap { min-height: 420px; max-height: calc(94vh - 64px); background: #0b1220; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; touch-action: none; user-select: none; cursor: grab; }
+    .modal-image-wrap.is-dragging { cursor: grabbing; }
+    .modal-image-wrap::before { content: '点击后加载原图中...'; position: absolute; color: #94a3b8; font-weight: 800; z-index: 0; pointer-events: none; }
     .modal-image-wrap.loaded::before { content: ''; display: none; }
-    .modal-image { max-width: 100%; max-height: calc(94vh - 86px); object-fit: contain; display: none; }
+    .modal-image-stage { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; will-change: transform; }
+    .modal-image { max-width: 100%; max-height: calc(94vh - 86px); object-fit: contain; display: none; pointer-events: none; }
     .modal-image.show { display: block; }
+    .modal-zoom-bar {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.82);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      backdrop-filter: blur(4px);
+    }
+    .modal-zoom-bar button {
+      min-width: 36px;
+      min-height: 32px;
+      line-height: 32px;
+      padding: 0 10px;
+      font-size: .82rem;
+      border-radius: 7px;
+      background: #334155;
+    }
+    .modal-zoom-bar button:hover { background: #475569; }
+    .modal-zoom-bar .zoom-label { color: #e2e8f0; font-size: .78rem; font-weight: 800; min-width: 52px; text-align: center; }
     .modal-side { padding: 14px; border-left: 1px solid #e5e7eb; overflow: auto; max-height: calc(94vh - 64px); }
     .modal-side h4 { margin: 0 0 10px; font-size: 1rem; }
     .modal-meta { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px; font-size: .82rem; color: #374151; line-height: 1.65; word-break: break-all; }
@@ -175,8 +202,24 @@
       .modal-actions { justify-content: flex-start; }
     }
 
-    .pagination-panel { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 30px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .pagination-panel { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 30px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
     .page-info { font-weight: bold; color: #333; }
+    .page-numbers { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
+    .page-num {
+      min-width: 36px;
+      min-height: 34px;
+      line-height: 34px;
+      padding: 0 8px;
+      font-size: .84rem;
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+    .page-num:hover:not(:disabled) { background: #dbeafe; border-color: #93c5fd; }
+    .page-num.active { background: #3498db; color: #fff; border-color: #3498db; cursor: default; }
+    .page-ellipsis { color: #64748b; font-weight: 800; padding: 0 2px; user-select: none; }
+    .vip-summary-box { margin: 0 0 16px; }
+    .vip-count-badge { display: inline-block; min-width: 2.5em; text-align: center; font-weight: 800; color: #d35400; background: #fdf2e9; border-radius: 6px; padding: 2px 8px; }
     .perf-note { color:#64748b; font-size:.86rem; font-weight:700; }
     .cleanup-status { color:#991b1b; font-size:.86rem; font-weight:800; background:#fff7ed; border:1px solid #fed7aa; border-radius:8px; padding:8px 10px; min-height:40px; display:inline-flex; align-items:center; }
     .ip-toolbar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:12px 0 10px; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:12px; }
@@ -315,8 +358,9 @@
   <div id="gallery" class="grid"></div>
   <div class="pagination-panel" id="pagination-panel" style="display:none;">
     <button id="btn-prev-page" onclick="changePage(-1)">⬅️ 上一页</button>
+    <div class="page-numbers" id="page-numbers"></div>
     <div class="page-info" id="page-info">第 1 / 1 页 (共 0 张)</div>
-    <div class="perf-note">性能模式：待审核首页自动刷新；点击弹窗加载原图</div>
+    <div class="perf-note">性能模式：点击弹窗加载原图；弹窗内可滚轮缩放、拖动查看</div>
     <button id="btn-next-page" onclick="changePage(1)">下一页 ➡️</button>
   </div>
 </div>
@@ -328,10 +372,11 @@
     <input type="text" id="new-vip-note" placeholder="备注信息 (例如: 张三的专用码)" style="flex:1;">
     <button onclick="generateVipCode()" class="btn-warning">✨ 生成并保存</button>
   </div>
+  <div id="vip-upload-summary" class="panel-note vip-summary-box" style="display:none;"></div>
   <h3>📋 已激活的 VIP 码列表</h3>
   <table>
-    <thead><tr><th>VIP 专属码</th><th>备注信息</th><th>创建时间</th><th>操作</th></tr></thead>
-    <tbody id="vip-list-body"><tr><td colspan="4" style="text-align:center;">请先拉取数据...</td></tr></tbody>
+    <thead><tr><th>VIP 专属码</th><th>备注信息</th><th>上传图片数</th><th>创建时间</th><th>操作</th></tr></thead>
+    <tbody id="vip-list-body"><tr><td colspan="5" style="text-align:center;">请先拉取数据...</td></tr></tbody>
   </table>
 </div>
 
@@ -402,12 +447,20 @@
     </div>
     <div class="modal-body">
       <div class="modal-image-wrap" id="modal-image-wrap">
-        <img id="modal-image" class="modal-image" alt="大图预览">
+        <div class="modal-image-stage" id="modal-image-stage">
+          <img id="modal-image" class="modal-image" alt="大图预览">
+        </div>
+        <div class="modal-zoom-bar" id="modal-zoom-bar">
+          <button type="button" onclick="modalZoomOut()" title="缩小">−</button>
+          <span class="zoom-label" id="modal-zoom-label">100%</span>
+          <button type="button" onclick="modalZoomIn()" title="放大">+</button>
+          <button type="button" onclick="resetModalZoom()" title="重置">重置</button>
+        </div>
       </div>
       <aside class="modal-side">
         <h4>图片信息</h4>
         <div class="modal-meta" id="modal-meta">-</div>
-        <div class="modal-tip">列表只加载缩略图；只有打开这个弹窗时，才会加载原始大图。</div>
+        <div class="modal-tip">列表只加载缩略图；打开弹窗后加载原图。支持滚轮/按钮缩放，放大后可拖动查看细节。</div>
       </aside>
     </div>
   </div>
@@ -447,6 +500,18 @@
   let ipFilterAllStatuses = false;
   let forcedIpExactValue = '';
   let forcedIpHashExactValue = '';
+  let globalVipUploadCounts = {};
+  let vipUploadCountsLoaded = false;
+  let vipUploadCountsLoading = false;
+
+  const MODAL_ZOOM_MIN = 0.4;
+  const MODAL_ZOOM_MAX = 6;
+  const MODAL_ZOOM_STEP = 0.25;
+  let modalZoomScale = 1;
+  let modalZoomX = 0;
+  let modalZoomY = 0;
+  let modalPanState = null;
+  let modalZoomPanBound = false;
 
   function h(v) {
     return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -674,6 +739,89 @@
     return data.vips || [];
   }
 
+  function applyVipSummaryFromListData(imgData) {
+    const rows = imgData?.vipSummary || imgData?.vip_summary || [];
+    if (!Array.isArray(rows) || !rows.length) return false;
+    rows.forEach(row => {
+      const code = row.code || row.vipId || row.vip_id || '';
+      if (!code) return;
+      globalVipUploadCounts[code] = Number(row.count ?? row.total ?? row.uploadCount ?? 0);
+    });
+    vipUploadCountsLoaded = true;
+    return true;
+  }
+
+  async function fetchVipUploadCountForCode(pwd, code) {
+    const url = new URL(WORKER_URL);
+    url.searchParams.set('action', 'list');
+    url.searchParams.set('status_group', 'all');
+    url.searchParams.set('vip', code);
+    url.searchParams.set('page', '1');
+    url.searchParams.set('page_size', '1');
+    url.searchParams.set('include_summary', '0');
+    const res = await fetch(url.toString(), { headers: { 'X-Admin-Key': pwd } });
+    if (!res.ok) return null;
+    const data = await readJsonSafe(res);
+    return Number(data.filtered || 0);
+  }
+
+  async function loadVipUploadCounts({ force = false } = {}) {
+    const pwd = getPwd();
+    if (!pwd || !globalVips.length) return;
+    if (vipUploadCountsLoading) return;
+    if (vipUploadCountsLoaded && !force) return;
+
+    vipUploadCountsLoading = true;
+    const summaryEl = document.getElementById('vip-upload-summary');
+    if (summaryEl && currentTab === 'vip_management') {
+      summaryEl.style.display = 'block';
+      summaryEl.textContent = '⏳ 正在统计各 VIP 上传图片总数...';
+    }
+
+    try {
+      const batchSize = 5;
+      for (let i = 0; i < globalVips.length; i += batchSize) {
+        const batch = globalVips.slice(i, i + batchSize);
+        const results = await Promise.all(batch.map(async (vip) => {
+          const count = await fetchVipUploadCountForCode(pwd, vip.code);
+          return [vip.code, count];
+        }));
+        results.forEach(([code, count]) => {
+          if (count !== null && code) globalVipUploadCounts[code] = count;
+        });
+      }
+      vipUploadCountsLoaded = true;
+      if (currentTab === 'vip_management') renderVipTable();
+    } catch (error) {
+      if (summaryEl) summaryEl.textContent = '❌ VIP 上传统计失败：' + (error.message || '未知错误');
+    } finally {
+      vipUploadCountsLoading = false;
+    }
+  }
+
+  function getVipUploadCount(code) {
+    if (!code) return null;
+    if (Object.prototype.hasOwnProperty.call(globalVipUploadCounts, code)) {
+      return Number(globalVipUploadCounts[code] || 0);
+    }
+    return null;
+  }
+
+  function renderVipUploadSummary() {
+    const box = document.getElementById('vip-upload-summary');
+    if (!box) return;
+    if (!globalVips.length) {
+      box.style.display = 'none';
+      return;
+    }
+    box.style.display = 'block';
+    const totalVips = globalVips.length;
+    const knownCounts = globalVips.map(v => getVipUploadCount(v.code)).filter(v => v !== null);
+    const totalUploads = knownCounts.reduce((sum, n) => sum + n, 0);
+    const pendingText = (!vipUploadCountsLoaded || knownCounts.length < totalVips) ? '（部分统计加载中）' : '';
+    box.innerHTML = `📊 <b>VIP 上传统计</b>：共 <b>${totalVips}</b> 个 VIP，合计上传 <b>${totalUploads}</b> 张图片${pendingText}。点击“查看上传图”可跨全部状态筛选该 VIP 的图片。`;
+  }
+
   function setStatusMessage(text, isError = false) {
     const el = document.getElementById('status-msg');
     el.innerHTML = isError ? `<span style="color:red;">${h(text)}</span>` : text;
@@ -749,6 +897,13 @@
         globalHighRiskUsers = Array.isArray(results[2]) ? results[2] : globalHighRiskUsers;
       }
       if (needVip) globalVips = Array.isArray(results[3]) ? results[3] : globalVips;
+      if (needVip) {
+        if (!applyVipSummaryFromListData(imgData)) {
+          loadVipUploadCounts({ force: false });
+        } else if (currentTab === 'vip_management') {
+          renderVipTable();
+        }
+      }
 
       pageCache.set(cacheKey, {
         images: globalImages,
@@ -878,6 +1033,7 @@
 
     if (tab === 'vip_management') {
       renderVipTable();
+      loadVipUploadCounts({ force: false });
       return;
     }
     if (tab === 'ip_blacklist') {
@@ -960,6 +1116,35 @@
     return card;
   }
 
+  function buildPageNumberButtons(current, total) {
+    if (total <= 1) return '';
+    const pages = new Set([1, total]);
+    for (let i = current - 2; i <= current + 2; i++) {
+      if (i >= 1 && i <= total) pages.add(i);
+    }
+    const sorted = [...pages].sort((a, b) => a - b);
+    let html = '';
+    let prev = 0;
+    sorted.forEach((pageNum) => {
+      if (pageNum - prev > 1) html += '<span class="page-ellipsis">…</span>';
+      if (pageNum === current) {
+        html += `<button type="button" class="page-num active" disabled>${pageNum}</button>`;
+      } else {
+        html += `<button type="button" class="page-num" onclick="goToPage(${pageNum})">${pageNum}</button>`;
+      }
+      prev = pageNum;
+    });
+    return html;
+  }
+
+  function renderGalleryPagination() {
+    document.getElementById('page-info').innerText = `第 ${currentPage} / ${totalPages} 页（当前筛选共 ${totalFiltered} 张）`;
+    document.getElementById('btn-prev-page').disabled = currentPage <= 1;
+    document.getElementById('btn-next-page').disabled = currentPage >= totalPages;
+    const pageNumbers = document.getElementById('page-numbers');
+    if (pageNumbers) pageNumbers.innerHTML = buildPageNumberButtons(currentPage, totalPages);
+  }
+
   function renderGallery() {
     const gallery = document.getElementById('gallery');
     const paginationPanel = document.getElementById('pagination-panel');
@@ -974,9 +1159,7 @@
     gallery.replaceChildren(fragment);
     setupLazyImages(gallery);
     paginationPanel.style.display = 'flex';
-    document.getElementById('page-info').innerText = `当前第 ${currentPage} / ${totalPages} 页 (当前筛选共 ${totalFiltered} 张)`;
-    document.getElementById('btn-prev-page').disabled = currentPage <= 1;
-    document.getElementById('btn-next-page').disabled = currentPage >= totalPages;
+    renderGalleryPagination();
     bindModalOpeners();
     bindDynamicActionButtons(gallery);
   }
@@ -1041,14 +1224,21 @@
 
   function renderVipTable() {
     const tbody = document.getElementById('vip-list-body');
+    renderVipUploadSummary();
     if (!globalVips.length) {
-      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#666;">暂无已激活的 VIP 码，请在上方生成。</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:#666;">暂无已激活的 VIP 码，请在上方生成。</td></tr>`;
       return;
     }
-    tbody.innerHTML = globalVips.slice().reverse().map(vip => `
+    tbody.innerHTML = globalVips.slice().reverse().map(vip => {
+      const uploadCount = getVipUploadCount(vip.code);
+      const countHtml = uploadCount === null
+        ? '<span style="color:#94a3b8;">统计中…</span>'
+        : `<span class="vip-count-badge">${uploadCount}</span>`;
+      return `
       <tr>
         <td><span class="vip-code">${h(vip.code)}</span></td>
         <td>${h(vip.note || '-')}</td>
+        <td>${countHtml}</td>
         <td>${h(vip.created_at || '-')}</td>
         <td>
           <div class="table-actions">
@@ -1056,7 +1246,8 @@
             <button type="button" class="btn-danger btn-small" data-admin-action="vip-delete" data-vip-code="${h(vip.code)}">🚨 销毁作废</button>
           </div>
         </td>
-      </tr>`).join('');
+      </tr>`;
+    }).join('');
     bindDynamicActionButtons(tbody);
   }
 
@@ -1191,6 +1382,101 @@
     bindDynamicActionButtons(document.getElementById('ip-panel'));
   }
 
+  function updateModalZoomLabel() {
+    const label = document.getElementById('modal-zoom-label');
+    if (label) label.textContent = `${Math.round(modalZoomScale * 100)}%`;
+  }
+
+  function applyModalZoomTransform() {
+    const stage = document.getElementById('modal-image-stage');
+    if (!stage) return;
+    stage.style.transform = `translate(${modalZoomX}px, ${modalZoomY}px) scale(${modalZoomScale})`;
+    updateModalZoomLabel();
+  }
+
+  function resetModalZoom() {
+    modalZoomScale = 1;
+    modalZoomX = 0;
+    modalZoomY = 0;
+    applyModalZoomTransform();
+  }
+
+  function clampModalZoom(value) {
+    return Math.min(MODAL_ZOOM_MAX, Math.max(MODAL_ZOOM_MIN, value));
+  }
+
+  function modalZoomBy(delta, centerX, centerY) {
+    const wrap = document.getElementById('modal-image-wrap');
+    if (!wrap || !wrap.classList.contains('loaded')) return;
+    const prevScale = modalZoomScale;
+    const nextScale = clampModalZoom(prevScale + delta);
+    if (nextScale === prevScale) return;
+
+    const rect = wrap.getBoundingClientRect();
+    const cx = typeof centerX === 'number' ? centerX - rect.left - rect.width / 2 : 0;
+    const cy = typeof centerY === 'number' ? centerY - rect.top - rect.height / 2 : 0;
+    const ratio = nextScale / prevScale;
+    modalZoomX = cx - (cx - modalZoomX) * ratio;
+    modalZoomY = cy - (cy - modalZoomY) * ratio;
+    modalZoomScale = nextScale;
+    applyModalZoomTransform();
+  }
+
+  function modalZoomIn() { modalZoomBy(MODAL_ZOOM_STEP); }
+  function modalZoomOut() { modalZoomBy(-MODAL_ZOOM_STEP); }
+
+  function setupModalZoomPan() {
+    if (modalZoomPanBound) return;
+    const wrap = document.getElementById('modal-image-wrap');
+    if (!wrap) return;
+    modalZoomPanBound = true;
+
+    wrap.addEventListener('wheel', (event) => {
+      if (!document.getElementById('image-modal-mask').classList.contains('show')) return;
+      event.preventDefault();
+      modalZoomBy(event.deltaY < 0 ? MODAL_ZOOM_STEP : -MODAL_ZOOM_STEP, event.clientX, event.clientY);
+    }, { passive: false });
+
+    const startPan = (clientX, clientY, target) => {
+      if (target && target.closest && target.closest('.modal-zoom-bar')) return;
+      if (modalZoomScale <= 1) return;
+      modalPanState = { startX: clientX, startY: clientY, originX: modalZoomX, originY: modalZoomY };
+      wrap.classList.add('is-dragging');
+    };
+
+    const movePan = (clientX, clientY) => {
+      if (!modalPanState) return;
+      modalZoomX = modalPanState.originX + (clientX - modalPanState.startX);
+      modalZoomY = modalPanState.originY + (clientY - modalPanState.startY);
+      applyModalZoomTransform();
+    };
+
+    const endPan = () => {
+      modalPanState = null;
+      wrap.classList.remove('is-dragging');
+    };
+
+    wrap.addEventListener('mousedown', (event) => {
+      if (event.button !== 0) return;
+      event.preventDefault();
+      startPan(event.clientX, event.clientY, event.target);
+    });
+    window.addEventListener('mousemove', (event) => movePan(event.clientX, event.clientY));
+    window.addEventListener('mouseup', endPan);
+
+    wrap.addEventListener('touchstart', (event) => {
+      if (event.touches.length !== 1) return;
+      startPan(event.touches[0].clientX, event.touches[0].clientY, event.target);
+    }, { passive: true });
+    wrap.addEventListener('touchmove', (event) => {
+      if (!modalPanState || event.touches.length !== 1) return;
+      event.preventDefault();
+      movePan(event.touches[0].clientX, event.touches[0].clientY);
+    }, { passive: false });
+    wrap.addEventListener('touchend', endPan);
+    wrap.addEventListener('touchcancel', endPan);
+  }
+
   function openImageModalByKey(key) {
     const item = globalImages.find(img => img.key === key);
     if (!item) return alert('当前页没有找到这张图片，请刷新后重试。');
@@ -1228,6 +1514,7 @@
     modalWrap.classList.remove('loaded');
     modalImg.classList.remove('show');
     modalImg.removeAttribute('src');
+    resetModalZoom();
     modalImg.onload = () => { modalWrap.classList.add('loaded'); modalImg.classList.add('show'); };
     modalImg.onerror = () => { modalWrap.classList.add('loaded'); modalImg.classList.remove('show'); alert('原图加载失败，可能文件已删除或访问受限。'); };
     mask.classList.add('show');
@@ -1242,6 +1529,7 @@
     modalImg.removeAttribute('src');
     modalImg.classList.remove('show');
     document.getElementById('modal-image-wrap').classList.remove('loaded');
+    resetModalZoom();
     document.body.style.overflow = '';
     currentModalItem = null;
   }
@@ -1383,7 +1671,13 @@
   function changePage(delta) {
     const next = currentPage + delta;
     if (next < 1 || next > totalPages) return;
-    currentPage = next;
+    goToPage(next);
+  }
+
+  function goToPage(page) {
+    const target = Number(page);
+    if (!Number.isFinite(target) || target < 1 || target > totalPages || target === currentPage) return;
+    currentPage = target;
     fetchPageData({ silent: false, force: true });
     document.getElementById('image-view').scrollIntoView({ behavior: 'smooth' });
   }
@@ -1464,7 +1758,10 @@
     document.getElementById('new-vip-code').value = '';
     document.getElementById('new-vip-note').value = '';
     globalVips = await fetchVipList(pwd);
+    vipUploadCountsLoaded = false;
+    globalVipUploadCounts = {};
     renderVipTable();
+    loadVipUploadCounts({ force: true });
     alert(`🎉 VIP 码 [${newCode}] 生成成功！`);
   }
   async function deleteVipCode(code) {
@@ -1479,7 +1776,9 @@
     const data = await readJsonSafe(response);
     if (!response.ok) return alert('❌ 作废失败：' + (data.error || response.status));
     globalVips = await fetchVipList(pwd);
+    delete globalVipUploadCounts[code];
     renderVipTable();
+    loadVipUploadCounts({ force: true });
     updateCounts();
     setStatusMessage(`✅ VIP 码 [${code}] 已销毁作废`);
   }
@@ -1535,6 +1834,7 @@
 
   window.addEventListener('load', () => {
     document.getElementById('items-per-page').value = '16';
+    setupModalZoomPan();
     startAutoRefresh();
   });
 </script>
