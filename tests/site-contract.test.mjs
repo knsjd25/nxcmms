@@ -12,7 +12,9 @@ const htmlFiles = titleHtmlFiles.filter((name) => name !== "404.html");
 
 const approvedPaths = [
   "/", "/tax", "/vat", "/mortgage", "/ir35", "/stamp-duty", "/dividend",
-  "/upload", "/image", "/pdf2img", "/working-days", "/fuel", "/weight",
+  "/json", "/diff", "/token", "/qr", "/password",
+  "/upload", "/image", "/pdf2img", "/color-picker",
+  "/working-days", "/fuel", "/weight",
   "/about", "/contact", "/privacy",
 ];
 
@@ -770,7 +772,7 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   const lastmods = [...read("sitemap.xml").matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1]);
   assert.deepEqual(locs, approvedPaths.map((path) => `https://mini-tools.uk${path}`));
   assert.equal(lastmods.length, locs.length, "every sitemap URL has a lastmod date");
-  assert.equal(lastmods.every((value) => value === "2026-06-14" || value === "2026-06-16" || value === "2026-07-02"), true, "sitemap lastmod date");
+  assert.equal(lastmods.every((value) => value === "2026-06-14" || value === "2026-06-16" || value === "2026-07-02" || value === "2026-07-03"), true, "sitemap lastmod date");
   assert.equal(read("sitemap.xml").includes("?lang="), false);
   assert.doesNotMatch(read("sitemap.xml"), /blog/i);
   assert.equal(read("robots.txt").trim().replace(/\r\n/g, "\n"), "User-agent: *\nAllow: /\nDisallow: /cdn-cgi/\nDisallow: /image_admin\nDisallow: /map\n\nSitemap: https://mini-tools.uk/sitemap.xml");
