@@ -37,7 +37,10 @@ $nav = @'
 $footer = @'
 <footer class="footer">
   <div class="wrap footer-inner">
-    <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
+    <div class="footer-meta">
+      <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
+      <div class="site-version" data-site-version></div>
+    </div>
     <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com" data-cfemail="false">yuyananuu@gmail.com</a></div>
   </div>
 </footer>
@@ -67,6 +70,11 @@ $footerStyle = @'
   font-size: .9rem !important;
   text-align: left !important;
 }
+.footer .footer-meta {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
 .footer .footer-copyright {
   color: #64748b !important;
   font-size: .9rem !important;
@@ -74,6 +82,13 @@ $footerStyle = @'
   letter-spacing: 0 !important;
   text-transform: none !important;
   white-space: nowrap !important;
+}
+.footer .site-version {
+  color: #94a3b8 !important;
+  font-size: .82rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
 }
 .footer .footer-links {
   display: flex !important;

@@ -150,7 +150,7 @@ test("all public page titles stay concise in static HTML and translations", () =
 });
 
 test("public source does not create Cloudflare email-protection crawl targets", () => {
-  const sourceFiles = [...titleHtmlFiles, "site-i18n.js", "_worker.js", "scripts/standardize-pages.ps1", "sitemap.xml", "robots.txt"];
+  const sourceFiles = [...titleHtmlFiles, "site-version.js", "site-i18n.js", "_worker.js", "scripts/standardize-pages.ps1", "sitemap.xml", "robots.txt"];
   for (const file of sourceFiles) {
     const source = read(file);
     assert.doesNotMatch(source, /cdn-cgi\/l\/email-protection/i, `${file}: must not link Cloudflare email protection`);
@@ -331,10 +331,12 @@ test("all public pages use the unified navigation and footer", () => {
     assert.equal(nav, homepageNav, `${file}: navigation markup must match homepage`);
 
     assert.match(footer, /Copyright 2026 Mini-Tools\.uk/, `${file}: footer copyright`);
+    assert.match(footer, /data-site-version/, `${file}: footer version label`);
     assert.match(footer, /mailto:yuyananuu@gmail\.com/, `${file}: footer email`);
     assert.equal(footer, homepageFooter, `${file}: footer markup must match homepage`);
     assert.match(html, /<style id=["']site-footer-style["']>/, `${file}: inline shared footer style`);
     assert.deepEqual(navigationStylesheets, ["site-nav.css"], `${file}: exactly one shared navigation stylesheet`);
+    assert.equal((html.match(/<script\b[^>]*src=["']site-version\.js["'][^>]*><\/script>/gi) || []).length, 1, `${file}: exactly one site version runtime`);
     assert.equal((html.match(/<script\b[^>]*src=["']site-i18n\.js["'][^>]*><\/script>/gi) || []).length, 1, `${file}: exactly one shared i18n runtime`);
     assert.doesNotMatch(html, /<script\b[^>]*id=["']site-nav-language["']/i, `${file}: copied language runtime must be removed`);
     assert.doesNotMatch(html, /ui-refresh\.css/i, `${file}: retired UI stylesheet must not compete with navigation`);
@@ -683,6 +685,12 @@ test("tool pages include the required content structure", () => {
     assert.match(html, /Related tools/i, `${file}: related tools`);
     assert.match(html, /FAQ/i, `${file}: FAQ`);
   }
+});
+
+test("site version label uses a dated release id", () => {
+  const source = read("site-version.js");
+  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']\d{4}-\d{2}-\d{2}-\d{2}["']/, "site-version.js release id");
+  assert.match(read("index.html"), /data-site-version/, "homepage footer version slot");
 });
 
 test("shared tooling cannot regenerate the retired generic guidance template", () => {
