@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>Fuel Cost Calculator UK | Trip and MPG Estimate</title>
-  <meta name="description" content="Estimate UK fuel costs for a trip using miles, imperial MPG and pence per litre. See litres used, total petrol or diesel cost and split per passenger." />
+  <title>UK Fuel Cost Calculator | Pence Per Litre &amp; MPG Trip Estimate</title>
+  <meta name="description" content="UK fuel cost calculator using miles, imperial MPG and pence per litre. Estimate trip petrol or diesel cost, litres used and split per passenger." />
 <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#0f172a" />
   <link rel="canonical" href="https://mini-tools.uk/fuel" />
@@ -19,14 +19,14 @@
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.mini-tools.uk/image/icon-32x32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="https://assets.mini-tools.uk/image/icon-192x192.png" />
 
-  <meta property="og:title" content="Fuel Cost Calculator UK | Trip and MPG Estimate" />
-  <meta property="og:description" content="Estimate UK fuel costs for a trip using miles, imperial MPG and pence per litre. See litres used, total petrol or diesel cost and split per passenger." />
+  <meta property="og:title" content="UK Fuel Cost Calculator | Pence Per Litre &amp; MPG Trip Estimate" />
+  <meta property="og:description" content="UK fuel cost calculator using miles, imperial MPG and pence per litre. Estimate trip petrol or diesel cost, litres used and split per passenger." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mini-tools.uk/fuel" />
   <meta property="og:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Fuel Cost Calculator UK | Trip and MPG Estimate" />
-  <meta name="twitter:description" content="Estimate UK fuel costs for a trip using miles, imperial MPG and pence per litre. See litres used, total petrol or diesel cost and split per passenger." />
+  <meta name="twitter:title" content="UK Fuel Cost Calculator | Pence Per Litre &amp; MPG Trip Estimate" />
+  <meta name="twitter:description" content="UK fuel cost calculator using miles, imperial MPG and pence per litre. Estimate trip petrol or diesel cost, litres used and split per passenger." />
   <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png" />
 
   <script type="application/ld+json">
@@ -52,6 +52,14 @@
       {
         "@type":"FAQPage",
         "mainEntity":[
+          {
+            "@type":"Question",
+            "name":"How do I calculate fuel cost using pence per litre in the UK?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Enter your journey distance in miles, your vehicle MPG and the pump price in pence per litre. The calculator converts imperial gallons to litres and multiplies by your price to estimate total trip cost in pounds."
+            }
+          },
           {
             "@type":"Question",
             "name":"How is UK fuel cost estimated?",
@@ -505,6 +513,11 @@
             <h3 data-i18n="faq3Q">Can I use it for petrol and diesel?</h3>
             <p data-i18n="faq3A">Yes. The calculator only needs your actual pump price and your vehicle efficiency. It does not assume a specific fuel type.</p>
           </div>
+
+          <div class="faq-item">
+            <h3 data-i18n="faq4Q">How do I calculate fuel cost using pence per litre?</h3>
+            <p data-i18n="faq4A">Enter your journey distance in miles, your vehicle MPG and the pump price in pence per litre. The calculator converts imperial gallons to litres and multiplies by your price to estimate total trip cost in pounds.</p>
+          </div>
         </article>
       </div>
     </section>
@@ -521,8 +534,8 @@
     const translations = window.PAGE_TRANSLATIONS = {
       en: {
         htmlLang:"en-GB", langLabel:"English", locale:"en-GB",
-        title:"Fuel Cost Calculator UK | Trip and MPG Estimate",
-        description:"Estimate UK fuel costs for a trip using miles, imperial MPG and pence per litre. See litres used, total petrol or diesel cost and split per passenger.",
+        title:"UK Fuel Cost Calculator | Pence Per Litre & MPG Trip Estimate",
+        description:"UK fuel cost calculator using miles, imperial MPG and pence per litre. Estimate trip petrol or diesel cost, litres used and split per passenger.",
         skip:"Skip to content", brandSubtitle:"Practical calculators and browser tools", navHome:"Home", navTools:"Search Tools", navCategories:"Categories", navAbout:"About", navContact:"Contact", privacy:"Privacy",
         catFinance:"UK Calculators", catFinanceSmall:"Tax, VAT, mortgage and travel tools", catDev:"Developer Tools", catDevSmall:"JSON, diff, image hosting and AI token estimation", catImage:"Other Tools", catImageSmall:"Compression, conversion and media utilities", catSecurity:"Safety", catSecuritySmall:"Password and privacy helpers",
         badge:"UK road-trip estimate tool", heroTitle:"UK petrol and fuel cost calculator", heroText:"Estimate a one-way or return trip using UK miles, imperial MPG and pence per litre. See the total cost, litres required, gallons used and the split cost per passenger.",
@@ -531,7 +544,7 @@
         resultEyebrow:"Estimated journey cost", breakdownHead:"Breakdown", valueHead:"Value", effectiveDistanceLabel:"Journey distance used", litresLabel:"Fuel required", gallonsLabel:"Imperial gallons", displayPriceLabel:"Price per litre", perPersonLabel:"Cost per passenger", gallonNote:"For UK calculations, 1 imperial gallon =", gallonNote2:"This page uses the UK gallon, not the smaller US gallon.",
         relatedTitle:"Related tools", relatedText:"Keep these journeys and household calculations together with the rest of your UK planning tools.", relatedVatTitle:"VAT Calculator", relatedVatText:"Add or remove UK VAT and check the gross and net amount quickly.", relatedWorkTitle:"Working Days Calculator", relatedWorkText:"Count workdays and deadlines when planning travel for work or projects.", relatedCurrencyTitle:"Stones to Kg Converter", relatedCurrencyText:"Convert UK stones and pounds to kilograms when you need quick unit checks.",
         articleTitle:"How this UK fuel calculator works", articleP1:"This page is designed around the way UK drivers usually think about fuel. Distances are entered in miles, vehicle efficiency is entered in imperial MPG, and the pump price is entered in pence per litre. The calculator converts those measurements into a single journey estimate without making you switch between systems manually.", formulaTitle:"The calculation behind the result", articleP2:"The estimate works in three steps. First, distance is divided by MPG to estimate the number of imperial gallons used. Second, imperial gallons are converted into litres using the UK conversion factor of 4.54609. Third, litres are multiplied by the pump price in pence and then converted into pounds.", formulaLabel:"Formula:", formulaText:"total cost = ((distance ÷ MPG) × 4.54609 × price per litre in pence) ÷ 100", whyUsefulTitle:"Why this is useful", use1:"It is useful for comparing one-way and return trips before you travel.", use2:"It helps with informal cost sharing when several people are splitting petrol or diesel.", use3:"It shows litres and gallons together, which makes the estimate easier to sense-check.",
-        faqTitle:"Frequently asked questions", faq1Q:"Does this calculator use a UK gallon or a US gallon?", faq1A:"It uses the UK imperial gallon. That matters because a UK gallon is larger than a US gallon, so using the wrong conversion changes the estimated litres and total cost.", faq2Q:"Is this suitable for exact reimbursement claims?", faq2A:"No. This page is a planning estimate. Employer mileage rates, business reimbursement rules and real-world fuel consumption may all differ from the simple journey estimate shown here.", faq3Q:"Can I use it for petrol and diesel?", faq3A:"Yes. The calculator only needs your actual pump price and your vehicle efficiency. It does not assume a specific fuel type.",
+        faqTitle:"Frequently asked questions", faq1Q:"Does this calculator use a UK gallon or a US gallon?", faq1A:"It uses the UK imperial gallon. That matters because a UK gallon is larger than a US gallon, so using the wrong conversion changes the estimated litres and total cost.", faq2Q:"Is this suitable for exact reimbursement claims?", faq2A:"No. This page is a planning estimate. Employer mileage rates, business reimbursement rules and real-world fuel consumption may all differ from the simple journey estimate shown here.", faq3Q:"Can I use it for petrol and diesel?", faq3A:"Yes. The calculator only needs your actual pump price and your vehicle efficiency. It does not assume a specific fuel type.", faq4Q:"How do I calculate fuel cost using pence per litre?", faq4A:"Enter your journey distance in miles, your vehicle MPG and the pump price in pence per litre. The calculator converts imperial gallons to litres and multiplies by your price to estimate total trip cost in pounds.",
         footerNote:"Copyright 2026 Mini-Tools.uk — practical web tools for work, study and everyday planning.",
         tripBadgeOne:"One way", tripBadgeReturn:"Return trip", milesSuffix:"miles", litresSuffix:"litres", gallonsSuffix:"gal", priceSuffix:"p"
       },
@@ -547,7 +560,7 @@
         resultEyebrow:"预计行程油费", breakdownHead:"项目", valueHead:"数值", effectiveDistanceLabel:"用于计算的距离", litresLabel:"预计燃油量", gallonsLabel:"英制加仑", displayPriceLabel:"每升油价", perPersonLabel:"每人分摊成本", gallonNote:"英国计算中，1 英制加仑 =", gallonNote2:"本页面使用 UK imperial gallon，不使用较小的 US gallon。",
         relatedTitle:"相关工具", relatedText:"把出行、家庭预算和英国日常计算工具放在一起使用。", relatedVatTitle:"VAT 计算器", relatedVatText:"快速添加或反推英国 VAT，查看含税价和净价。", relatedWorkTitle:"工作日计算器", relatedWorkText:"规划工作出行或项目时间时，计算工作日和截止日期。", relatedCurrencyTitle:"英石公斤转换器", relatedCurrencyText:"需要换算英石、磅和公斤时，可快速核对单位。",
         articleTitle:"这个英国燃油费用计算器如何工作", articleP1:"本页面按照英国司机常用方式设计：距离输入英里，车辆油耗输入英制 MPG，加油价格输入每升便士。计算器会把这些单位转换为一次完整行程的油费估算。", formulaTitle:"计算公式", articleP2:"计算分三步：先用距离除以 MPG 得到英制加仑，再用 4.54609 转换为升，最后用升数乘以每升便士价格，并换算为英镑。", formulaLabel:"公式：", formulaText:"总费用 = ((距离 ÷ MPG) × 4.54609 × 每升便士价格) ÷ 100", whyUsefulTitle:"适合什么场景", use1:"出行前比较单程和往返燃油成本。", use2:"多人一起出行时，估算汽油或柴油的人均分摊费用。", use3:"同时查看升数和加仑，便于核对估算结果是否合理。",
-        faqTitle:"常见问题", faq1Q:"这个计算器使用英国加仑还是美国加仑？", faq1A:"使用英国英制加仑。英国加仑比美国加仑更大，如果用错单位，升数和费用估算都会变化。", faq2Q:"可以用于精确报销吗？", faq2A:"不建议。此页面是规划估算，雇主报销规则、实际油耗、路线变化和交通情况都可能影响最终费用。", faq3Q:"汽油和柴油都能用吗？", faq3A:"可以。计算器只需要实际每升价格和车辆 MPG，不限定燃油类型。",
+        faqTitle:"常见问题", faq1Q:"这个计算器使用英国加仑还是美国加仑？", faq1A:"使用英国英制加仑。英国加仑比美国加仑更大，如果用错单位，升数和费用估算都会变化。", faq2Q:"可以用于精确报销吗？", faq2A:"不建议。此页面是规划估算，雇主报销规则、实际油耗、路线变化和交通情况都可能影响最终费用。", faq3Q:"汽油和柴油都能用吗？", faq3A:"可以。计算器只需要实际每升价格和车辆 MPG，不限定燃油类型。", faq4Q:"如何用每升便士价格计算油费？", faq4A:"输入行程英里数、车辆 MPG 和加油站每升便士价格。计算器会把英制加仑换算为升数，再乘以油价，估算行程总费用（英镑）。",
         footerNote:"Copyright 2026 Mini-Tools.uk — 适合工作、学习和日常规划的实用网页工具。",
         tripBadgeOne:"单程", tripBadgeReturn:"往返", milesSuffix:"英里", litresSuffix:"升", gallonsSuffix:"英制加仑", priceSuffix:"便士"
       },
@@ -563,7 +576,7 @@
         resultEyebrow:"Geschätzte Fahrtkosten", breakdownHead:"Aufschlüsselung", valueHead:"Wert", effectiveDistanceLabel:"Berechnete Strecke", litresLabel:"Benötigter Kraftstoff", gallonsLabel:"Imperial gallons", displayPriceLabel:"Preis pro Liter", perPersonLabel:"Kosten pro Person", gallonNote:"Für UK-Berechnungen gilt: 1 imperial gallon =", gallonNote2:"Diese Seite nutzt die UK-Gallone, nicht die kleinere US-Gallone.",
         relatedTitle:"Verwandte Tools", relatedText:"Nutzen Sie diese Reise- und Haushaltsrechner zusammen mit Ihren UK-Planungstools.", relatedVatTitle:"VAT Rechner", relatedVatText:"UK VAT hinzufügen oder entfernen und Brutto-/Nettobetrag prüfen.", relatedWorkTitle:"Arbeitstage-Rechner", relatedWorkText:"Arbeitstage und Fristen für Reisen oder Projekte zählen.", relatedCurrencyTitle:"Stones-kg-Umrechner", relatedCurrencyText:"Stones und Pfund schnell in Kilogramm umrechnen.",
         articleTitle:"Wie dieser UK Kraftstoffkostenrechner funktioniert", articleP1:"Die Seite ist so aufgebaut, wie UK-Fahrer Kraftstoff meist betrachten: Meilen, imperial MPG und Pence pro Liter. Der Rechner führt die Umrechnung zu einer Fahrtkostenschätzung zusammen.", formulaTitle:"Die Formel hinter dem Ergebnis", articleP2:"Zuerst wird Strecke durch MPG geteilt, um imperial gallons zu schätzen. Danach werden diese mit 4.54609 in Liter umgerechnet. Dann werden Liter mit Pence pro Liter multipliziert und in Pfund umgerechnet.", formulaLabel:"Formel:", formulaText:"Gesamtkosten = ((Strecke ÷ MPG) × 4.54609 × Pence pro Liter) ÷ 100", whyUsefulTitle:"Warum das nützlich ist", use1:"Vergleichen Sie einfache und Rückfahrten vor Reisebeginn.", use2:"Teilen Sie Benzin- oder Dieselkosten informell auf mehrere Personen.", use3:"Liter und Gallonen zusammen helfen beim Plausibilitätscheck.",
-        faqTitle:"Häufige Fragen", faq1Q:"Nutzt der Rechner UK- oder US-Gallonen?", faq1A:"Er nutzt die UK imperial gallon. Das ist wichtig, weil sie größer als die US-Gallone ist.", faq2Q:"Eignet sich das für exakte Erstattung?", faq2A:"Nein. Es ist eine Planungsschätzung. Erstattungsregeln, tatsächlicher Verbrauch und Strecke können abweichen.", faq3Q:"Kann ich ihn für Benzin und Diesel nutzen?", faq3A:"Ja. Sie brauchen nur den Pumpenpreis und Ihre Fahrzeug-MPG.",
+        faqTitle:"Häufige Fragen", faq1Q:"Nutzt der Rechner UK- oder US-Gallonen?", faq1A:"Er nutzt die UK imperial gallon. Das ist wichtig, weil sie größer als die US-Gallone ist.", faq2Q:"Eignet sich das für exakte Erstattung?", faq2A:"Nein. Es ist eine Planungsschätzung. Erstattungsregeln, tatsächlicher Verbrauch und Strecke können abweichen.", faq3Q:"Kann ich ihn für Benzin und Diesel nutzen?", faq3A:"Ja. Sie brauchen nur den Pumpenpreis und Ihre Fahrzeug-MPG.", faq4Q:"Wie berechne ich Kraftstoffkosten mit Pence pro Liter?", faq4A:"Geben Sie Strecke in Meilen, Fahrzeug-MPG und den Pumpenpreis in Pence pro Liter ein. Der Rechner rechnet imperial gallons in Liter um und multipliziert mit Ihrem Preis für die Gesamtkosten in Pfund.",
         footerNote:"Copyright 2026 Mini-Tools.uk — praktische Web-Tools für Arbeit, Studium und Alltag.",
         tripBadgeOne:"Einfach", tripBadgeReturn:"Hin und zurück", milesSuffix:"Meilen", litresSuffix:"Liter", gallonsSuffix:"gal", priceSuffix:"p"
       },
@@ -579,7 +592,7 @@
         resultEyebrow:"Coût de trajet estimé", breakdownHead:"Détail", valueHead:"Valeur", effectiveDistanceLabel:"Distance utilisée", litresLabel:"Carburant nécessaire", gallonsLabel:"Gallons impériaux", displayPriceLabel:"Prix par litre", perPersonLabel:"Coût par passager", gallonNote:"Pour les calculs UK, 1 gallon impérial =", gallonNote2:"Cette page utilise le gallon UK, pas le gallon US plus petit.",
         relatedTitle:"Outils liés", relatedText:"Gardez ces calculs de trajet et de budget avec vos autres outils UK.", relatedVatTitle:"Calculateur VAT", relatedVatText:"Ajoutez ou retirez la VAT UK et vérifiez brut/net.", relatedWorkTitle:"Calculateur jours ouvrés", relatedWorkText:"Comptez jours ouvrés et échéances pour trajets ou projets.", relatedCurrencyTitle:"Convertisseur stones-kg", relatedCurrencyText:"Convertissez rapidement stones, livres et kilogrammes.",
         articleTitle:"Comment fonctionne ce calculateur carburant UK", articleP1:"La page suit les unités courantes au Royaume-Uni : miles pour la distance, MPG impérial pour l’efficacité et pence par litre pour le prix. Le calculateur convertit ces mesures en estimation de trajet.", formulaTitle:"Le calcul derrière le résultat", articleP2:"La distance est divisée par MPG pour estimer les gallons impériaux. Ces gallons sont convertis en litres avec 4.54609, puis les litres sont multipliés par le prix en pence et convertis en livres.", formulaLabel:"Formule :", formulaText:"coût total = ((distance ÷ MPG) × 4.54609 × prix en pence par litre) ÷ 100", whyUsefulTitle:"Pourquoi c’est utile", use1:"Comparer aller simple et aller-retour avant de voyager.", use2:"Partager informellement essence ou diesel entre passagers.", use3:"Afficher litres et gallons ensemble pour vérifier l’estimation.",
-        faqTitle:"Questions fréquentes", faq1Q:"Le calculateur utilise-t-il un gallon UK ou US ?", faq1A:"Il utilise le gallon impérial UK, plus grand que le gallon US.", faq2Q:"Convient-il aux remboursements exacts ?", faq2A:"Non. C’est une estimation de planification. Les règles de remboursement et la consommation réelle peuvent différer.", faq3Q:"Puis-je l’utiliser pour essence et diesel ?", faq3A:"Oui. Il faut seulement le prix réel à la pompe et le MPG du véhicule.",
+        faqTitle:"Questions fréquentes", faq1Q:"Le calculateur utilise-t-il un gallon UK ou US ?", faq1A:"Il utilise le gallon impérial UK, plus grand que le gallon US.", faq2Q:"Convient-il aux remboursements exacts ?", faq2A:"Non. C’est une estimation de planification. Les règles de remboursement et la consommation réelle peuvent différer.", faq3Q:"Puis-je l’utiliser pour essence et diesel ?",         faq3A:"Oui. Il faut seulement le prix réel à la pompe et le MPG du véhicule.", faq4Q:"Comment calculer le coût carburant avec pence par litre ?", faq4A:"Saisissez la distance en miles, le MPG du véhicule et le prix à la pompe en pence par litre. Le calculateur convertit les gallons impériaux en litres et multiplie par votre prix pour estimer le coût total en livres.",
         footerNote:"Copyright 2026 Mini-Tools.uk — outils web pratiques pour travail, études et quotidien.",
         tripBadgeOne:"Aller simple", tripBadgeReturn:"Aller-retour", milesSuffix:"miles", litresSuffix:"litres", gallonsSuffix:"gal", priceSuffix:"p"
       },
@@ -595,7 +608,7 @@
         resultEyebrow:"Coste estimado", breakdownHead:"Desglose", valueHead:"Valor", effectiveDistanceLabel:"Distancia usada", litresLabel:"Combustible requerido", gallonsLabel:"Galones imperiales", displayPriceLabel:"Precio por litro", perPersonLabel:"Coste por pasajero", gallonNote:"Para cálculos UK, 1 galón imperial =", gallonNote2:"Esta página usa el galón UK, no el galón US más pequeño.",
         relatedTitle:"Herramientas relacionadas", relatedText:"Mantén estos cálculos de viaje y hogar junto con tus herramientas UK.", relatedVatTitle:"Calculadora VAT", relatedVatText:"Añade o elimina VAT UK y revisa bruto/neto.", relatedWorkTitle:"Calculadora días laborables", relatedWorkText:"Cuenta días laborables y plazos al planificar viajes o proyectos.", relatedCurrencyTitle:"Conversor stones a kg", relatedCurrencyText:"Convierte stones, libras y kilogramos rápidamente.",
         articleTitle:"Cómo funciona esta calculadora de combustible UK", articleP1:"La página usa la forma común de pensar en combustible en Reino Unido: millas, MPG imperial y peniques por litro. El cálculo convierte esas medidas en una estimación de viaje.", formulaTitle:"El cálculo del resultado", articleP2:"Primero se divide la distancia por MPG para estimar galones imperiales. Luego se convierten a litros con 4.54609 y se multiplican por el precio por litro en peniques, convirtiendo después a libras.", formulaLabel:"Fórmula:", formulaText:"coste total = ((distancia ÷ MPG) × 4.54609 × precio en peniques por litro) ÷ 100", whyUsefulTitle:"Por qué es útil", use1:"Compara viajes de ida y vuelta antes de viajar.", use2:"Ayuda a repartir informalmente gasolina o diesel.", use3:"Muestra litros y galones juntos para revisar la estimación.",
-        faqTitle:"Preguntas frecuentes", faq1Q:"¿Usa galón UK o US?", faq1A:"Usa el galón imperial UK, que es mayor que el galón US.", faq2Q:"¿Sirve para reembolsos exactos?", faq2A:"No. Es una estimación de planificación. Reglas de reembolso y consumo real pueden diferir.", faq3Q:"¿Sirve para gasolina y diesel?", faq3A:"Sí. Solo necesita el precio real y el MPG del vehículo.",
+        faqTitle:"Preguntas frecuentes", faq1Q:"¿Usa galón UK o US?", faq1A:"Usa el galón imperial UK, que es mayor que el galón US.", faq2Q:"¿Sirve para reembolsos exactos?", faq2A:"No. Es una estimación de planificación. Reglas de reembolso y consumo real pueden diferir.", faq3Q:"¿Sirve para gasolina y diesel?", faq3A:"Sí. Solo necesita el precio real y el MPG del vehículo.", faq4Q:"¿Cómo calculo el coste con peniques por litro?", faq4A:"Introduce la distancia en millas, el MPG del vehículo y el precio en peniques por litro. La calculadora convierte galones imperiales a litros y multiplica por tu precio para estimar el coste total en libras.",
         footerNote:"Copyright 2026 Mini-Tools.uk — herramientas web prácticas para trabajo, estudio y tareas diarias.",
         tripBadgeOne:"Solo ida", tripBadgeReturn:"Ida y vuelta", milesSuffix:"millas", litresSuffix:"litros", gallonsSuffix:"gal", priceSuffix:"p"
       }
