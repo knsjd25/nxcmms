@@ -756,7 +756,7 @@ test("password and color picker use the shared five-language contract", () => {
 });
 
 test("worker renders token and working-days pages without stalling on array translations", async () => {
-  for (const path of ["/token?lang=en", "/working-days?lang=zh-CN"]) {
+  for (const path of ["/token", "/working-days?lang=zh-CN"]) {
     const response = await fetchThroughIsolatedWorker(path);
     assert.equal(response.status, 200, path);
     assert.match(response.body, /<main\b/i, path);
@@ -783,7 +783,7 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   assert.equal(lastmods.every((value) => value === "2026-06-14" || value === "2026-06-16" || value === "2026-07-02" || value === "2026-07-03"), true, "sitemap lastmod date");
   assert.equal(read("sitemap.xml").includes("?lang="), false);
   assert.doesNotMatch(read("sitemap.xml"), /blog/i);
-  assert.equal(read("robots.txt").trim().replace(/\r\n/g, "\n"), "User-agent: *\nAllow: /\nDisallow: /cdn-cgi/\nDisallow: /image_admin\nDisallow: /map\n\nSitemap: https://mini-tools.uk/sitemap.xml");
+  assert.equal(read("robots.txt").trim().replace(/\r\n/g, "\n"), "User-agent: *\nAllow: /\nDisallow: /cdn-cgi/\nDisallow: /image_admin\nDisallow: /map\nDisallow: /wp/\nDisallow: /teams/\nDisallow: /user/\nDisallow: /main.php\nDisallow: /menu.php\n\nSitemap: https://mini-tools.uk/sitemap.xml");
 });
 
 test("worker renders Chinese body, metadata and schema for key pages", async () => {
@@ -842,14 +842,37 @@ test("worker server-renders the Upload empty file state in Chinese and German", 
   }
 });
 
-test("worker normalizes invalid languages to an explicit English URL", async () => {
+test("worker normalizes invalid languages to the canonical English URL", async () => {
   const response = await fetchThroughWorker("/tax?lang=xx");
   assert.equal(response.status, 301);
-  assert.equal(response.headers.get("location"), "https://mini-tools.uk/tax?lang=en");
+  assert.equal(response.headers.get("location"), "https://mini-tools.uk/tax");
+});
+
+test("worker redirects explicit ?lang=en to the canonical English URL", async () => {
+  const response = await fetchThroughWorker("/upload?lang=en");
+  assert.equal(response.status, 301);
+  assert.equal(response.headers.get("location"), "https://mini-tools.uk/upload");
+});
+
+test("worker redirects legacy WordPress and app paths to the homepage", async () => {
+  for (const path of ["/main.php", "/menu.php", "/wp/", "/teams/", "/user/login"]) {
+    const response = await fetchThroughWorker(path);
+    assert.equal(response.status, 301, path);
+    assert.equal(response.headers.get("location"), "https://mini-tools.uk/", path);
+  }
+});
+
+test("worker renders about in German with a German title", async () => {
+  const response = await fetchThroughWorker("/about?lang=de");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /<html[^>]+lang=["']de["']/);
+  assert.match(html, /<title>Über Mini-Tools\.uk｜Praktische Rechner und Browser-Tools<\/title>/);
+  assert.doesNotMatch(html, /<title>About Mini-Tools\.uk - Practical Calculators and Browser Tools<\/title>/);
 });
 
 test("worker renders upload English with the shared en-GB html language", async () => {
-  const response = await fetchThroughWorker("/upload?lang=en");
+  const response = await fetchThroughWorker("/upload");
   assert.equal(response.status, 200);
   assert.match(await response.text(), /<html[^>]+lang=["']en-GB["']/);
 });

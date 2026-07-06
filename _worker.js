@@ -874,6 +874,23 @@ function responseWithRobots(original, robots) {
   });
 }
 
+function maybeRedirectLegacyPath(pathname) {
+  const path = normalizePathname(pathname);
+  if (path === "/main.php" || path === "/menu.php") {
+    return `${SITE_ORIGIN}/`;
+  }
+  if (path === "/wp" || path.startsWith("/wp/")) {
+    return `${SITE_ORIGIN}/`;
+  }
+  if (path === "/teams" || path.startsWith("/teams/")) {
+    return `${SITE_ORIGIN}/`;
+  }
+  if (path.startsWith("/user/")) {
+    return `${SITE_ORIGIN}/`;
+  }
+  return null;
+}
+
 function maybeRedirectNormalizedUrl(requestUrl) {
   const url = new URL(requestUrl);
   let changed = false;
@@ -894,12 +911,17 @@ function maybeRedirectNormalizedUrl(requestUrl) {
       (normalized === "zh-CN" && ["zh", "zh-cn", "zh-hans", "cn"].includes(trimmed.toLowerCase()));
 
     if (!trimmed || !isSupportedVariant) {
-      url.searchParams.set("lang", DEFAULT_LANG);
+      url.searchParams.delete("lang");
       changed = true;
     } else if (rawLang !== normalized) {
       url.searchParams.set("lang", normalized);
       changed = true;
     }
+  }
+
+  if (url.searchParams.get("lang") === DEFAULT_LANG && hasOnlyLangParam(url)) {
+    url.searchParams.delete("lang");
+    changed = true;
   }
 
   return changed ? url.toString() : null;
@@ -1075,6 +1097,11 @@ export default {
   async fetch(request, env) {
     const initialUrl = new URL(request.url);
     const initialPathname = initialUrl.pathname;
+
+    const legacyRedirect = maybeRedirectLegacyPath(initialPathname);
+    if (legacyRedirect) {
+      return Response.redirect(legacyRedirect, 301);
+    }
 
     if (initialPathname === "/image-compressor") {
       return Response.redirect(`${SITE_ORIGIN}/image${initialUrl.search}`, 301);

@@ -3,5 +3,10 @@ Allow: /
 Disallow: /cdn-cgi/
 Disallow: /image_admin
 Disallow: /map
+Disallow: /wp/
+Disallow: /teams/
+Disallow: /user/
+Disallow: /main.php
+Disallow: /menu.php
 
 Sitemap: https://mini-tools.uk/sitemap.xml
