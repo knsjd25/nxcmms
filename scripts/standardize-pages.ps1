@@ -72,8 +72,10 @@ $footerStyle = @'
 }
 .footer .footer-meta {
   display: flex !important;
-  flex-direction: column !important;
-  gap: 4px !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
 }
 .footer .footer-copyright {
   color: #64748b !important;
@@ -85,10 +87,11 @@ $footerStyle = @'
 }
 .footer .site-version {
   color: #94a3b8 !important;
-  font-size: .82rem !important;
+  font-size: .9rem !important;
   font-weight: 600 !important;
   letter-spacing: 0 !important;
   text-transform: none !important;
+  white-space: nowrap !important;
 }
 .footer .footer-links {
   display: flex !important;
