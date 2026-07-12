@@ -421,6 +421,16 @@
     </section>
 
     <section class="section-card">
+      <h2 data-i18n="limitsTitle">How the comparison works and where it stops</h2>
+      <p data-i18n="limitsText">The tool compares the pasted values as text and highlights word-level additions and removals. It does not understand whether a code change is valid, whether a contract edit changes legal meaning, or whether two differently formatted documents are visually equivalent.</p>
+      <ul>
+        <li data-i18n="limit1">Normalise line endings or formatting first when whitespace creates distracting differences.</li>
+        <li data-i18n="limit2">Use source control and automated tests for repository-wide code review; this page is intended for two pasted versions.</li>
+        <li data-i18n="limit3">Remove secrets, personal data and confidential text before sharing comparison results.</li>
+      </ul>
+    </section>
+
+    <section class="section-card">
       <h2 data-i18n="relatedTitle">Related tools</h2>
       <div class="related">
         <a href="/json">
@@ -757,6 +767,42 @@
         sampleRight:"Mini-Tools.uk es un sitio de herramientas online prácticas.\n\nOfrece formato JSON, compresión de imágenes, estimación de tokens IA y comparación de texto."
       }
     };
+
+    Object.assign(translations.en, {
+      limitsTitle:"How the comparison works and where it stops",
+      limitsText:"The tool compares the pasted values as text and highlights word-level additions and removals. It does not understand whether a code change is valid, whether a contract edit changes legal meaning, or whether two differently formatted documents are visually equivalent.",
+      limit1:"Normalise line endings or formatting first when whitespace creates distracting differences.",
+      limit2:"Use source control and automated tests for repository-wide code review; this page is intended for two pasted versions.",
+      limit3:"Remove secrets, personal data and confidential text before sharing comparison results."
+    });
+    Object.assign(translations["zh-CN"], {
+      limitsTitle:"对比原理与适用边界",
+      limitsText:"工具会把粘贴内容作为纯文本，按词高亮新增和删除。它无法判断代码修改是否正确、合同措辞是否改变法律含义，也无法判断格式不同的文档在视觉上是否等价。",
+      limit1:"如果空格或换行造成大量干扰差异，请先统一换行符和格式。",
+      limit2:"审查整个代码仓库应使用版本控制和自动化测试；本页面适合比较两段粘贴内容。",
+      limit3:"分享对比结果前，请移除密钥、个人数据和机密文本。"
+    });
+    Object.assign(translations.de, {
+      limitsTitle:"Funktionsweise und Grenzen des Vergleichs",
+      limitsText:"Das Tool vergleicht eingefügte Werte als Text und markiert Ergänzungen und Entfernungen auf Wortebene. Es kann nicht beurteilen, ob Code gültig ist, eine Vertragsänderung die rechtliche Bedeutung verändert oder unterschiedlich formatierte Dokumente visuell gleich sind.",
+      limit1:"Vereinheitlichen Sie Zeilenenden und Formatierung, wenn Leerraum störende Unterschiede erzeugt.",
+      limit2:"Für repositoryweite Codeprüfungen sind Versionskontrolle und automatisierte Tests geeigneter; diese Seite vergleicht zwei eingefügte Versionen.",
+      limit3:"Entfernen Sie Geheimnisse, personenbezogene Daten und vertrauliche Texte, bevor Sie Ergebnisse teilen."
+    });
+    Object.assign(translations.fr, {
+      limitsTitle:"Fonctionnement et limites de la comparaison",
+      limitsText:"L’outil compare les valeurs collées comme du texte et signale les ajouts et suppressions au niveau des mots. Il ne peut pas déterminer si un code est valide, si une modification contractuelle change le sens juridique ou si deux documents de formats différents sont visuellement équivalents.",
+      limit1:"Uniformisez les fins de ligne et la mise en forme si les espaces créent trop de différences inutiles.",
+      limit2:"Pour une revue complète de dépôt, utilisez le contrôle de version et des tests automatisés; cette page compare deux versions collées.",
+      limit3:"Retirez les secrets, données personnelles et textes confidentiels avant de partager les résultats."
+    });
+    Object.assign(translations.es, {
+      limitsTitle:"Cómo funciona la comparación y sus límites",
+      limitsText:"La herramienta compara los valores pegados como texto y marca adiciones y eliminaciones por palabras. No puede determinar si un cambio de código es válido, si una edición contractual cambia el significado legal o si dos documentos con distinto formato son visualmente equivalentes.",
+      limit1:"Normalice los saltos de línea y el formato si los espacios generan diferencias que distraen.",
+      limit2:"Para revisar un repositorio completo, use control de versiones y pruebas automatizadas; esta página compara dos versiones pegadas.",
+      limit3:"Quite secretos, datos personales y texto confidencial antes de compartir los resultados."
+    });
 
     const textOne = document.getElementById("textOne");
     const textTwo = document.getElementById("textTwo");

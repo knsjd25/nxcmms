@@ -6,7 +6,7 @@
 
   <title id="meta-title">Colour Picker Online | HEX, RGB from Images</title>
   <meta name="description" id="meta-desc" content="Pick colours from any image online. Get HEX and RGB codes from photos or screenshots, build a palette and crop locally in your browser." />
-  <meta name="robots" content="noindex,follow,max-image-preview:large">
+  <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#0f172a" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Colour Picker Online | HEX, RGB from Images" />
@@ -588,6 +588,20 @@
       </div>
     </div>
 
+    <section class="prose-content max-w-[1400px] mx-auto w-full" aria-labelledby="workflow-title">
+      <h2 id="workflow-title" data-i18n="workflowTitle">Practical colour-picking workflow and limits</h2>
+      <p data-i18n="workflowText">Open a screenshot, logo or design reference, zoom into the area you need and click the exact pixel. Copy HEX for CSS, RGB for channel-based values, or HSL when you want to build lighter, darker or less saturated variants.</p>
+      <ul>
+        <li data-i18n="workflow1">Check several nearby pixels on compressed photos because anti-aliasing and JPEG artefacts can produce slightly different values.</li>
+        <li data-i18n="workflow2">Use the recent palette to compare a background, text colour and accent before adding them to a design system.</li>
+        <li data-i18n="workflow3">Use crop mode to export only the relevant screenshot area before attaching it to documentation or a support ticket.</li>
+      </ul>
+      <h3 data-i18n="accuracyTitle">Accuracy and file limitations</h3>
+      <p data-i18n="accuracyText">The picker reports the pixel value decoded by your browser. Colour profiles, display calibration, image compression and transparent pixels can affect how a colour looks. Very large images also depend on available browser memory.</p>
+      <h3 data-i18n="relatedTitle">Related tools</h3>
+      <p><a href="/image" data-i18n="relatedImage">Resize and compress the image</a> · <a href="/pdf2img" data-i18n="relatedPdf">Convert PDF pages to PNG</a> · <a href="/upload" data-i18n="relatedUpload">Create a hosted image link</a></p>
+    </section>
+
   </main>
 
 <footer class="footer">
@@ -776,6 +790,72 @@
           </div>`
       }
     };
+
+    Object.assign(i18n.en, {
+      workflowTitle:"Practical colour-picking workflow and limits",
+      workflowText:"Open a screenshot, logo or design reference, zoom into the area you need and click the exact pixel. Copy HEX for CSS, RGB for channel-based values, or HSL when you want to build lighter, darker or less saturated variants.",
+      workflow1:"Check several nearby pixels on compressed photos because anti-aliasing and JPEG artefacts can produce slightly different values.",
+      workflow2:"Use the recent palette to compare a background, text colour and accent before adding them to a design system.",
+      workflow3:"Use crop mode to export only the relevant screenshot area before attaching it to documentation or a support ticket.",
+      accuracyTitle:"Accuracy and file limitations",
+      accuracyText:"The picker reports the pixel value decoded by your browser. Colour profiles, display calibration, image compression and transparent pixels can affect how a colour looks. Very large images also depend on available browser memory.",
+      relatedTitle:"Related tools",
+      relatedImage:"Resize and compress the image",
+      relatedPdf:"Convert PDF pages to PNG",
+      relatedUpload:"Create a hosted image link"
+    });
+    Object.assign(i18n["zh-CN"], {
+      workflowTitle:"实用取色流程与适用边界",
+      workflowText:"打开截图、Logo 或设计参考图，放大目标区域并点击准确像素。CSS 可复制 HEX，需要通道数值时使用 RGB，需要生成更亮、更暗或低饱和度的相关颜色时使用 HSL。",
+      workflow1:"压缩照片中的抗锯齿和 JPEG 痕迹会产生细微色差，建议检查相邻多个像素。",
+      workflow2:"把背景色、文字色和强调色加入设计系统前，可先在最近调色板中并排比较。",
+      workflow3:"通过裁剪模式只导出需要的截图区域，再用于文档或支持工单。",
+      accuracyTitle:"准确性与文件限制",
+      accuracyText:"取色器显示浏览器解码后的像素值。颜色配置文件、显示器校准、图片压缩和透明像素都会影响视觉效果；超大图片还会受浏览器可用内存限制。",
+      relatedTitle:"相关工具",
+      relatedImage:"调整并压缩图片",
+      relatedPdf:"把 PDF 页面转换为 PNG",
+      relatedUpload:"生成图片托管链接"
+    });
+    Object.assign(i18n.de, {
+      workflowTitle:"Praktischer Arbeitsablauf und Grenzen",
+      workflowText:"Öffnen Sie einen Screenshot, ein Logo oder eine Designvorlage, zoomen Sie in den gewünschten Bereich und wählen Sie das genaue Pixel. Nutzen Sie HEX für CSS, RGB für Kanalwerte und HSL für hellere, dunklere oder weniger gesättigte Varianten.",
+      workflow1:"Prüfen Sie bei komprimierten Fotos mehrere benachbarte Pixel, da Kantenglättung und JPEG-Artefakte leicht unterschiedliche Werte erzeugen können.",
+      workflow2:"Vergleichen Sie Hintergrund-, Text- und Akzentfarbe in der letzten Palette, bevor Sie sie in ein Designsystem übernehmen.",
+      workflow3:"Exportieren Sie im Zuschneidemodus nur den relevanten Screenshot-Bereich für Dokumentation oder Support-Tickets.",
+      accuracyTitle:"Genauigkeit und Dateigrenzen",
+      accuracyText:"Der Farbwähler zeigt den vom Browser dekodierten Pixelwert. Farbprofile, Bildschirmkalibrierung, Komprimierung und transparente Pixel können die Darstellung beeinflussen. Sehr große Bilder hängen außerdem vom verfügbaren Browserspeicher ab.",
+      relatedTitle:"Verwandte Tools",
+      relatedImage:"Bild skalieren und komprimieren",
+      relatedPdf:"PDF-Seiten in PNG umwandeln",
+      relatedUpload:"Gehosteten Bildlink erstellen"
+    });
+    Object.assign(i18n.fr, {
+      workflowTitle:"Méthode pratique et limites de la pipette",
+      workflowText:"Ouvrez une capture, un logo ou une référence graphique, zoomez sur la zone voulue et cliquez sur le pixel exact. Copiez HEX pour le CSS, RGB pour les canaux ou HSL pour créer des variantes plus claires, plus sombres ou moins saturées.",
+      workflow1:"Vérifiez plusieurs pixels voisins sur les photos compressées, car l’anticrénelage et les artefacts JPEG peuvent produire des valeurs légèrement différentes.",
+      workflow2:"Comparez le fond, le texte et l’accent dans la palette récente avant de les ajouter à un système de design.",
+      workflow3:"Utilisez le recadrage pour exporter uniquement la zone utile avant de l’ajouter à une documentation ou un ticket de support.",
+      accuracyTitle:"Précision et limites des fichiers",
+      accuracyText:"La pipette indique la valeur du pixel décodée par le navigateur. Les profils colorimétriques, l’étalonnage de l’écran, la compression et la transparence peuvent modifier l’apparence. Les très grandes images dépendent aussi de la mémoire disponible.",
+      relatedTitle:"Outils liés",
+      relatedImage:"Redimensionner et compresser l’image",
+      relatedPdf:"Convertir les pages PDF en PNG",
+      relatedUpload:"Créer un lien d’image hébergée"
+    });
+    Object.assign(i18n.es, {
+      workflowTitle:"Flujo práctico y límites del selector",
+      workflowText:"Abra una captura, un logotipo o una referencia de diseño, acerque la zona y pulse el píxel exacto. Copie HEX para CSS, RGB para valores por canal o HSL para crear variantes más claras, oscuras o menos saturadas.",
+      workflow1:"Revise varios píxeles cercanos en fotos comprimidas porque el suavizado y los artefactos JPEG pueden producir valores ligeramente distintos.",
+      workflow2:"Compare fondo, texto y color de acento en la paleta reciente antes de añadirlos a un sistema de diseño.",
+      workflow3:"Use el modo de recorte para exportar solo el área relevante antes de adjuntarla a documentación o a un ticket de soporte.",
+      accuracyTitle:"Precisión y límites de archivo",
+      accuracyText:"El selector muestra el valor de píxel decodificado por el navegador. Los perfiles de color, la calibración de pantalla, la compresión y la transparencia pueden cambiar su apariencia. Las imágenes muy grandes también dependen de la memoria disponible.",
+      relatedTitle:"Herramientas relacionadas",
+      relatedImage:"Redimensionar y comprimir la imagen",
+      relatedPdf:"Convertir páginas PDF a PNG",
+      relatedUpload:"Crear un enlace de imagen alojada"
+    });
 
 
     const LANG_HTML_ATTR = {
@@ -971,6 +1051,10 @@
       // 🌟 核心优化 4：动态注入对应的纯净 SEO 长文内容
       const seoContainer = document.getElementById('seo-container');
       if (data.seoHtml) seoContainer.innerHTML = data.seoHtml;
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (data[key] !== undefined) element.textContent = data[key];
+      });
 
       // 去除跳转链接的 .html
       document.querySelectorAll('a').forEach(link => {

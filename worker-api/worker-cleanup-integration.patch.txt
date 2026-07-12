@@ -1,0 +1,40 @@
+=== 将以下片段合并到你的 upload Worker 主文件 ===
+
+--- 1) 在 cleanupExpiredImages 函数后面粘贴 worker-api/cleanup_d1_history.js 中的函数 ---
+（或 import 该文件；若 Worker 是单文件，直接复制 cleanupD1History + handleCleanupD1History + clampRetentionDays）
+
+--- 2) adminActions Set 增加一项 ---
+        "cleanup_d1_history",
+
+--- 3) fetch 路由：放在 cleanup_expired 路由后面 ---
+      if (request.method === "POST" && action === "cleanup_d1_history") {
+        return await handleCleanupD1History(request, env, url);
+      }
+
+--- 4) scheduled 定时任务：在 cleanupExpiredImages 之后追加 ---
+  async scheduled(controller, env, ctx) {
+    ctx.waitUntil((async () => {
+      await cleanupExpiredImages(env, {
+        batchSize: 500,
+        maxBatches: 50,
+        maxDelete: 5000
+      });
+      await cleanupD1History(env, {
+        event_retention_days: 90,
+        purge_deleted_images: true
+      });
+    })());
+  },
+
+=== 清理策略 ===
+• DELETE images WHERE status='deleted'（物理删除软删记录，当前约 247 条）
+• DELETE upload_events 中属于 deleted 图片的事件
+• DELETE upload_events WHERE created_at < 90 天前
+• VACUUM 回收 SQLite 空间
+
+=== 部署后验证 ===
+POST https://api.mini-tools.uk?action=cleanup_d1_history
+Header: X-Admin-Key: <ADMIN_PASSWORD>
+Body: {"event_retention_days":90,"purge_deleted_images":true}
+
+或在 /image_admin 点击「清理 D1 历史」

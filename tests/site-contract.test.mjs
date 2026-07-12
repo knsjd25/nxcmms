@@ -115,7 +115,7 @@ function runSharedI18n({ search = "", savedLanguage = null, browserLanguages = [
 
 function section(html, tag, className) {
   const pattern = new RegExp(`<${tag}\\b[^>]*class=["'][^"']*${className}[^"']*["'][^>]*>[\\s\\S]*?<\\/${tag}>`, "i");
-  return html.match(pattern)?.[0] ?? "";
+  return (html.match(pattern)?.[0] ?? "").replace(/\r\n/g, "\n");
 }
 
 function hrefs(html) {
@@ -780,9 +780,12 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   const lastmods = [...read("sitemap.xml").matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1]);
   assert.deepEqual(locs, approvedPaths.map((path) => `https://mini-tools.uk${path}`));
   assert.equal(lastmods.length, locs.length, "every sitemap URL has a lastmod date");
-  assert.equal(lastmods.every((value) => value === "2026-06-14" || value === "2026-06-16" || value === "2026-07-02" || value === "2026-07-03"), true, "sitemap lastmod date");
+  assert.equal(lastmods.every((value) => value === "2026-07-06" || value === "2026-07-10"), true, "sitemap lastmod date");
   assert.equal(read("sitemap.xml").includes("?lang="), false);
   assert.doesNotMatch(read("sitemap.xml"), /blog/i);
+  const indexableBlock = read("_worker.js").match(/const INDEXABLE_PATHS = new Set\(\[([\s\S]*?)\]\);/)?.[1] || "";
+  const indexablePaths = [...indexableBlock.matchAll(/"(\/[^"]*)"/g)].map((match) => match[1]).sort();
+  assert.deepEqual(indexablePaths, [...approvedPaths].sort(), "Worker indexable paths must match sitemap paths");
   assert.equal(read("robots.txt").trim().replace(/\r\n/g, "\n"), "User-agent: *\nAllow: /\nDisallow: /cdn-cgi/\nDisallow: /image_admin\nDisallow: /map\nDisallow: /wp/\nDisallow: /teams/\nDisallow: /user/\nDisallow: /main.php\nDisallow: /menu.php\n\nSitemap: https://mini-tools.uk/sitemap.xml");
 });
 

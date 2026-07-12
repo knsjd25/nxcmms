@@ -344,6 +344,8 @@
       <button onclick="refreshCurrentList()" class="btn-gray">刷新当前列表</button>
       <button onclick="cleanupExpiredImagesNow()" id="btn-cleanup-expired" class="btn-danger">🧹 清理过期图片</button>
       <span id="cleanup-expired-status" class="cleanup-status" style="display:none;"></span>
+      <button onclick="cleanupD1HistoryNow()" id="btn-cleanup-d1-history" class="btn-danger">🗄️ 清理 D1 历史</button>
+      <span id="cleanup-d1-history-status" class="cleanup-status" style="display:none;"></span>
       <button onclick="selectAll()" class="btn-gray">全选本页</button>
       <button onclick="batchAudit()" id="btn-batch-audit" class="btn-warning">✅ 批量通过</button>
       <button onclick="batchDelete()" class="btn-danger">🚨 批量删除</button>
@@ -944,6 +946,58 @@
     pageCache.clear();
     setStatusMessage('⏳ 正在刷新全局统计、IP汇总、黑名单、高危用户库、VIP和当前列表...');
     return fetchPageData({ silent: false, isAuto: false, force: true });
+  }
+
+  const D1_EVENT_RETENTION_DAYS = 90;
+
+  async function cleanupD1HistoryNow() {
+    const pwd = getPwd();
+    if (!pwd) return alert('⚠️ 请先输入超级管理员密码！');
+    if (!confirm(
+      `确定清理 D1 数据库历史吗？\n\n` +
+      `• 物理删除所有 status=deleted 的 images 记录\n` +
+      `• 删除 ${D1_EVENT_RETENTION_DAYS} 天前的 upload_events 事件日志\n` +
+      `• 执行 VACUUM 回收空间\n\n` +
+      `不会影响当前 audited 图片和 R2 原图。`
+    )) return;
+
+    const btn = document.getElementById('btn-cleanup-d1-history');
+    const status = document.getElementById('cleanup-d1-history-status');
+    if (btn) btn.disabled = true;
+    if (status) {
+      status.style.display = 'inline-flex';
+      status.textContent = '正在清理 D1 历史...';
+    }
+
+    try {
+      const response = await fetch(WORKER_URL + '?action=cleanup_d1_history', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
+        body: JSON.stringify({
+          event_retention_days: D1_EVENT_RETENTION_DAYS,
+          purge_deleted_images: true
+        })
+      });
+      const data = await readJsonSafe(response);
+      if (!response.ok || data.success === false) {
+        throw new Error(data.error || response.status || '清理失败');
+      }
+
+      const imagesDeleted = Number(data.images_deleted ?? data.imagesDeleted ?? 0);
+      const eventsDeleted = Number(data.events_deleted ?? data.eventsDeleted ?? 0);
+      const eventsForDeletedImages = Number(data.events_for_deleted_images ?? data.eventsForDeletedImages ?? 0);
+      const vacuumed = Boolean(data.vacuumed);
+      if (status) {
+        status.textContent = `D1 清理完成：images ${imagesDeleted} 条，deleted 图事件 ${eventsForDeletedImages} 条，旧事件 ${eventsDeleted} 条${vacuumed ? '，已 VACUUM' : ''}`;
+      }
+      pageCache.clear();
+      await fetchPageData({ silent: false, isAuto: false, force: true });
+    } catch (error) {
+      if (status) status.textContent = 'D1 清理失败：' + (error.message || '未知错误');
+      alert('D1 清理失败：' + (error.message || '未知错误'));
+    } finally {
+      if (btn) btn.disabled = false;
+    }
   }
 
   async function cleanupExpiredImagesNow() {

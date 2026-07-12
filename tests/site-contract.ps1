@@ -356,17 +356,23 @@ foreach ($pattern in @('initialPathname === "/terms"', 'initialPathname === "/ac
 Assert-True ($worker -match 'initialPathname === "/blog"[\s\S]*?render404\(request, env, 410\)') "_worker.js does not retire Blog URLs with 410"
 Assert-True ($worker -notmatch 'miniToolsBlogLang') "_worker.js still contains obsolete Blog language state"
 
-$expectedRobots = "User-agent: *`nAllow: /`nDisallow: /cdn-cgi/`nDisallow: /image_admin`nDisallow: /map`n`nSitemap: https://mini-tools.uk/sitemap.xml"
+$expectedRobots = "User-agent: *`nAllow: /`nDisallow: /cdn-cgi/`nDisallow: /image_admin`nDisallow: /map`nDisallow: /wp/`nDisallow: /teams/`nDisallow: /user/`nDisallow: /main.php`nDisallow: /menu.php`n`nSitemap: https://mini-tools.uk/sitemap.xml"
 Assert-True ((Read-SiteFile "robots.txt").Trim().Replace("`r`n", "`n") -eq $expectedRobots) "robots.txt differs from contract"
 $locs = [regex]::Matches((Read-SiteFile "sitemap.xml"), '<loc>([^<]+)</loc>') | ForEach-Object { $_.Groups[1].Value }
 $expectedLocs = @(
   "https://mini-tools.uk/", "https://mini-tools.uk/tax", "https://mini-tools.uk/vat",
   "https://mini-tools.uk/mortgage", "https://mini-tools.uk/ir35", "https://mini-tools.uk/stamp-duty",
-  "https://mini-tools.uk/dividend", "https://mini-tools.uk/upload", "https://mini-tools.uk/image",
-  "https://mini-tools.uk/pdf2img", "https://mini-tools.uk/working-days", "https://mini-tools.uk/fuel",
+  "https://mini-tools.uk/dividend", "https://mini-tools.uk/json", "https://mini-tools.uk/diff",
+  "https://mini-tools.uk/token", "https://mini-tools.uk/qr", "https://mini-tools.uk/password",
+  "https://mini-tools.uk/upload", "https://mini-tools.uk/image", "https://mini-tools.uk/pdf2img",
+  "https://mini-tools.uk/color-picker", "https://mini-tools.uk/working-days", "https://mini-tools.uk/fuel",
   "https://mini-tools.uk/weight", "https://mini-tools.uk/about", "https://mini-tools.uk/contact",
   "https://mini-tools.uk/privacy"
 )
 Assert-True (($locs -join "|") -eq ($expectedLocs -join "|")) "sitemap.xml differs from contract"
+$indexableBlock = [regex]::Match($worker, 'const INDEXABLE_PATHS = new Set\(\[([\s\S]*?)\]\);').Groups[1].Value
+$indexablePaths = [regex]::Matches($indexableBlock, '"(/[^"]*)"') | ForEach-Object { $_.Groups[1].Value }
+$sitemapPaths = $locs | ForEach-Object { ([uri]$_).AbsolutePath.TrimEnd('/') } | ForEach-Object { if ($_ -eq '') { '/' } else { $_ } }
+Assert-True ((Compare-Object ($indexablePaths | Sort-Object) ($sitemapPaths | Sort-Object)).Count -eq 0) "Worker indexable paths differ from sitemap"
 
 Write-Output "Site contract passed: $($publicPages.Count) public pages checked."
