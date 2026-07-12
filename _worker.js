@@ -858,11 +858,24 @@ async function fetchAsset(request, env, pathname) {
   return fallbackResponse;
 }
 
+function applyHtmlNoStoreHeaders(headers) {
+  // HTML is server-rendered by language and release. Do not let an older
+  // Pages asset or edge-cache response survive a deployment and mask it.
+  headers.set("Cache-Control", "no-store, max-age=0");
+  headers.set("Cloudflare-CDN-Cache-Control", "no-store");
+  headers.set("Pragma", "no-cache");
+  headers.set("Expires", "0");
+  headers.delete("Age");
+  headers.delete("ETag");
+  return headers;
+}
+
 function responseWithBody(original, body, robots, contentType = "text/html; charset=utf-8") {
-  const headers = new Headers(original.headers);
+  const headers = applyHtmlNoStoreHeaders(new Headers(original.headers));
   headers.set("content-type", contentType);
   headers.set("X-Robots-Tag", robots);
   headers.set("Vary", "Accept-Encoding");
+  headers.delete("content-length");
   return new Response(body, {
     status: original.status,
     statusText: original.statusText,
@@ -933,14 +946,76 @@ function maybeRedirectNormalizedUrl(requestUrl) {
   return changed ? url.toString() : null;
 }
 
-function extractToolCatalog(html) {
-  const match = html.match(/const toolCatalog = (\[[\s\S]*?\n  \]);/);
-  if (!match) return null;
-  try {
-    return new Function(`return ${match[1]}`)();
-  } catch {
-    return null;
+function extractNestedObjectBody(objectBody, wantedKey) {
+  let i = 0;
+
+  while (i < objectBody.length) {
+    const keyInfo = readJsKey(objectBody, i);
+    if (!keyInfo) {
+      i += 1;
+      continue;
+    }
+
+    let j = keyInfo.end;
+    while (j < objectBody.length && /\s/.test(objectBody[j])) j += 1;
+    if (objectBody[j] !== ":") {
+      i = j + 1;
+      continue;
+    }
+
+    j += 1;
+    while (j < objectBody.length && /\s/.test(objectBody[j])) j += 1;
+    if (objectBody[j] === "{") {
+      const close = findMatchingBrace(objectBody, j);
+      if (close === -1) return null;
+      if (keyInfo.key === wantedKey) return objectBody.slice(j + 1, close);
+      i = close + 1;
+      continue;
+    }
+
+    if (objectBody[j] === '"' || objectBody[j] === "'" || objectBody[j] === "`") {
+      const parsed = parseJsString(objectBody, j);
+      i = parsed ? parsed.end : j + 1;
+      continue;
+    }
+
+    i = j + 1;
   }
+
+  return null;
+}
+
+function extractToolCatalog(html) {
+  const marker = /const\s+toolCatalog\s*=/.exec(html);
+  if (!marker) return null;
+
+  const open = html.indexOf("[", marker.index + marker[0].length);
+  if (open === -1) return null;
+  const close = findMatchingBracket(html, open);
+  if (close === -1) return null;
+
+  const catalog = [];
+  let i = open + 1;
+  while (i < close) {
+    if (html[i] !== "{") {
+      i += 1;
+      continue;
+    }
+
+    const entryClose = findMatchingBrace(html, i);
+    if (entryClose === -1 || entryClose > close) return null;
+    const body = html.slice(i + 1, entryClose);
+    const entry = parseFlatStringMap(body);
+    const nameBody = extractNestedObjectBody(body, "name");
+    const descBody = extractNestedObjectBody(body, "desc");
+    entry.name = nameBody ? parseFlatStringMap(nameBody) : {};
+    entry.desc = descBody ? parseFlatStringMap(descBody) : {};
+
+    if (entry.key && entry.url && entry.group) catalog.push(entry);
+    i = entryClose + 1;
+  }
+
+  return catalog.length ? catalog : null;
 }
 
 const HOME_CATEGORY_LABELS = {
@@ -1078,19 +1153,20 @@ async function render404(request, env, status = 404) {
   const assetBody = await assetResponse.text();
 
   if (!assetContentType.toLowerCase().includes("text/html") || !assetBody.trim()) {
+    const headers = applyHtmlNoStoreHeaders(new Headers({
+      "content-type": "text/html; charset=utf-8",
+      "X-Robots-Tag": NOT_FOUND_ROBOTS,
+      "Vary": "Accept-Encoding",
+    }));
     return new Response(buildFallback404Html(request.url), {
       status,
-      headers: {
-        "content-type": "text/html; charset=utf-8",
-        "X-Robots-Tag": NOT_FOUND_ROBOTS,
-        "Vary": "Accept-Encoding",
-      },
+      headers,
     });
   }
 
   const rendered = serverRenderHtml(assetBody, request.url);
   const html = removeIndexableSeoLinks(rendered.html);
-  const headers = new Headers(assetResponse.headers);
+  const headers = applyHtmlNoStoreHeaders(new Headers(assetResponse.headers));
   headers.set("content-type", "text/html; charset=utf-8");
   headers.set("X-Robots-Tag", NOT_FOUND_ROBOTS);
   headers.set("Vary", "Accept-Encoding");

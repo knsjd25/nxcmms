@@ -252,7 +252,14 @@ async function fetchThroughWorker(path) {
             : assetName.endsWith(".xml")
               ? "application/xml; charset=utf-8"
               : "text/plain; charset=utf-8";
-          return new Response(body, { status: 200, headers: { "content-type": contentType } });
+          return new Response(body, {
+            status: 200,
+            headers: {
+              "content-type": contentType,
+              "cache-control": "public, max-age=691200, must-revalidate",
+              "age": "539977",
+            },
+          });
         } catch {
           return new Response("Not found", { status: 404, headers: { "content-type": "text/plain; charset=utf-8" } });
         }
@@ -434,7 +441,7 @@ test("language controls support five languages without arrow-only page patches",
   assert.match(runtime, /searchParams\.set\(["']lang["']/, "shared internal-link localization");
   assert.match(runtime, /currentLang\s*===\s*["']en["'][\s\S]*?searchParams\.delete\(["']lang["']\)/, "English internal links must stay clean");
   assert.match(runtime, /lang\s*===\s*["']zh-CN["'][\s\S]*?all\.zh/, "shared runtime must support legacy zh dictionaries");
-  assert.match(runtime, /window\.addEventListener\(["']load["'], applyLanguage, \{ once: true \}\)/, "shared runtime must win page-load language races");
+  assert.match(runtime, /window\.addEventListener\(["']load["'],\s*\(\)\s*=>\s*\{[\s\S]*?applyLanguage\(\);[\s\S]*?\},\s*\{\s*once:\s*true\s*\}\)/, "shared runtime must win page-load language races");
   assert.doesNotMatch(runtime, /location\.assign\(/, "shared runtime must not reload or jump to top");
 });
 
@@ -689,7 +696,7 @@ test("tool pages include the required content structure", () => {
 
 test("site version label uses a dated release id", () => {
   const source = read("site-version.js");
-  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']\d{4}-\d{2}-\d{2}-\d{2}["']/, "site-version.js release id");
+  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']2026-07-12-01["']/, "site-version.js release id");
   assert.match(read("index.html"), /data-site-version/, "homepage footer version slot");
 });
 
@@ -780,7 +787,7 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   const lastmods = [...read("sitemap.xml").matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1]);
   assert.deepEqual(locs, approvedPaths.map((path) => `https://mini-tools.uk${path}`));
   assert.equal(lastmods.length, locs.length, "every sitemap URL has a lastmod date");
-  assert.equal(lastmods.every((value) => value === "2026-07-06" || value === "2026-07-10"), true, "sitemap lastmod date");
+  assert.equal(lastmods.every((value) => value === "2026-07-12"), true, "sitemap lastmod date");
   assert.equal(read("sitemap.xml").includes("?lang="), false);
   assert.doesNotMatch(read("sitemap.xml"), /blog/i);
   const indexableBlock = read("_worker.js").match(/const INDEXABLE_PATHS = new Set\(\[([\s\S]*?)\]\);/)?.[1] || "";
@@ -790,6 +797,7 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
 });
 
 test("worker renders Chinese body, metadata and schema for key pages", async () => {
+  assert.doesNotMatch(read("_worker.js"), /\bnew\s+Function\b|\beval\s*\(/, "Worker SSR must not use blocked dynamic code generation");
   for (const [path, chineseText, englishText] of [
     ["/?lang=zh-CN", "英国税务、VAT、工资和日常财务决策计算器。", "UK calculators for tax, VAT, salary and everyday money decisions."],
     ["/upload?lang=zh-CN", "免费图床：图片转 URL、Markdown 与 GitHub README 图片托管", "Free Image Hosting for GitHub README, Markdown and Docs"],
@@ -804,9 +812,13 @@ test("worker renders Chinese body, metadata and schema for key pages", async () 
     assert.match(html, /"@context"/, `${path}: schema`);
     assert.match(html, /<link rel="canonical" href="https:\/\/mini-tools\.uk\/[^"]*\?lang=zh-CN"|<link rel="canonical" href="https:\/\/mini-tools\.uk\/\?lang=zh-CN"/, `${path}: canonical`);
     if (path === "/?lang=zh-CN") {
-      assert.match(html, /id=["']ukHubTools["'][\s\S]*?英国个人所得税计算器/, `${path}: SSR ukHubTools Chinese tool name`);
-      assert.match(html, /id=["']otherToolsGrid["'][\s\S]*?免费图床/, `${path}: SSR otherToolsGrid Chinese tool name`);
-      assert.doesNotMatch(html, /id=["']ukHubTools["'][\s\S]*?UK Tax Calculator/, `${path}: ukHubTools must not stay English-only in SSR`);
+      const ukHubStart = html.indexOf('id="ukHubTools"');
+      const ukHub = html.slice(ukHubStart, html.indexOf("</section>", ukHubStart));
+      const otherToolsStart = html.indexOf('id="otherToolsGrid"');
+      const otherTools = html.slice(otherToolsStart, html.indexOf("</section>", otherToolsStart));
+      assert.match(ukHub, /英国个人所得税计算器/, `${path}: SSR ukHubTools Chinese tool name`);
+      assert.match(otherTools, /免费图床/, `${path}: SSR otherToolsGrid Chinese tool name`);
+      assert.doesNotMatch(ukHub, /UK Tax Calculator/, `${path}: ukHubTools must not stay English-only in SSR`);
     }
   }
 });
@@ -917,6 +929,17 @@ test("worker serves sitemap and robots as static assets and retires blog", async
 
   const blog = await fetchThroughWorker("/blog");
   assert.equal(blog.status, 410);
+});
+
+test("worker never inherits long-lived cache headers for rendered HTML", async () => {
+  for (const path of ["/", "/?lang=zh-CN", "/tax?lang=de", "/blog", "/unknown-page"]) {
+    const response = await fetchThroughWorker(path);
+    assert.equal(response.headers.get("cache-control"), "no-store, max-age=0", path);
+    assert.equal(response.headers.get("cloudflare-cdn-cache-control"), "no-store", path);
+    assert.equal(response.headers.get("pragma"), "no-cache", path);
+    assert.equal(response.headers.get("expires"), "0", path);
+    assert.equal(response.headers.get("age"), null, `${path}: inherited Age must be removed`);
+  }
 });
 
 test("404 page uses the shared shell without indexable SEO or ads", () => {
@@ -1145,7 +1168,9 @@ test("upload German copy uses natural capitalization without duplicated document
 
 test("mortgage German interface translates ordinary labels", () => {
   const html = read("mortgage.html");
-  const german = html.match(/\n\s*de:\s*\{[\s\S]*?\n\s*\},\n\s*fr:\s*\{/i)?.[0] || "";
+  const germanStart = html.indexOf("\n      de: {");
+  const germanEnd = html.indexOf("\n      fr: {", germanStart);
+  const german = germanStart === -1 || germanEnd === -1 ? "" : html.slice(germanStart, germanEnd);
   for (const expected of [
     'propertyPriceLabel:"Immobilienwert (£)"',
     'mortgageAmountLabel:"Darlehensbetrag (£)"',
