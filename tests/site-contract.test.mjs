@@ -122,6 +122,18 @@ function hrefs(html) {
   return [...html.matchAll(/href=["']([^"']+)["']/gi)].map((match) => match[1]);
 }
 
+function metaContent(html, attribute, value) {
+  const tag = [...html.matchAll(/<meta\b[^>]*>/gi)]
+    .map((match) => match[0])
+    .find((candidate) => new RegExp(`\\b${escapeRe(attribute)}=["']${escapeRe(value)}["']`, "i").test(candidate));
+  return tag?.match(/\bcontent=["']([^"']*)["']/i)?.[1].trim() || "";
+}
+
+function jsonLdDocuments(html) {
+  return [...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)]
+    .map((match) => JSON.parse(match[1]));
+}
+
 test("all public page titles stay concise in static HTML and translations", () => {
   for (const file of titleHtmlFiles) {
     const html = read(file);
@@ -696,7 +708,7 @@ test("tool pages include the required content structure", () => {
 
 test("site version label uses a dated release id", () => {
   const source = read("site-version.js");
-  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']2026-07-12-01["']/, "site-version.js release id");
+  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']2026-07-13-01["']/, "site-version.js release id");
   assert.match(read("index.html"), /data-site-version/, "homepage footer version slot");
 });
 
@@ -794,6 +806,36 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   const indexablePaths = [...indexableBlock.matchAll(/"(\/[^"]*)"/g)].map((match) => match[1]).sort();
   assert.deepEqual(indexablePaths, [...approvedPaths].sort(), "Worker indexable paths must match sitemap paths");
   assert.equal(read("robots.txt").trim().replace(/\r\n/g, "\n"), "User-agent: *\nAllow: /\nDisallow: /cdn-cgi/\nDisallow: /image_admin\nDisallow: /map\nDisallow: /wp/\nDisallow: /teams/\nDisallow: /user/\nDisallow: /main.php\nDisallow: /menu.php\n\nSitemap: https://mini-tools.uk/sitemap.xml");
+});
+
+test("every localized indexable response has unique metadata and valid JSON-LD", async () => {
+  for (const lang of ["en", "zh-CN", "de", "fr", "es"]) {
+    const rendered = await Promise.all(approvedPaths.map(async (path) => {
+      const requestPath = lang === "en" ? path : `${path}?lang=${lang}`;
+      const response = await fetchThroughWorker(requestPath);
+      assert.equal(response.status, 200, requestPath);
+      return { path, html: await response.text() };
+    }));
+    const titles = new Map();
+    const descriptions = new Map();
+
+    for (const { path, html } of rendered) {
+      const title = html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1].trim() || "";
+      const description = metaContent(html, "name", "description");
+      assert.notEqual(title, "", `${path}?lang=${lang}: title`);
+      assert.notEqual(description, "", `${path}?lang=${lang}: description`);
+      assert.equal(titles.has(title), false, `${path}?lang=${lang}: duplicate title also used by ${titles.get(title)}`);
+      assert.equal(descriptions.has(description), false, `${path}?lang=${lang}: duplicate description also used by ${descriptions.get(description)}`);
+      assert.doesNotMatch(html, /Original notes|Copyright symbol|漏\s*2026|©\s*2026/i, `${path}?lang=${lang}: retired public copy`);
+      assert.match(html, /Copyright 2026 Mini-Tools\.uk/, `${path}?lang=${lang}: unified footer`);
+      titles.set(title, path);
+      descriptions.set(description, path);
+
+      const documents = jsonLdDocuments(html);
+      assert.ok(documents.length > 0, `${path}?lang=${lang}: JSON-LD`);
+      assert.equal(documents.every((document) => document["@context"] === "https://schema.org"), true, `${path}?lang=${lang}: schema.org context`);
+    }
+  }
 });
 
 test("worker renders Chinese body, metadata and schema for key pages", async () => {
