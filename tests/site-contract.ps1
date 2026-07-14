@@ -14,7 +14,7 @@ $excluded = @("404.html", "image_admin.html", "map.html")
 $titlePages = Get-ChildItem -LiteralPath $root -Filter "*.html" | Where-Object { $titleExcluded -notcontains $_.Name }
 $publicPages = Get-ChildItem -LiteralPath $root -Filter "*.html" | Where-Object { $excluded -notcontains $_.Name }
 $keyPages = @("index.html", "about.html", "upload.html", "tax.html", "contact.html", "privacy.html")
-$toolPages = @("upload.html", "tax.html", "vat.html", "json.html", "diff.html", "token.html", "qr.html", "pdf2img.html", "mortgage.html", "ir35.html", "stamp-duty.html", "dividend.html", "password.html", "image.html", "color-picker.html", "working-days.html", "fuel.html", "weight.html")
+$toolPages = @("upload.html", "free-image-hosting.html", "temporary-image-upload.html", "share-image-link.html", "tax.html", "vat.html", "json.html", "diff.html", "token.html", "qr.html", "pdf2img.html", "mortgage.html", "ir35.html", "stamp-duty.html", "dividend.html", "password.html", "image.html", "color-picker.html", "working-days.html", "fuel.html", "weight.html")
 $bespokeGuidancePages = @{
   "dividend.html" = @("howTitle", "usefulTitle", "relatedTitle")
   "fuel.html" = @("articleTitle", "formulaTitle", "whyUsefulTitle")
@@ -32,7 +32,9 @@ $bespokeGuidancePages = @{
 }
 $ukTaxPages = @("tax.html", "vat.html", "ir35.html", "stamp-duty.html", "dividend.html")
 $canonicalPaths = @{
-  "index.html" = "/"; "upload.html" = "/upload"; "tax.html" = "/tax"; "vat.html" = "/vat";
+  "index.html" = "/"; "upload.html" = "/upload"; "free-image-hosting.html" = "/free-image-hosting";
+  "temporary-image-upload.html" = "/temporary-image-upload"; "share-image-link.html" = "/share-image-link";
+  "tax.html" = "/tax"; "vat.html" = "/vat";
   "json.html" = "/json"; "diff.html" = "/diff"; "token.html" = "/token"; "qr.html" = "/qr";
   "pdf2img.html" = "/pdf2img"; "mortgage.html" = "/mortgage"; "ir35.html" = "/ir35";
   "stamp-duty.html" = "/stamp-duty"; "dividend.html" = "/dividend"; "password.html" = "/password";
@@ -308,8 +310,8 @@ Assert-True ($colorPicker -notmatch 'cdn\.tailwindcss\.com') "color-picker.html 
 $homepage = Read-SiteFile "index.html"
 $twitterMeta = @{
   card = 'summary_large_image'
-  title = 'UK Tax, VAT, Salary and Everyday Calculators'
-  description = 'UK-focused calculators for salary after tax, VAT, mortgages, stamp duty, IR35 and dividends, plus useful browser tools.'
+  title = 'Free Online Image Hosting and Mini Tools'
+  description = 'Upload images, create shareable links, and use free image tools plus practical online calculators and browser utilities.'
   image = 'https://assets.mini-tools.uk/image/icon-512x512.png'
 }
 foreach ($entry in $twitterMeta.GetEnumerator()) {
@@ -364,7 +366,9 @@ $expectedLocs = @(
   "https://mini-tools.uk/mortgage", "https://mini-tools.uk/ir35", "https://mini-tools.uk/stamp-duty",
   "https://mini-tools.uk/dividend", "https://mini-tools.uk/json", "https://mini-tools.uk/diff",
   "https://mini-tools.uk/token", "https://mini-tools.uk/qr", "https://mini-tools.uk/password",
-  "https://mini-tools.uk/upload", "https://mini-tools.uk/image", "https://mini-tools.uk/pdf2img",
+  "https://mini-tools.uk/upload", "https://mini-tools.uk/free-image-hosting",
+  "https://mini-tools.uk/temporary-image-upload", "https://mini-tools.uk/share-image-link",
+  "https://mini-tools.uk/image", "https://mini-tools.uk/pdf2img",
   "https://mini-tools.uk/color-picker", "https://mini-tools.uk/working-days", "https://mini-tools.uk/fuel",
   "https://mini-tools.uk/weight", "https://mini-tools.uk/about", "https://mini-tools.uk/contact",
   "https://mini-tools.uk/privacy"

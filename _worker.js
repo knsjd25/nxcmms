@@ -49,6 +49,9 @@ const INDEXABLE_PATHS = new Set([
   "/",
   "/tax",
   "/upload",
+  "/free-image-hosting",
+  "/temporary-image-upload",
+  "/share-image-link",
   "/vat",
   "/mortgage",
   "/stamp-duty",
@@ -915,6 +918,10 @@ function maybeRedirectNormalizedUrl(requestUrl) {
   let changed = false;
 
   const normalizedPath = normalizePathname(url.pathname);
+  if (url.pathname.length > 1 && url.pathname.endsWith("/") && INDEXABLE_PATHS.has(normalizedPath)) {
+    url.pathname = normalizedPath;
+    changed = true;
+  }
   if (url.pathname === "/index.html" || (url.pathname.endsWith(".html") && INDEXABLE_PATHS.has(normalizedPath))) {
     url.pathname = normalizePathname(url.pathname);
     changed = true;

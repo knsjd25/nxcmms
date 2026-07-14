@@ -13,7 +13,8 @@ const htmlFiles = titleHtmlFiles.filter((name) => name !== "404.html");
 const approvedPaths = [
   "/", "/tax", "/vat", "/mortgage", "/ir35", "/stamp-duty", "/dividend",
   "/json", "/diff", "/token", "/qr", "/password",
-  "/upload", "/image", "/pdf2img", "/color-picker",
+  "/upload", "/free-image-hosting", "/temporary-image-upload", "/share-image-link",
+  "/image", "/pdf2img", "/color-picker",
   "/working-days", "/fuel", "/weight",
   "/about", "/contact", "/privacy",
 ];
@@ -398,8 +399,8 @@ test("homepage has one complete Twitter card metadata set", () => {
   const html = read("index.html");
   const expected = {
     card: "summary_large_image",
-    title: "UK Tax, VAT, Salary and Everyday Calculators",
-    description: "UK-focused calculators for salary after tax, VAT, mortgages, stamp duty, IR35 and dividends, plus useful browser tools.",
+    title: "Free Online Image Hosting and Mini Tools",
+    description: "Upload images, create shareable links, and use free image tools plus practical online calculators and browser utilities.",
     image: "https://assets.mini-tools.uk/image/icon-512x512.png",
   };
 
@@ -708,7 +709,7 @@ test("tool pages include the required content structure", () => {
 
 test("site version label uses a dated release id", () => {
   const source = read("site-version.js");
-  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']2026-07-13-01["']/, "site-version.js release id");
+  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']2026-07-14-01["']/, "site-version.js release id");
   assert.match(read("index.html"), /data-site-version/, "homepage footer version slot");
 });
 
@@ -799,7 +800,12 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   const lastmods = [...read("sitemap.xml").matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1]);
   assert.deepEqual(locs, approvedPaths.map((path) => `https://mini-tools.uk${path}`));
   assert.equal(lastmods.length, locs.length, "every sitemap URL has a lastmod date");
-  assert.equal(lastmods.every((value) => value === "2026-07-12"), true, "sitemap lastmod date");
+  assert.equal(lastmods.every((value) => /^20\d{2}-\d{2}-\d{2}$/.test(value)), true, "sitemap lastmod format");
+  for (const path of ["/", "/upload", "/free-image-hosting", "/temporary-image-upload", "/share-image-link", "/image"]) {
+    const loc = `https://mini-tools.uk${path}`;
+    const entry = read("sitemap.xml").match(new RegExp(`<url><loc>${loc.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}</loc><lastmod>([^<]+)</lastmod></url>`));
+    assert.equal(entry?.[1], "2026-07-14", `${path} sitemap lastmod`);
+  }
   assert.equal(read("sitemap.xml").includes("?lang="), false);
   assert.doesNotMatch(read("sitemap.xml"), /blog/i);
   const indexableBlock = read("_worker.js").match(/const INDEXABLE_PATHS = new Set\(\[([\s\S]*?)\]\);/)?.[1] || "";
@@ -841,8 +847,8 @@ test("every localized indexable response has unique metadata and valid JSON-LD",
 test("worker renders Chinese body, metadata and schema for key pages", async () => {
   assert.doesNotMatch(read("_worker.js"), /\bnew\s+Function\b|\beval\s*\(/, "Worker SSR must not use blocked dynamic code generation");
   for (const [path, chineseText, englishText] of [
-    ["/?lang=zh-CN", "英国税务、VAT、工资和日常财务决策计算器。", "UK calculators for tax, VAT, salary and everyday money decisions."],
-    ["/upload?lang=zh-CN", "免费图床：图片转 URL、Markdown 与 GitHub README 图片托管", "Free Image Hosting for GitHub README, Markdown and Docs"],
+    ["/?lang=zh-CN", "免费在线图床与实用小工具", "UK calculators for tax, VAT, salary and everyday money decisions."],
+    ["/upload?lang=zh-CN", "在线上传图片", "Upload Image Online"],
   ]) {
     const response = await fetchThroughWorker(path);
     assert.equal(response.status, 200, path);
@@ -1117,6 +1123,16 @@ test("legacy image and PDF routes redirect directly to formal URLs", async () =>
     const response = await fetchThroughWorker(legacy);
     assert.equal(response.status, 301, legacy);
     assert.equal(response.headers.get("location"), target, legacy);
+  }
+});
+
+test("new image landing page aliases redirect to clean canonical URLs", async () => {
+  for (const path of ["/free-image-hosting", "/temporary-image-upload", "/share-image-link"]) {
+    for (const alias of [`${path}.html`, `${path}/`]) {
+      const response = await fetchThroughWorker(alias);
+      assert.equal(response.status, 301, alias);
+      assert.equal(response.headers.get("location"), `https://mini-tools.uk${path}`, alias);
+    }
   }
 });
 

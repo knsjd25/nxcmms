@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Free Image Hosting | Direct URL, Markdown &amp; BBCode Links</title>
-  <meta name="description" content="Free image hosting with direct URL, Markdown, HTML and BBCode output. Upload images up to 5 MB for GitHub README, docs, forums and support tickets." />
+  <title>Upload Image Online - Get a Shareable Image Link | Mini Tools</title>
+  <meta name="description" content="Upload an image online and get a shareable link instantly. No signup required. Use Mini Tools for quick image sharing, temporary uploads, and free image hosting." />
 <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://mini-tools.uk/upload" />
   <link rel="alternate" hreflang="en" href="https://mini-tools.uk/upload" />
@@ -14,8 +14,8 @@
   <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/upload?lang=fr" />
   <link rel="alternate" hreflang="es" href="https://mini-tools.uk/upload?lang=es" />
   <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/upload" />
-<meta property="og:title" content="Free Image Hosting | Direct URL, Markdown &amp; BBCode Links" />
-  <meta property="og:description" content="Free image hosting with direct URL, Markdown, HTML and BBCode output. Upload images up to 5 MB for GitHub README, docs and forums." />
+<meta property="og:title" content="Upload Image Online - Get a Shareable Image Link | Mini Tools" />
+  <meta property="og:description" content="Upload an image online, choose a retention period and copy a shareable URL or embed link without creating an account." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mini-tools.uk/upload" />
 
@@ -126,6 +126,8 @@
       margin-top:14px;max-width:900px;padding:14px 16px;border-radius:16px;background:var(--warning-bg);border:1px solid var(--warning-line);color:var(--warning-text);
       font-size:.92rem;font-weight:700;line-height:1.6
     }
+    .upload-benefits{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+    .upload-benefit{padding:7px 11px;border:1px solid #bfdbfe;border-radius:999px;background:#eff6ff;color:#1e40af;font-size:.84rem;font-weight:800}
 
     .main-card{
       background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 16px 34px rgba(15,23,42,.08);overflow:hidden;margin-top:18px
@@ -402,6 +404,8 @@
 
 
 
+
+
 <link rel="stylesheet" href="site-nav.css">
 <style id="site-footer-style">
 .footer {
@@ -426,10 +430,25 @@
   font-size: .9rem !important;
   text-align: left !important;
 }
+.footer .footer-meta {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+}
 .footer .footer-copyright {
   color: #64748b !important;
   font-size: .9rem !important;
   font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+}
+.footer .site-version {
+  color: #94a3b8 !important;
+  font-size: .9rem !important;
+  font-weight: 600 !important;
   letter-spacing: 0 !important;
   text-transform: none !important;
   white-space: nowrap !important;
@@ -493,14 +512,15 @@
 
   <main class="container">
     <section class="page-intro">
-      <div class="eyebrow" id="eyebrowText">Free Image Hosting • Remote Storage</div>
-      <h1 id="pageTitle">Free Image Hosting for GitHub README, Markdown and Docs</h1>
+      <div class="eyebrow" id="eyebrowText">Upload Image Online • Shareable Links</div>
+      <h1 id="pageTitle">Upload Image Online</h1>
       <p class="intro-text" id="introText">
-        Upload an image, choose how long it should stay online, and get a shareable image link. This free image hosting page is useful for screenshots, website images, product images and quick online sharing.
+        Upload an image and quickly get a shareable link. No account is required for normal uploads, and you can choose temporary retention before copying the URL.
       </p>
       <div class="notice" id="noticeText">
         Use this free image hosting page only for images you are comfortable uploading to the service. Simple math verification helps reduce abuse, and approved storage codes can be used for long-term image hosting.
       </div>
+      <div class="upload-benefits" aria-label="Upload benefits"><span class="upload-benefit" data-i18n="benefit1">No signup</span><span class="upload-benefit" data-i18n="benefit2">Shareable link</span><span class="upload-benefit" data-i18n="benefit3">Fast upload</span><span class="upload-benefit" data-i18n="benefit4">Temporary sharing</span></div>
     </section>
 
     <section class="main-card">
@@ -726,6 +746,18 @@
       </div>
     </section>
 
+    <section class="section-card" id="related-image-tools">
+      <h2 data-i18n="imageRelatedTitle">Related Image Tools</h2>
+      <p data-i18n="imageRelatedText">Learn more about hosting, temporary retention and link sharing, or open a browser-based image utility.</p>
+      <div class="related-grid">
+        <a class="related-link" href="/free-image-hosting"><span data-i18n="imageRelatedHosting">Free Image Hosting</span><span data-i18n="imageRelatedHostingText">Upload without an account and share a hosted link.</span></a>
+        <a class="related-link" href="/temporary-image-upload"><span data-i18n="imageRelatedTemporary">Temporary Image Upload</span><span data-i18n="imageRelatedTemporaryText">Choose a 1-day, 7-day or 30-day retention period.</span></a>
+        <a class="related-link" href="/share-image-link"><span data-i18n="imageRelatedShare">Share Image Link</span><span data-i18n="imageRelatedShareText">Create and copy a direct URL or embed format.</span></a>
+        <a class="related-link" href="/image"><span data-i18n="imageRelatedTools">Free Image Tools</span><span data-i18n="imageRelatedToolsText">Resize, compress and crop images in your browser.</span></a>
+        <a class="related-link" href="/pdf2img"><span data-i18n="imageRelatedPdf">PDF to Image</span><span data-i18n="imageRelatedPdfText">Convert PDF pages to PNG without uploading the document.</span></a>
+      </div>
+    </section>
+
     <section class="section-card">
       <h2 id="examplesTitle">Usage examples for README, Markdown, HTML and BBCode</h2>
       <p id="examplesIntro">
@@ -783,6 +815,11 @@
           <h3 id="faq9Title">Are uploaded images reviewed by a person?</h3>
           <p id="faq9Text">Yes. The service uses manual review for hosted uploads, along with upload rules, retention settings and removal requests. Do not upload content you are not allowed to share.</p>
         </article>
+        <article class="faq-item"><h3 data-i18n="faqOnlineQ">What is an online image upload tool?</h3><p data-i18n="faqOnlineA">It sends a selected image to a hosting service and returns a URL that can be copied and shared.</p></article>
+        <article class="faq-item"><h3 data-i18n="faqAccountQ">Do I need to create an account?</h3><p data-i18n="faqAccountA">No account is required for normal uploads. Approved permanent storage uses a separate storage code.</p></article>
+        <article class="faq-item"><h3 data-i18n="faqLinkQ">Can I get a shareable image link?</h3><p data-i18n="faqLinkA">Yes. A successful upload provides a direct URL plus Markdown, HTML and BBCode outputs.</p></article>
+        <article class="faq-item"><h3 data-i18n="faqForumQ">Can I use the image link on forums or messages?</h3><p data-i18n="faqForumA">Yes, when the destination accepts direct URLs or BBCode and you have permission to share the image.</p></article>
+        <article class="faq-item"><h3 data-i18n="faqFormatsQ">What image formats are supported?</h3><p data-i18n="faqFormatsA">The uploader accepts JPG, PNG, GIF and WebP images up to 5 MB.</p></article>
       </div>
     </section>
   </main>
@@ -1723,6 +1760,12 @@
       }
     };
 
+    Object.assign(translations.en,{seoTitle:"Upload Image Online - Get a Shareable Image Link | Mini Tools",seoDescription:"Upload an image online and get a shareable link instantly. No signup required. Use Mini Tools for quick image sharing, temporary uploads, and free image hosting.",ogTitle:"Upload Image Online - Get a Shareable Image Link | Mini Tools",ogDescription:"Upload an image online, choose a retention period and copy a shareable URL or embed link without creating an account.",schemaAppName:"Mini Tools Upload Image Online",schemaDescription:"Upload an image online, choose retention and copy a direct URL, Markdown, HTML or BBCode link.",eyebrowText:"Upload Image Online • Shareable Links",pageTitle:"Upload Image Online",introText:"Upload an image and quickly get a shareable link. No account is required for normal uploads, and you can choose temporary retention before copying the URL.",benefit1:"No signup",benefit2:"Shareable link",benefit3:"Fast upload",benefit4:"Temporary sharing",imageRelatedTitle:"Related Image Tools",imageRelatedText:"Learn more about hosting, temporary retention and link sharing, or open a browser-based image utility.",imageRelatedHosting:"Free Image Hosting",imageRelatedHostingText:"Upload without an account and share a hosted link.",imageRelatedTemporary:"Temporary Image Upload",imageRelatedTemporaryText:"Choose a 1-day, 7-day or 30-day retention period.",imageRelatedShare:"Share Image Link",imageRelatedShareText:"Create and copy a direct URL or embed format.",imageRelatedTools:"Free Image Tools",imageRelatedToolsText:"Resize, compress and crop images in your browser.",imageRelatedPdf:"PDF to Image",imageRelatedPdfText:"Convert PDF pages to PNG without uploading the document.",faqOnlineQ:"What is an online image upload tool?",faqOnlineA:"It sends a selected image to a hosting service and returns a URL that can be copied and shared.",faqAccountQ:"Do I need to create an account?",faqAccountA:"No account is required for normal uploads. Approved permanent storage uses a separate storage code.",faqLinkQ:"Can I get a shareable image link?",faqLinkA:"Yes. A successful upload provides a direct URL plus Markdown, HTML and BBCode outputs.",faqForumQ:"Can I use the image link on forums or messages?",faqForumA:"Yes, when the destination accepts direct URLs or BBCode and you have permission to share the image.",faqFormatsQ:"What image formats are supported?",faqFormatsA:"The uploader accepts JPG, PNG, GIF and WebP images up to 5 MB."});
+    Object.assign(translations["zh-CN"],{seoTitle:"在线上传图片：快速获取可分享链接 | Mini Tools",seoDescription:"在线上传图片并立即获得可分享链接，无需注册。适合临时图片上传、快速分享和免费图床使用。",ogTitle:"在线上传图片：快速获取可分享链接 | Mini Tools",ogDescription:"在线上传图片，选择保留期，并在无需账号的情况下复制直链或嵌入格式。",schemaAppName:"Mini Tools 在线上传图片",schemaDescription:"在线上传图片、选择保留期并复制直链、Markdown、HTML 或 BBCode。",eyebrowText:"在线上传图片 • 可分享链接",pageTitle:"在线上传图片",introText:"上传图片并快速获得可分享链接。普通上传无需账号，你可以先选择临时保留期，再复制图片 URL。",benefit1:"无需注册",benefit2:"可分享链接",benefit3:"快速上传",benefit4:"临时分享",imageRelatedTitle:"相关图片工具",imageRelatedText:"了解免费图床、临时保留和链接分享，或打开浏览器图片工具。",imageRelatedHosting:"免费图床",imageRelatedHostingText:"无需账号上传并分享托管链接。",imageRelatedTemporary:"临时图片上传",imageRelatedTemporaryText:"选择 1 天、7 天或 30 天保留期。",imageRelatedShare:"分享图片链接",imageRelatedShareText:"创建并复制直链或嵌入格式。",imageRelatedTools:"免费图片工具",imageRelatedToolsText:"在浏览器中调整尺寸、压缩和裁剪。",imageRelatedPdf:"PDF 转图片",imageRelatedPdfText:"无需上传文档即可把 PDF 页面转为 PNG。",faqOnlineQ:"什么是在线图片上传工具？",faqOnlineA:"它会把所选图片发送到图床服务，并返回可复制和分享的 URL。",faqAccountQ:"需要创建账号吗？",faqAccountA:"普通上传不需要账号，获批的永久存储使用单独的存储码。",faqLinkQ:"可以获得可分享图片链接吗？",faqLinkA:"可以，上传成功后会提供图片直链、Markdown、HTML 和 BBCode。",faqForumQ:"可以在论坛或消息中使用图片链接吗？",faqForumA:"可以，但目标位置必须接受直链或 BBCode，并且你有权分享图片。",faqFormatsQ:"支持哪些图片格式？",faqFormatsA:"支持不超过 5 MB 的 JPG、PNG、GIF 和 WebP。"});
+    Object.assign(translations.de,{seoTitle:"Bild online hochladen und teilbaren Link erhalten | Mini Tools",seoDescription:"Bild online hochladen und sofort einen teilbaren Link erhalten. Ohne Anmeldung für temporäres Teilen und kostenloses Bildhosting.",ogTitle:"Bild online hochladen und Link erhalten | Mini Tools",ogDescription:"Bild hochladen, Aufbewahrung wählen und Direkt-URL oder Einbettungsformat ohne Konto kopieren.",schemaAppName:"Mini Tools Bild online hochladen",schemaDescription:"Bild hochladen, Aufbewahrung wählen und Direkt-URL, Markdown, HTML oder BBCode kopieren.",eyebrowText:"Bild online hochladen • Teilbare Links",pageTitle:"Bild online hochladen",introText:"Laden Sie ein Bild hoch und erhalten Sie schnell einen teilbaren Link. Normale Uploads benötigen kein Konto; die temporäre Aufbewahrung wird vorher gewählt.",benefit1:"Keine Anmeldung",benefit2:"Teilbarer Link",benefit3:"Schneller Upload",benefit4:"Temporäres Teilen",imageRelatedTitle:"Verwandte Bildtools",imageRelatedText:"Mehr über Hosting, temporäre Aufbewahrung und Linkteilen erfahren.",imageRelatedHosting:"Kostenloses Bildhosting",imageRelatedHostingText:"Ohne Konto hochladen und Link teilen.",imageRelatedTemporary:"Temporärer Bild-Upload",imageRelatedTemporaryText:"1, 7 oder 30 Tage Aufbewahrung wählen.",imageRelatedShare:"Bildlink teilen",imageRelatedShareText:"Direkt-URL oder Einbettung kopieren.",imageRelatedTools:"Kostenlose Bildtools",imageRelatedToolsText:"Im Browser skalieren, komprimieren und zuschneiden.",imageRelatedPdf:"PDF zu Bild",imageRelatedPdfText:"PDF-Seiten lokal in PNG umwandeln.",faqOnlineQ:"Was ist ein Online-Bild-Upload?",faqOnlineA:"Er sendet ein Bild zum Hosting-Dienst und gibt eine teilbare URL zurück.",faqAccountQ:"Brauche ich ein Konto?",faqAccountA:"Für normale Uploads nicht; genehmigte dauerhafte Speicherung nutzt einen Code.",faqLinkQ:"Erhalte ich einen teilbaren Link?",faqLinkA:"Ja, Direkt-URL, Markdown, HTML und BBCode werden angeboten.",faqForumQ:"Kann ich den Link in Foren oder Nachrichten nutzen?",faqForumA:"Ja, wenn das Ziel das Format akzeptiert und Sie teilen dürfen.",faqFormatsQ:"Welche Formate werden unterstützt?",faqFormatsA:"JPG, PNG, GIF und WebP bis 5 MB."});
+    Object.assign(translations.fr,{seoTitle:"Téléverser une image et obtenir un lien | Mini Tools",seoDescription:"Téléversez une image et obtenez immédiatement un lien partageable, sans inscription, pour partage temporaire et hébergement gratuit.",ogTitle:"Téléverser une image et obtenir un lien | Mini Tools",ogDescription:"Téléversez, choisissez la durée et copiez une URL ou un format intégrable sans compte.",schemaAppName:"Mini Tools téléverser une image",schemaDescription:"Téléverser une image, choisir la durée et copier URL, Markdown, HTML ou BBCode.",eyebrowText:"Téléverser une image • Liens partageables",pageTitle:"Téléverser une image en ligne",introText:"Téléversez une image et obtenez rapidement un lien. Aucun compte pour un envoi normal; choisissez la conservation temporaire avant de copier l’URL.",benefit1:"Sans inscription",benefit2:"Lien partageable",benefit3:"Envoi rapide",benefit4:"Partage temporaire",imageRelatedTitle:"Outils d’image associés",imageRelatedText:"Découvrez hébergement, conservation temporaire et partage de lien.",imageRelatedHosting:"Hébergement gratuit",imageRelatedHostingText:"Téléversez sans compte et partagez un lien.",imageRelatedTemporary:"Envoi temporaire",imageRelatedTemporaryText:"Choisissez 1, 7 ou 30 jours.",imageRelatedShare:"Partager un lien",imageRelatedShareText:"Copiez une URL ou un format intégrable.",imageRelatedTools:"Outils d’image gratuits",imageRelatedToolsText:"Redimensionnez, compressez et recadrez dans le navigateur.",imageRelatedPdf:"PDF vers image",imageRelatedPdfText:"Convertissez localement des pages PDF en PNG.",faqOnlineQ:"Qu’est-ce qu’un outil d’envoi d’image ?",faqOnlineA:"Il envoie l’image au service d’hébergement et retourne une URL partageable.",faqAccountQ:"Dois-je créer un compte ?",faqAccountA:"Non pour un envoi normal; le stockage permanent approuvé utilise un code.",faqLinkQ:"Puis-je obtenir un lien partageable ?",faqLinkA:"Oui, URL directe, Markdown, HTML et BBCode sont fournis.",faqForumQ:"Puis-je utiliser le lien dans un forum ou message ?",faqForumA:"Oui, si la destination accepte le format et si vous pouvez partager.",faqFormatsQ:"Quels formats sont acceptés ?",faqFormatsA:"JPG, PNG, GIF et WebP jusqu’à 5 Mo."});
+    Object.assign(translations.es,{seoTitle:"Subir imagen online y obtener un enlace | Mini Tools",seoDescription:"Sube una imagen y obtén al instante un enlace compartible sin registro para compartir temporalmente y alojar gratis.",ogTitle:"Subir imagen online y obtener un enlace | Mini Tools",ogDescription:"Sube, elige duración y copia una URL o formato para insertar sin cuenta.",schemaAppName:"Mini Tools subir imagen online",schemaDescription:"Subir imagen, elegir duración y copiar URL, Markdown, HTML o BBCode.",eyebrowText:"Subir imagen online • Enlaces compartibles",pageTitle:"Subir imagen online",introText:"Sube una imagen y consigue rápidamente un enlace. No se requiere cuenta para una subida normal; elige la duración temporal antes de copiar la URL.",benefit1:"Sin registro",benefit2:"Enlace compartible",benefit3:"Subida rápida",benefit4:"Uso temporal",imageRelatedTitle:"Herramientas de imagen relacionadas",imageRelatedText:"Conoce alojamiento, duración temporal y enlaces compartidos.",imageRelatedHosting:"Alojamiento gratis",imageRelatedHostingText:"Sube sin cuenta y comparte un enlace.",imageRelatedTemporary:"Subida temporal",imageRelatedTemporaryText:"Elige 1, 7 o 30 días.",imageRelatedShare:"Compartir enlace",imageRelatedShareText:"Copia URL o formato para insertar.",imageRelatedTools:"Herramientas de imagen gratis",imageRelatedToolsText:"Redimensiona, comprime y recorta en el navegador.",imageRelatedPdf:"PDF a imagen",imageRelatedPdfText:"Convierte páginas PDF a PNG localmente.",faqOnlineQ:"¿Qué es una herramienta de subida?",faqOnlineA:"Envía la imagen al alojamiento y devuelve una URL compartible.",faqAccountQ:"¿Necesito crear una cuenta?",faqAccountA:"No para una subida normal; el almacenamiento permanente aprobado usa un código.",faqLinkQ:"¿Puedo obtener un enlace compartible?",faqLinkA:"Sí, ofrece URL directa, Markdown, HTML y BBCode.",faqForumQ:"¿Puedo usar el enlace en foros o mensajes?",faqForumA:"Sí, si el destino acepta el formato y puedes compartir.",faqFormatsQ:"¿Qué formatos se admiten?",faqFormatsA:"JPG, PNG, GIF y WebP hasta 5 MB."});
+
     const fileInput = document.getElementById("fileInput");
     const fileName = document.getElementById("fileName");
     const durationSelect = document.getElementById("durationSelect");
@@ -1738,7 +1781,7 @@
     const mathQuestion = document.getElementById("mathQuestion");
     const refreshCaptchaBtn = document.getElementById("refreshCaptchaBtn");
     const captchaStatus = document.getElementById("captchaStatus");
-    const fixedPageTitle = "Free Image Hosting for GitHub README, Markdown and Docs";
+    const fixedPageTitle = "Upload Image Online";
     const resultPanel = document.getElementById("resultPanel");
     const directUrlOutput = document.getElementById("directUrlOutput");
     const markdownOutput = document.getElementById("markdownOutput");
@@ -2456,6 +2499,7 @@ updateProperty("og:title", texts.ogTitle);
 
 
 <script src="site-version.js"></script>
+
 <script src="site-i18n.js"></script>
 </body>
 </html>
