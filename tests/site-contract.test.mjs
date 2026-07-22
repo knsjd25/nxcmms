@@ -861,12 +861,21 @@ test("worker renders Chinese body, metadata and schema for key pages", async () 
     assert.match(html, /<link rel="canonical" href="https:\/\/mini-tools\.uk\/[^"]*\?lang=zh-CN"|<link rel="canonical" href="https:\/\/mini-tools\.uk\/\?lang=zh-CN"/, `${path}: canonical`);
     if (path === "/?lang=zh-CN") {
       const ukHubStart = html.indexOf('id="ukHubTools"');
-      const ukHub = html.slice(ukHubStart, html.indexOf("</section>", ukHubStart));
+      const ukSectionStart = html.lastIndexOf("<section", ukHubStart);
+      const ukSectionEnd = html.indexOf("</section>", ukHubStart) + "</section>".length;
+      const ukSection = html.slice(ukSectionStart, ukSectionEnd);
+      const ukHub = html.slice(ukHubStart, ukSectionEnd);
       const otherToolsStart = html.indexOf('id="otherToolsGrid"');
       const otherTools = html.slice(otherToolsStart, html.indexOf("</section>", otherToolsStart));
-      assert.match(ukHub, /英国个人所得税计算器/, `${path}: SSR ukHubTools Chinese tool name`);
+      const ukCards = ukHub.match(/<a\b[^>]*class=["'][^"']*\bfeature-card\b[^"']*["'][^>]*>/gi) || [];
+      assert.equal(ukCards.length, 6, `${path}: SSR ukHubTools must contain exactly six cards`);
+      for (const name of ["英国个人所得税计算器", "VAT 计算器", "房贷计算器", "IR35 计算器", "印花税计算器", "股息计算器"]) {
+        const occurrences = ukHub.match(new RegExp(escapeRe(name), "g")) || [];
+        assert.equal(occurrences.length, 1, `${path}: SSR ukHubTools must contain ${name} once`);
+      }
       assert.match(otherTools, /免费图床/, `${path}: SSR otherToolsGrid Chinese tool name`);
-      assert.doesNotMatch(ukHub, /UK Tax Calculator/, `${path}: ukHubTools must not stay English-only in SSR`);
+      assert.doesNotMatch(ukHub, /UK Tax Calculator|VAT Calculator|Mortgage Calculator|IR35 Calculator|Stamp Duty Calculator|Dividend Calculator/, `${path}: ukHubTools must not retain English cards in SSR`);
+      assert.equal((ukSection.match(/<div\b/gi) || []).length, (ukSection.match(/<\/div>/gi) || []).length, `${path}: SSR UK section div tags must stay balanced`);
     }
   }
 });

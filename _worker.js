@@ -490,10 +490,33 @@ function replaceElementInnerByAttribute(html, attrName, key, replacement, allowH
 
 function replaceElementInnerById(html, id, replacement) {
   const safeId = escapeRegExp(id);
-  const re = new RegExp(`(<([A-Za-z][A-Za-z0-9:-]*)\\b(?=[^>]*\\sid=(["'])${safeId}\\3)[^>]*>)([\\s\\S]*?)(<\\/\\2>)`, "g");
-  const raw = String(replacement ?? "");
-  const value = raw.includes("<") && raw.includes(">") ? raw : escapeHtml(raw);
-  return html.replace(re, `$1${value}$5`);
+  const openingTagRe = new RegExp(`<([A-Za-z][A-Za-z0-9:-]*)\\b(?=[^>]*\\sid=(["'])${safeId}\\2)[^>]*>`, "i");
+  const openingTag = openingTagRe.exec(html);
+  if (!openingTag) return html;
+
+  const tagName = openingTag[1];
+  const innerStart = openingTag.index + openingTag[0].length;
+  const matchingTagRe = new RegExp(`<\\/?${escapeRegExp(tagName)}\\b[^>]*>`, "gi");
+  matchingTagRe.lastIndex = innerStart;
+
+  // Find the matching close tag instead of stopping at a nested tag's close.
+  let depth = 1;
+  let matchingTag;
+  while ((matchingTag = matchingTagRe.exec(html))) {
+    if (/^<\//.test(matchingTag[0])) {
+      depth -= 1;
+    } else if (!/\/\s*>$/.test(matchingTag[0])) {
+      depth += 1;
+    }
+
+    if (depth === 0) {
+      const raw = String(replacement ?? "");
+      const value = raw.includes("<") && raw.includes(">") ? raw : escapeHtml(raw);
+      return html.slice(0, innerStart) + value + html.slice(matchingTag.index);
+    }
+  }
+
+  return html;
 }
 
 function setAttributeOnElementById(html, id, attrName, attrValue) {
