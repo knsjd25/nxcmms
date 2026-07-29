@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Upload API Documentation - Mini Tools</title>
+  <meta name="description" content="Image upload API documentation for single and batch uploads, assigned user authentication, quota checks, response fields, limits and error codes.">
+  <meta name="robots" content="noindex,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Image Upload API Documentation - Mini Tools">
+  <meta property="og:description" content="Integrate single or batch image uploads and query used and remaining quota.">
+  <meta property="og:url" content="https://mini-tools.uk/image-api">
+  <link rel="canonical" href="https://mini-tools.uk/image-api">
+  <link rel="alternate" hreflang="en" href="https://mini-tools.uk/image-api">
+  <link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/image-api?lang=zh-CN">
+  <link rel="alternate" hreflang="de" href="https://mini-tools.uk/image-api?lang=de">
+  <link rel="alternate" hreflang="fr" href="https://mini-tools.uk/image-api?lang=fr">
+  <link rel="alternate" hreflang="es" href="https://mini-tools.uk/image-api?lang=es">
+  <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/image-api">
+  <link rel="icon" href="https://assets.mini-tools.uk/image/icon-64x64.png">
+  <link rel="stylesheet" href="site-nav.css">
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --surface:#fff;
+      --text:#0f172a;
+      --muted:#526077;
+      --line:#dce3ec;
+      --brand:#2563eb;
+      --brand-dark:#1d4ed8;
+      --code:#101827;
+      --green:#087f5b;
+      --orange:#b45309;
+      --max:1180px;
+      --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans)}
+    a{color:inherit}
+    button{font:inherit}
+    .wrap{width:min(var(--max),calc(100% - 32px));margin:0 auto}
+    .docs-layout{display:grid;grid-template-columns:238px minmax(0,1fr);gap:32px;align-items:start;padding:34px 0 64px}
+    .docs-nav{
+      position:sticky;top:22px;padding:12px;border:1px solid var(--line);border-radius:8px;background:#fff;
+      box-shadow:0 8px 24px rgba(15,23,42,.06)
+    }
+    .docs-nav strong{display:block;padding:4px 7px 11px;border-bottom:1px solid #e8edf4;color:#0f172a;font-size:.78rem}
+    .docs-nav a{
+      display:flex;align-items:center;gap:9px;margin-top:4px;padding:10px 9px;border-radius:6px;
+      color:#526077;font-size:.88rem;font-weight:750;text-decoration:none;transition:background .16s ease,color .16s ease
+    }
+    .docs-nav a::before{content:"";width:6px;height:6px;border-radius:50%;background:#cbd5e1;flex:0 0 6px}
+    .docs-nav a:hover,.docs-nav a.active{background:#eff6ff;color:#1d4ed8}
+    .docs-nav a:hover::before,.docs-nav a.active::before{background:#2563eb}
+    .docs-main{min-width:0}
+    .hero{padding:4px 0 30px;border-bottom:1px solid var(--line)}
+    .hero-kicker{margin:0 0 10px;color:var(--brand);font-size:.82rem;font-weight:900}
+    h1{margin:0;max-width:850px;font-size:3rem;line-height:1.1}
+    .hero-text{max-width:850px;margin:15px 0 0;color:var(--muted);font-size:1.05rem;line-height:1.75}
+    .apply-row{margin-top:22px;padding:17px 18px;border:1px solid #bae6d3;border-left:4px solid var(--green);border-radius:8px;background:#f0fdf8}
+    .apply-row p{margin:0;color:#164e3f;line-height:1.65;font-weight:700}
+    .email-copy-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;margin-top:13px;max-width:560px}
+    .email-address{min-width:0;padding:11px 13px;border:1px solid #a7d9c4;border-radius:6px;background:#fff;color:#0f513c;font-family:var(--mono);font-size:.9rem;font-weight:800;overflow-wrap:anywhere}
+    .copy-email{min-height:42px;padding:0 15px;border:0;border-radius:7px;background:var(--green);color:#fff;font-weight:900;cursor:pointer;white-space:nowrap}
+    .copy-email:hover{background:#066b4c}
+    .endpoint-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+    .endpoint{padding:15px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+    .endpoint span{display:block;margin-bottom:7px;color:#64748b;font-size:.76rem;font-weight:900}
+    .endpoint code{font-family:var(--mono);font-size:.84rem;font-weight:800;overflow-wrap:anywhere}
+    .doc-section{padding:32px 0;border-bottom:1px solid var(--line);scroll-margin-top:92px}
+    .doc-section:last-child{border-bottom:0}
+    .doc-section h2{margin:0 0 13px;font-size:1.65rem}
+    .doc-section h3{margin:25px 0 10px;font-size:1.08rem}
+    .doc-section p{margin:0 0 13px;color:var(--muted);line-height:1.75}
+    .auth-list,.limit-list,.status-list,.use-list{margin:14px 0 0;padding-left:21px;color:#334155}
+    .auth-list li,.limit-list li,.status-list li,.use-list li{margin:8px 0;line-height:1.65}
+    code{font-family:var(--mono)}
+    .inline-code{padding:2px 5px;border-radius:4px;background:#e8edf4;color:#1e293b;font-size:.9em}
+    .warning{margin-top:16px;padding:14px 16px;border-left:4px solid var(--orange);border-radius:8px;background:#fff7ed;color:#7c2d12;line-height:1.7;font-weight:700}
+    .code-shell{margin-top:14px;border:1px solid #263449;border-radius:8px;overflow:hidden;background:var(--code)}
+    .code-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 12px;border-bottom:1px solid #263449;color:#b8c4d7;font-size:.78rem;font-weight:800}
+    .copy-code{border:0;background:transparent;color:#93c5fd;font-size:.8rem;font-weight:900;cursor:pointer}
+    .copy-code:hover{color:#fff}
+    pre{margin:0;padding:17px;overflow:auto;color:#dbeafe;font-family:var(--mono);font-size:.82rem;line-height:1.65;white-space:pre}
+    .table-wrap{width:100%;margin-top:15px;overflow-x:auto}
+    table{width:100%;min-width:680px;border-collapse:collapse;background:#fff}
+    th,td{padding:11px 12px;border:1px solid var(--line);text-align:left;vertical-align:top}
+    th{background:#eef2f7;color:#334155;font-size:.78rem}
+    td{color:#475569;font-size:.9rem;line-height:1.55}
+    td code{color:#1d4ed8;font-weight:800}
+    .related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .related-links a{padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:#1e293b;font-weight:800;text-decoration:none}
+    .related-links a:hover{border-color:#93c5fd;color:var(--brand)}
+    .faq-list{display:grid;gap:12px;margin-top:15px}
+    details{border:1px solid var(--line);border-radius:8px;background:#fff}
+    summary{padding:14px 15px;cursor:pointer;font-weight:900}
+    details p{padding:0 15px 15px}
+    @media (max-width:900px){
+      .docs-layout{grid-template-columns:1fr}
+      .docs-nav{position:static;display:flex;gap:6px;overflow-x:auto;padding:8px;box-shadow:none}
+      .docs-nav strong{display:none}
+      .docs-nav a{flex:0 0 auto;margin:0;padding:8px 10px}
+      .docs-nav a::before{display:none}
+      .endpoint-grid{grid-template-columns:1fr}
+      .doc-section{scroll-margin-top:245px}
+    }
+    @media (max-width:640px){
+      .wrap{width:min(100% - 20px,var(--max))}
+      .docs-layout{padding-top:20px}
+      .email-copy-row{grid-template-columns:1fr}
+      .copy-email{width:100%}
+      h1{font-size:2rem}
+      pre{font-size:.75rem}
+    }
+  </style>
+  <style id="site-footer-style">
+  .footer {
+    margin-top: 46px !important;
+    border-top: 1px solid #e2e8f0 !important;
+    background: #fff !important;
+    padding: 28px 0 46px !important;
+  }
+  .footer .footer-inner {
+    box-sizing: border-box !important;
+    max-width: 1180px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 18px !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    color: #64748b !important;
+    font-size: .9rem !important;
+    text-align: left !important;
+  }
+  .footer .footer-meta {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex-wrap: wrap !important;
+  }
+  .footer .footer-copyright {
+    color: #64748b !important;
+    font-size: .9rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    white-space: nowrap !important;
+  }
+  .footer .site-version {
+    color: #94a3b8 !important;
+    font-size: .9rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    white-space: nowrap !important;
+  }
+  .footer .footer-links {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 14px !important;
+    flex-wrap: wrap !important;
+    margin: 0 !important;
+    color: #334155 !important;
+    font-size: .9rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    text-align: left !important;
+  }
+  .footer .footer-links a {
+    color: #334155 !important;
+    font-size: .9rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+  }
+  @media (max-width: 760px) {
+    .footer .footer-inner {
+      align-items: flex-start !important;
+      flex-direction: column !important;
+    }
+    .footer .footer-links {
+      justify-content: flex-start !important;
+    }
+  }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary navigation" data-site-shell-aria="navigation">
+  <div class="site-nav-inner">
+    <a class="site-brand" href="/">
+      <img src="https://assets.mini-tools.uk/image/icon-64x64.png" alt="Mini-Tools.uk logo">
+      <span class="site-brand-copy"><span class="site-brand-title">Mini-Tools<span style="color:#2563eb">.uk</span></span><span class="site-brand-subtitle" data-site-shell="subtitle">Useful online tools</span></span>
+    </a>
+    <div class="site-nav-links">
+      <a class="site-nav-link" href="/" data-site-nav="home">Home</a>
+      <a class="site-nav-link" href="/#search" data-site-nav="search">Search</a>
+      <a class="site-nav-link" href="/#popular" data-site-nav="popular">Popular</a>
+      <a class="site-nav-link" href="/#uk-apps" data-site-nav="ukApps">UK Calculators</a>
+      <a class="site-nav-link" href="/#developer-tools" data-site-nav="devTools">Dev Tools</a>
+      <a class="site-nav-link" href="/#other-tools" data-site-nav="other">Other</a>
+    </div>
+    <div class="site-lang-group">
+      <button class="site-lang-trigger" type="button" aria-haspopup="true" aria-expanded="false"><span id="currentLangLabel">English</span></button>
+      <div class="site-lang-dropdown" aria-label="Language" data-site-shell-aria="language">
+        <button type="button" data-site-lang="en">English</button><button type="button" data-site-lang="zh-CN">&#20013;&#25991;</button><button type="button" data-site-lang="de">Deutsch</button><button type="button" data-site-lang="fr">Fran&ccedil;ais</button><button type="button" data-site-lang="es">Espa&ntilde;ol</button>
+      </div>
+      <select id="languageSelect" aria-label="Language" data-site-shell-aria="language" hidden><option value="en">English</option><option value="zh-CN">&#20013;&#25991;</option><option value="de">Deutsch</option><option value="fr">Fran&ccedil;ais</option><option value="es">Espa&ntilde;ol</option></select>
+    </div>
+  </div>
+</nav>
+
+  <main class="wrap docs-layout">
+    <aside class="docs-nav" aria-label="API documentation sections">
+      <strong data-i18n="onPage">On this page</strong>
+      <a class="active" href="#authentication" data-doc-link data-i18n="navAuthentication">Authentication</a>
+      <a href="#how-to-use" data-doc-link data-i18n="navHowTo">How to use</a>
+      <a href="#upload-response" data-doc-link data-i18n="navUploadResponse">Upload response</a>
+      <a href="#usage" data-doc-link data-i18n="navUsage">Usage query</a>
+      <a href="#records" data-doc-link data-i18n="navRecords">Upload records</a>
+      <a href="#delete-image" data-doc-link data-i18n="navDelete">Delete image</a>
+      <a href="#limitations" data-doc-link data-i18n="navLimitations">Limitations</a>
+    </aside>
+
+    <div class="docs-main">
+      <header class="hero">
+        <p class="hero-kicker" data-i18n="kicker">Developer API</p>
+        <h1 data-i18n="pageTitle">Image Upload API documentation</h1>
+        <p class="hero-text" data-i18n="intro">Upload one image or a batch from a server-side application, then query the used and remaining quota assigned to your API user.</p>
+        <div class="apply-row">
+          <p data-i18n="applyText">Request access by email, using the same application process as long-term image storage. The administrator will send your API user ID and API key.</p>
+          <div class="email-copy-row">
+            <span class="email-address" id="apiEmail">yuyananuu@gmail.com</span>
+            <button class="copy-email" type="button" data-copy="apiEmail" data-i18n="copyEmail">Click to copy</button>
+          </div>
+        </div>
+        <div class="endpoint-grid">
+          <div class="endpoint"><span data-i18n="baseUrl">Base URL</span><code>https://api.mini-tools.uk</code></div>
+          <div class="endpoint"><span data-i18n="uploadEndpoint">Upload</span><code>POST /v1/upload</code></div>
+          <div class="endpoint"><span data-i18n="usageEndpoint">Used and remaining quota</span><code>GET /v1/usage</code></div>
+          <div class="endpoint"><span data-i18n="recordsEndpoint">Upload records</span><code>GET /v1/images</code></div>
+          <div class="endpoint"><span data-i18n="deleteEndpoint">Delete image</span><code>DELETE /v1/images/:key</code></div>
+        </div>
+      </header>
+
+      <section class="doc-section" id="authentication">
+        <h2 data-i18n="authTitle">Authentication</h2>
+        <p data-i18n="authIntro">Every request must send the assigned user ID and the matching API key in request headers.</p>
+        <ul class="auth-list">
+          <li><code class="inline-code">X-API-User-ID: assigned-user-id</code></li>
+          <li><code class="inline-code">Authorization: Bearer mtu_live_your_key</code></li>
+        </ul>
+        <div class="warning" data-i18n="securityNote">Use both credentials only on a trusted server. A user ID identifies the account, while the API key prevents other people from using that account. Do not expose the key in browser code or a public repository.</div>
+      </section>
+
+      <section class="doc-section" id="how-to-use">
+        <h2 data-i18n="howTitle">How to use</h2>
+        <p data-i18n="howIntro">Send multipart/form-data to the upload endpoint. Use the file field once for a single image or repeat it for a batch.</p>
+
+        <h3 data-i18n="singleTitle">Single image upload</h3>
+        <div class="code-shell">
+          <div class="code-head"><span>cURL</span><button class="copy-code" type="button" data-copy="singleExample" data-i18n="copyCode">Copy</button></div>
+          <pre id="singleExample">curl "https://api.mini-tools.uk/v1/upload" \
+  -H "X-API-User-ID: assigned-user-id" \
+  -H "Authorization: Bearer mtu_live_your_key" \
+  -F "duration=7-day" \
+  -F "file=@image.png"</pre>
+        </div>
+
+        <h3 data-i18n="batchTitle">Multiple image upload</h3>
+        <div class="code-shell">
+          <div class="code-head"><span>cURL</span><button class="copy-code" type="button" data-copy="batchExample" data-i18n="copyCode">Copy</button></div>
+          <pre id="batchExample">curl "https://api.mini-tools.uk/v1/upload" \
+  -H "X-API-User-ID: assigned-user-id" \
+  -H "Authorization: Bearer mtu_live_your_key" \
+  -F "duration=7-day" \
+  -F "file=@first.png" \
+  -F "file=@second.webp"</pre>
+        </div>
+
+        <h3 data-i18n="idempotencyTitle">Safe retries</h3>
+        <p data-i18n="idempotencyIntro">For an upload that may be retried, send a unique Idempotency-Key header. Repeating the same request with the same key returns the first result without uploading again or consuming quota twice. Reusing the key for different files returns HTTP 409.</p>
+        <div class="code-shell">
+          <div class="code-head"><span>HTTP</span><button class="copy-code" type="button" data-copy="idempotencyExample" data-i18n="copyCode">Copy</button></div>
+          <pre id="idempotencyExample">Idempotency-Key: upload-request-001</pre>
+        </div>
+
+        <h3 data-i18n="requestFieldsTitle">Request fields</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th data-i18n="fieldHeader">Field</th><th data-i18n="requiredHeader">Required</th><th data-i18n="descriptionHeader">Description</th></tr></thead>
+            <tbody>
+              <tr><td><code>file</code></td><td data-i18n="yes">Yes</td><td data-i18n="fileDescription">One image, or the same field repeated for multiple images.</td></tr>
+              <tr><td><code>duration</code></td><td data-i18n="no">No</td><td data-i18n="durationDescription">1-day, 7-day, 30-day or permanent. The assigned account must allow the selected retention type.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="doc-section" id="upload-response">
+        <h2 data-i18n="uploadResponseTitle">Upload response</h2>
+        <p data-i18n="uploadResponseIntro">A complete success returns HTTP 201. A batch with both successful and failed images returns HTTP 207 and lists each result separately.</p>
+        <div class="code-shell">
+          <div class="code-head"><span>JSON</span><button class="copy-code" type="button" data-copy="uploadResponseExample" data-i18n="copyCode">Copy</button></div>
+          <pre id="uploadResponseExample">{
+  "success": true,
+  "partial": false,
+  "uploaded": [
+    {
+      "success": true,
+      "key": "7-day/example.png",
+      "url": "https://pub.mini-tools.uk/7-day/example.png",
+      "duration": "7-day",
+      "expires_at": "2026-08-05T12:00:00.000Z",
+      "size": 24831,
+      "mime": "image/png",
+      "risk": "normal"
+    }
+  ],
+  "failed": [],
+  "usage": {
+    "user_id": "assigned-user-id",
+    "plan_type": "custom",
+    "temporary": {
+      "enabled": true,
+      "limit": 100,
+      "used": 1,
+      "remaining": 99,
+      "reset_at": "2026-08-05T16:00:00.000Z",
+      "timezone": "Asia/Shanghai"
+    },
+    "permanent": {
+      "enabled": false,
+      "limit": 0,
+      "used": 0,
+      "remaining": 0
+    },
+    "usage_date": "2026-08-05"
+  }
+}</pre>
+        </div>
+
+        <h3 data-i18n="returnFieldsTitle">Returned fields</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th data-i18n="fieldHeader">Field</th><th data-i18n="descriptionHeader">Description</th></tr></thead>
+            <tbody>
+              <tr><td><code>success</code></td><td data-i18n="returnSuccess">True only when every image succeeds.</td></tr>
+              <tr><td><code>partial</code></td><td data-i18n="returnPartial">True when part of a batch succeeds and part fails.</td></tr>
+              <tr><td><code>uploaded</code></td><td data-i18n="returnUploaded">Successful images with storage key, public URL, retention, expiry, size, MIME type and review risk state.</td></tr>
+              <tr><td><code>failed</code></td><td data-i18n="returnFailed">Failed images with zero-based index, file name, readable error and stable error code.</td></tr>
+              <tr><td><code>account</code></td><td data-i18n="returnAccount">Compatibility quota data in a flat object.</td></tr>
+              <tr><td><code>usage</code></td><td data-i18n="returnUsage">Current temporary and permanent limits, used values and remaining values.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="doc-section" id="usage">
+        <h2 data-i18n="usageTitle">Get used and remaining quota</h2>
+        <p data-i18n="usageIntro">Call the usage endpoint before or after an upload to read the current allowance. It does not consume upload quota.</p>
+        <div class="code-shell">
+          <div class="code-head"><span>cURL</span><button class="copy-code" type="button" data-copy="usageExample" data-i18n="copyCode">Copy</button></div>
+          <pre id="usageExample">curl "https://api.mini-tools.uk/v1/usage" \
+  -H "X-API-User-ID: assigned-user-id" \
+  -H "Authorization: Bearer mtu_live_your_key"</pre>
+        </div>
+        <div class="code-shell">
+          <div class="code-head"><span>JSON</span><button class="copy-code" type="button" data-copy="usageResponseExample" data-i18n="copyCode">Copy</button></div>
+          <pre id="usageResponseExample">{
+  "success": true,
+  "usage": {
+    "user_id": "assigned-user-id",
+    "plan_type": "custom",
+    "temporary": {
+      "enabled": true,
+      "limit": 100,
+      "used": 24,
+      "remaining": 76,
+      "reset_at": "2026-08-05T16:00:00.000Z",
+      "timezone": "Asia/Shanghai"
+    },
+    "permanent": {
+      "enabled": false,
+      "limit": 0,
+      "used": 0,
+      "remaining": 0
+    },
+    "usage_date": "2026-08-05"
+  }
+}</pre>
+        </div>
+      </section>
+
+      <section class="doc-section" id="records">
+        <h2 data-i18n="recordsTitle">Get upload records</h2>
+        <p data-i18n="recordsIntro">Returns only the current API user's active upload records. Each public URL can be used directly. Retention, expiry and review status are not included.</p>
+        <div class="code-shell">
+          <div class="code-head"><span>cURL</span><button class="copy-code" type="button" data-copy="recordsExample" data-i18n="copyCode">Copy</button></div>
+          <pre id="recordsExample">curl "https://api.mini-tools.uk/v1/images?limit=20" \
+  -H "X-API-User-ID: assigned-user-id" \
+  -H "Authorization: Bearer mtu_live_your_key"</pre>
+        </div>
+        <div class="code-shell">
+          <div class="code-head"><span>JSON</span><button class="copy-code" type="button" data-copy="recordsResponseExample" data-i18n="copyCode">Copy</button></div>
+          <pre id="recordsResponseExample">{
+  "success": true,
+  "records": [
+    {
+      "key": "7-day/example.png",
+      "url": "https://pub.mini-tools.uk/7-day/example.png",
+      "size": 24831,
+      "mime": "image/png",
+      "uploaded_at": "2026-08-05T12:00:00.000Z"
+    }
+  ],
+  "next_cursor": null
+}</pre>
+        </div>
+        <p data-i18n="recordsPaging">limit defaults to 20 and is capped at 100. When next_cursor is not null, pass it as the cursor query parameter to request the next page.</p>
+      </section>
+
+      <section class="doc-section" id="delete-image">
+        <h2 data-i18n="deleteTitle">Delete an uploaded image</h2>
+        <p data-i18n="deleteIntro">Deletes an image uploaded by the authenticated API user. Images owned by another API user cannot be deleted. Deleting an image does not restore daily or permanent quota.</p>
+        <div class="code-shell">
+          <div class="code-head"><span>cURL</span><button class="copy-code" type="button" data-copy="deleteExample" data-i18n="copyCode">Copy</button></div>
+          <pre id="deleteExample">curl -X DELETE "https://api.mini-tools.uk/v1/images/7-day/example.png" \
+  -H "X-API-User-ID: assigned-user-id" \
+  -H "Authorization: Bearer mtu_live_your_key"</pre>
+        </div>
+        <div class="code-shell">
+          <div class="code-head"><span>JSON</span><button class="copy-code" type="button" data-copy="deleteResponseExample" data-i18n="copyCode">Copy</button></div>
+          <pre id="deleteResponseExample">{
+  "success": true,
+  "deleted": {
+    "key": "7-day/example.png",
+    "url": "https://pub.mini-tools.uk/7-day/example.png"
+  }
+}</pre>
+        </div>
+      </section>
+
+      <section class="doc-section" id="limitations">
+        <h2 data-i18n="limitationsTitle">Limitations and conditions</h2>
+        <ul class="limit-list">
+          <li data-i18n="limitFormats">Accepted formats: JPG, PNG, GIF and WebP.</li>
+          <li data-i18n="limitFileSize">Maximum size: 5 MB per image.</li>
+          <li data-i18n="limitBatch">Maximum batch: 10 images and 25 MB total per request.</li>
+          <li data-i18n="limitRetention">Retention values: 1-day, 7-day, 30-day and permanent, subject to the assigned account permissions.</li>
+          <li data-i18n="limitQuota">Only successful images consume quota. Temporary quotas reset at midnight in Asia/Shanghai; permanent quotas are total allowances.</li>
+          <li data-i18n="limitRetry">Use a unique Idempotency-Key for retryable uploads to prevent duplicate images and duplicate quota use.</li>
+          <li data-i18n="limitContent">The same upload rules apply to API and website uploads. Illegal, harmful, private or infringing images may be rejected or removed.</li>
+        </ul>
+
+        <h3 data-i18n="statusTitle">HTTP status codes</h3>
+        <ul class="status-list">
+          <li><code>200</code> <span data-i18n="status200">Usage query succeeded.</span></li>
+          <li><code>201</code> <span data-i18n="status201">All images uploaded successfully.</span></li>
+          <li><code>207</code> <span data-i18n="status207">A batch was partially successful.</span></li>
+          <li><code>400 / 413 / 415</code> <span data-i18n="status4xx">The request, count, size or image content is invalid.</span></li>
+          <li><code>401 / 403</code> <span data-i18n="statusAuth">Credentials are invalid, the account is disabled or the retention type is not allowed.</span></li>
+          <li><code>404</code> <span data-i18n="status404">The requested image does not exist or does not belong to the current API user.</span></li>
+          <li><code>409</code> <span data-i18n="status409">The Idempotency-Key is already processing or was reused for a different upload.</span></li>
+          <li><code>429</code> <span data-i18n="status429">The daily or permanent quota is exhausted.</span></li>
+          <li><code>503</code> <span data-i18n="status503">The API database is temporarily unavailable.</span></li>
+        </ul>
+      </section>
+
+      <section class="doc-section">
+        <h2 data-i18n="useCasesTitle">Use cases</h2>
+        <ul class="use-list">
+          <li data-i18n="useCase1">Upload application screenshots from a deployment or testing workflow.</li>
+          <li data-i18n="useCase2">Upload multiple product or documentation images in one server request.</li>
+          <li data-i18n="useCase3">Check quota before starting an automated batch.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section">
+        <h2 data-i18n="relatedTitle">Related tools</h2>
+        <div class="related-links">
+          <a href="/upload" data-i18n="relatedUpload">Web image upload</a>
+          <a href="/image" data-i18n="relatedImage">Image tools</a>
+          <a href="/contact" data-i18n="relatedContact">Contact</a>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <h2 data-i18n="faqTitle">FAQ</h2>
+        <div class="faq-list">
+          <details>
+            <summary data-i18n="faq1Q">Can one request upload multiple images?</summary>
+            <p data-i18n="faq1A">Yes. Repeat the file field for each image, up to the documented count and total-size limits.</p>
+          </details>
+          <details>
+            <summary data-i18n="faq2Q">Is the user ID enough for authentication?</summary>
+            <p data-i18n="faq2A">No. Send the assigned user ID and its matching API key. The ID identifies the account and the key proves that the caller is allowed to use it.</p>
+          </details>
+          <details>
+            <summary data-i18n="faq3Q">How do I know how much quota remains?</summary>
+            <p data-i18n="faq3A">Call GET /v1/usage or read the usage object returned after an upload.</p>
+          </details>
+        </div>
+      </section>
+    </div>
+  </main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="footer-meta">
+      <div class="footer-copyright">Copyright 2026 Mini-Tools.uk</div>
+      <div class="site-version" data-site-version></div>
+    </div>
+    <div class="footer-links"><a href="/" data-site-nav="home">Home</a><a href="/about" data-site-nav="about">About</a><a href="/contact" data-site-nav="contact">Contact</a><a href="/privacy" data-site-nav="privacy">Privacy</a><a href="mailto:yuyananuu@gmail.com" data-cfemail="false">yuyananuu@gmail.com</a></div>
+  </div>
+</footer>
+
+  <script>
+    const translations = window.PAGE_TRANSLATIONS = {
+      en: {
+        htmlLang:"en-GB",
+        seoTitle:"Image Upload API Documentation - Mini Tools",
+        seoDescription:"Image upload API documentation for single and batch uploads, assigned user authentication, quota checks, response fields, limits and error codes.",
+        ogTitle:"Image Upload API Documentation - Mini Tools",
+        ogDescription:"Integrate single or batch image uploads and query used and remaining quota.",
+        onPage:"On this page",navAuthentication:"Authentication",navHowTo:"How to use",navUploadResponse:"Upload response",navUsage:"Usage query",navRecords:"Upload records",navDelete:"Delete image",navLimitations:"Limitations",
+        kicker:"Developer API",pageTitle:"Image Upload API documentation",intro:"Upload one image or a batch from a server-side application, then query the used and remaining quota assigned to your API user.",
+        applyText:"Request access by email, using the same application process as long-term image storage. The administrator will send your API user ID and API key.",copyEmail:"Click to copy",
+        baseUrl:"Base URL",uploadEndpoint:"Upload",usageEndpoint:"Used and remaining quota",recordsEndpoint:"Upload records",deleteEndpoint:"Delete image",
+        authTitle:"Authentication",authIntro:"Every request must send the assigned user ID and the matching API key in request headers.",securityNote:"Use both credentials only on a trusted server. A user ID identifies the account, while the API key prevents other people from using that account. Do not expose the key in browser code or a public repository.",
+        howTitle:"How to use",howIntro:"Send multipart/form-data to the upload endpoint. Use the file field once for a single image or repeat it for a batch.",singleTitle:"Single image upload",batchTitle:"Multiple image upload",idempotencyTitle:"Safe retries",idempotencyIntro:"For an upload that may be retried, send a unique Idempotency-Key header. Repeating the same request with the same key returns the first result without uploading again or consuming quota twice. Reusing the key for different files returns HTTP 409.",copyCode:"Copy",
+        requestFieldsTitle:"Request fields",fieldHeader:"Field",requiredHeader:"Required",descriptionHeader:"Description",yes:"Yes",no:"No",fileDescription:"One image, or the same field repeated for multiple images.",durationDescription:"1-day, 7-day, 30-day or permanent. The assigned account must allow the selected retention type.",
+        uploadResponseTitle:"Upload response",uploadResponseIntro:"A complete success returns HTTP 201. A batch with both successful and failed images returns HTTP 207 and lists each result separately.",returnFieldsTitle:"Returned fields",
+        returnSuccess:"True only when every image succeeds.",returnPartial:"True when part of a batch succeeds and part fails.",returnUploaded:"Successful images with storage key, public URL, retention, expiry, size, MIME type and review risk state.",returnFailed:"Failed images with zero-based index, file name, readable error and stable error code.",returnAccount:"Compatibility quota data in a flat object.",returnUsage:"Current temporary and permanent limits, used values and remaining values.",
+        usageTitle:"Get used and remaining quota",usageIntro:"Call the usage endpoint before or after an upload to read the current allowance. It does not consume upload quota.",
+        recordsTitle:"Get upload records",recordsIntro:"Returns only the current API user's active upload records. Each public URL can be used directly. Retention, expiry and review status are not included.",recordsPaging:"limit defaults to 20 and is capped at 100. When next_cursor is not null, pass it as the cursor query parameter to request the next page.",
+        deleteTitle:"Delete an uploaded image",deleteIntro:"Deletes an image uploaded by the authenticated API user. Images owned by another API user cannot be deleted. Deleting an image does not restore daily or permanent quota.",
+        limitationsTitle:"Limitations and conditions",limitFormats:"Accepted formats: JPG, PNG, GIF and WebP.",limitFileSize:"Maximum size: 5 MB per image.",limitBatch:"Maximum batch: 10 images and 25 MB total per request.",limitRetention:"Retention values: 1-day, 7-day, 30-day and permanent, subject to the assigned account permissions.",limitQuota:"Only successful images consume quota. Temporary quotas reset at midnight in Asia/Shanghai; permanent quotas are total allowances.",limitRetry:"Use a unique Idempotency-Key for retryable uploads to prevent duplicate images and duplicate quota use.",limitContent:"The same upload rules apply to API and website uploads. Illegal, harmful, private or infringing images may be rejected or removed.",
+        statusTitle:"HTTP status codes",status200:"Usage query succeeded.",status201:"All images uploaded successfully.",status207:"A batch was partially successful.",status4xx:"The request, count, size or image content is invalid.",statusAuth:"Credentials are invalid, the account is disabled or the retention type is not allowed.",status404:"The requested image does not exist or does not belong to the current API user.",status409:"The Idempotency-Key is already processing or was reused for a different upload.",status429:"The daily or permanent quota is exhausted.",status503:"The API database is temporarily unavailable.",
+        useCasesTitle:"Use cases",useCase1:"Upload application screenshots from a deployment or testing workflow.",useCase2:"Upload multiple product or documentation images in one server request.",useCase3:"Check quota before starting an automated batch.",
+        relatedTitle:"Related tools",relatedUpload:"Web image upload",relatedImage:"Image tools",relatedContact:"Contact",faqTitle:"FAQ",faq1Q:"Can one request upload multiple images?",faq1A:"Yes. Repeat the file field for each image, up to the documented count and total-size limits.",faq2Q:"Is the user ID enough for authentication?",faq2A:"No. Send the assigned user ID and its matching API key. The ID identifies the account and the key proves that the caller is allowed to use it.",faq3Q:"How do I know how much quota remains?",faq3A:"Call GET /v1/usage or read the usage object returned after an upload.",copied:"Copied"
+      },
+      "zh-CN": {
+        htmlLang:"zh-CN",
+        seoTitle:"图片上传 API 使用文档 - Mini Tools",
+        seoDescription:"图片上传 API 文档，包含单张与批量上传、用户鉴权、额度查询、返回参数、约束条件和错误码。",
+        ogTitle:"图片上传 API 使用文档 - Mini Tools",
+        ogDescription:"接入单张或批量图片上传，并查询已使用量和剩余量。",
+        onPage:"本页内容",navAuthentication:"鉴权方式",navHowTo:"使用方法",navUploadResponse:"上传返回",navUsage:"用量查询",navRecords:"上传记录",navDelete:"删除图片",navLimitations:"约束条件",
+        kicker:"开发者 API",pageTitle:"图片上传 API 使用文档",intro:"从服务端应用上传一张或多张图片，并查询管理员为 API 用户分配的已使用量和剩余量。",
+        applyText:"申请方式与长期存储相同，请发送邮件申请。管理员会向你提供 API 用户 ID 和 API Key。",copyEmail:"点击复制",
+        baseUrl:"基础地址",uploadEndpoint:"上传接口",usageEndpoint:"已使用量和剩余量",recordsEndpoint:"上传记录",deleteEndpoint:"删除图片",
+        authTitle:"鉴权方式",authIntro:"每次请求都必须在请求头中同时发送管理员分配的用户 ID 和与其匹配的 API Key。",securityNote:"请只在可信服务端使用这两个凭证。用户 ID 用来识别账户，API Key 用来防止其他人冒用该账户。不要把 API Key 写入浏览器代码或公开仓库。",
+        howTitle:"使用方法",howIntro:"向上传接口发送 multipart/form-data。单张上传使用一次 file 字段，批量上传则重复使用该字段。",singleTitle:"上传单张图片",batchTitle:"上传多张图片",idempotencyTitle:"安全重试",idempotencyIntro:"对于可能重试的上传，请发送唯一的 Idempotency-Key 请求头。使用相同 Key 重复提交相同请求时，会直接返回首次结果，不会重复上传或重复扣减额度；同一 Key 改传其他文件会返回 HTTP 409。",copyCode:"复制",
+        requestFieldsTitle:"请求字段",fieldHeader:"字段",requiredHeader:"必填",descriptionHeader:"说明",yes:"是",no:"否",fileDescription:"一张图片，或重复相同字段上传多张图片。",durationDescription:"可选 1-day、7-day、30-day 或 permanent，分配的账户必须具有对应保留类型权限。",
+        uploadResponseTitle:"上传返回",uploadResponseIntro:"全部上传成功返回 HTTP 201；批量上传中同时存在成功和失败时返回 HTTP 207，并分别列出结果。",returnFieldsTitle:"返回参数",
+        returnSuccess:"仅当全部图片成功时为 true。",returnPartial:"批量上传部分成功、部分失败时为 true。",returnUploaded:"成功图片数组，包含存储键、公开 URL、保留期、过期时间、大小、MIME 类型和审核风险状态。",returnFailed:"失败图片数组，包含从 0 开始的序号、文件名、错误说明和稳定错误码。",returnAccount:"兼容使用的扁平额度对象。",returnUsage:"当前限时图与永久图的总量、已使用量和剩余量。",
+        usageTitle:"获取已使用量和剩余量",usageIntro:"可在上传前后调用用量接口读取当前额度，查询本身不会消耗上传额度。",
+        recordsTitle:"查询上传记录",recordsIntro:"只返回当前 API 用户仍有效的上传记录，每个公开 URL 都可以直接使用。接口不会返回保留期、过期时间和审核状态。",recordsPaging:"limit 默认是 20，最大为 100。next_cursor 不为 null 时，将它作为 cursor 查询参数即可获取下一页。",
+        deleteTitle:"删除已上传图片",deleteIntro:"删除当前鉴权 API 用户上传的图片，不能删除其他 API 用户的图片。删除图片不会返还每日额度或永久额度。",
+        limitationsTitle:"约束条件",limitFormats:"支持格式：JPG、PNG、GIF 和 WebP。",limitFileSize:"每张图片最大 5 MB。",limitBatch:"每次最多 10 张，所有图片合计不超过 25 MB。",limitRetention:"保留期可选 1-day、7-day、30-day 和 permanent，具体取决于分配给账户的权限。",limitQuota:"只有成功图片会占用额度。限时图每日额度按 Asia/Shanghai 时区零点重置；永久图使用总额度。",limitRetry:"对可能重试的上传使用唯一 Idempotency-Key，避免重复图片和重复扣减额度。",limitContent:"API 上传和网页上传遵守相同规则，违法、有害、私密或侵权图片可能被拒绝或删除。",
+        statusTitle:"HTTP 状态码",status200:"查询或删除成功。",status201:"全部图片上传成功。",status207:"批量上传部分成功。",status4xx:"请求格式、数量、大小或图片内容无效。",statusAuth:"凭证无效、账户已停用或不允许该保留类型。",status404:"图片不存在或不属于当前 API 用户。",status409:"Idempotency-Key 正在处理中，或已被用于不同的上传请求。",status429:"每日额度或永久总额度已经用完。",status503:"API 数据库暂时不可用。",
+        useCasesTitle:"使用场景",useCase1:"在部署或测试流程中上传应用截图。",useCase2:"通过一次服务端请求批量上传商品图或文档图片。",useCase3:"在自动批量任务开始前检查剩余额度。",
+        relatedTitle:"相关工具",relatedUpload:"网页上传图片",relatedImage:"图片工具",relatedContact:"联系我们",faqTitle:"常见问题",faq1Q:"一次请求可以上传多张图片吗？",faq1A:"可以。每张图片重复使用 file 字段，但不能超过文档中的张数和总大小限制。",faq2Q:"只使用用户 ID 可以鉴权吗？",faq2A:"不可以。必须同时发送分配的用户 ID 和匹配的 API Key。ID 识别账户，Key 证明调用方有权使用该账户。",faq3Q:"怎样知道还剩多少额度？",faq3A:"调用 GET /v1/usage，或者读取上传返回中的 usage 对象。",copied:"已复制"
+      },
+      de: {
+        htmlLang:"de",
+        seoTitle:"Dokumentation der Bild-Upload-API - Mini Tools",
+        seoDescription:"Dokumentation für einzelne und mehrere Bild-Uploads, Benutzer-Authentifizierung, Kontingentabfrage, Rückgabefelder, Grenzen und Fehlercodes.",
+        ogTitle:"Dokumentation der Bild-Upload-API - Mini Tools",
+        ogDescription:"Einzelne oder mehrere Bilder hochladen und verwendetes sowie verbleibendes Kontingent abfragen.",
+        onPage:"Auf dieser Seite",navAuthentication:"Authentifizierung",navHowTo:"Verwendung",navUploadResponse:"Upload-Antwort",navUsage:"Kontingentabfrage",navRecords:"Upload-Verlauf",navDelete:"Bild löschen",navLimitations:"Einschränkungen",
+        kicker:"Entwickler-API",pageTitle:"Dokumentation der Bild-Upload-API",intro:"Laden Sie ein Bild oder einen Stapel aus einer serverseitigen Anwendung hoch und fragen Sie das verwendete und verbleibende Kontingent ab.",
+        applyText:"Beantragen Sie den Zugang per E-Mail wie beim Langzeitspeicher. Der Administrator sendet Ihre API-Benutzer-ID und Ihren API-Schlüssel.",copyEmail:"E-Mail kopieren",
+        baseUrl:"Basis-URL",uploadEndpoint:"Upload",usageEndpoint:"Verwendetes und verbleibendes Kontingent",recordsEndpoint:"Upload-Verlauf",deleteEndpoint:"Bild löschen",
+        authTitle:"Authentifizierung",authIntro:"Jede Anfrage muss die zugewiesene Benutzer-ID und den passenden API-Schlüssel in den Headern senden.",securityNote:"Verwenden Sie beide Zugangsdaten nur auf einem vertrauenswürdigen Server. Die Benutzer-ID identifiziert das Konto; der API-Schlüssel verhindert eine fremde Nutzung. Veröffentlichen Sie den Schlüssel nicht im Browsercode oder in einem öffentlichen Repository.",
+        howTitle:"Verwendung",howIntro:"Senden Sie multipart/form-data. Verwenden Sie file einmal für ein Bild oder wiederholen Sie das Feld für einen Stapel.",singleTitle:"Ein Bild hochladen",batchTitle:"Mehrere Bilder hochladen",idempotencyTitle:"Sichere Wiederholungen",idempotencyIntro:"Senden Sie für wiederholbare Uploads einen eindeutigen Idempotency-Key. Dieselbe Anfrage mit demselben Schlüssel gibt das erste Ergebnis zurück, ohne erneut hochzuladen oder Kontingent doppelt zu verbrauchen. Andere Dateien mit demselben Schlüssel liefern HTTP 409.",copyCode:"Kopieren",
+        requestFieldsTitle:"Anfragefelder",fieldHeader:"Feld",requiredHeader:"Pflicht",descriptionHeader:"Beschreibung",yes:"Ja",no:"Nein",fileDescription:"Ein Bild oder dasselbe Feld mehrfach für mehrere Bilder.",durationDescription:"1-day, 7-day, 30-day oder permanent. Das Konto muss den gewählten Speichertyp erlauben.",
+        uploadResponseTitle:"Upload-Antwort",uploadResponseIntro:"Vollständiger Erfolg liefert HTTP 201. Ein teilweise erfolgreicher Stapel liefert HTTP 207 und listet jedes Ergebnis.",returnFieldsTitle:"Rückgabefelder",
+        returnSuccess:"Nur wahr, wenn alle Bilder erfolgreich sind.",returnPartial:"Wahr, wenn ein Teil des Stapels erfolgreich ist.",returnUploaded:"Erfolgreiche Bilder mit Speicherschlüssel, URL, Dauer, Ablauf, Größe, MIME-Typ und Prüfstatus.",returnFailed:"Fehlgeschlagene Bilder mit Index, Dateiname, Fehlermeldung und Fehlercode.",returnAccount:"Flache Kontingentdaten zur Kompatibilität.",returnUsage:"Aktuelle Grenzen, verwendete und verbleibende Mengen.",
+        usageTitle:"Verwendetes und verbleibendes Kontingent",usageIntro:"Rufen Sie den Endpunkt vor oder nach einem Upload auf. Die Abfrage verbraucht kein Upload-Kontingent.",
+        recordsTitle:"Upload-Verlauf abrufen",recordsIntro:"Gibt nur aktive Uploads des aktuellen API-Benutzers zurück. Jede öffentliche URL ist direkt nutzbar. Speicherdauer, Ablauf und Prüfstatus sind nicht enthalten.",recordsPaging:"limit ist standardmäßig 20 und maximal 100. Wenn next_cursor nicht null ist, senden Sie ihn als cursor-Parameter für die nächste Seite.",
+        deleteTitle:"Hochgeladenes Bild löschen",deleteIntro:"Löscht ein Bild des authentifizierten API-Benutzers. Bilder anderer API-Benutzer können nicht gelöscht werden. Das Löschen stellt kein Tages- oder Gesamtkontingent wieder her.",
+        limitationsTitle:"Einschränkungen",limitFormats:"Formate: JPG, PNG, GIF und WebP.",limitFileSize:"Maximal 5 MB pro Bild.",limitBatch:"Maximal 10 Bilder und insgesamt 25 MB pro Anfrage.",limitRetention:"Dauer: 1-day, 7-day, 30-day oder permanent, abhängig von den Kontorechten.",limitQuota:"Nur erfolgreiche Bilder verbrauchen Kontingent. Tageskontingente werden um Mitternacht in Asia/Shanghai zurückgesetzt; dauerhafte Kontingente sind Gesamtmengen.",limitRetry:"Verwenden Sie für wiederholbare Uploads einen eindeutigen Idempotency-Key, um Duplikate und doppelten Kontingentverbrauch zu vermeiden.",limitContent:"Für API- und Web-Uploads gelten dieselben Regeln. Rechtswidrige, schädliche, private oder verletzende Bilder können entfernt werden.",
+        statusTitle:"HTTP-Statuscodes",status200:"Abfrage oder Löschung erfolgreich.",status201:"Alle Bilder erfolgreich hochgeladen.",status207:"Stapel teilweise erfolgreich.",status4xx:"Anfrage, Anzahl, Größe oder Bildinhalt ist ungültig.",statusAuth:"Zugangsdaten ungültig, Konto deaktiviert oder Speichertyp nicht erlaubt.",status404:"Das Bild existiert nicht oder gehört nicht zum aktuellen API-Benutzer.",status409:"Der Idempotency-Key wird verarbeitet oder wurde für einen anderen Upload wiederverwendet.",status429:"Tages- oder Gesamtkontingent ausgeschöpft.",status503:"API-Datenbank vorübergehend nicht verfügbar.",
+        useCasesTitle:"Anwendungsfälle",useCase1:"Anwendungs-Screenshots aus Bereitstellungs- oder Testabläufen hochladen.",useCase2:"Produkt- oder Dokumentationsbilder in einer Serveranfrage hochladen.",useCase3:"Kontingent vor einem automatischen Stapel prüfen.",
+        relatedTitle:"Verwandte Tools",relatedUpload:"Web-Bildupload",relatedImage:"Bildtools",relatedContact:"Kontakt",faqTitle:"FAQ",faq1Q:"Kann eine Anfrage mehrere Bilder hochladen?",faq1A:"Ja. Wiederholen Sie file für jedes Bild innerhalb der Anzahl- und Größenlimits.",faq2Q:"Reicht die Benutzer-ID zur Authentifizierung?",faq2A:"Nein. Senden Sie die Benutzer-ID und den passenden API-Schlüssel.",faq3Q:"Wie sehe ich das verbleibende Kontingent?",faq3A:"Rufen Sie GET /v1/usage auf oder lesen Sie usage aus der Upload-Antwort.",copied:"Kopiert"
+      },
+      fr: {
+        htmlLang:"fr",
+        seoTitle:"Documentation de l’API d’envoi d’images - Mini Tools",
+        seoDescription:"Documentation des envois d’images simples et multiples, authentification, quotas, champs de réponse, limites et erreurs.",
+        ogTitle:"Documentation de l’API d’envoi d’images - Mini Tools",
+        ogDescription:"Envoyer une ou plusieurs images et consulter les quotas utilisés et restants.",
+        onPage:"Sur cette page",navAuthentication:"Authentification",navHowTo:"Utilisation",navUploadResponse:"Réponse d’envoi",navUsage:"Consultation du quota",navRecords:"Historique des envois",navDelete:"Supprimer une image",navLimitations:"Limites",
+        kicker:"API développeur",pageTitle:"Documentation de l’API d’envoi d’images",intro:"Envoyez une image ou un lot depuis une application serveur, puis consultez le quota utilisé et restant.",
+        applyText:"Demandez l’accès par e-mail, comme pour le stockage longue durée. L’administrateur enverra votre identifiant utilisateur API et votre clé API.",copyEmail:"Copier l’e-mail",
+        baseUrl:"URL de base",uploadEndpoint:"Envoi",usageEndpoint:"Quota utilisé et restant",recordsEndpoint:"Historique des envois",deleteEndpoint:"Supprimer une image",
+        authTitle:"Authentification",authIntro:"Chaque requête doit envoyer l’identifiant attribué et la clé API correspondante dans les en-têtes.",securityNote:"Utilisez ces deux identifiants uniquement sur un serveur de confiance. L’identifiant repère le compte et la clé API empêche son utilisation par un tiers. Ne publiez pas la clé dans le navigateur ou un dépôt public.",
+        howTitle:"Utilisation",howIntro:"Envoyez multipart/form-data. Utilisez file une fois pour une image ou répétez le champ pour un lot.",singleTitle:"Envoyer une image",batchTitle:"Envoyer plusieurs images",idempotencyTitle:"Nouvelles tentatives sûres",idempotencyIntro:"Pour un envoi susceptible d’être relancé, utilisez un Idempotency-Key unique. La même requête avec la même clé renvoie le premier résultat sans nouvel envoi ni double consommation du quota. Des fichiers différents avec la même clé renvoient HTTP 409.",copyCode:"Copier",
+        requestFieldsTitle:"Champs de requête",fieldHeader:"Champ",requiredHeader:"Requis",descriptionHeader:"Description",yes:"Oui",no:"Non",fileDescription:"Une image, ou le même champ répété pour plusieurs images.",durationDescription:"1-day, 7-day, 30-day ou permanent. Le compte doit autoriser le type choisi.",
+        uploadResponseTitle:"Réponse d’envoi",uploadResponseIntro:"Un succès complet renvoie HTTP 201. Un lot partiellement réussi renvoie HTTP 207 et détaille chaque résultat.",returnFieldsTitle:"Champs renvoyés",
+        returnSuccess:"Vrai uniquement si toutes les images réussissent.",returnPartial:"Vrai si une partie du lot réussit.",returnUploaded:"Images réussies avec clé, URL, durée, expiration, taille, type MIME et état de contrôle.",returnFailed:"Échecs avec index, nom de fichier, message et code d’erreur.",returnAccount:"Données de quota à plat pour compatibilité.",returnUsage:"Limites actuelles, valeurs utilisées et restantes.",
+        usageTitle:"Obtenir le quota utilisé et restant",usageIntro:"Appelez cet endpoint avant ou après un envoi. La consultation ne consomme aucun quota.",
+        recordsTitle:"Consulter l’historique des envois",recordsIntro:"Renvoie uniquement les envois actifs de l’utilisateur API actuel. Chaque URL publique est directement utilisable. La durée, l’expiration et l’état de contrôle ne sont pas inclus.",recordsPaging:"limit vaut 20 par défaut et 100 au maximum. Lorsque next_cursor n’est pas null, transmettez-le comme paramètre cursor pour obtenir la page suivante.",
+        deleteTitle:"Supprimer une image envoyée",deleteIntro:"Supprime une image de l’utilisateur API authentifié. Les images d’un autre utilisateur ne peuvent pas être supprimées. La suppression ne restaure pas le quota quotidien ou permanent.",
+        limitationsTitle:"Limites",limitFormats:"Formats acceptés : JPG, PNG, GIF et WebP.",limitFileSize:"5 Mo maximum par image.",limitBatch:"10 images et 25 Mo au total par requête.",limitRetention:"Durée : 1-day, 7-day, 30-day ou permanent, selon les droits du compte.",limitQuota:"Seules les images réussies consomment le quota. Les quotas temporaires sont réinitialisés à minuit dans Asia/Shanghai ; les quotas permanents sont globaux.",limitRetry:"Utilisez un Idempotency-Key unique pour les envois susceptibles d’être relancés afin d’éviter les doublons et la double consommation du quota.",limitContent:"Les mêmes règles s’appliquent aux envois API et Web. Les images illégales, nuisibles, privées ou contrefaisantes peuvent être supprimées.",
+        statusTitle:"Codes HTTP",status200:"Consultation ou suppression réussie.",status201:"Toutes les images ont été envoyées.",status207:"Lot partiellement réussi.",status4xx:"Requête, nombre, taille ou contenu invalide.",statusAuth:"Identifiants invalides, compte désactivé ou type non autorisé.",status404:"L’image n’existe pas ou n’appartient pas à l’utilisateur API actuel.",status409:"L’Idempotency-Key est en cours de traitement ou a été réutilisé pour un autre envoi.",status429:"Quota quotidien ou permanent épuisé.",status503:"Base API temporairement indisponible.",
+        useCasesTitle:"Cas d’usage",useCase1:"Envoyer des captures depuis un flux de déploiement ou de test.",useCase2:"Envoyer plusieurs images de produit ou de documentation.",useCase3:"Vérifier le quota avant un lot automatisé.",
+        relatedTitle:"Outils associés",relatedUpload:"Envoi d’image Web",relatedImage:"Outils d’image",relatedContact:"Contact",faqTitle:"FAQ",faq1Q:"Une requête peut-elle envoyer plusieurs images ?",faq1A:"Oui. Répétez file pour chaque image dans les limites indiquées.",faq2Q:"L’identifiant utilisateur suffit-il ?",faq2A:"Non. Envoyez l’identifiant et la clé API correspondante.",faq3Q:"Comment connaître le quota restant ?",faq3A:"Appelez GET /v1/usage ou lisez usage dans la réponse d’envoi.",copied:"Copié"
+      },
+      es: {
+        htmlLang:"es",
+        seoTitle:"Documentación de la API de subida de imágenes - Mini Tools",
+        seoDescription:"Documentación de subida de una o varias imágenes, autenticación, cuotas, campos de respuesta, límites y errores.",
+        ogTitle:"Documentación de la API de subida de imágenes - Mini Tools",
+        ogDescription:"Sube una o varias imágenes y consulta la cuota usada y restante.",
+        onPage:"En esta página",navAuthentication:"Autenticación",navHowTo:"Uso",navUploadResponse:"Respuesta de subida",navUsage:"Consulta de cuota",navRecords:"Historial de subidas",navDelete:"Eliminar imagen",navLimitations:"Límites",
+        kicker:"API para desarrolladores",pageTitle:"Documentación de la API de subida de imágenes",intro:"Sube una imagen o un lote desde una aplicación del servidor y consulta la cuota usada y restante.",
+        applyText:"Solicita acceso por correo igual que para el almacenamiento a largo plazo. El administrador enviará tu ID de usuario API y tu API Key.",copyEmail:"Copiar correo",
+        baseUrl:"URL base",uploadEndpoint:"Subida",usageEndpoint:"Cuota usada y restante",recordsEndpoint:"Historial de subidas",deleteEndpoint:"Eliminar imagen",
+        authTitle:"Autenticación",authIntro:"Cada solicitud debe enviar el ID asignado y la API Key correspondiente en los encabezados.",securityNote:"Usa ambas credenciales solo en un servidor de confianza. El ID identifica la cuenta y la API Key impide que otros la utilicen. No publiques la clave en código del navegador ni en un repositorio público.",
+        howTitle:"Uso",howIntro:"Envía multipart/form-data. Usa file una vez para una imagen o repite el campo para un lote.",singleTitle:"Subir una imagen",batchTitle:"Subir varias imágenes",idempotencyTitle:"Reintentos seguros",idempotencyIntro:"Para una subida que pueda repetirse, envía un Idempotency-Key único. La misma solicitud con la misma clave devuelve el primer resultado sin volver a subir ni consumir cuota dos veces. Usar la clave con otros archivos devuelve HTTP 409.",copyCode:"Copiar",
+        requestFieldsTitle:"Campos de solicitud",fieldHeader:"Campo",requiredHeader:"Obligatorio",descriptionHeader:"Descripción",yes:"Sí",no:"No",fileDescription:"Una imagen o el mismo campo repetido para varias imágenes.",durationDescription:"1-day, 7-day, 30-day o permanent. La cuenta debe permitir el tipo elegido.",
+        uploadResponseTitle:"Respuesta de subida",uploadResponseIntro:"El éxito completo devuelve HTTP 201. Un lote parcialmente correcto devuelve HTTP 207 y detalla cada resultado.",returnFieldsTitle:"Campos devueltos",
+        returnSuccess:"Verdadero solo si todas las imágenes tienen éxito.",returnPartial:"Verdadero si una parte del lote tiene éxito.",returnUploaded:"Imágenes correctas con clave, URL, duración, caducidad, tamaño, MIME y estado de revisión.",returnFailed:"Fallos con índice, nombre, mensaje y código de error.",returnAccount:"Datos de cuota planos para compatibilidad.",returnUsage:"Límites actuales y cantidades usadas y restantes.",
+        usageTitle:"Obtener cuota usada y restante",usageIntro:"Llama al endpoint antes o después de subir. La consulta no consume cuota.",
+        recordsTitle:"Consultar el historial de subidas",recordsIntro:"Devuelve solo las subidas activas del usuario API actual. Cada URL pública se puede usar directamente. No incluye duración, caducidad ni estado de revisión.",recordsPaging:"limit es 20 por defecto y 100 como máximo. Cuando next_cursor no sea null, envíalo como parámetro cursor para obtener la página siguiente.",
+        deleteTitle:"Eliminar una imagen subida",deleteIntro:"Elimina una imagen del usuario API autenticado. No se pueden eliminar imágenes de otro usuario API. La eliminación no restaura la cuota diaria ni la permanente.",
+        limitationsTitle:"Limitaciones",limitFormats:"Formatos: JPG, PNG, GIF y WebP.",limitFileSize:"Máximo 5 MB por imagen.",limitBatch:"Máximo 10 imágenes y 25 MB por solicitud.",limitRetention:"Duración: 1-day, 7-day, 30-day o permanent, según los permisos.",limitQuota:"Solo las imágenes correctas consumen cuota. La cuota temporal se reinicia a medianoche en Asia/Shanghai; la permanente es total.",limitRetry:"Usa un Idempotency-Key único en subidas que puedan repetirse para evitar imágenes duplicadas y doble consumo de cuota.",limitContent:"Las mismas reglas se aplican a la API y a la web. Las imágenes ilegales, dañinas, privadas o infractoras pueden eliminarse.",
+        statusTitle:"Códigos HTTP",status200:"Consulta o eliminación correcta.",status201:"Todas las imágenes se subieron.",status207:"Lote parcialmente correcto.",status4xx:"Solicitud, cantidad, tamaño o contenido no válido.",statusAuth:"Credenciales no válidas, cuenta desactivada o tipo no permitido.",status404:"La imagen no existe o no pertenece al usuario API actual.",status409:"El Idempotency-Key se está procesando o se reutilizó para una subida diferente.",status429:"Cuota diaria o permanente agotada.",status503:"Base de datos API no disponible temporalmente.",
+        useCasesTitle:"Casos de uso",useCase1:"Subir capturas desde procesos de despliegue o pruebas.",useCase2:"Subir varias imágenes de producto o documentación.",useCase3:"Comprobar la cuota antes de un lote automático.",
+        relatedTitle:"Herramientas relacionadas",relatedUpload:"Subida web",relatedImage:"Herramientas de imagen",relatedContact:"Contacto",faqTitle:"FAQ",faq1Q:"¿Una solicitud puede subir varias imágenes?",faq1A:"Sí. Repite file para cada imagen dentro de los límites.",faq2Q:"¿Basta el ID de usuario?",faq2A:"No. Envía el ID y la API Key correspondiente.",faq3Q:"¿Cómo consulto la cuota restante?",faq3A:"Llama a GET /v1/usage o lee usage en la respuesta de subida.",copied:"Copiado"
+      }
+    };
+
+    function normalizeLang(value) {
+      const raw = String(value || "en").toLowerCase();
+      if (raw === "zh" || raw === "zh-cn" || raw === "cn") return "zh-CN";
+      return ["en","de","fr","es"].includes(raw) ? raw : "en";
+    }
+
+    function applyLanguage(value) {
+      const lang = normalizeLang(value || window.MiniToolsI18n?.getLanguage());
+      const text = translations[lang] || translations.en;
+      document.documentElement.lang = text.htmlLang;
+      document.title = text.seoTitle;
+      document.querySelector('meta[name="description"]').setAttribute("content", text.seoDescription);
+      document.querySelector('meta[property="og:title"]').setAttribute("content", text.ogTitle);
+      document.querySelector('meta[property="og:description"]').setAttribute("content", text.ogDescription);
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.dataset.i18n;
+        if (text[key] !== undefined) element.textContent = text[key];
+      });
+      const select = document.getElementById("languageSelect");
+      if (select) select.value = lang;
+    }
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const source = document.getElementById(button.dataset.copy);
+        if (!source) return;
+        try {
+          await navigator.clipboard.writeText(source.textContent);
+        } catch (error) {
+          const range = document.createRange();
+          range.selectNodeContents(source);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          document.execCommand("copy");
+          selection.removeAllRanges();
+        }
+        const lang = normalizeLang(window.MiniToolsI18n?.getLanguage());
+        const original = button.textContent;
+        button.textContent = (translations[lang] || translations.en).copied;
+        window.setTimeout(() => { button.textContent = original; }, 1200);
+      });
+    });
+
+    const docLinks = [...document.querySelectorAll("[data-doc-link]")];
+    function setActiveDocLink(sectionId) {
+      docLinks.forEach((link) => {
+        const active = link.getAttribute("href") === `#${sectionId}`;
+        link.classList.toggle("active", active);
+        if (active) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+    }
+
+    docLinks.forEach((link) => {
+      link.addEventListener("click", () => setActiveDocLink(link.getAttribute("href").slice(1)));
+    });
+
+    if ("IntersectionObserver" in window) {
+      const sectionObserver = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (visible) setActiveDocLink(visible.target.id);
+      }, { rootMargin: "-18% 0px -68% 0px", threshold: 0 });
+
+      docLinks.forEach((link) => {
+        const section = document.querySelector(link.getAttribute("href"));
+        if (section) sectionObserver.observe(section);
+      });
+    }
+
+    window.applyLanguage = applyLanguage;
+  </script>
+  <script src="site-version.js"></script>
+  <script src="site-i18n.js"></script>
+</body>
+</html>

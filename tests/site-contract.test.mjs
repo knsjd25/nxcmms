@@ -914,6 +914,58 @@ test("worker server-renders the Upload empty file state in Chinese and German", 
   }
 });
 
+test("upload page links to a separate API documentation page", async () => {
+  const upload = read("upload.html");
+  assert.match(upload, /id=["']apiUploadEntry["'][^>]*>API Upload<\/a>/);
+  assert.match(upload, /href=["']\/image-api["']/);
+  assert.doesNotMatch(upload, /id=["']api-docs["']/);
+  assert.doesNotMatch(upload, /POST \/v1\/upload/);
+
+  const chinese = await fetchThroughWorker("/upload?lang=zh-CN");
+  assert.equal(chinese.status, 200);
+  assert.equal(elementTextById(await chinese.text(), "apiUploadEntry"), "API 上传");
+});
+
+test("image API documentation is server-rendered in all five languages", async () => {
+  const source = read("image-api.html");
+  assert.match(source, /id=["']apiEmail["'][^>]*>yuyananuu@gmail\.com</);
+  assert.match(source, /data-copy=["']apiEmail["']/);
+  assert.match(source, /data-i18n=["']copyEmail["']>Click to copy</);
+  assert.doesNotMatch(source, /class=["']apply-button["']/);
+  assert.match(source, /data-doc-link/);
+  assert.match(source, /IntersectionObserver/);
+  assert.match(source, /GET \/v1\/images/);
+  assert.match(source, /DELETE \/v1\/images\/:key/);
+  assert.match(source, /Idempotency-Key/);
+
+  const recordsResponse = elementTextById(source, "recordsResponseExample");
+  assert.match(recordsResponse, /https:\/\/pub\.mini-tools\.uk\//);
+  assert.doesNotMatch(recordsResponse, /expires_at|duration|status|risk/);
+
+  const expectations = {
+    en: "Image Upload API documentation",
+    "zh-CN": "图片上传 API 使用文档",
+    de: "Dokumentation der Bild-Upload-API",
+    fr: "Documentation de l’API d’envoi d’images",
+    es: "Documentación de la API de subida de imágenes",
+  };
+
+  for (const [lang, title] of Object.entries(expectations)) {
+    const path = lang === "en" ? "/image-api" : `/image-api?lang=${lang}`;
+    const response = await fetchThroughWorker(path);
+    assert.equal(response.status, 200, lang);
+    const html = await response.text();
+    assert.match(html, new RegExp(`<h1[^>]*>${title}</h1>`), `${lang}: API docs title`);
+    assert.match(html, /POST \/v1\/upload/, `${lang}: upload endpoint`);
+    assert.match(html, /GET \/v1\/usage/, `${lang}: usage endpoint`);
+    assert.match(html, /GET \/v1\/images/, `${lang}: records endpoint`);
+    assert.match(html, /DELETE \/v1\/images\/:key/, `${lang}: delete endpoint`);
+    assert.match(html, /Idempotency-Key/, `${lang}: retry protection`);
+    assert.match(html, /X-API-User-ID/, `${lang}: assigned user ID`);
+    assert.doesNotMatch(html, /¥\s*\d+|price/i, `${lang}: public documentation must not show pricing`);
+  }
+});
+
 test("worker normalizes invalid languages to the canonical English URL", async () => {
   const response = await fetchThroughWorker("/tax?lang=xx");
   assert.equal(response.status, 301);

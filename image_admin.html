@@ -9,7 +9,7 @@
     .header { background: #2c3e50; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; }
     .header h2 { margin: 0; }
     .auth-box { display: flex; gap: 10px; }
-    input[type="password"], input[type="file"], input[type="text"], select {
+    input[type="password"], input[type="file"], input[type="text"], input[type="number"], select {
       height: 40px;
       box-sizing: border-box;
       padding: 8px 10px;
@@ -64,7 +64,7 @@
 
     .dashboard-nav {
       display: grid;
-      grid-template-columns: repeat(5, minmax(150px, 1fr));
+      grid-template-columns: repeat(6, minmax(140px, 1fr));
       gap: 14px;
       margin: 14px 0 18px;
       align-items: stretch;
@@ -102,7 +102,6 @@
       justify-content: space-between;
     }
     .filter-group { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-    .admin-upload { display: flex; gap: 10px; align-items: center; border-left: 1px solid #e5e7eb; padding-left: 14px; flex-wrap: wrap; }
 
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; align-items: start; }
     .card { background: white; padding: 10px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); text-align: center; position: relative; transition: none; content-visibility: auto; contain-intrinsic-size: 360px; }
@@ -228,9 +227,34 @@
     .ip-pagination { display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; margin:14px 0 8px; padding:12px; background:#ffffff; border:1px solid #e5e7eb; border-radius:10px; }
     .ip-pagination .page-info { color:#334155; font-size:.9rem; }
 
-    #vip-panel, #ip-panel { display: none; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    #vip-panel, #api-panel, #ip-panel { display: none; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
     .vip-form, .ip-form { display: flex; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; flex-wrap: wrap; }
     .ip-form input { min-width: 260px; }
+    .api-form-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .api-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .api-field > span { color: #334155; font-size: .82rem; font-weight: 800; }
+    .api-field input, .api-field select { width: 100%; }
+    .api-checks { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; margin: 8px 0 16px; }
+    .api-checks label { display: inline-flex; align-items: center; gap: 8px; color: #334155; font-size: .88rem; font-weight: 800; }
+    .api-checks input { width: 18px; height: 18px; accent-color: #2563eb; }
+    .api-form-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding-bottom: 20px; border-bottom: 1px solid #e5e7eb; }
+    .api-key-output { margin: 16px 0; padding: 14px; border: 1px solid #86efac; background: #f0fdf4; border-radius: 8px; }
+    .api-key-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .api-key-row + .api-key-row { margin-top: 10px; }
+    .api-key-value { flex: 1; min-width: 260px; padding: 10px; border: 1px solid #bbf7d0; background: #fff; border-radius: 6px; word-break: break-all; }
+    .api-credential-label { width: 74px; color: #166534; font-size: .82rem; font-weight: 900; }
+    .api-status { display: inline-block; border-radius: 6px; padding: 3px 7px; font-size: .76rem; font-weight: 800; }
+    .api-status.active, .api-status.paid { color: #166534; background: #dcfce7; }
+    .api-status.inactive, .api-status.refunded { color: #991b1b; background: #fee2e2; }
+    .api-status.unpaid { color: #92400e; background: #fef3c7; }
+    .api-status.complimentary { color: #1e40af; background: #dbeafe; }
+    .api-quota { min-width: 180px; line-height: 1.7; font-size: .84rem; }
+    .table-scroll { width: 100%; overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #fff; }
     th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: top; }
     th { background: #f8f9fa; color: #333; }
@@ -253,12 +277,13 @@
     .high-risk-table td { font-size:.86rem; }
     @media (max-width: 980px) {
       .dashboard-nav { grid-template-columns: repeat(2, minmax(150px, 1fr)); }
+      .api-form-grid { grid-template-columns: repeat(2, minmax(170px, 1fr)); }
       .header { align-items: stretch; }
       .auth-box { width: 100%; flex-wrap: wrap; }
-      .admin-upload { border-left: 0; padding-left: 0; }
     }
     @media (max-width: 560px) {
       .dashboard-nav { grid-template-columns: 1fr; }
+      .api-form-grid { grid-template-columns: 1fr; }
       button, .modal-link, .modal-close { width: 100%; }
       .btn-small { width: auto; }
     }
@@ -282,20 +307,24 @@
 
 <div class="dashboard-nav">
   <div class="nav-card active" onclick="switchTab('pending')" id="tab-pending">
-    <h3>🚨 待审核 (含可疑图/VIP新图)</h3>
+    <h3>🚨 网页待审核</h3>
     <div class="count" id="count-pending">0</div>
   </div>
   <div class="nav-card" onclick="switchTab('audited')" id="tab-audited">
     <h3>✅ 已通过 (安全内容)</h3>
     <div class="count" id="count-audited" style="color:#2ecc71;">0</div>
   </div>
-  <div class="nav-card" onclick="switchTab('personal')" id="tab-personal">
-    <h3>👑 我的私用 (永久保存)</h3>
-    <div class="count" id="count-personal" style="color:#8e44ad;">0</div>
+  <div class="nav-card" onclick="switchTab('api_review')" id="tab-api_review">
+    <h3>🔎 API 图片待审核</h3>
+    <div class="count" id="count-api-review" style="color:#8e44ad;">0</div>
   </div>
   <div class="nav-card" onclick="switchTab('vip_management')" id="tab-vip_management" style="border-color:#f39c12;background:#fef9e7;">
-    <h3>💎 VIP 激活码管理</h3>
+    <h3>💎 网页 VIP 码</h3>
     <div class="count" id="count-vip" style="color:#f39c12;">管理</div>
+  </div>
+  <div class="nav-card" onclick="switchTab('api_management')" id="tab-api_management" style="border-color:#2563eb;background:#eff6ff;">
+    <h3>🔑 API 用户与套餐</h3>
+    <div class="count" id="count-api" style="color:#2563eb;">0</div>
   </div>
   <div class="nav-card" onclick="switchTab('ip_blacklist')" id="tab-ip_blacklist" style="border-color:#111827;background:#f3f4f6;">
     <h3>⛔ IP 黑名单</h3>
@@ -350,11 +379,6 @@
       <button onclick="batchAudit()" id="btn-batch-audit" class="btn-warning">✅ 批量通过</button>
       <button onclick="batchDelete()" class="btn-danger">🚨 批量删除</button>
     </div>
-    <div class="admin-upload">
-      <label><strong>👑 私人直传:</strong></label>
-      <input type="file" id="admin-file" accept="image/*">
-      <button onclick="adminUpload()" class="btn-success">直接上传</button>
-    </div>
   </div>
 
   <div id="gallery" class="grid"></div>
@@ -382,10 +406,106 @@
   </table>
 </div>
 
+<div id="api-panel">
+  <h3>🔑 API 用户与套餐配置</h3>
+  <form id="api-user-form" onsubmit="saveApiUser(event)">
+    <input type="hidden" id="api-user-id">
+    <div class="api-form-grid">
+      <label class="api-field">
+        <span>用户标识</span>
+        <input type="text" id="api-user-code" maxlength="64" placeholder="例如 customer_001" required>
+      </label>
+      <label class="api-field">
+        <span>备注</span>
+        <input type="text" id="api-user-note" maxlength="300" placeholder="客户名称或用途">
+      </label>
+      <label class="api-field">
+        <span>套餐</span>
+        <select id="api-plan-type" onchange="applyApiPlanPreset()">
+          <option value="temporary_100">限时图片 100 张/天</option>
+          <option value="temporary_200">限时图片 200 张/天</option>
+          <option value="permanent_100">永久图片总额度 100 张</option>
+          <option value="custom">自定义</option>
+        </select>
+      </label>
+      <label class="api-field">
+        <span>收费状态</span>
+        <select id="api-payment-status">
+          <option value="unpaid">未收费</option>
+          <option value="paid">已收费</option>
+          <option value="complimentary">赠送</option>
+          <option value="refunded">已退款</option>
+        </select>
+      </label>
+      <label class="api-field">
+        <span>套餐价格（元）</span>
+        <input type="number" id="api-price-yuan" min="0" max="1000000" step="0.01" value="10">
+      </label>
+      <label class="api-field">
+        <span>每日限时图额度</span>
+        <input type="number" id="api-daily-limit" min="0" max="100000" step="1" value="100" oninput="markApiPlanCustom()">
+      </label>
+      <label class="api-field">
+        <span>永久图片总额度</span>
+        <input type="number" id="api-permanent-total" min="0" max="100000" step="1" value="0" oninput="markApiPlanCustom()">
+      </label>
+      <label class="api-field">
+        <span>收费备注</span>
+        <input type="text" id="api-payment-note" maxlength="300" placeholder="收款方式、日期或订单号">
+      </label>
+    </div>
+    <div class="api-checks">
+      <label><input type="checkbox" id="api-allow-temporary" checked onchange="markApiPlanCustom()"> 允许限时图片</label>
+      <label><input type="checkbox" id="api-allow-permanent" onchange="markApiPlanCustom()"> 允许永久图片</label>
+      <label><input type="checkbox" id="api-user-active" checked> API Key 启用</label>
+    </div>
+    <div class="api-form-actions">
+      <button type="submit" class="btn-success" id="api-save-button">创建用户并生成 Key</button>
+      <button type="button" class="btn-gray" id="api-cancel-button" onclick="resetApiUserForm()" style="display:none;">取消编辑</button>
+      <button type="button" class="btn-gray" onclick="loadApiUsers()">刷新 API 用户</button>
+    </div>
+  </form>
+
+  <div id="api-key-output" class="api-key-output" style="display:none;">
+    <strong>API 接入凭证（API Key 仅本次显示）</strong>
+    <div class="api-key-row">
+      <span class="api-credential-label">用户 ID</span>
+      <code id="api-user-id-value" class="api-key-value"></code>
+      <button type="button" class="btn-success" onclick="copyLatestApiUserId()">复制用户 ID</button>
+    </div>
+    <div class="api-key-row">
+      <span class="api-credential-label">API Key</span>
+      <code id="api-key-value" class="api-key-value"></code>
+      <button type="button" class="btn-success" onclick="copyLatestApiKey()">复制 Key</button>
+      <button type="button" class="btn-gray" onclick="hideLatestApiKey()">关闭</button>
+    </div>
+  </div>
+
+  <h3>📋 API 用户列表</h3>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>用户 / Key</th>
+          <th>套餐</th>
+          <th>额度与用量</th>
+          <th>收费记录</th>
+          <th>状态</th>
+          <th>最近使用</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="api-user-list-body">
+        <tr><td colspan="7" style="text-align:center;">请先刷新数据...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <div id="ip-panel">
   <h3>⛔ IP 黑名单与上传来源审核</h3>
   <div class="panel-note">
-    这里依赖新版 Worker 返回的 IP 审核字段。后台会保留 IP Hash、UA、来源等审计信息，但页面默认只显示明文 IP 和中文位置；IP 汇总固定统计全站未删除图片，点击“筛全部”会跨待审核、已通过、私用图全部查询该 IP。
+    这里依赖新版 Worker 返回的 IP 审核字段。后台会保留 IP Hash、UA、来源等审计信息，但页面默认只显示明文 IP 和中文位置；IP 汇总固定统计全站未删除图片，点击“筛全部”会跨网页上传、API 上传和已通过图片查询该 IP。
   </div>
   <div class="ip-form">
     <input type="text" id="manual-ip" placeholder="输入要拉黑的 IP，例如 1.2.3.4">
@@ -477,6 +597,10 @@
 
   let globalImages = [];
   let globalVips = [];
+  let globalApiUsers = [];
+  let globalApiPresets = [];
+  let latestApiKey = '';
+  let latestApiUserId = '';
   let globalIpSummary = [];
   let globalIpSummaryPagination = { page: 1, page_size: 30, total: 0, total_pages: 1 };
   let ipSummaryPage = 1;
@@ -486,7 +610,7 @@
   let ipSummarySearchTimer = null;
   let globalBlockedIps = [];
   let globalHighRiskUsers = [];
-  let dashboardCounts = { pending: 0, suspicious: 0, audited: 0, personal: 0, total: 0 };
+  let dashboardCounts = { pending: 0, suspicious: 0, audited: 0, api_review: 0, web_review: 0, total: 0 };
   let currentTab = 'pending';
   let currentPage = 1;
   let totalPages = 1;
@@ -531,7 +655,7 @@
   }
   function currentImageTab() {
     if (ipFilterAllStatuses) return 'all';
-    return ['pending','audited','personal'].includes(currentTab) ? currentTab : 'pending';
+    return ['pending','audited','api_review'].includes(currentTab) ? currentTab : 'pending';
   }
   function statusLabel(v) {
     if (v === 'suspicious') return '⚠️ 可疑上传';
@@ -741,6 +865,33 @@
     return data.vips || [];
   }
 
+  async function fetchApiUserData(pwd) {
+    const res = await fetch(WORKER_URL + '?action=api_user_list', { headers: { 'X-Admin-Key': pwd } });
+    const data = await readJsonSafe(res);
+    if (!res.ok) return { users: [], presets: [], error: data.error || String(res.status) };
+    return {
+      users: Array.isArray(data.users) ? data.users : [],
+      presets: Array.isArray(data.presets) ? data.presets : [],
+      error: ''
+    };
+  }
+
+  async function loadApiUsers() {
+    const pwd = getPwd();
+    if (!pwd) return alert('请先输入超级管理员密码。');
+    setStatusMessage('⏳ 正在读取 API 用户和今日额度...');
+    const data = await fetchApiUserData(pwd);
+    if (data.error) {
+      setStatusMessage('❌ API 用户读取失败：' + data.error, true);
+      return;
+    }
+    globalApiUsers = data.users;
+    globalApiPresets = data.presets;
+    renderApiUserTable();
+    updateCounts();
+    setStatusMessage(`✅ 已刷新 ${globalApiUsers.length} 个 API 用户`);
+  }
+
   function applyVipSummaryFromListData(imgData) {
     const rows = imgData?.vipSummary || imgData?.vip_summary || [];
     if (!Array.isArray(rows) || !rows.length) return false;
@@ -864,7 +1015,10 @@
         requests.push(fetchHighRiskUsers(pwd));
       }
       const needVip = !isAuto;
-      if (needVip) requests.push(fetchVipList(pwd));
+      if (needVip) {
+        requests.push(fetchVipList(pwd));
+        requests.push(fetchApiUserData(pwd));
+      }
 
       const results = await Promise.all(requests);
       const imgRes = results[0];
@@ -899,6 +1053,10 @@
         globalHighRiskUsers = Array.isArray(results[2]) ? results[2] : globalHighRiskUsers;
       }
       if (needVip) globalVips = Array.isArray(results[3]) ? results[3] : globalVips;
+      if (needVip && results[4] && !results[4].error) {
+        globalApiUsers = results[4].users;
+        globalApiPresets = results[4].presets;
+      }
       if (needVip) {
         if (!applyVipSummaryFromListData(imgData)) {
           loadVipUploadCounts({ force: false });
@@ -922,11 +1080,12 @@
       updateIpFilterOptions();
 
       if (currentTab === 'vip_management') renderVipTable();
+      else if (currentTab === 'api_management') renderApiUserTable();
       else if (currentTab === 'ip_blacklist') renderIpPanel();
       else renderGallery();
 
       if (!silent && imgData.source) {
-        setStatusMessage(`✅ 已刷新：${imgData.source === 'd1' ? 'D1 数据库分页' : 'R2 降级列表'}；当前筛选 ${totalFiltered} 张；全站 ${dashboardCounts.total || 0} 张；黑名单 ${globalBlockedIps.length} 个；高危 ${globalHighRiskUsers.length} 个；VIP ${globalVips.length} 个`);
+        setStatusMessage(`✅ 已刷新：${imgData.source === 'd1' ? 'D1 数据库分页' : 'R2 降级列表'}；当前筛选 ${totalFiltered} 张；全站 ${dashboardCounts.total || 0} 张；黑名单 ${globalBlockedIps.length} 个；高危 ${globalHighRiskUsers.length} 个；VIP ${globalVips.length} 个；API 用户 ${globalApiUsers.length} 个`);
       }
 
       updateAutoRefreshText();
@@ -944,7 +1103,7 @@
 
   async function refreshAllData() {
     pageCache.clear();
-    setStatusMessage('⏳ 正在刷新全局统计、IP汇总、黑名单、高危用户库、VIP和当前列表...');
+    setStatusMessage('⏳ 正在刷新全局统计、IP汇总、黑名单、高危用户库、VIP、API 用户和当前列表...');
     return fetchPageData({ silent: false, isAuto: false, force: true });
   }
 
@@ -1043,11 +1202,12 @@
   }
 
   function updateCounts() {
-    const reviewCount = Number(dashboardCounts.review ?? (Number(dashboardCounts.pending || 0) + Number(dashboardCounts.suspicious || 0)));
+    const reviewCount = Number(dashboardCounts.web_review ?? dashboardCounts.review ?? (Number(dashboardCounts.pending || 0) + Number(dashboardCounts.suspicious || 0)));
     document.getElementById('count-pending').innerText = reviewCount;
     document.getElementById('count-audited').innerText = dashboardCounts.audited || 0;
-    document.getElementById('count-personal').innerText = dashboardCounts.personal || 0;
+    document.getElementById('count-api-review').innerText = dashboardCounts.api_review || 0;
     document.getElementById('count-blocked').innerText = globalBlockedIps.length;
+    document.getElementById('count-api').innerText = globalApiUsers.length;
   }
 
   function updateIpFilterOptions() {
@@ -1074,20 +1234,26 @@
   function switchTab(tab, keepIpScope = false) {
     currentTab = tab;
     currentPage = 1;
-    if (!keepIpScope && ['pending','audited','personal'].includes(tab)) {
+    if (!keepIpScope && ['pending','audited','api_review'].includes(tab)) {
       ipFilterAllStatuses = false;
     }
     document.querySelectorAll('.nav-card').forEach(el => el.classList.remove('active'));
     const tabEl = document.getElementById(`tab-${tab}`);
     if (tabEl) tabEl.classList.add('active');
-    document.getElementById('image-view').style.display = ['pending','audited','personal'].includes(tab) ? 'block' : 'none';
+    document.getElementById('image-view').style.display = ['pending','audited','api_review'].includes(tab) ? 'block' : 'none';
     document.getElementById('vip-panel').style.display = tab === 'vip_management' ? 'block' : 'none';
+    document.getElementById('api-panel').style.display = tab === 'api_management' ? 'block' : 'none';
     document.getElementById('ip-panel').style.display = tab === 'ip_blacklist' ? 'block' : 'none';
-    document.getElementById('btn-batch-audit').style.display = tab === 'pending' ? 'inline-block' : 'none';
+    document.getElementById('btn-batch-audit').style.display = ['pending','api_review'].includes(tab) ? 'inline-block' : 'none';
 
     if (tab === 'vip_management') {
       renderVipTable();
       loadVipUploadCounts({ force: false });
+      return;
+    }
+    if (tab === 'api_management') {
+      if (globalApiUsers.length || hasInitialFullRefresh) renderApiUserTable();
+      else loadApiUsers();
       return;
     }
     if (tab === 'ip_blacklist') {
@@ -1095,7 +1261,7 @@
       else fetchPageData({ silent: false, force: true });
       return;
     }
-    if (['pending','audited','personal'].includes(tab)) {
+    if (['pending','audited','api_review'].includes(tab)) {
       fetchPageData({ silent: false, force: true });
     }
   }
@@ -1126,18 +1292,25 @@
     const blocked = isBlockedItem(item);
     const highRisk = isHighRiskItem(item);
     const suspicious = isSuspiciousItem(item);
+    const isApiUpload = item.uploadSource === 'api';
 
     let badgeClass = 'badge';
     let badgeText = '';
     if (highRisk) { badgeClass += ' blocked'; badgeText = '⚠️ 高危用户'; }
     else if (blocked) { badgeClass += ' blocked'; badgeText = '⛔ 已拉黑IP'; }
     else if (suspicious) { badgeClass += ' suspicious'; badgeText = '⚠️ 可疑上传'; }
+    else if (isApiUpload) {
+      badgeClass += item.status === 'audited' ? ' audited' : ' pending';
+      badgeText = item.status === 'audited' ? '✅ API 已通过' : '🔎 API 待审核';
+    }
     else if (prefix === 'permanent') { badgeText = '💎 VIP上传'; badgeClass += item.status === 'pending' ? ' pending' : ' audited'; }
     else if (item.status === 'pending') { badgeClass += ' pending'; badgeText = '🚨 待审核'; }
     else if (item.status === 'audited') { badgeClass += ' audited'; badgeText = '✅ 已通过'; }
     else { badgeClass += ' personal'; badgeText = '👑 私用图'; }
 
-    const vipHtml = item.vipId ? `<b style="color:#d35400;">👤 VIP归属:</b> ${h(item.vipId)}<br>` : '';
+    const ownerHtml = item.vipId
+      ? `<b style="color:#d35400;">${isApiUpload ? 'API 用户' : 'VIP归属'}:</b> ${h(item.vipId)}<br>`
+      : '';
     const riskReasons = getRiskReasonText(item);
     const riskHtml = highRisk
       ? `<div class="risk-line high-risk-line"><b>风控:</b> 高危用户库命中${riskReasons ? '<br><b>原因:</b> ' + h(riskReasons) : ''}</div>`
@@ -1154,7 +1327,7 @@
       <div class="meta">
         <b>路径:</b> ${h(item.key)}<br>
         <b>大小:</b> ${Number(item.size || 0) ? (Number(item.size) / 1024).toFixed(1) : '0.0'} KB<br>
-        ${vipHtml}
+        ${ownerHtml}
         <b>时间:</b> ${h(uploadDate)}
         <div class="ip-line">
           <b>IP:</b> ${ip ? h(ip) : '<span style="color:#999;">旧图无IP记录</span>'}<br>
@@ -1248,6 +1421,26 @@
           deleteVipCode(btn.dataset.vipCode || '');
           return;
         }
+        if (action === 'api-edit') {
+          editApiUser(btn.dataset.apiId || '');
+          return;
+        }
+        if (action === 'api-images') {
+          reviewApiUserImages(btn.dataset.apiId || '');
+          return;
+        }
+        if (action === 'api-rotate') {
+          rotateApiUserKey(btn.dataset.apiId || '');
+          return;
+        }
+        if (action === 'api-reset') {
+          resetApiUserDaily(btn.dataset.apiId || '');
+          return;
+        }
+        if (action === 'api-toggle') {
+          toggleApiUser(btn.dataset.apiId || '');
+          return;
+        }
         if (action === 'filter-ip') {
           filterByIp(btn.dataset.ip || btn.dataset.ipHash || '', btn.dataset.allStatuses === '1', btn.dataset.ipHash || '');
           return;
@@ -1303,6 +1496,273 @@
       </tr>`;
     }).join('');
     bindDynamicActionButtons(tbody);
+  }
+
+  function apiPlanLabel(user) {
+    const preset = globalApiPresets.find(item => item.id === user.plan_type);
+    if (preset) return preset.label;
+    if (user.allow_temporary && user.allow_permanent) return '限时 + 永久（自定义）';
+    if (user.allow_permanent) return '永久图片（自定义）';
+    return '限时图片（自定义）';
+  }
+
+  function apiPaymentLabel(status) {
+    return ({
+      unpaid: '未收费',
+      paid: '已收费',
+      refunded: '已退款',
+      complimentary: '赠送'
+    })[status] || status || '未收费';
+  }
+
+  function renderApiUserTable() {
+    const tbody = document.getElementById('api-user-list-body');
+    if (!tbody) return;
+    if (!globalApiUsers.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#64748b;">暂无 API 用户</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = globalApiUsers.map(user => {
+      const temporary = user.allow_temporary
+        ? `限时：${Number(user.temporary_used_today || 0)} / ${Number(user.temporary_daily_limit || 0)}，剩余 ${Number(user.temporary_remaining_today || 0)}`
+        : '限时：未开通';
+      const permanent = user.allow_permanent
+        ? `永久：${Number(user.permanent_quota_used || 0)} / ${Number(user.permanent_quota_total || 0)}，剩余 ${Number(user.permanent_quota_remaining || 0)}`
+        : '永久：未开通';
+      const price = (Number(user.price_cents || 0) / 100).toFixed(2);
+      return `
+        <tr>
+          <td>
+            <span class="vip-code">${h(user.code)}</span><br>
+            <span class="mono" title="API 用户 ID">${h(user.id || '-')}</span><br>
+            <span class="mono">${h(user.key_prefix || '-')}…</span><br>
+            <span style="color:#64748b;font-size:.8rem;">${h(user.note || '-')}</span>
+          </td>
+          <td>${h(apiPlanLabel(user))}</td>
+          <td class="api-quota">${h(temporary)}<br>${h(permanent)}<br><span style="color:#64748b;">今日永久上传 ${Number(user.permanent_uploaded_today || 0)} 张</span></td>
+          <td>
+            <span class="api-status ${h(user.payment_status || 'unpaid')}">${h(apiPaymentLabel(user.payment_status))}</span><br>
+            ¥${h(price)}<br>
+            <span style="color:#64748b;font-size:.8rem;">${h(user.payment_note || '-')}</span>
+          </td>
+          <td><span class="api-status ${user.active ? 'active' : 'inactive'}">${user.active ? '已启用' : '已停用'}</span></td>
+          <td>${h(user.last_used_at ? new Date(user.last_used_at).toLocaleString('zh-CN', { hour12: false }) : '尚未使用')}</td>
+          <td>
+            <div class="table-actions">
+              <button type="button" class="btn-success btn-small" data-admin-action="api-images" data-api-id="${h(user.id)}">审核图</button>
+              <button type="button" class="btn-gray btn-small" data-admin-action="api-edit" data-api-id="${h(user.id)}">编辑</button>
+              <button type="button" class="btn-warning btn-small" data-admin-action="api-rotate" data-api-id="${h(user.id)}">轮换 Key</button>
+              <button type="button" class="btn-gray btn-small" data-admin-action="api-reset" data-api-id="${h(user.id)}">重置今日</button>
+              <button type="button" class="${user.active ? 'btn-danger' : 'btn-success'} btn-small" data-admin-action="api-toggle" data-api-id="${h(user.id)}">${user.active ? '停用' : '启用'}</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+    bindDynamicActionButtons(tbody);
+  }
+
+  function findApiUser(id) {
+    return globalApiUsers.find(user => user.id === id) || null;
+  }
+
+  function applyApiPlanPreset() {
+    const planType = document.getElementById('api-plan-type').value;
+    if (planType === 'custom') return;
+    const fallback = {
+      temporary_100: { allow_temporary: true, temporary_daily_limit: 100, allow_permanent: false, permanent_quota_total: 0, price_cents: 1000 },
+      temporary_200: { allow_temporary: true, temporary_daily_limit: 200, allow_permanent: false, permanent_quota_total: 0, price_cents: 2000 },
+      permanent_100: { allow_temporary: false, temporary_daily_limit: 0, allow_permanent: true, permanent_quota_total: 100, price_cents: 1000 }
+    };
+    const preset = globalApiPresets.find(item => item.id === planType) || fallback[planType];
+    if (!preset) return;
+    document.getElementById('api-allow-temporary').checked = Boolean(preset.allow_temporary);
+    document.getElementById('api-daily-limit').value = String(Number(preset.temporary_daily_limit || 0));
+    document.getElementById('api-allow-permanent').checked = Boolean(preset.allow_permanent);
+    document.getElementById('api-permanent-total').value = String(Number(preset.permanent_quota_total || 0));
+    document.getElementById('api-price-yuan').value = (Number(preset.price_cents || 0) / 100).toFixed(2);
+  }
+
+  function markApiPlanCustom() {
+    document.getElementById('api-plan-type').value = 'custom';
+  }
+
+  function resetApiUserForm() {
+    document.getElementById('api-user-form').reset();
+    document.getElementById('api-user-id').value = '';
+    document.getElementById('api-user-code').disabled = false;
+    document.getElementById('api-plan-type').value = 'temporary_100';
+    document.getElementById('api-payment-status').value = 'unpaid';
+    document.getElementById('api-user-active').checked = true;
+    document.getElementById('api-save-button').textContent = '创建用户并生成 Key';
+    document.getElementById('api-cancel-button').style.display = 'none';
+    applyApiPlanPreset();
+  }
+
+  function editApiUser(id) {
+    const user = findApiUser(id);
+    if (!user) return;
+    document.getElementById('api-user-id').value = user.id;
+    document.getElementById('api-user-code').value = user.code;
+    document.getElementById('api-user-code').disabled = true;
+    document.getElementById('api-user-note').value = user.note || '';
+    document.getElementById('api-plan-type').value = ['temporary_100', 'temporary_200', 'permanent_100'].includes(user.plan_type) ? user.plan_type : 'custom';
+    document.getElementById('api-payment-status').value = user.payment_status || 'unpaid';
+    document.getElementById('api-price-yuan').value = (Number(user.price_cents || 0) / 100).toFixed(2);
+    document.getElementById('api-daily-limit').value = String(Number(user.temporary_daily_limit || 0));
+    document.getElementById('api-permanent-total').value = String(Number(user.permanent_quota_total || 0));
+    document.getElementById('api-payment-note').value = user.payment_note || '';
+    document.getElementById('api-allow-temporary').checked = Boolean(user.allow_temporary);
+    document.getElementById('api-allow-permanent').checked = Boolean(user.allow_permanent);
+    document.getElementById('api-user-active').checked = Boolean(user.active);
+    document.getElementById('api-save-button').textContent = '保存配置';
+    document.getElementById('api-cancel-button').style.display = 'inline-flex';
+    document.getElementById('api-user-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function apiUserPayloadFromForm() {
+    const priceYuan = Number(document.getElementById('api-price-yuan').value || 0);
+    return {
+      id: document.getElementById('api-user-id').value,
+      code: document.getElementById('api-user-code').value.trim(),
+      note: document.getElementById('api-user-note').value.trim(),
+      plan_type: document.getElementById('api-plan-type').value,
+      payment_status: document.getElementById('api-payment-status').value,
+      price_cents: Math.round(priceYuan * 100),
+      temporary_daily_limit: Number(document.getElementById('api-daily-limit').value || 0),
+      permanent_quota_total: Number(document.getElementById('api-permanent-total').value || 0),
+      payment_note: document.getElementById('api-payment-note').value.trim(),
+      allow_temporary: document.getElementById('api-allow-temporary').checked,
+      allow_permanent: document.getElementById('api-allow-permanent').checked,
+      active: document.getElementById('api-user-active').checked
+    };
+  }
+
+  function apiUserUpdatePayload(user, extra = {}) {
+    return {
+      id: user.id,
+      note: user.note || '',
+      plan_type: user.plan_type,
+      payment_status: user.payment_status,
+      price_cents: Number(user.price_cents || 0),
+      payment_note: user.payment_note || '',
+      temporary_daily_limit: Number(user.temporary_daily_limit || 0),
+      permanent_quota_total: Number(user.permanent_quota_total || 0),
+      allow_temporary: Boolean(user.allow_temporary),
+      allow_permanent: Boolean(user.allow_permanent),
+      active: Boolean(user.active),
+      ...extra
+    };
+  }
+
+  async function postApiAdminAction(action, payload) {
+    const response = await fetch(WORKER_URL + '?action=' + encodeURIComponent(action), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Key': getPwd() },
+      body: JSON.stringify(payload)
+    });
+    const data = await readJsonSafe(response);
+    if (!response.ok) throw new Error(data.error || String(response.status));
+    return data;
+  }
+
+  async function saveApiUser(event) {
+    event.preventDefault();
+    if (!getPwd()) return alert('请先输入超级管理员密码。');
+    const payload = apiUserPayloadFromForm();
+    const editing = Boolean(payload.id);
+    try {
+      const data = await postApiAdminAction(editing ? 'api_user_update' : 'api_user_create', payload);
+      if (data.api_key) showLatestApiKey(data.api_key, data.user?.id || payload.id);
+      resetApiUserForm();
+      await loadApiUsers();
+      setStatusMessage(editing ? '✅ API 用户配置已保存' : '✅ API 用户已创建，请立即保存新 Key');
+    } catch (error) {
+      alert('保存失败：' + (error.message || '未知错误'));
+    }
+  }
+
+  function showLatestApiKey(apiKey, userId = '') {
+    latestApiKey = apiKey || '';
+    latestApiUserId = userId || '';
+    document.getElementById('api-user-id-value').textContent = latestApiUserId;
+    document.getElementById('api-key-value').textContent = latestApiKey;
+    document.getElementById('api-key-output').style.display = latestApiKey ? 'block' : 'none';
+  }
+
+  function hideLatestApiKey() {
+    latestApiKey = '';
+    latestApiUserId = '';
+    document.getElementById('api-user-id-value').textContent = '';
+    document.getElementById('api-key-value').textContent = '';
+    document.getElementById('api-key-output').style.display = 'none';
+  }
+
+  async function copyLatestApiUserId() {
+    if (!latestApiUserId) return;
+    const copied = await copyTextToClipboard(latestApiUserId);
+    if (copied) alert('API 用户 ID 已复制。');
+  }
+
+  async function copyLatestApiKey() {
+    if (!latestApiKey) return;
+    const copied = await copyTextToClipboard(latestApiKey);
+    if (copied) alert('API Key 已复制。');
+  }
+
+  async function rotateApiUserKey(id) {
+    const user = findApiUser(id);
+    if (!user || !confirm(`轮换 ${user.code} 的 API Key？旧 Key 会立即失效。`)) return;
+    try {
+      const data = await postApiAdminAction('api_user_rotate_key', { id });
+      showLatestApiKey(data.api_key || '', user.id);
+      await loadApiUsers();
+      setStatusMessage(`✅ ${user.code} 的 API Key 已轮换`);
+    } catch (error) {
+      alert('轮换失败：' + (error.message || '未知错误'));
+    }
+  }
+
+  async function resetApiUserDaily(id) {
+    const user = findApiUser(id);
+    if (!user || !confirm(`清零 ${user.code} 今天的上传计数？`)) return;
+    try {
+      await postApiAdminAction('api_user_reset_daily', { id });
+      await loadApiUsers();
+      setStatusMessage(`✅ ${user.code} 今日上传计数已清零`);
+    } catch (error) {
+      alert('重置失败：' + (error.message || '未知错误'));
+    }
+  }
+
+  async function toggleApiUser(id) {
+    const user = findApiUser(id);
+    if (!user) return;
+    const nextActive = !user.active;
+    if (!confirm(`${nextActive ? '启用' : '停用'} ${user.code} 的 API Key？`)) return;
+    try {
+      await postApiAdminAction('api_user_update', apiUserUpdatePayload(user, { active: nextActive }));
+      await loadApiUsers();
+      setStatusMessage(`✅ ${user.code} 已${nextActive ? '启用' : '停用'}`);
+    } catch (error) {
+      alert('操作失败：' + (error.message || '未知错误'));
+    }
+  }
+
+  function reviewApiUserImages(id) {
+    const user = findApiUser(id);
+    if (!user) return;
+    document.getElementById('search-vip').value = user.code;
+    document.getElementById('search-ip').value = '';
+    document.getElementById('filter-ip').value = 'all';
+    document.getElementById('filter-risk').value = 'all';
+    document.getElementById('filter-category').value = 'all';
+    clearForcedExactFilters();
+    ipFilterAllStatuses = false;
+    setStatusMessage('正在查看 API 用户 ' + h(user.code) + ' 的待审核图片');
+    switchTab('api_review');
+    document.getElementById('image-view').scrollIntoView({ behavior: 'smooth' });
   }
 
   function syncIpSummaryControls() {
@@ -1560,7 +2020,7 @@
       <b>时间：</b>${h(item.uploaded ? new Date(item.uploaded).toLocaleString('zh-CN', { hour12: false }) : '-')}<br>
       <b>IP：</b>${h(getIpValue(item) || '旧图无IP记录')}<br>
       <b>位置：</b>${h(locationText(item))}<br>
-      ${item.vipId ? `<b>VIP归属：</b>${h(item.vipId)}<br>` : ''}
+      ${item.vipId ? `<b>${item.uploadSource === 'api' ? 'API 用户' : 'VIP归属'}：</b>${h(item.vipId)}<br>` : ''}
       <b>状态：</b>${highRisk ? '高危用户库命中' : blocked ? 'IP 已拉黑' : statusLabel(item.status)}<br>
       ${riskReasons ? `<b>风险原因：</b>${h(riskReasons)}<br>` : ''}
     `;
@@ -1716,7 +2176,7 @@
     forcedIpExactValue = looksLikeIpValue(value) ? value : '';
     forcedIpHashExactValue = ipHashValue || (!looksLikeIpValue(value) ? value : '');
     ipFilterAllStatuses = Boolean(allStatuses);
-    if (!['pending','audited','personal'].includes(currentTab)) currentTab = 'pending';
+    if (!['pending','audited','api_review'].includes(currentTab)) currentTab = 'pending';
     setStatusMessage('⏳ 正在跨全部状态筛选 IP：' + h(queryValue));
     switchTab('pending', Boolean(allStatuses));
     document.getElementById('image-view').scrollIntoView({ behavior: 'smooth' });
@@ -1764,24 +2224,6 @@
   }
   function batchAudit() { executeBatch('audit'); }
   function batchDelete() { executeBatch('delete'); }
-
-  async function adminUpload() {
-    const fileInput = document.getElementById('admin-file');
-    const file = fileInput.files[0];
-    const pwd = getPwd();
-    if (!pwd || !file) return alert('⚠️ 密码未输入或文件未选择！');
-    setStatusMessage('⏳ 正在后台直传图片...');
-    const formData = new FormData();
-    formData.append('file', file);
-    const response = await fetch(WORKER_URL, { method: 'POST', headers: { 'X-Admin-Key': pwd }, body: formData });
-    const result = await readJsonSafe(response);
-    if (!response.ok || !result.success) return alert(`❌ 上传失败: ${result.error || response.status}`);
-    alert(`🎉 私用图上传成功！\n链接：${result.url}`);
-    fileInput.value = '';
-    pageCache.clear();
-    if (currentTab !== 'personal') switchTab('personal');
-    else fetchPageData({ silent: false, force: true });
-  }
 
   function searchVipImages(code) {
     if (!code) return alert('VIP 码为空，无法查询。');
@@ -1888,6 +2330,7 @@
 
   window.addEventListener('load', () => {
     document.getElementById('items-per-page').value = '16';
+    resetApiUserForm();
     setupModalZoomPan();
     startAutoRefresh();
   });
