@@ -551,7 +551,7 @@
         <div class="side-card">
           <h3 data-i18n="relatedTitle">Related tools</h3>
           <div class="related-links">
-            <a href="/image" data-i18n="relatedImage">Image resizer</a>
+            <a href="/upload" data-i18n="relatedImage">Image upload</a>
             <a href="/color-picker" data-i18n="relatedColor">Image color picker</a>
             <a href="/json" data-i18n="relatedJson">JSON formatter</a>
           </div>
@@ -1023,6 +1023,11 @@
         relatedJson:"Formateador JSON"
       }
     };
+    Object.assign(translations.en, { relatedImage:"Image upload" });
+    Object.assign(translations["zh-CN"], { relatedImage:"图片上传" });
+    Object.assign(translations.de, { relatedImage:"Bild-Upload" });
+    Object.assign(translations.fr, { relatedImage:"Envoi d’image" });
+    Object.assign(translations.es, { relatedImage:"Subir imagen" });
     const allowedLangs = ["en", "zh-CN", "de", "fr", "es"];
     const SITE_URL = "https://mini-tools.uk";
     const PAGE_PATH = "/qr";

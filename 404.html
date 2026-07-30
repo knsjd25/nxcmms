@@ -92,15 +92,15 @@
       <p class="lead" data-i18n="heroText">The page you requested does not exist, may have been removed, or the address may be incorrect.</p>
       <div class="actions">
         <a class="button button-primary" href="/" data-i18n="homeButton">Return to homepage</a>
-        <a class="button" href="/#search" data-i18n="searchButton">Search all tools</a>
+        <a class="button" href="/upload" data-i18n="searchButton">Upload an image</a>
       </div>
       <div class="popular">
         <h2 data-i18n="popularTitle">Popular tools</h2>
         <div class="tool-links">
-          <a href="/tax" data-i18n="taxTool">UK Tax Calculator</a>
-          <a href="/vat" data-i18n="vatTool">VAT Calculator</a>
+          <a href="/upload" data-i18n="taxTool">Image Upload</a>
+          <a href="/image-api" data-i18n="vatTool">Upload API</a>
           <a href="/json" data-i18n="jsonTool">JSON Formatter</a>
-          <a href="/image" data-i18n="imageTool">Image Compressor</a>
+          <a href="/diff" data-i18n="imageTool">Text Diff</a>
           <a href="/qr" data-i18n="qrTool">QR Code Generator</a>
           <a href="/password" data-i18n="passwordTool">Password Generator</a>
         </div>
@@ -126,6 +126,11 @@
       "fr":{htmlLang:"fr",title:"Page introuvable - Mini-Tools.uk",description:"La page Mini-Tools.uk demandée est introuvable.",skip:"Aller au contenu",heroTitle:"Page introuvable",heroText:"La page demandée n’existe pas, a peut-être été supprimée ou l’adresse est incorrecte.",homeButton:"Retour à l’accueil",searchButton:"Rechercher tous les outils",popularTitle:"Outils populaires",taxTool:"Calculateur d’impôt UK",vatTool:"Calculateur VAT",jsonTool:"Formateur JSON",imageTool:"Compresseur d’images",qrTool:"Générateur de QR code",passwordTool:"Générateur de mots de passe"},
       "es":{htmlLang:"es",title:"Página no encontrada - Mini-Tools.uk",description:"No se encontró la página solicitada de Mini-Tools.uk.",skip:"Saltar al contenido",heroTitle:"Página no encontrada",heroText:"La página solicitada no existe, puede haber sido eliminada o la dirección es incorrecta.",homeButton:"Volver al inicio",searchButton:"Buscar todas las herramientas",popularTitle:"Herramientas populares",taxTool:"Calculadora de impuestos UK",vatTool:"Calculadora VAT",jsonTool:"Formateador JSON",imageTool:"Compresor de imágenes",qrTool:"Generador de códigos QR",passwordTool:"Generador de contraseñas"}
     };
+    Object.assign(window.PAGE_TRANSLATIONS.en, { searchButton:"Upload an image", taxTool:"Image Upload", vatTool:"Upload API", imageTool:"Text Diff" });
+    Object.assign(window.PAGE_TRANSLATIONS["zh-CN"], { searchButton:"上传图片", taxTool:"图片上传", vatTool:"上传 API", imageTool:"文本对比" });
+    Object.assign(window.PAGE_TRANSLATIONS.de, { searchButton:"Bild hochladen", taxTool:"Bild-Upload", vatTool:"Upload-API", imageTool:"Textvergleich" });
+    Object.assign(window.PAGE_TRANSLATIONS.fr, { searchButton:"Envoyer une image", taxTool:"Envoi d’image", vatTool:"API d’envoi", imageTool:"Comparaison de texte" });
+    Object.assign(window.PAGE_TRANSLATIONS.es, { searchButton:"Subir una imagen", taxTool:"Subir imagen", vatTool:"API de subida", imageTool:"Comparación de texto" });
   </script>
   <script src="/site-version.js"></script>
   <script src="/site-i18n.js"></script>

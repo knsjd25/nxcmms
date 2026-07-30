@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Image Upload API Documentation - Mini Tools</title>
   <meta name="description" content="Image upload API documentation for single and batch uploads, assigned user authentication, quota checks, response fields, limits and error codes.">
-  <meta name="robots" content="noindex,follow">
+  <meta name="robots" content="index,follow,max-image-preview:large">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Image Upload API Documentation - Mini Tools">
   <meta property="og:description" content="Integrate single or batch image uploads and query used and remaining quota.">
@@ -19,6 +19,20 @@
   <link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/image-api">
   <link rel="icon" href="https://assets.mini-tools.uk/image/icon-64x64.png">
   <link rel="stylesheet" href="site-nav.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Image Upload API Documentation",
+    "description": "Documentation for authenticated single and batch image uploads, quota queries, upload records and image deletion.",
+    "url": "https://mini-tools.uk/image-api",
+    "inLanguage": "en-GB",
+    "author": {
+      "@type": "Organization",
+      "name": "Mini-Tools"
+    }
+  }
+  </script>
   <style>
     :root{
       --bg:#f6f8fb;
@@ -488,7 +502,7 @@
         <h2 data-i18n="relatedTitle">Related tools</h2>
         <div class="related-links">
           <a href="/upload" data-i18n="relatedUpload">Web image upload</a>
-          <a href="/image" data-i18n="relatedImage">Image tools</a>
+          <a href="/#developer-tools" data-i18n="relatedImage">Developer tools</a>
           <a href="/contact" data-i18n="relatedContact">Contact</a>
         </div>
       </section>
@@ -641,6 +655,12 @@
         relatedTitle:"Herramientas relacionadas",relatedUpload:"Subida web",relatedImage:"Herramientas de imagen",relatedContact:"Contacto",faqTitle:"FAQ",faq1Q:"¿Una solicitud puede subir varias imágenes?",faq1A:"Sí. Repite file para cada imagen dentro de los límites.",faq2Q:"¿Basta el ID de usuario?",faq2A:"No. Envía el ID y la API Key correspondiente.",faq3Q:"¿Cómo consulto la cuota restante?",faq3A:"Llama a GET /v1/usage o lee usage en la respuesta de subida.",copied:"Copiado"
       }
     };
+
+    Object.assign(translations.en, { relatedImage:"Developer tools" });
+    Object.assign(translations["zh-CN"], { relatedImage:"开发者工具" });
+    Object.assign(translations.de, { relatedImage:"Entwicklertools" });
+    Object.assign(translations.fr, { relatedImage:"Outils de développement" });
+    Object.assign(translations.es, { relatedImage:"Herramientas de desarrollo" });
 
     function normalizeLang(value) {
       const raw = String(value || "en").toLowerCase();

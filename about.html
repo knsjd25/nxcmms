@@ -429,16 +429,16 @@
             <a href="/contact" data-i18n="relatedContact">Contact</a>
             <a href="/privacy" data-i18n="relatedPrivacy">Privacy policy</a>
 
-            <a href="/#popular" data-i18n="relatedTools">Tools</a>
+            <a href="/#developer-tools" data-i18n="relatedTools">Developer tools</a>
           </div>
         </div>
 
         <div class="side-card">
           <h3 data-i18n="sideToolsTitle">Popular tools</h3>
           <div class="related-links">
-            <a href="/tax" data-i18n="popularTax">UK tax calculator</a>
+            <a href="/upload" data-i18n="popularTax">Image upload</a>
             <a href="/json" data-i18n="popularJson">JSON formatter</a>
-            <a href="/image" data-i18n="popularImage">Image resizer</a>
+            <a href="/token" data-i18n="popularImage">Token calculator</a>
             <a href="/password" data-i18n="popularPassword">Password generator</a>
           </div>
         </div>
@@ -864,6 +864,12 @@
         popularPassword:"Generador de contraseñas"
       }
     };
+
+    Object.assign(translations.en, { relatedTools:"Developer tools", popularTax:"Image upload", popularImage:"Token calculator" });
+    Object.assign(translations["zh-CN"], { relatedTools:"开发者工具", popularTax:"图片上传", popularImage:"Token 计算器" });
+    Object.assign(translations.de, { relatedTools:"Entwicklertools", popularTax:"Bild-Upload", popularImage:"Token-Rechner" });
+    Object.assign(translations.fr, { relatedTools:"Outils de développement", popularTax:"Envoi d’image", popularImage:"Calculateur de tokens" });
+    Object.assign(translations.es, { relatedTools:"Herramientas de desarrollo", popularTax:"Subir imagen", popularImage:"Calculadora de tokens" });
 
     const allowedLangs = ["en", "zh-CN", "de", "fr", "es"];
     let currentLang = "en";

@@ -36,38 +36,46 @@ const HTML_LANG_FALLBACK = {
   fr: "fr",
   es: "es",
 };
+const OPEN_GRAPH_LOCALES = {
+  en: "en_GB",
+  "zh-CN": "zh_CN",
+  de: "de_DE",
+  fr: "fr_FR",
+  es: "es_ES",
+};
 
 const SITE_SHELL_LABELS = {
-  en: { home: "Home", search: "Search", popular: "Popular", ukApps: "UK Calculators", devTools: "Developer Tools", other: "Other Tools", about: "About", contact: "Contact", privacy: "Privacy", language: "English", subtitle: "Useful online tools", navigation: "Primary navigation", languageAria: "Language" },
-  "zh-CN": { home: "首页", search: "搜索", popular: "热门工具", ukApps: "英国计算器", devTools: "开发者工具", other: "其他工具", about: "关于我们", contact: "联系我们", privacy: "隐私政策", language: "中文", subtitle: "实用在线工具", navigation: "主导航", languageAria: "语言" },
-  de: { home: "Startseite", search: "Suche", popular: "Beliebt", ukApps: "UK-Rechner", devTools: "Entwicklertools", other: "Weitere Tools", about: "Über uns", contact: "Kontakt", privacy: "Datenschutz", language: "Deutsch", subtitle: "Nützliche Online-Tools", navigation: "Hauptnavigation", languageAria: "Sprache" },
-  fr: { home: "Accueil", search: "Recherche", popular: "Populaires", ukApps: "Calculateurs britanniques", devTools: "Outils de développement", other: "Autres outils", about: "À propos", contact: "Contact", privacy: "Confidentialité", language: "Français", subtitle: "Outils en ligne utiles", navigation: "Navigation principale", languageAria: "Langue" },
-  es: { home: "Inicio", search: "Buscar", popular: "Populares", ukApps: "Calculadoras del Reino Unido", devTools: "Herramientas para desarrolladores", other: "Otras herramientas", about: "Acerca de", contact: "Contacto", privacy: "Privacidad", language: "Español", subtitle: "Herramientas en línea útiles", navigation: "Navegación principal", languageAria: "Idioma" },
+  en: { home: "Image Hosting", search: "Upload", popular: "API", ukApps: "Hosting Guides", devTools: "Developer Tools", other: "Support", about: "About", contact: "Contact", privacy: "Privacy", language: "English", subtitle: "Image hosting and developer tools", navigation: "Primary navigation", languageAria: "Language" },
+  "zh-CN": { home: "图床首页", search: "上传图片", popular: "API", ukApps: "图床指南", devTools: "开发者工具", other: "支持", about: "关于我们", contact: "联系我们", privacy: "隐私政策", language: "中文", subtitle: "图床与开发者工具", navigation: "主导航", languageAria: "语言" },
+  de: { home: "Bildhosting", search: "Upload", popular: "API", ukApps: "Hosting-Hilfe", devTools: "Entwicklertools", other: "Support", about: "Über uns", contact: "Kontakt", privacy: "Datenschutz", language: "Deutsch", subtitle: "Bildhosting und Entwicklertools", navigation: "Hauptnavigation", languageAria: "Sprache" },
+  fr: { home: "Hébergement", search: "Envoi", popular: "API", ukApps: "Guides", devTools: "Outils de développement", other: "Assistance", about: "À propos", contact: "Contact", privacy: "Confidentialité", language: "Français", subtitle: "Hébergement d’images et outils de développement", navigation: "Navigation principale", languageAria: "Langue" },
+  es: { home: "Alojamiento", search: "Subir", popular: "API", ukApps: "Guías", devTools: "Herramientas de desarrollo", other: "Soporte", about: "Acerca de", contact: "Contacto", privacy: "Privacidad", language: "Español", subtitle: "Alojamiento de imágenes y herramientas de desarrollo", navigation: "Navegación principal", languageAria: "Idioma" },
+};
+const SITE_SHELL_HREFS = {
+  home: "/",
+  search: "/upload",
+  popular: "/image-api",
+  ukApps: "/#hosting-guides",
+  devTools: "/#developer-tools",
+  other: "/contact",
+  about: "/about",
+  contact: "/contact",
+  privacy: "/privacy",
 };
 
 const INDEXABLE_PATHS = new Set([
   "/",
-  "/tax",
   "/upload",
+  "/image-api",
   "/free-image-hosting",
   "/temporary-image-upload",
   "/share-image-link",
-  "/vat",
-  "/mortgage",
-  "/stamp-duty",
-  "/ir35",
-  "/dividend",
   "/json",
   "/diff",
   "/token",
   "/qr",
   "/password",
-  "/fuel",
-  "/working-days",
-  "/image",
-  "/pdf2img",
   "/color-picker",
-  "/weight",
   "/about",
   "/contact",
   "/privacy",
@@ -94,7 +102,26 @@ const REMOVE_LINK_HREF_PARTS = [
   "image_admin",
 ];
 
-const RETIRED_PATHS = new Set(["/game", "/json2", "/unit", "/word"]);
+const RETIRED_PATHS = new Set([
+  "/game",
+  "/json2",
+  "/unit",
+  "/word",
+  "/tax",
+  "/vat",
+  "/mortgage",
+  "/stamp-duty",
+  "/ir35",
+  "/dividend",
+  "/working-days",
+  "/fuel",
+  "/weight",
+  "/image",
+  "/image-compressor",
+  "/pdf2img",
+  "/pdf-to-image",
+  "/map",
+]);
 
 function normalizePathname(pathname) {
   if (!pathname || pathname === "/index.html") return "/";
@@ -580,6 +607,7 @@ function renderTranslatedSiteShell(html, lang) {
   const labels = SITE_SHELL_LABELS[lang] || SITE_SHELL_LABELS.en;
   for (const key of ["home", "search", "popular", "ukApps", "devTools", "other", "about", "contact", "privacy"]) {
     html = replaceElementInnerByAttribute(html, "data-site-nav", key, labels[key], false);
+    html = setAttributeOnElementByAttribute(html, "data-site-nav", key, "href", SITE_SHELL_HREFS[key]);
   }
   html = replaceElementInnerByAttribute(html, "data-site-shell", "subtitle", labels.subtitle, false);
   html = setAttributeOnElementByAttribute(html, "data-site-shell-aria", "navigation", "aria-label", labels.navigation);
@@ -682,9 +710,12 @@ function updateSeoForLang(html, dict, pathname, lang, url, robots) {
   if (ogTitle) html = setOrInsertMetaProperty(html, "og:title", ogTitle);
   if (ogDescription) html = setOrInsertMetaProperty(html, "og:description", ogDescription);
   html = setOrInsertMetaProperty(html, "og:url", canonical);
+  html = setOrInsertMetaProperty(html, "og:locale", OPEN_GRAPH_LOCALES[lang] || OPEN_GRAPH_LOCALES.en);
+  if (dict?.schemaImageAlt) html = setOrInsertMetaProperty(html, "og:image:alt", dict.schemaImageAlt);
 
   if (title) html = setOrInsertMetaName(html, "twitter:title", title);
   if (description) html = setOrInsertMetaName(html, "twitter:description", description);
+  if (dict?.schemaImageAlt) html = setOrInsertMetaName(html, "twitter:image:alt", dict.schemaImageAlt);
 
   html = injectHeadSeo(html, pathname, lang, url, robots);
 
@@ -725,25 +756,73 @@ function updateStructuredDataServerSide(html, dict, pathname, lang, url) {
   const canonical = buildCanonical(pathname, lang, url);
 
   if (dict.schemaAppName || dict.schemaDescription) {
+    const organizationId = `${SITE_ORIGIN}/#organization`;
+    const websiteId = `${SITE_ORIGIN}/#website`;
+    const graph = [];
+
+    if (dict.schemaWebsiteName) {
+      graph.push(
+        {
+          "@type": "Organization",
+          "@id": organizationId,
+          "name": dict.schemaOrganizationName || "Mini Tools",
+          "url": `${SITE_ORIGIN}/`,
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://assets.mini-tools.uk/image/icon-512x512.png",
+          },
+          "email": "yuyananuu@gmail.com",
+        },
+        {
+          "@type": "WebSite",
+          "@id": websiteId,
+          "name": dict.schemaWebsiteName,
+          "url": `${SITE_ORIGIN}/`,
+          "description": dict.schemaDescription || dict.seoDescription || "",
+          "inLanguage": dict.schemaLanguage || HTML_LANG_FALLBACK[lang] || "en-GB",
+          "publisher": { "@id": organizationId },
+        },
+      );
+    }
+
+    const application = {
+      "@type": "SoftwareApplication",
+      "name": dict.schemaAppName || dict.title || dict.seoTitle || "Mini-Tools.uk",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "url": canonical,
+      "description": dict.schemaDescription || dict.description || dict.seoDescription || "",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    };
+
+    if (dict.schemaWebsiteName) {
+      Object.assign(application, {
+        "@id": `${canonical}#image-hosting-app`,
+        "inLanguage": dict.schemaLanguage || HTML_LANG_FALLBACK[lang] || "en-GB",
+        "isAccessibleForFree": true,
+        "featureList": String(dict.schemaFeatureList || "").split("|").filter(Boolean),
+        "image": {
+          "@type": "ImageObject",
+          "url": `${SITE_ORIGIN}/assets/image-hosting-hero.png`,
+          "width": 1774,
+          "height": 887,
+          "caption": dict.schemaImageAlt || dict.schemaAppName || "Mini Tools Image Hosting",
+        },
+        "provider": { "@id": organizationId },
+      });
+    }
+    graph.push(application);
+
     const appSchema = {
       "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "SoftwareApplication",
-          "name": dict.schemaAppName || dict.title || dict.seoTitle || "Mini-Tools.uk",
-          "applicationCategory": "UtilitiesApplication",
-          "operatingSystem": "Web",
-          "url": canonical,
-          "description": dict.schemaDescription || dict.description || dict.seoDescription || "",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        },
-      ],
+      "@graph": graph,
     };
 
     const faq = buildFaqItems(dict);
     if (faq.length) {
       appSchema["@graph"].push({
         "@type": "FAQPage",
+        ...(dict.schemaWebsiteName ? { "@id": `${canonical}#faq` } : {}),
         "mainEntity": faq,
       });
     }
@@ -1132,11 +1211,11 @@ function buildFallback404Html(requestUrl) {
   const url = new URL(requestUrl);
   const lang = langFromUrl(url);
   const copy = {
-    en: { title: "Page not found", text: "The page you requested does not exist, may have been removed, or the address may be incorrect.", home: "Return to homepage", search: "Search all tools", popular: "Popular tools", navHome: "Home", navSearch: "Search", navPopular: "Popular", navAbout: "About", navContact: "Contact", navPrivacy: "Privacy" },
-    "zh-CN": { title: "页面未找到", text: "你请求的页面不存在、可能已被删除，或地址输入有误。", home: "返回首页", search: "搜索全部工具", popular: "热门工具", navHome: "首页", navSearch: "搜索", navPopular: "热门工具", navAbout: "关于我们", navContact: "联系我们", navPrivacy: "隐私政策" },
-    de: { title: "Seite nicht gefunden", text: "Die angeforderte Seite existiert nicht, wurde möglicherweise entfernt oder die Adresse ist falsch.", home: "Zur Startseite", search: "Alle Tools durchsuchen", popular: "Beliebte Tools", navHome: "Startseite", navSearch: "Suche", navPopular: "Beliebt", navAbout: "Über uns", navContact: "Kontakt", navPrivacy: "Datenschutz" },
-    fr: { title: "Page introuvable", text: "La page demandée n’existe pas, a peut-être été supprimée ou l’adresse est incorrecte.", home: "Retour à l’accueil", search: "Rechercher tous les outils", popular: "Outils populaires", navHome: "Accueil", navSearch: "Recherche", navPopular: "Populaires", navAbout: "À propos", navContact: "Contact", navPrivacy: "Confidentialité" },
-    es: { title: "Página no encontrada", text: "La página solicitada no existe, puede haber sido eliminada o la dirección es incorrecta.", home: "Volver al inicio", search: "Buscar todas las herramientas", popular: "Herramientas populares", navHome: "Inicio", navSearch: "Buscar", navPopular: "Populares", navAbout: "Acerca de", navContact: "Contacto", navPrivacy: "Privacidad" },
+    en: { title: "Page not found", text: "The page you requested does not exist, may have been removed, or the address may be incorrect.", home: "Return to image hosting", search: "Upload an image", popular: "Available tools", navHome: "Image Hosting", navSearch: "Upload", navPopular: "API", navAbout: "About", navContact: "Contact", navPrivacy: "Privacy" },
+    "zh-CN": { title: "页面未找到", text: "你请求的页面不存在、可能已被删除，或地址输入有误。", home: "返回图床首页", search: "上传图片", popular: "可用工具", navHome: "图床首页", navSearch: "上传图片", navPopular: "API", navAbout: "关于我们", navContact: "联系我们", navPrivacy: "隐私政策" },
+    de: { title: "Seite nicht gefunden", text: "Die angeforderte Seite existiert nicht, wurde möglicherweise entfernt oder die Adresse ist falsch.", home: "Zum Bildhosting", search: "Bild hochladen", popular: "Verfügbare Tools", navHome: "Bildhosting", navSearch: "Upload", navPopular: "API", navAbout: "Über uns", navContact: "Kontakt", navPrivacy: "Datenschutz" },
+    fr: { title: "Page introuvable", text: "La page demandée n’existe pas, a peut-être été supprimée ou l’adresse est incorrecte.", home: "Retour à l’hébergement", search: "Envoyer une image", popular: "Outils disponibles", navHome: "Hébergement", navSearch: "Envoi", navPopular: "API", navAbout: "À propos", navContact: "Contact", navPrivacy: "Confidentialité" },
+    es: { title: "Página no encontrada", text: "La página solicitada no existe, puede haber sido eliminada o la dirección es incorrecta.", home: "Volver al alojamiento", search: "Subir una imagen", popular: "Herramientas disponibles", navHome: "Alojamiento", navSearch: "Subir", navPopular: "API", navAbout: "Acerca de", navContact: "Contacto", navPrivacy: "Privacidad" },
   }[lang];
   const langLinks = SUPPORTED_LANGS.map((code) => {
     const target = new URL(url.pathname, SITE_ORIGIN);
@@ -1146,8 +1225,8 @@ function buildFallback404Html(requestUrl) {
   }).join("");
   const suffix = lang === DEFAULT_LANG ? "" : `?lang=${encodeURIComponent(lang)}`;
   const homeHref = `/${suffix}`;
-  const searchHref = lang === DEFAULT_LANG ? "/#search" : `/${suffix}#search`;
-  const popularHref = lang === DEFAULT_LANG ? "/#popular" : `/${suffix}#popular`;
+  const searchHref = `/upload${suffix}`;
+  const popularHref = `/image-api${suffix}`;
 
   return `<!doctype html>
 <html lang="${HTML_LANG_FALLBACK[lang] || "en-GB"}">
@@ -1168,7 +1247,7 @@ function buildFallback404Html(requestUrl) {
   </div></nav>
   <main class="error-wrap"><section class="error-card"><div class="error-code">404</div><h1>${escapeHtml(copy.title)}</h1><p>${escapeHtml(copy.text)}</p>
     <div class="error-actions"><a class="button" href="${homeHref}">${escapeHtml(copy.home)}</a><a class="button secondary" href="${searchHref}">${escapeHtml(copy.search)}</a></div>
-    <div class="popular"><h2>${escapeHtml(copy.popular)}</h2><div class="popular-tools"><a href="/tax${suffix}">UK Tax Calculator</a><a href="/vat${suffix}">VAT Calculator</a><a href="/json${suffix}">JSON Formatter</a><a href="/image${suffix}">Image Compressor</a><a href="/qr${suffix}">QR Code Generator</a></div></div>
+    <div class="popular"><h2>${escapeHtml(copy.popular)}</h2><div class="popular-tools"><a href="/upload${suffix}">Image Upload</a><a href="/image-api${suffix}">Upload API</a><a href="/json${suffix}">JSON Formatter</a><a href="/diff${suffix}">Text Diff</a><a href="/qr${suffix}">QR Code Generator</a></div></div>
     <div class="language-links">${langLinks}</div>
   </section></main>
   <footer class="footer"><div class="footer-inner"><span>Copyright 2026 Mini-Tools.uk</span><div class="footer-links"><a href="${homeHref}">${escapeHtml(copy.navHome)}</a><a href="/about${suffix}">${escapeHtml(copy.navAbout)}</a><a href="/contact${suffix}">${escapeHtml(copy.navContact)}</a><a href="/privacy${suffix}">${escapeHtml(copy.navPrivacy)}</a><a href="mailto:yuyananuu@gmail.com" data-cfemail="false">yuyananuu@gmail.com</a></div></div></footer>
@@ -1213,14 +1292,6 @@ export default {
     const legacyRedirect = maybeRedirectLegacyPath(initialPathname);
     if (legacyRedirect) {
       return Response.redirect(legacyRedirect, 301);
-    }
-
-    if (initialPathname === "/image-compressor") {
-      return Response.redirect(`${SITE_ORIGIN}/image${initialUrl.search}`, 301);
-    }
-
-    if (initialPathname === "/pdf-to-image") {
-      return Response.redirect(`${SITE_ORIGIN}/pdf2img${initialUrl.search}`, 301);
     }
 
     if (initialPathname === "/terms" || initialPathname === "/acceptable-use") {

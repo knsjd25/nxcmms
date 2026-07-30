@@ -7,11 +7,22 @@
   const SAVED_LANGUAGE_KEY = "miniToolsLang";
   const HTML_LANG = { en: "en-GB", "zh-CN": "zh-CN", de: "de", fr: "fr", es: "es" };
   const NAV_LABELS = {
-    en: { home: "Home", search: "Search", popular: "Popular", ukApps: "UK Calculators", devTools: "Developer Tools", other: "Other Tools", about: "About", contact: "Contact", privacy: "Privacy", language: "English", subtitle: "Useful online tools", navigation: "Primary navigation", languageAria: "Language" },
-    "zh-CN": { home: "首页", search: "搜索", popular: "热门工具", ukApps: "英国计算器", devTools: "开发者工具", other: "其他工具", about: "关于我们", contact: "联系我们", privacy: "隐私政策", language: "中文", subtitle: "实用在线工具", navigation: "主导航", languageAria: "语言" },
-    de: { home: "Startseite", search: "Suche", popular: "Beliebt", ukApps: "UK-Rechner", devTools: "Entwicklertools", other: "Weitere Tools", about: "Über uns", contact: "Kontakt", privacy: "Datenschutz", language: "Deutsch", subtitle: "Nützliche Online-Tools", navigation: "Hauptnavigation", languageAria: "Sprache" },
-    fr: { home: "Accueil", search: "Recherche", popular: "Populaires", ukApps: "Calculateurs britanniques", devTools: "Outils de développement", other: "Autres outils", about: "À propos", contact: "Contact", privacy: "Confidentialité", language: "Français", subtitle: "Outils en ligne utiles", navigation: "Navigation principale", languageAria: "Langue" },
-    es: { home: "Inicio", search: "Buscar", popular: "Populares", ukApps: "Calculadoras del Reino Unido", devTools: "Herramientas para desarrolladores", other: "Otras herramientas", about: "Acerca de", contact: "Contacto", privacy: "Privacidad", language: "Español", subtitle: "Herramientas en línea útiles", navigation: "Navegación principal", languageAria: "Idioma" }
+    en: { home: "Image Hosting", search: "Upload", popular: "API", ukApps: "Hosting Guides", devTools: "Developer Tools", other: "Support", about: "About", contact: "Contact", privacy: "Privacy", language: "English", subtitle: "Image hosting and developer tools", navigation: "Primary navigation", languageAria: "Language" },
+    "zh-CN": { home: "图床首页", search: "上传图片", popular: "API", ukApps: "图床指南", devTools: "开发者工具", other: "支持", about: "关于我们", contact: "联系我们", privacy: "隐私政策", language: "中文", subtitle: "图床与开发者工具", navigation: "主导航", languageAria: "语言" },
+    de: { home: "Bildhosting", search: "Upload", popular: "API", ukApps: "Hosting-Hilfe", devTools: "Entwicklertools", other: "Support", about: "Über uns", contact: "Kontakt", privacy: "Datenschutz", language: "Deutsch", subtitle: "Bildhosting und Entwicklertools", navigation: "Hauptnavigation", languageAria: "Sprache" },
+    fr: { home: "Hébergement", search: "Envoi", popular: "API", ukApps: "Guides", devTools: "Outils de développement", other: "Assistance", about: "À propos", contact: "Contact", privacy: "Confidentialité", language: "Français", subtitle: "Hébergement d’images et outils de développement", navigation: "Navigation principale", languageAria: "Langue" },
+    es: { home: "Alojamiento", search: "Subir", popular: "API", ukApps: "Guías", devTools: "Herramientas de desarrollo", other: "Soporte", about: "Acerca de", contact: "Contacto", privacy: "Privacidad", language: "Español", subtitle: "Alojamiento de imágenes y herramientas de desarrollo", navigation: "Navegación principal", languageAria: "Idioma" }
+  };
+  const NAV_HREFS = {
+    home: "/",
+    search: "/upload",
+    popular: "/image-api",
+    ukApps: "/#hosting-guides",
+    devTools: "/#developer-tools",
+    other: "/contact",
+    about: "/about",
+    contact: "/contact",
+    privacy: "/privacy"
   };
   let currentLang = "en";
   let applyingPageHook = false;
@@ -152,8 +163,10 @@
     const labels = NAV_LABELS[currentLang];
     document.documentElement.lang = HTML_LANG[currentLang] || "en-GB";
     document.querySelectorAll("[data-site-nav]").forEach((item) => {
-      const value = labels[item.dataset.siteNav];
+      const key = item.dataset.siteNav;
+      const value = labels[key];
       if (value) item.textContent = value;
+      if (item.matches("a") && NAV_HREFS[key]) item.setAttribute("href", NAV_HREFS[key]);
     });
     document.querySelectorAll('[data-site-shell="subtitle"]').forEach((item) => { item.textContent = labels.subtitle; });
     document.querySelectorAll('[data-site-shell-aria="navigation"]').forEach((item) => { item.setAttribute("aria-label", labels.navigation); });

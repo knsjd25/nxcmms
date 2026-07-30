@@ -7,36 +7,42 @@ import worker from "../_worker.js";
 
 const root = new URL("../", import.meta.url);
 const read = (name) => readFileSync(new URL(name, root), "utf8");
-const titleHtmlFiles = readdirSync(root).filter((name) => name.endsWith(".html") && !["image_admin.html", "map.html"].includes(name));
-const htmlFiles = titleHtmlFiles.filter((name) => name !== "404.html");
+const titleHtmlFiles = readdirSync(root).filter((name) => name.endsWith(".html") && name !== "image_admin.html");
+const htmlFiles = [
+  "index.html",
+  "upload.html",
+  "image-api.html",
+  "free-image-hosting.html",
+  "temporary-image-upload.html",
+  "share-image-link.html",
+  "json.html",
+  "diff.html",
+  "token.html",
+  "qr.html",
+  "password.html",
+  "color-picker.html",
+  "about.html",
+  "contact.html",
+  "privacy.html",
+];
 
 const approvedPaths = [
-  "/", "/tax", "/vat", "/mortgage", "/ir35", "/stamp-duty", "/dividend",
-  "/json", "/diff", "/token", "/qr", "/password",
-  "/upload", "/free-image-hosting", "/temporary-image-upload", "/share-image-link",
-  "/image", "/pdf2img", "/color-picker",
-  "/working-days", "/fuel", "/weight",
+  "/", "/upload", "/image-api",
+  "/free-image-hosting", "/temporary-image-upload", "/share-image-link",
+  "/json", "/diff", "/token", "/qr", "/password", "/color-picker",
   "/about", "/contact", "/privacy",
 ];
 
 const toolPages = htmlFiles.filter((name) => !["index.html", "about.html", "contact.html", "privacy.html"].includes(name));
-const financePages = ["tax.html", "vat.html", "mortgage.html", "ir35.html", "stamp-duty.html", "dividend.html"];
 const bespokeGuidancePages = {
-  "dividend.html": ["howTitle", "usefulTitle", "relatedTitle"],
-  "fuel.html": ["articleTitle", "formulaTitle", "whyUsefulTitle"],
-  "ir35.html": ["contentTitle", "notDoTitle", "relatedTitle"],
-  "image.html": ["articleTitle", "useTitle", "relatedTitle"],
   "json.html": ["articleTitle", "privacyTitle", "useTitle"],
-  "mortgage.html": ["articleTitle", "stressTitle", "sideAssumptionsTitle"],
-  "pdf2img.html": ["articleTitle", "tipsTitle", "relatedTitle"],
   "qr.html": ["articleTitle", "tipsTitle", "relatedTitle"],
   "token.html": ["articleTitle", "privacyTitle", "useTitle"],
-  "tax.html": ["articleTitle", "excludeTitle", "sideAssumptionsTitle"],
-  "stamp-duty.html": ["articleTitle", "limitsTitle", "relatedTitle"],
-  "vat.html": ["articleTitle", "zeroTitle", "thresholdTitle"],
-  "weight.html": ["howTitle", "formulaTitle", "roundingTitle"],
-  "working-days.html": ["articleTitle", "howToTitle", "limitsTitle"],
 };
+const retiredSourceFiles = [
+  "tax.html", "vat.html", "mortgage.html", "ir35.html", "stamp-duty.html", "dividend.html",
+  "working-days.html", "fuel.html", "weight.html", "image.html", "pdf2img.html", "map.html",
+];
 
 const routeForFile = (file) => file === "index.html" ? "/" : `/${file.replace(/\.html$/, "")}`;
 const escapeRe = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -57,9 +63,9 @@ function translationTitleValues(html) {
 function runSharedI18n({ search = "", savedLanguage = null, browserLanguages = ["en-GB"] } = {}) {
   const replacedUrls = [];
   const location = {
-    href: `https://mini-tools.uk/tax${search}`,
+    href: `https://mini-tools.uk/json${search}`,
     origin: "https://mini-tools.uk",
-    pathname: "/tax",
+    pathname: "/json",
     search,
     hash: "",
   };
@@ -155,7 +161,7 @@ test("all public page titles stay concise in static HTML and translations", () =
     }
   }
 
-  for (const file of ["upload.html", "qr.html", "mortgage.html", "weight.html"]) {
+  for (const file of ["upload.html", "qr.html", "password.html", "color-picker.html"]) {
     const html = read(file);
     const staticTitle = html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1].trim() || "";
     assert.ok(staticTitle.length <= 70, `${file}: focused title is ${staticTitle.length} characters`);
@@ -181,48 +187,6 @@ test("public source does not create Cloudflare email-protection crawl targets", 
   assert.doesNotMatch(read("sitemap.xml"), /cdn-cgi|email-protection/i, "sitemap must not include Cloudflare system URLs");
 });
 
-test("finance pages use translated Last checked source dates", () => {
-  for (const file of financePages) {
-    const html = read(file);
-    assert.doesNotMatch(html, /<time\s+datetime=["']2026-06-09["']>\s*Last checked:\s*9 June 2026\s*<\/time>/i, `${file}: fixed English Last checked`);
-    assert.match(html, /data-i18n=["']lastCheckedLabel["']/, `${file}: lastCheckedLabel`);
-    assert.match(html, /data-i18n=["']lastCheckedDate["']/, `${file}: lastCheckedDate`);
-    assert.ok((html.match(/lastCheckedLabel\s*:/g) || []).length >= 5, `${file}: five lastCheckedLabel translations`);
-    assert.ok((html.match(/lastCheckedDate\s*:/g) || []).length >= 5, `${file}: five lastCheckedDate translations`);
-  }
-});
-
-test("finance result panels do not server-render fixed English initial states", () => {
-  const vat = read("vat.html");
-  assert.match(firstElementById(vat, "result-mode"), /data-i18n=["']resultModeAdd["']/, "vat result-mode is translatable");
-  assert.match(firstElementById(vat, "result-note"), /data-i18n=["']noteDefault["']/, "vat result-note is translatable");
-
-  const stampDuty = read("stamp-duty.html");
-  assert.match(firstElementById(stampDuty, "scenarioPill"), /data-i18n=["']standardResidential["']/, "stamp-duty scenarioPill is translatable");
-  assert.match(firstElementById(stampDuty, "surchargeSummary"), /data-i18n=["']noSurcharge["']/, "stamp-duty surchargeSummary is translatable");
-  assert.match(firstElementById(stampDuty, "resultNote"), /data-i18n=["']noteStandard["']/, "stamp-duty resultNote is translatable");
-
-  const ir35 = read("ir35.html");
-  for (const key of ["perMonth", "moreOutside", "moreInside", "noDifference", "initialMonthly", "initialDifference"]) {
-    assert.match(ir35, new RegExp(`${key}\\s*:`), `ir35: ${key}`);
-  }
-  assert.match(firstElementById(ir35, "insideMonthlyHeadline"), /data-i18n=["']initialMonthly["']/, "ir35 inside monthly initial state");
-  assert.match(firstElementById(ir35, "outsideMonthlyHeadline"), /data-i18n=["']initialMonthly["']/, "ir35 outside monthly initial state");
-  assert.match(firstElementById(ir35, "differenceHeadline"), /data-i18n=["']initialDifference["']/, "ir35 difference initial state");
-
-  const dividend = read("dividend.html");
-  assert.match(dividend, /monthlyEquivalent\s*:/, "dividend monthlyEquivalent translation key");
-  assert.match(firstElementById(dividend, "monthly-equivalent"), /data-i18n=["']initialMonthlyEquivalent["']/, "dividend monthly equivalent initial state");
-});
-
-test("vat page keeps English URLs clean while preserving non-English lang parameters", () => {
-  const html = read("vat.html");
-  assert.doesNotMatch(html, /searchParams\.set\(["']lang["']\s*,\s*["']en["']\)/, "vat must not force ?lang=en");
-  assert.match(html, /currentLang\s*===\s*["']en["'][\s\S]*?searchParams\.delete\(["']lang["']\)/, "vat English links delete lang");
-  assert.match(html, /else\s+u\.searchParams\.set\(["']lang["']\s*,\s*currentLang\)/, "vat non-English links preserve lang");
-  assert.match(html, /currentLang\s*===\s*["']en["'][\s\S]*?u\.searchParams\.delete\(["']lang["']\)[\s\S]*?history\.replaceState/, "vat English current URL deletes lang");
-});
-
 test("standardizer excludes the 404 page from indexable page rewrites", () => {
   const standardizer = read("scripts/standardize-pages.ps1");
   const html404 = read("404.html");
@@ -231,20 +195,11 @@ test("standardizer excludes the 404 page from indexable page rewrites", () => {
   assert.doesNotMatch(html404, /<meta\s+name=["']robots["']\s+content=["']index,follow,max-image-preview:large["']/i, "404 must not be indexable");
 });
 
-test("worker server-renders finance initial result states in Chinese", async () => {
-  const expectations = [
-    ["/vat?lang=zh-CN", [["result-mode", "加 VAT"], ["result-note", "这是 VAT 数学计算结果"]], [["result-mode", "Add VAT"], ["result-note", "This is an arithmetic VAT result only"]]],
-    ["/stamp-duty?lang=zh-CN", [["scenarioPill", "普通住宅"], ["surchargeSummary", "无"], ["resultNote", "英格兰或北爱尔兰住宅"]], [["scenarioPill", "Standard residential"], ["resultNote", "This is a residential SDLT estimate"]]],
-    ["/ir35?lang=zh-CN", [["insideMonthlyHeadline", "月"], ["outsideMonthlyHeadline", "月"], ["differenceHeadline", "outside IR35"]], [["insideMonthlyHeadline", "per month"], ["differenceHeadline", "more outside IR35"]]],
-    ["/dividend?lang=zh-CN", [["monthly-equivalent", "月度折算"]], [["monthly-equivalent", "Monthly equivalent"]]],
-  ];
-
-  for (const [path, translated, fixedEnglish] of expectations) {
+test("worker retires finance calculators in every language", async () => {
+  for (const path of ["/vat?lang=zh-CN", "/stamp-duty?lang=de", "/ir35?lang=fr", "/dividend?lang=es"]) {
     const response = await fetchThroughWorker(path);
-    assert.equal(response.status, 200, path);
-    const html = await response.text();
-    for (const [id, expected] of translated) assert.match(elementTextById(html, id), new RegExp(escapeRe(expected)), `${path}: ${id}`);
-    for (const [id, unexpected] of fixedEnglish) assert.doesNotMatch(elementTextById(html, id), new RegExp(escapeRe(unexpected)), `${path}: ${id}`);
+    assert.equal(response.status, 410, path);
+    assert.match(response.headers.get("x-robots-tag") || "", /noindex,\s*follow/i, path);
   }
 });
 
@@ -399,9 +354,10 @@ test("homepage has one complete Twitter card metadata set", () => {
   const html = read("index.html");
   const expected = {
     card: "summary_large_image",
-    title: "Free Online Image Hosting and Mini Tools",
-    description: "Upload images, create shareable links, and use free image tools plus practical online calculators and browser utilities.",
-    image: "https://assets.mini-tools.uk/image/icon-512x512.png",
+    title: "Image Hosting, Image Upload &amp; Direct Links | Mini Tools",
+    description: "Upload an image without an account and receive a direct URL, Markdown, HTML or BBCode link.",
+    image: "https://mini-tools.uk/assets/image-hosting-hero.png",
+    "image:alt": "Mini Tools image hosting and direct link workflow",
   };
 
   for (const [name, content] of Object.entries(expected)) {
@@ -410,9 +366,8 @@ test("homepage has one complete Twitter card metadata set", () => {
     assert.match(matches[0][0], new RegExp(`content=["']${escapeRe(content)}["']`, "i"), `index.html: twitter:${name}`);
   }
 
-  const homepageScript = html.match(/<script id=["']homepage-language-and-tools["']>([\s\S]*?)<\/script>/i)?.[1] || "";
-  assert.match(homepageScript, /updateMeta\(["']twitter:title["']/, "homepage updates translated Twitter titles");
-  assert.match(homepageScript, /updateMeta\(["']twitter:description["']/, "homepage updates translated Twitter descriptions");
+  assert.match(read("site-i18n.js"), /meta\[name=["']twitter:title["']\]/, "shared runtime updates translated Twitter titles");
+  assert.match(read("site-i18n.js"), /meta\[name=["']twitter:description["']\]/, "shared runtime updates translated Twitter descriptions");
 });
 
 test("shared navigation gives long translated labels enough responsive space", () => {
@@ -468,11 +423,11 @@ test("shared language runtime updates descriptions and syncs an inferred non-Eng
 
   assert.deepEqual(runSharedI18n({ savedLanguage: "zh-CN" }), {
     lang: "zh-CN",
-    replacedUrls: ["/tax?lang=zh-CN"],
+    replacedUrls: ["/json?lang=zh-CN"],
   });
   assert.deepEqual(runSharedI18n({ search: "?mode=compact", browserLanguages: ["de-DE"] }), {
     lang: "de",
-    replacedUrls: ["/tax?mode=compact&lang=de"],
+    replacedUrls: ["/json?mode=compact&lang=de"],
   });
   assert.deepEqual(runSharedI18n({ savedLanguage: "en" }), {
     lang: "en",
@@ -491,21 +446,29 @@ test("homepage delegates language control events to the shared runtime", () => {
 test("shared navigation uses the required five-language labels", () => {
   const runtime = read("site-i18n.js");
   for (const expected of [
-    'en: { home: "Home", search: "Search", popular: "Popular", ukApps: "UK Calculators"',
-    'ukApps: "英国计算器"',
-    'ukApps: "UK-Rechner"',
-    'ukApps: "Calculateurs britanniques"',
-    'ukApps: "Calculadoras del Reino Unido"',
+    'en: { home: "Image Hosting", search: "Upload", popular: "API", ukApps: "Hosting Guides"',
+    'ukApps: "图床指南"',
+    'ukApps: "Hosting-Hilfe"',
+    'ukApps: "Guides"',
+    'ukApps: "Guías"',
   ]) {
     assert.match(runtime, new RegExp(escapeRe(expected)), expected);
   }
+  for (const [key, href] of Object.entries({
+    home: "/", search: "/upload", popular: "/image-api", ukApps: "/#hosting-guides",
+    devTools: "/#developer-tools", other: "/contact",
+  })) {
+    assert.match(runtime, new RegExp(`${key}:\\s*["']${escapeRe(href)}["']`), `${key}: ${href}`);
+  }
 });
 
-test("homepage exposes every formal route in initial HTML", () => {
+test("homepage exposes every retained public route in initial HTML", () => {
   const homepage = read("index.html");
   for (const path of approvedPaths.filter((path) => path !== "/")) {
     assert.match(homepage, new RegExp(`href=["']${escapeRe(path)}["']`), `index.html: static link ${path}`);
   }
+  assert.doesNotMatch(homepage, /id=["']fileInput["']|const\s+WORKER_URL|new\s+FormData\s*\(/, "homepage must not duplicate the protected upload implementation");
+  assert.match(homepage, /class=["']upload-launcher["'][^>]*href=["']\/upload["']/, "homepage primary action links to /upload");
 });
 
 test("shared language runtime owns the required language priority and persistence", () => {
@@ -526,112 +489,6 @@ test("shared language runtime keeps page-specific translated guidance in the DOM
     if (/id=["']tool-guidance["']/.test(html)) {
       assert.match(html, /id=["']guidanceTitle["']/, `${file}: retained guidance must use page-specific translation keys`);
     }
-  }
-});
-
-test("working days dynamic result labels stay localized", () => {
-  const html = read("working-days.html");
-  for (const expected of [
-    'regionNames: { ew: "英格兰和威尔士", sc: "苏格兰", ni: "北爱尔兰" }',
-    'bankHolidaysLabel: "Ausgeschlossene Feiertage"',
-    'excludedHolidaysTitle: "Ausgeschlossene Feiertage im Zeitraum"',
-    'bankHolidaysLabel: "Jours fériés exclus"',
-    'excludedHolidaysTitle: "Jours fériés exclus dans la période"',
-    'bankHolidaysLabel: "Festivos excluidos"',
-    'excludedHolidaysTitle: "Festivos excluidos en el intervalo"',
-  ]) {
-    assert.match(html, new RegExp(escapeRe(expected)), expected);
-  }
-  assert.match(html, /els\.selectedRegion\.textContent = d\.regionNames\[region\]/, "result region uses the active dictionary");
-  assert.match(html, /none\.textContent = d\.noneLabel/, "empty holiday result uses the active dictionary");
-});
-
-test("stamp duty dynamic results use localized display labels without changing the bands", () => {
-  const html = read("stamp-duty.html");
-  for (const expected of [
-    'surchargeRow:"较高税率 / 附加税项目"',
-    'ftbRelief:"首次购房者减免"',
-    'rateOn:"适用于"',
-    'andAbove:"及以上"',
-    'ftbRelief:"Entlastung für Erstkäufer"',
-    'rateOn:"auf"',
-    'ftbRelief:"Réduction pour primo-accédant"',
-    'rateOn:"sur"',
-    'ftbRelief:"Desgravación para primera vivienda"',
-    'rateOn:"sobre"',
-  ]) {
-    assert.match(html, new RegExp(escapeRe(expected)), expected);
-  }
-  assert.match(html, /\$\{rateLabel\(row\.rate\)\} \$\{dict\.rateOn\}/, "band labels use the active language");
-  assert.match(html, /row\.to === "and above" \? dict\.andAbove/, "open-ended band label is localized");
-  assert.match(html, /const standardBands = \[[\s\S]*?limit: 125000, rate: 0[\s\S]*?limit: Infinity, rate: 0\.12/, "standard SDLT bands stay unchanged");
-});
-
-test("stamp duty German French and Spanish content has complete visible translations", () => {
-  const html = read("stamp-duty.html");
-  assert.match(html, /data-i18n-aria-label=["']calculatorAria["']/, "calculator aria label is translated");
-  assert.match(html, /data-i18n-aria-label=["']ratesAria["']/, "rates table aria label is translated");
-  assert.match(html, /data-i18n=["']tableFtbBand["']/, "first-time buyer rate text is translated");
-  assert.match(html, /data-i18n=["']tableNonResidentBand["']/, "non-resident rate text is translated");
-  for (const expected of [
-    'heroTitle:"Grunderwerbsteuer-Rechner 2026"',
-    'articleTitle:"So funktioniert die SDLT für Wohnimmobilien"',
-    'limitsTitle:"Wann dies nur eine grobe Orientierung ist"',
-    'noteStandard:"Diese Schätzung gilt nur für die SDLT auf Wohnimmobilien in England und Nordirland."',
-    'heroTitle:"Calculateur de droits de mutation 2026"',
-    'buyerFtb:"Primo-accédant"',
-    'articleTitle:"Fonctionnement de la SDLT résidentielle"',
-    'noteStandard:"Cette estimation concerne uniquement la SDLT résidentielle en Angleterre et en Irlande du Nord."',
-    'heroTitle:"Calculadora del impuesto de timbre 2026"',
-    'buyerFtb:"Comprador de primera vivienda"',
-    'articleTitle:"Cómo funciona el SDLT residencial"',
-    'noteStandard:"Esta estimación solo corresponde al SDLT residencial de Inglaterra e Irlanda del Norte."',
-    'tableFtbBand:"0% bis £300,000, danach 5% bis £500,000"',
-    'tableNonResidentBand:"+2 Prozentpunkte"',
-    'tableFtbBand:"0% jusqu’à £300,000, puis 5% jusqu’à £500,000"',
-    'tableNonResidentBand:"+2 points de pourcentage"',
-    'tableFtbBand:"0% hasta £300,000 y después 5% hasta £500,000"',
-    'tableNonResidentBand:"+2 puntos porcentuales"',
-  ]) {
-    assert.match(html, new RegExp(escapeRe(expected)), expected);
-  }
-});
-
-test("dividend dynamic result labels are translated in all non-English dictionaries", () => {
-  const html = read("dividend.html");
-  for (const expected of [
-    'employerNiRow:"雇主国民保险"',
-    'corpTaxRow:"公司税"',
-    'profitLabel:"Unternehmensgewinn vor Geschäftsführergehalt und Unternehmenssteuern"',
-    'assumptionBadge:"Planungsfall mit einem Geschäftsführer"',
-    'totalTaxRow:"Insgesamt gezahlte Steuern"',
-    'profitLabel:"Bénéfice de la société avant rémunération du dirigeant et impôts de la société"',
-    'employerNiRow:"Cotisations patronales à la National Insurance"',
-    'dividendTaxRow:"Impôt sur les dividendes"',
-    'assumptionBadge:"Cas de planification avec un seul dirigeant"',
-    'employerNiRow:"National Insurance a cargo de la empresa"',
-    'corpTaxRow:"Impuesto de sociedades"',
-    'dividendTaxRow:"Impuesto sobre dividendos"',
-    'monthlyEquivalent:"月度折算："',
-    'monthlyEquivalent:"Monatlicher Gegenwert:"',
-    'monthlyEquivalent:"Équivalent mensuel :"',
-    'monthlyEquivalent:"Equivalente mensual:"',
-  ]) {
-    assert.match(html, new RegExp(escapeRe(expected)), expected);
-  }
-});
-
-test("PDF related tool names are translated", () => {
-  const html = read("pdf2img.html");
-  for (const expected of [
-    'relatedImage:"Bildgrößenänderer"',
-    'relatedColor:"Bildfarbwähler"',
-    'relatedImage:"Redimensionneur d’image"',
-    'relatedColor:"Sélecteur de couleur d’image"',
-    'relatedImage:"Redimensionador de imágenes"',
-    'relatedColor:"Selector de color de imagen"',
-  ]) {
-    assert.match(html, new RegExp(escapeRe(expected)), expected);
   }
 });
 
@@ -721,22 +578,6 @@ test("shared tooling cannot regenerate the retired generic guidance template", (
   }
 });
 
-test("finance pages keep page-specific assumptions, disclaimers, and dated GOV.UK sources", () => {
-  const checkedDate = /Last checked:(?:<\/span>\s*<time\b[^>]*>)?\s*\d{1,2}\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+20\d{2}/i;
-  for (const file of financePages) {
-    const html = read(file);
-    assert.match(html, /estimate|estimates only/i, `${file}: estimate disclaimer`);
-    assert.match(html, /not [^.]{0,160}advice|professional advice|solicitor or tax adviser/i, `${file}: advice disclaimer`);
-    if (file === "mortgage.html") {
-      assert.match(html, /data-i18n=["']lastCheckedLabel["']/i, `${file}: translated source check label`);
-      assert.match(html, /<time\b[^>]*datetime=["']2026-06-09["'][^>]*data-i18n=["']lastCheckedDate["']/i, `${file}: source check date`);
-    } else {
-      assert.match(html, checkedDate, `${file}: source check date`);
-    }
-    assert.match(html, /https:\/\/www\.gov\.uk\//, `${file}: GOV.UK`);
-  }
-});
-
 test("upload page keeps protected controls and has formal safety content", () => {
   const html = read("upload.html");
   for (const required of [
@@ -775,8 +616,8 @@ test("password and color picker use the shared five-language contract", () => {
   assert.match(color, /data-i18n-html=["']seoHtml["']/, "color picker translated SEO body");
 });
 
-test("worker renders token and working-days pages without stalling on array translations", async () => {
-  for (const path of ["/token", "/working-days?lang=zh-CN"]) {
+test("worker renders retained developer and API pages without stalling", async () => {
+  for (const path of ["/token", "/image-api?lang=zh-CN"]) {
     const response = await fetchThroughIsolatedWorker(path);
     assert.equal(response.status, 200, path);
     assert.match(response.body, /<main\b/i, path);
@@ -801,10 +642,10 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   assert.deepEqual(locs, approvedPaths.map((path) => `https://mini-tools.uk${path}`));
   assert.equal(lastmods.length, locs.length, "every sitemap URL has a lastmod date");
   assert.equal(lastmods.every((value) => /^20\d{2}-\d{2}-\d{2}$/.test(value)), true, "sitemap lastmod format");
-  for (const path of ["/", "/upload", "/free-image-hosting", "/temporary-image-upload", "/share-image-link", "/image"]) {
+  for (const path of approvedPaths) {
     const loc = `https://mini-tools.uk${path}`;
     const entry = read("sitemap.xml").match(new RegExp(`<url><loc>${loc.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}</loc><lastmod>([^<]+)</lastmod></url>`));
-    assert.equal(entry?.[1], "2026-07-14", `${path} sitemap lastmod`);
+    assert.equal(entry?.[1], "2026-07-30", `${path} sitemap lastmod`);
   }
   assert.equal(read("sitemap.xml").includes("?lang="), false);
   assert.doesNotMatch(read("sitemap.xml"), /blog/i);
@@ -847,7 +688,7 @@ test("every localized indexable response has unique metadata and valid JSON-LD",
 test("worker renders Chinese body, metadata and schema for key pages", async () => {
   assert.doesNotMatch(read("_worker.js"), /\bnew\s+Function\b|\beval\s*\(/, "Worker SSR must not use blocked dynamic code generation");
   for (const [path, chineseText, englishText] of [
-    ["/?lang=zh-CN", "免费在线图床与实用小工具", "UK calculators for tax, VAT, salary and everyday money decisions."],
+    ["/?lang=zh-CN", "在线图床：上传图片并获取直链", "Image hosting for fast, shareable links"],
     ["/upload?lang=zh-CN", "在线上传图片", "Upload Image Online"],
   ]) {
     const response = await fetchThroughWorker(path);
@@ -860,47 +701,21 @@ test("worker renders Chinese body, metadata and schema for key pages", async () 
     assert.match(html, /"@context"/, `${path}: schema`);
     assert.match(html, /<link rel="canonical" href="https:\/\/mini-tools\.uk\/[^"]*\?lang=zh-CN"|<link rel="canonical" href="https:\/\/mini-tools\.uk\/\?lang=zh-CN"/, `${path}: canonical`);
     if (path === "/?lang=zh-CN") {
-      const ukHubStart = html.indexOf('id="ukHubTools"');
-      const ukSectionStart = html.lastIndexOf("<section", ukHubStart);
-      const ukSectionEnd = html.indexOf("</section>", ukHubStart) + "</section>".length;
-      const ukSection = html.slice(ukSectionStart, ukSectionEnd);
-      const ukHub = html.slice(ukHubStart, ukSectionEnd);
-      const otherToolsStart = html.indexOf('id="otherToolsGrid"');
-      const otherTools = html.slice(otherToolsStart, html.indexOf("</section>", otherToolsStart));
-      const ukCards = ukHub.match(/<a\b[^>]*class=["'][^"']*\bfeature-card\b[^"']*["'][^>]*>/gi) || [];
-      assert.equal(ukCards.length, 6, `${path}: SSR ukHubTools must contain exactly six cards`);
-      for (const name of ["英国个人所得税计算器", "VAT 计算器", "房贷计算器", "IR35 计算器", "印花税计算器", "股息计算器"]) {
-        const occurrences = ukHub.match(new RegExp(escapeRe(name), "g")) || [];
-        assert.equal(occurrences.length, 1, `${path}: SSR ukHubTools must contain ${name} once`);
-      }
-      assert.match(otherTools, /免费图床/, `${path}: SSR otherToolsGrid Chinese tool name`);
-      assert.doesNotMatch(ukHub, /UK Tax Calculator|VAT Calculator|Mortgage Calculator|IR35 Calculator|Stamp Duty Calculator|Dividend Calculator/, `${path}: ukHubTools must not retain English cards in SSR`);
-      assert.equal((ukSection.match(/<div\b/gi) || []).length, (ukSection.match(/<\/div>/gi) || []).length, `${path}: SSR UK section div tags must stay balanced`);
+      assert.match(html, /图床使用指南/, `${path}: hosting guide section`);
+      assert.match(html, /JSON 格式化/, `${path}: developer tool translation`);
+      assert.match(html, /href="\/upload\?lang=zh-CN"/, `${path}: localized upload link`);
+      assert.doesNotMatch(html, /英国个人所得税计算器|VAT 计算器|房贷计算器/, `${path}: retired calculator promotion`);
     }
   }
 });
 
-test("worker server-renders the Tax initial result and rates in Chinese", async () => {
+test("worker returns 410 for the retired tax calculator", async () => {
   const response = await fetchThroughWorker("/tax?lang=zh-CN");
-  assert.equal(response.status, 200);
+  assert.equal(response.status, 410);
   const html = await response.text();
-  const regionBadge = html.match(/<div\b[^>]*id=["']regionBadge["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || "";
-  const summaryNote = html.match(/<div\b[^>]*id=["']summaryNote["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || "";
-  const employerCost = html.match(/<span\b[^>]*id=["']employerCost["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || "";
-  const rates = html.slice(html.indexOf('data-i18n="rukRatesTitle"'), html.indexOf('data-i18n="niLoanTitle"'));
-  const sources = html.slice(html.indexOf('data-i18n="sourceTitle"'), html.indexOf('data-i18n="relatedTitle"'));
-
-  assert.match(regionBadge, /英格兰\s*\/\s*北爱尔兰/);
-  assert.doesNotMatch(regionBadge, /England \/ NI/);
-  assert.match(summaryNote, /采用标准 1257L 税码和个人免税额进行估算/);
-  assert.doesNotMatch(summaryNote, /Uses standard 1257L personal allowance/);
-  assert.match(employerCost, /\/ 年/);
-  assert.doesNotMatch(employerCost, /\/ year/);
-  assert.match(rates, /£12,571 至 £50,270/);
-  assert.doesNotMatch(rates, /£[\d,]+ to £[\d,]+/);
-  assert.match(sources, /最后核对/);
-  assert.match(sources, /2026年6月9日/);
-  assert.doesNotMatch(sources, /Last checked:/);
+  assert.match(html, /页面未找到/);
+  assert.match(response.headers.get("x-robots-tag") || "", /noindex,\s*follow/i);
+  assert.doesNotMatch(html, /rel=["']canonical["']/i);
 });
 
 test("worker server-renders the Upload empty file state in Chinese and German", async () => {
@@ -967,9 +782,9 @@ test("image API documentation is server-rendered in all five languages", async (
 });
 
 test("worker normalizes invalid languages to the canonical English URL", async () => {
-  const response = await fetchThroughWorker("/tax?lang=xx");
+  const response = await fetchThroughWorker("/image-api?lang=xx");
   assert.equal(response.status, 301);
-  assert.equal(response.headers.get("location"), "https://mini-tools.uk/tax");
+  assert.equal(response.headers.get("location"), "https://mini-tools.uk/image-api");
 });
 
 test("worker redirects explicit ?lang=en to the canonical English URL", async () => {
@@ -1013,17 +828,51 @@ test("worker renders color picker template-string translations", async () => {
   assert.equal((main.match(/裁剪图片会变模糊吗？/g) || []).length, 1, "one rendered crop-quality FAQ");
 });
 
-test("worker renders VAT Object.assign dictionaries for German, French and Spanish", async () => {
+test("worker renders homepage translations for German, French and Spanish", async () => {
   for (const [lang, heading] of [
-    ["de", "UK VAT Rechner zum Hinzufügen oder Herausrechnen von VAT"],
-    ["fr", "Calculateur VAT UK pour ajouter ou retirer la VAT"],
-    ["es", "Calculadora VAT UK para añadir o quitar VAT"],
+    ["de", "Bildhosting für schnelle, teilbare Links"],
+    ["fr", "Hébergement d’images avec liens partageables"],
+    ["es", "Alojamiento de imágenes con enlaces compartibles"],
   ]) {
-    const response = await fetchThroughWorker(`/vat?lang=${lang}`);
+    const response = await fetchThroughWorker(`/?lang=${lang}`);
     assert.equal(response.status, 200);
     const html = await response.text();
     assert.match(html, new RegExp(`<html[^>]+lang=["']${lang}["']`));
     assert.match(html, new RegExp(`<h1\\b[^>]*>${escapeRe(heading)}<\\/h1>`));
+  }
+});
+
+test("homepage serves localized search metadata and complete image-hosting schema", async () => {
+  for (const [lang, locale, appName, imageAlt, firstQuestion] of [
+    ["en", "en_GB", "Mini Tools Image Hosting", "Mini Tools image hosting and direct link workflow", "Do I need an account to upload an image?"],
+    ["zh-CN", "zh_CN", "Mini Tools 在线图床", "Mini Tools 在线图床与图片直链使用流程", "上传图片需要注册账户吗？"],
+    ["de", "de_DE", "Mini Tools Bildhosting", "Mini Tools Bildhosting und Direktlink-Ablauf", "Brauche ich ein Konto für den Bild-Upload?"],
+    ["fr", "fr_FR", "Hébergement d’images Mini Tools", "Parcours d’hébergement et de lien direct Mini Tools", "Faut-il un compte pour téléverser une image ?"],
+    ["es", "es_ES", "Alojamiento de imágenes Mini Tools", "Proceso de alojamiento y enlace directo de Mini Tools", "¿Necesito una cuenta para subir una imagen?"],
+  ]) {
+    const path = lang === "en" ? "/" : `/?lang=${lang}`;
+    const response = await fetchThroughWorker(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+
+    assert.equal(metaContent(html, "property", "og:locale"), locale, `${path}: Open Graph locale`);
+    assert.equal(metaContent(html, "property", "og:image:alt"), imageAlt, `${path}: Open Graph image alt`);
+    assert.equal(metaContent(html, "name", "twitter:image:alt"), imageAlt, `${path}: Twitter image alt`);
+
+    const graph = jsonLdDocuments(html).flatMap((document) => document["@graph"] || [document]);
+    const organization = graph.find((entry) => entry["@type"] === "Organization");
+    const website = graph.find((entry) => entry["@type"] === "WebSite");
+    const application = graph.find((entry) => entry["@type"] === "SoftwareApplication");
+    const faq = graph.find((entry) => entry["@type"] === "FAQPage");
+
+    assert.equal(organization?.name, "Mini Tools", `${path}: Organization schema`);
+    assert.equal(website?.name, appName, `${path}: WebSite schema`);
+    assert.equal(application?.name, appName, `${path}: SoftwareApplication schema`);
+    assert.equal(application?.isAccessibleForFree, true, `${path}: free application flag`);
+    assert.equal(application?.image?.url, "https://mini-tools.uk/assets/image-hosting-hero.png", `${path}: schema image`);
+    assert.ok(application?.featureList?.length >= 4, `${path}: schema feature list`);
+    assert.equal(faq?.mainEntity?.length, 4, `${path}: FAQ schema`);
+    assert.equal(faq?.mainEntity?.[0]?.name, firstQuestion, `${path}: localized FAQ schema`);
   }
 });
 
@@ -1066,7 +915,7 @@ test("404 page uses the shared shell without indexable SEO or ads", () => {
   assert.equal(section(html, "footer", "footer"), section(read("index.html"), "footer", "footer"));
   assert.match(html, /data-i18n=["']heroTitle["'][^>]*>Page not found</i);
   assert.match(html, /href=["']\/["'][^>]*data-i18n=["']homeButton["']/i);
-  assert.match(html, /href=["']\/#search["'][^>]*data-i18n=["']searchButton["']/i);
+  assert.match(html, /href=["']\/upload["'][^>]*data-i18n=["']searchButton["']/i);
   for (const lang of ["en", "zh-CN", "de", "fr", "es"]) {
     assert.match(html, new RegExp(`["']${escapeRe(lang)}["']\\s*:`), `404 dictionary: ${lang}`);
   }
@@ -1145,7 +994,7 @@ test("worker generates the unified HTML fallback when the 404 asset is unavailab
   assert.match(html, /页面未找到/);
   assert.match(html, /class=["']site-nav["']/);
   assert.match(html, /href=["']\/\?lang=zh-CN["']/);
-  assert.match(html, /href=["']\/\?lang=zh-CN#search["']/);
+  assert.match(html, /href=["']\/upload\?lang=zh-CN["']/);
   assert.match(html, /class=["']footer["']/);
 });
 
@@ -1159,10 +1008,7 @@ test("worker preserves 410, 301 and direct 200 routes around 404 handling", asyn
   }
 
   for (const [path, target] of [
-    ["/tax.html", "https://mini-tools.uk/tax"],
     ["/about.html", "https://mini-tools.uk/about"],
-    ["/image-compressor", "https://mini-tools.uk/image"],
-    ["/pdf-to-image", "https://mini-tools.uk/pdf2img"],
     ["/terms", "https://mini-tools.uk/privacy"],
   ]) {
     const response = await fetchThroughWorker(path);
@@ -1170,20 +1016,22 @@ test("worker preserves 410, 301 and direct 200 routes around 404 handling", asyn
     assert.equal(response.headers.get("location"), target, path);
   }
 
-  for (const path of ["/", "/tax", "/token", "/about", "/privacy", "/404.html"]) {
+  for (const path of ["/", "/upload", "/image-api", "/token", "/about", "/privacy", "/404.html"]) {
     const response = await fetchThroughWorker(path);
     assert.equal(response.status, 200, path);
   }
+
+  for (const path of ["/tax.html", "/image-compressor", "/pdf-to-image"]) {
+    const response = await fetchThroughWorker(path);
+    assert.equal(response.status, 410, path);
+  }
 });
 
-test("legacy image and PDF routes redirect directly to formal URLs", async () => {
-  for (const [legacy, target] of [
-    ["/image-compressor", "https://mini-tools.uk/image"],
-    ["/pdf-to-image", "https://mini-tools.uk/pdf2img"],
-  ]) {
+test("legacy image and PDF routes are retired", async () => {
+  for (const legacy of ["/image-compressor", "/pdf-to-image", "/image", "/pdf2img"]) {
     const response = await fetchThroughWorker(legacy);
-    assert.equal(response.status, 301, legacy);
-    assert.equal(response.headers.get("location"), target, legacy);
+    assert.equal(response.status, 410, legacy);
+    assert.match(response.headers.get("x-robots-tag") || "", /noindex,\s*follow/i, legacy);
   }
 });
 
@@ -1198,7 +1046,11 @@ test("new image landing page aliases redirect to clean canonical URLs", async ()
 });
 
 test("all retired page routes use the unified error page while preserving 410", async () => {
-  for (const path of ["/game", "/game/", "/json2", "/unit.html?lang=de", "/word"]) {
+  for (const path of [
+    "/game", "/game/", "/json2", "/unit.html?lang=de", "/word",
+    "/tax", "/vat", "/mortgage", "/ir35", "/stamp-duty", "/dividend",
+    "/working-days", "/fuel", "/weight", "/image", "/image-compressor", "/pdf2img", "/pdf-to-image", "/map",
+  ]) {
     const response = await fetchThroughWorker(path);
     assert.equal(response.status, 410, path);
     assert.match(response.headers.get("content-type") || "", /text\/html/i, path);
@@ -1209,35 +1061,35 @@ test("all retired page routes use the unified error page while preserving 410", 
   }
 });
 
-test("AdSense cleanup removes construction copy and known mixed-language English keys", () => {
+test("homepage keeps one image-hosting action and no retired tool promotion", () => {
   const homepage = read("index.html");
   const about = read("about.html");
-  const image = read("image.html");
-  const stampDuty = read("stamp-duty.html");
   const diff = read("diff.html");
   const colorPicker = read("color-picker.html");
   const homepageMarkup = homepage.slice(0, homepage.indexOf('<script id="homepage-language-and-tools">'));
 
   assert.doesNotMatch(homepageMarkup, /homepage now gives priority|These tools are not removed|simply moved below/i);
-  assert.match(homepage, /Object\.assign\(i18n\.en,[\s\S]*ukText:"Use the UK calculator hub/);
-  assert.match(homepage, /Object\.assign\(i18n\["zh-CN"\],[\s\S]*ukText:"英国计算器区域/);
+  assert.match(homepage, /class=["']upload-launcher["'][^>]*href=["']\/upload["']/);
+  assert.match(homepage, /href=["']\/image-api["'][^>]*data-i18n=["']apiCta["']/);
+  assert.match(homepage, /class=["']upload-launcher-action["'][^>]*data-i18n=["']uploadCta["']/);
+  assert.match(homepage, /Image hosting for fast, shareable links/);
+  assert.match(homepage, /id=["']developer-tools["']/);
+  assert.doesNotMatch(homepage, /href=["']\/(?:tax|vat|mortgage|ir35|stamp-duty|dividend|image|pdf2img)["']/);
   assert.doesNotMatch(about, /being improved page by page|逐页改进|Schritt für Schritt verbessert|amélioré page par page|mejora página por página/i);
-  assert.match(image, /heroTitle:"Image Compressor and Resizer"/);
-  assert.match(image, /feature1:"Resize by width and height"/);
-  assert.match(image, /relatedColor:"Image Color Picker"/);
-  assert.match(stampDuty, /priceLabel:"Property price"/);
-  assert.match(stampDuty, /sideKeywordsTitle:"Check before completion"/);
   assert.equal((diff.match(/id=["']tool-guidance["']/g) || []).length, 0, "diff duplicate guidance");
   assert.equal((colorPicker.match(/id=["']tool-guidance["']/g) || []).length, 0, "color picker duplicate guidance");
 });
 
-test("retired duplicate modules and upload guidance cannot return", () => {
+test("retired feature files are deleted and protected upload guidance stays intact", () => {
+  const rootFiles = new Set(readdirSync(root));
+  for (const file of retiredSourceFiles) {
+    assert.equal(rootFiles.has(file), false, `${file} must be deleted`);
+  }
+
   const checks = [
     ["contact.html", /id=["']removal-request-details["']/i],
-    ["image.html", /id=["']tool-guidance["']/i],
     ["privacy.html", /id=["']upload-policy-summary["']/i],
     ["about.html", /id=["']directory-overview["']/i],
-    ["tax.html", /id=["']calculator-disclaimer-summary["']/i],
   ];
   for (const [file, pattern] of checks) {
     assert.doesNotMatch(read(file), pattern, file);
@@ -1254,25 +1106,12 @@ test("retired duplicate modules and upload guidance cannot return", () => {
     "tool-guidance",
     "upload-policy-summary",
     "directory-overview",
-    "calculator-disclaimer-summary",
     "uploadGuidanceTranslations",
     "rates-and-thresholds-for-employers-2026-to-2027",
   ]) {
     assert.doesNotMatch(standardizer, new RegExp(escapeRe(retired), "i"), `standardizer: ${retired}`);
   }
   assert.doesNotMatch(standardizer, /\\bSecurity\\b/, "standardizer must not globally replace Security");
-});
-
-test("image translations do not retain keys for the retired guidance module", () => {
-  const html = read("image.html");
-  for (const key of [
-    "guidanceTitle", "guidanceIntro", "guidanceUseTitle", "guidanceUseText",
-    "guidanceLimitationsTitle", "guidanceLimitationsText", "guidanceFaqTitle", "guidanceFaqText",
-    "guidanceRelatedTitle", "guidanceRelatedUpload", "guidanceRelatedPdf", "guidanceRelatedColor",
-  ]) {
-    assert.doesNotMatch(html, new RegExp(`\\b${key}\\s*:`), key);
-  }
-  assert.doesNotMatch(html, /id=["']tool-guidance["']/i);
 });
 
 test("upload German copy uses natural capitalization without duplicated documentation wording", () => {
@@ -1285,76 +1124,16 @@ test("upload German copy uses natural capitalization without duplicated document
   assert.doesNotMatch(german, /Dokumentation, Dokumentation|\bwebsites\b|\bwebsite-(?:Editoren|Entwürfe)\b/);
 });
 
-test("mortgage German interface translates ordinary labels", () => {
-  const html = read("mortgage.html");
-  const germanStart = html.indexOf("\n      de: {");
-  const germanEnd = html.indexOf("\n      fr: {", germanStart);
-  const german = germanStart === -1 || germanEnd === -1 ? "" : html.slice(germanStart, germanEnd);
-  for (const expected of [
-    'propertyPriceLabel:"Immobilienwert (£)"',
-    'mortgageAmountLabel:"Darlehensbetrag (£)"',
-    'depositLabel:"Eigenkapital (£)"',
-    'buyerTypeLabel:"Käufertyp für SDLT"',
-    'breakdownHead:"Aufschlüsselung"',
-    'amountHead:"Betrag"',
-  ]) {
-    assert.match(german, new RegExp(escapeRe(expected)), expected);
-  }
-  for (const untranslated of [
-    'propertyPriceLabel:"Property value (£)"',
-    'mortgageAmountLabel:"Mortgage amount (£)"',
-    'buyerTypeLabel:"Buyer type for SDLT"',
-    'breakdownHead:"Breakdown"',
-    'amountHead:"Amount"',
-  ]) {
-    assert.doesNotMatch(german, new RegExp(escapeRe(untranslated)), untranslated);
-  }
-});
-
-test("tax uses relevant UK calculator recommendations and Chinese SEO copy", () => {
-  const html = read("tax.html");
-  const related = html.match(/<div class=["']side-card["']>\s*<h3 data-i18n=["']relatedTitle["'][\s\S]*?<\/div>\s*<\/div>/i)?.[0] || "";
-  assert.doesNotMatch(related, /href=["']\/upload["']/i);
-  for (const path of ["/vat", "/dividend", "/ir35", "/mortgage", "/stamp-duty"]) {
-    assert.match(related, new RegExp(`href=["']${escapeRe(path)}["']`, "i"), path);
-  }
-  for (const key of ["relatedTitle", "relatedVat", "relatedDividend", "relatedIr35", "relatedMortgage", "relatedStampDuty"]) {
-    assert.match(html, new RegExp(`data-i18n=["']${key}["']`), key);
-  }
-
-  assert.match(html, /seoTitle:\s*["']英国个人所得税计算器 2026\/27｜英国个税计算器与税后工资计算｜Mini-Tools\.uk["']/);
-  assert.match(html, /seoDescription:\s*["']免费英国个人所得税计算器和英国个税计算器，适用于 2026\/27 税年。估算 PAYE 个人所得税、National Insurance、养老金、学生贷款、研究生贷款及年薪、月薪税后到手工资。["']/);
-  assert.match(html, /heroTitle:\s*["']英国个人所得税计算器与英国个税计算器["']/);
-  assert.match(html, /heroText:\s*["']使用这个英国个人所得税计算器，可以估算 2026\/27 税年的 PAYE/);
-  assert.equal((html.match(/<h1\b/gi) || []).length, 1, "tax must keep one H1");
-  assert.doesNotMatch(html, /<meta\b[^>]*name=["']keywords["']/i);
-});
-
-test("mortgage sources are relevant and translated in all five languages", () => {
-  const html = read("mortgage.html");
-  assert.doesNotMatch(html, /rates-and-thresholds-for-employers-2026-to-2027/);
-  assert.match(html, /https:\/\/www\.gov\.uk\/stamp-duty-land-tax/);
-  for (const key of ["sourcesTitle", "sourcesDisclaimer", "sourcesSdltScope", "sourcesFormulaNote", "lastCheckedLabel", "lastCheckedDate"]) {
-    assert.match(html, new RegExp(`data-i18n=["']${key}["']`), key);
-    for (const lang of ["en", "zh-CN", "de", "fr", "es"]) {
-      const languageBlock = html.match(new RegExp(`["']?${escapeRe(lang)}["']?\\s*:\\s*\\{[\\s\\S]*?(?=\\n\\s*(?:["']?(?:en|zh-CN|de|fr|es)["']?\\s*:\\s*\\{|\\}\\s*;))`))?.[0] || "";
-      assert.match(languageBlock, new RegExp(`${key}\\s*:`), `${lang}: ${key}`);
-    }
-  }
-  assert.match(html, /Mortgage repayments use a standard amortisation formula\. The interest rate is entered by the user and is not a live lender rate\./);
-  assert.match(html, /房贷月供使用标准等额还款公式进行估算。利率由用户自行输入，并非银行实时房贷利率。/);
-});
-
 test("worker server-renders the shared shell in every supported non-English language", async () => {
   const expected = {
-    "zh-CN": ["首页", "搜索", "热门工具", "英国计算器", "开发者工具", "其他工具", "关于我们", "联系我们", "隐私政策", "实用在线工具", "主导航", "语言"],
-    de: ["Startseite", "Suche", "Beliebt", "UK-Rechner", "Entwicklertools", "Weitere Tools", "Über uns", "Kontakt", "Datenschutz", "Nützliche Online-Tools", "Hauptnavigation", "Sprache"],
-    fr: ["Accueil", "Recherche", "Populaires", "Calculateurs britanniques", "Outils de développement", "Autres outils", "À propos", "Contact", "Confidentialité", "Outils en ligne utiles", "Navigation principale", "Langue"],
-    es: ["Inicio", "Buscar", "Populares", "Calculadoras del Reino Unido", "Herramientas para desarrolladores", "Otras herramientas", "Acerca de", "Contacto", "Privacidad", "Herramientas en línea útiles", "Navegación principal", "Idioma"],
+    "zh-CN": ["图床首页", "上传图片", "API", "图床指南", "开发者工具", "支持", "关于我们", "联系我们", "隐私政策", "图床与开发者工具", "主导航", "语言"],
+    de: ["Bildhosting", "Upload", "API", "Hosting-Hilfe", "Entwicklertools", "Support", "Über uns", "Kontakt", "Datenschutz", "Bildhosting und Entwicklertools", "Hauptnavigation", "Sprache"],
+    fr: ["Hébergement", "Envoi", "API", "Guides", "Outils de développement", "Assistance", "À propos", "Contact", "Confidentialité", "Hébergement d’images et outils de développement", "Navigation principale", "Langue"],
+    es: ["Alojamiento", "Subir", "API", "Guías", "Herramientas de desarrollo", "Soporte", "Acerca de", "Contacto", "Privacidad", "Alojamiento de imágenes y herramientas de desarrollo", "Navegación principal", "Idioma"],
   };
 
   for (const [lang, labels] of Object.entries(expected)) {
-    const response = await fetchThroughWorker(`/tax?lang=${lang}`);
+    const response = await fetchThroughWorker(`/image-api?lang=${lang}`);
     assert.equal(response.status, 200, lang);
     const html = await response.text();
     for (const label of labels) assert.match(html, new RegExp(escapeRe(label)), `${lang}: ${label}`);

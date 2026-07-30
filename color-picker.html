@@ -599,7 +599,7 @@
       <h3 data-i18n="accuracyTitle">Accuracy and file limitations</h3>
       <p data-i18n="accuracyText">The picker reports the pixel value decoded by your browser. Colour profiles, display calibration, image compression and transparent pixels can affect how a colour looks. Very large images also depend on available browser memory.</p>
       <h3 data-i18n="relatedTitle">Related tools</h3>
-      <p><a href="/image" data-i18n="relatedImage">Resize and compress the image</a> · <a href="/pdf2img" data-i18n="relatedPdf">Convert PDF pages to PNG</a> · <a href="/upload" data-i18n="relatedUpload">Create a hosted image link</a></p>
+      <p><a href="/json" data-i18n="relatedImage">Format JSON</a> · <a href="/diff" data-i18n="relatedPdf">Compare text</a> · <a href="/upload" data-i18n="relatedUpload">Create a hosted image link</a></p>
     </section>
 
   </main>
@@ -857,6 +857,11 @@
       relatedUpload:"Crear un enlace de imagen alojada"
     });
 
+    Object.assign(i18n.en, { relatedImage:"Format JSON", relatedPdf:"Compare text" });
+    Object.assign(i18n["zh-CN"], { relatedImage:"格式化 JSON", relatedPdf:"对比文本" });
+    Object.assign(i18n.de, { relatedImage:"JSON formatieren", relatedPdf:"Text vergleichen" });
+    Object.assign(i18n.fr, { relatedImage:"Formater JSON", relatedPdf:"Comparer du texte" });
+    Object.assign(i18n.es, { relatedImage:"Formatear JSON", relatedPdf:"Comparar texto" });
 
     const LANG_HTML_ATTR = {
       en: "en-GB",

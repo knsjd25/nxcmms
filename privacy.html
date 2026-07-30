@@ -424,7 +424,7 @@
           <h3 data-i18n="sidePagesTitle">Related pages</h3>
           <div class="related-links">
             <a href="/upload" data-i18n="relatedUpload">Free image hosting</a>
-            <a href="/tax" data-i18n="relatedTax">UK tax calculator</a>
+            <a href="/image-api" data-i18n="relatedTax">Image upload API</a>
             <a href="/about" data-i18n="relatedAbout">About</a>
             <a href="/contact" data-i18n="relatedContact">Contact</a>
           </div>
@@ -436,7 +436,7 @@
             <a href="/json" data-i18n="localJson">JSON formatter</a>
             <a href="/diff" data-i18n="localDiff">Text diff checker</a>
             <a href="/token" data-i18n="localToken">AI token calculator</a>
-            <a href="/vat" data-i18n="localVat">VAT calculator</a>
+            <a href="/qr" data-i18n="localVat">QR code generator</a>
           </div>
         </div>
       </aside>
@@ -739,6 +739,12 @@
       section6P3:"El almacenamiento del navegador tambi\u00e9n puede recordar elecciones de la plataforma de consentimiento o relacionadas con cookies cuando esos controles est\u00e9n disponibles.",
       section8P2:"Los servicios y recursos externos usados actualmente pueden incluir Google Analytics, Google AdSense, gesti\u00f3n del consentimiento de Google, Cloudflare para entrega y subidas, el servicio de subida y almacenamiento de im\u00e1genes, jsDelivr, cdnjs y Google Fonts. Cada p\u00e1gina solo carga los servicios que requiere su c\u00f3digo."
     });
+
+    Object.assign(translations.en, { relatedTax:"Image upload API", localVat:"QR code generator" });
+    Object.assign(translations["zh-CN"], { relatedTax:"图片上传 API", localVat:"二维码生成器" });
+    Object.assign(translations.de, { relatedTax:"Bild-Upload-API", localVat:"QR-Code-Generator" });
+    Object.assign(translations.fr, { relatedTax:"API d’envoi d’images", localVat:"Générateur de code QR" });
+    Object.assign(translations.es, { relatedTax:"API de subida de imágenes", localVat:"Generador de códigos QR" });
 
     const allowedLangs=["en","zh-CN","de","fr","es"];
     let currentLang="en";
