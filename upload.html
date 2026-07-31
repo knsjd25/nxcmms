@@ -2218,12 +2218,14 @@
         captchaIssuedAt = Date.now();
         mathQuestion.textContent = result.question;
         captchaAnswerInput.value = "";
-        setCaptchaStatus(texts.captchaReadyText || "Verification question loaded.", "success");
+        const readyTexts = t();
+        setCaptchaStatus(readyTexts.captchaReadyText || "Verification question loaded.", "success");
       } catch (error) {
         captchaId = "";
         captchaIssuedAt = 0;
         mathQuestion.textContent = "↻";
-        setCaptchaStatus(texts.captchaRetryText || error.message || texts.logLoadCaptchaFailed, "error");
+        const retryTexts = t();
+        setCaptchaStatus(retryTexts.captchaRetryText || error.message || retryTexts.logLoadCaptchaFailed, "error");
         throw error;
       } finally {
         captchaLoading = false;
@@ -2301,8 +2303,14 @@ updateProperty("og:title", texts.ogTitle);
       document.getElementById("storageCodeEmailText").innerHTML = texts.storageCodeEmailText || translations.en.storageCodeEmailText;
       storageCodeInput.placeholder = texts.storageCodePlaceholder || translations.en.storageCodePlaceholder;
       captchaAnswerInput.placeholder = texts.captchaPlaceholder || translations.en.captchaPlaceholder;
-      if (!captchaId && captchaStatus && captchaStatus.textContent) {
-        captchaStatus.textContent = texts.captchaRetryText || captchaStatus.textContent;
+      if (captchaStatus && captchaStatus.textContent) {
+        if (captchaLoading) {
+          setCaptchaStatus(texts.captchaLoadingText || "Loading verification question…");
+        } else if (captchaId) {
+          setCaptchaStatus(texts.captchaReadyText || "Verification question loaded.", "success");
+        } else {
+          setCaptchaStatus(texts.captchaRetryText || "Verification could not be loaded.", "error");
+        }
       }
       previewImage.alt = texts.previewAlt || translations.en.previewAlt;
       uploadBtn.textContent = texts.uploadBtn || translations.en.uploadBtn;

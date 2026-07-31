@@ -706,7 +706,6 @@ function updateSeoForLang(html, dict, pathname, lang, url, robots) {
   if (title) html = setTitle(html, title);
   if (description) html = setOrInsertMetaName(html, "description", description);
 
-  html = setOrInsertMetaName(html, "robots", robots);
   if (ogTitle) html = setOrInsertMetaProperty(html, "og:title", ogTitle);
   if (ogDescription) html = setOrInsertMetaProperty(html, "og:description", ogDescription);
   html = setOrInsertMetaProperty(html, "og:url", canonical);

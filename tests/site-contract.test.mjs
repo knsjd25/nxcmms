@@ -187,6 +187,16 @@ test("public source does not create Cloudflare email-protection crawl targets", 
   assert.doesNotMatch(read("sitemap.xml"), /cdn-cgi|email-protection/i, "sitemap must not include Cloudflare system URLs");
 });
 
+test("public AdSense loaders use the working adsbygoogle script URL", () => {
+  for (const file of titleHtmlFiles) {
+    const html = read(file);
+    assert.doesNotMatch(html, /pagead2\.googlesyndication\.com\/pagead\/js\?client=/i, `${file}: broken AdSense loader URL`);
+    for (const match of html.matchAll(/<script\b[^>]*\bsrc=["']([^"']*pagead2\.googlesyndication\.com[^"']*)["'][^>]*>/gi)) {
+      assert.match(match[1], /^https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=ca-pub-1197299128201700$/i, `${file}: AdSense loader URL`);
+    }
+  }
+});
+
 test("standardizer excludes the 404 page from indexable page rewrites", () => {
   const standardizer = read("scripts/standardize-pages.ps1");
   const html404 = read("404.html");
@@ -597,6 +607,8 @@ test("upload page keeps protected controls and has formal safety content", () =>
   for (const id of ["retentionTitle", "rulesTitle", "moderationTitle", "removalTitle", "privacyNoteTitle", "examplesTitle", "faqSectionTitle"]) {
     assert.match(html, new RegExp(`id=["']${id}["']`), `upload: ${id}`);
   }
+  assert.match(html, /const readyTexts = t\(\);[\s\S]*?setCaptchaStatus\(readyTexts\.captchaReadyText/, "captcha success uses the current language");
+  assert.match(html, /if \(captchaLoading\)[\s\S]*?texts\.captchaLoadingText[\s\S]*?else if \(captchaId\)[\s\S]*?texts\.captchaReadyText[\s\S]*?texts\.captchaRetryText/, "language changes refresh every captcha status");
 });
 
 test("password and color picker use the shared five-language contract", () => {
@@ -669,8 +681,10 @@ test("every localized indexable response has unique metadata and valid JSON-LD",
     for (const { path, html } of rendered) {
       const title = html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1].trim() || "";
       const description = metaContent(html, "name", "description");
+      const robotsTags = [...html.matchAll(/<meta\b[^>]*\bname=["']robots["'][^>]*>/gi)];
       assert.notEqual(title, "", `${path}?lang=${lang}: title`);
       assert.notEqual(description, "", `${path}?lang=${lang}: description`);
+      assert.equal(robotsTags.length, 1, `${path}?lang=${lang}: exactly one robots meta tag`);
       assert.equal(titles.has(title), false, `${path}?lang=${lang}: duplicate title also used by ${titles.get(title)}`);
       assert.equal(descriptions.has(description), false, `${path}?lang=${lang}: duplicate description also used by ${descriptions.get(description)}`);
       assert.doesNotMatch(html, /Original notes|Copyright symbol|漏\s*2026|©\s*2026/i, `${path}?lang=${lang}: retired public copy`);
