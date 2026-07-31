@@ -521,7 +521,7 @@ test("public pages have no development leftovers or retired public links", () =>
   assert.doesNotMatch(read("site-i18n.js"), /UK Apps/i, "shared runtime: obsolete category label");
 });
 
-test("privacy policy discloses analytics, advertising, consent and actual external services", () => {
+test("privacy policy discloses analytics, advertising, API records and actual external services", () => {
   const html = read("privacy.html");
   for (const phrase of [
     "approximate location", "performance information", "cookies or similar identifiers",
@@ -529,9 +529,19 @@ test("privacy policy discloses analytics, advertising, consent and actual extern
     "Google Ads Settings", "other third-party advertising vendors",
     "consent management platform", "advertising and cookie choices",
     "Google Analytics", "Google AdSense", "Cloudflare", "jsDelivr", "cdnjs", "Google Fonts",
+    "cryptographic hash", "full API Key", "upload quotas", "usage",
+    "paid, unpaid, complimentary or refunded status", "payment processor",
   ]) {
     assert.match(html, new RegExp(escapeRe(phrase), "i"), `privacy disclosure: ${phrase}`);
   }
+  for (const key of ["sectionApiTitle", "sectionApiP1", "sectionApiL1", "sectionApiL2", "sectionApiL3", "sectionApiP2"]) {
+    assert.match(html, new RegExp(`data-i18n=["']${key}["']`), `privacy API section: ${key}`);
+  }
+  assert.equal((html.match(/sectionApiTitle:/g) || []).length, 5, "privacy API title must exist in all five languages");
+  for (const date of ["July 31, 2026.", "31. Juli 2026.", "31 juillet 2026.", "31 de julio de 2026."]) {
+    assert.match(html, new RegExp(escapeRe(date)), `privacy updated date: ${date}`);
+  }
+  assert.match(html, /2026 \\u5e74 7 \\u6708 31 \\u65e5/, "privacy Chinese updated date");
 });
 
 test("tool pages include the required content structure", () => {
@@ -576,7 +586,7 @@ test("tool pages include the required content structure", () => {
 
 test("site version label uses a dated release id", () => {
   const source = read("site-version.js");
-  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']2026-07-14-01["']/, "site-version.js release id");
+  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']2026-07-31-01["']/, "site-version.js release id");
   assert.match(read("index.html"), /data-site-version/, "homepage footer version slot");
 });
 
@@ -633,6 +643,16 @@ test("worker renders retained developer and API pages without stalling", async (
     const response = await fetchThroughIsolatedWorker(path);
     assert.equal(response.status, 200, path);
     assert.match(response.body, /<main\b/i, path);
+  }
+});
+
+test("upload page keeps the API entry without stale embedded API documentation", () => {
+  const html = read("upload.html");
+  for (const label of ["API Upload", "API-Upload", "Envoi par API", "Subida por API", "API \\u4e0a\\u4f20"]) {
+    assert.match(html, new RegExp(escapeRe(label)), `upload API entry: ${label}`);
+  }
+  for (const stale of ["apiDocsTitle", "apiPriceHeader", "apiQuickStartText", "apiTemp100Quota", "GET /v1/account"]) {
+    assert.doesNotMatch(html, new RegExp(escapeRe(stale)), `upload stale API copy: ${stale}`);
   }
 });
 
