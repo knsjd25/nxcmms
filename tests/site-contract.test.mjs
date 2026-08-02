@@ -364,8 +364,8 @@ test("homepage has one complete Twitter card metadata set", () => {
   const html = read("index.html");
   const expected = {
     card: "summary_large_image",
-    title: "Image Hosting, Image Upload &amp; Direct Links | Mini Tools",
-    description: "Upload an image without an account and receive a direct URL, Markdown, HTML or BBCode link.",
+    title: "Image Hosting for Fast, Shareable Links | Mini Tools",
+    description: "Host an image without an account and receive a direct URL, Markdown, HTML or BBCode link.",
     image: "https://mini-tools.uk/assets/image-hosting-hero.png",
     "image:alt": "Mini Tools image hosting and direct link workflow",
   };
@@ -586,7 +586,7 @@ test("tool pages include the required content structure", () => {
 
 test("site version label uses a dated release id", () => {
   const source = read("site-version.js");
-  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']2026-08-02-01["']/, "site-version.js release id");
+  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']2026-08-02-02["']/, "site-version.js release id");
   assert.match(read("index.html"), /data-site-version/, "homepage footer version slot");
 });
 
@@ -597,6 +597,63 @@ test("trust pages describe the current image-hosting focus", () => {
     const html = read(file);
     assert.doesNotMatch(html, retiredCopy, `${file}: retired finance positioning`);
     assert.match(html, /image hosting|image-hosting/i, `${file}: image-hosting positioning`);
+  }
+});
+
+test("image-hosting pages keep distinct search intents in every language", async () => {
+  const expectedTitles = {
+    en: [
+      ["/", "Image Hosting for Fast, Shareable Links | Mini Tools"],
+      ["/upload", "Upload Image Online and Get a Direct Link | Mini Tools"],
+      ["/image-api", "Image Upload API Documentation and Examples | Mini Tools"],
+      ["/free-image-hosting", "Free Image Hosting Without Signup | Mini Tools"],
+      ["/temporary-image-upload", "Temporary Image Upload with Expiring Links | Mini Tools"],
+      ["/share-image-link", "Share an Image Link and Copy the Direct URL | Mini Tools"],
+    ],
+    "zh-CN": [
+      ["/", "在线图床：上传图片并生成直链 | Mini Tools"],
+      ["/upload", "在线上传图片并获取直链 | Mini Tools"],
+      ["/image-api", "图片上传 API 文档与示例 | Mini Tools"],
+      ["/free-image-hosting", "免费图床：无需注册上传图片 | Mini Tools"],
+      ["/temporary-image-upload", "临时图片上传：创建定时过期链接 | Mini Tools"],
+      ["/share-image-link", "分享图片链接并复制图片直链 | Mini Tools"],
+    ],
+    de: [
+      ["/", "Bildhosting für schnelle, teilbare Links | Mini Tools"],
+      ["/upload", "Bild online hochladen und Direktlink erhalten | Mini Tools"],
+      ["/image-api", "Bild-Upload-API: Dokumentation und Beispiele | Mini Tools"],
+      ["/free-image-hosting", "Kostenloses Bildhosting ohne Anmeldung | Mini Tools"],
+      ["/temporary-image-upload", "Temporärer Bild-Upload mit Ablaufdatum | Mini Tools"],
+      ["/share-image-link", "Bildlink teilen und Direkt-URL kopieren | Mini Tools"],
+    ],
+    fr: [
+      ["/", "Hébergement d’images et liens partageables | Mini Tools"],
+      ["/upload", "Téléverser une image et obtenir un lien direct | Mini Tools"],
+      ["/image-api", "API d’envoi d’images : documentation et exemples | Mini Tools"],
+      ["/free-image-hosting", "Hébergement d’images gratuit sans compte | Mini Tools"],
+      ["/temporary-image-upload", "Envoi d’image temporaire avec expiration | Mini Tools"],
+      ["/share-image-link", "Partager une image et copier l’URL directe | Mini Tools"],
+    ],
+    es: [
+      ["/", "Alojamiento de imágenes y enlaces compartibles | Mini Tools"],
+      ["/upload", "Subir imagen online y obtener enlace directo | Mini Tools"],
+      ["/image-api", "API de subida de imágenes: documentación y ejemplos | Mini Tools"],
+      ["/free-image-hosting", "Alojamiento de imágenes gratis sin registro | Mini Tools"],
+      ["/temporary-image-upload", "Subida temporal de imágenes con caducidad | Mini Tools"],
+      ["/share-image-link", "Compartir imagen y copiar URL directa | Mini Tools"],
+    ],
+  };
+
+  for (const [lang, pages] of Object.entries(expectedTitles)) {
+    for (const [path, expectedTitle] of pages) {
+      const requestPath = lang === "en" ? path : `${path}?lang=${lang}`;
+      const response = await fetchThroughWorker(requestPath);
+      assert.equal(response.status, 200, requestPath);
+      const html = await response.text();
+      const title = html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1].trim() || "";
+      assert.equal(title, expectedTitle, requestPath);
+      assert.ok(metaContent(html, "name", "description").length >= 35, `${requestPath}: useful description`);
+    }
   }
 });
 

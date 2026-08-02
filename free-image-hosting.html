@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Free Image Hosting - Upload Images Without Signup | Mini Tools</title>
-  <meta name="description" content="Free image hosting for quick online sharing. Upload an image, copy the link, and share it without creating an account.">
+  <title>Free Image Hosting Without Signup | Mini Tools</title>
+  <meta name="description" content="Learn how free image hosting works, then upload JPG, PNG, GIF or WebP files up to 5 MB and copy a direct link without creating an account.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Free Image Hosting - Upload Images Without Signup | Mini Tools">
-  <meta property="og:description" content="Free image hosting for quick online sharing. Upload an image, copy the link, and share it without creating an account.">
+  <meta property="og:title" content="Free Image Hosting Without Signup | Mini Tools">
+  <meta property="og:description" content="Upload JPG, PNG, GIF or WebP files up to 5 MB and copy a direct image link without creating an account.">
   <meta property="og:url" content="https://mini-tools.uk/free-image-hosting">
   <meta property="og:locale" content="en_GB">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Free Image Hosting - Upload Images Without Signup | Mini Tools">
+  <meta name="twitter:title" content="Free Image Hosting Without Signup | Mini Tools">
   <meta name="twitter:description" content="Upload an image, copy its hosted link and share it without creating an account.">
   <meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png">
   <link rel="canonical" href="https://mini-tools.uk/free-image-hosting">
@@ -185,6 +185,11 @@ Object.assign(translations["zh-CN"],{secondaryCta:"查看 API 文档"});
 Object.assign(translations.de,{secondaryCta:"API-Dokumentation"});
 Object.assign(translations.fr,{secondaryCta:"Documentation API"});
 Object.assign(translations.es,{secondaryCta:"Documentación de la API"});
+Object.assign(translations.en,{title:"Free Image Hosting Without Signup | Mini Tools",description:"Learn how free image hosting works, then upload JPG, PNG, GIF or WebP files up to 5 MB and copy a direct link without creating an account."});
+Object.assign(translations["zh-CN"],{title:"免费图床：无需注册上传图片 | Mini Tools",description:"了解免费图床的保存和分享方式，上传最大 5 MB 的 JPG、PNG、GIF 或 WebP 图片，无需注册即可复制图片直链。"});
+Object.assign(translations.de,{title:"Kostenloses Bildhosting ohne Anmeldung | Mini Tools",description:"Erfahren Sie, wie kostenloses Bildhosting funktioniert, laden Sie JPG, PNG, GIF oder WebP bis 5 MB hoch und kopieren Sie ohne Konto einen Direktlink."});
+Object.assign(translations.fr,{title:"Hébergement d’images gratuit sans compte | Mini Tools",description:"Découvrez l’hébergement gratuit, téléversez des fichiers JPG, PNG, GIF ou WebP de 5 Mo maximum et copiez un lien direct sans compte."});
+Object.assign(translations.es,{title:"Alojamiento de imágenes gratis sin registro | Mini Tools",description:"Conoce el alojamiento gratuito, sube archivos JPG, PNG, GIF o WebP de hasta 5 MB y copia un enlace directo sin crear una cuenta."});
 window.applyLanguage=function(lang){const d=translations[lang]||translations.en;const el=document.getElementById('appSchema');if(!el)return;const faq=[];for(let i=1;i<=6;i++)faq.push({"@type":"Question","name":d[`faq${i}Q`],"acceptedAnswer":{"@type":"Answer","text":d[`faq${i}A`]}});el.textContent=JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":d.schemaAppName,"applicationCategory":"UtilitiesApplication","operatingSystem":"Web","url":location.href,"description":d.schemaDescription,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":faq}]});};
 </script>
 <script src="site-version.js"></script>
