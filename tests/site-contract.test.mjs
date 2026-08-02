@@ -586,8 +586,18 @@ test("tool pages include the required content structure", () => {
 
 test("site version label uses a dated release id", () => {
   const source = read("site-version.js");
-  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']2026-07-31-01["']/, "site-version.js release id");
+  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']2026-08-02-01["']/, "site-version.js release id");
   assert.match(read("index.html"), /data-site-version/, "homepage footer version slot");
+});
+
+test("trust pages describe the current image-hosting focus", () => {
+  const retiredCopy = /UK tax calculator|tax and VAT|tax calculator page|salary amount|calculator issues?|calculation issue|英国财务|个税|工资金额|Tax- und VAT-Rechner|calculs tax\/VAT|cálculos tax\/VAT/i;
+
+  for (const file of ["about.html", "contact.html", "privacy.html"]) {
+    const html = read(file);
+    assert.doesNotMatch(html, retiredCopy, `${file}: retired finance positioning`);
+    assert.match(html, /image hosting|image-hosting/i, `${file}: image-hosting positioning`);
+  }
 });
 
 test("shared tooling cannot regenerate the retired generic guidance template", () => {
@@ -677,7 +687,7 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   for (const path of approvedPaths) {
     const loc = `https://mini-tools.uk${path}`;
     const entry = read("sitemap.xml").match(new RegExp(`<url><loc>${loc.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}</loc><lastmod>([^<]+)</lastmod></url>`));
-    assert.equal(entry?.[1], "2026-07-30", `${path} sitemap lastmod`);
+    assert.equal(entry?.[1], "2026-08-02", `${path} sitemap lastmod`);
   }
   assert.equal(read("sitemap.xml").includes("?lang="), false);
   assert.doesNotMatch(read("sitemap.xml"), /blog/i);
@@ -786,6 +796,9 @@ test("image API documentation is server-rendered in all five languages", async (
   assert.match(source, /GET \/v1\/images/);
   assert.match(source, /DELETE \/v1\/images\/:key/);
   assert.match(source, /Idempotency-Key/);
+  assert.match(source, /<pre id=["']singleExample["']><!--email_off-->[\s\S]*file=@image\.png[\s\S]*<!--\/email_off--><\/pre>/);
+  assert.match(source, /<pre id=["']batchExample["']><!--email_off-->[\s\S]*file=@first\.png[\s\S]*file=@second\.webp[\s\S]*<!--\/email_off--><\/pre>/);
+  assert.equal((source.match(/<!--email_off-->/g) || []).length, 2, "both cURL examples opt out of Cloudflare email obfuscation");
 
   const recordsResponse = elementTextById(source, "recordsResponseExample");
   assert.match(recordsResponse, /https:\/\/pub\.mini-tools\.uk\//);
@@ -840,8 +853,8 @@ test("worker renders about in German with a German title", async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /<html[^>]+lang=["']de["']/);
-  assert.match(html, /<title>Über Mini-Tools\.uk｜Praktische Rechner und Browser-Tools<\/title>/);
-  assert.doesNotMatch(html, /<title>About Mini-Tools\.uk - Practical Calculators and Browser Tools<\/title>/);
+  assert.match(html, /<title>Über Mini-Tools\.uk \| Bildhosting und Entwicklertools<\/title>/);
+  assert.doesNotMatch(html, /Practical Calculators|Praktische Rechner/);
 });
 
 test("worker renders upload English with the shared en-GB html language", async () => {

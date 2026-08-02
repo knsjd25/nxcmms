@@ -282,22 +282,22 @@
         <h3 data-i18n="singleTitle">Single image upload</h3>
         <div class="code-shell">
           <div class="code-head"><span>cURL</span><button class="copy-code" type="button" data-copy="singleExample" data-i18n="copyCode">Copy</button></div>
-          <pre id="singleExample">curl "https://api.mini-tools.uk/v1/upload" \
+          <pre id="singleExample"><!--email_off-->curl "https://api.mini-tools.uk/v1/upload" \
   -H "X-API-User-ID: assigned-user-id" \
   -H "Authorization: Bearer mtu_live_your_key" \
   -F "duration=7-day" \
-  -F "file=@image.png"</pre>
+  -F "file=@image.png"<!--/email_off--></pre>
         </div>
 
         <h3 data-i18n="batchTitle">Multiple image upload</h3>
         <div class="code-shell">
           <div class="code-head"><span>cURL</span><button class="copy-code" type="button" data-copy="batchExample" data-i18n="copyCode">Copy</button></div>
-          <pre id="batchExample">curl "https://api.mini-tools.uk/v1/upload" \
+          <pre id="batchExample"><!--email_off-->curl "https://api.mini-tools.uk/v1/upload" \
   -H "X-API-User-ID: assigned-user-id" \
   -H "Authorization: Bearer mtu_live_your_key" \
   -F "duration=7-day" \
   -F "file=@first.png" \
-  -F "file=@second.webp"</pre>
+  -F "file=@second.webp"<!--/email_off--></pre>
         </div>
 
         <h3 data-i18n="idempotencyTitle">Safe retries</h3>
