@@ -29,6 +29,7 @@ class FakeStatement {
 class FakeD1 {
   constructor() {
     this.apiUsers = new Map();
+    this.vipCodes = new Map();
     this.dailyUsage = new Map();
     this.idempotency = new Map();
     this.images = new Map();
@@ -41,6 +42,14 @@ class FakeD1 {
       "referer", "vip_id", "duration", "is_vip", "is_personal", "uploaded_at",
       "audited_at", "deleted_at", "expires_at", "created_at", "updated_at"
     ]);
+    this.apiUserColumns = new Set([
+      "id", "code", "note", "key_prefix", "key_hash", "plan_type",
+      "allow_temporary", "temporary_daily_limit", "allow_permanent",
+      "permanent_quota_total", "permanent_quota_used", "payment_status",
+      "price_cents", "payment_note", "active", "created_at", "updated_at",
+      "last_used_at"
+    ]);
+    this.vipColumns = new Set(["code", "note", "active", "created_at", "updated_at"]);
   }
 
   prepare(sql) {
@@ -74,9 +83,31 @@ class FakeD1 {
       return mode === "first" ? rows[0] || null : this.result(rows);
     }
 
+    if (upper === "PRAGMA TABLE_INFO(API_USERS)") {
+      const rows = [...this.apiUserColumns].map((name, cid) => ({ cid, name }));
+      return mode === "first" ? rows[0] || null : this.result(rows);
+    }
+
+    if (upper === "PRAGMA TABLE_INFO(VIP_CODES)") {
+      const rows = [...this.vipColumns].map((name, cid) => ({ cid, name }));
+      return mode === "first" ? rows[0] || null : this.result(rows);
+    }
+
     if (upper.startsWith("ALTER TABLE IMAGES ADD COLUMN")) {
       const match = normalized.match(/ADD COLUMN\s+([a-z0-9_]+)/i);
       if (match) this.imageColumns.add(match[1]);
+      return this.result([], 1);
+    }
+
+    if (upper.startsWith("ALTER TABLE API_USERS ADD COLUMN")) {
+      const match = normalized.match(/ADD COLUMN\s+([a-z0-9_]+)/i);
+      if (match) this.apiUserColumns.add(match[1]);
+      return this.result([], 1);
+    }
+
+    if (upper.startsWith("ALTER TABLE VIP_CODES ADD COLUMN")) {
+      const match = normalized.match(/ADD COLUMN\s+([a-z0-9_]+)/i);
+      if (match) this.vipColumns.add(match[1]);
       return this.result([], 1);
     }
 
@@ -152,7 +183,8 @@ class FakeD1 {
 
     if (upper.startsWith("INSERT INTO API_USERS")) {
       const [
-        id, code, note, keyPrefix, keyHash, planType,
+        id, code, note, email, emailVerified, emailVerifiedAt,
+        keyPrefix, keyHash, planType,
         allowTemporary, temporaryDailyLimit,
         allowPermanent, permanentQuotaTotal,
         paymentStatus, priceCents, paymentNote,
@@ -165,6 +197,9 @@ class FakeD1 {
         id,
         code,
         note,
+        email,
+        email_verified: emailVerified,
+        email_verified_at: emailVerifiedAt,
         key_prefix: keyPrefix,
         key_hash: keyHash,
         plan_type: planType,
@@ -182,6 +217,73 @@ class FakeD1 {
         last_used_at: null
       });
       return this.result([], 1);
+    }
+
+    if (upper.startsWith("UPDATE API_USERS") && upper.includes("SET NOTE = ?")) {
+      const [
+        note, email, emailVerified, emailVerifiedAt, planType,
+        allowTemporary, temporaryDailyLimit, allowPermanent, permanentQuotaTotal,
+        paymentStatus, priceCents, paymentNote, active, updatedAt, id
+      ] = params;
+      const user = this.apiUsers.get(id);
+      if (!user) return this.result();
+      Object.assign(user, {
+        note,
+        email,
+        email_verified: emailVerified,
+        email_verified_at: emailVerifiedAt,
+        plan_type: planType,
+        allow_temporary: allowTemporary,
+        temporary_daily_limit: temporaryDailyLimit,
+        allow_permanent: allowPermanent,
+        permanent_quota_total: permanentQuotaTotal,
+        payment_status: paymentStatus,
+        price_cents: priceCents,
+        payment_note: paymentNote,
+        active,
+        updated_at: updatedAt
+      });
+      return this.result([], 1);
+    }
+
+    if (upper.startsWith("INSERT INTO VIP_CODES")) {
+      const [code, note, email, emailVerified, emailVerifiedAt, createdAt, updatedAt] = params;
+      const current = this.vipCodes.get(code);
+      this.vipCodes.set(code, {
+        code,
+        note,
+        email,
+        email_verified: emailVerified,
+        email_verified_at: emailVerifiedAt,
+        active: 1,
+        created_at: current?.created_at || createdAt,
+        updated_at: updatedAt
+      });
+      return this.result([], 1);
+    }
+
+    if (upper.startsWith("UPDATE VIP_CODES") && upper.includes("SET ACTIVE = 0")) {
+      const [updatedAt, code] = params;
+      const vip = this.vipCodes.get(code);
+      if (vip) {
+        vip.active = 0;
+        vip.updated_at = updatedAt;
+      }
+      return this.result([], vip ? 1 : 0);
+    }
+
+    if (upper.startsWith("SELECT CODE FROM VIP_CODES WHERE CODE = ?")) {
+      const vip = this.vipCodes.get(params[0]);
+      const row = vip ? { code: vip.code } : null;
+      return mode === "first" ? row : this.result(row ? [row] : []);
+    }
+
+    if (upper.startsWith("SELECT CODE, NOTE, EMAIL") && upper.includes("FROM VIP_CODES")) {
+      const rows = [...this.vipCodes.values()]
+        .filter((vip) => vip.active === 1)
+        .sort((a, b) => a.created_at.localeCompare(b.created_at))
+        .map((vip) => structuredClone(vip));
+      return mode === "first" ? rows[0] || null : this.result(rows);
     }
 
     if (upper.includes("FROM API_USERS WHERE ID = ? AND KEY_HASH = ?")) {
@@ -545,7 +647,11 @@ async function createApiUser(env, body) {
       "Content-Type": "application/json",
       "X-Admin-Key": "admin-secret"
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify({
+      email: "verified@example.com",
+      email_verified: true,
+      ...body
+    })
   });
   const data = await response.json();
   assert.equal(response.status, 201, JSON.stringify(data));
@@ -563,6 +669,42 @@ function imageFile(name = "image.png") {
 
 function invalidImageFile(name = "invalid.png") {
   return new File([new Uint8Array([0x00, 0x01, 0x02, 0x03])], name, { type: "image/png" });
+}
+
+async function createSolvedCaptcha(env) {
+  const response = await callWorker(env, "/?action=captcha", {
+    headers: {
+      Origin: "https://mini-tools.uk",
+      "User-Agent": "Mozilla/5.0 test browser"
+    }
+  });
+  const data = await response.json();
+  assert.equal(response.status, 200, JSON.stringify(data));
+  const match = String(data.question || "").match(/(\d+)\s*([+-])\s*(\d+)/);
+  assert.ok(match, `Unexpected captcha question: ${data.question}`);
+  const left = Number(match[1]);
+  const right = Number(match[3]);
+  return {
+    id: data.captcha_id,
+    answer: match[2] === "+" ? left + right : left - right
+  };
+}
+
+function webUploadRequest(file, duration, vipId, captcha) {
+  const formData = new FormData();
+  formData.set("file", file);
+  formData.set("duration", duration);
+  formData.set("vip_id", vipId);
+  formData.set("captcha_id", captcha.id);
+  formData.set("captcha_answer", String(captcha.answer));
+  return {
+    method: "POST",
+    headers: {
+      Origin: "https://mini-tools.uk",
+      "User-Agent": "Mozilla/5.0 test browser"
+    },
+    body: formData
+  };
 }
 
 function uploadRequest(apiKey, userId, duration, files, extraHeaders = {}) {
@@ -603,6 +745,175 @@ test("API user keys are returned once and omitted from admin lists", async () =>
   assert.equal("api_key" in data.users[0], false);
   assert.equal("key_hash" in data.users[0], false);
   assert.doesNotMatch(JSON.stringify(data), new RegExp(created.api_key));
+});
+
+test("unverified API email blocks access and verified email stays private", async () => {
+  const env = createEnv();
+  const created = await createApiUser(env, {
+    code: "email_gate",
+    email: "Applicant@Example.com",
+    email_verified: false,
+    plan_type: "temporary_100",
+    allow_temporary: true,
+    temporary_daily_limit: 100,
+    allow_permanent: false
+  });
+
+  const headers = {
+    Authorization: `Bearer ${created.api_key}`,
+    "X-API-User-ID": created.user.id
+  };
+  const blocked = await callWorker(env, "/v1/usage", { headers });
+  const blockedData = await blocked.json();
+  assert.equal(blocked.status, 403);
+  assert.equal(blockedData.code, "EMAIL_VERIFICATION_REQUIRED");
+
+  const update = await callWorker(env, "/?action=api_user_update", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Admin-Key": "admin-secret"
+    },
+    body: JSON.stringify({
+      id: created.user.id,
+      email: "applicant@example.com",
+      email_verified: true,
+      plan_type: "temporary_100",
+      allow_temporary: true,
+      temporary_daily_limit: 100,
+      allow_permanent: false,
+      payment_status: "unpaid",
+      active: true
+    })
+  });
+  assert.equal(update.status, 200, await update.text());
+
+  const allowed = await callWorker(env, "/v1/usage", { headers });
+  const allowedData = await allowed.json();
+  assert.equal(allowed.status, 200, JSON.stringify(allowedData));
+  assert.equal(JSON.stringify(allowedData).includes("applicant@example.com"), false);
+  assert.equal("email" in allowedData.usage, false);
+});
+
+test("permanent web uploads require an administrator-verified email", async () => {
+  const env = createEnv();
+  const add = await callWorker(env, "/?action=vip_add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Admin-Key": "admin-secret"
+    },
+    body: JSON.stringify({
+      code: "permanent_email_gate",
+      email: "owner@example.com",
+      email_verified: false,
+      note: "manual email review"
+    })
+  });
+  assert.equal(add.status, 200, await add.text());
+
+  const firstCaptcha = await createSolvedCaptcha(env);
+  const blocked = await callWorker(
+    env,
+    "/",
+    webUploadRequest(imageFile("blocked.png"), "permanent", "permanent_email_gate", firstCaptcha)
+  );
+  const blockedData = await blocked.json();
+  assert.equal(blocked.status, 403, JSON.stringify(blockedData));
+  assert.equal(blockedData.code, "EMAIL_VERIFICATION_REQUIRED");
+
+  const verify = await callWorker(env, "/?action=vip_update", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Admin-Key": "admin-secret"
+    },
+    body: JSON.stringify({
+      code: "permanent_email_gate",
+      email: "owner@example.com",
+      email_verified: true,
+      note: "manual email review"
+    })
+  });
+  assert.equal(verify.status, 200, await verify.text());
+
+  const secondCaptcha = await createSolvedCaptcha(env);
+  const uploaded = await callWorker(
+    env,
+    "/",
+    webUploadRequest(imageFile("allowed.png"), "permanent", "permanent_email_gate", secondCaptcha)
+  );
+  const uploadedData = await uploaded.json();
+  assert.equal(uploaded.status, 200, JSON.stringify(uploadedData));
+  const [image] = [...env.DB.images.values()];
+  assert.equal(image.status, "pending");
+  assert.equal(image.upload_source, "web");
+  assert.equal(image.vip_id, "permanent_email_gate");
+});
+
+test("normal web uploads enter the manual review queue without an email account", async () => {
+  const env = createEnv();
+  const captcha = await createSolvedCaptcha(env);
+  const response = await callWorker(
+    env,
+    "/",
+    webUploadRequest(imageFile("normal.png"), "1-day", "", captcha)
+  );
+  const data = await response.json();
+  assert.equal(response.status, 200, JSON.stringify(data));
+  const [image] = [...env.DB.images.values()];
+  assert.equal(image.status, "pending");
+  assert.equal(image.upload_source, "web");
+  assert.equal(image.duration, "1-day");
+  assert.equal(image.vip_id, null);
+});
+
+test("legacy VIP configuration migrates from R2 to private D1 storage", async () => {
+  const env = createEnv();
+  await env.R2_BUCKET.put("_config/vip_codes.json", JSON.stringify([{
+    code: "legacy_vip",
+    note: "legacy record",
+    created_at: "2026-01-01T00:00:00.000Z"
+  }]));
+
+  const response = await callWorker(env, "/?action=vip_list", {
+    headers: { "X-Admin-Key": "admin-secret" }
+  });
+  const data = await response.json();
+  assert.equal(response.status, 200, JSON.stringify(data));
+  assert.equal(data.vips[0].code, "legacy_vip");
+  assert.equal(data.vips[0].email_verified, false);
+  assert.equal(env.R2_BUCKET.objects.has("_config/vip_codes.json"), false);
+  assert.equal(env.DB.vipCodes.get("legacy_vip").active, 1);
+});
+
+test("legacy VIP migration preserves newer D1 email verification records", async () => {
+  const env = createEnv();
+  env.DB.vipCodes.set("existing_vip", {
+    code: "existing_vip",
+    note: "verified in admin",
+    email: "owner@example.com",
+    email_verified: 1,
+    email_verified_at: "2026-08-01T00:00:00.000Z",
+    active: 1,
+    created_at: "2026-07-01T00:00:00.000Z",
+    updated_at: "2026-08-01T00:00:00.000Z"
+  });
+  await env.R2_BUCKET.put("_config/vip_codes.json", JSON.stringify([{
+    code: "existing_vip",
+    note: "stale legacy record",
+    created_at: "2026-01-01T00:00:00.000Z"
+  }]));
+
+  const response = await callWorker(env, "/?action=vip_list", {
+    headers: { "X-Admin-Key": "admin-secret" }
+  });
+  const data = await response.json();
+  assert.equal(response.status, 200, JSON.stringify(data));
+  assert.equal(data.vips[0].email, "owner@example.com");
+  assert.equal(data.vips[0].email_verified, true);
+  assert.equal(data.vips[0].note, "verified in admin");
+  assert.equal(env.R2_BUCKET.objects.has("_config/vip_codes.json"), false);
 });
 
 test("public API requires the assigned user ID together with the API key", async () => {

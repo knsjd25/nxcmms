@@ -586,7 +586,7 @@ test("tool pages include the required content structure", () => {
 
 test("site version label uses a dated release id", () => {
   const source = read("site-version.js");
-  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']2026-08-02-02["']/, "site-version.js release id");
+  assert.match(source, /MINI_TOOLS_SITE_VERSION\s*=\s*["']2026-08-03-01["']/, "site-version.js release id");
   assert.match(read("index.html"), /data-site-version/, "homepage footer version slot");
 });
 

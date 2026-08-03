@@ -164,6 +164,15 @@ function truncate(value, maxLength) {
   return text.length > maxLength ? text.slice(0, maxLength) : text;
 }
 
+function normalizeEmail(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+function isValidEmail(value) {
+  const email = normalizeEmail(value);
+  return email.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 function getRequestContext(request) {
   const userAgent = request.headers.get("User-Agent") || "";
   const origin = request.headers.get("Origin") || "";
@@ -415,19 +424,24 @@ async function markSuspicious(env, fileKey, payload) {
 }
 
 async function getVipConfig(env) {
-  try {
-    const file = await env.R2_BUCKET.get(VIP_CONFIG_FILE);
-    if (!file) return [];
-    const text = await file.text();
-    const parsed = JSON.parse(text);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch (e) {
-    return [];
-  }
-}
-
-async function saveVipConfig(env, data) {
-  await putJsonObject(env, VIP_CONFIG_FILE, data);
+  if (!hasD1(env)) throw new Error("VIP email verification requires the D1 binding DB");
+  await ensureVipSchema(env);
+  await migrateLegacyVipConfigToD1(env);
+  const rows = await d1All(env, `
+    SELECT code, note, email, email_verified, email_verified_at, created_at, updated_at
+    FROM vip_codes
+    WHERE active = 1
+    ORDER BY created_at ASC
+  `);
+  return rows.map((row) => ({
+    code: row.code,
+    note: row.note || "",
+    email: row.email || "",
+    email_verified: Number(row.email_verified || 0) === 1,
+    email_verified_at: row.email_verified_at || null,
+    created_at: row.created_at,
+    updated_at: row.updated_at
+  }));
 }
 
 function captchaKey(id) {
@@ -2085,9 +2099,13 @@ async function handleVipList(request, env) {
 async function handleVipAdd(request, env) {
   const body = await request.json();
   const code = String(body.code || "").trim();
+  const email = normalizeEmail(body.email);
 
   if (!code) {
     return jsonResponse(request, env, { error: "缺少激活码" }, 400);
+  }
+  if (!isValidEmail(email)) {
+    return jsonResponse(request, env, { error: "请输入有效的认证邮箱" }, 400);
   }
 
   let vips = await getVipConfig(env);
@@ -2098,18 +2116,48 @@ async function handleVipAdd(request, env) {
   const vipRecord = {
     code,
     note: body.note || "",
+    email,
+    emailVerified: toFlag(body.email_verified, false),
+    emailVerifiedAt: toFlag(body.email_verified, false) ? new Date().toISOString() : null,
     created_at: new Date().toLocaleString("zh-CN", { timeZone: "Asia/Shanghai" })
   };
 
-  vips.push(vipRecord);
-
-  await saveVipConfig(env, vips);
   await d1UpsertVipCode(env, {
     code,
     note: body.note || "",
+    email: vipRecord.email,
+    emailVerified: vipRecord.emailVerified,
+    emailVerifiedAt: vipRecord.emailVerifiedAt,
     createdAt: new Date().toISOString()
   });
 
+  return jsonResponse(request, env, { success: true });
+}
+
+async function handleVipUpdate(request, env) {
+  const body = await request.json();
+  const code = String(body.code || "").trim();
+  const email = normalizeEmail(body.email);
+  if (!code) return jsonResponse(request, env, { error: "缺少长期存储码" }, 400);
+  if (!isValidEmail(email)) return jsonResponse(request, env, { error: "请输入有效的认证邮箱" }, 400);
+
+  const vips = await getVipConfig(env);
+  const current = vips.find((vip) => vip.code === code);
+  if (!current) return jsonResponse(request, env, { error: "未找到该长期存储码" }, 404);
+
+  const emailVerified = toFlag(body.email_verified, false);
+  const emailChanged = normalizeEmail(current.email) !== email;
+  const emailVerifiedAt = emailVerified
+    ? (!emailChanged && current.email_verified_at ? current.email_verified_at : new Date().toISOString())
+    : null;
+  await d1UpsertVipCode(env, {
+    code,
+    note: truncate(body.note ?? current.note ?? "", 300),
+    email,
+    emailVerified,
+    emailVerifiedAt,
+    createdAt: current.created_at || new Date().toISOString()
+  });
   return jsonResponse(request, env, { success: true });
 }
 
@@ -2128,7 +2176,6 @@ async function handleVipDel(request, env) {
     return jsonResponse(request, env, { error: "未找到该 VIP 码" }, 404);
   }
 
-  await saveVipConfig(env, nextVips);
   await d1DeactivateVipCode(env, code);
 
   return jsonResponse(request, env, { success: true });
@@ -2193,16 +2240,20 @@ async function handleApiUserCreate(request, env) {
   try {
     await env.DB.prepare(`
       INSERT INTO api_users (
-        id, code, note, key_prefix, key_hash, plan_type,
+        id, code, note, email, email_verified, email_verified_at,
+        key_prefix, key_hash, plan_type,
         allow_temporary, temporary_daily_limit,
         allow_permanent, permanent_quota_total, permanent_quota_used,
         payment_status, price_cents, payment_note,
         active, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?, ?, ?)
     `).bind(
       id,
       code,
       truncate(body.note || "", 300),
+      value.email,
+      value.emailVerified ? 1 : 0,
+      value.emailVerified ? now : null,
       keyPrefix,
       keyHash,
       value.planType,
@@ -2261,10 +2312,17 @@ async function handleApiUserUpdate(request, env) {
     ? value.permanentQuotaTotal
     : Math.max(permanentUsed, 0);
   const now = new Date().toISOString();
+  const emailChanged = normalizeEmail(current.email) !== value.email;
+  const emailVerifiedAt = value.emailVerified
+    ? (!emailChanged && current.email_verified_at ? current.email_verified_at : now)
+    : null;
 
   await env.DB.prepare(`
     UPDATE api_users
     SET note = ?,
+        email = ?,
+        email_verified = ?,
+        email_verified_at = ?,
         plan_type = ?,
         allow_temporary = ?,
         temporary_daily_limit = ?,
@@ -2278,6 +2336,9 @@ async function handleApiUserUpdate(request, env) {
     WHERE id = ?
   `).bind(
     truncate(body.note ?? current.note ?? "", 300),
+    value.email,
+    value.emailVerified ? 1 : 0,
+    emailVerifiedAt,
     value.planType,
     value.allowTemporary ? 1 : 0,
     value.temporaryDailyLimit,
@@ -2429,6 +2490,83 @@ async function ensureImageApiColumns(env) {
 }
 
 const apiSchemaPromises = new WeakMap();
+const vipSchemaPromises = new WeakMap();
+
+async function ensureVipSchema(env) {
+  if (!hasD1(env)) throw new Error("D1 binding DB not found");
+  if (vipSchemaPromises.has(env.DB)) return vipSchemaPromises.get(env.DB);
+
+  const schemaPromise = (async () => {
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS vip_codes (
+        code TEXT PRIMARY KEY,
+        note TEXT NOT NULL DEFAULT '',
+        email TEXT NOT NULL DEFAULT '',
+        email_verified INTEGER NOT NULL DEFAULT 0,
+        email_verified_at TEXT,
+        active INTEGER NOT NULL DEFAULT 1,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL
+      )
+    `).run();
+
+    const addColumn = async (columnName, definition) => {
+      let columns = await d1All(env, "PRAGMA table_info(vip_codes)");
+      if (columns.some((column) => column.name === columnName)) return;
+      try {
+        await env.DB.prepare(`ALTER TABLE vip_codes ADD COLUMN ${definition}`).run();
+      } catch (error) {
+        columns = await d1All(env, "PRAGMA table_info(vip_codes)");
+        if (!columns.some((column) => column.name === columnName)) throw error;
+      }
+    };
+
+    await addColumn("email", "email TEXT NOT NULL DEFAULT ''");
+    await addColumn("email_verified", "email_verified INTEGER NOT NULL DEFAULT 0");
+    await addColumn("email_verified_at", "email_verified_at TEXT");
+    await env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_vip_codes_active ON vip_codes(active, updated_at)").run();
+  })();
+
+  vipSchemaPromises.set(env.DB, schemaPromise);
+  try {
+    await schemaPromise;
+  } catch (error) {
+    vipSchemaPromises.delete(env.DB);
+    throw error;
+  }
+}
+
+async function migrateLegacyVipConfigToD1(env) {
+  const file = await env.R2_BUCKET.get(VIP_CONFIG_FILE);
+  if (!file) return;
+
+  const parsed = JSON.parse(await file.text());
+  const records = Array.isArray(parsed) ? parsed : [];
+  for (const record of records) {
+    const code = String(record?.code || "").trim();
+    if (!code) continue;
+    const existing = await d1First(env, `
+      SELECT code
+      FROM vip_codes
+      WHERE code = ?
+      LIMIT 1
+    `, [code]);
+    if (existing) continue;
+
+    const result = await d1UpsertVipCode(env, {
+      code,
+      note: record.note || "",
+      email: isValidEmail(record.email) ? normalizeEmail(record.email) : "",
+      emailVerified: Boolean(record.email_verified) && isValidEmail(record.email),
+      emailVerifiedAt: record.email_verified_at || null,
+      createdAt: record.created_at || record.createdAt || new Date().toISOString()
+    });
+    if (!result?.ok) throw new Error(`Failed to migrate VIP code ${code} to D1`);
+  }
+
+  // The legacy R2 object may be reachable through the public R2 domain.
+  await env.R2_BUCKET.delete(VIP_CONFIG_FILE);
+}
 
 async function ensureApiSchema(env) {
   if (!hasD1(env)) throw new Error("D1 binding DB not found");
@@ -2441,6 +2579,9 @@ async function ensureApiSchema(env) {
           id TEXT PRIMARY KEY,
           code TEXT NOT NULL COLLATE NOCASE UNIQUE,
           note TEXT NOT NULL DEFAULT '',
+          email TEXT NOT NULL DEFAULT '',
+          email_verified INTEGER NOT NULL DEFAULT 0,
+          email_verified_at TEXT,
           key_prefix TEXT NOT NULL,
           key_hash TEXT NOT NULL UNIQUE,
           plan_type TEXT NOT NULL,
@@ -2489,6 +2630,19 @@ async function ensureApiSchema(env) {
       env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_api_daily_usage_date ON api_daily_usage(usage_date)"),
       env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_api_idempotency_updated ON api_idempotency(updated_at)")
     ]);
+    const addApiUserColumn = async (columnName, definition) => {
+      let columns = await d1All(env, "PRAGMA table_info(api_users)");
+      if (columns.some((column) => column.name === columnName)) return;
+      try {
+        await env.DB.prepare(`ALTER TABLE api_users ADD COLUMN ${definition}`).run();
+      } catch (error) {
+        columns = await d1All(env, "PRAGMA table_info(api_users)");
+        if (!columns.some((column) => column.name === columnName)) throw error;
+      }
+    };
+    await addApiUserColumn("email", "email TEXT NOT NULL DEFAULT ''");
+    await addApiUserColumn("email_verified", "email_verified INTEGER NOT NULL DEFAULT 0");
+    await addApiUserColumn("email_verified_at", "email_verified_at TEXT");
     await ensureImageApiColumns(env);
     await env.DB.prepare(
       "CREATE INDEX IF NOT EXISTS idx_images_api_user_uploaded ON images(api_user_id, upload_source, uploaded_at DESC)"
@@ -2560,6 +2714,11 @@ function normalizeApiUserInput(body = {}, current = null) {
     100000000
   );
   const paymentStatus = String(body.payment_status || current?.payment_status || "unpaid").trim();
+  const email = normalizeEmail(body.email ?? current?.email);
+  const emailVerified = toFlag(
+    body.email_verified,
+    current ? Number(current.email_verified || 0) === 1 : false
+  );
 
   if (temporaryDailyLimit === null || permanentQuotaTotal === null || priceCents === null) {
     return { ok: false, error: "额度和价格必须是有效的非负整数" };
@@ -2576,6 +2735,9 @@ function normalizeApiUserInput(body = {}, current = null) {
   if (!API_PAYMENT_STATUSES.has(paymentStatus)) {
     return { ok: false, error: "收费状态无效" };
   }
+  if (!isValidEmail(email)) {
+    return { ok: false, error: "请输入有效的认证邮箱" };
+  }
 
   return {
     ok: true,
@@ -2588,6 +2750,8 @@ function normalizeApiUserInput(body = {}, current = null) {
       paymentStatus,
       priceCents,
       paymentNote: truncate(body.payment_note ?? current?.payment_note ?? "", 300),
+      email,
+      emailVerified,
       active: toFlag(body.active, current ? Number(current.active || 0) === 1 : true)
     }
   };
@@ -2656,6 +2820,14 @@ async function authenticateApiUser(request, env) {
   if (Number(user.active || 0) !== 1) {
     return { ok: false, status: 403, error: "API 用户已停用", code: "API_USER_DISABLED" };
   }
+  if (!isValidEmail(user.email) || Number(user.email_verified || 0) !== 1) {
+    return {
+      ok: false,
+      status: 403,
+      error: "API 用户邮箱尚未完成管理员认证",
+      code: "EMAIL_VERIFICATION_REQUIRED"
+    };
+  }
   return { ok: true, user };
 }
 
@@ -2679,6 +2851,9 @@ function apiUserPayload(row, usage = { temporaryCount: 0, permanentCount: 0 }, d
     id: row.id,
     code: row.code,
     note: row.note || "",
+    email: row.email || "",
+    email_verified: Number(row.email_verified || 0) === 1,
+    email_verified_at: row.email_verified_at || null,
     key_prefix: row.key_prefix,
     plan_type: row.plan_type,
     allow_temporary: Number(row.allow_temporary || 0) === 1,
@@ -3403,15 +3578,28 @@ async function findActiveHighRiskUser(env, { ipHash: ipHashValue = "", deviceHas
 async function d1UpsertVipCode(env, vip) {
   const now = new Date().toISOString();
   const sql = `
-    INSERT INTO vip_codes (code, note, active, created_at, updated_at)
-    VALUES (?, ?, 1, ?, ?)
+    INSERT INTO vip_codes (
+      code, note, email, email_verified, email_verified_at, active, created_at, updated_at
+    )
+    VALUES (?, ?, ?, ?, ?, 1, ?, ?)
     ON CONFLICT(code) DO UPDATE SET
       note = excluded.note,
+      email = excluded.email,
+      email_verified = excluded.email_verified,
+      email_verified_at = excluded.email_verified_at,
       active = 1,
       updated_at = excluded.updated_at
   `;
 
-  return d1Run(env, sql, [vip.code, vip.note || "", vip.createdAt || now, now]);
+  return d1Run(env, sql, [
+    vip.code,
+    vip.note || "",
+    normalizeEmail(vip.email),
+    vip.emailVerified ? 1 : 0,
+    vip.emailVerified ? (vip.emailVerifiedAt || now) : null,
+    vip.createdAt || now,
+    now
+  ]);
 }
 
 async function d1DeactivateVipCode(env, code) {
@@ -4194,16 +4382,20 @@ async function handleUpload(request, env) {
       return jsonResponse(request, env, { error: captchaCheck.error }, captchaCheck.status);
     }
 
-    let validVips = [];
+    let verifiedVip = null;
     if (providedVipId) {
       const vipConfigData = await getVipConfig(env);
-      validVips = vipConfigData.map((v) => v.code);
+      verifiedVip = vipConfigData.find((vip) => (
+        vip.code === providedVipId &&
+        vip.email_verified === true &&
+        isValidEmail(vip.email)
+      )) || null;
     }
 
     const extension = MIME_TO_EXT[file.type];
 
     // 有效 VIP，进入 permanent/
-    if (providedVipId && validVips.includes(providedVipId)) {
+    if (providedVipId && verifiedVip) {
       finalR2Path = `permanent/${crypto.randomUUID()}.${extension}`;
       isVipUpload = true;
       objectMetadata = { vip_id: providedVipId };
@@ -4212,7 +4404,8 @@ async function handleUpload(request, env) {
       if (duration === "permanent") {
         return jsonResponse(request, env, {
           success: false,
-          error: "VIP 激活码无效或未授权永久存储"
+          error: "长期存储码无效、已停用或尚未完成邮箱认证",
+          code: "EMAIL_VERIFICATION_REQUIRED"
         }, 403);
       }
 
@@ -4449,6 +4642,7 @@ export default {
         "audit",
         "vip_list",
         "vip_add",
+        "vip_update",
         "vip_del",
         "api_user_list",
         "api_user_create",
@@ -4521,6 +4715,10 @@ export default {
 
       if (request.method === "POST" && action === "vip_add") {
         return await handleVipAdd(request, env);
+      }
+
+      if (request.method === "POST" && action === "vip_update") {
+        return await handleVipUpdate(request, env);
       }
 
       if (request.method === "DELETE" && action === "vip_del") {

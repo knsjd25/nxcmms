@@ -394,15 +394,19 @@
 <div id="vip-panel">
   <h3>💎 生成新的 VIP 专属上传码</h3>
   <div class="vip-form">
+    <input type="hidden" id="editing-vip-code">
     <input type="text" id="new-vip-code" placeholder="输入自定义 ID (如 user_888) 或留空自动生成" style="flex:1;">
+    <input type="email" id="new-vip-email" placeholder="已申请用户的邮箱" style="flex:1;" required>
     <input type="text" id="new-vip-note" placeholder="备注信息 (例如: 张三的专用码)" style="flex:1;">
-    <button onclick="generateVipCode()" class="btn-warning">✨ 生成并保存</button>
+    <label style="display:flex;align-items:center;gap:7px;"><input type="checkbox" id="new-vip-email-verified"> 邮箱已人工核验</label>
+    <button onclick="generateVipCode()" class="btn-warning" id="vip-save-button">✨ 生成并保存</button>
+    <button onclick="resetVipForm()" class="btn-gray" id="vip-cancel-button" style="display:none;">取消编辑</button>
   </div>
   <div id="vip-upload-summary" class="panel-note vip-summary-box" style="display:none;"></div>
   <h3>📋 已激活的 VIP 码列表</h3>
   <table>
-    <thead><tr><th>VIP 专属码</th><th>备注信息</th><th>上传图片数</th><th>创建时间</th><th>操作</th></tr></thead>
-    <tbody id="vip-list-body"><tr><td colspan="5" style="text-align:center;">请先拉取数据...</td></tr></tbody>
+    <thead><tr><th>VIP 专属码</th><th>邮箱认证</th><th>备注信息</th><th>上传图片数</th><th>创建时间</th><th>操作</th></tr></thead>
+    <tbody id="vip-list-body"><tr><td colspan="6" style="text-align:center;">请先拉取数据...</td></tr></tbody>
   </table>
 </div>
 
@@ -418,6 +422,10 @@
       <label class="api-field">
         <span>备注</span>
         <input type="text" id="api-user-note" maxlength="300" placeholder="客户名称或用途">
+      </label>
+      <label class="api-field">
+        <span>认证邮箱</span>
+        <input type="email" id="api-user-email" maxlength="254" placeholder="applicant@example.com" required>
       </label>
       <label class="api-field">
         <span>套餐</span>
@@ -457,6 +465,7 @@
     <div class="api-checks">
       <label><input type="checkbox" id="api-allow-temporary" checked onchange="markApiPlanCustom()"> 允许限时图片</label>
       <label><input type="checkbox" id="api-allow-permanent" onchange="markApiPlanCustom()"> 允许永久图片</label>
+      <label><input type="checkbox" id="api-email-verified"> 邮箱已人工核验</label>
       <label><input type="checkbox" id="api-user-active" checked> API Key 启用</label>
     </div>
     <div class="api-form-actions">
@@ -1421,6 +1430,10 @@
           deleteVipCode(btn.dataset.vipCode || '');
           return;
         }
+        if (action === 'vip-edit') {
+          editVipCode(btn.dataset.vipCode || '');
+          return;
+        }
         if (action === 'api-edit') {
           editApiUser(btn.dataset.apiId || '');
           return;
@@ -1473,7 +1486,7 @@
     const tbody = document.getElementById('vip-list-body');
     renderVipUploadSummary();
     if (!globalVips.length) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:#666;">暂无已激活的 VIP 码，请在上方生成。</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#666;">暂无已激活的 VIP 码，请在上方生成。</td></tr>`;
       return;
     }
     tbody.innerHTML = globalVips.slice().reverse().map(vip => {
@@ -1484,12 +1497,17 @@
       return `
       <tr>
         <td><span class="vip-code">${h(vip.code)}</span></td>
+        <td>
+          <span class="api-status ${vip.email_verified ? 'active' : 'inactive'}">${vip.email_verified ? '已认证' : '未认证'}</span><br>
+          <span class="mono" style="font-size:.8rem;">${h(vip.email || '-')}</span>
+        </td>
         <td>${h(vip.note || '-')}</td>
         <td>${countHtml}</td>
         <td>${h(vip.created_at || '-')}</td>
         <td>
           <div class="table-actions">
             <button type="button" class="btn-warning btn-small" data-admin-action="vip-images" data-vip-code="${h(vip.code)}">🔍 查看上传图</button>
+            <button type="button" class="btn-gray btn-small" data-admin-action="vip-edit" data-vip-code="${h(vip.code)}">编辑认证</button>
             <button type="button" class="btn-danger btn-small" data-admin-action="vip-delete" data-vip-code="${h(vip.code)}">🚨 销毁作废</button>
           </div>
         </td>
@@ -1546,7 +1564,11 @@
             ¥${h(price)}<br>
             <span style="color:#64748b;font-size:.8rem;">${h(user.payment_note || '-')}</span>
           </td>
-          <td><span class="api-status ${user.active ? 'active' : 'inactive'}">${user.active ? '已启用' : '已停用'}</span></td>
+          <td>
+            <span class="api-status ${user.active ? 'active' : 'inactive'}">${user.active ? '已启用' : '已停用'}</span><br>
+            <span class="api-status ${user.email_verified ? 'active' : 'inactive'}">邮箱${user.email_verified ? '已认证' : '未认证'}</span><br>
+            <span class="mono" style="font-size:.8rem;">${h(user.email || '-')}</span>
+          </td>
           <td>${h(user.last_used_at ? new Date(user.last_used_at).toLocaleString('zh-CN', { hour12: false }) : '尚未使用')}</td>
           <td>
             <div class="table-actions">
@@ -1592,6 +1614,7 @@
     document.getElementById('api-user-form').reset();
     document.getElementById('api-user-id').value = '';
     document.getElementById('api-user-code').disabled = false;
+    document.getElementById('api-email-verified').checked = false;
     document.getElementById('api-plan-type').value = 'temporary_100';
     document.getElementById('api-payment-status').value = 'unpaid';
     document.getElementById('api-user-active').checked = true;
@@ -1607,6 +1630,7 @@
     document.getElementById('api-user-code').value = user.code;
     document.getElementById('api-user-code').disabled = true;
     document.getElementById('api-user-note').value = user.note || '';
+    document.getElementById('api-user-email').value = user.email || '';
     document.getElementById('api-plan-type').value = ['temporary_100', 'temporary_200', 'permanent_100'].includes(user.plan_type) ? user.plan_type : 'custom';
     document.getElementById('api-payment-status').value = user.payment_status || 'unpaid';
     document.getElementById('api-price-yuan').value = (Number(user.price_cents || 0) / 100).toFixed(2);
@@ -1615,6 +1639,7 @@
     document.getElementById('api-payment-note').value = user.payment_note || '';
     document.getElementById('api-allow-temporary').checked = Boolean(user.allow_temporary);
     document.getElementById('api-allow-permanent').checked = Boolean(user.allow_permanent);
+    document.getElementById('api-email-verified').checked = Boolean(user.email_verified);
     document.getElementById('api-user-active').checked = Boolean(user.active);
     document.getElementById('api-save-button').textContent = '保存配置';
     document.getElementById('api-cancel-button').style.display = 'inline-flex';
@@ -1627,6 +1652,8 @@
       id: document.getElementById('api-user-id').value,
       code: document.getElementById('api-user-code').value.trim(),
       note: document.getElementById('api-user-note').value.trim(),
+      email: document.getElementById('api-user-email').value.trim(),
+      email_verified: document.getElementById('api-email-verified').checked,
       plan_type: document.getElementById('api-plan-type').value,
       payment_status: document.getElementById('api-payment-status').value,
       price_cents: Math.round(priceYuan * 100),
@@ -1643,6 +1670,8 @@
     return {
       id: user.id,
       note: user.note || '',
+      email: user.email || '',
+      email_verified: Boolean(user.email_verified),
       plan_type: user.plan_type,
       payment_status: user.payment_status,
       price_cents: Number(user.price_cents || 0),
@@ -2238,27 +2267,57 @@
     switchTab('pending', true);
     document.getElementById('image-view').scrollIntoView({ behavior: 'smooth' });
   }
+
+  function resetVipForm() {
+    document.getElementById('editing-vip-code').value = '';
+    document.getElementById('new-vip-code').value = '';
+    document.getElementById('new-vip-code').disabled = false;
+    document.getElementById('new-vip-email').value = '';
+    document.getElementById('new-vip-note').value = '';
+    document.getElementById('new-vip-email-verified').checked = false;
+    document.getElementById('vip-save-button').textContent = '✨ 生成并保存';
+    document.getElementById('vip-cancel-button').style.display = 'none';
+  }
+
+  function editVipCode(code) {
+    const vip = globalVips.find(item => item.code === code);
+    if (!vip) return;
+    document.getElementById('editing-vip-code').value = vip.code;
+    document.getElementById('new-vip-code').value = vip.code;
+    document.getElementById('new-vip-code').disabled = true;
+    document.getElementById('new-vip-email').value = vip.email || '';
+    document.getElementById('new-vip-note').value = vip.note || '';
+    document.getElementById('new-vip-email-verified').checked = Boolean(vip.email_verified);
+    document.getElementById('vip-save-button').textContent = '保存邮箱认证';
+    document.getElementById('vip-cancel-button').style.display = 'inline-flex';
+    document.getElementById('vip-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   async function generateVipCode() {
     const pwd = getPwd();
     if (!pwd) return alert('⚠️ 请先输入超级管理员密码！');
+    const editingCode = document.getElementById('editing-vip-code').value.trim();
     let newCode = document.getElementById('new-vip-code').value.trim();
+    const email = document.getElementById('new-vip-email').value.trim();
     const note = document.getElementById('new-vip-note').value.trim();
+    const emailVerified = document.getElementById('new-vip-email-verified').checked;
+    if (!email) return alert('⚠️ 请填写申请用户的邮箱。');
     if (!newCode) newCode = 'vip_' + Math.random().toString(36).slice(2, 8) + String(Math.floor(Date.now() / 1000)).slice(-4);
-    if (globalVips.find(v => v.code === newCode)) return alert('⚠️ 该 VIP 码已存在，请更换！');
-    const response = await fetch(WORKER_URL + '?action=vip_add', {
+    if (!editingCode && globalVips.find(v => v.code === newCode)) return alert('⚠️ 该 VIP 码已存在，请更换！');
+    const action = editingCode ? 'vip_update' : 'vip_add';
+    const response = await fetch(WORKER_URL + '?action=' + action, {
       method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Admin-Key': pwd },
-      body: JSON.stringify({ code: newCode, note })
+      body: JSON.stringify({ code: editingCode || newCode, note, email, email_verified: emailVerified })
     });
     const data = await readJsonSafe(response);
-    if (!response.ok) return alert('❌ 生成失败：' + (data.error || response.status));
-    document.getElementById('new-vip-code').value = '';
-    document.getElementById('new-vip-note').value = '';
+    if (!response.ok) return alert('❌ 保存失败：' + (data.error || response.status));
+    resetVipForm();
     globalVips = await fetchVipList(pwd);
     vipUploadCountsLoaded = false;
     globalVipUploadCounts = {};
     renderVipTable();
     loadVipUploadCounts({ force: true });
-    alert(`🎉 VIP 码 [${newCode}] 生成成功！`);
+    alert(editingCode ? `✅ VIP 码 [${editingCode}] 的邮箱认证已保存。` : `🎉 VIP 码 [${newCode}] 生成成功！`);
   }
   async function deleteVipCode(code) {
     if (!code) return;

@@ -10,6 +10,8 @@ https://api.mini-tools.uk
 
 API access is issued manually, in the same way as long-term image storage.
 Email `yuyananuu@gmail.com` to request an API user ID and API key.
+The administrator must verify the applicant's email address before API access is activated.
+API uploads remain subject to the same content review and removal rules as website uploads.
 
 The administrator provides both values:
 
@@ -238,7 +240,7 @@ Deleting an image does not refund daily or permanent quota.
 - `207`: some images uploaded and some failed.
 - `400`: invalid multipart body, field, or retention value.
 - `401`: missing or invalid API user ID or API key.
-- `403`: account disabled or retention type not allowed.
+- `403`: account disabled, email verification required, or retention type not allowed.
 - `404`: image not found or not owned by the authenticated API user.
 - `409`: idempotency key is in progress or was reused for a different upload.
 - `413`: file count or size limit exceeded.
