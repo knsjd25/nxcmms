@@ -8,12 +8,11 @@ https://api.mini-tools.uk
 
 ## Apply for access
 
-API access is issued manually, in the same way as long-term image storage.
-Email `yuyananuu@gmail.com` to request an API user ID and API key.
-The administrator must verify the applicant's email address before API access is activated.
+Send an email to `api@mini-tools.uk` to request an API user ID and API key.
+The system replies automatically with both credentials.
 API uploads remain subject to the same content review and removal rules as website uploads.
 
-The administrator provides both values:
+You will receive both values:
 
 ```text
 X-API-User-ID: assigned-user-id

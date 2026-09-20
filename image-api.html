@@ -250,9 +250,9 @@
         <h1 data-i18n="pageTitle">Image Upload API documentation</h1>
         <p class="hero-text" data-i18n="intro">Upload one image or a batch from a server-side application, then query the used and remaining quota assigned to your API user.</p>
         <div class="apply-row">
-          <p data-i18n="applyText">Request access by email, using the same application process as long-term image storage. The administrator will send your API user ID and API key.</p>
+          <p data-i18n="applyText">Send an email to api@mini-tools.uk to apply. The system will automatically reply with your API user ID and API key.</p>
           <div class="email-copy-row">
-            <span class="email-address" id="apiEmail">yuyananuu@gmail.com</span>
+            <span class="email-address" id="apiEmail">api@mini-tools.uk</span>
             <button class="copy-email" type="button" data-copy="apiEmail" data-i18n="copyEmail">Click to copy</button>
           </div>
         </div>
@@ -548,7 +548,7 @@
         ogDescription:"Integrate single or batch image uploads with authentication, quota checks, idempotency and documented response examples.",
         onPage:"On this page",navAuthentication:"Authentication",navHowTo:"How to use",navUploadResponse:"Upload response",navUsage:"Usage query",navRecords:"Upload records",navDelete:"Delete image",navLimitations:"Limitations",
         kicker:"Developer API",pageTitle:"Image Upload API documentation",intro:"Upload one image or a batch from a server-side application, then query the used and remaining quota assigned to your API user.",
-        applyText:"Request access by email, using the same application process as long-term image storage. The administrator will send your API user ID and API key.",copyEmail:"Click to copy",
+        applyText:"Send an email to api@mini-tools.uk to apply. The system will automatically reply with your API user ID and API key.",copyEmail:"Click to copy",
         baseUrl:"Base URL",uploadEndpoint:"Upload",usageEndpoint:"Used and remaining quota",recordsEndpoint:"Upload records",deleteEndpoint:"Delete image",
         authTitle:"Authentication",authIntro:"Every request must send the assigned user ID and the matching API key in request headers.",securityNote:"Use both credentials only on a trusted server. A user ID identifies the account, while the API key prevents other people from using that account. Do not expose the key in browser code or a public repository.",
         howTitle:"How to use",howIntro:"Send multipart/form-data to the upload endpoint. Use the file field once for a single image or repeat it for a batch.",singleTitle:"Single image upload",batchTitle:"Multiple image upload",idempotencyTitle:"Safe retries",idempotencyIntro:"For an upload that may be retried, send a unique Idempotency-Key header. Repeating the same request with the same key returns the first result without uploading again or consuming quota twice. Reusing the key for different files returns HTTP 409.",copyCode:"Copy",
@@ -571,7 +571,7 @@
         ogDescription:"接入单张或批量图片上传，使用鉴权、额度查询、幂等重试和完整返回示例。",
         onPage:"本页内容",navAuthentication:"鉴权方式",navHowTo:"使用方法",navUploadResponse:"上传返回",navUsage:"用量查询",navRecords:"上传记录",navDelete:"删除图片",navLimitations:"约束条件",
         kicker:"开发者 API",pageTitle:"图片上传 API 使用文档",intro:"从服务端应用上传一张或多张图片，并查询管理员为 API 用户分配的已使用量和剩余量。",
-        applyText:"申请方式与长期存储相同，请发送邮件申请。管理员会向你提供 API 用户 ID 和 API Key。",copyEmail:"点击复制",
+        applyText:"请发送邮件到 api@mini-tools.uk 申请。系统会自动回信，提供 API 用户 ID 和 API Key。",copyEmail:"点击复制",
         baseUrl:"基础地址",uploadEndpoint:"上传接口",usageEndpoint:"已使用量和剩余量",recordsEndpoint:"上传记录",deleteEndpoint:"删除图片",
         authTitle:"鉴权方式",authIntro:"每次请求都必须在请求头中同时发送管理员分配的用户 ID 和与其匹配的 API Key。",securityNote:"请只在可信服务端使用这两个凭证。用户 ID 用来识别账户，API Key 用来防止其他人冒用该账户。不要把 API Key 写入浏览器代码或公开仓库。",
         howTitle:"使用方法",howIntro:"向上传接口发送 multipart/form-data。单张上传使用一次 file 字段，批量上传则重复使用该字段。",singleTitle:"上传单张图片",batchTitle:"上传多张图片",idempotencyTitle:"安全重试",idempotencyIntro:"对于可能重试的上传，请发送唯一的 Idempotency-Key 请求头。使用相同 Key 重复提交相同请求时，会直接返回首次结果，不会重复上传或重复扣减额度；同一 Key 改传其他文件会返回 HTTP 409。",copyCode:"复制",
@@ -594,7 +594,7 @@
         ogDescription:"Einzelne oder mehrere Bilder mit Authentifizierung, Kontingentabfrage, Idempotenz und dokumentierten Antworten hochladen.",
         onPage:"Auf dieser Seite",navAuthentication:"Authentifizierung",navHowTo:"Verwendung",navUploadResponse:"Upload-Antwort",navUsage:"Kontingentabfrage",navRecords:"Upload-Verlauf",navDelete:"Bild löschen",navLimitations:"Einschränkungen",
         kicker:"Entwickler-API",pageTitle:"Dokumentation der Bild-Upload-API",intro:"Laden Sie ein Bild oder einen Stapel aus einer serverseitigen Anwendung hoch und fragen Sie das verwendete und verbleibende Kontingent ab.",
-        applyText:"Beantragen Sie den Zugang per E-Mail wie beim Langzeitspeicher. Der Administrator sendet Ihre API-Benutzer-ID und Ihren API-Schlüssel.",copyEmail:"E-Mail kopieren",
+        applyText:"Senden Sie eine E-Mail an api@mini-tools.uk. Das System antwortet automatisch mit Ihrer API-Benutzer-ID und Ihrem API-Schlüssel.",copyEmail:"E-Mail kopieren",
         baseUrl:"Basis-URL",uploadEndpoint:"Upload",usageEndpoint:"Verwendetes und verbleibendes Kontingent",recordsEndpoint:"Upload-Verlauf",deleteEndpoint:"Bild löschen",
         authTitle:"Authentifizierung",authIntro:"Jede Anfrage muss die zugewiesene Benutzer-ID und den passenden API-Schlüssel in den Headern senden.",securityNote:"Verwenden Sie beide Zugangsdaten nur auf einem vertrauenswürdigen Server. Die Benutzer-ID identifiziert das Konto; der API-Schlüssel verhindert eine fremde Nutzung. Veröffentlichen Sie den Schlüssel nicht im Browsercode oder in einem öffentlichen Repository.",
         howTitle:"Verwendung",howIntro:"Senden Sie multipart/form-data. Verwenden Sie file einmal für ein Bild oder wiederholen Sie das Feld für einen Stapel.",singleTitle:"Ein Bild hochladen",batchTitle:"Mehrere Bilder hochladen",idempotencyTitle:"Sichere Wiederholungen",idempotencyIntro:"Senden Sie für wiederholbare Uploads einen eindeutigen Idempotency-Key. Dieselbe Anfrage mit demselben Schlüssel gibt das erste Ergebnis zurück, ohne erneut hochzuladen oder Kontingent doppelt zu verbrauchen. Andere Dateien mit demselben Schlüssel liefern HTTP 409.",copyCode:"Kopieren",
@@ -617,7 +617,7 @@
         ogDescription:"Envoyez une ou plusieurs images avec authentification, quotas, idempotence et exemples de réponse documentés.",
         onPage:"Sur cette page",navAuthentication:"Authentification",navHowTo:"Utilisation",navUploadResponse:"Réponse d’envoi",navUsage:"Consultation du quota",navRecords:"Historique des envois",navDelete:"Supprimer une image",navLimitations:"Limites",
         kicker:"API développeur",pageTitle:"Documentation de l’API d’envoi d’images",intro:"Envoyez une image ou un lot depuis une application serveur, puis consultez le quota utilisé et restant.",
-        applyText:"Demandez l’accès par e-mail, comme pour le stockage longue durée. L’administrateur enverra votre identifiant utilisateur API et votre clé API.",copyEmail:"Copier l’e-mail",
+        applyText:"Envoyez un e-mail à api@mini-tools.uk. Le système répondra automatiquement avec votre identifiant utilisateur API et votre clé API.",copyEmail:"Copier l’e-mail",
         baseUrl:"URL de base",uploadEndpoint:"Envoi",usageEndpoint:"Quota utilisé et restant",recordsEndpoint:"Historique des envois",deleteEndpoint:"Supprimer une image",
         authTitle:"Authentification",authIntro:"Chaque requête doit envoyer l’identifiant attribué et la clé API correspondante dans les en-têtes.",securityNote:"Utilisez ces deux identifiants uniquement sur un serveur de confiance. L’identifiant repère le compte et la clé API empêche son utilisation par un tiers. Ne publiez pas la clé dans le navigateur ou un dépôt public.",
         howTitle:"Utilisation",howIntro:"Envoyez multipart/form-data. Utilisez file une fois pour une image ou répétez le champ pour un lot.",singleTitle:"Envoyer une image",batchTitle:"Envoyer plusieurs images",idempotencyTitle:"Nouvelles tentatives sûres",idempotencyIntro:"Pour un envoi susceptible d’être relancé, utilisez un Idempotency-Key unique. La même requête avec la même clé renvoie le premier résultat sans nouvel envoi ni double consommation du quota. Des fichiers différents avec la même clé renvoient HTTP 409.",copyCode:"Copier",
@@ -640,7 +640,7 @@
         ogDescription:"Sube una o varias imágenes con autenticación, cuotas, idempotencia y ejemplos de respuesta documentados.",
         onPage:"En esta página",navAuthentication:"Autenticación",navHowTo:"Uso",navUploadResponse:"Respuesta de subida",navUsage:"Consulta de cuota",navRecords:"Historial de subidas",navDelete:"Eliminar imagen",navLimitations:"Límites",
         kicker:"API para desarrolladores",pageTitle:"Documentación de la API de subida de imágenes",intro:"Sube una imagen o un lote desde una aplicación del servidor y consulta la cuota usada y restante.",
-        applyText:"Solicita acceso por correo igual que para el almacenamiento a largo plazo. El administrador enviará tu ID de usuario API y tu API Key.",copyEmail:"Copiar correo",
+        applyText:"Envía un correo a api@mini-tools.uk. El sistema responderá automáticamente con tu ID de usuario API y tu API Key.",copyEmail:"Copiar correo",
         baseUrl:"URL base",uploadEndpoint:"Subida",usageEndpoint:"Cuota usada y restante",recordsEndpoint:"Historial de subidas",deleteEndpoint:"Eliminar imagen",
         authTitle:"Autenticación",authIntro:"Cada solicitud debe enviar el ID asignado y la API Key correspondiente en los encabezados.",securityNote:"Usa ambas credenciales solo en un servidor de confianza. El ID identifica la cuenta y la API Key impide que otros la utilicen. No publiques la clave en código del navegador ni en un repositorio público.",
         howTitle:"Uso",howIntro:"Envía multipart/form-data. Usa file una vez para una imagen o repite el campo para un lote.",singleTitle:"Subir una imagen",batchTitle:"Subir varias imágenes",idempotencyTitle:"Reintentos seguros",idempotencyIntro:"Para una subida que pueda repetirse, envía un Idempotency-Key único. La misma solicitud con la misma clave devuelve el primer resultado sin volver a subir ni consumir cuota dos veces. Usar la clave con otros archivos devuelve HTTP 409.",copyCode:"Copiar",
