@@ -3690,43 +3690,93 @@ function wrapBase64(value, width = 76) {
 
 function buildVipReplyTemplate(vipCode) {
   return [
-    "只要不上传关于黄色、带政治的图就可以。",
-    `上传时选择永久存储，VIP码填：${vipCode}`
+    "你好，",
+    "",
+    "你的 Mini-Tools 长期存储申请已通过。",
+    "",
+    "使用说明：",
+    "1. 打开 https://mini-tools.uk/upload",
+    "2. 上传时选择“永久存储”",
+    `3. VIP 码填写：${vipCode}`,
+    "",
+    "请勿上传违规图片（含成人内容、政治敏感内容等）。违规内容可能会被删除，账号也可能被停用。",
+    "",
+    "如有问题，可回复本邮件。",
+    "— Mini-Tools.uk"
   ].join("\n");
 }
 
 function buildApiReplyTemplate({ userId, apiKey }) {
   return [
-    `用户ID：${userId}`,
-    `API KEY: ${apiKey}`,
-    `API文档：${MEMBER_API_DOCS_URL}`,
+    "你好，",
     "",
-    "普通用户api每日只能上传每天100张限时图片，可选限时1、7、30天",
-    "图片永久保存API另收费，手动目前永久不收费只能从网页上传"
+    "你的 Mini-Tools 图片上传 API 申请已通过。请妥善保存以下凭证（API Key 仅下发一次）：",
+    "",
+    `用户 ID：${userId}`,
+    `API Key：${apiKey}`,
+    `API 文档：${MEMBER_API_DOCS_URL}`,
+    "",
+    "当前普通套餐说明：",
+    "- 每天最多上传 100 张限时图片",
+    "- 可选保留时长：1 天、7 天、30 天",
+    "- API 永久保存另计费；目前网页上传永久存储不额外收费（需使用 VIP 码）",
+    "",
+    "如有问题，可回复本邮件。",
+    "— Mini-Tools.uk"
   ].join("\n");
 }
 
 function buildApiExistingReplyTemplate({ userId, code }) {
   return [
-    "你的邮箱已有 API 账号，不会重复下发新的 API Key。",
-    `用户标识：${code}`,
-    `用户ID：${userId}`,
-    `API文档：${MEMBER_API_DOCS_URL}`,
+    "你好，",
     "",
-    "如需重置 API Key，请再发一封邮件说明“重置 API Key”，或联系管理员处理。",
-    "普通用户api每日只能上传每天100张限时图片，可选限时1、7、30天",
-    "图片永久保存API另收费，手动目前永久不收费只能从网页上传"
+    "系统检测到该邮箱已有 API 账号，本次不会重复下发新的 API Key。",
+    "",
+    `用户标识：${code}`,
+    `用户 ID：${userId}`,
+    `API 文档：${MEMBER_API_DOCS_URL}`,
+    "",
+    "如需重置 API Key，请再发一封邮件并写明“重置 API Key”。",
+    "",
+    "当前普通套餐说明：",
+    "- 每天最多上传 100 张限时图片",
+    "- 可选保留时长：1 天、7 天、30 天",
+    "- API 永久保存另计费；目前网页上传永久存储不额外收费（需使用 VIP 码）",
+    "",
+    "如有问题，可回复本邮件。",
+    "— Mini-Tools.uk"
   ].join("\n");
+}
+
+function memberCooldownReplyText() {
+  return [
+    "你好，",
+    "",
+    "我们已收到你的申请。",
+    "同一邮箱 24 小时内请勿重复提交；如果还没收到凭证，请稍候或检查垃圾邮件文件夹。",
+    "",
+    "— Mini-Tools.uk"
+  ].join("\n");
+}
+
+function formatFromHeader(fromAddress) {
+  const email = extractEmailAddress(fromAddress) || normalizeEmail(fromAddress);
+  if (!email) return "Mini-Tools <noreply@mini-tools.uk>";
+  return `Mini-Tools <${email}>`;
 }
 
 function buildRawReplyMessage({ from, to, subject, text, inReplyTo, references }) {
   const messageId = `<${crypto.randomUUID()}@mini-tools.uk>`;
+  const fromHeader = formatFromHeader(from);
   const lines = [
-    `From: ${from}`,
+    `From: ${fromHeader}`,
     `To: ${to}`,
+    `Reply-To: ${extractEmailAddress(from) || from}`,
     `Subject: ${encodeMimeSubject(subject)}`,
     `Date: ${new Date().toUTCString()}`,
     `Message-ID: ${messageId}`,
+    "Auto-Submitted: auto-replied",
+    "X-Auto-Response-Suppress: All",
     "MIME-Version: 1.0",
     "Content-Type: text/plain; charset=UTF-8",
     "Content-Transfer-Encoding: base64"
@@ -4039,10 +4089,7 @@ async function handleIncomingMemberEmail(message, env) {
 
   const recent = await recentMemberApplication(env, fromEmail, kind);
   if (recent) {
-    const cooldownText = [
-      "我们已收到你的申请。",
-      "同一邮箱 24 小时内请勿重复申请；如未收到凭证，请稍候或联系管理员。"
-    ].join("\n");
+    const cooldownText = memberCooldownReplyText();
     const replySubject = subject ? `Re: ${subject}` : "Re: Mini-Tools 申请";
     const replyResult = await replyToMemberEmail(message, env, {
       fromAddress: toAddress || (kind === "api" ? MEMBER_DEFAULT_API_INBOX : MEMBER_DEFAULT_VIP_INBOX),

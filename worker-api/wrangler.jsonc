@@ -1,0 +1,28 @@
+{
+  // Deploy config for Cloudflare Worker `pic-api` (mini-tools image API).
+  // Routes intentionally omitted so dashboard/custom domain routing is not clobbered.
+  // ADMIN_PASSWORD must remain a Secret — never put it in vars.
+  "name": "pic-api",
+  "main": "image-hosting-worker.js",
+  "account_id": "ad5c6c768bad72c7e3d82bb8a99047c0",
+  "compatibility_date": "2026-03-23",
+  "workers_dev": false,
+  "keep_vars": true,
+  "triggers": {
+    // UTC: 04:00 = Beijing/Taipei 12:00; 16:00 = Beijing/Taipei 24:00
+    "crons": ["0 4 * * *", "0 16 * * *"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "mini-tools-images",
+      "database_id": "bc1a78c2-ac66-496c-8be0-0d4aad1ae479"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R2_BUCKET",
+      "bucket_name": "shapgame"
+    }
+  ]
+}
