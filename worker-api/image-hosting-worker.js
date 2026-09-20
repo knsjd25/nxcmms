@@ -1,9 +1,18 @@
+import { EmailMessage } from "cloudflare:email";
+
 const DEFAULT_ALLOWED_ORIGINS = [
   "https://mini-tools.uk",
   "https://www.mini-tools.uk",
   "http://localhost:8787",
   "http://localhost:3000"
 ];
+
+const MEMBER_API_DOCS_URL = "https://mini-tools.uk/image-api";
+const MEMBER_DEFAULT_FORWARD_TO = "yuyananuu@gmail.com";
+const MEMBER_DEFAULT_VIP_INBOX = "vip@mini-tools.uk";
+const MEMBER_DEFAULT_STORAGE_INBOX = "storage@mini-tools.uk";
+const MEMBER_DEFAULT_API_INBOX = "api@mini-tools.uk";
+const MEMBER_APPLY_COOLDOWN_MS = 24 * 60 * 60 * 1000;
 
 const VIP_CONFIG_FILE = "_config/vip_codes.json";
 
@@ -3611,7 +3620,514 @@ async function d1DeactivateVipCode(env, code) {
   `, [new Date().toISOString(), code]);
 }
 
+const memberSchemaPromises = new WeakMap();
 
+async function ensureMemberApplicationSchema(env) {
+  if (!hasD1(env)) throw new Error("D1 binding DB not found");
+  if (memberSchemaPromises.has(env.DB)) return memberSchemaPromises.get(env.DB);
+
+  const schemaPromise = (async () => {
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS member_applications (
+        id TEXT PRIMARY KEY,
+        kind TEXT NOT NULL,
+        from_email TEXT NOT NULL,
+        to_address TEXT NOT NULL,
+        subject TEXT NOT NULL DEFAULT '',
+        status TEXT NOT NULL,
+        credential_ref TEXT NOT NULL DEFAULT '',
+        reply_subject TEXT NOT NULL DEFAULT '',
+        reply_body TEXT NOT NULL DEFAULT '',
+        reply_ok INTEGER NOT NULL DEFAULT 0,
+        error TEXT NOT NULL DEFAULT '',
+        created_at TEXT NOT NULL
+      )
+    `).run();
+    await env.DB.prepare(
+      "CREATE INDEX IF NOT EXISTS idx_member_applications_created ON member_applications(created_at DESC)"
+    ).run();
+    await env.DB.prepare(
+      "CREATE INDEX IF NOT EXISTS idx_member_applications_from ON member_applications(from_email, created_at DESC)"
+    ).run();
+  })();
+
+  memberSchemaPromises.set(env.DB, schemaPromise);
+  try {
+    await schemaPromise;
+  } catch (error) {
+    memberSchemaPromises.delete(env.DB);
+    throw error;
+  }
+}
+
+function extractEmailAddress(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  const match = raw.match(/<([^>]+)>/);
+  const email = normalizeEmail(match ? match[1] : raw);
+  return isValidEmail(email) ? email : "";
+}
+
+function utf8ToBase64(text) {
+  const bytes = new TextEncoder().encode(String(text || ""));
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary);
+}
+
+function encodeMimeSubject(subject) {
+  const value = String(subject || "");
+  if (!/[^\x00-\x7F]/.test(value)) return value;
+  return `=?UTF-8?B?${utf8ToBase64(value)}?=`;
+}
+
+function wrapBase64(value, width = 76) {
+  const raw = String(value || "");
+  const lines = [];
+  for (let i = 0; i < raw.length; i += width) lines.push(raw.slice(i, i + width));
+  return lines.join("\r\n");
+}
+
+function buildVipReplyTemplate(vipCode) {
+  return [
+    "只要不上传关于黄色、带政治的图就可以。",
+    `上传时选择永久存储，VIP码填：${vipCode}`
+  ].join("\n");
+}
+
+function buildApiReplyTemplate({ userId, apiKey }) {
+  return [
+    `用户ID：${userId}`,
+    `API KEY: ${apiKey}`,
+    `API文档：${MEMBER_API_DOCS_URL}`,
+    "",
+    "普通用户api每日只能上传每天100张限时图片，可选限时1、7、30天",
+    "图片永久保存API另收费，手动目前永久不收费只能从网页上传"
+  ].join("\n");
+}
+
+function buildApiExistingReplyTemplate({ userId, code }) {
+  return [
+    "你的邮箱已有 API 账号，不会重复下发新的 API Key。",
+    `用户标识：${code}`,
+    `用户ID：${userId}`,
+    `API文档：${MEMBER_API_DOCS_URL}`,
+    "",
+    "如需重置 API Key，请再发一封邮件说明“重置 API Key”，或联系管理员处理。",
+    "普通用户api每日只能上传每天100张限时图片，可选限时1、7、30天",
+    "图片永久保存API另收费，手动目前永久不收费只能从网页上传"
+  ].join("\n");
+}
+
+function buildRawReplyMessage({ from, to, subject, text, inReplyTo, references }) {
+  const messageId = `<${crypto.randomUUID()}@mini-tools.uk>`;
+  const lines = [
+    `From: ${from}`,
+    `To: ${to}`,
+    `Subject: ${encodeMimeSubject(subject)}`,
+    `Date: ${new Date().toUTCString()}`,
+    `Message-ID: ${messageId}`,
+    "MIME-Version: 1.0",
+    "Content-Type: text/plain; charset=UTF-8",
+    "Content-Transfer-Encoding: base64"
+  ];
+  if (inReplyTo) lines.push(`In-Reply-To: ${inReplyTo}`);
+  if (references) lines.push(`References: ${references}`);
+  lines.push("", wrapBase64(utf8ToBase64(text)));
+  return lines.join("\r\n");
+}
+
+function detectMemberApplicationKind(message, env) {
+  const to = normalizeEmail(message.to);
+  const subject = String(message.headers.get("subject") || "").toLowerCase();
+  const vipInboxes = new Set([
+    normalizeEmail(env.MEMBER_VIP_INBOX || MEMBER_DEFAULT_VIP_INBOX),
+    normalizeEmail(env.MEMBER_STORAGE_INBOX || MEMBER_DEFAULT_STORAGE_INBOX)
+  ].filter(Boolean));
+  const apiInboxes = new Set([
+    normalizeEmail(env.MEMBER_API_INBOX || MEMBER_DEFAULT_API_INBOX)
+  ].filter(Boolean));
+
+  if (vipInboxes.has(to)) return "vip";
+  if (apiInboxes.has(to)) return "api";
+  if (/\bapi\b|接口|api\s*key|上传api/.test(subject)) return "api";
+  if (/vip|永久|长期|permanent|storage|图床码/.test(subject)) return "vip";
+  return null;
+}
+
+function generateVipCodeCandidate() {
+  return "vip_" + Math.random().toString(36).slice(2, 8) + String(Math.floor(Date.now() / 1000)).slice(-4);
+}
+
+function generateApiUserCodeFromEmail(email) {
+  const local = String(email.split("@")[0] || "user")
+    .replace(/[^A-Za-z0-9_-]/g, "_")
+    .replace(/^_+|_+$/g, "")
+    .slice(0, 24) || "user";
+  const suffix = Math.random().toString(36).slice(2, 6);
+  const code = `api_${local}_${suffix}`.slice(0, 64);
+  return isValidApiUserCode(code) ? code : `api_user_${suffix}${String(Date.now()).slice(-4)}`;
+}
+
+async function provisionVipMemberFromEmail(env, email) {
+  await ensureVipSchema(env);
+  const existing = await d1First(
+    env,
+    "SELECT * FROM vip_codes WHERE active = 1 AND lower(email) = ? ORDER BY updated_at DESC LIMIT 1",
+    [email]
+  );
+  if (existing?.code) {
+    return { reused: true, code: existing.code };
+  }
+
+  let code = generateVipCodeCandidate();
+  for (let i = 0; i < 8; i += 1) {
+    const hit = await d1First(env, "SELECT code FROM vip_codes WHERE code = ?", [code]);
+    if (!hit) break;
+    code = generateVipCodeCandidate();
+  }
+
+  const now = new Date().toISOString();
+  await d1UpsertVipCode(env, {
+    code,
+    note: `邮件自动开通 ${email}`,
+    email,
+    emailVerified: true,
+    emailVerifiedAt: now,
+    createdAt: now
+  });
+  return { reused: false, code };
+}
+
+async function provisionApiMemberFromEmail(env, email) {
+  await ensureApiSchema(env);
+  const existing = await d1First(
+    env,
+    "SELECT * FROM api_users WHERE active = 1 AND lower(email) = ? ORDER BY updated_at DESC LIMIT 1",
+    [email]
+  );
+  if (existing?.id) {
+    return {
+      reused: true,
+      userId: existing.id,
+      code: existing.code,
+      apiKey: null
+    };
+  }
+
+  let code = generateApiUserCodeFromEmail(email);
+  for (let i = 0; i < 8; i += 1) {
+    const hit = await d1First(env, "SELECT id FROM api_users WHERE code = ?", [code]);
+    if (!hit) break;
+    code = generateApiUserCodeFromEmail(email);
+  }
+
+  const apiKey = generateApiKey();
+  const keyHash = await sha256Hex(apiKey);
+  const keyPrefix = apiKeyPrefix(apiKey);
+  const id = crypto.randomUUID();
+  const now = new Date().toISOString();
+  const preset = API_PLAN_PRESETS.temporary_100;
+
+  await env.DB.prepare(`
+    INSERT INTO api_users (
+      id, code, note, email, email_verified, email_verified_at,
+      key_prefix, key_hash, plan_type,
+      allow_temporary, temporary_daily_limit,
+      allow_permanent, permanent_quota_total, permanent_quota_used,
+      payment_status, price_cents, payment_note,
+      active, created_at, updated_at
+    ) VALUES (?, ?, ?, ?, 1, ?, ?, ?, ?, 1, ?, 0, 0, 0, ?, ?, ?, 1, ?, ?)
+  `).bind(
+    id,
+    code,
+    `邮件自动开通 ${email}`,
+    email,
+    now,
+    keyPrefix,
+    keyHash,
+    "temporary_100",
+    preset.temporaryDailyLimit,
+    "complimentary",
+    0,
+    "email auto provision",
+    now,
+    now
+  ).run();
+
+  return { reused: false, userId: id, code, apiKey };
+}
+
+async function recentMemberApplication(env, fromEmail, kind) {
+  const row = await d1First(
+    env,
+    `
+      SELECT *
+      FROM member_applications
+      WHERE from_email = ?
+        AND kind = ?
+      ORDER BY created_at DESC
+      LIMIT 1
+    `,
+    [fromEmail, kind]
+  );
+  if (!row?.created_at) return null;
+  const createdMs = Date.parse(row.created_at);
+  if (!Number.isFinite(createdMs)) return null;
+  if (Date.now() - createdMs > MEMBER_APPLY_COOLDOWN_MS) return null;
+  return row;
+}
+
+async function insertMemberApplication(env, record) {
+  await ensureMemberApplicationSchema(env);
+  await d1Run(env, `
+    INSERT INTO member_applications (
+      id, kind, from_email, to_address, subject, status,
+      credential_ref, reply_subject, reply_body, reply_ok, error, created_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `, [
+    record.id,
+    record.kind,
+    record.fromEmail,
+    record.toAddress,
+    truncate(record.subject || "", 300),
+    record.status,
+    truncate(record.credentialRef || "", 200),
+    truncate(record.replySubject || "", 300),
+    truncate(record.replyBody || "", 4000),
+    record.replyOk ? 1 : 0,
+    truncate(record.error || "", 500),
+    record.createdAt
+  ]);
+}
+
+async function handleMemberApplicationList(request, env) {
+  if (!hasD1(env)) {
+    return jsonResponse(request, env, { error: "会员申请日志需要 D1 数据库" }, 503);
+  }
+  await ensureMemberApplicationSchema(env);
+  const url = new URL(request.url);
+  const limit = Math.min(Math.max(Number(url.searchParams.get("limit") || 50), 1), 200);
+  const rows = await d1All(env, `
+    SELECT *
+    FROM member_applications
+    ORDER BY created_at DESC
+    LIMIT ?
+  `, [limit]);
+  return jsonResponse(request, env, {
+    success: true,
+    applications: rows,
+    inboxes: {
+      vip: env.MEMBER_VIP_INBOX || MEMBER_DEFAULT_VIP_INBOX,
+      storage: env.MEMBER_STORAGE_INBOX || MEMBER_DEFAULT_STORAGE_INBOX,
+      api: env.MEMBER_API_INBOX || MEMBER_DEFAULT_API_INBOX,
+      forward_to: env.MEMBER_EMAIL_FORWARD_TO || MEMBER_DEFAULT_FORWARD_TO
+    },
+    templates: {
+      vip_example: buildVipReplyTemplate("vip_xxxxxx1234"),
+      api_example: buildApiReplyTemplate({
+        userId: "00000000-0000-0000-0000-000000000000",
+        apiKey: "mtu_live_xxxxxxxx"
+      })
+    }
+  });
+}
+
+async function sendMemberReplyViaResend(env, { from, to, subject, text }) {
+  const apiKey = String(env.RESEND_API_KEY || "").trim();
+  if (!apiKey) return { ok: false, skipped: true, error: "RESEND_API_KEY 未配置" };
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      from: from || env.MEMBER_REPLY_FROM || "Mini-Tools <noreply@mini-tools.uk>",
+      to: [to],
+      subject,
+      text
+    })
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    return {
+      ok: false,
+      skipped: false,
+      error: truncate(payload?.message || payload?.error || `Resend HTTP ${response.status}`, 300)
+    };
+  }
+  return { ok: true, skipped: false, id: payload?.id || "" };
+}
+
+async function replyToMemberEmail(message, env, { fromAddress, toEmail, subject, text }) {
+  const messageId = message.headers.get("Message-ID") || message.headers.get("Message-Id") || "";
+  const references = message.headers.get("References") || messageId;
+  const raw = buildRawReplyMessage({
+    from: fromAddress,
+    to: toEmail,
+    subject,
+    text,
+    inReplyTo: messageId,
+    references
+  });
+
+  try {
+    const replyMessage = new EmailMessage(fromAddress, toEmail, raw);
+    await message.reply(replyMessage);
+    return { ok: true, channel: "cloudflare_reply" };
+  } catch (error) {
+    const replyError = String(error?.message || error);
+    const resend = await sendMemberReplyViaResend(env, {
+      from: env.MEMBER_REPLY_FROM || fromAddress,
+      to: toEmail,
+      subject,
+      text
+    });
+    if (resend.ok) {
+      return { ok: true, channel: "resend", previousError: replyError };
+    }
+    return {
+      ok: false,
+      channel: resend.skipped ? "none" : "resend_failed",
+      error: truncate(`${replyError}${resend.error ? ` | ${resend.error}` : ""}`, 500)
+    };
+  }
+}
+
+async function handleIncomingMemberEmail(message, env) {
+  const fromEmail = extractEmailAddress(message.from);
+  const toAddress = normalizeEmail(message.to);
+  const subject = String(message.headers.get("subject") || "").trim();
+  const forwardTo = String(env.MEMBER_EMAIL_FORWARD_TO || MEMBER_DEFAULT_FORWARD_TO).trim();
+  const kind = detectMemberApplicationKind(message, env);
+  const createdAt = new Date().toISOString();
+  const applicationId = crypto.randomUUID();
+
+  if (!fromEmail) {
+    if (forwardTo) {
+      try { await message.forward(forwardTo); } catch (_) {}
+    }
+    return;
+  }
+
+  if (!kind) {
+    if (forwardTo) {
+      try { await message.forward(forwardTo); } catch (_) {}
+    }
+    if (hasD1(env)) {
+      await insertMemberApplication(env, {
+        id: applicationId,
+        kind: "unknown",
+        fromEmail,
+        toAddress,
+        subject,
+        status: "forwarded_only",
+        credentialRef: "",
+        replySubject: "",
+        replyBody: "",
+        replyOk: false,
+        error: "无法识别申请类型，已转发给管理员",
+        createdAt
+      });
+    }
+    return;
+  }
+
+  await ensureMemberApplicationSchema(env);
+
+  const recent = await recentMemberApplication(env, fromEmail, kind);
+  if (recent) {
+    const cooldownText = [
+      "我们已收到你的申请。",
+      "同一邮箱 24 小时内请勿重复申请；如未收到凭证，请稍候或联系管理员。"
+    ].join("\n");
+    const replySubject = subject ? `Re: ${subject}` : "Re: Mini-Tools 申请";
+    const replyResult = await replyToMemberEmail(message, env, {
+      fromAddress: toAddress || (kind === "api" ? MEMBER_DEFAULT_API_INBOX : MEMBER_DEFAULT_VIP_INBOX),
+      toEmail: fromEmail,
+      subject: replySubject,
+      text: cooldownText
+    });
+    if (forwardTo) {
+      try { await message.forward(forwardTo); } catch (_) {}
+    }
+    await insertMemberApplication(env, {
+      id: applicationId,
+      kind,
+      fromEmail,
+      toAddress,
+      subject,
+      status: "rate_limited",
+      credentialRef: recent.credential_ref || "",
+      replySubject,
+      replyBody: cooldownText,
+      replyOk: replyResult.ok,
+      error: replyResult.ok ? "" : (replyResult.error || "回信失败"),
+      createdAt
+    });
+    return;
+  }
+
+  let replyBody = "";
+  let replySubject = subject ? `Re: ${subject}` : (kind === "api" ? "Re: API 申请" : "Re: 长期存储申请");
+  let credentialRef = "";
+  let status = "created";
+  let provisionError = "";
+
+  try {
+    if (kind === "vip") {
+      const vip = await provisionVipMemberFromEmail(env, fromEmail);
+      credentialRef = vip.code;
+      status = vip.reused ? "reused" : "created";
+      replyBody = buildVipReplyTemplate(vip.code);
+    } else {
+      const api = await provisionApiMemberFromEmail(env, fromEmail);
+      credentialRef = api.userId;
+      status = api.reused ? "reused" : "created";
+      replyBody = api.reused
+        ? buildApiExistingReplyTemplate({ userId: api.userId, code: api.code })
+        : buildApiReplyTemplate({ userId: api.userId, apiKey: api.apiKey });
+    }
+  } catch (error) {
+    provisionError = truncate(error?.message || String(error), 400);
+    status = "provision_failed";
+    replyBody = [
+      "你的申请已收到，但系统自动开户失败。",
+      "管理员会尽快人工处理，请稍候。"
+    ].join("\n");
+  }
+
+  const fromAddress = toAddress || (kind === "api" ? MEMBER_DEFAULT_API_INBOX : MEMBER_DEFAULT_VIP_INBOX);
+  const replyResult = await replyToMemberEmail(message, env, {
+    fromAddress,
+    toEmail: fromEmail,
+    subject: replySubject,
+    text: replyBody
+  });
+
+  if (forwardTo) {
+    try { await message.forward(forwardTo); } catch (_) {}
+  }
+
+  await insertMemberApplication(env, {
+    id: applicationId,
+    kind,
+    fromEmail,
+    toAddress,
+    subject,
+    status: replyResult.ok ? status : `${status}_reply_failed`,
+    credentialRef,
+    replySubject,
+    replyBody,
+    replyOk: replyResult.ok,
+    error: [provisionError, replyResult.ok ? "" : (replyResult.error || "回信失败")]
+      .filter(Boolean)
+      .join(" | "),
+    createdAt
+  });
+}
 
 async function handleD1Health(request, env) {
   if (!hasD1(env)) {
@@ -4595,6 +5111,11 @@ export default {
     })());
   },
 
+  // Email Routing：vip@/storage@ → 长期存储；api@ → API。自动开户并回信。
+  async email(message, env, ctx) {
+    await handleIncomingMemberEmail(message, env);
+  },
+
   async fetch(request, env, ctx) {
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: getCorsHeaders(request, env) });
@@ -4649,6 +5170,7 @@ export default {
         "api_user_update",
         "api_user_rotate_key",
         "api_user_reset_daily",
+        "member_application_list",
         "security_logs",
         "blocked_ips",
         "block_ip",
@@ -4746,6 +5268,10 @@ export default {
 
       if (request.method === "POST" && action === "api_user_reset_daily") {
         return await handleApiUserResetDaily(request, env);
+      }
+
+      if (request.method === "GET" && action === "member_application_list") {
+        return await handleMemberApplicationList(request, env);
       }
 
       // ==========================================

@@ -64,7 +64,7 @@
 
     .dashboard-nav {
       display: grid;
-      grid-template-columns: repeat(6, minmax(140px, 1fr));
+      grid-template-columns: repeat(7, minmax(120px, 1fr));
       gap: 14px;
       margin: 14px 0 18px;
       align-items: stretch;
@@ -227,7 +227,55 @@
     .ip-pagination { display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; margin:14px 0 8px; padding:12px; background:#ffffff; border:1px solid #e5e7eb; border-radius:10px; }
     .ip-pagination .page-info { color:#334155; font-size:.9rem; }
 
-    #vip-panel, #api-panel, #ip-panel { display: none; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    #vip-panel, #api-panel, #ip-panel, #member-panel { display: none; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .member-setup-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      color: #334155;
+      line-height: 1.6;
+      font-size: .9rem;
+    }
+    .member-setup-box code { background: #eef2ff; padding: 2px 6px; border-radius: 4px; }
+    .member-template-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(260px, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .member-template-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px;
+      background: #fff;
+    }
+    .member-template-card h4 { margin: 0 0 10px; color: #0f172a; }
+    .member-template-card pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 0 0 12px;
+      font-size: .84rem;
+      line-height: 1.5;
+      min-height: 120px;
+    }
+    .member-reply-preview {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: .84rem;
+      line-height: 1.5;
+      max-height: 220px;
+      overflow: auto;
+    }
     .vip-form, .ip-form { display: flex; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; flex-wrap: wrap; }
     .ip-form input { min-width: 260px; }
     .api-form-grid {
@@ -278,6 +326,7 @@
     @media (max-width: 980px) {
       .dashboard-nav { grid-template-columns: repeat(2, minmax(150px, 1fr)); }
       .api-form-grid { grid-template-columns: repeat(2, minmax(170px, 1fr)); }
+      .member-template-grid { grid-template-columns: 1fr; }
       .header { align-items: stretch; }
       .auth-box { width: 100%; flex-wrap: wrap; }
     }
@@ -321,6 +370,10 @@
   <div class="nav-card" onclick="switchTab('vip_management')" id="tab-vip_management" style="border-color:#f39c12;background:#fef9e7;">
     <h3>💎 网页 VIP 码</h3>
     <div class="count" id="count-vip" style="color:#f39c12;">管理</div>
+  </div>
+  <div class="nav-card" onclick="switchTab('member_applications')" id="tab-member_applications" style="border-color:#059669;background:#ecfdf5;">
+    <h3>📬 会员申请</h3>
+    <div class="count" id="count-member" style="color:#059669;">0</div>
   </div>
   <div class="nav-card" onclick="switchTab('api_management')" id="tab-api_management" style="border-color:#2563eb;background:#eff6ff;">
     <h3>🔑 API 用户与套餐</h3>
@@ -408,6 +461,70 @@
     <thead><tr><th>VIP 专属码</th><th>邮箱认证</th><th>备注信息</th><th>上传图片数</th><th>创建时间</th><th>操作</th></tr></thead>
     <tbody id="vip-list-body"><tr><td colspan="6" style="text-align:center;">请先拉取数据...</td></tr></tbody>
   </table>
+</div>
+
+<div id="member-panel">
+  <h3>📬 邮件自动开通会员</h3>
+  <div class="member-setup-box" id="member-setup-box">
+    用户发邮件到申请地址后，Worker 会自动创建 VIP / API 账号并尝试回信。<br>
+    收信地址：长期存储 <code id="member-inbox-vip">vip@mini-tools.uk</code> /
+    <code id="member-inbox-storage">storage@mini-tools.uk</code>；
+    API <code id="member-inbox-api">api@mini-tools.uk</code>。<br>
+    抄送管理员：<code id="member-forward-to">yuyananuu@gmail.com</code>（需在 Cloudflare Email Routing 验证）。
+    若 Cloudflare 无法回任意申请人邮箱，可配置 <code>RESEND_API_KEY</code> 作为免费备选发信。
+  </div>
+
+  <div class="member-template-grid">
+    <div class="member-template-card">
+      <h4>长期存储回信模板</h4>
+      <pre id="member-template-vip">只要不上传关于黄色、带政治的图就可以。
+上传时选择永久存储，VIP码填：vip_xxxxxx1234</pre>
+      <button type="button" class="btn-success btn-small" onclick="copyMemberTemplate('vip')">复制模板</button>
+    </div>
+    <div class="member-template-card">
+      <h4>API 申请回信模板</h4>
+      <pre id="member-template-api">用户ID：00000000-0000-0000-0000-000000000000
+API KEY: mtu_live_xxxxxxxx
+API文档：https://mini-tools.uk/image-api
+
+普通用户api每日只能上传每天100张限时图片，可选限时1、7、30天
+图片永久保存API另收费，手动目前永久不收费只能从网页上传</pre>
+      <button type="button" class="btn-success btn-small" onclick="copyMemberTemplate('api')">复制模板</button>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+    <button type="button" class="btn-success" onclick="loadMemberApplications({ force: true })">刷新申请日志</button>
+  </div>
+
+  <h3>📋 最近申请记录</h3>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>时间</th>
+          <th>类型</th>
+          <th>申请人</th>
+          <th>收件地址</th>
+          <th>状态</th>
+          <th>凭证</th>
+          <th>回信</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="member-list-body">
+        <tr><td colspan="8" style="text-align:center;">请先刷新数据...</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="member-reply-detail" style="display:none;margin-top:16px;">
+    <h3>最近选中的回信正文</h3>
+    <div class="member-reply-preview" id="member-reply-preview"></div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button type="button" class="btn-success btn-small" onclick="copySelectedMemberReply()">复制回信正文</button>
+      <button type="button" class="btn-gray btn-small" onclick="hideSelectedMemberReply()">关闭</button>
+    </div>
+  </div>
 </div>
 
 <div id="api-panel">
@@ -638,6 +755,10 @@
   let globalVipUploadCounts = {};
   let vipUploadCountsLoaded = false;
   let vipUploadCountsLoading = false;
+  let globalMemberApplications = [];
+  let memberInboxes = null;
+  let selectedMemberReplyBody = '';
+  let selectedMemberReplySubject = '';
 
   const MODAL_ZOOM_MIN = 0.4;
   const MODAL_ZOOM_MAX = 6;
@@ -885,6 +1006,149 @@
     };
   }
 
+  async function fetchMemberApplicationData(pwd) {
+    const res = await fetch(WORKER_URL + '?action=member_application_list&limit=80', { headers: { 'X-Admin-Key': pwd } });
+    const data = await readJsonSafe(res);
+    if (!res.ok) {
+      return { applications: [], inboxes: null, templates: null, error: data.error || String(res.status) };
+    }
+    return {
+      applications: Array.isArray(data.applications) ? data.applications : [],
+      inboxes: data.inboxes || null,
+      templates: data.templates || null,
+      error: ''
+    };
+  }
+
+  async function loadMemberApplications(options = {}) {
+    const pwd = getPwd();
+    if (!pwd) return alert('请先输入超级管理员密码。');
+    if (!options.silent) setStatusMessage('⏳ 正在读取会员申请日志...');
+    const data = await fetchMemberApplicationData(pwd);
+    if (data.error) {
+      setStatusMessage('❌ 会员申请读取失败：' + data.error, true);
+      return;
+    }
+    globalMemberApplications = data.applications;
+    memberInboxes = data.inboxes;
+    applyMemberMeta(data);
+    renderMemberTable();
+    updateCounts();
+    if (!options.silent) setStatusMessage(`✅ 已刷新 ${globalMemberApplications.length} 条会员申请`);
+  }
+
+  function applyMemberMeta(data) {
+    const inboxes = data.inboxes || memberInboxes || {};
+    const setText = (id, value) => {
+      const el = document.getElementById(id);
+      if (el && value) el.textContent = value;
+    };
+    setText('member-inbox-vip', inboxes.vip);
+    setText('member-inbox-storage', inboxes.storage);
+    setText('member-inbox-api', inboxes.api);
+    setText('member-forward-to', inboxes.forward_to);
+    if (data.templates?.vip_example) {
+      const vipEl = document.getElementById('member-template-vip');
+      if (vipEl) vipEl.textContent = data.templates.vip_example;
+    }
+    if (data.templates?.api_example) {
+      const apiEl = document.getElementById('member-template-api');
+      if (apiEl) apiEl.textContent = data.templates.api_example;
+    }
+  }
+
+  function memberKindLabel(kind) {
+    if (kind === 'vip') return '长期存储';
+    if (kind === 'api') return 'API';
+    return kind || '-';
+  }
+
+  function renderMemberTable() {
+    const tbody = document.getElementById('member-list-body');
+    if (!tbody) return;
+    const countEl = document.getElementById('count-member');
+    if (countEl) countEl.textContent = String(globalMemberApplications.length || 0);
+    if (!globalMemberApplications.length) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:#666;">暂无邮件申请记录。配置 Email Routing 后会出现在这里。</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = globalMemberApplications.map((row, index) => {
+      const replied = Number(row.reply_ok || 0) === 1;
+      return `<tr>
+        <td>${h(row.created_at || '-')}</td>
+        <td>${h(memberKindLabel(row.kind))}</td>
+        <td class="mono">${h(row.from_email || '-')}</td>
+        <td class="mono">${h(row.to_address || '-')}</td>
+        <td><span class="api-status ${replied ? 'active' : 'inactive'}">${h(row.status || '-')}</span>${row.error ? `<div style="color:#b91c1c;font-size:.78rem;margin-top:4px;">${h(row.error)}</div>` : ''}</td>
+        <td class="mono">${h(row.credential_ref || '-')}</td>
+        <td>${replied ? '已回信' : '未回信/失败'}</td>
+        <td>
+          <button type="button" class="btn-warning btn-small" data-admin-action="member-view" data-member-index="${index}">查看回信</button>
+          <button type="button" class="btn-success btn-small" data-admin-action="member-copy" data-member-index="${index}">复制回信</button>
+        </td>
+      </tr>`;
+    }).join('');
+    bindDynamicActionButtons(tbody);
+  }
+
+  function showMemberReply(index) {
+    const row = globalMemberApplications[index];
+    if (!row) return;
+    selectedMemberReplyBody = row.reply_body || '';
+    selectedMemberReplySubject = row.reply_subject || '';
+    const box = document.getElementById('member-reply-detail');
+    const preview = document.getElementById('member-reply-preview');
+    if (preview) {
+      preview.textContent = [
+        selectedMemberReplySubject ? `主题：${selectedMemberReplySubject}` : '',
+        selectedMemberReplyBody || '(无回信正文)'
+      ].filter(Boolean).join('\n\n');
+    }
+    if (box) box.style.display = 'block';
+  }
+
+  async function copyTextToClipboard(text) {
+    const value = String(text || '');
+    if (!value) return false;
+    try {
+      await navigator.clipboard.writeText(value);
+      return true;
+    } catch (_) {
+      const area = document.createElement('textarea');
+      area.value = value;
+      document.body.appendChild(area);
+      area.select();
+      const ok = document.execCommand('copy');
+      area.remove();
+      return ok;
+    }
+  }
+
+  async function copyMemberTemplate(kind) {
+    const el = document.getElementById(kind === 'api' ? 'member-template-api' : 'member-template-vip');
+    const ok = await copyTextToClipboard(el ? el.textContent : '');
+    alert(ok ? '✅ 模板已复制' : '❌ 复制失败');
+  }
+
+  async function copyMemberReply(index) {
+    const row = globalMemberApplications[index];
+    if (!row) return;
+    const ok = await copyTextToClipboard(row.reply_body || '');
+    alert(ok ? '✅ 回信正文已复制' : '❌ 复制失败或正文为空');
+  }
+
+  async function copySelectedMemberReply() {
+    const ok = await copyTextToClipboard(selectedMemberReplyBody || '');
+    alert(ok ? '✅ 回信正文已复制' : '❌ 复制失败或正文为空');
+  }
+
+  function hideSelectedMemberReply() {
+    selectedMemberReplyBody = '';
+    selectedMemberReplySubject = '';
+    const box = document.getElementById('member-reply-detail');
+    if (box) box.style.display = 'none';
+  }
+
   async function loadApiUsers() {
     const pwd = getPwd();
     if (!pwd) return alert('请先输入超级管理员密码。');
@@ -1112,8 +1376,11 @@
 
   async function refreshAllData() {
     pageCache.clear();
-    setStatusMessage('⏳ 正在刷新全局统计、IP汇总、黑名单、高危用户库、VIP、API 用户和当前列表...');
-    return fetchPageData({ silent: false, isAuto: false, force: true });
+    setStatusMessage('⏳ 正在刷新全局统计、IP汇总、黑名单、高危用户库、VIP、API 用户、会员申请和当前列表...');
+    const pwd = getPwd();
+    const result = await fetchPageData({ silent: false, isAuto: false, force: true });
+    if (pwd) await loadMemberApplications({ silent: true, force: true });
+    return result;
   }
 
   const D1_EVENT_RETENTION_DAYS = 90;
@@ -1217,6 +1484,8 @@
     document.getElementById('count-api-review').innerText = dashboardCounts.api_review || 0;
     document.getElementById('count-blocked').innerText = globalBlockedIps.length;
     document.getElementById('count-api').innerText = globalApiUsers.length;
+    const memberCount = document.getElementById('count-member');
+    if (memberCount) memberCount.innerText = globalMemberApplications.length || 0;
   }
 
   function updateIpFilterOptions() {
@@ -1251,6 +1520,7 @@
     if (tabEl) tabEl.classList.add('active');
     document.getElementById('image-view').style.display = ['pending','audited','api_review'].includes(tab) ? 'block' : 'none';
     document.getElementById('vip-panel').style.display = tab === 'vip_management' ? 'block' : 'none';
+    document.getElementById('member-panel').style.display = tab === 'member_applications' ? 'block' : 'none';
     document.getElementById('api-panel').style.display = tab === 'api_management' ? 'block' : 'none';
     document.getElementById('ip-panel').style.display = tab === 'ip_blacklist' ? 'block' : 'none';
     document.getElementById('btn-batch-audit').style.display = ['pending','api_review'].includes(tab) ? 'inline-block' : 'none';
@@ -1258,6 +1528,11 @@
     if (tab === 'vip_management') {
       renderVipTable();
       loadVipUploadCounts({ force: false });
+      return;
+    }
+    if (tab === 'member_applications') {
+      if (globalMemberApplications.length) renderMemberTable();
+      else loadMemberApplications({ silent: false });
       return;
     }
     if (tab === 'api_management') {
@@ -1432,6 +1707,14 @@
         }
         if (action === 'vip-edit') {
           editVipCode(btn.dataset.vipCode || '');
+          return;
+        }
+        if (action === 'member-view') {
+          showMemberReply(Number(btn.dataset.memberIndex || -1));
+          return;
+        }
+        if (action === 'member-copy') {
+          copyMemberReply(Number(btn.dataset.memberIndex || -1));
           return;
         }
         if (action === 'api-edit') {
