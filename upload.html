@@ -604,7 +604,7 @@
       <div class="log-body" id="uploadLog"></div>
       <div class="result-panel" id="resultPanel" aria-live="polite">
         <h2 id="resultTitle">Your hosted image links</h2>
-        <p id="resultIntro">Use the format that matches where you want to embed the uploaded image.</p>
+        <p id="resultIntro">Copy the format you need. Temporary uploads follow the retention you selected before upload. Treat the link as shareable.</p>
         <div class="result-grid">
           <div class="result-item">
             <label id="resultDirectLabel" for="directUrlOutput">Direct URL</label>
@@ -665,6 +665,19 @@
           <p id="formatBbcodeText">Use BBCode for forums and communities that still support classic image tags.</p>
         </div>
       </div>
+    </section>
+
+    
+    <section class="section-card" id="upload-troubleshooting">
+      <h2 id="troubleTitle">Upload outcomes and troubleshooting</h2>
+      <p id="troubleIntro">Keep the upload terminal messages in view. Failures should not leave old success links in the result panel.</p>
+      <ul class="policy-list">
+        <li id="trouble1">File over 5 MB or unsupported format: choose a JPG, PNG, GIF or WebP under 5 MB and try again.</li>
+        <li id="trouble2">Verification error: refresh the question, enter the new answer, then retry the upload.</li>
+        <li id="trouble3">Service or network error: wait and retry. Do not treat an empty result panel as success.</li>
+        <li id="trouble4">After success, treat the link as publicly shareable. Temporary retention follows the period you selected before upload.</li>
+        <li id="trouble5">To request removal of an image you control, send the image URL via the contact page or yuyananuu@gmail.com. Expiry does not prove every cache copy disappears instantly.</li>
+      </ul>
     </section>
 
     <section class="section-card" id="upload-use-cases">
@@ -774,22 +787,22 @@
         <article class="example-item">
           <h3 id="readmeExampleTitle">GitHub README</h3>
           <p id="readmeExampleText">Paste the Markdown output into README.md to show the hosted image in a repository page.</p>
-          <pre class="example-code"><code>![Project screenshot](https://mini-tools.uk/example-image.webp)</code></pre>
+          <pre class="example-code"><code>![Project screenshot](https://assets.mini-tools.uk/image/icon-512x512.png)</code></pre>
         </article>
         <article class="example-item">
           <h3 id="markdownExampleTitle">Markdown</h3>
           <p id="markdownExampleText">Use Markdown in docs, website engines, issue comments and notes that support image embeds.</p>
-          <pre class="example-code"><code>![Alt text](https://mini-tools.uk/example-image.webp)</code></pre>
+          <pre class="example-code"><code>![Alt text](https://assets.mini-tools.uk/image/icon-512x512.png)</code></pre>
         </article>
         <article class="example-item">
           <h3 id="htmlExampleTitle">HTML</h3>
           <p id="htmlExampleText">Use HTML when you need an image tag for a website, CMS block or custom template.</p>
-          <pre class="example-code"><code>&lt;img src="https://mini-tools.uk/example-image.webp" alt="Hosted image"&gt;</code></pre>
+          <pre class="example-code"><code>&lt;img src="https://assets.mini-tools.uk/image/icon-512x512.png" alt="Hosted image"&gt;</code></pre>
         </article>
         <article class="example-item">
           <h3 id="bbcodeExampleTitle">BBCode</h3>
           <p id="bbcodeExampleText">Use BBCode on forums and community sites that accept classic image tags.</p>
-          <pre class="example-code"><code>[img]https://mini-tools.uk/example-image.webp[/img]</code></pre>
+          <pre class="example-code"><code>[img]https://assets.mini-tools.uk/image/icon-512x512.png[/img]</code></pre>
         </article>
       </div>
     </section>
@@ -804,7 +817,7 @@
         </article>
         <article class="faq-item">
           <h3 id="faq2Title">How long are uploaded images kept?</h3>
-          <p id="faq2Text">Uploaded images may be stored for sharing and display. Do not upload private, sensitive or illegal content.</p>
+          <p id="faq2Text">Images follow the retention you selected: 1 day, 7 days, 30 days, or permanent storage with an approved code. Do not upload private, sensitive or illegal content.</p>
         </article>
         <article class="faq-item">
           <h3 id="faq3Title">What is the long-term storage code for?</h3>
@@ -965,7 +978,15 @@
 
 
         resultTitle: "Your hosted image links",
-        resultIntro: "Use the format that matches where you want to embed the uploaded image.",
+        
+        troubleTitle: "Upload outcomes and troubleshooting",
+        troubleIntro: "Keep the upload terminal messages in view. Failures should not leave old success links in the result panel.",
+        trouble1: "File over 5 MB or unsupported format: choose a JPG, PNG, GIF or WebP under 5 MB and try again.",
+        trouble2: "Verification error: refresh the question, enter the new answer, then retry the upload.",
+        trouble3: "Service or network error: wait and retry. Do not treat an empty result panel as success.",
+        trouble4: "After success, treat the link as publicly shareable. Temporary retention follows the period you selected before upload.",
+        trouble5: "To request removal of an image you control, send the image URL via the contact page or yuyananuu@gmail.com. Expiry does not prove every cache copy disappears instantly.",
+        resultIntro: "Copy the format you need. Temporary uploads follow the retention you selected before upload. Treat the link as shareable.",
         resultDirectLabel: "Direct URL",
         resultDirectUse: "For pasting the raw image link anywhere.",
         resultMarkdownLabel: "Markdown",
@@ -1148,6 +1169,14 @@
 
 
         resultTitle: "你的图片托管链接",
+        
+        troubleTitle: "上传结果与异常处理",
+        troubleIntro: "请关注上传终端提示。失败时结果区不应残留旧的成功链接。",
+        trouble1: "超过 5 MB 或不支持的格式：改用不超过 5 MB 的 JPG、PNG、GIF 或 WebP 后重试。",
+        trouble2: "验证错误：刷新题目，填写新答案后再上传。",
+        trouble3: "服务或网络错误：稍候重试。结果区为空时不要当成成功。",
+        trouble4: "成功后请把链接视为可公开分享。临时保留遵循上传前选择的期限。",
+        trouble5: "移除你控制的图片时，通过联系页或 yuyananuu@gmail.com 发送图片 URL。到期并不证明所有缓存副本立刻消失。",
         resultIntro: "根据你要使用的位置，复制对应格式的图片链接。",
         resultDirectLabel: "图片直链",
         resultDirectUse: "用于直接粘贴原始图片链接，适合分享、引用或放到需要 URL 的地方。",
@@ -1689,7 +1718,7 @@
         faq1Title: "¿Este alojamiento de imágenes gratis es de uso gratuito?",
         faq1Text: "Sí. El alojamiento de imágenes gratis permite subir imágenes y copiar enlaces directos, Markdown, HTML o BBCode para flujos habituales de publicación.",
         faq2Title: "¿Cuánto tiempo se conservan las imágenes subidas?",
-        faq2Text: "Las imágenes subidas pueden almacenarse para compartir y mostrar. No subas contenido privado, sensible o ilegal.",
+        faq2Text: "Las imágenes siguen la duración elegida: 1 día, 7 días, 30 días, o permanente con un código aprobado. No subas contenido privado, sensible o ilegal.",
         faq3Title: "¿Para qué sirve el código de almacenamiento prolongado?",
         faq3Text: "Es un código opcional para alojamiento prolongado de imágenes aprobado. Las subidas normales pueden dejarlo vacío.",
         faq4Title: "¿Para qué puedo usar este alojamiento gratuito de imágenes?",
@@ -1776,6 +1805,33 @@
     Object.assign(translations.en, { seoTitle:"Upload Image Online and Get a Direct Link | Mini Tools", seoDescription:"Upload a JPG, PNG, GIF or WebP image up to 5 MB, choose 1, 7 or 30 days, and copy a direct URL, Markdown, HTML or BBCode. No signup required.", ogTitle:"Upload Image Online and Get a Direct Link | Mini Tools", ogDescription:"Upload an image, choose 1, 7 or 30 days and copy a direct URL or embed format without creating an account." });
     Object.assign(translations["zh-CN"], { seoTitle:"在线上传图片并获取直链 | Mini Tools", seoDescription:"上传最大 5 MB 的 JPG、PNG、GIF 或 WebP 图片，选择 1 天、7 天或 30 天保存时长，并复制直链或嵌入代码，无需注册。", ogTitle:"在线上传图片并获取直链 | Mini Tools", ogDescription:"上传图片、选择保存时长，并在无需账号的情况下复制直链或嵌入格式。" });
     Object.assign(translations.de, { seoTitle:"Bild online hochladen und Direktlink erhalten | Mini Tools", seoDescription:"JPG-, PNG-, GIF- oder WebP-Bild bis 5 MB hochladen, 1, 7 oder 30 Tage wählen und Direkt-URL oder Einbettung ohne Anmeldung kopieren.", ogTitle:"Bild online hochladen und Direktlink erhalten | Mini Tools", ogDescription:"Bild hochladen, Aufbewahrung wählen und Direkt-URL oder Einbettungsformat ohne Konto kopieren." });
+    Object.assign(translations.de, {
+      troubleTitle: "Upload-Ergebnisse und Fehlerbehandlung",
+      troubleIntro: "Beachten Sie die Terminalmeldungen. Bei Fehlern dürfen keine alten Erfolgslinks im Ergebnisbereich bleiben.",
+      trouble1: "Datei über 5 MB oder nicht unterstütztes Format: JPG, PNG, GIF oder WebP unter 5 MB wählen und erneut versuchen.",
+      trouble2: "Prüffehler: Frage aktualisieren, neue Antwort eingeben, dann erneut hochladen.",
+      trouble3: "Dienst- oder Netzwerkfehler: warten und erneut versuchen. Leeren Ergebnisbereich nicht als Erfolg werten.",
+      trouble4: "Nach Erfolg den Link als öffentlich teilbar behandeln. Temporäre Aufbewahrung folgt der gewählten Frist.",
+      trouble5: "Löschung eigener Bilder mit URL über Kontakt oder yuyananuu@gmail.com anfragen. Ablauf beweist nicht, dass alle Caches sofort weg sind."
+    });
+    Object.assign(translations.fr, {
+      troubleTitle: "Résultats d’envoi et dépannage",
+      troubleIntro: "Surveillez le terminal d’envoi. En cas d’échec, le panneau de résultat ne doit pas garder d’anciens liens de succès.",
+      trouble1: "Fichier de plus de 5 Mo ou format non pris en charge : choisir JPG, PNG, GIF ou WebP sous 5 Mo et réessayer.",
+      trouble2: "Erreur de vérification : actualiser la question, saisir la nouvelle réponse, puis renvoyer.",
+      trouble3: "Erreur réseau ou service : attendre et réessayer. Ne pas traiter un panneau vide comme un succès.",
+      trouble4: "Après succès, traiter le lien comme partageable. La conservation temporaire suit la durée choisie avant l’envoi.",
+      trouble5: "Pour demander un retrait, envoyez l’URL via Contact ou yuyananuu@gmail.com. L’expiration ne prouve pas la disparition immédiate de tous les caches."
+    });
+    Object.assign(translations.es, {
+      troubleTitle: "Resultados de subida y solución de problemas",
+      troubleIntro: "Revisa el terminal de subida. Si falla, el panel de resultado no debe dejar enlaces de éxito antiguos.",
+      trouble1: "Archivo de más de 5 MB o formato no admitido: elige JPG, PNG, GIF o WebP de menos de 5 MB e inténtalo de nuevo.",
+      trouble2: "Error de verificación: actualiza la pregunta, introduce la nueva respuesta y vuelve a subir.",
+      trouble3: "Error de red o servicio: espera y reintenta. No trates un panel vacío como éxito.",
+      trouble4: "Tras el éxito, trata el enlace como compartible. La retención temporal sigue el periodo elegido antes de subir.",
+      trouble5: "Para pedir la retirada, envía la URL por contacto o yuyananuu@gmail.com. La caducidad no prueba que todas las cachés desaparezcan al instante."
+    });
     Object.assign(translations.fr, { seoTitle:"Téléverser une image et obtenir un lien direct | Mini Tools", seoDescription:"Téléversez une image JPG, PNG, GIF ou WebP de 5 Mo maximum, choisissez 1, 7 ou 30 jours et copiez une URL directe sans inscription.", ogTitle:"Téléverser une image et obtenir un lien direct | Mini Tools", ogDescription:"Téléversez, choisissez la durée et copiez une URL ou un format intégrable sans compte." });
     Object.assign(translations.es, { seoTitle:"Subir imagen online y obtener enlace directo | Mini Tools", seoDescription:"Sube una imagen JPG, PNG, GIF o WebP de hasta 5 MB, elige 1, 7 o 30 días y copia una URL directa o código sin registro.", ogTitle:"Subir imagen online y obtener enlace directo | Mini Tools", ogDescription:"Sube, elige duración y copia una URL directa o formato para insertar sin cuenta." });
 
@@ -2140,6 +2196,10 @@ updateProperty("og:title", texts.ogTitle);
         if (el && value !== undefined) el.textContent = value;
       });
 
+      ["troubleTitle","troubleIntro","trouble1","trouble2","trouble3","trouble4","trouble5"].forEach((id) => {
+        const node = document.getElementById(id);
+        if (node && texts[id]) node.textContent = texts[id];
+      });
 
       document.getElementById("storageCodeEmailText").innerHTML = texts.storageCodeEmailText || translations.en.storageCodeEmailText;
       storageCodeInput.placeholder = texts.storageCodePlaceholder || translations.en.storageCodePlaceholder;

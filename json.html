@@ -384,6 +384,8 @@
             <button class="mini-btn primary" type="button" id="formatBtn" data-i18n="formatBtn">Beautify</button>
             <button class="mini-btn" type="button" id="minifyBtn" data-i18n="minifyBtn">Minify</button>
             <button class="mini-btn" type="button" id="exampleBtn" data-i18n="exampleBtn">Load Example</button>
+            <button class="mini-btn" type="button" id="errorExampleBtn" data-i18n="errorExampleBtn">Load error example</button>
+            <button class="mini-btn" type="button" id="fixedExampleBtn" data-i18n="fixedExampleBtn">Load fixed example</button>
             <button class="mini-btn danger" type="button" id="clearBtn" data-i18n="clearBtn">Clear</button>
           </div>
         </div>
@@ -447,6 +449,18 @@
         <p data-i18n="articleP1">This JSON formatter helps you turn minified or hard-to-read JSON into a readable structure. It is useful for API responses, configuration files, webhook payloads, debugging logs and code examples.</p>
         <p data-i18n="articleP2">You can beautify JSON, minify it, validate syntax, inspect nested data in a tree viewer, copy the formatted result and export the tree view as a PNG image for documentation or tickets.</p>
         <p data-i18n="articleP3">Use it to make JSON easier to read before debugging, documenting an API response or pasting a payload into a support ticket. If the data contains secrets, remove keys, tokens and personal data before sharing screenshots or copied output.</p>
+
+        <h3 data-i18n="trailingCommaTitle">Fix a trailing-comma error</h3>
+        <p data-i18n="trailingCommaP1">A common JSON mistake is a trailing comma after the last item in an object or array. Use Load error example to see invalid JSON such as a tools list that ends with an extra comma, then Load fixed example to see the corrected version without that comma.</p>
+        <p data-i18n="trailingCommaP2">Remove the last extra comma so the value or array item is followed only by the closing bracket or brace. The error text shown here comes from the browser JSON parser, not a fixed fake message.</p>
+
+        <h3 data-i18n="limitationsTitle">Limitations</h3>
+        <ul>
+          <li data-i18n="limit1">Very large integers may lose precision when parsed as a JavaScript Number.</li>
+          <li data-i18n="limit2">Duplicate object keys are not a syntax error in JSON.parse; the last value usually wins.</li>
+          <li data-i18n="limit3">Very large files still depend on your browser memory and device performance.</li>
+          <li data-i18n="limit4">PNG export needs a valid parsed tree; invalid JSON cannot be exported as an image.</li>
+        </ul>
 
         <h3 data-i18n="privacyTitle">Local processing note</h3>
         <p data-i18n="privacyText">Formatting, parsing and validation are handled in your browser. For normal use, the JSON you paste into the editor is not uploaded to Mini-Tools.uk.</p>
@@ -566,6 +580,8 @@
         formatBtn:"Beautify",
         minifyBtn:"Minify",
         exampleBtn:"Load Example",
+        errorExampleBtn:"Load error example",
+        fixedExampleBtn:"Load fixed example",
         clearBtn:"Clear",
         inputPlaceholder:'Paste JSON here, for example:\n{"user":{"id":1,"name":"Mini-Tools","roles":["admin","developer"],"active":true}}',
         autoHint:"Auto-validate after typing",
@@ -598,6 +614,14 @@
         articleP1:"This JSON formatter helps you turn minified or hard-to-read JSON into a readable structure. It is useful for API responses, configuration files, webhook payloads, debugging logs and code examples.",
         articleP2:"You can beautify JSON, minify it, validate syntax, inspect nested data in a tree viewer, copy the formatted result and export the tree view as a PNG image for documentation or tickets.",
         articleP3:"Use it to make JSON easier to read before debugging, documenting an API response or pasting a payload into a support ticket. If the data contains secrets, remove keys, tokens and personal data before sharing screenshots or copied output.",
+        trailingCommaTitle:"Fix a trailing-comma error",
+        trailingCommaP1:"A common JSON mistake is a trailing comma after the last item in an object or array. Use Load error example to see invalid JSON such as a tools list that ends with an extra comma, then Load fixed example to see the corrected version without that comma.",
+        trailingCommaP2:"Remove the last extra comma so the value or array item is followed only by the closing bracket or brace. The error text shown here comes from the browser JSON parser, not a fixed fake message.",
+        limitationsTitle:"Limitations",
+        limit1:"Very large integers may lose precision when parsed as a JavaScript Number.",
+        limit2:"Duplicate object keys are not a syntax error in JSON.parse; the last value usually wins.",
+        limit3:"Very large files still depend on your browser memory and device performance.",
+        limit4:"PNG export needs a valid parsed tree; invalid JSON cannot be exported as an image.",
         privacyTitle:"Local processing note",
         privacyText:"Formatting, parsing and validation are handled in your browser. For normal use, the JSON you paste into the editor is not uploaded to Mini-Tools.uk.",
         useTitle:"Common use cases",
@@ -667,6 +691,8 @@
         formatBtn:"格式化",
         minifyBtn:"压缩",
         exampleBtn:"加载示例",
+        errorExampleBtn:"加载错误示例",
+        fixedExampleBtn:"加载修复示例",
         clearBtn:"清空",
         inputPlaceholder:'在这里粘贴 JSON，例如：\n{"user":{"id":1,"name":"Mini-Tools","roles":["admin","developer"],"active":true}}',
         autoHint:"输入后自动校验",
@@ -699,6 +725,14 @@
         articleP1:"这个 JSON格式化工具可以把压缩或难以阅读的 JSON 转换成清晰结构，适合查看 API 返回、配置文件、Webhook 数据、调试日志和代码示例。",
         articleP2:"你可以格式化 JSON、压缩 JSON、校验语法、查看嵌套树形结构、复制格式化结果，也可以把树形视图导出为 PNG 图片，用于文档、工单或截图说明。",
         articleP3:"适合 API 调试、配置文件检查、Webhook 载荷预览，以及导出截图前整理 JSON 结构。",
+        trailingCommaTitle:"修复尾随逗号错误",
+        trailingCommaP1:"常见错误是在对象或数组最后一项后面多写了一个逗号。可先点“加载错误示例”查看带多余逗号的无效 JSON，再点“加载修复示例”查看去掉该逗号后的正确版本。",
+        trailingCommaP2:"删掉最后一个多余逗号，让值或数组项后面直接跟闭合括号。页面上的错误信息来自浏览器 JSON 解析器，不是写死的假消息。",
+        limitationsTitle:"使用限制",
+        limit1:"超大整数在按 JavaScript Number 解析时可能丢失精度。",
+        limit2:"重复的对象键在 JSON.parse 中不是语法错误；通常以最后一个值为准。",
+        limit3:"特别大的文件仍取决于浏览器内存和设备性能。",
+        limit4:"导出 PNG 需要先成功解析出树；无效 JSON 无法导出为图片。",
         privacyTitle:"本地处理说明",
         privacyText:"格式化、解析和校验在浏览器中完成。正常使用时，你粘贴到编辑器里的 JSON 不会上传到 Mini-Tools.uk。",
         useTitle:"常见使用场景",
@@ -768,6 +802,8 @@
         formatBtn:"Beautify",
         minifyBtn:"Minify",
         exampleBtn:"Beispiel laden",
+        errorExampleBtn:"Fehlerbeispiel laden",
+        fixedExampleBtn:"Korrigiertes Beispiel laden",
         clearBtn:"Leeren",
         inputPlaceholder:'JSON hier einfügen, zum Beispiel:\n{"user":{"id":1,"name":"Mini-Tools","roles":["admin","developer"],"active":true}}',
         autoHint:"Automatische Validierung beim Tippen",
@@ -800,6 +836,14 @@
         articleP1:"Dieser JSON Formatter wandelt minifiziertes oder schwer lesbares JSON in eine klare Struktur um. Nützlich für API Responses, Config Files, Webhooks, Logs und Codebeispiele.",
         articleP2:"Sie können JSON beautifyen, minifizieren, Syntax validieren, verschachtelte Daten in einer Baumansicht prüfen, das Ergebnis kopieren und die Tree View als PNG exportieren.",
         articleP3:"Nutzen Sie das Tool, um JSON vor dem Debugging, der API-Dokumentation oder dem Einfügen in ein Support-Ticket leichter lesbar zu machen. Entfernen Sie Schlüssel, Tokens und personenbezogene Daten, bevor Sie Screenshots oder kopierte Ausgaben teilen.",
+        trailingCommaTitle:"Trailing-Comma-Fehler beheben",
+        trailingCommaP1:"Ein häufiger JSON-Fehler ist ein nachgestelltes Komma nach dem letzten Element in einem Objekt oder Array. Laden Sie das Fehlerbeispiel, um ungültiges JSON mit zusätzlichem Komma zu sehen, und das korrigierte Beispiel ohne dieses Komma.",
+        trailingCommaP2:"Entfernen Sie das letzte überzählige Komma, sodass Wert oder Array-Element direkt von der schließenden Klammer gefolgt wird. Der Fehlertext stammt vom Browser-JSON-Parser, nicht von einer festen Fake-Meldung.",
+        limitationsTitle:"Einschränkungen",
+        limit1:"Sehr große Ganzzahlen können als JavaScript-Number an Präzision verlieren.",
+        limit2:"Doppelte Objektschlüssel sind in JSON.parse kein Syntaxfehler; meist gewinnt der letzte Wert.",
+        limit3:"Sehr große Dateien hängen weiterhin von Browser-Speicher und Gerät ab.",
+        limit4:"PNG-Export braucht einen gültig geparsten Baum; ungültiges JSON kann nicht als Bild exportiert werden.",
         privacyTitle:"Hinweis zur lokalen Verarbeitung",
         privacyText:"Formatierung, Parsing und Validierung laufen im Browser. Bei normaler Nutzung wird Ihr JSON nicht an Mini-Tools.uk hochgeladen.",
         useTitle:"Häufige Anwendungen",
@@ -869,6 +913,8 @@
         formatBtn:"Beautify",
         minifyBtn:"Minify",
         exampleBtn:"Charger exemple",
+        errorExampleBtn:"Charger exemple d’erreur",
+        fixedExampleBtn:"Charger exemple corrigé",
         clearBtn:"Effacer",
         inputPlaceholder:'Collez le JSON ici, par exemple :\n{"user":{"id":1,"name":"Mini-Tools","roles":["admin","developer"],"active":true}}',
         autoHint:"Validation automatique pendant la saisie",
@@ -901,6 +947,14 @@
         articleP1:"Ce formateur JSON transforme un JSON minifié ou difficile à lire en structure claire. Utile pour réponses API, fichiers config, webhooks, logs de debug et exemples de code.",
         articleP2:"Vous pouvez beautify JSON, minifier, valider la syntaxe, inspecter les données imbriquées en vue arbre, copier le résultat et exporter la vue en PNG.",
         articleP3:"Utilisez cet outil pour rendre un JSON plus lisible avant le débogage, la documentation d’une réponse API ou l’ajout d’un payload dans un ticket support. Supprimez les clés, tokens et données personnelles avant de partager une capture ou une sortie copiée.",
+        trailingCommaTitle:"Corriger une erreur de virgule finale",
+        trailingCommaP1:"Une erreur JSON fréquente est une virgule après le dernier élément d’un objet ou d’un tableau. Chargez l’exemple d’erreur pour voir un JSON invalide avec une virgule en trop, puis l’exemple corrigé sans cette virgule.",
+        trailingCommaP2:"Supprimez la dernière virgule en trop pour que la valeur ou l’élément soit suivi uniquement du crochet ou de l’accolade fermante. Le texte d’erreur vient du parseur JSON du navigateur, pas d’un message fictif fixe.",
+        limitationsTitle:"Limites",
+        limit1:"Les très grands entiers peuvent perdre en précision une fois parsés en Number JavaScript.",
+        limit2:"Les clés d’objet en double ne sont pas une erreur de syntaxe pour JSON.parse ; la dernière valeur l’emporte généralement.",
+        limit3:"Les très gros fichiers dépendent encore de la mémoire du navigateur et de l’appareil.",
+        limit4:"L’export PNG nécessite un arbre correctement parsé ; un JSON invalide ne peut pas être exporté en image.",
         privacyTitle:"Note sur le traitement local",
         privacyText:"Le formatage, parsing et validation sont gérés dans le navigateur. En usage normal, votre JSON n’est pas envoyé à Mini-Tools.uk.",
         useTitle:"Cas d’usage fréquents",
@@ -970,6 +1024,8 @@
         formatBtn:"Beautify",
         minifyBtn:"Minify",
         exampleBtn:"Cargar ejemplo",
+        errorExampleBtn:"Cargar ejemplo con error",
+        fixedExampleBtn:"Cargar ejemplo corregido",
         clearBtn:"Borrar",
         inputPlaceholder:'Pega JSON aquí, por ejemplo:\n{"user":{"id":1,"name":"Mini-Tools","roles":["admin","developer"],"active":true}}',
         autoHint:"Validación automática al escribir",
@@ -1002,6 +1058,14 @@
         articleP1:"Este formateador JSON convierte JSON minificado o difícil de leer en una estructura clara. Es útil para respuestas API, archivos de configuración, webhooks, logs y ejemplos de código.",
         articleP2:"Puedes beautify JSON, minificar, validar sintaxis, inspeccionar datos anidados en vista árbol, copiar el resultado y exportar la vista como PNG.",
         articleP3:"Úsala para hacer el JSON más fácil de leer antes de depurar, documentar una respuesta API o pegar un payload en un ticket de soporte. Elimina claves, tokens y datos personales antes de compartir capturas o resultados copiados.",
+        trailingCommaTitle:"Corregir un error de coma final",
+        trailingCommaP1:"Un error frecuente en JSON es una coma tras el último elemento de un objeto o array. Usa Cargar ejemplo con error para ver JSON inválido con una coma de más, y Cargar ejemplo corregido para ver la versión sin esa coma.",
+        trailingCommaP2:"Quita la última coma sobrante para que el valor o elemento solo vaya seguido del corchete o llave de cierre. El texto de error proviene del parser JSON del navegador, no de un mensaje falso fijo.",
+        limitationsTitle:"Limitaciones",
+        limit1:"Los enteros muy grandes pueden perder precisión al parsearse como Number de JavaScript.",
+        limit2:"Las claves de objeto duplicadas no son un error de sintaxis en JSON.parse; suele ganar el último valor.",
+        limit3:"Los archivos muy grandes siguen dependiendo de la memoria del navegador y del dispositivo.",
+        limit4:"La exportación PNG necesita un árbol parseado válido; el JSON inválido no se puede exportar como imagen.",
         privacyTitle:"Nota de procesamiento local",
         privacyText:"El formateo, parsing y validación se gestionan en el navegador. En uso normal, tu JSON no se sube a Mini-Tools.uk.",
         useTitle:"Casos de uso comunes",
@@ -1064,6 +1128,8 @@
     const minifyBtn = document.getElementById("minifyBtn");
     const clearBtn = document.getElementById("clearBtn");
     const exampleBtn = document.getElementById("exampleBtn");
+    const errorExampleBtn = document.getElementById("errorExampleBtn");
+    const fixedExampleBtn = document.getElementById("fixedExampleBtn");
     const expandBtn = document.getElementById("expandBtn");
     const collapseBtn = document.getElementById("collapseBtn");
     const copyBtn = document.getElementById("copyBtn");
@@ -1364,6 +1430,18 @@ function setStatus(type, text, meta) {
       parseJson(true);
     }
 
+    function loadErrorExample() {
+      inputEl.value = '{"name":"Mini Tools","tools":["json","upload"],}';
+      updateStats();
+      parseJson(true);
+    }
+
+    function loadFixedExample() {
+      inputEl.value = '{"name":"Mini Tools","tools":["json","upload"]}';
+      updateStats();
+      parseJson(true);
+    }
+
     function clearAll() {
       inputEl.value = "";
       updateStats();
@@ -1444,6 +1522,8 @@ function setStatus(type, text, meta) {
     minifyBtn.addEventListener("click", minifyJson);
     clearBtn.addEventListener("click", clearAll);
     exampleBtn.addEventListener("click", loadExample);
+    errorExampleBtn.addEventListener("click", loadErrorExample);
+    fixedExampleBtn.addEventListener("click", loadFixedExample);
     expandBtn.addEventListener("click", expandAll);
     collapseBtn.addEventListener("click", collapseAll);
     copyBtn.addEventListener("click", copyJson);

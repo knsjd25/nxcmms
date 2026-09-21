@@ -104,6 +104,10 @@
       const value = dict[node.getAttribute("data-i18n-title")];
       if (typeof value === "string") node.setAttribute("title", value);
     });
+    document.querySelectorAll("[data-i18n-alt]").forEach((node) => {
+      const value = dict[node.getAttribute("data-i18n-alt")];
+      if (typeof value === "string") node.setAttribute("alt", value);
+    });
     const title = dict.seoTitle || dict.metaTitle || dict.title;
     const description = dict.seoDescription || dict.metaDesc || dict.metaDescription || dict.description;
     if (title) document.title = title;

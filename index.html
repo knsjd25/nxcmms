@@ -691,6 +691,65 @@
       white-space: pre;
     }
 
+    .api-note {
+      margin: 14px 0 0;
+      color: #9bb5a8;
+      font-size: .92rem;
+      line-height: 1.6;
+    }
+
+    .demo-section {
+      padding: 0 0 10px;
+    }
+
+    .demo-card {
+      display: grid;
+      grid-template-columns: minmax(140px, 220px) minmax(0, 1fr);
+      gap: 28px;
+      align-items: center;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 14px 36px rgba(15, 23, 42, .06);
+    }
+
+    .demo-card img {
+      width: 100%;
+      max-width: 180px;
+      border-radius: 18px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+    }
+
+    .demo-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.45rem;
+      letter-spacing: -.02em;
+    }
+
+    .demo-card p {
+      margin: 0 0 12px;
+      color: #475569;
+    }
+
+    .demo-card code {
+      display: inline-block;
+      max-width: 100%;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: #f1f5f9;
+      color: #0f172a;
+      font-size: .86rem;
+      word-break: break-all;
+    }
+
+    @media (max-width: 760px) {
+      .demo-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .api-actions {
       display: flex;
       gap: 12px;
@@ -1073,8 +1132,23 @@
         <article class="workflow-step">
           <span class="step-number" data-i18n="stepThree">Step 03</span>
           <h2 data-i18n="stepThreeTitle">Copy the result</h2>
-          <p data-i18n="stepThreeText">Receive a direct URL plus Markdown, HTML and BBCode output.</p>
+          <p data-i18n="stepThreeText">Receive a direct URL. The upload page also builds Markdown, HTML and BBCode from that URL for sharing.</p>
         </article>
+      </div>
+    </section>
+
+    <section class="section demo-section" id="demo-result">
+      <div class="home-container">
+        <div class="demo-card">
+          <img src="https://assets.mini-tools.uk/image/icon-512x512.png" width="180" height="180" alt="Mini Tools demo image" data-i18n-alt="demoAlt">
+          <div>
+            <p class="section-kicker" data-i18n="demoKicker">Site-maintained demo</p>
+            <h2 data-i18n="demoTitle">See a real hosted image result</h2>
+            <p data-i18n="demoText">This is a site-owned demo asset on assets.mini-tools.uk, not a temporary user upload. Open the direct URL below, then use the upload page for your own file.</p>
+            <p><code>https://assets.mini-tools.uk/image/icon-512x512.png</code></p>
+            <a class="text-link" href="https://assets.mini-tools.uk/image/icon-512x512.png" target="_blank" rel="noopener noreferrer" data-i18n="demoOpenLink">Open demo image →</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1083,33 +1157,33 @@
         <div class="section-header">
           <div class="section-heading">
             <p class="section-kicker" data-i18n="guidesKicker">Image hosting guides</p>
-            <h2 data-i18n="guidesTitle">Choose the right upload workflow</h2>
-            <p class="section-intro" data-i18n="guidesText">Start with a normal upload, use a temporary retention period, or learn which link format fits your destination.</p>
+            <h2 data-i18n="guidesTitle">Three guides, three different problems</h2>
+            <p class="section-intro" data-i18n="guidesText">First successful upload, expiry and removal, or which link format to embed. Each guide answers a different question.</p>
           </div>
           <a class="text-link" href="/upload" data-i18n="startUploadLink">Start an upload →</a>
         </div>
         <div class="guide-grid">
           <a class="guide-card" href="/free-image-hosting">
             <div>
-              <span class="card-label" data-i18n="guideOneLabel">Normal upload</span>
+              <span class="card-label" data-i18n="guideOneLabel">First upload</span>
               <h3 data-i18n="guideOneTitle">Free image hosting</h3>
-              <p data-i18n="guideOneText">Upload without creating an account and receive a link that is ready to share.</p>
+              <p data-i18n="guideOneText">Get your first successful upload: choose a file, complete verification, and open the resulting direct link.</p>
             </div>
             <span class="card-arrow" aria-hidden="true">→</span>
           </a>
           <a class="guide-card" href="/temporary-image-upload">
             <div>
-              <span class="card-label" data-i18n="guideTwoLabel">Retention control</span>
+              <span class="card-label" data-i18n="guideTwoLabel">Expiry and removal</span>
               <h3 data-i18n="guideTwoTitle">Temporary image upload</h3>
-              <p data-i18n="guideTwoText">Choose a 1-day, 7-day or 30-day retention period for time-limited images.</p>
+              <p data-i18n="guideTwoText">Understand when a temporary link ends, what expiry does not guarantee, and how to request removal.</p>
             </div>
             <span class="card-arrow" aria-hidden="true">→</span>
           </a>
           <a class="guide-card" href="/share-image-link">
             <div>
-              <span class="card-label" data-i18n="guideThreeLabel">Publishing</span>
+              <span class="card-label" data-i18n="guideThreeLabel">Embed formats</span>
               <h3 data-i18n="guideThreeTitle">Share an image link</h3>
-              <p data-i18n="guideThreeText">Use direct URL, Markdown, HTML or BBCode in the place where the image will appear.</p>
+              <p data-i18n="guideThreeText">Compare direct URL, Markdown, HTML and BBCode for the same image, and fix common embed failures.</p>
             </div>
             <span class="card-arrow" aria-hidden="true">→</span>
           </a>
@@ -1122,18 +1196,28 @@
         <div>
           <p class="section-kicker" data-i18n="apiKicker">Image upload API</p>
           <h2 data-i18n="apiTitle">Add image uploads to your own workflow</h2>
-          <p class="section-intro" data-i18n="apiText">Approved users can upload one image or multiple images with an assigned user ID and API key, then query usage and upload records.</p>
+          <p class="section-intro" data-i18n="apiText">Email api@mini-tools.uk to receive an API user ID and key. Upload one or more images from a trusted server, then read usage and records.</p>
           <div class="api-actions">
             <a class="button button-primary" href="/image-api" data-i18n="apiDocsButton">Read API documentation</a>
-            <a class="button button-secondary" href="mailto:yuyananuu@gmail.com" data-cfemail="false" data-i18n="apiContactButton">Contact by email</a>
+            <a class="button button-secondary" href="mailto:api@mini-tools.uk" data-cfemail="false" data-i18n="apiContactButton">Apply by email</a>
           </div>
+          <p class="api-note" data-i18n="apiUiNote">Markdown, HTML and BBCode shown on the web upload page are built in the browser from the returned image URL. They are not fields in the API JSON response.</p>
         </div>
         <pre class="api-code" aria-label="API response example" data-i18n-aria-label="apiCodeLabel"><code>{
-  "ok": true,
-  "url": "https://...",
-  "markdown": "![image](...)",
-  "html": "&lt;img src=\"...\"&gt;",
-  "bbcode": "[img]...[/img]"
+  "success": true,
+  "partial": false,
+  "uploaded": [
+    {
+      "success": true,
+      "url": "https://pub.mini-tools.uk/7-day/example.png",
+      "duration": "7-day",
+      "expires_at": "2026-08-05T12:00:00.000Z"
+    }
+  ],
+  "failed": [],
+  "usage": {
+    "temporary": { "remaining": 99 }
+  }
 }</code></pre>
       </div>
     </section>
@@ -1284,26 +1368,32 @@
         stepTwoText: "Select 1 day, 7 days or 30 days before uploading the image.",
         stepThree: "Step 03",
         stepThreeTitle: "Copy the result",
-        stepThreeText: "Receive a direct URL plus Markdown, HTML and BBCode output.",
+        stepThreeText: "Receive a direct URL. The upload page also builds Markdown, HTML and BBCode from that URL for sharing.",
         guidesKicker: "Image hosting guides",
-        guidesTitle: "Choose the right upload workflow",
-        guidesText: "Start with a normal upload, use a temporary retention period, or learn which link format fits your destination.",
+        guidesTitle: "Three guides, three different problems",
+        guidesText: "First successful upload, expiry and removal, or which link format to embed. Each guide answers a different question.",
         startUploadLink: "Start an upload →",
-        guideOneLabel: "Normal upload",
+        guideOneLabel: "First upload",
         guideOneTitle: "Free image hosting",
-        guideOneText: "Upload without creating an account and receive a link that is ready to share.",
-        guideTwoLabel: "Retention control",
+        guideOneText: "Get your first successful upload: choose a file, complete verification, and open the resulting direct link.",
+        guideTwoLabel: "Expiry and removal",
         guideTwoTitle: "Temporary image upload",
-        guideTwoText: "Choose a 1-day, 7-day or 30-day retention period for time-limited images.",
-        guideThreeLabel: "Publishing",
+        guideTwoText: "Understand when a temporary link ends, what expiry does not guarantee, and how to request removal.",
+        guideThreeLabel: "Embed formats",
         guideThreeTitle: "Share an image link",
-        guideThreeText: "Use direct URL, Markdown, HTML or BBCode in the place where the image will appear.",
+        guideThreeText: "Compare direct URL, Markdown, HTML and BBCode for the same image, and fix common embed failures.",
         apiKicker: "Image upload API",
         apiTitle: "Add image uploads to your own workflow",
-        apiText: "Approved users can upload one image or multiple images with an assigned user ID and API key, then query usage and upload records.",
+        apiText: "Email api@mini-tools.uk to receive an API user ID and key. Upload one or more images from a trusted server, then read usage and records.",
         apiDocsButton: "Read API documentation",
-        apiContactButton: "Contact by email",
+        apiContactButton: "Apply by email",
         apiCodeLabel: "API response example",
+        demoKicker: "Site-maintained demo",
+        demoTitle: "See a real hosted image result",
+        demoText: "This is a site-owned demo asset on assets.mini-tools.uk, not a temporary user upload. Open the direct URL below, then use the upload page for your own file.",
+        demoOpenLink: "Open demo image →",
+        demoAlt: "Mini Tools demo image",
+        apiUiNote: "Markdown, HTML and BBCode shown on the web upload page are built in the browser from the returned image URL. They are not fields in the API JSON response.",
         devKicker: "Developer utilities",
         devTitle: "Small tools for browser-based work",
         devText: "The focused developer utilities remain available as supporting tools alongside image hosting.",
@@ -1339,7 +1429,7 @@
         faqLinksQ: "Which link formats are returned?",
         faqLinksA: "A successful upload provides a direct URL, Markdown, HTML and BBCode so you can choose the format required by the destination.",
         faqApiQ: "How do I request API access?",
-        faqApiA: "Open the API documentation page and use the listed email address to request an API user ID and API key.",
+        faqApiA: "Email api@mini-tools.uk. The system replies with an API user ID and key that can be used from a trusted server. See the API documentation for headers and response fields.",
         finalTitle: "Ready to host an image?",
         finalText: "Continue to the existing upload page to select your file and retention period.",
         finalButton: "Go to image upload"
@@ -1384,26 +1474,32 @@
         stepTwoText: "上传前可选择保留 1 天、7 天或 30 天。",
         stepThree: "第 03 步",
         stepThreeTitle: "复制上传结果",
-        stepThreeText: "上传成功后可获得直链、Markdown、HTML 和 BBCode。",
+        stepThreeText: "上传成功后获得图片直链；网页上传页还会根据该 URL 在本地生成 Markdown、HTML 和 BBCode。",
         guidesKicker: "图床使用指南",
-        guidesTitle: "选择合适的图片上传方式",
-        guidesText: "可以直接普通上传，也可以选择临时保留，或了解不同链接格式适合使用在哪里。",
+        guidesTitle: "三篇指南，各自解决不同问题",
+        guidesText: "首次上传成功、到期与移除，或如何嵌入链接。每篇指南只解决一类问题。",
         startUploadLink: "开始上传 →",
-        guideOneLabel: "普通上传",
+        guideOneLabel: "首次上传",
         guideOneTitle: "免费图片托管",
-        guideOneText: "无需创建账户，上传完成即可获得可分享的图片链接。",
-        guideTwoLabel: "保留时长",
+        guideOneText: "完成第一次成功上传：选择文件、通过验证，并打开返回的直链。",
+        guideTwoLabel: "到期与移除",
         guideTwoTitle: "临时图片上传",
-        guideTwoText: "为限时图片选择保留 1 天、7 天或 30 天。",
-        guideThreeLabel: "发布与分享",
+        guideTwoText: "弄清临时链接何时结束、到期不保证什么，以及如何申请移除。",
+        guideThreeLabel: "嵌入格式",
         guideThreeTitle: "分享图片链接",
-        guideThreeText: "根据使用场景选择直链、Markdown、HTML 或 BBCode。",
+        guideThreeText: "对比同一张图的直链、Markdown、HTML 与 BBCode，并排查嵌入失败。",
         apiKicker: "图片上传 API",
         apiTitle: "把图片上传接入你的工作流程",
-        apiText: "审核通过的用户可以使用分配的用户 ID 和 API Key 上传单张或多张图片，并查询用量和上传记录。",
+        apiText: "向 api@mini-tools.uk 发信获取用户 ID 和 API Key，在可信服务端上传图片并查询用量与记录。",
         apiDocsButton: "阅读 API 文档",
-        apiContactButton: "邮件联系",
+        apiContactButton: "邮件申请",
         apiCodeLabel: "API 返回示例",
+        demoKicker: "站方维护的演示",
+        demoTitle: "查看真实托管图片结果",
+        demoText: "这是 assets.mini-tools.uk 上的站方资源，不是即将到期的普通用户上传。打开下方直链后，再去上传页处理你自己的文件。",
+        demoOpenLink: "打开演示图片 →",
+        demoAlt: "Mini Tools 演示图片",
+        apiUiNote: "网页上传页展示的 Markdown、HTML、BBCode 是浏览器根据返回的图片 URL 拼接的分享格式，不是 API JSON 返回字段。",
         devKicker: "开发者工具",
         devTitle: "保留常用的浏览器小工具",
         devText: "图床是网站主功能，同时继续提供几项精简的开发者辅助工具。",
@@ -1439,7 +1535,7 @@
         faqLinksQ: "上传成功会返回哪些格式？",
         faqLinksA: "上传成功后提供直链、Markdown、HTML 和 BBCode，可按使用位置选择。",
         faqApiQ: "如何申请 API 权限？",
-        faqApiA: "打开 API 文档页面，使用页面提供的邮箱申请 API 用户 ID 和 API Key。",
+        faqApiA: "发送邮件到 api@mini-tools.uk。系统会回信提供可在可信服务端使用的用户 ID 和 API Key。字段说明见 API 文档。",
         finalTitle: "准备上传图片？",
         finalText: "前往现有上传页面选择文件和保留时长。",
         finalButton: "前往图片上传"
@@ -1484,26 +1580,32 @@
         stepTwoText: "Wählen Sie vor dem Upload 1 Tag, 7 Tage oder 30 Tage.",
         stepThree: "Schritt 03",
         stepThreeTitle: "Ergebnis kopieren",
-        stepThreeText: "Sie erhalten direkte URL, Markdown, HTML und BBCode.",
+        stepThreeText: "Sie erhalten die Direkt-URL. Markdown, HTML und BBCode erzeugt die Upload-Seite lokal aus dieser URL.",
         guidesKicker: "Bildhosting-Anleitungen",
-        guidesTitle: "Den passenden Upload-Ablauf wählen",
-        guidesText: "Normal hochladen, eine zeitliche Aufbewahrung wählen oder das richtige Linkformat finden.",
+        guidesTitle: "Drei Anleitungen, drei unterschiedliche Probleme",
+        guidesText: "Erster erfolgreicher Upload, Ablauf und Löschung oder Einbettungsformat. Jede Seite löst eine andere Frage.",
         startUploadLink: "Upload starten →",
-        guideOneLabel: "Normaler Upload",
+        guideOneLabel: "Erster Upload",
         guideOneTitle: "Kostenloses Bildhosting",
-        guideOneText: "Ohne Konto hochladen und einen sofort teilbaren Link erhalten.",
-        guideTwoLabel: "Aufbewahrung",
+        guideOneText: "Schließen Sie den ersten erfolgreichen Upload ab: Datei wählen, Prüfung bestehen und den Direktlink öffnen.",
+        guideTwoLabel: "Ablauf und Löschung",
         guideTwoTitle: "Temporärer Bild-Upload",
-        guideTwoText: "Für zeitlich begrenzte Bilder 1, 7 oder 30 Tage wählen.",
-        guideThreeLabel: "Veröffentlichen",
+        guideTwoText: "Verstehen, wann ein temporärer Link endet, was Ablauf nicht garantiert und wie Löschung beantragt wird.",
+        guideThreeLabel: "Einbettungsformate",
         guideThreeTitle: "Bildlink teilen",
-        guideThreeText: "Direkte URL, Markdown, HTML oder BBCode passend zum Ziel verwenden.",
+        guideThreeText: "Direkt-URL, Markdown, HTML und BBCode für dasselbe Bild vergleichen und Einbettungsfehler beheben.",
         apiKicker: "Bild-Upload-API",
         apiTitle: "Bild-Uploads in eigene Abläufe integrieren",
-        apiText: "Freigeschaltete Nutzer laden einzelne oder mehrere Bilder mit Benutzer-ID und API-Key hoch und fragen Nutzung sowie Upload-Verlauf ab.",
+        apiText: "Schreiben Sie an api@mini-tools.uk für Benutzer-ID und API-Key. Laden Sie Bilder von einem vertrauenswürdigen Server hoch und lesen Sie Nutzung sowie Verlauf.",
         apiDocsButton: "API-Dokumentation lesen",
-        apiContactButton: "Kontakt per E-Mail",
+        apiContactButton: "Per E-Mail beantragen",
         apiCodeLabel: "Beispiel einer API-Antwort",
+        demoKicker: "Vom Betreiber gepflegte Demo",
+        demoTitle: "Ein echtes gehostetes Bildergebnis sehen",
+        demoText: "Dies ist eine Betreiber-Datei auf assets.mini-tools.uk, kein temporärer Nutzer-Upload. Öffnen Sie den Direktlink und nutzen Sie danach die Upload-Seite für Ihre Datei.",
+        demoOpenLink: "Demo-Bild öffnen →",
+        demoAlt: "Mini Tools Demo-Bild",
+        apiUiNote: "Markdown, HTML und BBCode auf der Web-Upload-Seite werden im Browser aus der Bild-URL erzeugt. Sie sind keine Felder der API-JSON-Antwort.",
         devKicker: "Entwicklerwerkzeuge",
         devTitle: "Kleine Werkzeuge für Browser-Arbeit",
         devText: "Fokussierte Entwicklerwerkzeuge bleiben als Ergänzung zum Bildhosting verfügbar.",
@@ -1539,7 +1641,7 @@
         faqLinksQ: "Welche Linkformate werden ausgegeben?",
         faqLinksA: "Direkte URL, Markdown, HTML und BBCode stehen nach erfolgreichem Upload bereit.",
         faqApiQ: "Wie beantrage ich API-Zugang?",
-        faqApiA: "Öffnen Sie die API-Dokumentation und beantragen Sie Benutzer-ID und API-Key über die dort genannte E-Mail-Adresse.",
+        faqApiA: "Schreiben Sie an api@mini-tools.uk. Das System antwortet mit Benutzer-ID und API-Key für den vertrauenswürdigen Server. Details stehen in der API-Dokumentation.",
         finalTitle: "Bereit für den Bild-Upload?",
         finalText: "Wechseln Sie zur bestehenden Upload-Seite und wählen Sie Datei und Aufbewahrung.",
         finalButton: "Zur Upload-Seite"
@@ -1584,26 +1686,32 @@
         stepTwoText: "Choisissez 1 jour, 7 jours ou 30 jours avant l’envoi.",
         stepThree: "Étape 03",
         stepThreeTitle: "Copier le résultat",
-        stepThreeText: "Recevez une URL directe ainsi que Markdown, HTML et BBCode.",
+        stepThreeText: "Recevez l'URL directe. La page d'envoi construit aussi Markdown, HTML et BBCode à partir de cette URL.",
         guidesKicker: "Guides d’hébergement",
-        guidesTitle: "Choisir le bon mode d’envoi",
-        guidesText: "Utilisez l’envoi normal, choisissez une durée temporaire ou trouvez le format de lien adapté.",
+        guidesTitle: "Trois guides, trois problèmes différents",
+        guidesText: "Premier envoi réussi, expiration et retrait, ou format d'intégration. Chaque guide répond à une question distincte.",
         startUploadLink: "Commencer l’envoi →",
-        guideOneLabel: "Envoi normal",
+        guideOneLabel: "Premier envoi",
         guideOneTitle: "Hébergement gratuit",
-        guideOneText: "Envoyez sans créer de compte et recevez un lien prêt à partager.",
-        guideTwoLabel: "Durée de conservation",
+        guideOneText: "Réussissez le premier envoi : choisir le fichier, valider, puis ouvrir le lien direct.",
+        guideTwoLabel: "Expiration et retrait",
         guideTwoTitle: "Envoi temporaire",
-        guideTwoText: "Choisissez 1, 7 ou 30 jours pour les images limitées dans le temps.",
-        guideThreeLabel: "Publication",
+        guideTwoText: "Comprenez quand un lien temporaire se termine, ce que l'expiration ne garantit pas, et comment demander un retrait.",
+        guideThreeLabel: "Formats d'intégration",
         guideThreeTitle: "Partager un lien d’image",
-        guideThreeText: "Utilisez URL directe, Markdown, HTML ou BBCode selon la destination.",
+        guideThreeText: "Comparez URL directe, Markdown, HTML et BBCode pour la même image, et corrigez les échecs d'intégration.",
         apiKicker: "API d’envoi d’images",
         apiTitle: "Intégrez l’envoi d’images à vos processus",
-        apiText: "Les utilisateurs approuvés envoient une ou plusieurs images avec leur identifiant et leur clé API, puis consultent utilisation et historique.",
+        apiText: "Écrivez à api@mini-tools.uk pour recevoir un identifiant et une clé API. Envoyez des images depuis un serveur de confiance, puis consultez l'usage.",
         apiDocsButton: "Lire la documentation API",
-        apiContactButton: "Contacter par e-mail",
+        apiContactButton: "Demander par e-mail",
         apiCodeLabel: "Exemple de réponse API",
+        demoKicker: "Démo maintenue par le site",
+        demoTitle: "Voir un vrai résultat d'image hébergée",
+        demoText: "Ceci est une ressource du site sur assets.mini-tools.uk, pas un envoi temporaire d'utilisateur. Ouvrez l'URL ci-dessous, puis utilisez la page d'envoi pour votre fichier.",
+        demoOpenLink: "Ouvrir l'image démo →",
+        demoAlt: "Image de démonstration Mini Tools",
+        apiUiNote: "Markdown, HTML et BBCode sur la page d'envoi web sont construits dans le navigateur à partir de l'URL renvoyée. Ce ne sont pas des champs de la réponse JSON de l'API.",
         devKicker: "Outils de développement",
         devTitle: "Petits outils pour le travail dans le navigateur",
         devText: "Les utilitaires de développement essentiels restent disponibles à côté de l’hébergement.",
@@ -1639,7 +1747,7 @@
         faqLinksQ: "Quels formats de lien sont fournis ?",
         faqLinksA: "Une URL directe, Markdown, HTML et BBCode sont fournis après un envoi réussi.",
         faqApiQ: "Comment demander un accès API ?",
-        faqApiA: "Ouvrez la documentation API et utilisez l’adresse e-mail indiquée pour demander identifiant et clé API.",
+        faqApiA: "Écrivez à api@mini-tools.uk. Le système répond avec un identifiant et une clé API pour un serveur de confiance. Voir la documentation API.",
         finalTitle: "Prêt à héberger une image ?",
         finalText: "Accédez à la page d’envoi existante pour choisir votre fichier et la durée.",
         finalButton: "Accéder à l’envoi"
@@ -1684,26 +1792,32 @@
         stepTwoText: "Elige 1 día, 7 días o 30 días antes de subir.",
         stepThree: "Paso 03",
         stepThreeTitle: "Copiar el resultado",
-        stepThreeText: "Recibe URL directa, Markdown, HTML y BBCode.",
+        stepThreeText: "Recibe la URL directa. La página de subida también genera Markdown, HTML y BBCode a partir de esa URL.",
         guidesKicker: "Guías de alojamiento",
-        guidesTitle: "Elige el flujo de subida adecuado",
-        guidesText: "Usa una subida normal, elige duración temporal o encuentra el formato de enlace correcto.",
+        guidesTitle: "Tres guías, tres problemas distintos",
+        guidesText: "Primera subida correcta, caducidad y retirada, o formato de inserción. Cada guía responde a una pregunta distinta.",
         startUploadLink: "Iniciar subida →",
-        guideOneLabel: "Subida normal",
+        guideOneLabel: "Primera subida",
         guideOneTitle: "Alojamiento gratuito",
-        guideOneText: "Sube sin crear una cuenta y recibe un enlace listo para compartir.",
-        guideTwoLabel: "Conservación",
+        guideOneText: "Completa la primera subida correcta: elige el archivo, pasa la verificación y abre el enlace directo.",
+        guideTwoLabel: "Caducidad y retirada",
         guideTwoTitle: "Subida temporal",
-        guideTwoText: "Elige 1, 7 o 30 días para imágenes con tiempo limitado.",
-        guideThreeLabel: "Publicación",
+        guideTwoText: "Entiende cuándo termina un enlace temporal, qué no garantiza la caducidad y cómo pedir la retirada.",
+        guideThreeLabel: "Formatos de inserción",
         guideThreeTitle: "Compartir enlace de imagen",
-        guideThreeText: "Usa URL directa, Markdown, HTML o BBCode según el destino.",
+        guideThreeText: "Compara URL directa, Markdown, HTML y BBCode para la misma imagen, y corrige fallos de inserción.",
         apiKicker: "API de subida",
         apiTitle: "Integra la subida de imágenes en tu flujo",
-        apiText: "Los usuarios aprobados suben una o varias imágenes con ID de usuario y clave API, y consultan uso e historial.",
+        apiText: "Escribe a api@mini-tools.uk para recibir ID de usuario y clave API. Sube imágenes desde un servidor de confianza y consulta el uso.",
         apiDocsButton: "Leer documentación API",
-        apiContactButton: "Contactar por correo",
+        apiContactButton: "Solicitar por correo",
         apiCodeLabel: "Ejemplo de respuesta API",
+        demoKicker: "Demostración mantenida por el sitio",
+        demoTitle: "Ver un resultado real de imagen alojada",
+        demoText: "Este es un recurso del sitio en assets.mini-tools.uk, no una subida temporal de usuario. Abre la URL directa y luego usa la página de subida para tu archivo.",
+        demoOpenLink: "Abrir imagen de demo →",
+        demoAlt: "Imagen de demostración Mini Tools",
+        apiUiNote: "Markdown, HTML y BBCode en la página de subida web se construyen en el navegador a partir de la URL devuelta. No son campos de la respuesta JSON de la API.",
         devKicker: "Utilidades para desarrolladores",
         devTitle: "Pequeñas herramientas para trabajar en el navegador",
         devText: "Las utilidades de desarrollo esenciales siguen disponibles junto al alojamiento.",
@@ -1739,7 +1853,7 @@
         faqLinksQ: "¿Qué formatos de enlace se devuelven?",
         faqLinksA: "Tras una subida correcta se ofrecen URL directa, Markdown, HTML y BBCode.",
         faqApiQ: "¿Cómo solicito acceso a la API?",
-        faqApiA: "Abre la documentación API y usa el correo indicado para solicitar ID de usuario y clave API.",
+        faqApiA: "Escribe a api@mini-tools.uk. El sistema responde con ID de usuario y clave API para un servidor de confianza. Consulta la documentación API.",
         finalTitle: "¿Listo para alojar una imagen?",
         finalText: "Ve a la página de subida existente para elegir archivo y duración.",
         finalButton: "Ir a subir imagen"

@@ -136,29 +136,76 @@
 <main class="landing-main">
   <section class="landing-hero">
     <div class="landing-hero-copy">
-      <span class="landing-kicker" data-i18n="kicker">Free image hosting</span>
+      <span class="landing-kicker" data-i18n="kicker">First successful upload</span>
       <h1 data-i18n="heroTitle">Free Image Hosting</h1>
-      <p class="landing-lead" data-i18n="heroText">Upload an image without creating an account, copy the hosted link, and use it in messages, forums, documentation or website content.</p>
+      <p class="landing-lead" data-i18n="heroText">Complete your first successful upload without an account: choose a file, verify, upload, then open the Direct URL.</p>
       <div class="landing-actions"><a class="landing-button" href="/upload" data-i18n="primaryCta">Upload an image</a><a class="landing-button secondary" href="/image-api" data-i18n="secondaryCta">Read API documentation</a></div>
       <div class="landing-chips"><span class="landing-chip" data-i18n="chip1">No signup</span><span class="landing-chip" data-i18n="chip2">Up to 5 MB</span><span class="landing-chip" data-i18n="chip3">Direct URL and embed formats</span></div>
     </div>
     <aside class="landing-hero-panel" aria-label="Image hosting overview"><div class="upload-visual"><div class="upload-visual-icon" aria-hidden="true">↑</div><strong data-i18n="visualTitle">Upload, copy and share</strong><span data-i18n="visualText">Choose retention on the upload page before creating the link.</span></div></aside>
   </section>
 
-  <div class="content-stack">
-    <section class="content-card"><h2 data-i18n="whatTitle">What is free image hosting?</h2><p data-i18n="whatText">Free image hosting stores an image on a remote service and gives you a URL that can be shared or embedded. Mini Tools sends the selected file to its image hosting service only after you choose it on the upload page.</p></section>
-    <section class="content-card"><h2 data-i18n="howTitle">How to use free image hosting</h2><p data-i18n="howText">The upload flow is designed for a quick link without account registration.</p><div class="step-grid"><div class="step"><span class="step-number">1</span><strong data-i18n="step1Title">Choose an image</strong><p data-i18n="step1Text">Select a supported JPG, PNG, GIF or WebP file up to 5 MB.</p></div><div class="step"><span class="step-number">2</span><strong data-i18n="step2Title">Upload it</strong><p data-i18n="step2Text">Choose a retention period, complete verification and start the upload.</p></div><div class="step"><span class="step-number">3</span><strong data-i18n="step3Title">Copy the link</strong><p data-i18n="step3Text">Copy the direct URL, Markdown, HTML or BBCode output.</p></div></div></section>
-    <section class="content-card"><h2 data-i18n="usesTitle">Use cases for hosted images</h2><p data-i18n="usesText">Hosted image links are useful when a message, forum or document needs an image URL instead of a file attachment.</p><div class="use-grid"><div class="use-item"><strong data-i18n="use1Title">Forums and messages</strong><p data-i18n="use1Text">Share screenshots or reference images with a direct URL.</p></div><div class="use-item"><strong data-i18n="use2Title">README and documentation</strong><p data-i18n="use2Text">Use Markdown output in GitHub README files and technical notes.</p></div><div class="use-item"><strong data-i18n="use3Title">Website drafts</strong><p data-i18n="use3Text">Use HTML output for pages where you are allowed to embed the image.</p></div></div></section>
-    <section class="content-card"><h2 data-i18n="limitsTitle">Limitations, privacy and public links</h2><p data-i18n="limitsText">Image hosting is not local-only processing: the selected image is sent to the service so a link can be created. Anyone who receives that link may be able to open it.</p><div class="privacy-note" data-i18n="limitsNote">Do not upload identity documents, private screenshots, financial files, confidential work, illegal content or images you do not have permission to share. Available retention options are 1 day, 7 days, 30 days and approved permanent storage.</div></section>
-    <section class="content-card"><h2 data-i18n="faqTitle">FAQ</h2><div class="faq-list">
-      <article class="faq-item"><h3 data-i18n="faq1Q">Is this image hosting tool free?</h3><p data-i18n="faq1A">Yes. The public upload page can create hosted image links without an account.</p></article>
-      <article class="faq-item"><h3 data-i18n="faq2Q">Do I need to create an account?</h3><p data-i18n="faq2A">No account is required for the normal upload flow.</p></article>
-      <article class="faq-item"><h3 data-i18n="faq3Q">Can I use the image link on forums or blogs?</h3><p data-i18n="faq3A">Yes, when the forum or website accepts direct URLs, Markdown, HTML or BBCode and you have permission to share the image.</p></article>
-      <article class="faq-item"><h3 data-i18n="faq4Q">What image formats are supported?</h3><p data-i18n="faq4A">The upload page accepts JPG, PNG, GIF and WebP images.</p></article>
-      <article class="faq-item"><h3 data-i18n="faq5Q">Is there an upload size limit?</h3><p data-i18n="faq5A">Yes. The current limit is 5 MB per image.</p></article>
-      <article class="faq-item"><h3 data-i18n="faq6Q">Are uploaded images public?</h3><p data-i18n="faq6A">Hosted links should be treated as shareable rather than private. Do not upload sensitive material.</p></article>
-    </div></section>
-    <section class="content-card"><h2 data-i18n="relatedTitle">Related tools</h2><p data-i18n="relatedText">Choose the page that matches how you want to upload, retain or share an image.</p><div class="related-grid"><a class="related-link" href="/upload"><strong data-i18n="relatedUpload">Upload Image Online</strong><span data-i18n="relatedUploadText">Open the working upload tool.</span></a><a class="related-link" href="/temporary-image-upload"><strong data-i18n="relatedTemporary">Temporary Image Upload</strong><span data-i18n="relatedTemporaryText">Learn about short-term retention choices.</span></a><a class="related-link" href="/share-image-link"><strong data-i18n="relatedShare">Share Image Link</strong><span data-i18n="relatedShareText">Create and copy an image URL.</span></a></div></section>
+    <div class="content-stack">
+    <section class="content-card">
+      <h2 data-i18n="goalTitle">Goal: complete your first successful upload</h2>
+      <p data-i18n="goalText">This guide covers only the first successful upload path. For expiry details see Temporary Image Upload. For Markdown, HTML or BBCode embedding see Share Image Link.</p>
+    </section>
+    <section class="content-card">
+      <h2 data-i18n="walkTitle">Worked example: from file to openable link</h2>
+      <p data-i18n="walkText">Use a non-sensitive JPG, PNG, GIF or WebP file of 5 MB or less that you are allowed to share.</p>
+      <div class="case-box">
+        <h3 data-i18n="walkCaseTitle">Measured path on the upload page</h3>
+        <ol>
+          <li data-i18n="walk1">Open /upload and choose the image.</li>
+          <li data-i18n="walk2">Select a retention period (1, 7 or 30 days).</li>
+          <li data-i18n="walk3">Complete the verification question and start the upload.</li>
+          <li data-i18n="walk4">Copy the Direct URL from the result panel.</li>
+          <li data-i18n="walk5">Open that URL in a new browser tab to confirm the image loads.</li>
+        </ol>
+      </div>
+      <div class="demo-figure">
+        <img src="https://assets.mini-tools.uk/image/icon-512x512.png" width="140" height="140" alt="Mini Tools demo image" data-i18n-alt="demoAlt">
+        <div>
+          <strong data-i18n="demoTitle">What a hosted image looks like</strong>
+          <p data-i18n="demoText">This site-owned demo asset shows how a direct image URL behaves when opened. It is maintained on assets.mini-tools.uk and is not a temporary user upload from this guide.</p>
+          <code>https://assets.mini-tools.uk/image/icon-512x512.png</code>
+        </div>
+      </div>
+    </section>
+    <section class="content-card">
+      <h2 data-i18n="failTitle">If the first upload fails</h2>
+      <p data-i18n="failText">Use the upload terminal messages on /upload. Typical fixes:</p>
+      <ul class="faq-list" style="list-style:none;padding:0;margin-top:14px">
+        <li class="faq-item"><h3 data-i18n="fail1Q">File larger than 5 MB</h3><p data-i18n="fail1A">Compress or resize the image, then choose it again.</p></li>
+        <li class="faq-item"><h3 data-i18n="fail2Q">Unsupported format</h3><p data-i18n="fail2A">Convert to JPG, PNG, GIF or WebP before uploading.</p></li>
+        <li class="faq-item"><h3 data-i18n="fail3Q">Verification error</h3><p data-i18n="fail3A">Refresh the question, enter the new result, then retry.</p></li>
+        <li class="faq-item"><h3 data-i18n="fail4Q">Service or network error</h3><p data-i18n="fail4A">Wait a moment and retry. Do not assume success if the result panel stays empty.</p></li>
+      </ul>
+    </section>
+    <section class="content-card">
+      <h2 data-i18n="limitsTitle">Short limits reminder</h2>
+      <p data-i18n="limitsText">Hosted links are shareable, not private storage. Do not upload identity documents, private screenshots, financial files, confidential work, illegal content or images you cannot share. Retention and removal details are covered on the temporary-upload guide and the contact page.</p>
+      <div class="privacy-note" data-i18n="limitsNote">Accepted: JPG, PNG, GIF, WebP up to 5 MB. Removal or abuse reports: contact page or yuyananuu@gmail.com with the image URL.</div>
+    </section>
+    <section class="content-card">
+      <h2 data-i18n="faqTitle">FAQ</h2>
+      <div class="faq-list">
+        <article class="faq-item"><h3 data-i18n="faq1Q">How do I know the first upload worked?</h3><p data-i18n="faq1A">The result panel shows a Direct URL and the image opens in a new tab.</p></article>
+        <article class="faq-item"><h3 data-i18n="faq2Q">Do I need an account for the first upload?</h3><p data-i18n="faq2A">No. Normal uploads on /upload do not require an account.</p></article>
+        <article class="faq-item"><h3 data-i18n="faq3Q">What if verification keeps failing?</h3><p data-i18n="faq3A">Refresh the question and enter only the new result. Old answers will not match.</p></article>
+        <article class="faq-item"><h3 data-i18n="faq4Q">Where do I learn about expiry?</h3><p data-i18n="faq4A">Use the Temporary Image Upload guide. This page only covers first successful upload.</p></article>
+        <article class="faq-item"><h3 data-i18n="faq5Q">Where do I learn embed formats?</h3><p data-i18n="faq5A">Use the Share Image Link guide for Direct URL, Markdown, HTML and BBCode.</p></article>
+      </div>
+    </section>
+    <section class="content-card">
+      <h2 data-i18n="relatedTitle">Related tools</h2>
+      <p data-i18n="relatedText">Continue with the working uploader or the other specialised guides.</p>
+      <div class="related-grid">
+        <a class="related-link" href="/upload"><strong data-i18n="relatedUpload">Upload Image Online</strong><span data-i18n="relatedUploadText">Run the first upload now.</span></a>
+        <a class="related-link" href="/temporary-image-upload"><strong data-i18n="relatedTemporary">Temporary Image Upload</strong><span data-i18n="relatedTemporaryText">Expiry and removal rules.</span></a>
+        <a class="related-link" href="/share-image-link"><strong data-i18n="relatedShare">Share Image Link</strong><span data-i18n="relatedShareText">Embed format comparison.</span></a>
+      </div>
+    </section>
   </div>
 </main>
 
@@ -190,7 +237,292 @@ Object.assign(translations["zh-CN"],{title:"免费图床：无需注册上传图
 Object.assign(translations.de,{title:"Kostenloses Bildhosting ohne Anmeldung | Mini Tools",description:"Erfahren Sie, wie kostenloses Bildhosting funktioniert, laden Sie JPG, PNG, GIF oder WebP bis 5 MB hoch und kopieren Sie ohne Konto einen Direktlink."});
 Object.assign(translations.fr,{title:"Hébergement d’images gratuit sans compte | Mini Tools",description:"Découvrez l’hébergement gratuit, téléversez des fichiers JPG, PNG, GIF ou WebP de 5 Mo maximum et copiez un lien direct sans compte."});
 Object.assign(translations.es,{title:"Alojamiento de imágenes gratis sin registro | Mini Tools",description:"Conoce el alojamiento gratuito, sube archivos JPG, PNG, GIF o WebP de hasta 5 MB y copia un enlace directo sin crear una cuenta."});
-window.applyLanguage=function(lang){const d=translations[lang]||translations.en;const el=document.getElementById('appSchema');if(!el)return;const faq=[];for(let i=1;i<=6;i++)faq.push({"@type":"Question","name":d[`faq${i}Q`],"acceptedAnswer":{"@type":"Answer","text":d[`faq${i}A`]}});el.textContent=JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":d.schemaAppName,"applicationCategory":"UtilitiesApplication","operatingSystem":"Web","url":location.href,"description":d.schemaDescription,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":faq}]});};
+Object.assign(translations.en, {
+  kicker:"First successful upload",
+  heroTitle:"Free Image Hosting",
+  heroText:"Complete your first successful upload without an account: choose a file, verify, upload, then open the Direct URL.",
+  chip1:"First upload path",
+  chip2:"Up to 5 MB",
+  chip3:"Openable Direct URL",
+  visualTitle:"File → verify → link",
+  visualText:"This page answers only how to get the first working link.",
+  goalTitle:"Goal: complete your first successful upload",
+  goalText:"This guide covers only the first successful upload path. For expiry details see Temporary Image Upload. For Markdown, HTML or BBCode embedding see Share Image Link.",
+  walkTitle:"Worked example: from file to openable link",
+  walkText:"Use a non-sensitive JPG, PNG, GIF or WebP file of 5 MB or less that you are allowed to share.",
+  walkCaseTitle:"Measured path on the upload page",
+  walk1:"Open /upload and choose the image.",
+  walk2:"Select a retention period (1, 7 or 30 days).",
+  walk3:"Complete the verification question and start the upload.",
+  walk4:"Copy the Direct URL from the result panel.",
+  walk5:"Open that URL in a new browser tab to confirm the image loads.",
+  demoTitle:"What a hosted image looks like",
+  demoText:"This site-owned demo asset shows how a direct image URL behaves when opened. It is maintained on assets.mini-tools.uk and is not a temporary user upload from this guide.",
+  demoAlt:"Mini Tools demo image",
+  failTitle:"If the first upload fails",
+  failText:"Use the upload terminal messages on /upload. Typical fixes:",
+  fail1Q:"File larger than 5 MB",
+  fail1A:"Compress or resize the image, then choose it again.",
+  fail2Q:"Unsupported format",
+  fail2A:"Convert to JPG, PNG, GIF or WebP before uploading.",
+  fail3Q:"Verification error",
+  fail3A:"Refresh the question, enter the new result, then retry.",
+  fail4Q:"Service or network error",
+  fail4A:"Wait a moment and retry. Do not assume success if the result panel stays empty.",
+  limitsTitle:"Short limits reminder",
+  limitsText:"Hosted links are shareable, not private storage. Do not upload identity documents, private screenshots, financial files, confidential work, illegal content or images you cannot share. Retention and removal details are covered on the temporary-upload guide and the contact page.",
+  limitsNote:"Accepted: JPG, PNG, GIF, WebP up to 5 MB. Removal or abuse reports: contact page or yuyananuu@gmail.com with the image URL.",
+  faqTitle:"FAQ",
+  faq1Q:"How do I know the first upload worked?",
+  faq1A:"The result panel shows a Direct URL and the image opens in a new tab.",
+  faq2Q:"Do I need an account for the first upload?",
+  faq2A:"No. Normal uploads on /upload do not require an account.",
+  faq3Q:"What if verification keeps failing?",
+  faq3A:"Refresh the question and enter only the new result. Old answers will not match.",
+  faq4Q:"Where do I learn about expiry?",
+  faq4A:"Use the Temporary Image Upload guide. This page only covers first successful upload.",
+  faq5Q:"Where do I learn embed formats?",
+  faq5A:"Use the Share Image Link guide for Direct URL, Markdown, HTML and BBCode.",
+  relatedTitle:"Related tools",
+  relatedText:"Continue with the working uploader or the other specialised guides.",
+  relatedUpload:"Upload Image Online",
+  relatedUploadText:"Run the first upload now.",
+  relatedTemporary:"Temporary Image Upload",
+  relatedTemporaryText:"Expiry and removal rules.",
+  relatedShare:"Share Image Link",
+  relatedShareText:"Embed format comparison.",
+  schemaAppName:"Mini Tools Free Image Hosting",
+  schemaDescription:"First-upload guide for hosting an image and opening the resulting Direct URL without an account."
+});
+Object.assign(translations["zh-CN"], {
+  kicker:"第一次成功上传",
+  heroTitle:"免费图床",
+  heroText:"无需账号完成第一次成功上传：选择文件、验证、上传，然后打开图片直链。",
+  chip1:"首次上传路径",
+  chip2:"最大 5 MB",
+  chip3:"可打开的直链",
+  visualTitle:"选文件 → 验证 → 链接",
+  visualText:"本页只回答如何拿到第一条可用链接。",
+  goalTitle:"目标：完成第一次成功上传",
+  goalText:"本指南只讲第一次成功上传。到期说明见“临时图片上传”，嵌入格式见“分享图片链接”。",
+  walkTitle:"实测示例：从文件到可打开的链接",
+  walkText:"使用你有权分享、且不超过 5 MB 的 JPG、PNG、GIF 或 WebP 非敏感图片。",
+  walkCaseTitle:"上传页上的实测路径",
+  walk1:"打开 /upload 并选择图片。",
+  walk2:"选择保留期（1、7 或 30 天）。",
+  walk3:"完成验证题并开始上传。",
+  walk4:"在结果区复制 Direct URL。",
+  walk5:"在新标签页打开该 URL，确认图片可加载。",
+  demoTitle:"托管图片打开后的样子",
+  demoText:"这是站方在 assets.mini-tools.uk 维护的演示资源，用来展示直链打开效果，不是本指南中的临时用户上传。",
+  demoAlt:"Mini Tools 演示图片",
+  failTitle:"如果第一次上传失败",
+  failText:"请查看 /upload 上传终端提示。常见处理：",
+  fail1Q:"文件超过 5 MB",
+  fail1A:"先压缩或缩小图片，再重新选择。",
+  fail2Q:"格式不支持",
+  fail2A:"先转换为 JPG、PNG、GIF 或 WebP。",
+  fail3Q:"验证码错误",
+  fail3A:"刷新题目，只填新结果后再试。",
+  fail4Q:"服务或网络错误",
+  fail4A:"稍候重试。若结果区仍为空，不要当成上传成功。",
+  limitsTitle:"限制摘要",
+  limitsText:"托管链接可分享，不是私密存储。请勿上传证件、私人截图、财务文件、机密资料、违法内容或无权分享的图片。到期与移除见临时上传指南和联系页。",
+  limitsNote:"支持 JPG、PNG、GIF、WebP，最大 5 MB。移除或举报：联系页或 yuyananuu@gmail.com，并附上图片 URL。",
+  faqTitle:"常见问题",
+  faq1Q:"怎样确认第一次上传成功？",
+  faq1A:"结果区出现 Direct URL，且新标签页能打开图片。",
+  faq2Q:"第一次上传需要账号吗？",
+  faq2A:"不需要。/upload 普通上传无需账号。",
+  faq3Q:"验证一直失败怎么办？",
+  faq3A:"刷新题目并只填写新答案，旧答案无效。",
+  faq4Q:"哪里看过期说明？",
+  faq4A:"见临时图片上传指南。本页只讲首次成功上传。",
+  faq5Q:"哪里看嵌入格式？",
+  faq5A:"见分享图片链接指南（直链、Markdown、HTML、BBCode）。",
+  relatedTitle:"相关工具",
+  relatedText:"继续使用实际上传器，或查看其他专项指南。",
+  relatedUpload:"在线上传图片",
+  relatedUploadText:"立即完成第一次上传。",
+  relatedTemporary:"临时图片上传",
+  relatedTemporaryText:"到期与移除规则。",
+  relatedShare:"分享图片链接",
+  relatedShareText:"嵌入格式对比。",
+  schemaAppName:"Mini Tools 免费图床",
+  schemaDescription:"首次上传指南：无需账号托管图片并打开返回的直链。"
+});
+Object.assign(translations.de, {
+  kicker:"Erster erfolgreicher Upload",
+  heroTitle:"Kostenloses Bildhosting",
+  heroText:"Schließen Sie den ersten erfolgreichen Upload ohne Konto ab: Datei wählen, prüfen, hochladen und die Direkt-URL öffnen.",
+  chip1:"Erster Upload",
+  chip2:"Bis 5 MB",
+  chip3:"Öffentliche Direkt-URL",
+  visualTitle:"Datei → Prüfung → Link",
+  visualText:"Diese Seite erklärt nur den ersten funktionierenden Link.",
+  goalTitle:"Ziel: ersten erfolgreichen Upload abschließen",
+  goalText:"Diese Anleitung behandelt nur den ersten erfolgreichen Upload. Ablauf: Temporärer Upload. Einbettung: Bildlink teilen.",
+  walkTitle:"Beispiel: von der Datei zum öffnenbaren Link",
+  walkText:"Verwenden Sie eine nicht sensible JPG-/PNG-/GIF-/WebP-Datei bis 5 MB, die Sie teilen dürfen.",
+  walkCaseTitle:"Gemessener Ablauf auf der Upload-Seite",
+  walk1:"/upload öffnen und Bild wählen.",
+  walk2:"Aufbewahrung wählen (1, 7 oder 30 Tage).",
+  walk3:"Prüffrage beantworten und Upload starten.",
+  walk4:"Direkt-URL aus dem Ergebnisbereich kopieren.",
+  walk5:"URL in neuem Tab öffnen und Laden prüfen.",
+  demoTitle:"So sieht ein gehostetes Bild aus",
+  demoText:"Diese Betreiber-Datei auf assets.mini-tools.uk zeigt das Verhalten einer Direkt-URL. Es ist kein temporärer Nutzer-Upload aus dieser Anleitung.",
+  demoAlt:"Mini Tools Demo-Bild",
+  failTitle:"Wenn der erste Upload scheitert",
+  failText:"Lesen Sie die Terminalmeldungen auf /upload. Typische Schritte:",
+  fail1Q:"Datei größer als 5 MB",
+  fail1A:"Bild verkleinern oder komprimieren und erneut wählen.",
+  fail2Q:"Nicht unterstütztes Format",
+  fail2A:"Zuerst nach JPG, PNG, GIF oder WebP konvertieren.",
+  fail3Q:"Prüffehler",
+  fail3A:"Frage aktualisieren, neues Ergebnis eingeben, erneut versuchen.",
+  fail4Q:"Dienst- oder Netzwerkfehler",
+  fail4A:"Kurz warten und erneut versuchen. Ohne Ergebnisbereich keinen Erfolg annehmen.",
+  limitsTitle:"Kurze Grenzen",
+  limitsText:"Gehostete Links sind teilbar, kein privater Speicher. Keine Ausweise, privaten Screenshots, Finanzdateien, vertraulichen Unterlagen, illegalen Inhalte oder unberechtigten Bilder. Ablauf und Löschung stehen in der temporären Anleitung und auf der Kontaktseite.",
+  limitsNote:"Akzeptiert: JPG, PNG, GIF, WebP bis 5 MB. Löschung/Missbrauch: Kontaktseite oder yuyananuu@gmail.com mit Bild-URL.",
+  faqTitle:"FAQ",
+  faq1Q:"Woran erkenne ich den ersten Erfolg?",
+  faq1A:"Der Ergebnisbereich zeigt eine Direkt-URL und das Bild öffnet sich in einem neuen Tab.",
+  faq2Q:"Brauche ich ein Konto?",
+  faq2A:"Nein. Normale Uploads auf /upload brauchen keines.",
+  faq3Q:"Prüfung schlägt immer fehl?",
+  faq3A:"Frage aktualisieren und nur das neue Ergebnis eingeben.",
+  faq4Q:"Wo steht der Ablauf?",
+  faq4A:"In der Anleitung für temporären Upload. Diese Seite deckt nur den ersten Erfolg ab.",
+  faq5Q:"Wo stehen Einbettungsformate?",
+  faq5A:"In der Anleitung Bildlink teilen.",
+  relatedTitle:"Related tools",
+  relatedText:"Weiter zum Uploader oder zu den anderen Fachanleitungen.",
+  relatedUpload:"Upload Image Online",
+  relatedUploadText:"Ersten Upload jetzt ausführen.",
+  relatedTemporary:"Temporary Image Upload",
+  relatedTemporaryText:"Ablauf und Löschung.",
+  relatedShare:"Share Image Link",
+  relatedShareText:"Einbettungsformate vergleichen.",
+  schemaAppName:"Mini Tools Free Image Hosting",
+  schemaDescription:"Anleitung für den ersten Upload: Bild hosten und die Direkt-URL ohne Konto öffnen."
+});
+Object.assign(translations.fr, {
+  kicker:"Premier envoi réussi",
+  heroTitle:"Hébergement d'images gratuit",
+  heroText:"Réussissez le premier envoi sans compte : choisir le fichier, vérifier, envoyer, puis ouvrir l'URL directe.",
+  chip1:"Premier envoi",
+  chip2:"Jusqu'à 5 Mo",
+  chip3:"URL directe ouvrable",
+  visualTitle:"Fichier → vérif → lien",
+  visualText:"Cette page répond seulement à l'obtention du premier lien utile.",
+  goalTitle:"Objectif : réussir le premier envoi",
+  goalText:"Ce guide couvre uniquement le premier envoi réussi. Expiration : Envoi temporaire. Intégration : Partager un lien d'image.",
+  walkTitle:"Exemple mesuré : du fichier au lien ouvrable",
+  walkText:"Utilisez un fichier JPG, PNG, GIF ou WebP non sensible de 5 Mo maximum que vous pouvez partager.",
+  walkCaseTitle:"Parcours mesuré sur la page d'envoi",
+  walk1:"Ouvrir /upload et choisir l'image.",
+  walk2:"Choisir la durée (1, 7 ou 30 jours).",
+  walk3:"Terminer la vérification et lancer l'envoi.",
+  walk4:"Copier l'URL directe dans le panneau de résultat.",
+  walk5:"Ouvrir l'URL dans un nouvel onglet pour confirmer le chargement.",
+  demoTitle:"À quoi ressemble une image hébergée",
+  demoText:"Cette ressource du site sur assets.mini-tools.uk montre le comportement d'une URL directe. Ce n'est pas un envoi temporaire d'utilisateur de ce guide.",
+  demoAlt:"Image de démonstration Mini Tools",
+  failTitle:"Si le premier envoi échoue",
+  failText:"Lisez le terminal sur /upload. Corrections typiques :",
+  fail1Q:"Fichier de plus de 5 Mo",
+  fail1A:"Compresser ou redimensionner, puis resélectionner.",
+  fail2Q:"Format non pris en charge",
+  fail2A:"Convertir en JPG, PNG, GIF ou WebP.",
+  fail3Q:"Erreur de vérification",
+  fail3A:"Actualiser la question, saisir le nouveau résultat, réessayer.",
+  fail4Q:"Erreur réseau ou service",
+  fail4A:"Attendre puis réessayer. Sans panneau de résultat, ne pas considérer l'envoi comme réussi.",
+  limitsTitle:"Rappel des limites",
+  limitsText:"Les liens hébergés sont partageables, pas un stockage privé. N'envoyez pas de pièce d'identité, capture privée, fichier financier, document confidentiel, contenu illégal ou image sans droit. Expiration et retrait : guide temporaire et page Contact.",
+  limitsNote:"Acceptés : JPG, PNG, GIF, WebP jusqu'à 5 Mo. Retrait/abus : page Contact ou yuyananuu@gmail.com avec l'URL.",
+  faqTitle:"FAQ",
+  faq1Q:"Comment savoir que le premier envoi a réussi ?",
+  faq1A:"Le panneau affiche une URL directe et l'image s'ouvre dans un nouvel onglet.",
+  faq2Q:"Faut-il un compte ?",
+  faq2A:"Non. Les envois normaux sur /upload n'en ont pas besoin.",
+  faq3Q:"La vérification échoue toujours ?",
+  faq3A:"Actualisez la question et saisissez seulement le nouveau résultat.",
+  faq4Q:"Où lire l'expiration ?",
+  faq4A:"Dans le guide d'envoi temporaire. Cette page ne couvre que le premier succès.",
+  faq5Q:"Où lire les formats d'intégration ?",
+  faq5A:"Dans le guide Partager un lien d'image.",
+  relatedTitle:"Related tools",
+  relatedText:"Continuez avec l'outil d'envoi ou les autres guides spécialisés.",
+  relatedUpload:"Upload Image Online",
+  relatedUploadText:"Faire le premier envoi maintenant.",
+  relatedTemporary:"Temporary Image Upload",
+  relatedTemporaryText:"Règles d'expiration et de retrait.",
+  relatedShare:"Share Image Link",
+  relatedShareText:"Comparer les formats d'intégration.",
+  schemaAppName:"Mini Tools Free Image Hosting",
+  schemaDescription:"Guide du premier envoi : héberger une image et ouvrir l'URL directe sans compte."
+});
+Object.assign(translations.es, {
+  kicker:"Primera subida correcta",
+  heroTitle:"Alojamiento de imágenes gratis",
+  heroText:"Completa la primera subida correcta sin cuenta: elige el archivo, verifica, sube y abre la URL directa.",
+  chip1:"Primera subida",
+  chip2:"Hasta 5 MB",
+  chip3:"URL directa usable",
+  visualTitle:"Archivo → verificación → enlace",
+  visualText:"Esta página solo explica cómo obtener el primer enlace que funciona.",
+  goalTitle:"Objetivo: completar la primera subida correcta",
+  goalText:"Esta guía cubre solo la primera subida correcta. Caducidad: Subida temporal. Inserción: Compartir enlace de imagen.",
+  walkTitle:"Ejemplo medido: del archivo al enlace que abre",
+  walkText:"Usa un JPG, PNG, GIF o WebP no sensible de hasta 5 MB que puedas compartir.",
+  walkCaseTitle:"Ruta medida en la página de subida",
+  walk1:"Abre /upload y elige la imagen.",
+  walk2:"Elige la duración (1, 7 o 30 días).",
+  walk3:"Completa la verificación e inicia la subida.",
+  walk4:"Copia la URL directa del panel de resultado.",
+  walk5:"Abre esa URL en una pestaña nueva para confirmar que carga.",
+  demoTitle:"Así se ve una imagen alojada",
+  demoText:"Este recurso del sitio en assets.mini-tools.uk muestra el comportamiento de una URL directa. No es una subida temporal de usuario de esta guía.",
+  demoAlt:"Imagen de demostración Mini Tools",
+  failTitle:"Si falla la primera subida",
+  failText:"Lee el terminal en /upload. Correcciones típicas:",
+  fail1Q:"Archivo mayor de 5 MB",
+  fail1A:"Comprime o redimensiona y vuelve a elegirla.",
+  fail2Q:"Formato no admitido",
+  fail2A:"Convierte a JPG, PNG, GIF o WebP.",
+  fail3Q:"Error de verificación",
+  fail3A:"Actualiza la pregunta, introduce el nuevo resultado y reintenta.",
+  fail4Q:"Error de red o servicio",
+  fail4A:"Espera y reintenta. Si el panel de resultado está vacío, no asumas éxito.",
+  limitsTitle:"Límites breves",
+  limitsText:"Los enlaces alojados son compartibles, no almacenamiento privado. No subas documentos de identidad, capturas privadas, archivos financieros, material confidencial, contenido ilegal ni imágenes sin permiso. Caducidad y retirada: guía temporal y página de contacto.",
+  limitsNote:"Admitidos: JPG, PNG, GIF, WebP hasta 5 MB. Retirada/abuso: contacto o yuyananuu@gmail.com con la URL.",
+  faqTitle:"FAQ",
+  faq1Q:"¿Cómo sé que la primera subida funcionó?",
+  faq1A:"El panel muestra una URL directa y la imagen se abre en una pestaña nueva.",
+  faq2Q:"¿Necesito una cuenta?",
+  faq2A:"No. Las subidas normales en /upload no la requieren.",
+  faq3Q:"¿La verificación falla siempre?",
+  faq3A:"Actualiza la pregunta e introduce solo el nuevo resultado.",
+  faq4Q:"¿Dónde leo la caducidad?",
+  faq4A:"En la guía de subida temporal. Esta página solo cubre el primer éxito.",
+  faq5Q:"¿Dónde leo los formatos de inserción?",
+  faq5A:"En la guía Compartir enlace de imagen.",
+  relatedTitle:"Related tools",
+  relatedText:"Sigue con el uploader o las otras guías especializadas.",
+  relatedUpload:"Upload Image Online",
+  relatedUploadText:"Hacer la primera subida ahora.",
+  relatedTemporary:"Temporary Image Upload",
+  relatedTemporaryText:"Reglas de caducidad y retirada.",
+  relatedShare:"Share Image Link",
+  relatedShareText:"Comparar formatos de inserción.",
+  schemaAppName:"Mini Tools Free Image Hosting",
+  schemaDescription:"Guía de primera subida: alojar una imagen y abrir la URL directa sin cuenta."
+});
+window.applyLanguage=function(lang){const d=translations[lang]||translations.en;const el=document.getElementById('appSchema');if(!el)return;const faq=[];for(let i=1;i<=5;i++)faq.push({"@type":"Question","name":d[`faq${i}Q`],"acceptedAnswer":{"@type":"Answer","text":d[`faq${i}A`]}});el.textContent=JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":d.schemaAppName,"applicationCategory":"UtilitiesApplication","operatingSystem":"Web","url":location.href,"description":d.schemaDescription,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":faq}]});};
 </script>
 <script src="site-version.js"></script>
 
