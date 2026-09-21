@@ -625,6 +625,36 @@ function isLikelyImageByMagicBytes(mime, bytes) {
   return false;
 }
 
+function sniffImageMimeFromBytes(bytes) {
+  if (!bytes || bytes.length < 4) return "";
+  if (bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) return "image/jpeg";
+  if (bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47) return "image/png";
+  if (bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x38) return "image/gif";
+  if (bytes.length >= 12) {
+    const text = new TextDecoder().decode(bytes.slice(0, 12));
+    if (text.startsWith("RIFF") && text.includes("WEBP")) return "image/webp";
+  }
+  return "";
+}
+
+function resolveImageMime(declaredMime, bytes) {
+  const declared = String(declaredMime || "").trim().toLowerCase();
+  if (declared && MIME_TO_EXT[declared] && isLikelyImageByMagicBytes(declared, bytes)) {
+    return declared;
+  }
+
+  const sniffed = sniffImageMimeFromBytes(bytes);
+  if (sniffed && MIME_TO_EXT[sniffed]) return sniffed;
+  return "";
+}
+
+function replacePathExtension(path, nextExtension) {
+  const value = String(path || "");
+  const ext = String(nextExtension || "").replace(/^\./, "");
+  if (!value || !ext) return value;
+  return value.replace(/\.[^.\/]+$/, `.${ext}`);
+}
+
 function normalizeDuration(duration) {
   const validDurations = ["1-day", "7-day", "30-day"];
   return validDurations.includes(duration) ? duration : "1-day";
@@ -4275,18 +4305,20 @@ async function storeApiImage(env, {
   ipHash: requestIpHash,
   riskReasons
 }) {
-  const extension = MIME_TO_EXT[file.type];
-  const finalR2Path = `${duration}/${crypto.randomUUID()}.${extension}`;
   const isPermanent = duration === "permanent";
   let r2Stored = false;
+  let finalR2Path = "";
 
   try {
     const arrayBuffer = fileBuffer || await file.arrayBuffer();
     const firstBytes = new Uint8Array(arrayBuffer.slice(0, 16));
-    if (!isLikelyImageByMagicBytes(file.type, firstBytes)) {
-      throw createApiUploadError("文件内容与图片格式不匹配", 415, "INVALID_IMAGE_CONTENT");
+    const contentType = resolveImageMime(file.type, firstBytes);
+    if (!contentType) {
+      throw createApiUploadError("文件内容与图片格式不匹配（扩展名可能与真实格式不符）", 415, "INVALID_IMAGE_CONTENT");
     }
 
+    const extension = MIME_TO_EXT[contentType];
+    finalR2Path = `${duration}/${crypto.randomUUID()}.${extension}`;
     const fileHash = await sha256Hex(arrayBuffer);
     const risk = riskReasons.length ? "suspicious" : "normal";
     const metadata = {
@@ -4303,7 +4335,7 @@ async function storeApiImage(env, {
     };
 
     await env.R2_BUCKET.put(finalR2Path, arrayBuffer, {
-      httpMetadata: { contentType: file.type },
+      httpMetadata: { contentType },
       customMetadata: metadata
     });
     r2Stored = true;
@@ -4328,7 +4360,7 @@ async function storeApiImage(env, {
       apiKeyPrefix: user.key_prefix,
       fileName: truncate(file.name, MAX_FILENAME_LENGTH),
       fileSize: file.size,
-      fileType: file.type,
+      fileType: contentType,
       fileHash,
       duration,
       isVip: isPermanent,
@@ -4346,7 +4378,7 @@ async function storeApiImage(env, {
       risk,
       riskReasons,
       size: file.size,
-      mime: file.type,
+      mime: contentType,
       fileHash,
       ip: ctx.ip,
       ipHash: requestIpHash,
@@ -4411,7 +4443,7 @@ async function storeApiImage(env, {
       key: finalR2Path,
       fileName: truncate(file.name, MAX_FILENAME_LENGTH),
       fileSize: file.size,
-      fileType: file.type,
+      fileType: contentType,
       fileHash,
       duration,
       isVip: isPermanent,
@@ -4430,7 +4462,7 @@ async function storeApiImage(env, {
       risk,
       riskReasons,
       fileSize: file.size,
-      mime: file.type,
+      mime: contentType,
       createdAt: uploadedAtIso
     });
 
@@ -4441,11 +4473,11 @@ async function storeApiImage(env, {
       duration,
       expires_at: calculateExpiresAt(duration, uploadedAtIso),
       size: file.size,
-      mime: file.type,
+      mime: contentType,
       risk
     };
   } catch (error) {
-    if (r2Stored) {
+    if (r2Stored && finalR2Path) {
       try {
         await env.R2_BUCKET.delete(finalR2Path);
         await deleteUploadIndex(env, finalR2Path);
@@ -4979,9 +5011,17 @@ async function handleUpload(request, env) {
 
   const arrayBuffer = await file.arrayBuffer();
   const firstBytes = new Uint8Array(arrayBuffer.slice(0, 16));
+  const contentType = resolveImageMime(file.type, firstBytes);
 
-  if (!isLikelyImageByMagicBytes(file.type, firstBytes)) {
-    return jsonResponse(request, env, { error: "文件内容与图片格式不匹配" }, 415);
+  if (!contentType) {
+    return jsonResponse(request, env, {
+      error: "文件内容与图片格式不匹配（扩展名可能与真实格式不符）"
+    }, 415);
+  }
+
+  const resolvedExtension = MIME_TO_EXT[contentType];
+  if (resolvedExtension) {
+    finalR2Path = replacePathExtension(finalR2Path, resolvedExtension);
   }
 
   const fileHash = await sha256Hex(arrayBuffer);
@@ -5007,7 +5047,7 @@ async function handleUpload(request, env) {
   };
 
   await env.R2_BUCKET.put(finalR2Path, arrayBuffer, {
-    httpMetadata: { contentType: file.type },
+    httpMetadata: { contentType },
     customMetadata: metadata
   });
 
@@ -5030,7 +5070,7 @@ async function handleUpload(request, env) {
     adminUpload: admin,
     fileName: truncate(file.name, MAX_FILENAME_LENGTH),
     fileSize: file.size,
-    fileType: file.type,
+    fileType: contentType,
     fileHash,
     duration: admin ? "personal" : duration,
     isVip: isVipUpload,
@@ -5049,7 +5089,7 @@ async function handleUpload(request, env) {
     risk,
     riskReasons,
     size: file.size,
-    mime: file.type,
+    mime: contentType,
     fileHash,
     ip: admin ? "admin" : ctx.ip,
     ipHash: admin ? "admin" : hash,
@@ -5109,7 +5149,7 @@ async function handleUpload(request, env) {
     key: finalR2Path,
     fileName: truncate(file.name, MAX_FILENAME_LENGTH),
     fileSize: file.size,
-    fileType: file.type,
+    fileType: contentType,
     fileHash,
     duration: admin ? "personal" : duration,
     isVip: isVipUpload,
@@ -5129,7 +5169,7 @@ async function handleUpload(request, env) {
     risk,
     riskReasons,
     fileSize: file.size,
-    mime: file.type,
+    mime: contentType,
     createdAt: uploadedAtIso
   });
 

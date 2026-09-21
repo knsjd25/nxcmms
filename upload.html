@@ -2097,7 +2097,9 @@
           : securityText("logSessionExpired", texts.logCompleteVerification);
       }
       if (response.status === 413) return texts.logFileTooLarge;
-      if (response.status === 415) return securityText("logUnsupportedType", "Unsupported image type.");
+      if (response.status === 415) {
+        return serverError || securityText("logUnsupportedType", "Unsupported image type.");
+      }
       if (response.status >= 400 && response.status < 500) return serverError || securityText("logFileBlocked", texts.logUnknown);
       return serverError || texts.logUnknown;
     }
