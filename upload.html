@@ -248,6 +248,29 @@
     }
     .upload-btn:hover{background:var(--brand-dark)}
     .upload-btn:disabled{opacity:.6;cursor:not-allowed;box-shadow:none}
+    .upload-progress{
+      display:none;margin-top:14px;padding:14px 16px;border:1px solid #dbeafe;border-radius:16px;background:#eff6ff
+    }
+    .upload-progress.show{display:block}
+    .upload-progress-meta{
+      display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px;
+      color:#1e3a8a;font-size:.9rem;font-weight:800
+    }
+    .upload-progress-pct{font-variant-numeric:tabular-nums;white-space:nowrap}
+    .upload-progress-track{
+      height:12px;border-radius:999px;background:#bfdbfe;overflow:hidden
+    }
+    .upload-progress-fill{
+      height:100%;width:0%;border-radius:inherit;background:linear-gradient(90deg,#2563eb,#1d4ed8);
+      transition:width .18s ease-out
+    }
+    .upload-progress-fill.indeterminate{
+      width:40% !important;animation:upload-progress-slide 1.1s ease-in-out infinite
+    }
+    @keyframes upload-progress-slide{
+      0%{transform:translateX(-120%)}
+      100%{transform:translateX(280%)}
+    }
 
     .log-head{
       display:flex;align-items:center;gap:10px;padding:14px 18px;background:#1f2937;border-top:1px solid #0f172a;border-bottom:1px solid #374151
@@ -590,6 +613,15 @@
           </div>
 
           <button class="upload-btn" id="uploadBtn" type="button">Upload Image</button>
+          <div class="upload-progress" id="uploadProgress" hidden aria-live="polite">
+            <div class="upload-progress-meta">
+              <span id="uploadProgressLabel">Uploading…</span>
+              <span class="upload-progress-pct" id="uploadProgressPct">0%</span>
+            </div>
+            <div class="upload-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="uploadProgressBar" aria-label="Upload progress">
+              <div class="upload-progress-fill" id="uploadProgressFill"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -914,6 +946,11 @@
         captchaPlaceholder: "Enter the result",
         uploadBtn: "Upload Image",
         uploadingBtn: "Uploading…",
+        progressUploading: "Uploading to server…",
+        progressProcessing: "Upload sent. Waiting for server…",
+        progressDone: "Upload complete",
+        logUploadProgress: "Upload progress: {percent}%",
+        logUploadSent: "File bytes sent. Waiting for server response…",
         logTitle: "Upload terminal",
 
         sectionTitle: "Why use this free image hosting tool",
@@ -1105,6 +1142,11 @@
         captchaPlaceholder: "请输入计算结果",
         uploadBtn: "上传图片",
         uploadingBtn: "上传中…",
+        progressUploading: "正在上传到服务器…",
+        progressProcessing: "文件已发送，等待服务器处理…",
+        progressDone: "上传完成",
+        logUploadProgress: "上传进度：{percent}%",
+        logUploadSent: "文件字节已发送，正在等待服务器响应…",
         logTitle: "上传终端",
 
         sectionTitle: "为什么使用这个免费图床",
@@ -1296,6 +1338,11 @@
         captchaPlaceholder: "Ergebnis eingeben",
         uploadBtn: "Bild hochladen",
         uploadingBtn: "Wird hochgeladen…",
+        progressUploading: "Wird zum Server hochgeladen…",
+        progressProcessing: "Datei gesendet. Warte auf den Server…",
+        progressDone: "Upload abgeschlossen",
+        logUploadProgress: "Upload-Fortschritt: {percent}%",
+        logUploadSent: "Dateibytes gesendet. Warte auf Serverantwort…",
         logTitle: "Upload-Terminal",
 
         sectionTitle: "Warum dieses kostenlose Bild-Hosting nutzen?",
@@ -1479,6 +1526,11 @@
         captchaPlaceholder: "Entrez le résultat",
         uploadBtn: "Téléverser l’image",
         uploadingBtn: "Téléversement…",
+        progressUploading: "Envoi vers le serveur…",
+        progressProcessing: "Fichier envoyé. En attente du serveur…",
+        progressDone: "Envoi terminé",
+        logUploadProgress: "Progression : {percent}%",
+        logUploadSent: "Octets envoyés. En attente de la réponse du serveur…",
         logTitle: "Terminal d’envoi",
 
         sectionTitle: "Pourquoi utiliser cet hébergement d’images gratuit ?",
@@ -1662,6 +1714,11 @@
         captchaPlaceholder: "Introduce el resultado",
         uploadBtn: "Subir imagen",
         uploadingBtn: "Subiendo…",
+        progressUploading: "Subiendo al servidor…",
+        progressProcessing: "Archivo enviado. Esperando al servidor…",
+        progressDone: "Subida completa",
+        logUploadProgress: "Progreso de subida: {percent}%",
+        logUploadSent: "Bytes enviados. Esperando respuesta del servidor…",
         logTitle: "Terminal de subida",
 
         sectionTitle: "¿Por qué usar este alojamiento gratuito de imágenes?",
@@ -1868,6 +1925,11 @@
     const previewImage = document.getElementById("previewImage");
     const previewPlaceholder = document.getElementById("previewPlaceholder");
     const uploadBtn = document.getElementById("uploadBtn");
+    const uploadProgress = document.getElementById("uploadProgress");
+    const uploadProgressLabel = document.getElementById("uploadProgressLabel");
+    const uploadProgressPct = document.getElementById("uploadProgressPct");
+    const uploadProgressBar = document.getElementById("uploadProgressBar");
+    const uploadProgressFill = document.getElementById("uploadProgressFill");
     const uploadLog = document.getElementById("uploadLog");
     const permanentNotice = document.getElementById("permanentNotice");
     const languageSelect = document.getElementById("languageSelect");
@@ -2230,6 +2292,84 @@ updateProperty("og:title", texts.ogTitle);
       uploadLog.scrollTop = uploadLog.scrollHeight;
     }
 
+    function resetUploadProgress() {
+      if (!uploadProgress) return;
+      uploadProgress.classList.remove("show");
+      uploadProgress.hidden = true;
+      uploadProgressFill.style.width = "0%";
+      uploadProgressFill.classList.remove("indeterminate");
+      uploadProgressBar.setAttribute("aria-valuenow", "0");
+      uploadProgressPct.textContent = "0%";
+      uploadProgressLabel.textContent = t().progressUploading || "Uploading to server…";
+    }
+
+    function showUploadProgress() {
+      if (!uploadProgress) return;
+      uploadProgress.hidden = false;
+      uploadProgress.classList.add("show");
+      uploadProgressFill.style.width = "0%";
+      uploadProgressFill.classList.remove("indeterminate");
+      uploadProgressBar.setAttribute("aria-valuenow", "0");
+      uploadProgressPct.textContent = "0%";
+      uploadProgressLabel.textContent = t().progressUploading || "Uploading to server…";
+    }
+
+    function setUploadProgressPercent(percent) {
+      const value = Math.max(0, Math.min(100, Math.round(percent)));
+      uploadProgressFill.classList.remove("indeterminate");
+      uploadProgressFill.style.width = value + "%";
+      uploadProgressBar.setAttribute("aria-valuenow", String(value));
+      uploadProgressPct.textContent = value + "%";
+      uploadProgressLabel.textContent = t().progressUploading || "Uploading to server…";
+    }
+
+    function setUploadProgressProcessing() {
+      uploadProgressFill.classList.remove("indeterminate");
+      uploadProgressFill.style.width = "100%";
+      uploadProgressBar.setAttribute("aria-valuenow", "100");
+      uploadProgressPct.textContent = "100%";
+      uploadProgressLabel.textContent = t().progressProcessing || "Upload sent. Waiting for server…";
+    }
+
+    function setUploadProgressIndeterminate() {
+      uploadProgressFill.classList.add("indeterminate");
+      uploadProgressFill.style.width = "40%";
+      uploadProgressBar.setAttribute("aria-valuenow", "0");
+      uploadProgressPct.textContent = "…";
+      uploadProgressLabel.textContent = t().progressUploading || "Uploading to server…";
+    }
+
+    function postFormDataWithProgress(formData, onProgress) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", WORKER_URL);
+        xhr.withCredentials = false;
+        xhr.responseType = "text";
+
+        xhr.upload.onprogress = (event) => {
+          if (typeof onProgress === "function") onProgress(event);
+        };
+
+        xhr.onload = () => {
+          resolve({
+            ok: xhr.status >= 200 && xhr.status < 300,
+            status: xhr.status,
+            async json() {
+              try {
+                return JSON.parse(xhr.responseText || "{}");
+              } catch (_) {
+                return {};
+              }
+            }
+          });
+        };
+
+        xhr.onerror = () => reject(new Error("Network error"));
+        xhr.ontimeout = () => reject(new Error("Upload timed out"));
+        xhr.send(formData);
+      });
+    }
+
     function resetLog() {
       uploadLog.innerHTML = "";
       appendLog(t().logReady);
@@ -2402,6 +2542,7 @@ updateProperty("og:title", texts.ogTitle);
       uploadBtn.textContent = texts.uploadingBtn;
       uploadLog.innerHTML = "";
       clearResultOutputs();
+      showUploadProgress();
       appendLog(texts.logPreparing);
       appendLog(interpolate(texts.logSelectedFile, { name: file.name }));
       appendLog(interpolate(texts.logRetention, { value: texts.retentionNames[durationSelect.value] || durationSelect.value }));
@@ -2409,6 +2550,8 @@ updateProperty("og:title", texts.ogTitle);
       const currentCaptchaId = captchaId;
       const currentCaptchaAnswer = captchaAnswerInput.value.trim();
       captchaId = "";
+      let lastLoggedProgress = -1;
+      let uploadBytesComplete = false;
 
       try {
         const formData = new FormData();
@@ -2419,15 +2562,31 @@ updateProperty("og:title", texts.ogTitle);
         formData.append("captcha_answer", currentCaptchaAnswer);
         formData.append("client_device_id", getClientDeviceId());
 
-        const response = await fetch(WORKER_URL, {
-          method: "POST",
-          mode: "cors",
-          cache: "no-store",
-          credentials: "omit",
-          redirect: "follow",
-          referrerPolicy: "strict-origin-when-cross-origin",
-          body: formData
+        const response = await postFormDataWithProgress(formData, (event) => {
+          if (!event.lengthComputable) {
+            setUploadProgressIndeterminate();
+            return;
+          }
+
+          const percent = event.total > 0 ? (event.loaded / event.total) * 100 : 0;
+          setUploadProgressPercent(percent);
+
+          const milestone = Math.floor(percent / 25) * 25;
+          if (milestone >= 25 && milestone > lastLoggedProgress && milestone < 100) {
+            lastLoggedProgress = milestone;
+            appendLog(interpolate(texts.logUploadProgress || "Upload progress: {percent}%", { percent: milestone }));
+          }
+
+          if (percent >= 100 && !uploadBytesComplete) {
+            uploadBytesComplete = true;
+            setUploadProgressProcessing();
+            appendLog(texts.logUploadSent || "File bytes sent. Waiting for server response…");
+          }
         });
+
+        if (!uploadBytesComplete) {
+          setUploadProgressProcessing();
+        }
 
         let result = {};
         try {
@@ -2438,6 +2597,7 @@ updateProperty("og:title", texts.ogTitle);
 
         if (response.ok && result.success) {
           rememberUploadSuccess();
+          uploadProgressLabel.textContent = texts.progressDone || "Upload complete";
           appendLog(result.isVip ? texts.logSuccessVip : texts.logSuccessNormal, "success");
           appendLog(texts.logLinkCreated, "success");
 
@@ -2479,6 +2639,9 @@ updateProperty("og:title", texts.ogTitle);
         refreshCaptchaBtn.disabled = false;
         captchaAnswerInput.disabled = false;
         uploadBtn.textContent = texts.uploadBtn;
+        window.setTimeout(() => {
+          if (!uploadInFlight) resetUploadProgress();
+        }, 1200);
       }
     }
 
