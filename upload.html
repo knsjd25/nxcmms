@@ -890,6 +890,12 @@
     const WORKER_URL = "https://api.mini-tools.uk";
     const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
     const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    const IMAGE_MIME_TO_EXT = {
+      "image/jpeg": "jpg",
+      "image/png": "png",
+      "image/gif": "gif",
+      "image/webp": "webp"
+    };
     const CLIENT_UPLOAD_COOLDOWN_MS = 6000;
     const LAST_UPLOAD_AT_KEY = "mini_tools_upload_last_success_at";
     const CLIENT_DEVICE_ID_KEY = "mini_tools_upload_device_id";
@@ -1074,6 +1080,7 @@
         logPermanentCodeRequired: "Permanent storage requires a valid long-term storage code.",
         logPreparing: "Preparing upload request…",
         logSelectedFile: "Selected file: {name}",
+        logFormatCorrected: "Detected real format {mime}; corrected filename extension before upload.",
         logRetention: "Retention: {value}",
         logSuccessVip: "Upload complete with approved long-term storage.",
         logSuccessNormal: "Upload complete with selected retention setting.",
@@ -1270,6 +1277,7 @@
         logPermanentCodeRequired: "选择永久保存时，必须填写有效的长期存储码。",
         logPreparing: "正在准备上传请求…",
         logSelectedFile: "已选择文件：{name}",
+        logFormatCorrected: "已识别真实格式为 {mime}，已在上传前纠正扩展名。",
         logRetention: "保留时长：{value}",
         logSuccessVip: "上传完成，已使用审核通过的长期存储。",
         logSuccessNormal: "上传完成，已使用所选保留时长。",
@@ -1458,6 +1466,7 @@
         logPermanentCodeRequired: "Für permanente Speicherung ist ein gültiger Langzeitspeicher-Code erforderlich.",
         logPreparing: "Upload-Anfrage wird vorbereitet…",
         logSelectedFile: "Ausgewählte Datei: {name}",
+        logFormatCorrected: "Tatsächliches Format {mime} erkannt; Dateiendung vor dem Upload korrigiert.",
         logRetention: "Aufbewahrung: {value}",
         logSuccessVip: "Upload abgeschlossen mit genehmigter Langzeitspeicherung.",
         logSuccessNormal: "Upload abgeschlossen mit der gewählten Aufbewahrungsdauer.",
@@ -1646,6 +1655,7 @@
         logPermanentCodeRequired: "Le stockage permanent nécessite un code valide de stockage longue durée.",
         logPreparing: "Préparation de la requête d’envoi…",
         logSelectedFile: "Fichier sélectionné : {name}",
+        logFormatCorrected: "Format réel détecté : {mime} ; extension corrigée avant l’envoi.",
         logRetention: "Conservation : {value}",
         logSuccessVip: "Téléversement terminé avec stockage longue durée approuvé.",
         logSuccessNormal: "Téléversement terminé avec la durée sélectionnée.",
@@ -1833,6 +1843,7 @@
         logPermanentCodeRequired: "El almacenamiento permanente requiere un código válido de almacenamiento prolongado.",
         logPreparing: "Preparando la solicitud de subida…",
         logSelectedFile: "Archivo seleccionado: {name}",
+        logFormatCorrected: "Formato real detectado: {mime}; extensión corregida antes de subir.",
         logRetention: "Retención: {value}",
         logSuccessVip: "Subida completada con almacenamiento prolongado aprobado.",
         logSuccessNormal: "Subida completada con la retención seleccionada.",
@@ -2086,6 +2097,38 @@
 
     function isAllowedImageType(file) {
       return file && ALLOWED_IMAGE_TYPES.includes(file.type);
+    }
+
+    function sniffImageMimeFromBytes(bytes) {
+      if (!bytes || bytes.length < 4) return "";
+      if (bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) return "image/jpeg";
+      if (bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47) return "image/png";
+      if (bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x38) return "image/gif";
+      if (bytes.length >= 12) {
+        const header = String.fromCharCode.apply(null, Array.from(bytes.slice(0, 12)));
+        if (header.indexOf("RIFF") === 0 && header.indexOf("WEBP") !== -1) return "image/webp";
+      }
+      return "";
+    }
+
+    async function normalizeUploadFile(file) {
+      const header = new Uint8Array(await file.slice(0, 16).arrayBuffer());
+      const sniffed = sniffImageMimeFromBytes(header);
+      if (!sniffed || !IMAGE_MIME_TO_EXT[sniffed]) {
+        return { ok: false, reason: "unsupported" };
+      }
+
+      if (file.type === sniffed) {
+        return { ok: true, file: file, corrected: false };
+      }
+
+      const ext = IMAGE_MIME_TO_EXT[sniffed];
+      const baseName = String(file.name || "image").replace(/\.[^.]+$/, "") || "image";
+      const correctedFile = new File([file], baseName + "." + ext, {
+        type: sniffed,
+        lastModified: file.lastModified
+      });
+      return { ok: true, file: correctedFile, corrected: true, mime: sniffed };
     }
 
     function getServerErrorMessage(response, result, texts) {
@@ -2556,8 +2599,21 @@ updateProperty("og:title", texts.ogTitle);
       let uploadBytesComplete = false;
 
       try {
+        const normalized = await normalizeUploadFile(file);
+        if (!normalized.ok) {
+          appendLog(securityText("logUnsupportedType", "Unsupported image type."), "error");
+          return;
+        }
+
+        const uploadFilePayload = normalized.file;
+        if (normalized.corrected) {
+          appendLog(interpolate(texts.logFormatCorrected || "Detected real format {mime}; corrected filename extension before upload.", {
+            mime: normalized.mime
+          }));
+        }
+
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append("file", uploadFilePayload);
         formData.append("duration", durationSelect.value);
         formData.append("vip_id", vipCode);
         formData.append("captcha_id", currentCaptchaId);
@@ -2610,7 +2666,7 @@ updateProperty("og:title", texts.ogTitle);
           link.className = "result-link";
           link.textContent = result.url;
           uploadLog.appendChild(link);
-          setResultOutputs(result.url, file.name);
+          setResultOutputs(result.url, uploadFilePayload.name);
 
           fileInput.value = "";
           fileName.textContent = texts.noFileChosen;
