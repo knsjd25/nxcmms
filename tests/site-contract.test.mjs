@@ -364,8 +364,8 @@ test("homepage has one complete Twitter card metadata set", () => {
   const html = read("index.html");
   const expected = {
     card: "summary_large_image",
-    title: "Image Hosting for Fast, Shareable Links | Mini Tools",
-    description: "Host an image without an account and receive a direct URL, Markdown, HTML or BBCode link.",
+    title: "Free Image Hosting &amp; Upload API | Mini Tools",
+    description: "Host an image without an account and receive a direct URL, Markdown, HTML or BBCode link. Upload API available for approved users.",
     image: "https://mini-tools.uk/assets/image-hosting-hero.png",
     "image:alt": "Mini Tools image hosting and direct link workflow",
   };
@@ -603,44 +603,44 @@ test("trust pages describe the current image-hosting focus", () => {
 test("image-hosting pages keep distinct search intents in every language", async () => {
   const expectedTitles = {
     en: [
-      ["/", "Image Hosting for Fast, Shareable Links | Mini Tools"],
+      ["/", "Free Image Hosting &amp; Upload API | Mini Tools"],
       ["/upload", "Upload Image Online and Get a Direct Link | Mini Tools"],
       ["/image-api", "Image Upload API Documentation and Examples | Mini Tools"],
-      ["/free-image-hosting", "Free Image Hosting Without Signup | Mini Tools"],
-      ["/temporary-image-upload", "Temporary Image Upload with Expiring Links | Mini Tools"],
-      ["/share-image-link", "Share an Image Link and Copy the Direct URL | Mini Tools"],
+      ["/free-image-hosting", "How to Upload an Image and Get a Direct Link | Mini Tools"],
+      ["/temporary-image-upload", "Temporary Image Hosting: Expiry &amp; Removal | Mini Tools"],
+      ["/share-image-link", "Image Links for Markdown, HTML &amp; BBCode | Mini Tools"],
     ],
     "zh-CN": [
-      ["/", "在线图床：上传图片并生成直链 | Mini Tools"],
+      ["/", "免费图床与上传 API | Mini Tools"],
       ["/upload", "在线上传图片并获取直链 | Mini Tools"],
       ["/image-api", "图片上传 API 文档与示例 | Mini Tools"],
-      ["/free-image-hosting", "免费图床：无需注册上传图片 | Mini Tools"],
-      ["/temporary-image-upload", "临时图片上传：创建定时过期链接 | Mini Tools"],
-      ["/share-image-link", "分享图片链接并复制图片直链 | Mini Tools"],
+      ["/free-image-hosting", "如何上传图片并获取直链 | Mini Tools"],
+      ["/temporary-image-upload", "临时图床：到期与移除 | Mini Tools"],
+      ["/share-image-link", "Markdown、HTML 与 BBCode 图片链接 | Mini Tools"],
     ],
     de: [
-      ["/", "Bildhosting für schnelle, teilbare Links | Mini Tools"],
+      ["/", "Kostenloses Bildhosting &amp; Upload-API | Mini Tools"],
       ["/upload", "Bild online hochladen und Direktlink erhalten | Mini Tools"],
       ["/image-api", "Bild-Upload-API: Dokumentation und Beispiele | Mini Tools"],
-      ["/free-image-hosting", "Kostenloses Bildhosting ohne Anmeldung | Mini Tools"],
-      ["/temporary-image-upload", "Temporärer Bild-Upload mit Ablaufdatum | Mini Tools"],
-      ["/share-image-link", "Bildlink teilen und Direkt-URL kopieren | Mini Tools"],
+      ["/free-image-hosting", "Bild hochladen und Direktlink erhalten | Mini Tools"],
+      ["/temporary-image-upload", "Temporäres Bildhosting: Ablauf &amp; Löschung | Mini Tools"],
+      ["/share-image-link", "Bildlinks für Markdown, HTML &amp; BBCode | Mini Tools"],
     ],
     fr: [
-      ["/", "Hébergement d’images et liens partageables | Mini Tools"],
+      ["/", "Hébergement d’images gratuit et API d’envoi | Mini Tools"],
       ["/upload", "Téléverser une image et obtenir un lien direct | Mini Tools"],
       ["/image-api", "API d’envoi d’images : documentation et exemples | Mini Tools"],
-      ["/free-image-hosting", "Hébergement d’images gratuit sans compte | Mini Tools"],
-      ["/temporary-image-upload", "Envoi d’image temporaire avec expiration | Mini Tools"],
-      ["/share-image-link", "Partager une image et copier l’URL directe | Mini Tools"],
+      ["/free-image-hosting", "Comment téléverser une image et obtenir un lien direct | Mini Tools"],
+      ["/temporary-image-upload", "Hébergement temporaire : expiration et retrait | Mini Tools"],
+      ["/share-image-link", "Liens d’image pour Markdown, HTML et BBCode | Mini Tools"],
     ],
     es: [
-      ["/", "Alojamiento de imágenes y enlaces compartibles | Mini Tools"],
+      ["/", "Alojamiento de imágenes gratis y API de subida | Mini Tools"],
       ["/upload", "Subir imagen online y obtener enlace directo | Mini Tools"],
       ["/image-api", "API de subida de imágenes: documentación y ejemplos | Mini Tools"],
-      ["/free-image-hosting", "Alojamiento de imágenes gratis sin registro | Mini Tools"],
-      ["/temporary-image-upload", "Subida temporal de imágenes con caducidad | Mini Tools"],
-      ["/share-image-link", "Compartir imagen y copiar URL directa | Mini Tools"],
+      ["/free-image-hosting", "Cómo subir una imagen y obtener un enlace directo | Mini Tools"],
+      ["/temporary-image-upload", "Alojamiento temporal: caducidad y retirada | Mini Tools"],
+      ["/share-image-link", "Enlaces de imagen para Markdown, HTML y BBCode | Mini Tools"],
     ],
   };
 
@@ -741,10 +741,12 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   assert.deepEqual(locs, approvedPaths.map((path) => `https://mini-tools.uk${path}`));
   assert.equal(lastmods.length, locs.length, "every sitemap URL has a lastmod date");
   assert.equal(lastmods.every((value) => /^20\d{2}-\d{2}-\d{2}$/.test(value)), true, "sitemap lastmod format");
+  const corePaths = ["/", "/upload", "/image-api", "/free-image-hosting", "/temporary-image-upload", "/share-image-link"];
   for (const path of approvedPaths) {
     const loc = `https://mini-tools.uk${path}`;
     const entry = read("sitemap.xml").match(new RegExp(`<url><loc>${loc.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}</loc><lastmod>([^<]+)</lastmod></url>`));
-    assert.equal(entry?.[1], "2026-08-02", `${path} sitemap lastmod`);
+    const expectedLastmod = corePaths.includes(path) ? "2026-09-21" : "2026-08-02";
+    assert.equal(entry?.[1], expectedLastmod, `${path} sitemap lastmod`);
   }
   assert.equal(read("sitemap.xml").includes("?lang="), false);
   assert.doesNotMatch(read("sitemap.xml"), /blog/i);
@@ -789,8 +791,8 @@ test("every localized indexable response has unique metadata and valid JSON-LD",
 test("worker renders Chinese body, metadata and schema for key pages", async () => {
   assert.doesNotMatch(read("_worker.js"), /\bnew\s+Function\b|\beval\s*\(/, "Worker SSR must not use blocked dynamic code generation");
   for (const [path, chineseText, englishText] of [
-    ["/?lang=zh-CN", "在线图床：上传图片并获取直链", "Image hosting for fast, shareable links"],
-    ["/upload?lang=zh-CN", "在线上传图片", "Upload Image Online"],
+    ["/?lang=zh-CN", "免费图床与上传 API", "Free image hosting and upload API"],
+    ["/upload?lang=zh-CN", "上传图片并获取直链", "Upload an image and get a direct link"],
   ]) {
     const response = await fetchThroughWorker(path);
     assert.equal(response.status, 200, path);
@@ -844,7 +846,7 @@ test("upload page links to a separate API documentation page", async () => {
 
 test("image API documentation is server-rendered in all five languages", async () => {
   const source = read("image-api.html");
-  assert.match(source, /id=["']apiEmail["'][^>]*>yuyananuu@gmail\.com</);
+  assert.match(source, /id=["']apiEmail["'][^>]*>api@mini-tools\.uk</);
   assert.match(source, /data-copy=["']apiEmail["']/);
   assert.match(source, /data-i18n=["']copyEmail["']>Click to copy</);
   assert.doesNotMatch(source, /class=["']apply-button["']/);
@@ -934,9 +936,9 @@ test("worker renders color picker template-string translations", async () => {
 
 test("worker renders homepage translations for German, French and Spanish", async () => {
   for (const [lang, heading] of [
-    ["de", "Bildhosting für schnelle, teilbare Links"],
-    ["fr", "Hébergement d’images avec liens partageables"],
-    ["es", "Alojamiento de imágenes con enlaces compartibles"],
+    ["de", "Kostenloses Bildhosting und Upload-API"],
+    ["fr", "Hébergement d’images gratuit et API d’envoi"],
+    ["es", "Alojamiento de imágenes gratis y API de subida"],
   ]) {
     const response = await fetchThroughWorker(`/?lang=${lang}`);
     assert.equal(response.status, 200);
@@ -1176,7 +1178,7 @@ test("homepage keeps one image-hosting action and no retired tool promotion", ()
   assert.match(homepage, /class=["']upload-launcher["'][^>]*href=["']\/upload["']/);
   assert.match(homepage, /href=["']\/image-api["'][^>]*data-i18n=["']apiCta["']/);
   assert.match(homepage, /class=["']upload-launcher-action["'][^>]*data-i18n=["']uploadCta["']/);
-  assert.match(homepage, /Image hosting for fast, shareable links/);
+  assert.match(homepage, /Free image hosting and upload API/);
   assert.match(homepage, /id=["']developer-tools["']/);
   assert.doesNotMatch(homepage, /href=["']\/(?:tax|vat|mortgage|ir35|stamp-duty|dividend|image|pdf2img)["']/);
   assert.doesNotMatch(about, /being improved page by page|逐页改进|Schritt für Schritt verbessert|amélioré page par page|mejora página por página/i);
@@ -1220,7 +1222,7 @@ test("retired feature files are deleted and protected upload guidance stays inta
 
 test("upload German copy uses natural capitalization without duplicated documentation wording", () => {
   const html = read("upload.html");
-  const german = html.match(/\n\s*de:\s*\{[\s\S]*?\n\s*\},\n\s*fr:\s*\{/i)?.[0] || "";
+  const german = html.match(/\n\s*de:\s*\{[\s\S]*?\n\s*\},\r?\n\s*fr:\s*\{/i)?.[0] || "";
   assert.match(german, /formatHtmlText:\s*["'][^"']*Websites[^"']*Website-Editoren/);
   assert.match(german, /retentionThirtyText:\s*["'][^"']*Website-Entwürfe/);
   assert.match(german, /schemaFaq3Text:\s*["'][^"']*Dokumentationen oder Forenbeiträge/);

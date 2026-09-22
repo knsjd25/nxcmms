@@ -2,11 +2,11 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Temporary Image Upload with Expiring Links | Mini Tools</title>
-  <meta name="description" content="Create temporary image links with 1-day, 7-day or 30-day retention. Upload up to 5 MB without an account and copy a direct URL or embed code.">
+  <title>Temporary Image Hosting: Expiry &amp; Removal | Mini Tools</title>
+  <meta name="description" content="Learn when 1-day, 7-day and 30-day image links are intended to end, what expires_at means, cache limits, and how to request removal.">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta property="og:type" content="website"><meta property="og:title" content="Temporary Image Upload with Expiring Links | Mini Tools"><meta property="og:description" content="Create image links with 1-day, 7-day or 30-day retention and copy a direct URL or embed code without an account."><meta property="og:url" content="https://mini-tools.uk/temporary-image-upload"><meta property="og:locale" content="en_GB">
-  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Temporary Image Upload with Expiring Links | Mini Tools"><meta name="twitter:description" content="Create an image link with 1-day, 7-day or 30-day retention."><meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png">
+  <meta property="og:type" content="website"><meta property="og:title" content="Temporary Image Hosting: Expiry &amp; Removal | Mini Tools"><meta property="og:description" content="Learn when 1-day, 7-day and 30-day image links are intended to end, what expires_at means, cache limits, and how to request removal."><meta property="og:url" content="https://mini-tools.uk/temporary-image-upload"><meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Temporary Image Hosting: Expiry &amp; Removal | Mini Tools"><meta name="twitter:description" content="Learn when 1-day, 7-day and 30-day image links are intended to end, what expires_at means, cache limits, and how to request removal."><meta name="twitter:image" content="https://assets.mini-tools.uk/image/icon-512x512.png">
   <link rel="canonical" href="https://mini-tools.uk/temporary-image-upload">
   <link rel="alternate" hreflang="en" href="https://mini-tools.uk/temporary-image-upload"><link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/temporary-image-upload?lang=zh-CN"><link rel="alternate" hreflang="de" href="https://mini-tools.uk/temporary-image-upload?lang=de"><link rel="alternate" hreflang="fr" href="https://mini-tools.uk/temporary-image-upload?lang=fr"><link rel="alternate" hreflang="es" href="https://mini-tools.uk/temporary-image-upload?lang=es"><link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/temporary-image-upload">
   <link rel="stylesheet" href="image-landing-pages.css">
@@ -118,7 +118,7 @@
   </div>
 </nav>
 <main class="landing-main">
-  <section class="landing-hero"><div class="landing-hero-copy"><span class="landing-kicker" data-i18n="kicker">Expiry and removal</span><h1 data-i18n="heroTitle">Temporary Image Upload</h1><p class="landing-lead" data-i18n="heroText">Understand when a 1-day, 7-day or 30-day image link is intended to end, what expiry does not guarantee, and how to request removal.</p><div class="landing-actions"><a class="landing-button" href="/upload" data-i18n="primaryCta">Upload a temporary image</a><a class="landing-button secondary" href="/free-image-hosting" data-i18n="secondaryCta">Free image hosting guide</a></div><div class="landing-chips"><span class="landing-chip" data-i18n="chip1">1, 7 or 30 days</span><span class="landing-chip" data-i18n="chip2">No signup</span><span class="landing-chip" data-i18n="chip3">Shareable link</span></div></div><aside class="landing-hero-panel" aria-label="Temporary upload overview"><div class="upload-visual"><div class="upload-visual-icon" aria-hidden="true">24h</div><strong data-i18n="visualTitle">Choose the expiry window</strong><span data-i18n="visualText">The upload page shows the available retention choices before upload.</span></div></aside></section>
+  <section class="landing-hero"><div class="landing-hero-copy"><span class="landing-kicker" data-i18n="kicker">Expiry and removal</span><h1 data-i18n="heroTitle">Temporary image hosting: retention, expiry and removal</h1><p class="landing-lead" data-i18n="heroText">Understand when a 1-day, 7-day or 30-day image link is intended to end, what expiry does not guarantee, and how to request removal.</p><div class="landing-actions"><a class="landing-button" href="/upload" data-i18n="primaryCta">Upload a temporary image</a><a class="landing-button secondary" href="/free-image-hosting" data-i18n="secondaryCta">Free image hosting guide</a></div><div class="landing-chips"><span class="landing-chip" data-i18n="chip1">1, 7 or 30 days</span><span class="landing-chip" data-i18n="chip2">No signup</span><span class="landing-chip" data-i18n="chip3">Shareable link</span></div></div><aside class="landing-hero-panel" aria-label="Temporary upload overview"><div class="upload-visual"><div class="upload-visual-icon" aria-hidden="true">24h</div><strong data-i18n="visualTitle">Choose the expiry window</strong><span data-i18n="visualText">The upload page shows the available retention choices before upload.</span></div></aside></section>
     <div class="content-stack">
     <section class="content-card">
       <h2 data-i18n="focusTitle">Focus: when temporary links end and how removal works</h2>
@@ -135,6 +135,20 @@
           <li data-i18n="when3">If the upload page shows an expiry time for your result, treat that value as the service timing for that upload.</li>
         </ul>
       </div>
+    </section>
+    <section class="content-card">
+      <h2 data-i18n="verifiedTitle">Verified retention behaviour</h2>
+      <p data-i18n="verifiedText">These points match the current upload API behaviour. Items marked pending verification have not been re-checked end-to-end in production after a full retention window.</p>
+      <ul>
+        <li data-i18n="v1">The retention clock starts when a temporary upload completes successfully and a hosted URL is created.</li>
+        <li data-i18n="v2">API success payloads may include expires_at as an ISO-8601 UTC timestamp ending in Z (example style: 2026-08-05T12:00:00.000Z).</li>
+        <li data-i18n="v3">expires_at is calculated from the upload completion time plus 1, 7 or 30 days for temporary durations. Permanent storage does not use this temporary expiry field.</li>
+        <li data-i18n="v4">The public /upload page shows the retention you chose; it may not always display the raw expires_at field in the result panel.</li>
+        <li data-i18n="v5">Expiry is intended to make the original hosted file unavailable; browser, CDN or third-party caches may still lag. Pending verification: exact public HTTP status timing immediately after expiry in production.</li>
+        <li data-i18n="v6">Cleanup of expired objects is handled by scheduled cleanup jobs, so a short delay after the planned expiry is possible.</li>
+        <li data-i18n="v7">Ordinary temporary uploads are not the same as approved long-term (permanent) storage, which requires a separate approved storage code on /upload.</li>
+        <li data-i18n="v8">To request removal of an image you control, send the full image URL via the contact page or yuyananuu@gmail.com.</li>
+      </ul>
     </section>
     <section class="content-card">
       <h2 data-i18n="removeTitle">Expiry vs removal request</h2>
@@ -162,11 +176,12 @@
     <section class="content-card">
       <h2 data-i18n="relatedTitle">Related tools</h2>
       <p data-i18n="relatedText">Open the uploader or the other specialised guides.</p>
-      <div class="related-grid">
+      <nav class="related-grid" aria-label="Related image hosting guides">
         <a class="related-link" href="/upload"><strong data-i18n="relatedUpload">Upload Image Online</strong><span data-i18n="relatedUploadText">Choose retention before upload.</span></a>
         <a class="related-link" href="/free-image-hosting"><strong data-i18n="relatedHosting">Free Image Hosting</strong><span data-i18n="relatedHostingText">First successful upload path.</span></a>
         <a class="related-link" href="/share-image-link"><strong data-i18n="relatedShare">Share Image Link</strong><span data-i18n="relatedShareText">Embed format comparison.</span></a>
-      </div>
+        <a class="related-link" href="/image-api"><strong data-i18n="relatedApi">Image Upload API documentation</strong><span data-i18n="relatedApiText">Server-side upload examples.</span></a>
+      </nav>
     </section>
   </div>
 </main>
@@ -187,14 +202,14 @@ de:{title:"Temporärer Bild-Upload mit kurzem Link | Mini Tools",description:"Te
 fr:{title:"Téléversement d’image temporaire | Mini Tools",description:"Téléversez une image temporaire et créez un lien de courte durée pour messages, forums, captures et partage rapide.",schemaAppName:"Envoi temporaire Mini Tools",schemaDescription:"Liens d’image temporaires conservés 1, 7 ou 30 jours.",kicker:"Partage de courte durée",heroTitle:"Téléversement d’image temporaire",heroText:"Téléversez une capture ou image et choisissez 1, 7 ou 30 jours avant de créer le lien.",primaryCta:"Téléverser une image temporaire",secondaryCta:"Guide d’hébergement",chip1:"1, 7 ou 30 jours",chip2:"Sans inscription",chip3:"Lien partageable",visualTitle:"Choisir l’expiration",visualText:"La page d’envoi affiche les durées disponibles.",whatTitle:"Qu’est-ce qu’un envoi temporaire ?",whatText:"Il crée un lien hébergé destiné à expirer après la durée choisie. Il convient aux conversations, révisions ou tâches limitées.",howTitle:"Comment utiliser l’envoi temporaire",howText:"Utilisez l’outil d’envoi et choisissez la durée adaptée.",step1Title:"Choisir la durée",step1Text:"Sélectionnez 1, 7 ou 30 jours.",step2Title:"Choisir et envoyer",step2Text:"Image acceptée de 5 Mo maximum puis vérification.",step3Title:"Partager l’URL",step3Text:"Copiez le lien direct ou un format intégrable.",usesTitle:"Cas d’utilisation",usesText:"Les liens courts conviennent aux contenus sans besoin d’hébergement permanent.",use1Title:"Rapports de bug",use1Text:"Partager une capture pendant un échange de support.",use2Title:"Discussions de forum",use2Text:"Publier une référence utile au fil actif.",use3Title:"Révision de brouillon",use3Text:"Envoyer une image pendant un cycle limité.",limitsTitle:"Limites, expiration et confidentialité",limitsText:"L’image est envoyée à un service distant et peut rester accessible jusqu’à la fin de la durée.",limitsNote:"1 jour pour aperçu, 7 jours pour retour court, 30 jours pour référence plus longue. Aucun contenu sensible, confidentiel, illégal, adulte, nuisible ou contrefaisant.",faqTitle:"FAQ",faq1Q:"Qu’est-ce qu’un envoi temporaire ?",faq1A:"Un lien hébergé avec une durée courte choisie.",faq2Q:"Combien de temps reste-t-il en ligne ?",faq2A:"Choisissez 1, 7 ou 30 jours.",faq3Q:"Puis-je envoyer sans compte ?",faq3A:"Oui, aucun compte pour un envoi normal.",faq4Q:"Puis-je partager dans un message ou forum ?",faq4A:"Oui, si la destination accepte le lien et si vous pouvez partager l’image.",faq5Q:"Quels formats ?",faq5A:"JPG, PNG, GIF et WebP jusqu’à 5 Mo.",faq6Q:"Puis-je supprimer une image ?",faq6A:"Elle suit la durée; une demande peut être envoyée avec l’URL.",faq7Q:"Est-ce gratuit ?",faq7A:"Oui, les durées temporaires sont accessibles sans compte.",relatedTitle:"Outils associés",relatedText:"Comparer envoi temporaire, hébergement et partage de lien.",relatedUpload:"Téléverser une image",relatedUploadText:"Ouvrir l’outil et choisir la durée.",relatedHosting:"Hébergement gratuit",relatedHostingText:"Comprendre les liens sans compte.",relatedShare:"Partager un lien",relatedShareText:"Créer une URL pour messages."},
 es:{title:"Subida temporal de imágenes y enlaces | Mini Tools",description:"Sube una imagen temporal y crea un enlace de corta duración para mensajes, foros, capturas y uso compartido rápido.",schemaAppName:"Subida temporal Mini Tools",schemaDescription:"Enlaces temporales con retención de 1, 7 o 30 días.",kicker:"Compartir por tiempo limitado",heroTitle:"Subida temporal de imágenes",heroText:"Sube una captura o imagen y elige 1, 7 o 30 días antes de crear el enlace.",primaryCta:"Subir imagen temporal",secondaryCta:"Guía de alojamiento",chip1:"1, 7 o 30 días",chip2:"Sin registro",chip3:"Enlace compartible",visualTitle:"Elegir caducidad",visualText:"La página de subida muestra las duraciones disponibles.",whatTitle:"¿Qué es una subida temporal?",whatText:"Crea un enlace alojado pensado para caducar tras el periodo elegido. Sirve para conversaciones, revisiones o tareas limitadas.",howTitle:"Cómo usar la subida temporal",howText:"Usa la herramienta de subida y elige la duración adecuada.",step1Title:"Elegir duración",step1Text:"Selecciona 1, 7 o 30 días.",step2Title:"Elegir y subir",step2Text:"Imagen admitida de hasta 5 MB y verificación.",step3Title:"Compartir URL",step3Text:"Copia el enlace directo o un formato para insertar.",usesTitle:"Casos de uso",usesText:"Los enlaces cortos sirven para contenido que no necesita alojamiento permanente.",use1Title:"Informes de errores",use1Text:"Comparte una captura durante soporte breve.",use2Title:"Foros",use2Text:"Publica una referencia necesaria para el hilo activo.",use3Title:"Revisión de borradores",use3Text:"Envía una imagen durante una revisión limitada.",limitsTitle:"Límites, caducidad y privacidad",limitsText:"La imagen se sube a un servicio remoto y puede seguir accesible hasta el fin del periodo.",limitsNote:"1 día para vistas rápidas, 7 para comentarios y 30 para referencias más largas. No subas contenido sensible, confidencial, ilegal, adulto, dañino o infractor.",faqTitle:"FAQ",faq1Q:"¿Qué es una subida temporal?",faq1A:"Un enlace alojado con una duración corta elegida.",faq2Q:"¿Cuánto tiempo queda online?",faq2A:"Elige 1, 7 o 30 días.",faq3Q:"¿Puedo subir sin cuenta?",faq3A:"Sí, una subida normal no necesita cuenta.",faq4Q:"¿Puedo compartir en mensajes o foros?",faq4A:"Sí, si el destino acepta el enlace y puedes compartir la imagen.",faq5Q:"¿Qué formatos?",faq5A:"JPG, PNG, GIF y WebP hasta 5 MB.",faq6Q:"¿Puedo eliminar una imagen?",faq6A:"Sigue la duración; se puede solicitar retirada con la URL.",faq7Q:"¿Es gratis?",faq7A:"Sí, las opciones temporales están disponibles sin cuenta.",relatedTitle:"Herramientas relacionadas",relatedText:"Compara subida temporal, alojamiento y enlaces.",relatedUpload:"Subir imagen online",relatedUploadText:"Abrir la herramienta y elegir duración.",relatedHosting:"Alojamiento gratis",relatedHostingText:"Conocer enlaces sin cuenta.",relatedShare:"Compartir enlace",relatedShareText:"Crear una URL para mensajes."}
 };
-Object.assign(translations.en,{title:"Temporary Image Upload with Expiring Links | Mini Tools",description:"Create temporary image links with 1-day, 7-day or 30-day retention. Upload up to 5 MB without an account and copy a direct URL or embed code."});
-Object.assign(translations["zh-CN"],{title:"临时图片上传：创建定时过期链接 | Mini Tools",description:"创建保留 1 天、7 天或 30 天的临时图片链接。无需注册即可上传最大 5 MB 图片，并复制直链或嵌入代码。"});
-Object.assign(translations.de,{title:"Temporärer Bild-Upload mit Ablaufdatum | Mini Tools",description:"Erstellen Sie Bildlinks mit 1, 7 oder 30 Tagen Aufbewahrung. Laden Sie bis 5 MB ohne Konto hoch und kopieren Sie Direkt-URL oder Einbettung."});
-Object.assign(translations.fr,{title:"Envoi d’image temporaire avec expiration | Mini Tools",description:"Créez des liens d’image conservés 1, 7 ou 30 jours. Téléversez jusqu’à 5 Mo sans compte et copiez une URL directe ou intégrable."});
-Object.assign(translations.es,{title:"Subida temporal de imágenes con caducidad | Mini Tools",description:"Crea enlaces de imagen con 1, 7 o 30 días de duración. Sube hasta 5 MB sin cuenta y copia una URL directa o código para insertar."});
+Object.assign(translations.en,{title:"Temporary Image Hosting: Expiry & Removal | Mini Tools",description:"Learn when 1-day, 7-day and 30-day image links are intended to end, what expires_at means, cache limits, and how to request removal."});
+Object.assign(translations["zh-CN"],{title:"临时图床：到期与移除 | Mini Tools",description:"了解 1 天、7 天和 30 天图片链接何时结束、expires_at 含义、缓存限制，以及如何申请移除。"});
+Object.assign(translations.de,{title:"Temporäres Bildhosting: Ablauf & Löschung | Mini Tools",description:"Erfahren Sie, wann 1-, 7- und 30-Tage-Bildlinks enden sollen, was expires_at bedeutet, welche Cache-Grenzen gelten und wie Löschung beantragt wird."});
+Object.assign(translations.fr,{title:"Hébergement temporaire : expiration et retrait | Mini Tools",description:"Découvrez quand les liens d’image de 1, 7 et 30 jours sont censés se terminer, ce que signifie expires_at, les limites de cache et comment demander un retrait."});
+Object.assign(translations.es,{title:"Alojamiento temporal: caducidad y retirada | Mini Tools",description:"Aprende cuándo deben terminar los enlaces de 1, 7 y 30 días, qué significa expires_at, los límites de caché y cómo pedir la retirada."});
 Object.assign(translations.en, {
   kicker:"Expiry and removal",
-  heroTitle:"Temporary Image Upload",
+  heroTitle:"Temporary image hosting: retention, expiry and removal",
   heroText:"Understand when a 1-day, 7-day or 30-day image link is intended to end, what expiry does not guarantee, and how to request removal.",
   chip1:"1 / 7 / 30 days",
   chip2:"Starts after success",
@@ -209,6 +224,16 @@ Object.assign(translations.en, {
   when1:"After the selected period, the hosted file is intended to become unavailable at the original URL.",
   when2:"Expiry is not a promise that every browser, CDN or third-party cache copy disappears instantly.",
   when3:"If the upload page shows an expiry time for your result, treat that value as the service timing for that upload.",
+  verifiedTitle:"Verified retention behaviour",
+  verifiedText:"These points match the current upload API behaviour. Items marked pending verification have not been re-checked end-to-end in production after a full retention window.",
+  v1:"The retention clock starts when a temporary upload completes successfully and a hosted URL is created.",
+  v2:"API success payloads may include expires_at as an ISO-8601 UTC timestamp ending in Z (example style: 2026-08-05T12:00:00.000Z).",
+  v3:"expires_at is calculated from the upload completion time plus 1, 7 or 30 days for temporary durations. Permanent storage does not use this temporary expiry field.",
+  v4:"The public /upload page shows the retention you chose; it may not always display the raw expires_at field in the result panel.",
+  v5:"Expiry is intended to make the original hosted file unavailable; browser, CDN or third-party caches may still lag. Pending verification: exact public HTTP status timing immediately after expiry in production.",
+  v6:"Cleanup of expired objects is handled by scheduled cleanup jobs, so a short delay after the planned expiry is possible.",
+  v7:"Ordinary temporary uploads are not the same as approved long-term (permanent) storage, which requires a separate approved storage code on /upload.",
+  v8:"To request removal of an image you control, send the full image URL via the contact page or yuyananuu@gmail.com.",
   removeTitle:"Expiry vs removal request",
   removeText:"The public upload page does not provide a self-serve instant delete control for normal temporary uploads. To request removal of an image you control, send the image URL through the contact page or email yuyananuu@gmail.com.",
   removeNote:"Waiting for expiry and sending a removal request are different actions. A removal request is handled by support; it is not the same as proving every cached copy is gone worldwide.",
@@ -238,12 +263,14 @@ Object.assign(translations.en, {
   relatedHostingText:"First successful upload path.",
   relatedShare:"Share Image Link",
   relatedShareText:"Embed format comparison.",
+  relatedApi:"Image Upload API documentation",
+  relatedApiText:"Server-side upload examples.",
   schemaAppName:"Mini Tools Temporary Image Upload",
   schemaDescription:"Guide to temporary image retention, expiry expectations and removal requests."
 });
 Object.assign(translations["zh-CN"], {
   kicker:"到期与移除",
-  heroTitle:"临时图片上传",
+  heroTitle:"临时图床：保留期、到期与移除",
   heroText:"弄清 1 天、7 天或 30 天链接何时结束、到期不保证什么，以及如何申请移除。",
   chip1:"1 / 7 / 30 天",
   chip2:"成功后起算",
@@ -258,6 +285,16 @@ Object.assign(translations["zh-CN"], {
   when1:"所选期限结束后，原 URL 上的托管文件预期将不可用。",
   when2:"到期并不承诺所有浏览器、CDN 或第三方缓存副本会立即消失。",
   when3:"若上传结果展示到期时间，请将该时间视为该次上传的服务计时。",
+  verifiedTitle:"已核验的保留行为",
+  verifiedText:"以下要点与当前上传 API 行为一致。标为待核验的项尚未在完整保留窗口后做生产端到端复测。",
+  v1:"临时上传成功并生成托管 URL 后，保留计时开始。",
+  v2:"API 成功响应可能包含以 Z 结尾的 ISO-8601 UTC 时间戳 expires_at（示例：2026-08-05T12:00:00.000Z）。",
+  v3:"expires_at 由上传完成时间加上临时时长的 1、7 或 30 天计算。永久存储不使用该临时到期字段。",
+  v4:"公开 /upload 页会显示你选择的保留期；结果区不一定展示原始 expires_at 字段。",
+  v5:"到期意在使原托管文件不可用；浏览器、CDN 或第三方缓存仍可能滞后。待核验：生产环境到期后立即返回的确切公开 HTTP 状态时机。",
+  v6:"过期对象由定时清理任务处理，因此计划到期后可能仍有短暂延迟。",
+  v7:"普通临时上传不同于获批的长期（永久）存储；永久存储需在 /upload 使用单独批准的存储码。",
+  v8:"若要移除你控制的图片，请通过联系页或 yuyananuu@gmail.com 发送完整图片 URL。",
   removeTitle:"到期与申请移除的区别",
   removeText:"公开上传页不提供普通临时图的自助即时删除。若要移除你控制的图片，请通过联系页或邮件 yuyananuu@gmail.com 发送图片 URL。",
   removeNote:"等待到期与提交移除申请是不同动作。移除由支持处理，不等于证明全球缓存都已清除。",
@@ -279,20 +316,22 @@ Object.assign(translations["zh-CN"], {
   faq4A:"完整图片 URL，以及足以说明你控制该内容或进行举报的信息。",
   faq5Q:"永久存储和临时到期一样吗？",
   faq5A:"不一样。永久存储需要获批长期码，并遵循上传页的另一套规则。",
-  relatedTitle:"Related tools",
+  relatedTitle:"相关工具",
   relatedText:"打开上传器或其他专项指南。",
-  relatedUpload:"Upload Image Online",
+  relatedUpload:"在线上传图片",
   relatedUploadText:"上传前选择保留期。",
-  relatedHosting:"Free Image Hosting",
+  relatedHosting:"免费图床",
   relatedHostingText:"第一次成功上传路径。",
-  relatedShare:"Share Image Link",
+  relatedShare:"分享图片链接",
   relatedShareText:"嵌入格式对比。",
-  schemaAppName:"Mini Tools Temporary Image Upload",
+  relatedApi:"图片上传 API 文档",
+  relatedApiText:"服务端上传示例。",
+  schemaAppName:"Mini Tools 临时图片上传",
   schemaDescription:"临时图片保留、到期预期与移除申请说明。"
 });
 Object.assign(translations.de, {
   kicker:"Ablauf und Löschung",
-  heroTitle:"Temporärer Bild-Upload",
+  heroTitle:"Temporäres Bildhosting: Aufbewahrung, Ablauf und Löschung",
   heroText:"Verstehen Sie, wann ein 1-, 7- oder 30-Tage-Link enden soll, was Ablauf nicht garantiert und wie Löschung beantragt wird.",
   chip1:"1 / 7 / 30 Tage",
   chip2:"Start nach Erfolg",
@@ -307,15 +346,25 @@ Object.assign(translations.de, {
   when1:"Nach der gewählten Frist soll die Datei unter der Original-URL nicht mehr verfügbar sein.",
   when2:"Ablauf garantiert nicht, dass alle Browser-, CDN- oder Dritt-Caches sofort verschwinden.",
   when3:"Zeigt die Upload-Seite eine Ablaufzeit, gilt sie als Service-Timing für diesen Upload.",
+  verifiedTitle:"Geprüftes Aufbewahrungsverhalten",
+  verifiedText:"Diese Punkte entsprechen dem aktuellen Upload-API-Verhalten. Als ausstehend markierte Punkte wurden nach einem vollen Aufbewahrungsfenster noch nicht Ende-zu-Ende in Produktion nachgeprüft.",
+  v1:"Die Aufbewahrungszeit beginnt, wenn ein temporärer Upload erfolgreich abgeschlossen ist und eine gehostete URL erstellt wurde.",
+  v2:"API-Erfolgsantworten können expires_at als ISO-8601-UTC-Zeitstempel mit Z enthalten (Beispielstil: 2026-08-05T12:00:00.000Z).",
+  v3:"expires_at wird aus Upload-Abschlusszeit plus 1, 7 oder 30 Tage für temporäre Dauern berechnet. Dauerhafte Speicherung nutzt dieses temporäre Ablaufeld nicht.",
+  v4:"Die öffentliche /upload-Seite zeigt die gewählte Aufbewahrung; das Rohfeld expires_at erscheint im Ergebnisbereich nicht immer.",
+  v5:"Ablauf soll die Originaldatei unzugänglich machen; Browser-, CDN- oder Dritt-Caches können nachlaufen. Ausstehend: exakter öffentlicher HTTP-Statuszeitpunkt unmittelbar nach Ablauf in Produktion.",
+  v6:"Abgelaufene Objekte werden durch geplante Cleanup-Jobs bereinigt; kurze Verzögerungen nach dem geplanten Ablauf sind möglich.",
+  v7:"Gewöhnliche temporäre Uploads sind nicht dasselbe wie genehmigte Langzeitspeicherung, die auf /upload einen separaten genehmigten Speicher-Code braucht.",
+  v8:"Zur Löschung eines eigenen Bildes die vollständige Bild-URL über Kontakt oder yuyananuu@gmail.com senden.",
   removeTitle:"Ablauf vs. Löschanfrage",
   removeText:"Die öffentliche Upload-Seite bietet keine Sofortlöschung für normale temporäre Uploads. Löschung eigener Bilder mit URL über Kontakt oder yuyananuu@gmail.com anfragen.",
   removeNote:"Ablauf abwarten und eine Löschanfrage senden sind unterschiedliche Schritte. Support bearbeitet Anfragen; das beweist nicht, dass alle Caches weltweit weg sind.",
   chooseTitle:"Welche Aufbewahrung wählen",
-  c1Title:"1 day",
+  c1Title:"1 Tag",
   c1Text:"Schnelle Vorschauen und kurze Support-Chats.",
-  c2Title:"7 days",
+  c2Title:"7 Tage",
   c2Text:"Entwurfsfeedback und kurze Reviews.",
-  c3Title:"30 days",
+  c3Title:"30 Tage",
   c3Text:"Längere temporäre Referenzen, die nicht dauerhaft sein sollen.",
   faqTitle:"FAQ",
   faq1Q:"Wann startet der Countdown?",
@@ -328,20 +377,22 @@ Object.assign(translations.de, {
   faq4A:"Die vollständige Bild-URL und genug Kontext zur Kontrolle oder Meldung.",
   faq5Q:"Ist Dauer speicher gleich Ablauf?",
   faq5A:"Nein. Dauer speicher braucht einen freigegebenen Code und andere Regeln.",
-  relatedTitle:"Related tools",
+  relatedTitle:"Verwandte Tools",
   relatedText:"Uploader oder andere Fachanleitungen öffnen.",
-  relatedUpload:"Upload Image Online",
+  relatedUpload:"Bild online hochladen",
   relatedUploadText:"Aufbewahrung vor dem Upload wählen.",
-  relatedHosting:"Free Image Hosting",
+  relatedHosting:"Kostenloses Bildhosting",
   relatedHostingText:"Erster erfolgreicher Upload.",
-  relatedShare:"Share Image Link",
+  relatedShare:"Bildlink teilen",
   relatedShareText:"Einbettungsformate vergleichen.",
+  relatedApi:"Bild-Upload-API-Dokumentation",
+  relatedApiText:"Server-seitige Upload-Beispiele.",
   schemaAppName:"Mini Tools Temporary Image Upload",
   schemaDescription:"Anleitung zu temporärer Aufbewahrung, Ablauf und Löschanfragen."
 });
 Object.assign(translations.fr, {
   kicker:"Expiration et retrait",
-  heroTitle:"Envoi d'image temporaire",
+  heroTitle:"Hébergement temporaire : conservation, expiration et retrait",
   heroText:"Comprenez quand un lien de 1, 7 ou 30 jours est censé se terminer, ce que l'expiration ne garantit pas, et comment demander un retrait.",
   chip1:"1 / 7 / 30 jours",
   chip2:"Débute après succès",
@@ -356,15 +407,25 @@ Object.assign(translations.fr, {
   when1:"Après la durée choisie, le fichier hébergé est censé devenir indisponible à l'URL d'origine.",
   when2:"L'expiration ne promet pas la disparition immédiate de tous les caches navigateur, CDN ou tiers.",
   when3:"Si la page d'envoi affiche une heure d'expiration, traitez-la comme le timing du service pour cet envoi.",
+  verifiedTitle:"Comportement de conservation vérifié",
+  verifiedText:"Ces points correspondent au comportement actuel de l’API d’envoi. Les éléments marqués en attente n’ont pas été revérifiés de bout en bout en production après une fenêtre de conservation complète.",
+  v1:"Le délai commence lorsqu’un envoi temporaire se termine avec succès et qu’une URL hébergée est créée.",
+  v2:"Les réponses de succès de l’API peuvent inclure expires_at comme horodatage ISO-8601 UTC se terminant par Z (exemple : 2026-08-05T12:00:00.000Z).",
+  v3:"expires_at est calculé à partir de la fin de l’envoi plus 1, 7 ou 30 jours pour les durées temporaires. Le stockage permanent n’utilise pas ce champ d’expiration temporaire.",
+  v4:"La page publique /upload affiche la conservation choisie ; le champ brut expires_at peut ne pas apparaître dans le panneau de résultat.",
+  v5:"L’expiration vise à rendre le fichier hébergé d’origine indisponible ; caches navigateur, CDN ou tiers peuvent retarder. En attente : timing exact du statut HTTP public juste après expiration en production.",
+  v6:"Le nettoyage des objets expirés est géré par des tâches planifiées ; un court délai après l’expiration prévue est possible.",
+  v7:"Les envois temporaires ordinaires ne sont pas le stockage longue durée approuvé, qui exige un code de stockage approuvé distinct sur /upload.",
+  v8:"Pour demander le retrait d’une image que vous contrôlez, envoyez l’URL complète via Contact ou yuyananuu@gmail.com.",
   removeTitle:"Expiration vs demande de retrait",
   removeText:"La page publique n'offre pas de suppression instantanée en libre-service pour les envois temporaires normaux. Demandez le retrait avec l'URL via Contact ou yuyananuu@gmail.com.",
   removeNote:"Attendre l'expiration et demander un retrait sont des actions distinctes. Le support traite la demande ; ce n'est pas une preuve que tous les caches mondiaux ont disparu.",
   chooseTitle:"Quelle durée choisir",
-  c1Title:"1 day",
+  c1Title:"1 jour",
   c1Text:"Aperçus rapides et courts échanges de support.",
-  c2Title:"7 days",
+  c2Title:"7 jours",
   c2Text:"Retours sur brouillon et courts cycles de revue.",
-  c3Title:"30 days",
+  c3Title:"30 jours",
   c3Text:"Références temporaires plus longues sans besoin permanent.",
   faqTitle:"FAQ",
   faq1Q:"Quand démarre le compte à rebours ?",
@@ -377,20 +438,22 @@ Object.assign(translations.fr, {
   faq4A:"L'URL complète et assez de contexte pour montrer le contrôle ou le signalement.",
   faq5Q:"Le stockage permanent est-il identique ?",
   faq5A:"Non. Il nécessite un code longue durée approuvé et d'autres règles.",
-  relatedTitle:"Related tools",
+  relatedTitle:"Outils associés",
   relatedText:"Ouvrez l'outil d'envoi ou les autres guides.",
-  relatedUpload:"Upload Image Online",
+  relatedUpload:"Téléverser une image",
   relatedUploadText:"Choisir la durée avant l'envoi.",
-  relatedHosting:"Free Image Hosting",
+  relatedHosting:"Hébergement d'images gratuit",
   relatedHostingText:"Premier envoi réussi.",
-  relatedShare:"Share Image Link",
+  relatedShare:"Partager un lien d'image",
   relatedShareText:"Comparer les formats d'intégration.",
+  relatedApi:"Documentation de l'API d'envoi d'images",
+  relatedApiText:"Exemples d'envoi côté serveur.",
   schemaAppName:"Mini Tools Temporary Image Upload",
   schemaDescription:"Guide sur la conservation temporaire, l'expiration et les demandes de retrait."
 });
 Object.assign(translations.es, {
   kicker:"Caducidad y retirada",
-  heroTitle:"Subida temporal de imágenes",
+  heroTitle:"Alojamiento temporal: retención, caducidad y retirada",
   heroText:"Entiende cuándo debe terminar un enlace de 1, 7 o 30 días, qué no garantiza la caducidad y cómo pedir la retirada.",
   chip1:"1 / 7 / 30 días",
   chip2:"Empieza tras el éxito",
@@ -405,15 +468,25 @@ Object.assign(translations.es, {
   when1:"Tras el periodo elegido, el archivo alojado debería dejar de estar disponible en la URL original.",
   when2:"La caducidad no promete que todas las cachés de navegador, CDN o terceros desaparezcan al instante.",
   when3:"Si la página de subida muestra una hora de caducidad, trátala como el tiempo del servicio para esa subida.",
+  verifiedTitle:"Comportamiento de retención verificado",
+  verifiedText:"Estos puntos coinciden con el comportamiento actual de la API de subida. Los elementos marcados como pendientes no se han vuelto a comprobar de extremo a extremo en producción tras una ventana de retención completa.",
+  v1:"El reloj de retención empieza cuando una subida temporal termina con éxito y se crea una URL alojada.",
+  v2:"Las respuestas de éxito de la API pueden incluir expires_at como marca de tiempo ISO-8601 UTC terminada en Z (estilo de ejemplo: 2026-08-05T12:00:00.000Z).",
+  v3:"expires_at se calcula desde el fin de la subida más 1, 7 o 30 días para duraciones temporales. El almacenamiento permanente no usa este campo de caducidad temporal.",
+  v4:"La página pública /upload muestra la retención elegida; puede que no muestre siempre el campo expires_at en bruto en el panel de resultado.",
+  v5:"La caducidad pretende hacer no disponible el archivo alojado original; las cachés de navegador, CDN o terceros pueden retrasarse. Pendiente de verificación: el momento exacto del estado HTTP público justo después de la caducidad en producción.",
+  v6:"La limpieza de objetos caducados la gestionan trabajos programados, por lo que es posible un breve retraso tras la caducidad planificada.",
+  v7:"Las subidas temporales ordinarias no son lo mismo que el almacenamiento permanente aprobado, que requiere un código de almacenamiento aprobado aparte en /upload.",
+  v8:"Para pedir la retirada de una imagen bajo tu control, envía la URL completa por la página de contacto o yuyananuu@gmail.com.",
   removeTitle:"Caducidad frente a petición de retirada",
   removeText:"La página pública no ofrece borrado instantáneo de autoservicio para subidas temporales normales. Para retirar una imagen bajo tu control, envía la URL por contacto o yuyananuu@gmail.com.",
   removeNote:"Esperar la caducidad y pedir la retirada son acciones distintas. El soporte gestiona la petición; no prueba que todas las cachés mundiales hayan desaparecido.",
   chooseTitle:"Qué duración elegir",
-  c1Title:"1 day",
+  c1Title:"1 día",
   c1Text:"Vistas rápidas y chats de soporte cortos.",
-  c2Title:"7 days",
+  c2Title:"7 días",
   c2Text:"Comentarios de borrador y revisiones breves.",
-  c3Title:"30 days",
+  c3Title:"30 días",
   c3Text:"Referencias temporales más largas que aún no deben ser permanentes.",
   faqTitle:"FAQ",
   faq1Q:"¿Cuándo empieza la cuenta atrás?",
@@ -426,14 +499,16 @@ Object.assign(translations.es, {
   faq4A:"La URL completa y contexto suficiente de control o denuncia.",
   faq5Q:"¿El almacenamiento permanente es lo mismo?",
   faq5A:"No. Requiere un código de largo plazo aprobado y otras reglas.",
-  relatedTitle:"Related tools",
+  relatedTitle:"Herramientas relacionadas",
   relatedText:"Abre el uploader u otras guías especializadas.",
-  relatedUpload:"Upload Image Online",
+  relatedUpload:"Subir imagen online",
   relatedUploadText:"Elige la duración antes de subir.",
-  relatedHosting:"Free Image Hosting",
+  relatedHosting:"Alojamiento de imágenes gratis",
   relatedHostingText:"Primera subida correcta.",
-  relatedShare:"Share Image Link",
+  relatedShare:"Compartir enlace de imagen",
   relatedShareText:"Comparar formatos de inserción.",
+  relatedApi:"Documentación de la API de subida de imágenes",
+  relatedApiText:"Ejemplos de subida en el servidor.",
   schemaAppName:"Mini Tools Temporary Image Upload",
   schemaDescription:"Guía de retención temporal, caducidad y peticiones de retirada."
 });

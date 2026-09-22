@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Upload Image Online and Get a Direct Link | Mini Tools</title>
-  <meta name="description" content="Upload a JPG, PNG, GIF or WebP image up to 5 MB, choose 1, 7 or 30 days, and copy a direct URL, Markdown, HTML or BBCode. No signup required." />
+  <meta name="description" content="Upload JPG, PNG, GIF or WebP images up to 5 MB without an account. Choose a retention period and copy a direct link, Markdown, HTML or BBCode." />
 <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://mini-tools.uk/upload" />
   <link rel="alternate" hreflang="en" href="https://mini-tools.uk/upload" />
@@ -543,7 +543,7 @@
   <main class="container">
     <section class="page-intro">
       <div class="eyebrow" id="eyebrowText">Upload Image Online • Shareable Links</div>
-      <h1 id="pageTitle">Upload Image Online</h1>
+      <h1 id="pageTitle">Upload an image and get a direct link</h1>
       <p class="intro-text" id="introText">
         Upload an image and quickly get a shareable link. No account is required for normal uploads, and you can choose temporary retention before copying the URL.
       </p>
@@ -801,13 +801,13 @@
     <section class="section-card" id="related-image-tools">
       <h2 data-i18n="imageRelatedTitle">Related Image Tools</h2>
       <p data-i18n="imageRelatedText">Learn more about hosting, temporary retention and link sharing, or open a browser-based image utility.</p>
-      <div class="related-grid">
+      <nav class="related-grid" aria-label="Related image hosting guides">
         <a class="related-link" href="/free-image-hosting"><span data-i18n="imageRelatedHosting">Free Image Hosting</span><span data-i18n="imageRelatedHostingText">Upload without an account and share a hosted link.</span></a>
         <a class="related-link" href="/temporary-image-upload"><span data-i18n="imageRelatedTemporary">Temporary Image Upload</span><span data-i18n="imageRelatedTemporaryText">Choose a 1-day, 7-day or 30-day retention period.</span></a>
         <a class="related-link" href="/share-image-link"><span data-i18n="imageRelatedShare">Share Image Link</span><span data-i18n="imageRelatedShareText">Create and copy a direct URL or embed format.</span></a>
         <a class="related-link" href="/image-api"><span data-i18n="imageRelatedTools">Image Upload API</span><span data-i18n="imageRelatedToolsText">Upload from scripts and applications with assigned API credentials.</span></a>
         <a class="related-link" href="/qr"><span data-i18n="imageRelatedPdf">QR Code Generator</span><span data-i18n="imageRelatedPdfText">Turn a hosted image link into a scannable QR code.</span></a>
-      </div>
+      </nav>
     </section>
 
     <section class="section-card">
@@ -1902,6 +1902,27 @@
     });
     Object.assign(translations.fr, { seoTitle:"Téléverser une image et obtenir un lien direct | Mini Tools", seoDescription:"Téléversez une image JPG, PNG, GIF ou WebP de 5 Mo maximum, choisissez 1, 7 ou 30 jours et copiez une URL directe sans inscription.", ogTitle:"Téléverser une image et obtenir un lien direct | Mini Tools", ogDescription:"Téléversez, choisissez la durée et copiez une URL ou un format intégrable sans compte." });
     Object.assign(translations.es, { seoTitle:"Subir imagen online y obtener enlace directo | Mini Tools", seoDescription:"Sube una imagen JPG, PNG, GIF o WebP de hasta 5 MB, elige 1, 7 o 30 días y copia una URL directa o código sin registro.", ogTitle:"Subir imagen online y obtener enlace directo | Mini Tools", ogDescription:"Sube, elige duración y copia una URL directa o formato para insertar sin cuenta." });
+
+    Object.assign(translations.en, {
+      pageTitle: "Upload an image and get a direct link",
+      seoDescription: "Upload JPG, PNG, GIF or WebP images up to 5 MB without an account. Choose a retention period and copy a direct link, Markdown, HTML or BBCode."
+    });
+    Object.assign(translations["zh-CN"], {
+      pageTitle: "上传图片并获取直链",
+      seoDescription: "无需账号即可上传最大 5 MB 的 JPG、PNG、GIF 或 WebP 图片。选择保留期，并复制直链、Markdown、HTML 或 BBCode。"
+    });
+    Object.assign(translations.de, {
+      pageTitle: "Bild hochladen und Direktlink erhalten",
+      seoDescription: "Laden Sie JPG-, PNG-, GIF- oder WebP-Bilder bis 5 MB ohne Konto hoch. Wählen Sie eine Aufbewahrungsdauer und kopieren Sie Direktlink, Markdown, HTML oder BBCode."
+    });
+    Object.assign(translations.fr, {
+      pageTitle: "Téléverser une image et obtenir un lien direct",
+      seoDescription: "Téléversez des images JPG, PNG, GIF ou WebP jusqu’à 5 Mo sans compte. Choisissez une durée de conservation et copiez un lien direct, Markdown, HTML ou BBCode."
+    });
+    Object.assign(translations.es, {
+      pageTitle: "Subir una imagen y obtener un enlace directo",
+      seoDescription: "Sube imágenes JPG, PNG, GIF o WebP de hasta 5 MB sin cuenta. Elige un periodo de retención y copia un enlace directo, Markdown, HTML o BBCode."
+    });
 
     Object.assign(translations.de, {
       imageRelatedTools: "Bild-Upload-API",

@@ -289,6 +289,63 @@
   -F "file=@image.png"<!--/email_off--></pre>
         </div>
 
+        <h3 data-i18n="nodeTitle">Node.js example</h3>
+        <p data-i18n="nodeIntro">Read MTU_API_USER_ID and MTU_API_KEY from the environment, upload a file, check the HTTP status, parse success or failure, and log a desensitised result (url, duration, expires_at, usage). Do not hard-code real secrets.</p>
+        <div class="code-shell">
+          <div class="code-head"><span>Node.js</span><button class="copy-code" type="button" data-copy="nodeExample" data-i18n="copyCode">Copy</button></div>
+          <pre id="nodeExample">import fs from "node:fs";
+import path from "node:path";
+
+const userId = process.env.MTU_API_USER_ID;
+const apiKey = process.env.MTU_API_KEY;
+
+if (!userId || !apiKey) {
+  throw new Error("Set MTU_API_USER_ID and MTU_API_KEY in the environment");
+}
+
+const form = new FormData();
+form.append("duration", "7-day");
+form.append(
+  "file",
+  new Blob([fs.readFileSync("./image.png")], { type: "image/png" }),
+  path.basename("./image.png")
+);
+
+const response = await fetch("https://api.mini-tools.uk/v1/upload", {
+  method: "POST",
+  headers: {
+    "X-API-User-ID": userId,
+    Authorization: `Bearer ${apiKey}`,
+  },
+  body: form,
+});
+
+const payload = await response.json();
+
+if (!response.ok || payload.success !== true) {
+  console.error("Upload failed", {
+    status: response.status,
+    failed: payload.failed || null,
+  });
+  process.exitCode = 1;
+} else {
+  const item = payload.uploaded?.[0] || {};
+  console.log({
+    url: item.url,
+    duration: item.duration,
+    expires_at: item.expires_at,
+    usage: payload.usage
+      ? {
+          temporary_used: payload.usage.temporary?.used,
+          temporary_remaining: payload.usage.temporary?.remaining,
+          permanent_used: payload.usage.permanent?.used,
+          permanent_remaining: payload.usage.permanent?.remaining,
+        }
+      : null,
+  });
+}</pre>
+        </div>
+
         <h3 data-i18n="batchTitle">Multiple image upload</h3>
         <div class="code-shell">
           <div class="code-head"><span>cURL</span><button class="copy-code" type="button" data-copy="batchExample" data-i18n="copyCode">Copy</button></div>
@@ -501,11 +558,14 @@
 
       <section class="doc-section">
         <h2 data-i18n="relatedTitle">Related tools</h2>
-        <div class="related-links">
+        <nav class="related-links" aria-label="Related image hosting guides">
           <a href="/upload" data-i18n="relatedUpload">Web image upload</a>
+          <a href="/free-image-hosting" data-i18n="relatedHosting">How to upload an image</a>
+          <a href="/temporary-image-upload" data-i18n="relatedTemporary">Temporary image hosting</a>
+          <a href="/share-image-link" data-i18n="relatedShare">Markdown, HTML and BBCode</a>
           <a href="/#developer-tools" data-i18n="relatedImage">Developer tools</a>
           <a href="/contact" data-i18n="relatedContact">Contact</a>
-        </div>
+        </nav>
       </section>
 
       <section class="doc-section">
@@ -551,7 +611,7 @@
         applyText:"Send an email to api@mini-tools.uk to apply. The system automatically creates credentials and replies with your API user ID and API key. Use both values from a trusted server. If a reply fails or the account is later disabled, contact support at yuyananuu@gmail.com.",copyEmail:"Click to copy",
         baseUrl:"Base URL",uploadEndpoint:"Upload",usageEndpoint:"Used and remaining quota",recordsEndpoint:"Upload records",deleteEndpoint:"Delete image",
         authTitle:"Authentication",authIntro:"Every request must send the assigned user ID and the matching API key in request headers.",securityNote:"Use both credentials only on a trusted server. A user ID identifies the account, while the API key prevents other people from using that account. Do not expose the key in browser code or a public repository.",
-        howTitle:"How to use",howIntro:"Send multipart/form-data to the upload endpoint. Use the file field once for a single image or repeat it for a batch.",singleTitle:"Single image upload",batchTitle:"Multiple image upload",idempotencyTitle:"Safe retries",idempotencyIntro:"For an upload that may be retried, send a unique Idempotency-Key header. Repeating the same request with the same key returns the first result without uploading again or consuming quota twice. Reusing the key for different files returns HTTP 409.",copyCode:"Copy",
+        howTitle:"How to use",howIntro:"Send multipart/form-data to the upload endpoint. Use the file field once for a single image or repeat it for a batch.",singleTitle:"Single image upload",nodeTitle:"Node.js example",nodeIntro:"Read MTU_API_USER_ID and MTU_API_KEY from the environment, upload a file, check the HTTP status, parse success or failure, and log a desensitised result (url, duration, expires_at, usage). Do not hard-code real secrets.",batchTitle:"Multiple image upload",idempotencyTitle:"Safe retries",idempotencyIntro:"For an upload that may be retried, send a unique Idempotency-Key header. Repeating the same request with the same key returns the first result without uploading again or consuming quota twice. Reusing the key for different files returns HTTP 409.",copyCode:"Copy",
         requestFieldsTitle:"Request fields",fieldHeader:"Field",requiredHeader:"Required",descriptionHeader:"Description",yes:"Yes",no:"No",fileDescription:"One image, or the same field repeated for multiple images.",durationDescription:"1-day, 7-day, 30-day or permanent. The assigned account must allow the selected retention type.",
         uploadResponseTitle:"Upload response",uploadResponseIntro:"A complete success returns HTTP 201. A batch with both successful and failed images returns HTTP 207 and lists each result separately.",returnFieldsTitle:"Returned fields",
         returnSuccess:"True only when every image succeeds.",returnPartial:"True when part of a batch succeeds and part fails.",returnUploaded:"Successful images with storage key, public URL, retention, expiry, size, MIME type and review risk state.",returnFailed:"Failed images with zero-based index, file name, readable error and stable error code.",returnAccount:"Compatibility quota data in a flat object.",returnUsage:"Current temporary and permanent limits, used values and remaining values.",
@@ -561,7 +621,7 @@
         limitationsTitle:"Limitations and conditions",limitFormats:"Accepted formats: JPG, PNG, GIF and WebP.",limitFileSize:"Maximum size: 5 MB per image.",limitBatch:"Maximum batch: 10 images and 25 MB total per request.",limitRetention:"Retention values: 1-day, 7-day, 30-day and permanent, subject to the assigned account permissions.",limitQuota:"Only successful images consume quota. Temporary quotas reset at midnight in Asia/Shanghai; permanent quotas are total allowances.",limitRetry:"Use a unique Idempotency-Key for retryable uploads to prevent duplicate images and duplicate quota use.",limitVerification:"API credentials from the automatic reply can be used while the account remains active. An administrator may disable an account later. API uploads remain subject to content review.",limitContent:"The same upload rules apply to API and website uploads. Illegal, harmful, private or infringing images may be rejected or removed.",
         statusTitle:"HTTP status codes",status200:"Usage query succeeded.",status201:"All images uploaded successfully.",status207:"A batch was partially successful.",status4xx:"The request, count, size or image content is invalid.",statusAuth:"Credentials are invalid, the account is disabled or the retention type is not allowed.",status404:"The requested image does not exist or does not belong to the current API user.",status409:"The Idempotency-Key is already processing or was reused for a different upload.",status429:"The daily or permanent quota is exhausted.",status503:"The API database is temporarily unavailable.",
         useCasesTitle:"Use cases",useCase1:"Upload application screenshots from a deployment or testing workflow.",useCase2:"Upload multiple product or documentation images in one server request.",useCase3:"Check quota before starting an automated batch.",
-        relatedTitle:"Related tools",relatedUpload:"Web image upload",relatedImage:"Image tools",relatedContact:"Contact",faqTitle:"FAQ",faq1Q:"Can one request upload multiple images?",faq1A:"Yes. Repeat the file field for each image, up to the documented count and total-size limits.",faq2Q:"Is the user ID enough for authentication?",faq2A:"No. Send the assigned user ID and its matching API key. The ID identifies the account and the key proves that the caller is allowed to use it.",faq3Q:"How do I know how much quota remains?",faq3A:"Call GET /v1/usage or read the usage object returned after an upload.",copied:"Copied"
+        relatedTitle:"Related tools",relatedUpload:"Web image upload",relatedHosting:"How to upload an image",relatedTemporary:"Temporary image hosting",relatedShare:"Markdown, HTML and BBCode",relatedImage:"Image tools",relatedContact:"Contact",faqTitle:"FAQ",faq1Q:"Can one request upload multiple images?",faq1A:"Yes. Repeat the file field for each image, up to the documented count and total-size limits.",faq2Q:"Is the user ID enough for authentication?",faq2A:"No. Send the assigned user ID and its matching API key. The ID identifies the account and the key proves that the caller is allowed to use it.",faq3Q:"How do I know how much quota remains?",faq3A:"Call GET /v1/usage or read the usage object returned after an upload.",copied:"Copied"
       },
       "zh-CN": {
         htmlLang:"zh-CN",
@@ -574,7 +634,7 @@
         applyText:"请发送邮件到 api@mini-tools.uk 申请。系统会自动创建凭证并回信提供 API 用户 ID 和 API Key。请仅在可信服务端使用。若未收到回信或账户随后被停用，请联系 yuyananuu@gmail.com。",copyEmail:"点击复制",
         baseUrl:"基础地址",uploadEndpoint:"上传接口",usageEndpoint:"已使用量和剩余量",recordsEndpoint:"上传记录",deleteEndpoint:"删除图片",
         authTitle:"鉴权方式",authIntro:"每次请求都必须在请求头中同时发送管理员分配的用户 ID 和与其匹配的 API Key。",securityNote:"请只在可信服务端使用这两个凭证。用户 ID 用来识别账户，API Key 用来防止其他人冒用该账户。不要把 API Key 写入浏览器代码或公开仓库。",
-        howTitle:"使用方法",howIntro:"向上传接口发送 multipart/form-data。单张上传使用一次 file 字段，批量上传则重复使用该字段。",singleTitle:"上传单张图片",batchTitle:"上传多张图片",idempotencyTitle:"安全重试",idempotencyIntro:"对于可能重试的上传，请发送唯一的 Idempotency-Key 请求头。使用相同 Key 重复提交相同请求时，会直接返回首次结果，不会重复上传或重复扣减额度；同一 Key 改传其他文件会返回 HTTP 409。",copyCode:"复制",
+        howTitle:"使用方法",howIntro:"向上传接口发送 multipart/form-data。单张上传使用一次 file 字段，批量上传则重复使用该字段。",singleTitle:"上传单张图片",nodeTitle:"Node.js 示例",nodeIntro:"从环境变量读取 MTU_API_USER_ID 和 MTU_API_KEY，上传文件，检查 HTTP 状态，解析成功或失败，并记录脱敏结果（url、duration、expires_at、usage）。请勿硬编码真实密钥。",batchTitle:"上传多张图片",idempotencyTitle:"安全重试",idempotencyIntro:"对于可能重试的上传，请发送唯一的 Idempotency-Key 请求头。使用相同 Key 重复提交相同请求时，会直接返回首次结果，不会重复上传或重复扣减额度；同一 Key 改传其他文件会返回 HTTP 409。",copyCode:"复制",
         requestFieldsTitle:"请求字段",fieldHeader:"字段",requiredHeader:"必填",descriptionHeader:"说明",yes:"是",no:"否",fileDescription:"一张图片，或重复相同字段上传多张图片。",durationDescription:"可选 1-day、7-day、30-day 或 permanent，分配的账户必须具有对应保留类型权限。",
         uploadResponseTitle:"上传返回",uploadResponseIntro:"全部上传成功返回 HTTP 201；批量上传中同时存在成功和失败时返回 HTTP 207，并分别列出结果。",returnFieldsTitle:"返回参数",
         returnSuccess:"仅当全部图片成功时为 true。",returnPartial:"批量上传部分成功、部分失败时为 true。",returnUploaded:"成功图片数组，包含存储键、公开 URL、保留期、过期时间、大小、MIME 类型和审核风险状态。",returnFailed:"失败图片数组，包含从 0 开始的序号、文件名、错误说明和稳定错误码。",returnAccount:"兼容使用的扁平额度对象。",returnUsage:"当前限时图与永久图的总量、已使用量和剩余量。",
@@ -584,7 +644,7 @@
         limitationsTitle:"约束条件",limitFormats:"支持格式：JPG、PNG、GIF 和 WebP。",limitFileSize:"每张图片最大 5 MB。",limitBatch:"每次最多 10 张，所有图片合计不超过 25 MB。",limitRetention:"保留期可选 1-day、7-day、30-day 和 permanent，具体取决于分配给账户的权限。",limitQuota:"只有成功图片会占用额度。限时图每日额度按 Asia/Shanghai 时区零点重置；永久图使用总额度。",limitRetry:"对可能重试的上传使用唯一 Idempotency-Key，避免重复图片和重复扣减额度。",limitVerification:"自动回信中的 API 凭证在账户保持启用时可直接使用；管理员之后可能停用账户。API 上传仍须遵守内容审核规则。",limitContent:"API 上传和网页上传遵守相同规则，违法、有害、私密或侵权图片可能被拒绝或删除。",
         statusTitle:"HTTP 状态码",status200:"查询或删除成功。",status201:"全部图片上传成功。",status207:"批量上传部分成功。",status4xx:"请求格式、数量、大小或图片内容无效。",statusAuth:"凭证无效、账户已停用或不允许该保留类型。",status404:"图片不存在或不属于当前 API 用户。",status409:"Idempotency-Key 正在处理中，或已被用于不同的上传请求。",status429:"每日额度或永久总额度已经用完。",status503:"API 数据库暂时不可用。",
         useCasesTitle:"使用场景",useCase1:"在部署或测试流程中上传应用截图。",useCase2:"通过一次服务端请求批量上传商品图或文档图片。",useCase3:"在自动批量任务开始前检查剩余额度。",
-        relatedTitle:"相关工具",relatedUpload:"网页上传图片",relatedImage:"图片工具",relatedContact:"联系我们",faqTitle:"常见问题",faq1Q:"一次请求可以上传多张图片吗？",faq1A:"可以。每张图片重复使用 file 字段，但不能超过文档中的张数和总大小限制。",faq2Q:"只使用用户 ID 可以鉴权吗？",faq2A:"不可以。必须同时发送分配的用户 ID 和匹配的 API Key。ID 识别账户，Key 证明调用方有权使用该账户。",faq3Q:"怎样知道还剩多少额度？",faq3A:"调用 GET /v1/usage，或者读取上传返回中的 usage 对象。",copied:"已复制"
+        relatedTitle:"相关工具",relatedUpload:"网页上传图片",relatedHosting:"如何上传图片",relatedTemporary:"临时图床说明",relatedShare:"Markdown、HTML 与 BBCode",relatedImage:"图片工具",relatedContact:"联系我们",faqTitle:"常见问题",faq1Q:"一次请求可以上传多张图片吗？",faq1A:"可以。每张图片重复使用 file 字段，但不能超过文档中的张数和总大小限制。",faq2Q:"只使用用户 ID 可以鉴权吗？",faq2A:"不可以。必须同时发送分配的用户 ID 和匹配的 API Key。ID 识别账户，Key 证明调用方有权使用该账户。",faq3Q:"怎样知道还剩多少额度？",faq3A:"调用 GET /v1/usage，或者读取上传返回中的 usage 对象。",copied:"已复制"
       },
       de: {
         htmlLang:"de",
@@ -597,7 +657,7 @@
         applyText:"Senden Sie eine E-Mail an api@mini-tools.uk. Das System erstellt automatisch Zugangsdaten und antwortet mit API-Benutzer-ID und API-Schlüssel. Nutzen Sie beide Werte nur auf einem vertrauenswürdigen Server. Bei ausbleibender Antwort oder späterer Deaktivierung schreiben Sie an yuyananuu@gmail.com.",copyEmail:"E-Mail kopieren",
         baseUrl:"Basis-URL",uploadEndpoint:"Upload",usageEndpoint:"Verwendetes und verbleibendes Kontingent",recordsEndpoint:"Upload-Verlauf",deleteEndpoint:"Bild löschen",
         authTitle:"Authentifizierung",authIntro:"Jede Anfrage muss die zugewiesene Benutzer-ID und den passenden API-Schlüssel in den Headern senden.",securityNote:"Verwenden Sie beide Zugangsdaten nur auf einem vertrauenswürdigen Server. Die Benutzer-ID identifiziert das Konto; der API-Schlüssel verhindert eine fremde Nutzung. Veröffentlichen Sie den Schlüssel nicht im Browsercode oder in einem öffentlichen Repository.",
-        howTitle:"Verwendung",howIntro:"Senden Sie multipart/form-data. Verwenden Sie file einmal für ein Bild oder wiederholen Sie das Feld für einen Stapel.",singleTitle:"Ein Bild hochladen",batchTitle:"Mehrere Bilder hochladen",idempotencyTitle:"Sichere Wiederholungen",idempotencyIntro:"Senden Sie für wiederholbare Uploads einen eindeutigen Idempotency-Key. Dieselbe Anfrage mit demselben Schlüssel gibt das erste Ergebnis zurück, ohne erneut hochzuladen oder Kontingent doppelt zu verbrauchen. Andere Dateien mit demselben Schlüssel liefern HTTP 409.",copyCode:"Kopieren",
+        howTitle:"Verwendung",howIntro:"Senden Sie multipart/form-data. Verwenden Sie file einmal für ein Bild oder wiederholen Sie das Feld für einen Stapel.",singleTitle:"Ein Bild hochladen",nodeTitle:"Node.js-Beispiel",nodeIntro:"Lesen Sie MTU_API_USER_ID und MTU_API_KEY aus der Umgebung, laden Sie eine Datei hoch, prüfen Sie den HTTP-Status, werten Sie Erfolg oder Fehler aus und protokollieren Sie ein desensibilisiertes Ergebnis (url, duration, expires_at, usage). Keine echten Geheimnisse hardcoden.",batchTitle:"Mehrere Bilder hochladen",idempotencyTitle:"Sichere Wiederholungen",idempotencyIntro:"Senden Sie für wiederholbare Uploads einen eindeutigen Idempotency-Key. Dieselbe Anfrage mit demselben Schlüssel gibt das erste Ergebnis zurück, ohne erneut hochzuladen oder Kontingent doppelt zu verbrauchen. Andere Dateien mit demselben Schlüssel liefern HTTP 409.",copyCode:"Kopieren",
         requestFieldsTitle:"Anfragefelder",fieldHeader:"Feld",requiredHeader:"Pflicht",descriptionHeader:"Beschreibung",yes:"Ja",no:"Nein",fileDescription:"Ein Bild oder dasselbe Feld mehrfach für mehrere Bilder.",durationDescription:"1-day, 7-day, 30-day oder permanent. Das Konto muss den gewählten Speichertyp erlauben.",
         uploadResponseTitle:"Upload-Antwort",uploadResponseIntro:"Vollständiger Erfolg liefert HTTP 201. Ein teilweise erfolgreicher Stapel liefert HTTP 207 und listet jedes Ergebnis.",returnFieldsTitle:"Rückgabefelder",
         returnSuccess:"Nur wahr, wenn alle Bilder erfolgreich sind.",returnPartial:"Wahr, wenn ein Teil des Stapels erfolgreich ist.",returnUploaded:"Erfolgreiche Bilder mit Speicherschlüssel, URL, Dauer, Ablauf, Größe, MIME-Typ und Prüfstatus.",returnFailed:"Fehlgeschlagene Bilder mit Index, Dateiname, Fehlermeldung und Fehlercode.",returnAccount:"Flache Kontingentdaten zur Kompatibilität.",returnUsage:"Aktuelle Grenzen, verwendete und verbleibende Mengen.",
@@ -607,7 +667,7 @@
         limitationsTitle:"Einschränkungen",limitFormats:"Formate: JPG, PNG, GIF und WebP.",limitFileSize:"Maximal 5 MB pro Bild.",limitBatch:"Maximal 10 Bilder und insgesamt 25 MB pro Anfrage.",limitRetention:"Dauer: 1-day, 7-day, 30-day oder permanent, abhängig von den Kontorechten.",limitQuota:"Nur erfolgreiche Bilder verbrauchen Kontingent. Tageskontingente werden um Mitternacht in Asia/Shanghai zurückgesetzt; dauerhafte Kontingente sind Gesamtmengen.",limitRetry:"Verwenden Sie für wiederholbare Uploads einen eindeutigen Idempotency-Key, um Duplikate und doppelten Kontingentverbrauch zu vermeiden.",limitVerification:"Zugangsdaten aus der automatischen Antwort können genutzt werden, solange das Konto aktiv ist. Ein Administrator kann das Konto später deaktivieren. API-Uploads unterliegen weiterhin der Inhaltsprüfung.",limitContent:"Für API- und Web-Uploads gelten dieselben Regeln. Rechtswidrige, schädliche, private oder verletzende Bilder können entfernt werden.",
         statusTitle:"HTTP-Statuscodes",status200:"Abfrage oder Löschung erfolgreich.",status201:"Alle Bilder erfolgreich hochgeladen.",status207:"Stapel teilweise erfolgreich.",status4xx:"Anfrage, Anzahl, Größe oder Bildinhalt ist ungültig.",statusAuth:"Zugangsdaten ungültig, Konto deaktiviert oder Speichertyp nicht erlaubt.",status404:"Das Bild existiert nicht oder gehört nicht zum aktuellen API-Benutzer.",status409:"Der Idempotency-Key wird verarbeitet oder wurde für einen anderen Upload wiederverwendet.",status429:"Tages- oder Gesamtkontingent ausgeschöpft.",status503:"API-Datenbank vorübergehend nicht verfügbar.",
         useCasesTitle:"Anwendungsfälle",useCase1:"Anwendungs-Screenshots aus Bereitstellungs- oder Testabläufen hochladen.",useCase2:"Produkt- oder Dokumentationsbilder in einer Serveranfrage hochladen.",useCase3:"Kontingent vor einem automatischen Stapel prüfen.",
-        relatedTitle:"Verwandte Tools",relatedUpload:"Web-Bildupload",relatedImage:"Bildtools",relatedContact:"Kontakt",faqTitle:"FAQ",faq1Q:"Kann eine Anfrage mehrere Bilder hochladen?",faq1A:"Ja. Wiederholen Sie file für jedes Bild innerhalb der Anzahl- und Größenlimits.",faq2Q:"Reicht die Benutzer-ID zur Authentifizierung?",faq2A:"Nein. Senden Sie die Benutzer-ID und den passenden API-Schlüssel.",faq3Q:"Wie sehe ich das verbleibende Kontingent?",faq3A:"Rufen Sie GET /v1/usage auf oder lesen Sie usage aus der Upload-Antwort.",copied:"Kopiert"
+        relatedTitle:"Verwandte Tools",relatedUpload:"Web-Bildupload",relatedHosting:"Bild hochladen – Anleitung",relatedTemporary:"Temporäres Bildhosting",relatedShare:"Markdown, HTML und BBCode",relatedImage:"Bildtools",relatedContact:"Kontakt",faqTitle:"FAQ",faq1Q:"Kann eine Anfrage mehrere Bilder hochladen?",faq1A:"Ja. Wiederholen Sie file für jedes Bild innerhalb der Anzahl- und Größenlimits.",faq2Q:"Reicht die Benutzer-ID zur Authentifizierung?",faq2A:"Nein. Senden Sie die Benutzer-ID und den passenden API-Schlüssel.",faq3Q:"Wie sehe ich das verbleibende Kontingent?",faq3A:"Rufen Sie GET /v1/usage auf oder lesen Sie usage aus der Upload-Antwort.",copied:"Kopiert"
       },
       fr: {
         htmlLang:"fr",
@@ -620,7 +680,7 @@
         applyText:"Envoyez un e-mail à api@mini-tools.uk. Le système crée automatiquement les identifiants et répond avec l'identifiant utilisateur API et la clé API. Utilisez-les uniquement sur un serveur de confiance. Si la réponse échoue ou si le compte est désactivé plus tard, contactez yuyananuu@gmail.com.",copyEmail:"Copier l’e-mail",
         baseUrl:"URL de base",uploadEndpoint:"Envoi",usageEndpoint:"Quota utilisé et restant",recordsEndpoint:"Historique des envois",deleteEndpoint:"Supprimer une image",
         authTitle:"Authentification",authIntro:"Chaque requête doit envoyer l’identifiant attribué et la clé API correspondante dans les en-têtes.",securityNote:"Utilisez ces deux identifiants uniquement sur un serveur de confiance. L’identifiant repère le compte et la clé API empêche son utilisation par un tiers. Ne publiez pas la clé dans le navigateur ou un dépôt public.",
-        howTitle:"Utilisation",howIntro:"Envoyez multipart/form-data. Utilisez file une fois pour une image ou répétez le champ pour un lot.",singleTitle:"Envoyer une image",batchTitle:"Envoyer plusieurs images",idempotencyTitle:"Nouvelles tentatives sûres",idempotencyIntro:"Pour un envoi susceptible d’être relancé, utilisez un Idempotency-Key unique. La même requête avec la même clé renvoie le premier résultat sans nouvel envoi ni double consommation du quota. Des fichiers différents avec la même clé renvoient HTTP 409.",copyCode:"Copier",
+        howTitle:"Utilisation",howIntro:"Envoyez multipart/form-data. Utilisez file une fois pour une image ou répétez le champ pour un lot.",singleTitle:"Envoyer une image",nodeTitle:"Exemple Node.js",nodeIntro:"Lisez MTU_API_USER_ID et MTU_API_KEY depuis l’environnement, téléversez un fichier, vérifiez le statut HTTP, analysez le succès ou l’échec, et journalisez un résultat désensibilisé (url, duration, expires_at, usage). N’encodez pas de vrais secrets.",batchTitle:"Envoyer plusieurs images",idempotencyTitle:"Nouvelles tentatives sûres",idempotencyIntro:"Pour un envoi susceptible d’être relancé, utilisez un Idempotency-Key unique. La même requête avec la même clé renvoie le premier résultat sans nouvel envoi ni double consommation du quota. Des fichiers différents avec la même clé renvoient HTTP 409.",copyCode:"Copier",
         requestFieldsTitle:"Champs de requête",fieldHeader:"Champ",requiredHeader:"Requis",descriptionHeader:"Description",yes:"Oui",no:"Non",fileDescription:"Une image, ou le même champ répété pour plusieurs images.",durationDescription:"1-day, 7-day, 30-day ou permanent. Le compte doit autoriser le type choisi.",
         uploadResponseTitle:"Réponse d’envoi",uploadResponseIntro:"Un succès complet renvoie HTTP 201. Un lot partiellement réussi renvoie HTTP 207 et détaille chaque résultat.",returnFieldsTitle:"Champs renvoyés",
         returnSuccess:"Vrai uniquement si toutes les images réussissent.",returnPartial:"Vrai si une partie du lot réussit.",returnUploaded:"Images réussies avec clé, URL, durée, expiration, taille, type MIME et état de contrôle.",returnFailed:"Échecs avec index, nom de fichier, message et code d’erreur.",returnAccount:"Données de quota à plat pour compatibilité.",returnUsage:"Limites actuelles, valeurs utilisées et restantes.",
@@ -630,7 +690,7 @@
         limitationsTitle:"Limites",limitFormats:"Formats acceptés : JPG, PNG, GIF et WebP.",limitFileSize:"5 Mo maximum par image.",limitBatch:"10 images et 25 Mo au total par requête.",limitRetention:"Durée : 1-day, 7-day, 30-day ou permanent, selon les droits du compte.",limitQuota:"Seules les images réussies consomment le quota. Les quotas temporaires sont réinitialisés à minuit dans Asia/Shanghai ; les quotas permanents sont globaux.",limitRetry:"Utilisez un Idempotency-Key unique pour les envois susceptibles d’être relancés afin d’éviter les doublons et la double consommation du quota.",limitVerification:"Les identifiants de la réponse automatique peuvent être utilisés tant que le compte reste actif. Un administrateur peut désactiver le compte ensuite. Les envois API restent soumis à la revue de contenu.",limitContent:"Les mêmes règles s’appliquent aux envois API et Web. Les images illégales, nuisibles, privées ou contrefaisantes peuvent être supprimées.",
         statusTitle:"Codes HTTP",status200:"Consultation ou suppression réussie.",status201:"Toutes les images ont été envoyées.",status207:"Lot partiellement réussi.",status4xx:"Requête, nombre, taille ou contenu invalide.",statusAuth:"Identifiants invalides, compte désactivé ou type non autorisé.",status404:"L’image n’existe pas ou n’appartient pas à l’utilisateur API actuel.",status409:"L’Idempotency-Key est en cours de traitement ou a été réutilisé pour un autre envoi.",status429:"Quota quotidien ou permanent épuisé.",status503:"Base API temporairement indisponible.",
         useCasesTitle:"Cas d’usage",useCase1:"Envoyer des captures depuis un flux de déploiement ou de test.",useCase2:"Envoyer plusieurs images de produit ou de documentation.",useCase3:"Vérifier le quota avant un lot automatisé.",
-        relatedTitle:"Outils associés",relatedUpload:"Envoi d’image Web",relatedImage:"Outils d’image",relatedContact:"Contact",faqTitle:"FAQ",faq1Q:"Une requête peut-elle envoyer plusieurs images ?",faq1A:"Oui. Répétez file pour chaque image dans les limites indiquées.",faq2Q:"L’identifiant utilisateur suffit-il ?",faq2A:"Non. Envoyez l’identifiant et la clé API correspondante.",faq3Q:"Comment connaître le quota restant ?",faq3A:"Appelez GET /v1/usage ou lisez usage dans la réponse d’envoi.",copied:"Copié"
+        relatedTitle:"Outils associés",relatedUpload:"Envoi d’image Web",relatedHosting:"Comment téléverser une image",relatedTemporary:"Hébergement temporaire",relatedShare:"Markdown, HTML et BBCode",relatedImage:"Outils d’image",relatedContact:"Contact",faqTitle:"FAQ",faq1Q:"Une requête peut-elle envoyer plusieurs images ?",faq1A:"Oui. Répétez file pour chaque image dans les limites indiquées.",faq2Q:"L’identifiant utilisateur suffit-il ?",faq2A:"Non. Envoyez l’identifiant et la clé API correspondante.",faq3Q:"Comment connaître le quota restant ?",faq3A:"Appelez GET /v1/usage ou lisez usage dans la réponse d’envoi.",copied:"Copié"
       },
       es: {
         htmlLang:"es",
@@ -643,7 +703,7 @@
         applyText:"Envía un correo a api@mini-tools.uk. El sistema crea automáticamente las credenciales y responde con el ID de usuario API y la API Key. Úsalas solo en un servidor de confianza. Si no llega la respuesta o la cuenta se desactiva después, contacta yuyananuu@gmail.com.",copyEmail:"Copiar correo",
         baseUrl:"URL base",uploadEndpoint:"Subida",usageEndpoint:"Cuota usada y restante",recordsEndpoint:"Historial de subidas",deleteEndpoint:"Eliminar imagen",
         authTitle:"Autenticación",authIntro:"Cada solicitud debe enviar el ID asignado y la API Key correspondiente en los encabezados.",securityNote:"Usa ambas credenciales solo en un servidor de confianza. El ID identifica la cuenta y la API Key impide que otros la utilicen. No publiques la clave en código del navegador ni en un repositorio público.",
-        howTitle:"Uso",howIntro:"Envía multipart/form-data. Usa file una vez para una imagen o repite el campo para un lote.",singleTitle:"Subir una imagen",batchTitle:"Subir varias imágenes",idempotencyTitle:"Reintentos seguros",idempotencyIntro:"Para una subida que pueda repetirse, envía un Idempotency-Key único. La misma solicitud con la misma clave devuelve el primer resultado sin volver a subir ni consumir cuota dos veces. Usar la clave con otros archivos devuelve HTTP 409.",copyCode:"Copiar",
+        howTitle:"Uso",howIntro:"Envía multipart/form-data. Usa file una vez para una imagen o repite el campo para un lote.",singleTitle:"Subir una imagen",nodeTitle:"Ejemplo de Node.js",nodeIntro:"Lee MTU_API_USER_ID y MTU_API_KEY del entorno, sube un archivo, comprueba el estado HTTP, analiza el éxito o el fallo y registra un resultado desensibilizado (url, duration, expires_at, usage). No incrustes secretos reales.",batchTitle:"Subir varias imágenes",idempotencyTitle:"Reintentos seguros",idempotencyIntro:"Para una subida que pueda repetirse, envía un Idempotency-Key único. La misma solicitud con la misma clave devuelve el primer resultado sin volver a subir ni consumir cuota dos veces. Usar la clave con otros archivos devuelve HTTP 409.",copyCode:"Copiar",
         requestFieldsTitle:"Campos de solicitud",fieldHeader:"Campo",requiredHeader:"Obligatorio",descriptionHeader:"Descripción",yes:"Sí",no:"No",fileDescription:"Una imagen o el mismo campo repetido para varias imágenes.",durationDescription:"1-day, 7-day, 30-day o permanent. La cuenta debe permitir el tipo elegido.",
         uploadResponseTitle:"Respuesta de subida",uploadResponseIntro:"El éxito completo devuelve HTTP 201. Un lote parcialmente correcto devuelve HTTP 207 y detalla cada resultado.",returnFieldsTitle:"Campos devueltos",
         returnSuccess:"Verdadero solo si todas las imágenes tienen éxito.",returnPartial:"Verdadero si una parte del lote tiene éxito.",returnUploaded:"Imágenes correctas con clave, URL, duración, caducidad, tamaño, MIME y estado de revisión.",returnFailed:"Fallos con índice, nombre, mensaje y código de error.",returnAccount:"Datos de cuota planos para compatibilidad.",returnUsage:"Límites actuales y cantidades usadas y restantes.",
@@ -653,7 +713,7 @@
         limitationsTitle:"Limitaciones",limitFormats:"Formatos: JPG, PNG, GIF y WebP.",limitFileSize:"Máximo 5 MB por imagen.",limitBatch:"Máximo 10 imágenes y 25 MB por solicitud.",limitRetention:"Duración: 1-day, 7-day, 30-day o permanent, según los permisos.",limitQuota:"Solo las imágenes correctas consumen cuota. La cuota temporal se reinicia a medianoche en Asia/Shanghai; la permanente es total.",limitRetry:"Usa un Idempotency-Key único en subidas que puedan repetirse para evitar imágenes duplicadas y doble consumo de cuota.",limitVerification:"Las credenciales del correo automático se pueden usar mientras la cuenta esté activa. Un administrador puede desactivar la cuenta después. Las subidas por API siguen sujetas a revisión de contenido.",limitContent:"Las mismas reglas se aplican a la API y a la web. Las imágenes ilegales, dañinas, privadas o infractoras pueden eliminarse.",
         statusTitle:"Códigos HTTP",status200:"Consulta o eliminación correcta.",status201:"Todas las imágenes se subieron.",status207:"Lote parcialmente correcto.",status4xx:"Solicitud, cantidad, tamaño o contenido no válido.",statusAuth:"Credenciales no válidas, cuenta desactivada o tipo no permitido.",status404:"La imagen no existe o no pertenece al usuario API actual.",status409:"El Idempotency-Key se está procesando o se reutilizó para una subida diferente.",status429:"Cuota diaria o permanente agotada.",status503:"Base de datos API no disponible temporalmente.",
         useCasesTitle:"Casos de uso",useCase1:"Subir capturas desde procesos de despliegue o pruebas.",useCase2:"Subir varias imágenes de producto o documentación.",useCase3:"Comprobar la cuota antes de un lote automático.",
-        relatedTitle:"Herramientas relacionadas",relatedUpload:"Subida web",relatedImage:"Herramientas de imagen",relatedContact:"Contacto",faqTitle:"FAQ",faq1Q:"¿Una solicitud puede subir varias imágenes?",faq1A:"Sí. Repite file para cada imagen dentro de los límites.",faq2Q:"¿Basta el ID de usuario?",faq2A:"No. Envía el ID y la API Key correspondiente.",faq3Q:"¿Cómo consulto la cuota restante?",faq3A:"Llama a GET /v1/usage o lee usage en la respuesta de subida.",copied:"Copiado"
+        relatedTitle:"Herramientas relacionadas",relatedUpload:"Subida web",relatedHosting:"Cómo subir una imagen",relatedTemporary:"Alojamiento temporal",relatedShare:"Markdown, HTML y BBCode",relatedImage:"Herramientas de imagen",relatedContact:"Contacto",faqTitle:"FAQ",faq1Q:"¿Una solicitud puede subir varias imágenes?",faq1A:"Sí. Repite file para cada imagen dentro de los límites.",faq2Q:"¿Basta el ID de usuario?",faq2A:"No. Envía el ID y la API Key correspondiente.",faq3Q:"¿Cómo consulto la cuota restante?",faq3A:"Llama a GET /v1/usage o lee usage en la respuesta de subida.",copied:"Copiado"
       }
     };
 
