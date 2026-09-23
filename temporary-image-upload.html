@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="image-landing-pages.css">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DR6V84JEZW');</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
-  <script type="application/ld+json" id="appSchema">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Mini Tools Temporary Image Upload","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","url":"https://mini-tools.uk/temporary-image-upload","description":"Temporary image upload guidance for creating links with 1-day, 7-day or 30-day retention.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[]}]}</script>
+  <script type="application/ld+json" id="appSchema">{"@context":"https://schema.org","@type":"WebPage","name":"Temporary image hosting: retention, expiry and removal","url":"https://mini-tools.uk/temporary-image-upload","description":"Guide to temporary image retention, scheduled expiry and removal requests."}</script>
 
 <link rel="stylesheet" href="site-nav.css">
 <style id="site-footer-style">
@@ -137,15 +137,15 @@
       </div>
     </section>
     <section class="content-card">
-      <h2 data-i18n="verifiedTitle">Verified retention behaviour</h2>
-      <p data-i18n="verifiedText">These points match the current upload API behaviour. Items marked pending verification have not been re-checked end-to-end in production after a full retention window.</p>
+      <h2 data-i18n="verifiedTitle">How temporary retention is scheduled</h2>
+      <p data-i18n="verifiedText">The upload service records an expiry time for temporary images. Scheduled cleanup removes expired files; the exact time a public link stops working can vary.</p>
       <ul>
         <li data-i18n="v1">The retention clock starts when a temporary upload completes successfully and a hosted URL is created.</li>
         <li data-i18n="v2">API success payloads may include expires_at as an ISO-8601 UTC timestamp ending in Z (example style: 2026-08-05T12:00:00.000Z).</li>
         <li data-i18n="v3">expires_at is calculated from the upload completion time plus 1, 7 or 30 days for temporary durations. Permanent storage does not use this temporary expiry field.</li>
         <li data-i18n="v4">The public /upload page shows the retention you chose; it may not always display the raw expires_at field in the result panel.</li>
-        <li data-i18n="v5">Expiry is intended to make the original hosted file unavailable; browser, CDN or third-party caches may still lag. Pending verification: exact public HTTP status timing immediately after expiry in production.</li>
-        <li data-i18n="v6">Cleanup of expired objects is handled by scheduled cleanup jobs, so a short delay after the planned expiry is possible.</li>
+        <li data-i18n="v5">The original link may remain reachable after its recorded expiry until cleanup runs. Browser, CDN or third-party caches may retain copies longer.</li>
+        <li data-i18n="v6">Scheduled cleanup removes expired objects after the recorded expiry; the timestamp is not a guarantee of immediate deletion.</li>
         <li data-i18n="v7">Ordinary temporary uploads are not the same as approved long-term (permanent) storage, which requires a separate approved storage code on /upload.</li>
         <li data-i18n="v8">To request removal of an image you control, send the full image URL via the contact page or yuyananuu@gmail.com.</li>
       </ul>
@@ -224,14 +224,14 @@ Object.assign(translations.en, {
   when1:"After the selected period, the hosted file is intended to become unavailable at the original URL.",
   when2:"Expiry is not a promise that every browser, CDN or third-party cache copy disappears instantly.",
   when3:"If the upload page shows an expiry time for your result, treat that value as the service timing for that upload.",
-  verifiedTitle:"Verified retention behaviour",
-  verifiedText:"These points match the current upload API behaviour. Items marked pending verification have not been re-checked end-to-end in production after a full retention window.",
+  verifiedTitle:"How temporary retention is scheduled",
+  verifiedText:"The upload service records an expiry time for temporary images. Scheduled cleanup removes expired files; the exact time a public link stops working can vary.",
   v1:"The retention clock starts when a temporary upload completes successfully and a hosted URL is created.",
   v2:"API success payloads may include expires_at as an ISO-8601 UTC timestamp ending in Z (example style: 2026-08-05T12:00:00.000Z).",
   v3:"expires_at is calculated from the upload completion time plus 1, 7 or 30 days for temporary durations. Permanent storage does not use this temporary expiry field.",
   v4:"The public /upload page shows the retention you chose; it may not always display the raw expires_at field in the result panel.",
-  v5:"Expiry is intended to make the original hosted file unavailable; browser, CDN or third-party caches may still lag. Pending verification: exact public HTTP status timing immediately after expiry in production.",
-  v6:"Cleanup of expired objects is handled by scheduled cleanup jobs, so a short delay after the planned expiry is possible.",
+  v5:"The original link may remain reachable after its recorded expiry until cleanup runs. Browser, CDN or third-party caches may retain copies longer.",
+  v6:"Scheduled cleanup removes expired objects after the recorded expiry; the timestamp is not a guarantee of immediate deletion.",
   v7:"Ordinary temporary uploads are not the same as approved long-term (permanent) storage, which requires a separate approved storage code on /upload.",
   v8:"To request removal of an image you control, send the full image URL via the contact page or yuyananuu@gmail.com.",
   removeTitle:"Expiry vs removal request",
@@ -285,14 +285,14 @@ Object.assign(translations["zh-CN"], {
   when1:"所选期限结束后，原 URL 上的托管文件预期将不可用。",
   when2:"到期并不承诺所有浏览器、CDN 或第三方缓存副本会立即消失。",
   when3:"若上传结果展示到期时间，请将该时间视为该次上传的服务计时。",
-  verifiedTitle:"已核验的保留行为",
-  verifiedText:"以下要点与当前上传 API 行为一致。标为待核验的项尚未在完整保留窗口后做生产端到端复测。",
+  verifiedTitle:"临时图片的到期与清理安排",
+  verifiedText:"上传服务会记录临时图片的到期时间，定时清理任务负责移除过期文件。公开链接实际失效的时间可能有所差异。",
   v1:"临时上传成功并生成托管 URL 后，保留计时开始。",
   v2:"API 成功响应可能包含以 Z 结尾的 ISO-8601 UTC 时间戳 expires_at（示例：2026-08-05T12:00:00.000Z）。",
   v3:"expires_at 由上传完成时间加上临时时长的 1、7 或 30 天计算。永久存储不使用该临时到期字段。",
   v4:"公开 /upload 页会显示你选择的保留期；结果区不一定展示原始 expires_at 字段。",
-  v5:"到期意在使原托管文件不可用；浏览器、CDN 或第三方缓存仍可能滞后。待核验：生产环境到期后立即返回的确切公开 HTTP 状态时机。",
-  v6:"过期对象由定时清理任务处理，因此计划到期后可能仍有短暂延迟。",
+  v5:"到达记录的到期时间后，原链接仍可能在清理任务运行前可访问。浏览器、CDN 或第三方缓存可能保留副本更久。",
+  v6:"定时任务在记录的到期时间之后清理过期对象；该时间不保证文件立即删除。",
   v7:"普通临时上传不同于获批的长期（永久）存储；永久存储需在 /upload 使用单独批准的存储码。",
   v8:"若要移除你控制的图片，请通过联系页或 yuyananuu@gmail.com 发送完整图片 URL。",
   removeTitle:"到期与申请移除的区别",
@@ -346,14 +346,14 @@ Object.assign(translations.de, {
   when1:"Nach der gewählten Frist soll die Datei unter der Original-URL nicht mehr verfügbar sein.",
   when2:"Ablauf garantiert nicht, dass alle Browser-, CDN- oder Dritt-Caches sofort verschwinden.",
   when3:"Zeigt die Upload-Seite eine Ablaufzeit, gilt sie als Service-Timing für diesen Upload.",
-  verifiedTitle:"Geprüftes Aufbewahrungsverhalten",
-  verifiedText:"Diese Punkte entsprechen dem aktuellen Upload-API-Verhalten. Als ausstehend markierte Punkte wurden nach einem vollen Aufbewahrungsfenster noch nicht Ende-zu-Ende in Produktion nachgeprüft.",
+  verifiedTitle:"So ist die temporäre Aufbewahrung geplant",
+  verifiedText:"Der Upload-Dienst speichert eine Ablaufzeit für temporäre Bilder. Geplante Bereinigungen entfernen abgelaufene Dateien; wann ein öffentlicher Link tatsächlich nicht mehr funktioniert, kann variieren.",
   v1:"Die Aufbewahrungszeit beginnt, wenn ein temporärer Upload erfolgreich abgeschlossen ist und eine gehostete URL erstellt wurde.",
   v2:"API-Erfolgsantworten können expires_at als ISO-8601-UTC-Zeitstempel mit Z enthalten (Beispielstil: 2026-08-05T12:00:00.000Z).",
   v3:"expires_at wird aus Upload-Abschlusszeit plus 1, 7 oder 30 Tage für temporäre Dauern berechnet. Dauerhafte Speicherung nutzt dieses temporäre Ablaufeld nicht.",
   v4:"Die öffentliche /upload-Seite zeigt die gewählte Aufbewahrung; das Rohfeld expires_at erscheint im Ergebnisbereich nicht immer.",
-  v5:"Ablauf soll die Originaldatei unzugänglich machen; Browser-, CDN- oder Dritt-Caches können nachlaufen. Ausstehend: exakter öffentlicher HTTP-Statuszeitpunkt unmittelbar nach Ablauf in Produktion.",
-  v6:"Abgelaufene Objekte werden durch geplante Cleanup-Jobs bereinigt; kurze Verzögerungen nach dem geplanten Ablauf sind möglich.",
+  v5:"Der ursprüngliche Link kann nach der gespeicherten Ablaufzeit bis zur Bereinigung erreichbar bleiben. Browser-, CDN- oder Dritt-Caches können Kopien länger behalten.",
+  v6:"Geplante Bereinigungen entfernen abgelaufene Objekte nach der gespeicherten Ablaufzeit; der Zeitstempel garantiert keine sofortige Löschung.",
   v7:"Gewöhnliche temporäre Uploads sind nicht dasselbe wie genehmigte Langzeitspeicherung, die auf /upload einen separaten genehmigten Speicher-Code braucht.",
   v8:"Zur Löschung eines eigenen Bildes die vollständige Bild-URL über Kontakt oder yuyananuu@gmail.com senden.",
   removeTitle:"Ablauf vs. Löschanfrage",
@@ -407,14 +407,14 @@ Object.assign(translations.fr, {
   when1:"Après la durée choisie, le fichier hébergé est censé devenir indisponible à l'URL d'origine.",
   when2:"L'expiration ne promet pas la disparition immédiate de tous les caches navigateur, CDN ou tiers.",
   when3:"Si la page d'envoi affiche une heure d'expiration, traitez-la comme le timing du service pour cet envoi.",
-  verifiedTitle:"Comportement de conservation vérifié",
-  verifiedText:"Ces points correspondent au comportement actuel de l’API d’envoi. Les éléments marqués en attente n’ont pas été revérifiés de bout en bout en production après une fenêtre de conservation complète.",
+  verifiedTitle:"Comment la conservation temporaire est planifiée",
+  verifiedText:"Le service d’envoi enregistre une heure d’expiration pour les images temporaires. Des tâches planifiées retirent les fichiers expirés ; le moment où un lien public cesse de fonctionner peut varier.",
   v1:"Le délai commence lorsqu’un envoi temporaire se termine avec succès et qu’une URL hébergée est créée.",
   v2:"Les réponses de succès de l’API peuvent inclure expires_at comme horodatage ISO-8601 UTC se terminant par Z (exemple : 2026-08-05T12:00:00.000Z).",
   v3:"expires_at est calculé à partir de la fin de l’envoi plus 1, 7 ou 30 jours pour les durées temporaires. Le stockage permanent n’utilise pas ce champ d’expiration temporaire.",
   v4:"La page publique /upload affiche la conservation choisie ; le champ brut expires_at peut ne pas apparaître dans le panneau de résultat.",
-  v5:"L’expiration vise à rendre le fichier hébergé d’origine indisponible ; caches navigateur, CDN ou tiers peuvent retarder. En attente : timing exact du statut HTTP public juste après expiration en production.",
-  v6:"Le nettoyage des objets expirés est géré par des tâches planifiées ; un court délai après l’expiration prévue est possible.",
+  v5:"Le lien d’origine peut rester accessible après l’heure d’expiration enregistrée jusqu’au nettoyage. Les caches du navigateur, du CDN ou de tiers peuvent conserver des copies plus longtemps.",
+  v6:"Les tâches planifiées retirent les objets expirés après l’heure enregistrée ; cet horodatage ne garantit pas une suppression immédiate.",
   v7:"Les envois temporaires ordinaires ne sont pas le stockage longue durée approuvé, qui exige un code de stockage approuvé distinct sur /upload.",
   v8:"Pour demander le retrait d’une image que vous contrôlez, envoyez l’URL complète via Contact ou yuyananuu@gmail.com.",
   removeTitle:"Expiration vs demande de retrait",
@@ -468,14 +468,14 @@ Object.assign(translations.es, {
   when1:"Tras el periodo elegido, el archivo alojado debería dejar de estar disponible en la URL original.",
   when2:"La caducidad no promete que todas las cachés de navegador, CDN o terceros desaparezcan al instante.",
   when3:"Si la página de subida muestra una hora de caducidad, trátala como el tiempo del servicio para esa subida.",
-  verifiedTitle:"Comportamiento de retención verificado",
-  verifiedText:"Estos puntos coinciden con el comportamiento actual de la API de subida. Los elementos marcados como pendientes no se han vuelto a comprobar de extremo a extremo en producción tras una ventana de retención completa.",
+  verifiedTitle:"Cómo se programa la retención temporal",
+  verifiedText:"El servicio de subida registra una hora de caducidad para las imágenes temporales. Las tareas programadas eliminan archivos caducados; el momento en que deja de funcionar un enlace público puede variar.",
   v1:"El reloj de retención empieza cuando una subida temporal termina con éxito y se crea una URL alojada.",
   v2:"Las respuestas de éxito de la API pueden incluir expires_at como marca de tiempo ISO-8601 UTC terminada en Z (estilo de ejemplo: 2026-08-05T12:00:00.000Z).",
   v3:"expires_at se calcula desde el fin de la subida más 1, 7 o 30 días para duraciones temporales. El almacenamiento permanente no usa este campo de caducidad temporal.",
   v4:"La página pública /upload muestra la retención elegida; puede que no muestre siempre el campo expires_at en bruto en el panel de resultado.",
-  v5:"La caducidad pretende hacer no disponible el archivo alojado original; las cachés de navegador, CDN o terceros pueden retrasarse. Pendiente de verificación: el momento exacto del estado HTTP público justo después de la caducidad en producción.",
-  v6:"La limpieza de objetos caducados la gestionan trabajos programados, por lo que es posible un breve retraso tras la caducidad planificada.",
+  v5:"El enlace original puede seguir accesible después de la hora de caducidad registrada hasta que se ejecute la limpieza. Las cachés del navegador, CDN o terceros pueden conservar copias más tiempo.",
+  v6:"Las tareas programadas eliminan objetos caducados después de la hora registrada; la marca de tiempo no garantiza una eliminación inmediata.",
   v7:"Las subidas temporales ordinarias no son lo mismo que el almacenamiento permanente aprobado, que requiere un código de almacenamiento aprobado aparte en /upload.",
   v8:"Para pedir la retirada de una imagen bajo tu control, envía la URL completa por la página de contacto o yuyananuu@gmail.com.",
   removeTitle:"Caducidad frente a petición de retirada",
@@ -512,7 +512,7 @@ Object.assign(translations.es, {
   schemaAppName:"Mini Tools Temporary Image Upload",
   schemaDescription:"Guía de retención temporal, caducidad y peticiones de retirada."
 });
-window.applyLanguage=function(lang){const d=translations[lang]||translations.en;const el=document.getElementById('appSchema');if(!el)return;const faq=[];for(let i=1;i<=5;i++)faq.push({"@type":"Question","name":d[`faq${i}Q`],"acceptedAnswer":{"@type":"Answer","text":d[`faq${i}A`]}});el.textContent=JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":d.schemaAppName,"applicationCategory":"UtilitiesApplication","operatingSystem":"Web","url":location.href,"description":d.schemaDescription,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":faq}]});};
+window.applyLanguage=function(lang){const d=translations[lang]||translations.en;const el=document.getElementById('appSchema');if(!el)return;const faq=[];for(let i=1;i<=5;i++)faq.push({"@type":"Question","name":d[`faq${i}Q`],"acceptedAnswer":{"@type":"Answer","text":d[`faq${i}A`]}});el.textContent=JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":d.heroTitle,"url":document.querySelector('link[rel="canonical"]').href,"description":d.schemaDescription},{"@type":"FAQPage","mainEntity":faq}]});};
 </script><script src="site-version.js"></script>
 <script src="site-i18n.js"></script>
 </body></html>

@@ -27,7 +27,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DR6V84JEZW');</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
-  <script type="application/ld+json" id="appSchema">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Mini Tools Free Image Hosting","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","url":"https://mini-tools.uk/free-image-hosting","description":"Free image hosting for uploading an image and copying a shareable link without creating an account.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[]}]}</script>
+  <script type="application/ld+json" id="appSchema">{"@context":"https://schema.org","@type":"WebPage","name":"How to upload your first image and verify the link","url":"https://mini-tools.uk/free-image-hosting","description":"Step-by-step guide to a first image upload and direct-link check."}</script>
 
 <link rel="stylesheet" href="site-nav.css">
 <style id="site-footer-style">
@@ -174,7 +174,6 @@
         <div>
           <strong data-i18n="demoTitle">What a hosted image looks like</strong>
           <p data-i18n="demoText">This site-owned demo asset shows how a direct image URL behaves when opened. It is maintained on assets.mini-tools.uk and is not a temporary user upload from this guide.</p>
-          <p data-i18n="walkPendingNote" style="margin-top:10px">A dated personal upload screenshot is pending site-owner verification; the site-owned demo asset above remains the verified example.</p>
           <code>https://assets.mini-tools.uk/image/icon-512x512.png</code>
         </div>
       </div>
@@ -256,7 +255,6 @@ Object.assign(translations.en, {
   walk5:"Open that URL in a new browser tab to confirm the image loads.",
   demoTitle:"What a hosted image looks like",
   demoText:"This site-owned demo asset shows how a direct image URL behaves when opened. It is maintained on assets.mini-tools.uk and is not a temporary user upload from this guide.",
-  walkPendingNote:"A dated personal upload screenshot is pending site-owner verification; the site-owned demo asset above remains the verified example.",
   demoAlt:"Mini Tools demo image",
   failTitle:"If the first upload fails",
   failText:"Use the upload terminal messages on /upload. Typical fixes:",
@@ -316,7 +314,6 @@ Object.assign(translations["zh-CN"], {
   walk5:"在新标签页打开该 URL，确认图片可加载。",
   demoTitle:"托管图片打开后的样子",
   demoText:"这是站方在 assets.mini-tools.uk 维护的演示资源，用来展示直链打开效果，不是本指南中的临时用户上传。",
-  walkPendingNote:"带日期的个人上传截图尚待站长核验；上方站方演示资源仍是已验证示例。",
   demoAlt:"Mini Tools 演示图片",
   failTitle:"如果第一次上传失败",
   failText:"请查看 /upload 上传终端提示。常见处理：",
@@ -376,7 +373,6 @@ Object.assign(translations.de, {
   walk5:"URL in neuem Tab öffnen und Laden prüfen.",
   demoTitle:"So sieht ein gehostetes Bild aus",
   demoText:"Diese Betreiber-Datei auf assets.mini-tools.uk zeigt das Verhalten einer Direkt-URL. Es ist kein temporärer Nutzer-Upload aus dieser Anleitung.",
-  walkPendingNote:"Ein datierter persönlicher Upload-Screenshot steht noch zur Betreiberprüfung aus; die Demo-Datei oben bleibt das geprüfte Beispiel.",
   demoAlt:"Mini Tools Demo-Bild",
   failTitle:"Wenn der erste Upload scheitert",
   failText:"Lesen Sie die Terminalmeldungen auf /upload. Typische Schritte:",
@@ -436,7 +432,6 @@ Object.assign(translations.fr, {
   walk5:"Ouvrir l'URL dans un nouvel onglet pour confirmer le chargement.",
   demoTitle:"À quoi ressemble une image hébergée",
   demoText:"Cette ressource du site sur assets.mini-tools.uk montre le comportement d'une URL directe. Ce n'est pas un envoi temporaire d'utilisateur de ce guide.",
-  walkPendingNote:"Une capture datée d’un envoi personnel est en attente de vérification par le propriétaire du site ; la démo ci-dessus reste l’exemple vérifié.",
   demoAlt:"Image de démonstration Mini Tools",
   failTitle:"Si le premier envoi échoue",
   failText:"Lisez le terminal sur /upload. Corrections typiques :",
@@ -496,7 +491,6 @@ Object.assign(translations.es, {
   walk5:"Abre esa URL en una pestaña nueva para confirmar que carga.",
   demoTitle:"Así se ve una imagen alojada",
   demoText:"Este recurso del sitio en assets.mini-tools.uk muestra el comportamiento de una URL directa. No es una subida temporal de usuario de esta guía.",
-  walkPendingNote:"Una captura fechada de una subida personal está pendiente de verificación del propietario del sitio; el recurso de demostración anterior sigue siendo el ejemplo verificado.",
   demoAlt:"Imagen de demostración Mini Tools",
   failTitle:"Si falla la primera subida",
   failText:"Lee el terminal en /upload. Correcciones típicas:",
@@ -535,7 +529,7 @@ Object.assign(translations.es, {
   schemaAppName:"Mini Tools Free Image Hosting",
   schemaDescription:"Guía de primera subida: alojar una imagen y abrir la URL directa sin cuenta."
 });
-window.applyLanguage=function(lang){const d=translations[lang]||translations.en;const el=document.getElementById('appSchema');if(!el)return;const faq=[];for(let i=1;i<=5;i++)faq.push({"@type":"Question","name":d[`faq${i}Q`],"acceptedAnswer":{"@type":"Answer","text":d[`faq${i}A`]}});el.textContent=JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":d.schemaAppName,"applicationCategory":"UtilitiesApplication","operatingSystem":"Web","url":location.href,"description":d.schemaDescription,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":faq}]});};
+window.applyLanguage=function(lang){const d=translations[lang]||translations.en;const el=document.getElementById('appSchema');if(!el)return;const faq=[];for(let i=1;i<=5;i++)faq.push({"@type":"Question","name":d[`faq${i}Q`],"acceptedAnswer":{"@type":"Answer","text":d[`faq${i}A`]}});el.textContent=JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":d.heroTitle,"url":document.querySelector('link[rel="canonical"]').href,"description":d.schemaDescription},{"@type":"FAQPage","mainEntity":faq}]});};
 </script>
 <script src="site-version.js"></script>
 

@@ -657,6 +657,32 @@ test("image-hosting pages keep distinct search intents in every language", async
   }
 });
 
+test("image-hosting guides use page schema and contain no unfinished verification copy", async () => {
+  const guides = ["/free-image-hosting", "/temporary-image-upload", "/share-image-link"];
+  for (const path of guides) {
+    const graph = jsonLdDocuments(read(`${path.slice(1)}.html`)).flatMap((document) => document["@graph"] || [document]);
+    assert.equal(graph.find((entry) => entry["@type"] === "WebPage")?.url, `https://mini-tools.uk${path}`, `${path}: static page schema`);
+    assert.equal(graph.some((entry) => entry["@type"] === "SoftwareApplication"), false, `${path}: static guide is not an app`);
+    assert.equal(graph.some((entry) => entry["@type"] === "FAQPage" && !entry.mainEntity?.length), false, `${path}: no empty FAQ schema`);
+  }
+  for (const lang of ["en", "zh-CN", "de", "fr", "es"]) {
+    for (const path of guides) {
+      const requestPath = lang === "en" ? path : `${path}?lang=${lang}`;
+      const response = await fetchThroughWorker(requestPath);
+      assert.equal(response.status, 200, requestPath);
+      const html = await response.text();
+      const graph = jsonLdDocuments(html).flatMap((document) => document["@graph"] || [document]);
+      const page = graph.find((entry) => entry["@type"] === "WebPage");
+      assert.equal(page?.url, `https://mini-tools.uk${requestPath}`, `${requestPath}: page URL`);
+      assert.ok(page?.name, `${requestPath}: page name`);
+      assert.equal(graph.some((entry) => entry["@type"] === "SoftwareApplication"), false, `${requestPath}: guide is not an app`);
+      assert.equal(graph.find((entry) => entry["@type"] === "FAQPage")?.mainEntity?.length, 5, `${requestPath}: visible FAQ`);
+    }
+  }
+  assert.doesNotMatch(read("free-image-hosting.html"), /walkPendingNote|pending site-owner verification/i);
+  assert.doesNotMatch(read("temporary-image-upload.html"), /Verified retention behaviour|Pending verification:|待核验/i);
+});
+
 test("shared tooling cannot regenerate the retired generic guidance template", () => {
   for (const file of ["site-i18n.js", "scripts/standardize-pages.ps1"]) {
     const source = read(file);

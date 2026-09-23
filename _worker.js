@@ -784,7 +784,14 @@ function updateStructuredDataServerSide(html, dict, pathname, lang, url) {
       );
     }
 
-    const application = {
+    const isImageGuide = ["/free-image-hosting", "/temporary-image-upload", "/share-image-link"].includes(pathname);
+    const primaryEntity = isImageGuide ? {
+      "@type": "WebPage",
+      "name": dict.heroTitle || dict.title || dict.seoTitle || "Mini-Tools.uk",
+      "url": canonical,
+      "description": dict.schemaDescription || dict.description || dict.seoDescription || "",
+      "inLanguage": HTML_LANG_FALLBACK[lang] || "en-GB",
+    } : {
       "@type": "SoftwareApplication",
       "name": dict.schemaAppName || dict.title || dict.seoTitle || "Mini-Tools.uk",
       "applicationCategory": "UtilitiesApplication",
@@ -795,7 +802,7 @@ function updateStructuredDataServerSide(html, dict, pathname, lang, url) {
     };
 
     if (dict.schemaWebsiteName) {
-      Object.assign(application, {
+      Object.assign(primaryEntity, {
         "@id": `${canonical}#image-hosting-app`,
         "inLanguage": dict.schemaLanguage || HTML_LANG_FALLBACK[lang] || "en-GB",
         "isAccessibleForFree": true,
@@ -810,14 +817,14 @@ function updateStructuredDataServerSide(html, dict, pathname, lang, url) {
         "provider": { "@id": organizationId },
       });
     }
-    graph.push(application);
+    graph.push(primaryEntity);
 
     const appSchema = {
       "@context": "https://schema.org",
       "@graph": graph,
     };
 
-    const faq = buildFaqItems(dict);
+    const faq = isImageGuide ? buildFaqItems(dict).slice(0, 5) : buildFaqItems(dict);
     if (faq.length) {
       appSchema["@graph"].push({
         "@type": "FAQPage",

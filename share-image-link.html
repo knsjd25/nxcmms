@@ -10,7 +10,7 @@
   <link rel="canonical" href="https://mini-tools.uk/share-image-link"><link rel="alternate" hreflang="en" href="https://mini-tools.uk/share-image-link"><link rel="alternate" hreflang="zh-CN" href="https://mini-tools.uk/share-image-link?lang=zh-CN"><link rel="alternate" hreflang="de" href="https://mini-tools.uk/share-image-link?lang=de"><link rel="alternate" hreflang="fr" href="https://mini-tools.uk/share-image-link?lang=fr"><link rel="alternate" hreflang="es" href="https://mini-tools.uk/share-image-link?lang=es"><link rel="alternate" hreflang="x-default" href="https://mini-tools.uk/share-image-link">
   <link rel="stylesheet" href="image-landing-pages.css">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DR6V84JEZW"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DR6V84JEZW');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1197299128201700" crossorigin="anonymous"></script>
-  <script type="application/ld+json" id="appSchema">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Mini Tools Share Image Link","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","url":"https://mini-tools.uk/share-image-link","description":"Guidance for uploading an image and copying a direct URL or embed link for online sharing.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[]}]}</script>
+  <script type="application/ld+json" id="appSchema">{"@context":"https://schema.org","@type":"WebPage","name":"Use image links in Markdown, HTML and BBCode","url":"https://mini-tools.uk/share-image-link","description":"Compare direct image URLs and embed formats, then troubleshoot display failures."}</script>
 
 <link rel="stylesheet" href="site-nav.css">
 <style id="site-footer-style">
@@ -472,7 +472,7 @@ Object.assign(translations.es, {
   relatedApiText:"Ejemplos de subida en el servidor.",
   schemaDescription:"Comparar URL directa, Markdown, HTML y BBCode para la misma imagen y corregir fallos de inserción."
 });
-window.applyLanguage=function(lang){const d=translations[lang]||translations.en;const el=document.getElementById('appSchema');if(!el)return;const faq=[];for(let i=1;i<=5;i++)faq.push({"@type":"Question","name":d[`faq${i}Q`],"acceptedAnswer":{"@type":"Answer","text":d[`faq${i}A`]}});el.textContent=JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":d.schemaAppName,"applicationCategory":"UtilitiesApplication","operatingSystem":"Web","url":location.href,"description":d.schemaDescription,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":faq}]});};
+window.applyLanguage=function(lang){const d=translations[lang]||translations.en;const el=document.getElementById('appSchema');if(!el)return;const faq=[];for(let i=1;i<=5;i++)faq.push({"@type":"Question","name":d[`faq${i}Q`],"acceptedAnswer":{"@type":"Answer","text":d[`faq${i}A`]}});el.textContent=JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":d.heroTitle,"url":document.querySelector('link[rel="canonical"]').href,"description":d.schemaDescription},{"@type":"FAQPage","mainEntity":faq}]});};
 </script><script src="site-version.js"></script>
 <script src="site-i18n.js"></script>
 </body></html>
