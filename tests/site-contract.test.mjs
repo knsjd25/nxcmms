@@ -606,7 +606,7 @@ test("image-hosting pages keep distinct search intents in every language", async
       ["/", "Free Image Hosting &amp; Upload API | Mini Tools"],
       ["/upload", "Upload Image Online and Get a Direct Link | Mini Tools"],
       ["/image-api", "Image Upload API Documentation and Examples | Mini Tools"],
-      ["/free-image-hosting", "How to Upload an Image and Get a Direct Link | Mini Tools"],
+      ["/free-image-hosting", "Free Image Hosting Without Signup: First Upload | Mini Tools"],
       ["/temporary-image-upload", "Temporary Image Hosting: Expiry &amp; Removal | Mini Tools"],
       ["/share-image-link", "Image Links for Markdown, HTML &amp; BBCode | Mini Tools"],
     ],
@@ -614,7 +614,7 @@ test("image-hosting pages keep distinct search intents in every language", async
       ["/", "免费图床与上传 API | Mini Tools"],
       ["/upload", "在线上传图片并获取直链 | Mini Tools"],
       ["/image-api", "图片上传 API 文档与示例 | Mini Tools"],
-      ["/free-image-hosting", "如何上传图片并获取直链 | Mini Tools"],
+      ["/free-image-hosting", "免费图床：首次上传与直链检查 | Mini Tools"],
       ["/temporary-image-upload", "临时图床：到期与移除 | Mini Tools"],
       ["/share-image-link", "Markdown、HTML 与 BBCode 图片链接 | Mini Tools"],
     ],
@@ -622,7 +622,7 @@ test("image-hosting pages keep distinct search intents in every language", async
       ["/", "Kostenloses Bildhosting &amp; Upload-API | Mini Tools"],
       ["/upload", "Bild online hochladen und Direktlink erhalten | Mini Tools"],
       ["/image-api", "Bild-Upload-API: Dokumentation und Beispiele | Mini Tools"],
-      ["/free-image-hosting", "Bild hochladen und Direktlink erhalten | Mini Tools"],
+      ["/free-image-hosting", "Kostenloses Bildhosting: erster Upload | Mini Tools"],
       ["/temporary-image-upload", "Temporäres Bildhosting: Ablauf &amp; Löschung | Mini Tools"],
       ["/share-image-link", "Bildlinks für Markdown, HTML &amp; BBCode | Mini Tools"],
     ],
@@ -630,7 +630,7 @@ test("image-hosting pages keep distinct search intents in every language", async
       ["/", "Hébergement d’images gratuit et API d’envoi | Mini Tools"],
       ["/upload", "Téléverser une image et obtenir un lien direct | Mini Tools"],
       ["/image-api", "API d’envoi d’images : documentation et exemples | Mini Tools"],
-      ["/free-image-hosting", "Comment téléverser une image et obtenir un lien direct | Mini Tools"],
+      ["/free-image-hosting", "Hébergement d’images gratuit : premier envoi | Mini Tools"],
       ["/temporary-image-upload", "Hébergement temporaire : expiration et retrait | Mini Tools"],
       ["/share-image-link", "Liens d’image pour Markdown, HTML et BBCode | Mini Tools"],
     ],
@@ -638,7 +638,7 @@ test("image-hosting pages keep distinct search intents in every language", async
       ["/", "Alojamiento de imágenes gratis y API de subida | Mini Tools"],
       ["/upload", "Subir imagen online y obtener enlace directo | Mini Tools"],
       ["/image-api", "API de subida de imágenes: documentación y ejemplos | Mini Tools"],
-      ["/free-image-hosting", "Cómo subir una imagen y obtener un enlace directo | Mini Tools"],
+      ["/free-image-hosting", "Alojamiento de imágenes gratis: primera subida | Mini Tools"],
       ["/temporary-image-upload", "Alojamiento temporal: caducidad y retirada | Mini Tools"],
       ["/share-image-link", "Enlaces de imagen para Markdown, HTML y BBCode | Mini Tools"],
     ],
@@ -771,7 +771,7 @@ test("canonical, hreflang, sitemap and robots stay clean", () => {
   for (const path of approvedPaths) {
     const loc = `https://mini-tools.uk${path}`;
     const entry = read("sitemap.xml").match(new RegExp(`<url><loc>${loc.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}</loc><lastmod>([^<]+)</lastmod></url>`));
-    const expectedLastmod = corePaths.includes(path) ? "2026-09-21" : "2026-08-02";
+    const expectedLastmod = path === "/free-image-hosting" ? "2026-09-23" : corePaths.includes(path) ? "2026-09-21" : "2026-08-02";
     assert.equal(entry?.[1], expectedLastmod, `${path} sitemap lastmod`);
   }
   assert.equal(read("sitemap.xml").includes("?lang="), false);
